@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="login-ref" namespace="/login" extends="default">
+		<action name="index" class="loginRefAction" method="init">
+			<result name="success">/WEB-INF/jsp/login-ref.jsp</result>
+		</action>
+		<action name="login" class="loginRefAction" method="login">
+			<result name="success" type="redirect">${ROOT}/${redirect}</result>
+		</action>
+		<action name="logout" class="loginRefAction" method="logout">
+			<result name="success" type="redirect">${ROOT}/login/index.html</result>
+		</action>
+	</package>
+</struts>
