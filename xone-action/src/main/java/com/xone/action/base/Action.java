@@ -40,7 +40,7 @@ import com.xone.model.utils.ConfigUtils;
 public class Action extends ActionSupport implements Preparable, ServletRequestAware, ServletResponseAware {
 
 	private static final long serialVersionUID = 911975992713654543L;
-	public static final String USER = "com.hunny.user";
+	public static final String USER = "com.xone.user";
 	
 	protected HttpServletResponse response;
 	protected HttpServletRequest request;

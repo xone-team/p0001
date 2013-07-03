@@ -102,6 +102,14 @@ public class LoginRefAction extends Action {
 	}
 
 	public String init() {
+		if (!getUserMap().isEmpty() && null != getUserMap().get("user")) {
+			setRedirect("login/main.html");
+			return "redirect";
+		}
+		return SUCCESS;
+	}
+	
+	public String main() {
 		return SUCCESS;
 	}
 	
@@ -109,6 +117,10 @@ public class LoginRefAction extends Action {
 		String loginHtml = "login/index.html";
 		if (null == username || null == password) {
 			setRedirect(loginHtml);
+			return SUCCESS;
+		}
+		if (!getUserMap().isEmpty() && null != getUserMap().get("user")) {
+			setRedirect("login/main.html");
 			return SUCCESS;
 		}
 		Person p = new Person();
@@ -128,7 +140,7 @@ public class LoginRefAction extends Action {
 			setRedirect(loginHtml);
 			return SUCCESS;
 		}
-		setRedirect("index.html");
+		setRedirect("login/main.html");
 		return SUCCESS;
 	}
 	

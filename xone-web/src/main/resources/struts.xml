@@ -17,4 +17,5 @@
 		</global-results>
 	</package>
 	<include file="struts/struts-login-ref.xml" />
+	<include file="struts/struts-product.xml" />
 </struts>

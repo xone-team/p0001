@@ -6,9 +6,13 @@
 	<package name="login-ref" namespace="/login" extends="default">
 		<action name="index" class="loginRefAction" method="init">
 			<result name="success">/WEB-INF/jsp/login-ref.jsp</result>
+			<result name="redirect" type="redirect">${ROOT}/${redirect}</result>
 		</action>
 		<action name="login" class="loginRefAction" method="login">
 			<result name="success" type="redirect">${ROOT}/${redirect}</result>
+		</action>
+		<action name="main" class="loginRefAction" method="main">
+			<result name="success">/WEB-INF/jsp/login-main.jsp</result>
 		</action>
 		<action name="logout" class="loginRefAction" method="logout">
 			<result name="success" type="redirect">${ROOT}/login/index.html</result>

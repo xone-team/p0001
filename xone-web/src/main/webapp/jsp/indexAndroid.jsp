@@ -58,8 +58,8 @@
 				<ul>  
 					<li><a href="${pageContext.request.contextPath}/jsp/indexAndroid.jsp?footer=0" data-transition="slide" class="ui-btn-active ui-state-persist" data-icon="gear">Widgets</a></li>  
 					<li><a href="${pageContext.request.contextPath}/jsp/listviewAndroid.jsp" data-transition="slide" data-ajax="false" data-icon="refresh">List</a></li>
-					<li><a href="/hunny-statics/mobilehtml/demos/widgets/index.html" data-transition="slide" data-icon="grid">Widgets</a></li>
-					<li><a href="${pageContext.request.contextPath}/jsp/indexAndroid.jsp?footer=3" data-transition="slide" data-icon="home">Four</a></li>
+					<li><a href="${pageContext.request.contextPath}/product/index.html" data-transition="slide" data-icon="grid">Products</a></li>
+					<li><a href="${pageContext.request.contextPath}/login/index.html" data-transition="slide" data-icon="home">Login</a></li>
 				</ul>
 			</div
 		</div>
