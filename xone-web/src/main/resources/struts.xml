@@ -18,4 +18,6 @@
 	</package>
 	<include file="struts/struts-login-ref.xml" />
 	<include file="struts/struts-product.xml" />
+	<include file="struts/struts-purchase.xml" />
+	<include file="struts/struts-assistant.xml" />
 </struts>

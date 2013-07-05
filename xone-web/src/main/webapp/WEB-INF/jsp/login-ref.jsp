@@ -6,11 +6,7 @@
 <html>
 	<head>
 		<title>Hello World</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.mobile-1.3.1.min.css" />
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.2.min.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.mobile-1.3.1.min.js"></script>
+		<jsp:include page="commons.jsp"></jsp:include>
 	</head>
 	<body>
 	<div data-role="page">
@@ -19,6 +15,7 @@
 		</div>
 		<div data-role="content">
 			<form method="post" action="${pageContext.request.contextPath}/login/login.html">
+				<input type="hidden" name="redirect" value="" autocomplete="off"/>
 				<ul data-role="listview" data-inset="true" data-mini="true">
 					<li data-role="list-divider"><h2>用户登录信息</h2></li>
 				    <li>
@@ -48,16 +45,9 @@
 				</ul>
 			</form>
 		</div>
-		<div data-id="myfooter" data-role="footer" data-position="fixed">
-			<div data-role="navbar" data-iconpos="left">
-				<ul>  
-					<li><a href="${pageContext.request.contextPath}/jsp/indexAndroid.jsp?footer=0" data-transition="slide" data-icon="gear">Widgets</a></li>  
-					<li><a href="${pageContext.request.contextPath}/jsp/listviewAndroid.jsp" data-transition="slide" data-ajax="false" data-icon="refresh">List</a></li>
-					<li><a href="${pageContext.request.contextPath}/jsp/indexAndroid.jsp?footer=0" data-transition="slide" data-icon="grid">Widgets</a></li>
-					<li><a href="${pageContext.request.contextPath}/login/index.html" data-transition="slide" data-icon="home" class="ui-btn-active ui-state-persist">Login</a></li>
-				</ul>
-			</div
-		</div>
+		<jsp:include page="footer.jsp">
+			<jsp:param value="4" name="offset"/>
+		</jsp:include>
 	</div>
 	</body>
 </html>

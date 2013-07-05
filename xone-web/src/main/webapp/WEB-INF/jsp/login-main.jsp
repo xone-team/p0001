@@ -6,11 +6,7 @@
 <html>
 	<head>
 		<title>Hello World</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/jquery.mobile-1.3.1.min.css" />
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-1.8.2.min.js"></script>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.mobile-1.3.1.min.js"></script>
+		<jsp:include page="commons.jsp"></jsp:include>
 	</head>
 	<body>
 	<div data-role="page">
@@ -19,25 +15,44 @@
 			<a href="${pageContext.request.contextPath}/login/logout.html" data-icon="check" class="ui-btn-right">注销</a>
 		</div>
 		<div data-role="content">
-			<ul data-role="listview" data-inset="true">
-				<li data-role="list-divider"><h2>当前用户信息</h2></li>
-			    <li data-icon="false"><a href="#">用户名:${userMap.user.username}</a></li>
-			    <li data-icon="false"><a href="#">邮　箱:</a></li>
-			    <li data-icon="false"><a href="#">手　机:</a></li>
-			    <li data-icon="false"><a href="#">地　址:</a></li>
-			    <li data-icon="false"><a href="#">联系人:</a></li>
-			</ul>
-		</div>
-		<div data-id="myfooter" data-role="footer" data-position="fixed">
-			<div data-role="navbar" data-iconpos="left">
-				<ul>  
-					<li><a href="${pageContext.request.contextPath}/product/index.html" data-icon="gear">卖</a></li>  
-					<li><a href="${pageContext.request.contextPath}/jsp/listviewAndroid.jsp" data-ajax="false" data-icon="refresh">List</a></li>
-					<li><a href="${pageContext.request.contextPath}/jsp/indexAndroid.jsp" data-icon="grid">Widgets</a></li>
-					<li><a href="${pageContext.request.contextPath}/login/index.html" data-icon="home" class="ui-btn-active ui-state-persist">用户</a></li>
+		    <div data-role="collapsible" data-collapsed="false" data-collapsed="false" data-theme="b" data-content-theme="d">
+		        <h3>用户中心</h3>
+				<ul data-role="listview" data-inset="true">
+<!-- 					<li data-role="list-divider">当前用户信息</li> -->
+				    <li data-icon="false"><a href="#">用户名:${userMap.user.username}</a></li>
+				    <li data-icon="false"><a href="#">邮　箱:</a></li>
+				    <li data-icon="false"><a href="#">手　机:</a></li>
+				    <li data-icon="false"><a href="#">地　址:</a></li>
+				    <li data-icon="false"><a href="#">联系人:</a></li>
 				</ul>
-			</div
+		    </div>
+		    <div data-role="collapsible" data-theme="b" data-content-theme="d">
+		        <h3>我的售卖发布</h3>
+				<ul data-role="listview" data-inset="true" data-divider-theme="d">
+				    <li><a href="#">查看产品发布列表</a></li>
+				    <li><a href="#">查看促销发布列表</a></li>
+				    <li><a href="#">查看组团发布列表</a></li>
+				</ul>
+		    </div>
+		    <div data-role="collapsible" data-theme="b" data-content-theme="d">
+		        <h3>我的购买发布</h3>
+				<ul data-role="listview" data-inset="true" data-divider-theme="d">
+				    <li><a href="#">查看求购发布列表</a></li>
+				    <li><a href="#">查看合购发布列表</a></li>
+				</ul>
+		    </div>
+		    <div data-role="collapsible" data-theme="b" data-content-theme="d">
+		        <h3>我的其它服务</h3>
+				<ul data-role="listview" data-inset="true" data-divider-theme="d">
+				    <li><a href="#">查看物流配送列表</a></li>
+				    <li><a href="#">查看广告发布列表</a></li>
+				    <li><a href="#">查看资金担保列表</a></li>
+				</ul>
+		    </div>
 		</div>
+		<jsp:include page="footer.jsp">
+			<jsp:param value="4" name="offset"/>
+		</jsp:include>
 	</div>
 	</body>
 </html>

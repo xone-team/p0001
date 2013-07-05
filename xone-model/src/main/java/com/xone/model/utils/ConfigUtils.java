@@ -8,6 +8,12 @@
  */
 package com.xone.model.utils;
 
+import java.util.Properties;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Component;
+
 /**
  * @TODO 请Hunny添加代码注释 
  *
@@ -18,10 +24,18 @@ package com.xone.model.utils;
  * @modify
  * 
  */
+@Component
 public class ConfigUtils {
-	public static final String STATIC_ROOT = "/xone-statics";//静态根目录
+	
+	@Resource(name="myProperties")
+	protected Properties myProperties;
+	
+	public static String STATIC_ROOT = "/xone-statics";//静态根目录
 	
 	public static String getStaticRoot() {
+//		if (null == STATIC_ROOT) {
+//			STATIC_ROOT = new ConfigUtils().myProperties.getProperty("static.root");
+//		}
 		return STATIC_ROOT;
 	}
 	

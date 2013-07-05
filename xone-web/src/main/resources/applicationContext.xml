@@ -17,15 +17,23 @@
 			</list>
 		</property>
 	</bean>
+<!-- 	<context:property-placeholder location="classpath*:config.properties"/> -->
+	<bean id="myProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+	  <property name="locations">
+	    <list>
+	      <value>classpath*:config.properties</value>
+	    </list>
+	  </property>
+	</bean>
 	<!-- 引用@Autowired必须定义这个bean --> 
-<!--	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/> -->
+	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>
 	<!--
 		使用annotation
 		自动注册bean,并检查@Required,@Autowired的属性已被注入。注意它不但启用了对类包进行扫描以实施注释驱动 Bean
 		定义的功能，同时还启用了注释驱动自动注入的功能（即还隐式地在内部注册了AutowiredAnnotationBeanPostProcessor
 		和 CommonAnnotationBeanPostProcessor）
 	-->
-<!--	<context:component-scan base-package="com.xone.service" />-->
-<!--	<context:component-scan base-package="com.xone.model" />-->
-<!--	<context:component-scan base-package="com.xone.action" /> -->
+	<context:component-scan base-package="com.xone.service" />
+	<context:component-scan base-package="com.xone.model" />
+	<context:component-scan base-package="com.xone.action" />
 </beans>

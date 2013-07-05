@@ -16,6 +16,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.xwork.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
@@ -116,7 +117,9 @@ public class LoginRefAction extends Action {
 	public String login() {
 		String loginHtml = "login/index.html";
 		if (null == username || null == password) {
-			setRedirect(loginHtml);
+			if (StringUtils.isBlank(getRedirect())) {
+				setRedirect(loginHtml);
+			}
 			return SUCCESS;
 		}
 		if (!getUserMap().isEmpty() && null != getUserMap().get("user")) {

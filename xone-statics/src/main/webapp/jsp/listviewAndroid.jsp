@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML>
 <html lang="en-US">
 <head>
@@ -69,9 +72,9 @@
 		<div data-id="myfooter" data-role="footer" data-position="fixed">
 			<div data-role="navbar" data-iconpos="left">
 				<ul>  
-					<li><a href="${pageContext.request.contextPath}/jsp/indexAndroid.jsp?footer=0" data-transition="slide" data-icon="gear">One</a></li>  
+					<li><a href="${pageContext.request.contextPath}/jsp/indexAndroid.jsp?footer=0" data-transition="slide" data-ajax="false" data-icon="gear">One</a></li>  
 					<li><a href="${pageContext.request.contextPath}/jsp/listviewAndroid.jsp" data-transition="slide" class="ui-btn-active ui-state-persist" data-icon="refresh">List</a></li>
-					<li><a href="${pageContext.request.contextPath}/mobilehtml/demos/widgets/index.html" data-transition="slide" data-icon="grid">Three</a></li>
+					<li><a href="/hunny-statics/mobilehtml/demos/widgets/index.html" data-transition="slide" data-icon="grid">Three</a></li>
 					<li><a href="${pageContext.request.contextPath}/jsp/indexAndroid.jsp?footer=3" data-transition="slide" data-icon="home">Four</a></li>
 				</ul>  
 			</div
