@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<div data-id="myfooter" data-role="footer" data-position="fixed">
+<div data-id="myfooter" data-role="footer" data-position="fixed" data-tap-toggle="false">
 	<div data-role="navbar" data-iconpos="left">
 		<ul>  
 			<li><a href="${pageContext.request.contextPath}/product/index.html" data-icon="gear" <c:if test="${param.offset == '1'}">class="ui-btn-active ui-state-persist"</c:if></a>售卖</a></li>  

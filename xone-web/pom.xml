@@ -189,6 +189,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>com.ibatis</groupId>
+			<artifactId>ibatis2-sqlmap</artifactId>
+			<version>2.3.4.726</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>xone-web</finalName>

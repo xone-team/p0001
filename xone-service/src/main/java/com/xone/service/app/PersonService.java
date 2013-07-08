@@ -10,7 +10,8 @@ package com.xone.service.app;
 
 import java.util.List;
 
-import com.xone.model.persistence.sqldb.entries.app.Person;
+import com.xone.model.hibernate.entity.Person;
+
 
 /**
  * @TODO 请Hunny添加代码注释 
@@ -23,9 +24,7 @@ import com.xone.model.persistence.sqldb.entries.app.Person;
 
 public interface PersonService {
 	
-	public List<Person> findAll();
-	
 	public List<Person> findAllByPerson(Person person);
 	
-	public void save(Person p);
+	public Person save(Person p);
 }

@@ -14,7 +14,7 @@
         </filter>
 	</appender>
 	<appender name="RollingFileAppender" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="logs/hzxspider.log" />
+		<param name="file" value="d:/logs/hzxspider.log" />
 		<param name="MaxFileSize" value="1000KB" />
 		<!-- Keep one backup file -->
 		<param name="MaxBackupIndex" value="1" />
@@ -28,6 +28,9 @@
 <!-- 	</category> -->
 	<category name="org.apache.http">
 		<priority value="info"/>
+	</category>
+	<category name="com.opensymphony.xwork2">
+		<priority value="error"/>
 	</category>
 	<root>
 		<priority value="debug"/>

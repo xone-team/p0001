@@ -172,4 +172,8 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 		this.mapValue = mapValue;
 	}
 	
+	public final long getIdentify() {
+		return System.currentTimeMillis();
+	}
+	
 }

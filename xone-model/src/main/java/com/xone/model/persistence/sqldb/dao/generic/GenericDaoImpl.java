@@ -38,8 +38,8 @@ import com.xone.model.persistence.Pager;
 public class GenericDaoImpl implements GenericDao {
 
 	private static final Logger logger = Logger.getLogger(GenericDaoImpl.class);
-	private static final String KEY_SQL = "com.hunny.model.generic.dao.sql";
-	private static final String KEY_PARAMS = "com.hunny.model.generic.dao.params";
+	private static final String KEY_SQL = "com.xone.model.generic.dao.sql";
+	private static final String KEY_PARAMS = "com.xone.model.generic.dao.params";
 	
 	private EntityManager entityManager;
 

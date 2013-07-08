@@ -6,22 +6,29 @@
 <html>
 	<head>
 		<title>Hello World</title>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<jsp:include page="commons.jsp"></jsp:include>
+		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page">
+	<div data-role="page" role-id="product-page">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-<!-- 			<div style="width:100%;background-color:red;height:25px;" id="banner">此处是广告位</div> -->
+			<div style="width:100%;height:25px;" id="banner">此处是广告位</div>
 			<div data-role="navbar" data-theme="e">
 			    <ul>
-			        <li><a href="${pageContext.request.contextPath}/product/index.html" class="ui-btn-active">所有产品</a></li>
+			        <li><a data-id="allproducts" href="${pageContext.request.contextPath}/product/index.html" class="ui-btn-active">所有产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listSales.html">促销产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html">组团产品</a></li>
 			    </ul>
 			</div>
 		</div>
-		<div data-role="content">
-			<ul id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true">
+		<div role-id="product-list" data-role="content" data-iscroll>
+			<div class="iscroll-pulldown">
+		        <span class="iscroll-pull-icon"></span>
+		        <span class="iscroll-pull-label"></span>
+			</div>
+			<ul data-id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true">
 	        	<li><a href="#">
 	            	<img src="${STATIC_ROOT}/image/apple.png">
 	            	<h2>iOS 6.1</h2>
@@ -70,15 +77,46 @@
 	                <p class="ui-li-aside">Symbian</p>
 	            </a></li>
 	        </ul>
+			<div class="iscroll-pullup">
+				<span class="iscroll-pull-icon"></span>
+				<span class="iscroll-pull-label"></span>
+			</div>
 		</div>
 		<jsp:include page="footer.jsp">
 			<jsp:param value="1" name="offset"/>
 		</jsp:include>
 	</div>
 	<script type="text/javascript">
-		$(document).bind('pageinit', function() {
-			
+		$(document).delegate('div[role-id="product-page"]', "pageinit", function(event) {
+	        $('div[role-id="product-list"]', this).bind({
+		        "iscroll_onpulldown" : pullDown,
+		        "iscroll_onpullup"   : pullUp
+	        });
 		});
+		$(document).bind('pageinit', function() {
+			$('a[data-id="allproducts"]').addClass('ui-btn-active');
+		});
+		function pullDown() {
+			loadData('prepend');
+		}
+		function pullUp() {
+			loadData('appand');
+		}
+		function loadData(insertType) {
+			$.ajax({
+				type: 'GET',
+				url: '${pageContext.request.contextPath}/product/listMobileMore.html',
+				data: '_=' + new Date().getTime(),
+				insertType: insertType,
+				success: function(html) {
+					if (this.insertType == 'prepend') {
+						$('ul[data-id="listview"]').prepend(html).listview('refresh');
+					} else {
+						$('ul[data-id="listview"]').append(html).listview('refresh');
+					}
+				}
+			});
+		}
 	</script>
 	</body>
 </html>

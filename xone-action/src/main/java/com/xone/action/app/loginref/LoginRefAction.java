@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.action.base.EncryptRef;
-import com.xone.model.persistence.sqldb.entries.app.Person;
+import com.xone.model.hibernate.entity.Person;
 import com.xone.service.app.PersonService;
 
 

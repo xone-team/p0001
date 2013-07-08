@@ -7,6 +7,9 @@
 		<action name="index" class="productAction" method="listAll">
 			<result name="success">/WEB-INF/jsp/product-list-main.jsp</result>
 		</action>
+		<action name="listMobileMore" class="productAction" method="listMobileMore">
+			<result name="success">/WEB-INF/jsp/product-list-mobile-more.jsp</result>
+		</action>
 		<action name="listSales" class="productAction" method="listSales">
 			<result name="success">/WEB-INF/jsp/product-list-sales.jsp</result>
 		</action>

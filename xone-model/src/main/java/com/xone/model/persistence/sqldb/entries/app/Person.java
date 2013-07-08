@@ -26,8 +26,8 @@ import javax.persistence.Table;
  * @modify
  * 
  */
-@Entity
-@Table(name = "PERSON")
+//@Entity
+//@Table(name = "PERSON")
 public class Person implements Serializable {
 	
 	private static final long serialVersionUID = -7335577468841978562L;
@@ -38,9 +38,9 @@ public class Person implements Serializable {
 	/**
 	 * @return the id
 	 */
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "ID")
+//	@Id
+//	@GeneratedValue(strategy=GenerationType.AUTO)
+//	@Column(name = "ID")
 	public Integer getId() {
 		return id;
 	}
@@ -55,7 +55,7 @@ public class Person implements Serializable {
 	/**
 	 * @return the username
 	 */
-	@Column(name = "USERNAME")
+//	@Column(name = "USERNAME")
 	public String getUsername() {
 		return username;
 	}
@@ -70,7 +70,7 @@ public class Person implements Serializable {
 	/**
 	 * @return the password
 	 */
-	@Column(name = "PASSWORD")
+//	@Column(name = "PASSWORD")
 	public String getPassword() {
 		return password;
 	}

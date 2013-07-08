@@ -13,4 +13,5 @@
 	<bean id="productAction" class="com.xone.action.app.product.ProductAction" scope="prototype" />
 	<bean id="purchaseAction" class="com.xone.action.app.purchase.PurchaseAction" scope="prototype" />
 	<bean id="assistantAction" class="com.xone.action.app.assistant.AssistantAction" scope="prototype" />
+	<bean id="deliveryAction" class="com.xone.action.app.assistant.DeliveryAction" scope="prototype" />
 </beans>
