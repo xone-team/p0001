@@ -4,6 +4,7 @@
 		<groupId>com.xone.web</groupId>
 		<artifactId>xone-web</artifactId>
 		<version>1.0.0</version>
+		<relativePath>../xone-web</relativePath>
 	</parent>
 	<groupId>com.xone.service</groupId>
 	<artifactId>xone-service</artifactId>
