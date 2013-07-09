@@ -6,7 +6,9 @@
 <html>
 	<head>
 		<title>Hello World</title>
-		<jsp:include page="commons.jsp"></jsp:include>
+		<jsp:include page="commons.jsp">
+			<jsp:param value="true" name="bootstrap"/>
+		</jsp:include>
 	</head>
 	<body>
 	<div data-role="page">
@@ -14,6 +16,10 @@
 			<h1>用户登录页面</h1>
 		</div>
 		<div data-role="content">
+			<div class="alert alert-error">错误消息</div>
+			<div class="progress progress-striped active">
+				<div class="bar" style="width: 40%;"></div>
+			</div>
 			<form method="post" action="${pageContext.request.contextPath}/login/login.html">
 				<input type="hidden" name="redirect" value="" autocomplete="off"/>
 				<ul data-role="listview" data-inset="true" data-mini="true">
