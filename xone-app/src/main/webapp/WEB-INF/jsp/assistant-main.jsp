@@ -13,6 +13,20 @@
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<div style="width:100%;border:1px white solid;height:25px;" id="banner">此处是广告位</div>
 			<h2>功能助手</h2>
+			<a href="#popupLogin${identify}" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-transition="pop" data-theme="a" class="btn-banner ui-btn-right">登录</a>
+			<div data-role="popup" id="popupMenu${identify}" data-theme="a">
+			    <div data-role="popup" id="popupLogin${identify}" data-theme="a" class="ui-corner-all">
+					<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+			        <form>
+			            <div style="padding:0px 5px 5px 5px;">
+			              <h3 style="text-align:center;">输入登录信息</h3>
+			              <input type="text" name="username" id="un${identify}" value="" placeholder="输入用户名" data-theme="a">
+			              <input type="password" name="password" id="pw${identify}" value="" placeholder="输入密码" data-theme="a">
+			              <button type="submit" data-theme="b" data-icon="check">确认登录</button>
+			            </div>
+			        </form>
+			    </div>
+			</div>
 		</div>
 		<div data-id="assistant${identify}" data-role="content">
 		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
@@ -35,7 +49,7 @@
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 				    <li><a href="${pageContext.request.contextPath}/delivery/index.html">物流配送</a></li>
 				    <li><a href="#">筛选订阅</a></li>
-<!-- 				    <li><a href="#">资金担保</a></li> -->
+				    <li><a href="#" onclick="window.main.makeCall('13761560145');return false;">联系客服</a></li>
 				</ul>
 		    </div>
 		</div>
@@ -48,7 +62,11 @@
 			$('div[data-id="assistant${identify}"]').css({
 				paddingTop: '0px'
 			});
+			$('a.btn-banner').css({
+				marginTop: '28px'
+			});
 		});
+	</script>
 	</script>
 	</body>
 </html>
