@@ -6,6 +6,11 @@
 	<package name="assistant" namespace="/assistant" extends="default">
 		<action name="index" class="assistantAction" method="main">
 			<result name="success">/WEB-INF/jsp/assistant-main.jsp</result>
+			<result name="redirect" type="redirectAction"> 
+				<param name="actionName">index</param>
+				<param name="namespace">/login</param>
+				<param name="redirect">${redirect}</param>
+			</result>
 		</action>
 	</package>
 </struts>

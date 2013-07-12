@@ -1,41 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>  
-    <class name="com.xone.model.hibernate.entity.Person" table="T_USER">
+    <class name="com.xone.model.hibernate.entity.Delivery" table="t_delivery">
 		<id name="id" type="java.lang.Long">
 			<column name="ID" length="20" not-null="true"/>
 			<generator class="increment" />
 		</id>
-		<property name="username" type="java.lang.String">
-			<column name="USERNAME" length="255"/>
+		<property name="productId" type="java.lang.Long">
+			<column name="PRODUCT_ID" length="20"/>
 		</property>
-		<property name="password" type="java.lang.String">
-			<column name="PASSWORD" length="255"/>
+		<property name="marketarea" type="java.lang.String">
+			<column name="MARKETAREA" length="255"/>
 		</property>
-		<property name="nickName" type="java.lang.String">
-			<column name="NICK_NAME" length="255"/>
+		<property name="determini" type="java.lang.String">
+			<column name="DETERMINI" length="255"/>
 		</property>
-		<property name="cellphone" type="java.lang.String">
-			<column name="CELLPHONE" length="255"/>
+		<property name="loadtime" type="java.lang.String">
+			<column name="LOADTIME" length="255"/>
 		</property>
-		<property name="contactor" type="java.lang.String">
-			<column name="CONTACTOR" length="255"/>
+		<property name="loadaddress" type="java.lang.String">
+			<column name="LOADADDRESS" length="255"/>
 		</property>
-		<property name="qq" type="java.lang.String">
-			<column name="QQ" length="255"/>
+		<property name="boxNum" type="java.lang.String">
+			<column name="BOX_NUM" length="20"/>
 		</property>
-		<property name="email" type="java.lang.String">
-			<column name="EMAIL" length="255"/>
+		<property name="unitNum" type="java.lang.String">
+			<column name="UNIT_NUM" length="20"/>
 		</property>
-		<property name="address" type="java.lang.String">
-			<column name="ADDRESS" length="255"/>
+		<property name="boxTotal" type="java.lang.String">
+			<column name="BOX_TOTAL" length="20"/>
 		</property>
-		<property name="credit" type="java.lang.String">
-			<column name="CREDIT" length="2"/>
+		<property name="totalWeight" type="java.lang.String">
+			<column name="TOTAL_WEIGHT" length="20"/>
 		</property>
-		<property name="userLevel" type="java.lang.String">
-			<column name="USER_LEVEL" length="2"/>
+		<property name="flagPass" type="java.lang.String">
+			<column name="FLAG_PASS" length="1"/>
+		</property>
+		<property name="remark" type="java.lang.String">
+			<column name="REMARK" length="1023"/>
 		</property>
 		<property name="userApply" type="java.lang.Long">
 			<column name="USER_APPLY" length="20"/>

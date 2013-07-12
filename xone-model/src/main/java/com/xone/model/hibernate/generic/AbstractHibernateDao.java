@@ -2,10 +2,12 @@ package com.xone.model.hibernate.generic;
 
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -58,9 +60,36 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	 */
 	public T save(T entity) {
 		Assert.notNull(entity);
-		getHibernateTemplate().save(entity);
+		getHibernateTemplate().save(setDateCreated(entity));
 		return entity;
 	}
+	
+	/**
+	 * 设置更新时间
+	 * @param entity
+	 */
+	protected void setLastUpdated(T entity) {
+		try {
+			Method setLastUpdated = entity.getClass().getMethod("setLastUpdated", Date.class);
+			setLastUpdated.invoke(entity, new Date());
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+		}
+	}
+	
+	public T setDateCreated(T entity) {
+		try {
+			Date date = new Date();
+			Method setDateCreated = entity.getClass().getMethod("setDateCreated", Date.class);
+			setDateCreated.invoke(entity, date);
+			Method setLastUpdated = entity.getClass().getMethod("setLastUpdated", Date.class);
+			setLastUpdated.invoke(entity, date);
+		} catch (Exception e) {
+			logger.debug(e.getMessage());
+		}
+		return entity;
+	}
+	
 	/**
 	 * 
 	 * 批量保存对象。

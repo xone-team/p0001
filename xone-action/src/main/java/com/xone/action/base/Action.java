@@ -107,6 +107,14 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 		return (Map<String, Object>)object;
 	}
 	
+	public final Long getUserId() {
+		return (Long)getUserMap().get("id");
+	}
+	
+	public final String getUsername() {
+		return (String)getUserMap().get("username");
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Map<String, String> getRequestMap() {
 		Map<String, String> requestMap = new HashMap<String, String>();

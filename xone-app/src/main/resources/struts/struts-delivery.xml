@@ -7,5 +7,20 @@
 		<action name="index" class="deliveryAction" method="index">
 			<result name="success">/WEB-INF/jsp/delivery-index.jsp</result>
 		</action>
+		<action name="create" class="deliveryAction" method="create">
+			<result name="success">/WEB-INF/jsp/delivery-success.jsp</result>
+		</action>
+		<action name="listIndex" class="deliveryAction" method="listIndex">
+			<result name="success">/WEB-INF/jsp/delivery-list-index.jsp</result>
+		</action>
+		<action name="listItems" class="deliveryAction" method="listItems">
+			<result name="success">/WEB-INF/jsp/delivery-list-items.jsp</result>
+		</action>
+		<action name="itemDetails" class="deliveryAction" method="itemDetails">
+			<result name="success">/WEB-INF/jsp/delivery-item-details.jsp</result>
+		</action>
+		<action name="itemPage" class="deliveryAction" method="itemPage">
+			<result name="success">/WEB-INF/jsp/delivery-item-page.jsp</result>
+		</action>
 	</package>
 </struts>

@@ -12,35 +12,24 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page" role-id="product-page">
+	<div data-role="page" class="product-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<div style="width:100%;height:25px;" id="banner">此处是广告位</div>
 			<div data-role="navbar" data-theme="e">
 			    <ul>
-			        <li><a data-id="allproducts" href="${pageContext.request.contextPath}/product/index.html" class="ui-btn-active">所有产品</a></li>
-			        <li><a href="${pageContext.request.contextPath}/product/listSales.html">促销产品</a></li>
-			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html">组团产品</a></li>
+			        <li><a class="allproducts" href="${pageContext.request.contextPath}/product/index.html?_=${identify}" class="ui-btn-active">所有产品</a></li>
+			        <li><a href="${pageContext.request.contextPath}/product/listSales.html?_=${identify}">促销产品</a></li>
+			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html?_=${identify}">组团产品</a></li>
 			    </ul>
 			</div>
+			<div class="ui-mybanner">此处是广告位</div>
 		</div>
-		<div role-id="product-list" data-role="content" data-iscroll>
+		<div class="product-list" data-role="content" data-iscroll>
 			<div class="iscroll-pulldown">
 		        <span class="iscroll-pull-icon"></span>
 		        <span class="iscroll-pull-label"></span>
 			</div>
+			<div style="height:15px">&nbsp;</div>
 			<ul data-id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true">
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/apple.png">
-	            	<h2>iOS 6.1</h2>
-	                <p>Apple released iOS 6.1</p>
-	                <p class="ui-li-aside">iOS</p>
-	            </a></li>
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/blackberry_10.png">
-	            	<h2>BlackBerry 10</h2>
-	                <p>BlackBerry launched the Z10 and Q10 with the new BB10 OS</p>
-	                <p class="ui-li-aside">BlackBerry</p>
-	            </a></li>
 	        	<li><a href="#">
 	            	<img src="${STATIC_ROOT}/image/lumia_800.png">
 	            	<h2>WP 7.8</h2>
@@ -53,28 +42,17 @@
 	                <p>New Samsung Galaxy Express</p>
 	                <p class="ui-li-aside">Samsung</p>
 	            </a></li>
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/nexus_7.png">
-	            	<h2>Nexus 7</h2>
-	                <p>Rumours about new full HD Nexus 7</p>
-	                <p class="ui-li-aside">Android</p>
+	            <li><a href="#">
+	            	<img src="${STATIC_ROOT}/image/apple.png">
+	            	<h2>iOS 6.1</h2>
+	                <p>Apple released iOS 6.1</p>
+	                <p class="ui-li-aside">iOS</p>
 	            </a></li>
 	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/firefox_os.png">
-	            	<h2>Firefox OS</h2>
-	                <p>ZTE to launch Firefox OS smartphone at MWC</p>
-	                <p class="ui-li-aside">Firefox</p>
-	            </a></li>
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/tizen.png">
-	            	<h2>Tizen</h2>
-	                <p>First Samsung phones with Tizen can be expected in 2013</p>
-	                <p class="ui-li-aside">Tizen</p>
-	            </a></li>
-	        	<li><a href="#">
-	            	<h2>Symbian</h2>
-	                <p>Nokia confirms the end of Symbian</p>
-	                <p class="ui-li-aside">Symbian</p>
+	            	<img src="${STATIC_ROOT}/image/blackberry_10.png">
+	            	<h2>BlackBerry 10</h2>
+	                <p>BlackBerry launched the Z10 and Q10 with the new BB10 OS</p>
+	                <p class="ui-li-aside">BlackBerry</p>
 	            </a></li>
 	        </ul>
 			<div class="iscroll-pullup">
@@ -82,41 +60,29 @@
 				<span class="iscroll-pull-label"></span>
 			</div>
 		</div>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${identify}"></script>
+		<script defer="defer" type="text/javascript">
+			$(document).delegate('div.product-page', "pageinit", function(event) {
+				$('a.allproducts').addClass('ui-btn-active');
+		        $('div.ui-mybanner').html('product-main' + new Date().getTime());
+			});
+			$('div.product-page').bind("pageinit", function(event) {
+				$('div.product-list').mypullupdown({
+					url:'${pageContext.request.contextPath}/product/listMobileMore.html',
+					down: function(html) {
+						$('div.ui-mybanner').html('down at' + new Date().getTime());
+						$('ul[data-id="listview"]').prepend(html).listview('refresh');
+					},
+					up: function(html) {
+						$('div.ui-mybanner').html('up at' + new Date().getTime());
+						$('ul[data-id="listview"]').append(html).listview('refresh');
+					}
+				});
+			});
+		</script>
 		<jsp:include page="footer.jsp">
 			<jsp:param value="1" name="offset"/>
 		</jsp:include>
 	</div>
-	<script type="text/javascript">
-		$(document).delegate('div[role-id="product-page"]', "pageinit", function(event) {
-	        $('div[role-id="product-list"]', this).bind({
-		        "iscroll_onpulldown" : pullDown,
-		        "iscroll_onpullup"   : pullUp
-	        });
-		});
-		$(document).bind('pageinit', function() {
-			$('a[data-id="allproducts"]').addClass('ui-btn-active');
-		});
-		function pullDown() {
-			loadData('prepend');
-		}
-		function pullUp() {
-			loadData('appand');
-		}
-		function loadData(insertType) {
-			$.ajax({
-				type: 'GET',
-				url: '${pageContext.request.contextPath}/product/listMobileMore.html',
-				data: '_=' + new Date().getTime(),
-				insertType: insertType,
-				success: function(html) {
-					if (this.insertType == 'prepend') {
-						$('ul[data-id="listview"]').prepend(html).listview('refresh');
-					} else {
-						$('ul[data-id="listview"]').append(html).listview('refresh');
-					}
-				}
-			});
-		}
-	</script>
 	</body>
 </html>

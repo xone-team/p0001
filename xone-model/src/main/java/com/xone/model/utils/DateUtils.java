@@ -8,8 +8,10 @@
  */
 package com.xone.model.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
- * @TODO 请Hunny添加代码注释 
  *
  * @author Hunny
  * @created 2011-3-19 下午11:05:17
@@ -20,4 +22,11 @@ package com.xone.model.utils;
  */
 public class DateUtils {
 
+	public static final String format(Date date, String format) {
+		return new SimpleDateFormat(format).format(date);
+	}
+	
+	public static final String format(Date date) {
+		return format(date, "yyyy-MM-dd HH:mm:ss");
+	}
 }

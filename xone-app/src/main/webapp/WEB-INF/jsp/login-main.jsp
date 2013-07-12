@@ -7,31 +7,33 @@
 	<head>
 		<title>Hello World</title>
 		<jsp:include page="commons.jsp"></jsp:include>
+		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
 	<div data-role="page">
+		<style type="text/css">
+			span.myspanstyle {
+				padding-left:5px;
+			}
+		</style>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<h1>用户信息页面</h1>
+			<h1>用户中心</h1>
 			<a href="${pageContext.request.contextPath}/login/logout.html" data-icon="check" class="ui-btn-right">注销</a>
+			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content">
-		    <div data-role="collapsible" data-collapsed="false" data-collapsed="false" data-theme="b" data-content-theme="d">
-		        <h3>用户中心</h3>
+		    <div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+		        <h3>用户信息</h3>
 				<ul data-role="listview" data-inset="true">
-<!-- 					<li data-role="list-divider">当前用户信息</li> -->
-				    <li data-icon="false">
-					    <a href="#">
-					    	<img src="${STATIC_ROOT}/image/angry.jpg"/>
-					    	<h2>${userMap.user.username}</h2>
-					    	<p>上次登录2013-07-05 13:23</p>
-					    	<p>用户信息简介</p>
-					    	<p class="ui-li-aside">用户简讯</p>
-					    </a>
-				    </li>
-				    <li data-icon="false"><a href="#">邮　箱:</a></li>
-				    <li data-icon="false"><a href="#">手　机:</a></li>
-				    <li data-icon="false"><a href="#">地　址:</a></li>
-				    <li data-icon="false"><a href="#">联系人:</a></li>
+				    <li data-icon="false"><a href="#">用户名:<span class="myspanstyle">${userMap.user.username}</span></a></li>
+				    <li data-icon="false"><a href="#">昵　称:<span class="myspanstyle">${userMap.user.nickName}</span></a></li>
+				    <li data-icon="false"><a href="#">手　机:<span class="myspanstyle">${userMap.user.cellphone}</span></a></li>
+				    <li data-icon="false"><a href="#">联系人:<span class="myspanstyle">${userMap.user.contactor}</span></a></li>
+				    <li data-icon="false"><a href="#">信　誉:<span class="myspanstyle"><c:choose><c:when test="${userMap.user.credit == '1'}">已认证</c:when><c:otherwise>未认证</c:otherwise></c:choose></span></a></li>
+				    <li data-icon="false"><a href="#">级　别:<span class="myspanstyle">${userMap.user.userLevel}</span></a></li>
+				    <li data-icon="false"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QQ:<span class="myspanstyle">${userMap.user.qq}</span></a></li>
+				    <li data-icon="false"><a href="#">邮　箱:<span class="myspanstyle">${userMap.user.email}</span></a></li>
+				    <li data-icon="false"><a href="#">地　址:<span class="myspanstyle">${userMap.user.address}</span></a></li>
 				    <li data-icon="refresh"><a href="#" onclick="window.main.loadPage('${pageContext.request.contextPath}/login/index.html');">刷新页面</a></li>
 				    <li><a href="#" onclick="window.main.loadIndex();" rel="external" data-icon="home">软件首页</a></li>
 				    <li><a href=”#” onclick=”javascript:navigator.app.exitApp();” data-icon="exit">退出软件</a></li>
@@ -55,7 +57,7 @@
 		    <div data-role="collapsible" data-theme="b" data-content-theme="d">
 		        <h3>我的其它服务</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
-				    <li><a href="#">查看物流配送列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/delivery/listIndex.html?_=${identify}">查看物流配送列表</a></li>
 				    <li><a href="#">查看广告发布列表</a></li>
 				    <li><a href="#">查看资金担保列表</a></li>
 				</ul>

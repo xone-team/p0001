@@ -7,77 +7,71 @@
 	<head>
 		<title>Hello World</title>
 		<jsp:include page="commons.jsp"></jsp:include>
+		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page">
+	<div data-role="page" class="purchase-main-page">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-<!-- 			<div style="width:100%;background-color:red;height:25px;" id="banner">此处是广告位</div> -->
-			<div data-role="navbar" data-theme="e">
-			    <ul>
-			        <li><a href="${pageContext.request.contextPath}/purchase/index.html" class="ui-btn-active">求购产品</a></li>
-			        <li><a href="${pageContext.request.contextPath}/purchase/listGroups.html">合购产品</a></li>
-			    </ul>
-			</div>
+			<h1>求购列表</h1>
+			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content">
-			<ul id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true">
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/apple.png">
-	            	<h2>iOS 6.1</h2>
-	                <p>Apple released iOS 6.1</p>
-	                <p class="ui-li-aside">iOS</p>
-	            </a></li>
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/blackberry_10.png">
-	            	<h2>BlackBerry 10</h2>
-	                <p>BlackBerry launched the Z10 and Q10 with the new BB10 OS</p>
-	                <p class="ui-li-aside">BlackBerry</p>
-	            </a></li>
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/lumia_800.png">
-	            	<h2>WP 7.8</h2>
-	                <p>Nokia rolls out WP 7.8 to Lumia 800</p>
-	                <p class="ui-li-aside">Windows Phone</p>
-	            </a></li>
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/galaxy_express.png">
-	            	<h2>Galaxy</h2>
-	                <p>New Samsung Galaxy Express</p>
-	                <p class="ui-li-aside">Samsung</p>
-	            </a></li>
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/nexus_7.png">
-	            	<h2>Nexus 7</h2>
-	                <p>Rumours about new full HD Nexus 7</p>
-	                <p class="ui-li-aside">Android</p>
-	            </a></li>
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/firefox_os.png">
-	            	<h2>Firefox OS</h2>
-	                <p>ZTE to launch Firefox OS smartphone at MWC</p>
-	                <p class="ui-li-aside">Firefox</p>
-	            </a></li>
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/tizen.png">
-	            	<h2>Tizen</h2>
-	                <p>First Samsung phones with Tizen can be expected in 2013</p>
-	                <p class="ui-li-aside">Tizen</p>
-	            </a></li>
-	        	<li><a href="#">
-	            	<h2>Symbian</h2>
-	                <p>Nokia confirms the end of Symbian</p>
-	                <p class="ui-li-aside">Symbian</p>
-	            </a></li>
-	        </ul>
+			<div style="height:10px">&nbsp;</div>
+			<div class="purchase-list-main" style="width:100%;padding-top:10px;" data-iscroll>
+				<div class="iscroll-pulldown">
+			        <span class="iscroll-pull-icon"></span>
+			        <span class="iscroll-pull-label"></span>
+				</div>
+				<ul class="ul-purchase-list" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true">
+		        	<li><a href="#">
+		            	<img src="${STATIC_ROOT}/image/lumia_800.png">
+		            	<h2>WP 7.8</h2>
+		                <p>Nokia rolls out WP 7.8 to Lumia 800</p>
+		                <p class="ui-li-aside">Windows Phone</p>
+		            </a></li>
+		        	<li><a href="#">
+		            	<img src="${STATIC_ROOT}/image/galaxy_express.png">
+		            	<h2>Galaxy</h2>
+		                <p>New Samsung Galaxy Express</p>
+		                <p class="ui-li-aside">Samsung</p>
+		            </a></li>
+		        	<li><a href="#">
+		            	<img src="${STATIC_ROOT}/image/nexus_7.png">
+		            	<h2>Nexus 7</h2>
+		                <p>Rumours about new full HD Nexus 7</p>
+		                <p class="ui-li-aside">Android</p>
+		            </a></li>
+		        	<li><a href="#">
+		            	<img src="${STATIC_ROOT}/image/firefox_os.png">
+		            	<h2>Firefox OS</h2>
+		                <p>ZTE to launch Firefox OS smartphone at MWC</p>
+		                <p class="ui-li-aside">Firefox</p>
+		            </a></li>
+		        </ul>
+				<div class="iscroll-pullup">
+					<span class="iscroll-pull-icon"></span>
+					<span class="iscroll-pull-label"></span>
+				</div>
+			</div>
 		</div>
 		<jsp:include page="footer.jsp">
 			<jsp:param value="2" name="offset"/>
 		</jsp:include>
 	</div>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${identify}"></script>
 	<script type="text/javascript">
-		$(document).bind('pageinit', function() {
-			
+		$(document).delegate('div.purchase-main-page', "pageinit", function(event) {
+			$('div.purchase-list-main').mypullupdown({
+				url:'${pageContext.request.contextPath}/product/listMobileMore.html',
+				down: function(html) {
+					$('ul.ul-purchase-list').prepend(html).listview('refresh');
+				},
+				up: function(html) {
+					$('ul.ul-purchase-list').append(html).listview('refresh');
+				}
+			});
+	        $('div.ui-mybanner').html('purchase广告位' + new Date().getTime());
 		});
-	</script>
+	</script>>
 	</body>
 </html>

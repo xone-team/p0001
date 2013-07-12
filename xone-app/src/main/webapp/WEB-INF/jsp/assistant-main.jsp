@@ -7,15 +7,15 @@
 	<head>
 		<title>Hello World</title>
 		<jsp:include page="commons.jsp"></jsp:include>
+		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page">
+	<div data-role="page" class="assistant-main-page">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<div style="width:100%;border:1px white solid;height:25px;" id="banner">此处是广告位</div>
 			<h2>功能助手</h2>
-			<a href="#popupLogin${identify}" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-transition="pop" data-theme="a" class="btn-banner ui-btn-right">登录</a>
-			<div data-role="popup" id="popupMenu${identify}" data-theme="a">
-			    <div data-role="popup" id="popupLogin${identify}" data-theme="a" class="ui-corner-all">
+			<a href="#popupLogin${identify}" data-rel="popup" data-position-to="window" data-role="button" data-inline="true" data-icon="check" data-transition="pop" data-theme="a" class="btn-banner assistantpopuplink ui-btn-right">登录</a>
+			<div data-role="popup" class="popupMenu${identify}" data-theme="a">
+			    <div data-role="popup" class="assistantpopuplogin" data-theme="a" class="ui-corner-all">
 					<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 			        <form>
 			            <div style="padding:0px 5px 5px 5px;">
@@ -27,8 +27,9 @@
 			        </form>
 			    </div>
 			</div>
+			<div class="ui-mybanner">此处是广告位</div>
 		</div>
-		<div data-id="assistant${identify}" data-role="content">
+		<div class="assistantcontent" data-role="content">
 		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
 		        <h3>售卖发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
@@ -47,7 +48,7 @@
 		    <div data-role="collapsible" data-theme="b" data-content-theme="d">
 		        <h3>其它服务</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
-				    <li><a href="${pageContext.request.contextPath}/delivery/index.html">物流配送</a></li>
+				    <li><a href="${pageContext.request.contextPath}/delivery/index.html?_=${identify}">物流配送</a></li>
 				    <li><a href="#">筛选订阅</a></li>
 				    <li><a href="#" onclick="window.main.makeCall('13761560145');return false;">联系客服</a></li>
 				</ul>
@@ -58,12 +59,18 @@
 		</jsp:include>
 	</div>
 	<script type="text/javascript">
-		$(document).bind('pageinit', function() {
-			$('div[data-id="assistant${identify}"]').css({
+		$('div.assistant-main-page').bind('pageinit', function() {
+			$('div.assistantcontent').css({
 				paddingTop: '0px'
 			});
-			$('a.btn-banner').css({
-				marginTop: '28px'
+// 			$('a.btn-banner').css({
+// 				marginTop: '28px'
+// 			});
+			$('div.ui-mybanner').html('assistant:' + new Date().getTime());
+			$('a.assistantpopuplink').click(function(e) {
+				e.preventDefault();
+				$('div.assistantpopuplogin').open();
+				return false;
 			});
 		});
 	</script>

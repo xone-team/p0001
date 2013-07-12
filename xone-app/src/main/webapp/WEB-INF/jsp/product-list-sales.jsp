@@ -15,20 +15,20 @@
 		</style>
 	</head>
 	<body>
-	<div data-role="page" role-id="sales-page">
+	<div data-role="page" class="sales-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<div style="width:100%;height:25px;" id="salesbanner">此处是广告位</div>
 <!-- 			<h1>产品列表</h1> -->
 			<div data-role="navbar" data-theme="e">
 			    <ul>
-			        <li><a href="${pageContext.request.contextPath}/product/index.html">所有产品</a></li>
-			        <li><a href="${pageContext.request.contextPath}/product/listSales.html" class="ui-btn-active">促销产品</a></li>
-			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html">组团产品</a></li>
+			        <li><a href="${pageContext.request.contextPath}/product/index.html?_=${identify}">所有产品</a></li>
+			        <li><a href="${pageContext.request.contextPath}/product/listSales.html?_=${identify}" class="ui-btn-active">促销产品</a></li>
+			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html?_=${identify}">组团产品</a></li>
 			    </ul>
 			</div>
+			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content" style="padding-top:2px;">
-			<div data-id="searchconditions" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+			<div class="searchconditionssales" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
 			    <h4>选择附加搜索条件</h4>
 				<div data-role="navbar" data-mini="true" data-theme="e">
 				    <ul>
@@ -71,42 +71,12 @@
 				    <label for="checkbox-2c">信誉一般</label>
 				</div>
 			</div>
-			<div style="width:100%;padding-top:10px;" role-id="sales-list" data-iscroll>
+			<div style="width:100%;padding-top:10px;" class="sales-list" data-iscroll>
 				<div class="iscroll-pulldown">
 			        <span class="iscroll-pull-icon"></span>
 			        <span class="iscroll-pull-label"></span>
 				</div>
-		        <ul role-id="sales-listview" data-role="listview" data-filter="true" data-filter-placeholder="促销关键字搜索..." data-inset="true">
-		        	<li><a href="#">
-		            	<img src="${STATIC_ROOT}/image/apple.png">
-		            	<h2>iOS 6.1</h2>
-		                <p>Apple released iOS 6.1</p>
-		                <p class="ui-li-aside">iOS</p>
-		            </a></li>
-		        	<li><a href="#">
-		            	<img src="${STATIC_ROOT}/image/blackberry_10.png">
-		            	<h2>BlackBerry 10</h2>
-		                <p>BlackBerry launched the Z10 and Q10 with the new BB10 OS</p>
-		                <p class="ui-li-aside">BlackBerry</p>
-		            </a></li>
-		        	<li><a href="#">
-		            	<img src="${STATIC_ROOT}/image/lumia_800.png">
-		            	<h2>WP 7.8</h2>
-		                <p>Nokia rolls out WP 7.8 to Lumia 800</p>
-		                <p class="ui-li-aside">Windows Phone</p>
-		            </a></li>
-		        	<li><a href="#">
-		            	<img src="${STATIC_ROOT}/image/galaxy_express.png">
-		            	<h2>Galaxy</h2>
-		                <p>New Samsung Galaxy Express</p>
-		                <p class="ui-li-aside">Samsung</p>
-		            </a></li>
-		        	<li><a href="#">
-		            	<img src="${STATIC_ROOT}/image/nexus_7.png">
-		            	<h2>Nexus 7</h2>
-		                <p>Rumours about new full HD Nexus 7</p>
-		                <p class="ui-li-aside">Android</p>
-		            </a></li>
+		        <ul class="sales-listview" data-role="listview" data-filter="true" data-filter-placeholder="促销关键字搜索..." data-inset="true">
 		        	<li><a href="#">
 		            	<img src="${STATIC_ROOT}/image/firefox_os.png">
 		            	<h2>Firefox OS</h2>
@@ -135,56 +105,26 @@
 			<jsp:param value="1" name="offset"/>
 		</jsp:include>
 	</div>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${identify}"></script>
 	<script type="text/javascript">
-		$(document).bind('pageinit', function() {
-			$('a.navbartabs').click(function(e) {
-				e.preventDefault();
-				$('div.salesearchclass').hide();
-				$('a.navbartabs').removeClass('ui-btn-active');
-				var t = $(this);
-				$('div[data-id="' + t.attr('href') + '"]').show();
-				t.addClass('ui-btn-active');
-			});
-		});
-		$(document).delegate('div[role-id="sales-page"]', "pageinit", function(event) {
-	        $('div[role-id="sales-list"]', this).bind({
-		        "iscroll_onpulldown" : pullDownSales,
-		        "iscroll_onpullup"   : pullUpSales,
-		        "iscroll_onpulluppulled": pullUpHandle,
-		        "iscroll_onpullupreset": pullUpresetHandle
-	        });
-	        $('.iscroll-scroller').css({
-	        	minHeight: '100px'
-	        });
-		});
-		function pullUpHandle() {
-			$('div[data-id="searchconditions"]').hide();
-		}
-		function pullUpresetHandle() {
-			$('div[data-id="searchconditions"]').show();
-		}
-		function pullDownSales() {
-			loadDataSales('prepend');
-		}
-		function pullUpSales() {
-			loadDataSales('appand');
-		}
-		function loadDataSales(insertType) {
-			$.ajax({
-				type: 'GET',
-				url: '${pageContext.request.contextPath}/product/listMobileMore.html',
-				data: '_=' + new Date().getTime(),
-				insertType: insertType,
-				success: function(html) {
-					$('#salesbanner').html(new Date().getTime());
-					if (this.insertType == 'prepend') {
-						$('ul[role-id="sales-listview"]').prepend(html).listview('refresh');
-					} else {
-						$('ul[role-id="sales-listview"]').append(html).listview('refresh');
-					}
+		$(document).delegate('div.sales-page', "pageinit", function(event) {
+			$('div.sales-list').mypullupdown({
+				url:'${pageContext.request.contextPath}/product/listMobileMore.html',
+				down: function(html) {
+					$('ul.sales-listview').prepend(html).listview('refresh');
+				},
+				up: function(html) {
+					$('ul.sales-listview').append(html).listview('refresh');
+				},
+				downed: function() {
+					$('div.searchconditionssales').hide();
+				},
+				uped: function() {
+					$('div.searchconditionssales').show();
 				}
 			});
-		}
+	        $('div.ui-mybanner').html('product-sale' + new Date().getTime());
+		});
 	</script>
 	</body>
 </html>

@@ -11,13 +11,14 @@
 	<body>
 	<div data-role="page">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-<!-- 			<h1>产品列表</h1> -->
-			<div data-role="navbar" data-theme="e">
-			    <ul>
-			        <li><a href="${pageContext.request.contextPath}/purchase/index.html">求购产品</a></li>
-			        <li><a href="${pageContext.request.contextPath}/purchase/listGroups.html" class="ui-btn-active">合购产品</a></li>
-			    </ul>
-			</div>
+			<h1>求购列表</h1>
+<!-- 			<div data-role="navbar" data-theme="e"> -->
+<!-- 			    <ul> -->
+<%-- 			        <li><a href="${pageContext.request.contextPath}/purchase/index.html">求购产品</a></li> --%>
+<%-- 			        <li><a href="${pageContext.request.contextPath}/purchase/listGroups.html" class="ui-btn-active">合购产品</a></li> --%>
+<!-- 			    </ul> -->
+<!-- 			</div> -->
+			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content">
 			<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d" style="margin-bottom:15px;">
@@ -35,7 +36,7 @@
 				    <label for="checkbox-5a">调料</label>
 				</div>
 			</div>
-	        <ul id="listview" data-role="listview" data-filter="true" data-filter-placeholder="合购搜索..." data-inset="true">
+	        <ul id="listview" data-role="listview" data-filter="true" data-filter-placeholder="组团搜索..." data-inset="true">
 	        	<li><a href="#">
 	            	<img src="${STATIC_ROOT}/image/apple.png">
 	            	<h2>iOS 6.1</h2>

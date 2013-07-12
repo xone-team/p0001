@@ -12,18 +12,18 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page" role-id="product-page">
+	<div data-role="page" class="product-page${identify}">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<div style="width:100%;height:25px;" id="banner">此处是广告位</div>
 			<div data-role="navbar" data-theme="e">
 			    <ul>
-			        <li><a data-id="allproducts" href="${pageContext.request.contextPath}/product/index.html" class="ui-btn-active">所有产品</a></li>
+			        <li><a class="allproducts${identify}" href="${pageContext.request.contextPath}/product/index.html" class="ui-btn-active">所有产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listSales.html">促销产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html">组团产品</a></li>
 			    </ul>
 			</div>
 		</div>
-		<div role-id="product-list" data-role="content" data-iscroll>
+		<div class="product-list${identify}" data-role="content" data-iscroll>
 			<div class="iscroll-pulldown">
 		        <span class="iscroll-pull-icon"></span>
 		        <span class="iscroll-pull-label"></span>
@@ -87,22 +87,25 @@
 		</jsp:include>
 	</div>
 	<script type="text/javascript">
-		$(document).delegate('div[role-id="product-page"]', "pageinit", function(event) {
-	        $('div[role-id="product-list"]', this).bind({
-		        "iscroll_onpulldown" : pullDown,
-		        "iscroll_onpullup"   : pullUp
+		$(document).delegate('div.product-page${identify}', "pageinit", function(event) {
+	        $('div.product-list${identify}', this).bind({
+		        "iscroll_onpulldown" : pullDown${identify},
+		        "iscroll_onpullup"   : pullUp${identify}
 	        });
 		});
 		$(document).bind('pageinit', function() {
-			$('a[data-id="allproducts"]').addClass('ui-btn-active');
+			$('a.allproducts${identify}').addClass('ui-btn-active');
+			$('div.product-list${identify}').css({
+				paddingTop: '0px'
+			});
 		});
-		function pullDown() {
-			loadData('prepend');
+		function pullDown${identify}() {
+			loadData${identify}('prepend');
 		}
-		function pullUp() {
-			loadData('appand');
+		function pullUp${identify}() {
+			loadData${identify}('appand');
 		}
-		function loadData(insertType) {
+		function loadData${identify}(insertType) {
 			$.ajax({
 				type: 'GET',
 				url: '${pageContext.request.contextPath}/product/listMobileMore.html',

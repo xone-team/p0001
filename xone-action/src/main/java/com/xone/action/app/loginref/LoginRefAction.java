@@ -9,6 +9,7 @@
 package com.xone.action.app.loginref;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang.xwork.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -39,46 +41,27 @@ public class LoginRefAction extends Action {
 	
 	private static final long serialVersionUID = -6619796711772558844L;
 	
-	private String username;
-	private String password;
 	private String redirect;
+	protected Person person;
 	
 	@Autowired
 	private PersonService personService;
-
-	/**
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * @param username the username to set
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	/**
-	 * @return the password
-	 */
-	public String getPassword() {
-		return password;
-	}
-
-	/**
-	 * @param password the password to set
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	/**
 	 * @return the redirect
 	 */
 	public String getRedirect() {
 		return redirect;
+	}
+	
+	
+
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 	/**
@@ -110,13 +93,18 @@ public class LoginRefAction extends Action {
 		return SUCCESS;
 	}
 	
+	public String indexRegister() {
+		return SUCCESS;
+	}
+	
 	public String main() {
 		return SUCCESS;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public String login() {
 		String loginHtml = "login/index.html";
-		if (null == username || null == password) {
+		if (null == getPerson().getUsername() || null == getPerson().getPassword()) {
 			if (StringUtils.isBlank(getRedirect())) {
 				setRedirect(loginHtml);
 			}
@@ -127,16 +115,24 @@ public class LoginRefAction extends Action {
 			return SUCCESS;
 		}
 		Person p = new Person();
-		p.setUsername(username);
+		p.setUsername(getPerson().getUsername());
 		List<Person> pList = personService.findAllByPerson(p);
 		if (pList.size() > 1 || pList.size() <= 0) {//没有记录或者能匹配到多个记录,都要求重新登陆
 			setRedirect(loginHtml);
 			return SUCCESS;
 		}
 		p = pList.get(0);
-		if (EncryptRef.SHA1(password).equals(p.getPassword())) {
+		if (EncryptRef.SHA1(getPerson().getPassword()).equals(p.getPassword())) {
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("user", p);
+			Map porperties = null;
+			try {
+				porperties = BeanUtils.describe(p);
+				System.out.println(porperties);
+			} catch (Exception e) {
+				porperties = Collections.EMPTY_MAP;
+				e.printStackTrace();
+			}
+			map.put("user", porperties);
 			getSession().setAttribute(USER, map);
 //			getUserMap().put("", value)
 		} else {
@@ -159,16 +155,16 @@ public class LoginRefAction extends Action {
 	public String register() {
 		HttpServletResponse response = getResponse();
 		Person p = new Person();
-		p.setUsername(username);
+		p.setUsername(getPerson().getUsername());
 		List<Person> pList = personService.findAllByPerson(p);
 		if (pList.size() > 1) {//没有记录或者能匹配到多个记录,都要求重新登陆
 			writer(response, "该用户已经存在");
-			return null;
+			return ERROR;
 		}
-		p.setPassword(EncryptRef.SHA1(password));
+		p.setPassword(EncryptRef.SHA1(getPerson().getPassword()));
 		personService.save(p);
 		writer(response, "OK");
-		return null;
+		return SUCCESS;
 	}
 	
 	private void writer(HttpServletResponse response, String message) {

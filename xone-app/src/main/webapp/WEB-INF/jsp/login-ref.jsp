@@ -7,11 +7,13 @@
 	<head>
 		<title>Hello World</title>
 		<jsp:include page="commons.jsp"></jsp:include>
+		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page">
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
+	<div data-role="page" class="login-ref-page">
+		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-backbtn="false" data-position="fixed">
 			<h1>用户登录页面</h1>
+			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content">
 			<form method="post" action="${pageContext.request.contextPath}/login/login.html">
@@ -22,7 +24,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td style="width:60px;">用户名:</td>
-				    			<td><input type="text" name="username" data-mini="true" id="text-username" value="admin" autocomplete="off"/></td>
+				    			<td><input type="text" name="person.username" data-mini="true" id="text-username" value="15800000000" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -30,14 +32,14 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td style="width:60px;">密　码:</td>
-				    			<td><input type="password" name="password" data-mini="true" id="text-password" value="hunny@admin" autocomplete="off"/></td>
+				    			<td><input type="password" name="person.password" data-mini="true" id="text-password" value="hunny@admin" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td><input type="button" value="注册用户" data-theme="e"/></td>
+				    			<td><a href="${pageContext.request.contextPath}/login/indexRegister.html?_=${identify}" data-role="button" data-theme="e">注册用户</a></td>
 				    			<td><input type="submit" value="确认登录" data-theme="e"/></td>
 				    		</tr>
 				    	</table>

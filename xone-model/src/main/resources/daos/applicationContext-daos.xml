@@ -11,4 +11,5 @@
 			http://www.springframework.org/schema/context/spring-context-2.5.xsd" default-lazy-init="true" default-autowire="byName">
 <!-- 	<bean id="personDao" class="com.xone.model.persistence.sqldb.dao.app.PersonDaoImpl" scope="singleton" /> -->
 	<bean id="personDao" class="com.xone.model.hibernate.app.PersonDaoImpl" parent="abstractHibernateDao"/>
+	<bean id="deliveryDao" class="com.xone.model.hibernate.app.DeliveryDaoImpl" parent="abstractHibernateDao"/>
 </beans>
