@@ -10,12 +10,25 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page" class="login-ref-page">
+	<div data-role="page" class="login-ref-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-backbtn="false" data-position="fixed">
 			<h1>用户登录页面</h1>
 			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content">
+			<c:if test="${!(empty mapValue)}">
+				<div data-role="popup" class="login-ref-popup-page" data-overlay-theme="a" data-shadow="false">
+					<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+					<span class="error ui-btn-inner">${mapValue['msg']}</span>
+				</div>
+				<script type="text/javascript">
+					$(document).delegate('div.login-ref-page', 'pageinit', function() {
+						if (!$('div.login-ref-popup-page').data('init')) {
+							$('div.login-ref-popup-page').popup().data('init', true);
+						}
+					});
+				</script>
+			</c:if>
 			<form method="post" action="${pageContext.request.contextPath}/login/login.html">
 				<input type="hidden" name="redirect" value="" autocomplete="off"/>
 				<ul data-role="listview" data-inset="true" data-mini="true">
@@ -46,6 +59,13 @@
 				    </li>
 				</ul>
 			</form>
+			<script type="text/javascript">
+				$('div.login-ref-page').bind('pageshow', function() {
+					$('div.login-ref-popup-page').css({
+						width: ($('div.login-ref-page').width() - 30) + 'px'
+					}).popup('open');
+				});
+			</script>
 		</div>
 		<jsp:include page="footer.jsp">
 			<jsp:param value="4" name="offset"/>

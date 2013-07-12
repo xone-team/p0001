@@ -10,6 +10,7 @@
 		</action>
 		<action name="login" class="loginRefAction" method="login">
 			<result name="success" type="redirect">${ROOT}/${redirect}</result>
+			<result name="error">/WEB-INF/jsp/login-ref.jsp</result>
 		</action>
 		<action name="main" class="loginRefAction" method="main">
 			<result name="success">/WEB-INF/jsp/login-main.jsp</result>
@@ -17,8 +18,17 @@
 		<action name="indexRegister" class="loginRefAction" method="indexRegister">
 			<result name="success">/WEB-INF/jsp/login-register-page.jsp</result>
 		</action>
+		<action name="indexUpdate" class="loginRefAction" method="indexUpdate">
+			<result name="success">/WEB-INF/jsp/login-update-page.jsp</result>
+			<result name="error">/WEB-INF/jsp/login-update-info.jsp</result>
+		</action>
+		<action name="update" class="loginRefAction" method="update">
+			<result name="error">/WEB-INF/jsp/login-update-page.jsp</result>
+			<result name="success">/WEB-INF/jsp/login-update-info.jsp</result>
+		</action>
 		<action name="register" class="loginRefAction" method="register">
-			<result name="success">/WEB-INF/jsp/login-register-page.jsp</result>
+			<result name="error">/WEB-INF/jsp/login-register-page.jsp</result>
+			<result name="success">/WEB-INF/jsp/login-register-info.jsp</result>
 		</action>
 		<action name="logout" class="loginRefAction" method="logout">
 			<result name="success" type="redirect">${ROOT}/login/index.html</result>

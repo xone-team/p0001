@@ -27,4 +27,6 @@ public interface PersonService {
 	public List<Person> findAllByPerson(Person person);
 	
 	public Person save(Person p);
+	
+	public Person update(Person p);
 }

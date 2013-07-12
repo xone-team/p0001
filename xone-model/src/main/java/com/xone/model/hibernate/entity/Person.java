@@ -35,6 +35,20 @@ public class Person implements Serializable {
 	protected Date dateCreated;
 	protected Long userUpdated;
 	protected Date lastUpdated;
+	
+	/**
+	 * 以下为业务字段
+	 * @return
+	 */
+	protected String repassword;
+	public String getRepassword() {
+		return repassword;
+	}
+	public void setRepassword(String repassword) {
+		this.repassword = repassword;
+	}
+	
+	
 	public Long getId() {
 		return id;
 	}

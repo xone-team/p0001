@@ -68,13 +68,14 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	 * 设置更新时间
 	 * @param entity
 	 */
-	protected void setLastUpdated(T entity) {
+	protected T setLastUpdated(T entity) {
 		try {
 			Method setLastUpdated = entity.getClass().getMethod("setLastUpdated", Date.class);
 			setLastUpdated.invoke(entity, new Date());
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 		}
+		return entity;
 	}
 	
 	public T setDateCreated(T entity) {
@@ -117,7 +118,7 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	 */
 	public T update(T entity) {
 		Assert.notNull(entity);
-		getHibernateTemplate().update(entity);
+		getHibernateTemplate().update(setLastUpdated(entity));
 		return entity;
 	}
 	/**
@@ -127,9 +128,9 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	 *            实体对象
 	 * @return 实体对象
 	 */
-	public Object saveOrUpdate(Object entity) {
+	public T saveOrUpdate(T entity) {
 		Assert.notNull(entity);
-		getHibernateTemplate().saveOrUpdate(entity);
+		getHibernateTemplate().saveOrUpdate(setLastUpdated(entity));
 		return entity;
 	}
 	/**
@@ -337,22 +338,6 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 		return ((Number) (createCriteria(Restrictions.eq(property, value))
 				.setProjection(Projections.rowCount()).uniqueResult()))
 				.intValue();
-	}
-
-	protected void logStatistics() {
-		Statistics stats = getHibernateTemplate().getSessionFactory()
-				.getStatistics();
-		long l2HitCount = stats.getSecondLevelCacheHitCount();
-		long l2MissCount = stats.getSecondLevelCacheMissCount();
-		long queryHitCount = stats.getQueryCacheHitCount();
-		long queryMissCount = stats.getQueryCacheMissCount();
-		logger.debug("二级缓存命中条数:{}", l2HitCount);
-		logger.debug("直接从DB加载条数 :{}", l2MissCount);
-		double l2CacheHitRatio = l2HitCount
-				/ (l2HitCount + l2MissCount + 0.0001);
-		logger.debug("二级缓存命中率 :{}%", l2CacheHitRatio * 100);
-		logger.debug("查询缓存命中条数 :{}", queryHitCount);
-		logger.debug("查询缓存从DB加载条数 :{}", queryMissCount);
 	}
 
 	/**

@@ -9,6 +9,7 @@
 package com.xone.action.base;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,9 +46,9 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 	protected HttpServletResponse response;
 	protected HttpServletRequest request;
 	
-	private List<Map<String, Object>> items;
+	private List<Map<String, Object>> items = new ArrayList<Map<String, Object>>();
 	
-	private Map<String, Object> mapValue;
+	private Map<String, Object> mapValue = new HashMap<String, Object>();
 	
 	protected Pager pager;
 

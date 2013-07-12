@@ -10,7 +10,7 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page" class="login-register-page" data-dom-cache="false">
+	<div data-role="page" class="login-update-page" data-dom-cache="false">
 		<style type="text/css">
 			td.mylabel {
 				width:80px;
@@ -20,32 +20,33 @@
 		</style>
 		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/login/index.html?_=${identify}" data-icon="check" class="btn-banner">返回</a>
-			<h1>用户注册</h1>
-			<a href="${pageContext.request.contextPath}/login/indexRegister.html?_=${identify}" data-icon="refresh">刷新</a>
+			<h1>用户更新</h1>
+			<a href="${pageContext.request.contextPath}/login/indexUpdate.html?_=${identify}" data-icon="refresh">刷新</a>
 			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content">
 			<c:if test="${!(empty mapValue)}">
-				<div data-role="popup" class="login-register-popup-page" data-overlay-theme="a" data-shadow="false">
+				<div data-role="popup" class="login-update-popup-page" data-overlay-theme="a" data-shadow="false">
 					<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 					<span class="error ui-btn-inner">${mapValue['msg']}</span>
 				</div>
 				<script type="text/javascript">
-					$(document).delegate('div.login-register-page', 'pageinit', function() {
-						if (!$('div.login-register-popup-page').data('init')) {
-							$('div.login-register-popup-page').popup().data('init', true);
+					$(document).delegate('div.login-update-page', 'pageinit', function() {
+						if (!$('div.login-update-popup-page').data('init')) {
+							$('div.login-update-popup-page').popup();
+							$('div.login-update-popup-page').data('init', true);
 						}
 					});
 				</script>
 			</c:if>
-			<form method="POST" action="${pageContext.request.contextPath}/login/register.html?_=${identify}">
+			<form method="POST" action="${pageContext.request.contextPath}/login/update.html?_=${identify}">
 				<ul data-role="listview" data-inset="true" data-mini="true">
-					<li data-role="list-divider">注册用户信息</li>
+					<li data-role="list-divider">更新用户信息</li>
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">用户名:</td>
-				    			<td><input type="text" name="person.username" placeholder="用户名，推荐手机号码" data-mini="true" value="${person.username}" autocomplete="off"/></td>
+				    			<td><input type="text" name="person.username" placeholder="用户名，推荐手机号码" readonly data-mini="true" value="${person.username}" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -69,7 +70,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">QQ:</td>
-				    			<td><input type="text" name="person.qq" placeholder="QQ号码" data-mini="true" value="${person.contactor}" autocomplete="off"/></td>
+				    			<td><input type="text" name="person.qq" placeholder="QQ号码" data-mini="true" value="${person.qq}" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -77,7 +78,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">邮　箱:</td>
-				    			<td><input type="text" name="person.email" placeholder="E-mail邮箱" data-mini="true" value="${person.email}" autocomplete="off"/></td>
+				    			<td><input type="email" name="person.email" placeholder="E-mail邮箱" data-mini="true" value="${person.email}" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -105,20 +106,13 @@
 				    		</tr>
 				    	</table>
 				    </li>
-<!-- 				    <li> -->
-<!-- 				    	<label for="flip-5">我已经阅读条款，对于以上条款我选择</label> -->
-<!-- 					    <select name="flip-5" id="flip-5" data-role="slider"> -->
-<!-- 					        <option value="off">不同意</option> -->
-<!-- 					        <option value="on">同意</option> -->
-<!-- 					    </select> -->
-<!-- 				    </li> -->
-				    <li><input type="submit" value="注册用户" data-theme="e"/></li>
+				    <li><input type="submit" value="更新用户" data-theme="e"/></li>
 				</ul>
 			</form>
 			<script type="text/javascript">
-				$('div.login-register-page').bind('pageshow', function() {
-					$('div.login-register-popup-page').css({
-						width: ($('div.login-register-page').width() - 30) + 'px'
+				$('div.login-update-page').bind('pageshow', function() {
+					$('div.login-update-popup-page').css({
+						width: ($('div.login-update-page').width() - 30) + 'px'
 					}).popup('open');
 				});
 			</script>

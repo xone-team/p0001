@@ -10,30 +10,31 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page">
+	<div data-role="page" data-dom-cache="false">
 		<style type="text/css">
 			span.myspanstyle {
 				padding-left:5px;
 			}
 		</style>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
+			<a href="${pageContext.request.contextPath}/login/indexUpdate.html?_=${identify}" data-icon="check">更新</a>
 			<h1>用户中心</h1>
-			<a href="${pageContext.request.contextPath}/login/logout.html" data-icon="check" class="ui-btn-right">注销</a>
+			<a href="${pageContext.request.contextPath}/login/logout.html?_=${identify}" data-icon="check" class="ui-btn-right">注销</a>
 			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content">
 		    <div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
 		        <h3>用户信息</h3>
 				<ul data-role="listview" data-inset="true">
-				    <li data-icon="false"><a href="#">用户名:<span class="myspanstyle">${userMap.user.username}</span></a></li>
-				    <li data-icon="false"><a href="#">昵　称:<span class="myspanstyle">${userMap.user.nickName}</span></a></li>
-				    <li data-icon="false"><a href="#">手　机:<span class="myspanstyle">${userMap.user.cellphone}</span></a></li>
-				    <li data-icon="false"><a href="#">联系人:<span class="myspanstyle">${userMap.user.contactor}</span></a></li>
-				    <li data-icon="false"><a href="#">信　誉:<span class="myspanstyle"><c:choose><c:when test="${userMap.user.credit == '1'}">已认证</c:when><c:otherwise>未认证</c:otherwise></c:choose></span></a></li>
-				    <li data-icon="false"><a href="#">级　别:<span class="myspanstyle">${userMap.user.userLevel}</span></a></li>
-				    <li data-icon="false"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QQ:<span class="myspanstyle">${userMap.user.qq}</span></a></li>
-				    <li data-icon="false"><a href="#">邮　箱:<span class="myspanstyle">${userMap.user.email}</span></a></li>
-				    <li data-icon="false"><a href="#">地　址:<span class="myspanstyle">${userMap.user.address}</span></a></li>
+				    <li data-icon="false"><a href="#">用户名:<span class="myspanstyle">${userMap.username}</span></a></li>
+				    <li data-icon="false"><a href="#">昵　称:<span class="myspanstyle">${userMap.nickName}</span></a></li>
+				    <li data-icon="false"><a href="#">手　机:<span class="myspanstyle">${userMap.cellphone}</span></a></li>
+				    <li data-icon="false"><a href="#">联系人:<span class="myspanstyle">${userMap.contactor}</span></a></li>
+				    <li data-icon="false"><a href="#">信　誉:<span class="myspanstyle"><c:choose><c:when test="${userMap.credit == '1'}">已认证</c:when><c:otherwise>未认证</c:otherwise></c:choose></span></a></li>
+				    <li data-icon="false"><a href="#">级　别:<span class="myspanstyle">${userMap.userLevel}</span></a></li>
+				    <li data-icon="false"><a href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QQ:<span class="myspanstyle">${userMap.qq}</span></a></li>
+				    <li data-icon="false"><a href="#">邮　箱:<span class="myspanstyle">${userMap.email}</span></a></li>
+				    <li data-icon="false"><a href="#">地　址:<span class="myspanstyle">${userMap.address}</span></a></li>
 				    <li data-icon="refresh"><a href="#" onclick="window.main.loadPage('${pageContext.request.contextPath}/login/index.html');">刷新页面</a></li>
 				    <li><a href="#" onclick="window.main.loadIndex();" rel="external" data-icon="home">软件首页</a></li>
 				    <li><a href=”#” onclick=”javascript:navigator.app.exitApp();” data-icon="exit">退出软件</a></li>

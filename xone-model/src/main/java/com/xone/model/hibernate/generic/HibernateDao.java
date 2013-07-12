@@ -49,7 +49,7 @@ public interface HibernateDao <T extends Serializable> {
 	 *            实体对象
 	 * @return 实体对象
 	 */
-	public Object saveOrUpdate(Object entity);
+	public T saveOrUpdate(T entity);
 	
 	/**
 	 * 保存或更新对象拷贝

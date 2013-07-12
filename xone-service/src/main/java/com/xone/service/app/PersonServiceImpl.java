@@ -56,13 +56,18 @@ public class PersonServiceImpl implements PersonService {
 		return personDao.findAllByName(person.getUsername(), 0, 1);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.hunny.service.app.PersonService#save(com.hunny.model.persistence.sqldb.entries.app.Person)
-	 */
 	@Override
 	public Person save(Person p) {
 		if (null != p) {
 			return this.personDao.save(p);
+		}
+		return null;
+	}
+
+	@Override
+	public Person update(Person p) {
+		if (null != p) {
+			return this.personDao.update(p);
 		}
 		return null;
 	}

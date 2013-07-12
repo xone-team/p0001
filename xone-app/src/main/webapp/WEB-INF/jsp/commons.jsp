@@ -5,17 +5,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${STATIC_ROOT}/css/jquery.mobile-1.3.1.min.css" />
+	<link rel="stylesheet" href="${STATIC_ROOT}/css/msg.css" />
 <style type="text/css">
 .ui-content {
-	padding-top:0px;
-	padding-left:5px;
-	padding-right:5px;
+	padding-top: 0px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
+
 .ui-mybanner {
-	height:40px;
-	width:100%;
+	height: 40px;
+	width: 100%;
 	border: 1px solid gray;
-	text-align:center;
+	text-align: center;
 }
 </style>
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery-1.10.0.min.js"></script>

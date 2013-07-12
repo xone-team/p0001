@@ -9,7 +9,7 @@
 package com.xone.action.app.loginref;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -86,7 +86,7 @@ public class LoginRefAction extends Action {
 	}
 
 	public String init() {
-		if (!getUserMap().isEmpty() && null != getUserMap().get("user")) {
+		if (null != getUserMap() && !getUserMap().isEmpty()) {
 			setRedirect("login/main.html");
 			return "redirect";
 		}
@@ -114,12 +114,14 @@ public class LoginRefAction extends Action {
 			setRedirect("login/main.html");
 			return SUCCESS;
 		}
+		String msg = "用户不存在或者密码不正确。";
 		Person p = new Person();
 		p.setUsername(getPerson().getUsername());
 		List<Person> pList = personService.findAllByPerson(p);
 		if (pList.size() > 1 || pList.size() <= 0) {//没有记录或者能匹配到多个记录,都要求重新登陆
-			setRedirect(loginHtml);
-			return SUCCESS;
+			getMapValue().put("msg", msg);
+//			setRedirect(loginHtml);
+			return ERROR;
 		}
 		p = pList.get(0);
 		if (EncryptRef.SHA1(getPerson().getPassword()).equals(p.getPassword())) {
@@ -127,17 +129,17 @@ public class LoginRefAction extends Action {
 			Map porperties = null;
 			try {
 				porperties = BeanUtils.describe(p);
-				System.out.println(porperties);
 			} catch (Exception e) {
 				porperties = Collections.EMPTY_MAP;
 				e.printStackTrace();
 			}
 			map.put("user", porperties);
-			getSession().setAttribute(USER, map);
+			getSession().setAttribute(USER, porperties);
 //			getUserMap().put("", value)
 		} else {
-			setRedirect(loginHtml);
-			return SUCCESS;
+			getMapValue().put("msg", msg);
+//			setRedirect(loginHtml);
+			return ERROR;
 		}
 		setRedirect("login/main.html");
 		return SUCCESS;
@@ -148,26 +150,83 @@ public class LoginRefAction extends Action {
 		return SUCCESS;
 	}
 	
-	public String initRegister() {
+	public String indexUpdate() {
+		setMapValue(new HashMap<String, Object>());
+		Person p = new Person();
+		p.setUsername(getUsername());
+		List<Person> pList = personService.findAllByPerson(p);
+		if (pList.size() < 1) {//没有记录或者能匹配到多个记录,都要求重新登陆
+			getMapValue().put("msg", "用户不存在:");
+			return ERROR;
+		}
+		setPerson(pList.get(0));
 		return SUCCESS;
 	}
 	
 	public String register() {
-		HttpServletResponse response = getResponse();
+		setMapValue(new HashMap<String, Object>());
+		if (StringUtils.isBlank(getPerson().getPassword())) {
+			getMapValue().put("msg", "密码不能为空");
+			return ERROR;
+		}
+		if (StringUtils.isBlank(getPerson().getUsername())) {
+			getMapValue().put("msg", "用户不能为空");
+			return ERROR;
+		}
+		if (!getPerson().getPassword().equals(getPerson().getRepassword())) {
+			getMapValue().put("msg", "两次密码不一致");
+			return ERROR;
+		}
 		Person p = new Person();
 		p.setUsername(getPerson().getUsername());
 		List<Person> pList = personService.findAllByPerson(p);
-		if (pList.size() > 1) {//没有记录或者能匹配到多个记录,都要求重新登陆
-			writer(response, "该用户已经存在");
+		if (pList.size() >= 1) {//没有记录或者能匹配到多个记录,都要求重新登陆
+			getMapValue().put("msg", "该用户已经存在:" + getPerson().getUsername());
 			return ERROR;
 		}
 		p.setPassword(EncryptRef.SHA1(getPerson().getPassword()));
-		personService.save(p);
-		writer(response, "OK");
+		p.setUserLevel("C");
+		p = personService.save(p);
+		getMapValue().put("msg", "注册成功");
+		getMapValue().put("user", p);
 		return SUCCESS;
 	}
 	
-	private void writer(HttpServletResponse response, String message) {
+	public String update() {
+		if (StringUtils.isBlank(getPerson().getPassword())) {
+			getMapValue().put("msg", "密码不能为空");
+			return ERROR;
+		}
+		if (StringUtils.isBlank(getPerson().getUsername())) {
+			getMapValue().put("msg", "用户不能为空");
+			return ERROR;
+		}
+		if (!getPerson().getPassword().equals(getPerson().getRepassword())) {
+			getMapValue().put("msg", "两次密码不一致");
+			return ERROR;
+		}
+		Person p = new Person();
+		p.setUsername(getPerson().getUsername());
+		List<Person> pList = personService.findAllByPerson(p);
+		if (pList.size() < 1) {//没有记录或者能匹配到多个记录,都要求重新登陆
+			getMapValue().put("msg", "该用户不存在:" + getPerson().getUsername());
+			return ERROR;
+		}
+//		BeanUtils.copyProperties(dest, orig);
+		Person up = pList.get(0);
+		up.setPassword(EncryptRef.SHA1(getPerson().getPassword()));
+		up.setCellphone(getPerson().getCellphone());
+		up.setContactor(getPerson().getContactor());
+		up.setQq(getPerson().getQq());
+		up.setEmail(getPerson().getEmail());
+		up.setAddress(getPerson().getAddress());
+		p = personService.update(up);
+		getMapValue().put("msg", "用户更新成功");
+		getMapValue().put("user", p);
+		return SUCCESS;
+	}
+	
+	protected void writer(HttpServletResponse response, String message) {
 		try {
 			response.getWriter().write(message);
 		} catch (IOException e) {
