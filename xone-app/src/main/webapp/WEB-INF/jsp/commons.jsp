@@ -18,6 +18,26 @@
 	width: 100%;
 	border: 1px solid gray;
 	text-align: center;
+	overflow: hidden;
+}
+.ui-mybanner ul {
+	padding:0px;
+	margin:0px;
+	width:100%;
+}
+.ui-mybanner ul li {
+	padding:0px;
+	margin:0px;
+	width:100%;
+}
+.ui-mybanner-link {
+	height: 40px;
+	overflow: hidden;
+}
+.ui-mybanner-link a {
+	clear:both;
+	top:0px;
+	margin:0px;
 }
 </style>
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery-1.10.0.min.js"></script>
@@ -46,3 +66,19 @@ $(document).bind("mobileinit", function() {
 });
 </script>
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery.mobile-1.3.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/myadbanner.js"></script>
+<<script type="text/javascript">
+<!--
+	globalAdBanner();
+// 	setInterval('globalAdBanner()', 5000);//数据请求的间隔
+	function globalAdBanner() {
+		$('body').myadbanner({
+			url: '${pageContext.request.contextPath}/adbanner/index.html',
+			testUrl: '${pageContext.request.contextPath}/adbanner/list.html',
+			data: {
+				'_': new Date().getTime()
+			}
+		});
+	}
+//-->
+</script>

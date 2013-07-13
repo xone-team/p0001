@@ -20,7 +20,6 @@
 			<a href="${pageContext.request.contextPath}/login/indexUpdate.html?_=${identify}" data-icon="check">更新</a>
 			<h1>用户中心</h1>
 			<a href="${pageContext.request.contextPath}/login/logout.html?_=${identify}" data-icon="check" class="ui-btn-right">注销</a>
-			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content">
 		    <div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">

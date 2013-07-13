@@ -27,7 +27,6 @@
 			        </form>
 			    </div>
 			</div>
-			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div class="assistantcontent" data-role="content">
 		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
@@ -66,7 +65,6 @@
 // 			$('a.btn-banner').css({
 // 				marginTop: '28px'
 // 			});
-			$('div.ui-mybanner').html('assistant:' + new Date().getTime());
 			$('a.assistantpopuplink').click(function(e) {
 				e.preventDefault();
 				$('div.assistantpopuplogin').open();

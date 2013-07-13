@@ -13,7 +13,6 @@
 	<div data-role="page" class="purchase-main-page">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<h1>求购列表</h1>
-			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content">
 			<div style="height:10px">&nbsp;</div>
@@ -70,7 +69,6 @@
 					$('ul.ul-purchase-list').append(html).listview('refresh');
 				}
 			});
-	        $('div.ui-mybanner').html('purchase广告位' + new Date().getTime());
 		});
 	</script>>
 	</body>

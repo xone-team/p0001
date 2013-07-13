@@ -98,6 +98,10 @@ public class LoginRefAction extends Action {
 	}
 	
 	public String main() {
+		if (null == getUserMap() || getUserMap().isEmpty()) {
+			setRedirect("login/index.html");
+			return "redirect";
+		}
 		return SUCCESS;
 	}
 	

@@ -21,7 +21,6 @@
 			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html?_=${identify}">组团产品</a></li>
 			    </ul>
 			</div>
-			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div class="product-list" data-role="content" data-iscroll>
 			<div class="iscroll-pulldown">
@@ -64,17 +63,14 @@
 		<script defer="defer" type="text/javascript">
 			$(document).delegate('div.product-page', "pageinit", function(event) {
 				$('a.allproducts').addClass('ui-btn-active');
-		        $('div.ui-mybanner').html('product-main' + new Date().getTime());
 			});
 			$('div.product-page').bind("pageinit", function(event) {
 				$('div.product-list').mypullupdown({
 					url:'${pageContext.request.contextPath}/product/listMobileMore.html',
 					down: function(html) {
-						$('div.ui-mybanner').html('down at' + new Date().getTime());
 						$('ul[data-id="listview"]').prepend(html).listview('refresh');
 					},
 					up: function(html) {
-						$('div.ui-mybanner').html('up at' + new Date().getTime());
 						$('ul[data-id="listview"]').append(html).listview('refresh');
 					}
 				});

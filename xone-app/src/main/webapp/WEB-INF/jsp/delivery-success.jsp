@@ -13,7 +13,6 @@
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${identify}" data-icon="check" class="btn-banner">返回</a>
 			<h1>物流配送</h1>
-			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content" data-dom-cache="false">
 			<ul class="delivery-success-view" data-role="listview" data-inset="true" data-mini="true">
@@ -22,7 +21,6 @@
 			</ul>
 			<script type="text/javascript" language="javascript">
 				$(document).delegate('div.deliverysuccesspage', "pageinit", function() {
-					$('div.ui-mybanner').html(new Date().getTime());
 					$.ajax({
 						type: 'GET',
 						url: '${pageContext.request.contextPath}/delivery/itemDetails.html',

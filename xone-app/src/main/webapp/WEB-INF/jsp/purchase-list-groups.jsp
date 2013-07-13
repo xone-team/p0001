@@ -18,7 +18,6 @@
 <%-- 			        <li><a href="${pageContext.request.contextPath}/purchase/listGroups.html" class="ui-btn-active">合购产品</a></li> --%>
 <!-- 			    </ul> -->
 <!-- 			</div> -->
-			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content">
 			<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d" style="margin-bottom:15px;">

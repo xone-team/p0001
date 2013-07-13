@@ -14,7 +14,6 @@
 			<a href="${pageContext.request.contextPath}/login/indexUpdate.html?_=${identify}" data-icon="check">返回</a>
 			<h1>用户更新</h1>
 			<a href="${pageContext.request.contextPath}/login/index.html?_=${identify}" data-icon="check" class="btn-banner">登录</a>
-			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content">
 			<div style="height:15px">&nbsp;</div>

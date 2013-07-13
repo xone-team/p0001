@@ -25,7 +25,6 @@
 			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html?_=${identify}">组团产品</a></li>
 			    </ul>
 			</div>
-			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content" style="padding-top:2px;">
 			<div class="searchconditionssales" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
@@ -123,7 +122,6 @@
 					$('div.searchconditionssales').show();
 				}
 			});
-	        $('div.ui-mybanner').html('product-sale' + new Date().getTime());
 		});
 	</script>
 	</body>

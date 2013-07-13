@@ -19,13 +19,11 @@
 			<a href="${pageContext.request.contextPath}/delivery/listIndex.html?_=${identify}" data-icon="check" class="btn-banner">返回</a>
 			<h1>物流配送详情</h1>
 			<a href="#" class="delivery-item-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
-			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div data-role="content" data-dom-cache="false">
 			<ul class="delivery-item-page-view" data-role="listview" data-inset="true" data-mini="true"></ul>
 			<script type="text/javascript" language="javascript">
 				$('div.deliveryitempage').bind("pageinit", function() {
-					$('div.ui-mybanner').html(new Date().getTime());
 					doRequest();
 					$('a.delivery-item-page-refresh').click(function(e) {
 						doRequest();

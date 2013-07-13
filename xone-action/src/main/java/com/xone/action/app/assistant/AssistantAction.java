@@ -7,7 +7,7 @@ public class AssistantAction extends Action {
 	protected String redirect;
 
 	public String main() {
-		if (getUserMap().isEmpty() || null == getUserMap().get("user")) {
+		if (null == getUserMap() || getUserMap().isEmpty()) {
 			setRedirect("assistant/index.html");
 			return "redirect";
 		}

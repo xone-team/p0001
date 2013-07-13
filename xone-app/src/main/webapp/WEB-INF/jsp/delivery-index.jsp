@@ -6,15 +6,17 @@
 <html>
 	<head>
 		<title>Hello World</title>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<jsp:include page="commons.jsp"></jsp:include>
+		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page" class="deliverypage${identify}">
+	<div data-role="page" class="deliverypage${identify}" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${identify}" data-icon="check" class="btn-banner">返回</a>
 			<h1>物流配送</h1>
 			<a href="#" rel="external" data-icon="check" data-role="button" class="deliverysave ui-btn-right">保存</a>
-			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div class="deliverycontent" data-role="content" data-dom-cache="false">
 			<form class="deliveryform" method="post" action="${pageContext.request.contextPath}/delivery/create.html?_=${identify}" autocomplete="off">
@@ -91,13 +93,11 @@
 		<script type="text/javascript" language="javascript">
 // 			$(document).delegate('div.deliverypage${identify}', "pageinit", function() {
 			$(document).on("pageinit", function() {
-				$('div.ui-mybanner').html('Delivery:' + new Date().getTime());
 				$('div.deliverycontent').css({
 					paddingTop: '0px'
 				});
 				$('a.deliverysave').click(function(e) {
 					e.preventDefault();
-					$('div.ui-mybanner').html('form count:' + $('form.deliveryform${identify}').length);
 					$('form.deliveryform').submit();
 // 					$('form.deliveryform${identify}').submit(function() {
 // 						return true;

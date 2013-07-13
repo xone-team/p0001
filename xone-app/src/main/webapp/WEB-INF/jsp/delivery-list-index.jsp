@@ -17,7 +17,6 @@
 			<a href="${pageContext.request.contextPath}/login/index.html?_=${identify}" data-icon="check">返回</a>
 			<h1>我的物流配送列表</h1>
 			<a href="#" class="delivery-list-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
-			<div class="ui-mybanner">此处是广告位</div>
 		</div>
 		<div class="delivery-list-content" data-role="content" data-iscroll>
 			<div class="iscroll-pulldown">
@@ -54,15 +53,12 @@
 						}
 					},
 					down: function(html) {
-						$('div.ui-mybanner').html('down at' + new Date().getTime());
 						$('ul.delivery-list-view').prepend(html).listview('refresh');
 					},
 					up: function(html) {
-						$('div.ui-mybanner').html('up at' + new Date().getTime());
 						$('ul.delivery-list-view').append(html).listview('refresh');
 					}
 				});
-		        $('div.ui-mybanner').html('delivery-main' + new Date().getTime());
 	        	doRequest();
 				$('a.delivery-list-page-refresh').click(function(e) {
 					$('ul.delivery-list-view').html('<li data-role="list-divider">数据加载中，请稍候...</li>').listview('refresh');
