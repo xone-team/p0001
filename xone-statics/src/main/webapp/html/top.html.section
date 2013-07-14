@@ -1,0 +1,18 @@
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="brand" href="#">导航 »</a>
+				<div class="nav-collapse collapse">
+					<p class="navbar-text pull-right">
+						欢迎您！ <a href="#" class="navbar-link">张三</a>
+					</p>
+					<ul class="nav">
+						<li><a href="#">首页</a></li>
+						<li class="active"><a href="#">后台</a></li>
+						<li><a href="#about">关于</a></li>
+						<li><a href="#contact">联系</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
