@@ -52,8 +52,8 @@ $(document).bind("mobileinit", function() {
 // 		$.mobile.defaultDialogTransition = 'none';  
 // 	}
 	$.extend($.mobile, {
-		defaultPageTransition:'none',
-		defaultDialogTransition:'none',
+		defaultPageTransition:'slide',
+// 		defaultDialogTransition:'none',
 		linkBindingEnabled: true,
 		pageLoadErrorMessage: '哇～～网络不给力呀！',
 		transitionFallbacks: 'none',

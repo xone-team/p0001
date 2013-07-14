@@ -66,10 +66,12 @@ public class GenerateTableToEntityAndHbmXml {
 		hibernateXml.append("\t\"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd\">\n");
 		hibernateXml.append("<hibernate-mapping>\n");
 		hibernateXml.append("\t<class name=\"");
+		String tableJavaName = tableName(tableName);
+		String tableJavaVar = firstToLower(tableJavaName);
 		if (!StringUtils.isBlank(this.packageName)) {
 			hibernateXml.append(this.packageName);
 			hibernateXml.append(".");
-			hibernateXml.append(tableName(tableName));
+			hibernateXml.append(tableJavaName);
 		}
 		hibernateXml.append("\" table=\"");
 		hibernateXml.append(tableName.toUpperCase());
@@ -97,6 +99,144 @@ public class GenerateTableToEntityAndHbmXml {
 		System.out.println("+-------------------------------------------------+");
 		System.out.println(hibernateXml.toString());
 		System.out.println("+-----------------+");
+		System.out.println("+-------------------------------------------------+");
+		System.out.println("+-------------------Dao&DaoImpl-------------------+");
+		System.out.println("+------java & xml files---------------------------+");
+		System.out.println("+-------------------------------------------------+");
+		StringBuffer daoBuffer = new StringBuffer();
+		daoBuffer.append("package com.xone.model.hibernate.app;\n\n");
+		daoBuffer.append("import com.xone.model.hibernate.entity.");
+		daoBuffer.append(tableJavaName);
+		daoBuffer.append(";\n");
+		daoBuffer.append("import com.xone.model.hibernate.generic.HibernateDao;\n\n");
+		daoBuffer.append("public interface ");
+		daoBuffer.append(tableJavaName);
+		daoBuffer.append("Dao extends HibernateDao<");
+		daoBuffer.append(tableJavaName);
+		daoBuffer.append("> {\n\n\n");
+		daoBuffer.append("}\n");
+		System.out.println(daoBuffer.toString());
+		System.out.println("+-------------------------------------------------+");
+		StringBuffer daoImplBuffer = new StringBuffer();
+		daoImplBuffer.append("package com.xone.model.hibernate.app;\n\n");
+		daoImplBuffer.append("import com.xone.model.hibernate.entity.");
+		daoImplBuffer.append(tableJavaName);
+		daoImplBuffer.append(";\n");
+		daoImplBuffer.append("import com.xone.model.hibernate.generic.AbstractHibernateDao;\n\n");
+		daoImplBuffer.append("public class ");
+		daoImplBuffer.append(tableJavaName);
+		daoImplBuffer.append("DaoImpl extends AbstractHibernateDao<");
+		daoImplBuffer.append(tableJavaName);
+		daoImplBuffer.append("> implements ");
+		daoImplBuffer.append(tableJavaName);
+		daoImplBuffer.append("Dao {\n\n\n");
+		daoImplBuffer.append("}\n");
+		System.out.println(daoImplBuffer.toString());
+		System.out.println("+-------------------------------------------------+");
+		StringBuffer daoXmlBuffer = new StringBuffer();
+		daoXmlBuffer.append("<bean id=\"");
+		daoXmlBuffer.append(tableJavaVar);
+		daoXmlBuffer.append("Dao\" class=\"com.xone.model.hibernate.app.");
+		daoXmlBuffer.append(tableJavaName);
+		daoXmlBuffer.append("DaoImpl\" parent=\"abstractHibernateDao\" />");
+		System.out.println(daoXmlBuffer.toString());
+		System.out.println("+-------------------------------------------------+");
+		System.out.println();
+		System.out.println("+-------------------------------------------------+");
+		System.out.println("+---------------Service&ServiceImpl---------------+");
+		System.out.println("+------java & xml files---------------------------+");
+		System.out.println("+-------------------------------------------------+");
+		StringBuffer serviceBuffer = new StringBuffer();
+		serviceBuffer.append("package com.xone.service.app;\n\n");
+		serviceBuffer.append("import com.xone.model.hibernate.entity.");
+		serviceBuffer.append(tableJavaName);
+		serviceBuffer.append(";\n");
+		serviceBuffer.append("public interface ");
+		serviceBuffer.append(tableJavaName);
+		serviceBuffer.append("Service {\n\n");
+		serviceBuffer.append("public ");
+		serviceBuffer.append(tableJavaName);
+		serviceBuffer.append(" save(");
+		serviceBuffer.append(tableJavaName);
+		serviceBuffer.append(" entity);");
+		serviceBuffer.append("\n");
+		serviceBuffer.append("\n");
+		serviceBuffer.append("public ");
+		serviceBuffer.append(tableJavaName);
+		serviceBuffer.append(" findById(Long id);");
+		serviceBuffer.append("\n");
+		serviceBuffer.append("}\n");
+		System.out.println(serviceBuffer.toString());
+		System.out.println("+-------------------------------------------------+");
+		StringBuffer serviceImplBuffer = new StringBuffer();
+		serviceImplBuffer.append("package com.xone.service.app;\n\n");
+		serviceImplBuffer.append("import org.springframework.beans.factory.annotation.Autowired;\n\n");
+		serviceImplBuffer.append("import com.xone.model.hibernate.app.");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append("Dao;\n");
+		serviceImplBuffer.append("import com.xone.model.hibernate.entity.");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append(";\n");
+		serviceImplBuffer.append("public class ");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append("ServiceImpl implements ");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append("Service {\n\n\n");
+
+		serviceImplBuffer.append("@Autowired\n");
+		serviceImplBuffer.append("protected ");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append("Dao ");
+		serviceImplBuffer.append(tableJavaVar);
+		serviceImplBuffer.append("Dao;\n\n");
+		
+		serviceImplBuffer.append("@Override\n");
+		serviceImplBuffer.append("public ");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append(" save(");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append(" entity) {\n");
+		serviceImplBuffer.append("return get");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append("Dao().save(entity);\n");
+		serviceImplBuffer.append("}\n");
+		
+		serviceImplBuffer.append("@Override\n");
+		serviceImplBuffer.append("public ");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append(" findById(Long id) {\n");
+		serviceImplBuffer.append("return get");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append("Dao().findById(id);\n");
+		serviceImplBuffer.append("}\n");
+		
+		serviceImplBuffer.append("}\n");
+		System.out.println(serviceImplBuffer.toString());
+		System.out.println("+-------------------------------------------------+");
+		StringBuffer serviceXmlBuffer = new StringBuffer();
+		serviceXmlBuffer.append("<bean id=\"");
+		serviceXmlBuffer.append(tableJavaVar);
+		serviceXmlBuffer.append("Service\" class=\"com.xone.service.app.");
+		serviceXmlBuffer.append(tableJavaName);
+		serviceXmlBuffer.append("ServiceImpl\" />");
+		System.out.println(serviceXmlBuffer.toString());
+		System.out.println("+-------------------------------------------------+");
+		System.out.println();
+		System.out.println("+-------------------------------------------------+");
+		System.out.println("+-----------------------Action--------------------+");
+		System.out.println("+------java & xml files---------------------------+");
+		System.out.println("+-------------------------------------------------+");
+		System.out.println();
+		System.out.println("+-------------------------------------------------+");
+		System.out.println("+-----------------struts-xxx.xml------------------+");
+		System.out.println("+------namespace, actions-------------------------+");
+		System.out.println("+-------------------------------------------------+");
+		System.out.println();
+		System.out.println("+-------------------------------------------------+");
+		System.out.println("+-----------------xxxxxx-xxx.jsp------------------+");
+		System.out.println("+----list, create, update, delete, details--------+");
+		System.out.println("+-------------------------------------------------+");
+		System.out.println();
 	}
 	
 	public String generateId(String columnName, String type, String length) {
@@ -211,6 +351,16 @@ public class GenerateTableToEntityAndHbmXml {
 			column = String.valueOf(cs).replaceAll("_", "");
 		}
 		return column;
+	}
+	
+	public String firstToLower(String name) {
+		if (StringUtils.isBlank(name)) {
+			return "";
+		}
+		if (name.length() == 1) {
+			return name.toLowerCase();
+		}
+		return name.substring(0, 1).toLowerCase() + name.substring(1);
 	}
 	
 	/**

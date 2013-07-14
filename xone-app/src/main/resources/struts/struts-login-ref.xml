@@ -14,7 +14,7 @@
 		</action>
 		<action name="main" class="loginRefAction" method="main">
 			<result name="success">/WEB-INF/jsp/login-main.jsp</result>
-			<result name="redirect">${ROOT}/${redirect}</result>
+			<result name="redirect" type="redirect">${ROOT}/${redirect}</result>
 		</action>
 		<action name="indexRegister" class="loginRefAction" method="indexRegister">
 			<result name="success">/WEB-INF/jsp/login-register-page.jsp</result>

@@ -29,7 +29,7 @@
 			</div>
 		</div>
 		<div class="assistantcontent" data-role="content">
-		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
+		    <div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
 		        <h3>售卖发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 				    <li><a href="#">产品发布</a></li>
@@ -37,10 +37,10 @@
 				    <li><a href="#">组团发布</a></li>
 				</ul>
 		    </div>
-		    <div data-role="collapsible" data-theme="b" data-content-theme="d">
+		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
 		        <h3>购买发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
-				    <li><a href="#">求购发布</a></li>
+				    <li><a href="${pageContext.request.contextPath}/purchase/indexAdd.html?_=${identify}">求购发布</a></li>
 <!-- 				    <li><a href="#">合购发布</a></li> -->
 				</ul>
 		    </div>

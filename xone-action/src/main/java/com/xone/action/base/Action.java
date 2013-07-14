@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
@@ -90,6 +91,10 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 		request.setAttribute("ROOT", requestURL.substring(0, length + contextPath.length()));
 		request.setAttribute("HTML_ID", new Date().getTime());
 		request.setAttribute("STATIC_ROOT", ConfigUtils.getStaticRoot(requestURL.substring(0, length)));
+	}
+	
+	public final String getStaticRoot() {
+		return (String)request.getAttribute("STATIC_ROOT");
 	}
 	
 	public HttpSession getSession() {

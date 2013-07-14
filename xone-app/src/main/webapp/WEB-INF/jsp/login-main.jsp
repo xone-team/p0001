@@ -51,7 +51,6 @@
 		        <h3>我的购买发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 				    <li><a href="#">查看求购发布列表</a></li>
-				    <li><a href="#">查看合购发布列表</a></li>
 				</ul>
 		    </div>
 		    <div data-role="collapsible" data-theme="b" data-content-theme="d">

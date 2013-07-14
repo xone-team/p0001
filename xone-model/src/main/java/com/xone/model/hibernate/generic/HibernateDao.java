@@ -75,6 +75,8 @@ public interface HibernateDao <T extends Serializable> {
 	 */
 	public T deleteById(Serializable id);
 	
+	public T findById(Serializable id);
+	
 	/**
 	 * 
 	 * 根据ID批量删除。

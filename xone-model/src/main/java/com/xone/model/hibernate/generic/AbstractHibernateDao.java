@@ -153,6 +153,7 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 		Assert.notNull(entity);
 		getHibernateTemplate().delete(entity);
 	}
+	
 	/**
 	 * 根据ID删除记录
 	 * 
@@ -165,6 +166,19 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 		getHibernateTemplate().delete(entity);
 		return entity;
 	}
+	
+	/**
+	 * 根据ID删除记录
+	 * 
+	 * @param id
+	 *            记录ID
+	 */
+	public T findById(Serializable id) {
+		Assert.notNull(id);
+		return load(id);
+	}
+	
+	
 	/**
 	 * 
 	 * 根据ID批量删除。

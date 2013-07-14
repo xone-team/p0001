@@ -12,5 +12,10 @@
 				<param name="redirect">${redirect}</param>
 			</result>
 		</action>
+		<action name="image" class="assistantAction" method="image">
+		    <result name="error" type="redirect">
+		        <param name="location">${STATIC_ROOT}/image/photo-not-available.jpg</param>
+		    </result>
+		</action>
 	</package>
 </struts>

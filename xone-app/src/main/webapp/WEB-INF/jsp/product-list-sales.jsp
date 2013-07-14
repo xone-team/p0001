@@ -106,7 +106,15 @@
 	</div>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${identify}"></script>
 	<script type="text/javascript">
-		$(document).delegate('div.sales-page', "pageinit", function(event) {
+		$('div.sales-page').bind('pageinit', function(event) {
+			$('a.navbartabs').click(function(e) {
+				e.preventDefault();
+				$('div.salesearchclass').hide();
+				$('a.navbartabs').removeClass('ui-btn-active');
+				var t = $(this);
+				$('div[data-id="' + t.attr('href') + '"]').show();
+				t.addClass('ui-btn-active');
+			});
 			$('div.sales-list').mypullupdown({
 				url:'${pageContext.request.contextPath}/product/listMobileMore.html',
 				down: function(html) {
@@ -116,10 +124,12 @@
 					$('ul.sales-listview').append(html).listview('refresh');
 				},
 				downed: function() {
-					$('div.searchconditionssales').hide();
+// 					$('div.searchconditionssales').hide();
+// 					$.mobile.activePage.trigger("refresh");
 				},
 				uped: function() {
-					$('div.searchconditionssales').show();
+// 					$('div.searchconditionssales').show();
+// 					$.mobile.activePage.trigger("refresh");
 				}
 			});
 		});

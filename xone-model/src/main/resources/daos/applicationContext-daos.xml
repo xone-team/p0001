@@ -12,4 +12,6 @@
 <!-- 	<bean id="personDao" class="com.xone.model.persistence.sqldb.dao.app.PersonDaoImpl" scope="singleton" /> -->
 	<bean id="personDao" class="com.xone.model.hibernate.app.PersonDaoImpl" parent="abstractHibernateDao"/>
 	<bean id="deliveryDao" class="com.xone.model.hibernate.app.DeliveryDaoImpl" parent="abstractHibernateDao"/>
+	<bean id="purchaseDao" class="com.xone.model.hibernate.app.PurchaseDaoImpl" parent="abstractHibernateDao"/>
+	<bean id="imageUploadedDao" class="com.xone.model.hibernate.app.ImageUploadedDaoImpl" parent="abstractHibernateDao" />
 </beans>
