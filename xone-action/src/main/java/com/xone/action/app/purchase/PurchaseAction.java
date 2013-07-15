@@ -1,10 +1,17 @@
 package com.xone.action.app.purchase;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
+import com.xone.model.hibernate.entity.Delivery;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Purchase;
+import com.xone.model.utils.DateUtils;
 import com.xone.service.app.PurchaseService;
 
 public class PurchaseAction extends Action {
@@ -16,6 +23,7 @@ public class PurchaseAction extends Action {
 	
 	protected Purchase purchase;
 	protected ImageUploaded imageUploaded;
+	protected List<Purchase> list = new ArrayList<Purchase>();
 	
 	public String listAll() {
 		return SUCCESS;
@@ -40,6 +48,26 @@ public class PurchaseAction extends Action {
 		image.setImage(aImage[1]);
 		setPurchase(purchaseService.save(getPurchase(), image));
 		return SUCCESS;
+	}
+	
+	public String listItems() {
+		Map<String, String> map = getRequestMap();
+		Map<String, String> params = new HashMap<String, String>();
+		if ("down".equals(map.get("itemaction"))) {
+			params.put("gtDateCreated", DateUtils.format(getPurchase().getDateCreated()));
+		} else if ("up".equals(map.get("itemaction"))) {
+			params.put("ltDateCreated", DateUtils.format(getPurchase().getDateCreated()));
+		}
+		setList(purchaseService.findAllByMap(params));
+		return SUCCESS;
+	}
+
+	public List<Purchase> getList() {
+		return list;
+	}
+
+	public void setList(List<Purchase> list) {
+		this.list = list;
 	}
 
 	public Purchase getPurchase() {

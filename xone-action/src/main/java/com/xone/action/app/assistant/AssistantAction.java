@@ -42,21 +42,7 @@ public class AssistantAction extends Action {
 				return null;
 			}
 			ImageUploaded imageUploaded = getImageUploadedService().findById(id);
-//			BufferedReader bufferedReader = new BufferedReader(new FileReader("C:/Users/Hunny/Desktop/encodedImage.txt"));
-//			StringBuffer buffer = new StringBuffer();
-//			String text = null;
-//			while ((text = bufferedReader.readLine()) != null) {
-//				System.out.println(text);
-//				buffer.append(text);
-//			}
-//			bufferedReader.close();
-//			BufferedImage bufferedImage = ImageUtils.decodeToImage(buffer.toString());
 			BufferedImage bufferedImage = ImageUtils.decodeToImage(imageUploaded.getImage());
-//			File outputfile = new File("C:/Users/Hunny/Desktop/" + System.currentTimeMillis() + ".tmp");
-//			ImageIO.write(bufferedImage, "jpeg", outputfile);
-//			FileInputStream fileInputStream = new FileInputStream(outputfile);
-//			outputImage("image/jpeg", (int)outputfile.length(), fileInputStream);
-//			outputfile.delete();
 
 			response.setContentType(StringUtils.isBlank(imageUploaded.getImageType()) ? "image/jpeg" : imageUploaded.getImageType());
 			OutputStream out = response.getOutputStream();

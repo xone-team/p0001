@@ -19,5 +19,8 @@
 		<action name="create" class="purchaseAction" method="create">
 			<result name="success">/WEB-INF/jsp/purchase-create-success.jsp</result>
 		</action>
+		<action name="listItems" class="purchaseAction" method="listItems">
+			<result name="success">/WEB-INF/jsp/purchase-list-items.jsp</result>
+		</action>
 	</package>
 </struts>

@@ -22,7 +22,6 @@
 			<form class="purchaseform" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/purchase/create.html?_=${identify}" autocomplete="off">
 				<input type="hidden" class="imageUploadedImage" name="imageUploaded.image" value="" autocomplete="off"/>
 				<ul class="purchaselistview" data-role="listview" data-inset="true" data-mini="true">
-					<li data-role="list-divider"><h4>填写求购信息</h4></li>
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
@@ -80,7 +79,7 @@
 				    	</table>
 				    </li>
 					<li>
-					 	<input type="file" name="file" id="uploadImage" value=""/>
+					 	<input type="file" name="file" id="uploadImage" accept="image/*" capture="camera" value=""/>
 					</li>
 					<li>
 					 	<input type="submit" value="确认发布" class="submit${identify}"/>

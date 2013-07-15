@@ -25,7 +25,7 @@
 	<property name="lastUpdated" type="java.util.Date">
 		<column name="LAST_UPDATED" length="19"/>
 	</property>
-	<property name="image" type="java.lang.String">
+	<property name="image" type="java.lang.String" lazy="true">
 		<column name="IMAGE" length="715827882"/>
 	</property>
 	</class>

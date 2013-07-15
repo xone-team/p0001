@@ -13,6 +13,7 @@
 	<div data-role="page" class="purchase-main-page">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<h1>求购列表</h1>
+			<a href="#" class="purchase-list-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
 		</div>
 		<div data-role="content">
 			<div style="height:10px">&nbsp;</div>
@@ -22,30 +23,7 @@
 			        <span class="iscroll-pull-label"></span>
 				</div>
 				<ul class="ul-purchase-list" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true">
-		        	<li><a href="#">
-		            	<img src="${STATIC_ROOT}/image/lumia_800.png">
-		            	<h2>WP 7.8</h2>
-		                <p>Nokia rolls out WP 7.8 to Lumia 800</p>
-		                <p class="ui-li-aside">Windows Phone</p>
-		            </a></li>
-		        	<li><a href="#">
-		            	<img src="${STATIC_ROOT}/image/galaxy_express.png">
-		            	<h2>Galaxy</h2>
-		                <p>New Samsung Galaxy Express</p>
-		                <p class="ui-li-aside">Samsung</p>
-		            </a></li>
-		        	<li><a href="#">
-		            	<img src="${STATIC_ROOT}/image/nexus_7.png">
-		            	<h2>Nexus 7</h2>
-		                <p>Rumours about new full HD Nexus 7</p>
-		                <p class="ui-li-aside">Android</p>
-		            </a></li>
-		        	<li><a href="#">
-		            	<img src="${STATIC_ROOT}/image/firefox_os.png">
-		            	<h2>Firefox OS</h2>
-		                <p>ZTE to launch Firefox OS smartphone at MWC</p>
-		                <p class="ui-li-aside">Firefox</p>
-		            </a></li>
+		        	<li data-role="list-divider">数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>
@@ -57,18 +35,58 @@
 			<jsp:param value="2" name="offset"/>
 		</jsp:include>
 	</div>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${identify}"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js"></script>
 	<script type="text/javascript">
-		$(document).delegate('div.purchase-main-page', "pageinit", function(event) {
+		$('div.purchase-main-page').bind("pageinit", function(event) {
 			$('div.purchase-list-main').mypullupdown({
-				url:'${pageContext.request.contextPath}/product/listMobileMore.html',
+				url:'${pageContext.request.contextPath}/purchase/listItems.html',
+				onDown: function() {
+					var item = $('li.purchasedatecreateditem');
+					return {
+						'itemcount': item.length,
+						'itemaction': 'down',
+						'purchase.dateCreated': item.first().attr('timestamp')
+					}
+				},
+				onUp: function() {
+					var item = $('li.purchasedatecreateditem');
+					return {
+						'itemcount': item.length,
+						'itemaction': 'up',
+						'purchase.dateCreated': item.last().attr('timestamp')
+					}
+				},
 				down: function(html) {
 					$('ul.ul-purchase-list').prepend(html).listview('refresh');
+// 					fixedPurchaseImage();
 				},
 				up: function(html) {
 					$('ul.ul-purchase-list').append(html).listview('refresh');
+					fixedPurchaseImage();
 				}
 			});
+        	doRequest();
+			$('a.purchase-list-page-refresh').click(function(e) {
+				$('ul.ul-purchase-list').html('<li data-role="list-divider">数据加载中，请稍候...</li>').listview('refresh');
+				doRequest();
+			});
+			$('div.purchase-main-page').data('eventbinding', true);
+			function doRequest() {
+				$.ajax({
+					type: 'GET',
+					url: '${pageContext.request.contextPath}/purchase/listItems.html',
+					data: '_=' + new Date().getTime(),
+					success: function(html) {
+						$('ul.ul-purchase-list').html(html).listview('refresh');
+						fixedPurchaseImage();
+					}
+				});
+			}
+			function fixedPurchaseImage() {
+				var height = $('li.purchasedatecreateditem:eq(0)').height();
+				var css = ['<style type="text/css"> img.purchaseliimage {width:', 80, 'px;', 'width:', 80, 'px;}</style>'];
+				$('div.purchase-main-page').append(css.join(''));
+			}
 		});
 	</script>>
 	</body>

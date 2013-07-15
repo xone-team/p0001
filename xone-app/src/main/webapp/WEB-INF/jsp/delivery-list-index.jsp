@@ -31,7 +31,7 @@
 				<span class="iscroll-pull-label"></span>
 			</div>
 		</div>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${identify}"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js"></script>
 		<script defer="defer" type="text/javascript">
 			$('div.delivery-list-index-page').bind("pageinit", function(event) {
 				$('div.delivery-list-content').mypullupdown({
