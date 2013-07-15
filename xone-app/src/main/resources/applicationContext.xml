@@ -24,17 +24,21 @@
 		<property name="locations">
 			<list>
 				<value>classpath*:database-mysql.properties</value>
+	      		<value>classpath*:config.properties</value>
 			</list>
 		</property>
 	</bean>
 <!-- 	<context:property-placeholder location="classpath*:config.properties"/> -->
-	<bean id="myProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-	  <property name="locations">
-	    <list>
-	      <value>classpath*:config.properties</value>
-	    </list>
-	  </property>
-	</bean>
+<!-- 	<bean id="myProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"> -->
+<!-- 	  <property name="locations"> -->
+<!-- 	    <list> -->
+<!-- 	      <value>classpath*:config.properties</value> -->
+<!-- 	    </list> -->
+<!-- 	  </property> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"> -->
+<!--         <property name="properties"><ref bean="appConfig"></ref></property>         -->
+<!--     </bean> -->
 	
 	<!-- 引用@Autowired必须定义这个bean --> 
 	<bean class="org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor"/>

@@ -60,7 +60,9 @@
 </li>
 <li data-role="list-divider">产品图片</li>
 <c:forEach var="item" items="${purchase.ids}">
-<li class="purchaseimage">
-	<img src="${pageContext.request.contextPath}/assistant/image.html?id=${item}" alt="" width="100%" height="100%"/>
+<li data-role="none" style="padding:0px;">
+	<div class="purchaseimage" >
+		<img src="${pageContext.request.contextPath}/assistant/image.html?id=${item}" alt="" width="100%" height="100%"/>
+	</div>
 </li>
 </c:forEach>

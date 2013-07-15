@@ -31,63 +31,61 @@
 				</div>
 			</div>
 		</div>
-		<jsp:include page="footer.jsp">
-			<jsp:param value="2" name="offset"/>
-		</jsp:include>
-	</div>
-	<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js"></script>
-	<script type="text/javascript">
-		$('div.purchase-main-page').bind("pageinit", function(event) {
-			$('div.purchase-list-main').mypullupdown({
-				url:'${pageContext.request.contextPath}/purchase/listItems.html',
-				onDown: function() {
-					var item = $('li.purchasedatecreateditem');
-					return {
-						'itemcount': item.length,
-						'itemaction': 'down',
-						'purchase.dateCreated': item.first().attr('timestamp')
-					}
-				},
-				onUp: function() {
-					var item = $('li.purchasedatecreateditem');
-					return {
-						'itemcount': item.length,
-						'itemaction': 'up',
-						'purchase.dateCreated': item.last().attr('timestamp')
-					}
-				},
-				down: function(html) {
-					$('ul.ul-purchase-list').prepend(html).listview('refresh');
-// 					fixedPurchaseImage();
-				},
-				up: function(html) {
-					$('ul.ul-purchase-list').append(html).listview('refresh');
-					fixedPurchaseImage();
-				}
-			});
-        	doRequest();
-			$('a.purchase-list-page-refresh').click(function(e) {
-				$('ul.ul-purchase-list').html('<li data-role="list-divider">数据加载中，请稍候...</li>').listview('refresh');
-				doRequest();
-			});
-			$('div.purchase-main-page').data('eventbinding', true);
-			function doRequest() {
-				$.ajax({
-					type: 'GET',
-					url: '${pageContext.request.contextPath}/purchase/listItems.html',
-					data: '_=' + new Date().getTime(),
-					success: function(html) {
-						$('ul.ul-purchase-list').html(html).listview('refresh');
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js"></script>
+		<script type="text/javascript">
+			$('div.purchase-main-page').bind("pageinit", function(event) {
+				$('div.purchase-list-main').mypullupdown({
+					url:'${pageContext.request.contextPath}/purchase/listItems.html',
+					onDown: function() {
+						var item = $('li.purchasedatecreateditem');
+						return {
+							'itemcount': item.length,
+							'itemaction': 'down',
+							'purchase.dateCreated': item.first().attr('timestamp')
+						}
+					},
+					onUp: function() {
+						var item = $('li.purchasedatecreateditem');
+						return {
+							'itemcount': item.length,
+							'itemaction': 'up',
+							'purchase.dateCreated': item.last().attr('timestamp')
+						}
+					},
+					down: function(html) {
+						$('ul.ul-purchase-list').prepend(html).listview('refresh');
+	// 					fixedPurchaseImage();
+					},
+					up: function(html) {
+						$('ul.ul-purchase-list').append(html).listview('refresh');
 						fixedPurchaseImage();
 					}
 				});
-			}
-			function fixedPurchaseImage() {
-				var height = $('li.purchasedatecreateditem:eq(0)').height();
-				var css = ['<style type="text/css"> img.purchaseliimage {width:', 80, 'px;', 'width:', 80, 'px;}</style>'];
-				$('div.purchase-main-page').append(css.join(''));
-			}
-		});
-	</script>>
+	        	doRequest();
+				$('a.purchase-list-page-refresh').click(function(e) {
+					$('ul.ul-purchase-list').html('<li data-role="list-divider">数据加载中，请稍候...</li>').listview('refresh');
+					doRequest();
+				});
+				$('div.purchase-main-page').data('eventbinding', true);
+				function doRequest() {
+					$.ajax({
+						type: 'GET',
+						url: '${pageContext.request.contextPath}/purchase/listItems.html',
+						data: '_=' + new Date().getTime(),
+						success: function(html) {
+							$('ul.ul-purchase-list').html(html).listview('refresh');
+							fixedPurchaseImage();
+						}
+					});
+				}
+				function fixedPurchaseImage() {
+					var height = $('li.purchasedatecreateditem:eq(0)').height();
+					var css = ['<style type="text/css"> img.purchaseliimage {width:', 80, 'px;', 'width:', 80, 'px;}</style>'];
+					$('div.purchase-main-page').append(css.join(''));
+				}
+			});
+		</script>
+		<jsp:include page="footer.jsp"><jsp:param value="2" name="offset"/></jsp:include>
+	</div>
 	</body>
 </html>

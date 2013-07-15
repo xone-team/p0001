@@ -11,8 +11,12 @@
 			http://www.springframework.org/schema/context/spring-context-2.5.xsd" default-lazy-init="true" default-autowire="byName">
 	<bean id="loginRefAction" class="com.xone.action.app.loginref.LoginRefAction" scope="prototype" />
 	<bean id="productAction" class="com.xone.action.app.product.ProductAction" scope="prototype" />
-	<bean id="purchaseAction" class="com.xone.action.app.purchase.PurchaseAction" scope="prototype" />
-	<bean id="assistantAction" class="com.xone.action.app.assistant.AssistantAction" scope="prototype" />
+	<bean id="purchaseAction" class="com.xone.action.app.purchase.PurchaseAction" scope="prototype" >
+	    <property name="imageUploadPath" value="${com.xone.image.uploaded.file.dir}" />
+	</bean>
+	<bean id="assistantAction" class="com.xone.action.app.assistant.AssistantAction" scope="prototype">
+	    <property name="imageUploadPath" value="${com.xone.image.uploaded.file.dir}" />
+	</bean>
 	<bean id="deliveryAction" class="com.xone.action.app.assistant.DeliveryAction" scope="prototype" />
 	<bean id="adBannerAction" class="com.xone.action.app.adbanner.AdBannerAction" scope="prototype" />
 </beans>

@@ -64,6 +64,15 @@ $(document).bind("mobileinit", function() {
 		hashListeningEnabled: false
 	});
 });
+function console(i) {
+	var activePage = $('div.ui-page-active[data-role="page"]');
+	var c = activePage.find('div.console');
+	if (c.length == 0) {
+		activePage.append('<div class="console">&nbsp;</div>');
+		c = activePage.find('div.console');
+	}
+	c.append(i);
+}
 </script>
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery.mobile-1.3.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/myadbanner.js"></script>

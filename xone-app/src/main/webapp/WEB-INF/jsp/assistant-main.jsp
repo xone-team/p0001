@@ -53,25 +53,23 @@
 				</ul>
 		    </div>
 		</div>
-		<jsp:include page="footer.jsp">
-			<jsp:param value="3" name="offset"/>
-		</jsp:include>
+		<script type="text/javascript">
+			$('div.assistant-main-page').bind('pageinit', function() {
+				$('div.assistantcontent').css({
+					paddingTop: '0px'
+				});
+	// 			$('a.btn-banner').css({
+	// 				marginTop: '28px'
+	// 			});
+				$('a.assistantpopuplink').click(function(e) {
+					e.preventDefault();
+					$('div.assistantpopuplogin').open();
+					return false;
+				});
+			});
+		</script>
+		<jsp:include page="footer.jsp"><jsp:param value="3" name="offset"/></jsp:include>
 	</div>
-	<script type="text/javascript">
-		$('div.assistant-main-page').bind('pageinit', function() {
-			$('div.assistantcontent').css({
-				paddingTop: '0px'
-			});
-// 			$('a.btn-banner').css({
-// 				marginTop: '28px'
-// 			});
-			$('a.assistantpopuplink').click(function(e) {
-				e.preventDefault();
-				$('div.assistantpopuplogin').open();
-				return false;
-			});
-		});
-	</script>
 	</script>
 	</body>
 </html>

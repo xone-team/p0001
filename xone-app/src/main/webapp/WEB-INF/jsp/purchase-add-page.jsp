@@ -20,7 +20,6 @@
 		</div>
 		<div class="purchaseaddcontent" data-role="content" data-dom-cache="false">
 			<form class="purchaseform" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/purchase/create.html?_=${identify}" autocomplete="off">
-				<input type="hidden" class="imageUploadedImage" name="imageUploaded.image" value="" autocomplete="off"/>
 				<ul class="purchaselistview" data-role="listview" data-inset="true" data-mini="true">
 				    <li>
 				    	<table style="width:100%">
@@ -79,131 +78,118 @@
 				    	</table>
 				    </li>
 					<li>
-					 	<input type="file" name="file" id="uploadImage" accept="image/*" capture="camera" value=""/>
+					 	<input type="file" data-role="none" name="file" id="uploadImageFile" accept="image/*" capture="camera" value="" class="uploadImage ui-hidden-accessible"/>
+					 	<input type="button" data-icon="plus" class="uploadImageButton" value="选择图片"/>
 					</li>
 					<li>
 					 	<input type="submit" value="确认发布" class="submit${identify}"/>
 					</li>
 				</ul>
+				<div class="imagelistdiv" style="padding:5px;"></div>
 			</form>
-			<div id="list"></div>
 			<div class="debug">&nbsp;</div>
-			<div id="progress_bar"><div class="percent">0%</div></div>
-		</div>
-		<script type="text/javascript" language="javascript">
-// 	 	<input type="file" name="file" id="uploadImage" value="" onchange="loadImageFile();">
-// 			var oFReader = new FileReader();
-// 			var rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
-// 			oFReader.onload = function(e) {
-// 				var result = e.target.result;
-// 				debug(result);
-// 				document.getElementById("uploadPreview").src = result;
-// 			};
-// 			function loadImageFile() {
-// 				if (document.getElementById("uploadImage").files.length === 0) {
-// 					return;
-// 				}
-// 				debug('loadImageFile');
-// 				var oFile = document.getElementById("uploadImage").files[0];
-// // 				if (!rFilter.test(oFile.type)) {
-// // 					alert("You must select a valid image file!");
-// // 					return;
-// // 				}
-// 				oFReader.readAsDataURL(oFile);
-// 			}
-			$(document).on("pageinit", function() {
-				$('div.purchaseaddpage').css({
-					paddingTop : '0px'
+			<script type="text/javascript" language="javascript">
+				$(document).on("pageinit", function() {
+					$('div.purchaseaddpage').css({
+						paddingTop : '0px'
+					});
 				});
-				$('a.purchasesave').click(function(e) {
-					e.preventDefault();
-					$('form.purchaseform').submit();
-					return false;
-				});
-				$('a.purchasechooseimg').click(function(e) {
-					e.preventDefault();
-					var url = $('#file').val();
-					$('img.purchaseaddimg').attr('src', url);
-					debug(url);
-					// 					window.main.makeGallery('1');
-					return false;
-				});
-			});
-			function setImgGallery(url) {
-// 				$('.debug').html(url + ' at ' + new Date().getTime());
-// 				$('img.purchaseaddimg').attr('src', url);
-			}
-			function debug(i) {
-				$('div.debug').append('<div>' + i + '</div>');
-			}
-			function testProperties(o) {
-				var i = '';
-				for (var n in o) {
-					i += '<div>' + n + '</div>';
-				}
-				return i;
-			}
-			function getExt(v) {
-				var a = v.split('.');
-				return a[a.length - 1];
-			}
-			function handleFileSelect(evt) {
-				debug('Response handleFileSelect at:' + new Date());
-				var files = evt.target.files; // FileList object
-				// Loop through the FileList and render image files as thumbnails.
-				for ( var i = 0, f; f = files[i]; i++) {
-					debug('Response file type:|' + f.type + '|');
-					debug('Response file properties:|' + testProperties(f) + '|');
-					// Only process image files.
-					// 					if (!f.type.match('image.*')) {
-					// 						debug('Response file type not match.');
-					// 						continue;
-					// 					}
-					debug('Response file ready to read at:' + new Date());
-					var reader = new FileReader();
-					// Closure to capture the file information.
-					reader.onload = (function(theFile) {
-						return function(e) {
-							// Render thumbnail.
-							var span = document.createElement('span');
-							var result = e.target.result.replace(/data:base64,/, 'data:image/' + getExt(theFile.name) + ';base64,');
-							span.innerHTML = [ '<img class="thumb" style="width:100%;height:100%" src="',
-							        result, '" title="',
-									escape(theFile.name), '"/>' ].join('');
-							document.getElementById('list').insertBefore(span,
-									null);
-							debug('onload file result:|' + e.target.result + '|');
-							$('input.imageUploadedImage').val(result);
-						};
-					})(f);
-					reader.onerror = function (evt) {
-						switch (evt.target.error.code) {
-						case evt.target.error.NOT_FOUND_ERR:
-							alert('File Not Found!');
-							break;
-						case evt.target.error.NOT_READABLE_ERR:
-							alert('File is not readable');
-							break;
-						case evt.target.error.ABORT_ERR:
-							break; // noop
-						default:
-							alert('An error occurred reading this file.');
+				$('div.purchaseaddpage').bind('pageinit', function() {
+					$('a.purchasesave').click(function(e) {
+						e.preventDefault();
+						$('form.purchaseform').submit();
+						return false;
+					});
+					$('input.uploadImageButton').click(function(e) {
+						e.preventDefault();
+						if ($('img.uploaddynamicimage').length >= 3) {
+							return false;
 						}
-						;
-					};
-				    reader.onabort = function(e) {
-				      alert('File read cancelled');
-				    };
-				    reader.onloadstart = function(e) {
-				      document.getElementById('progress_bar').innerHTML = 'loading';
-				    };
-					// Read in the image file as a data URL.
-					reader.readAsDataURL(f);
-					debug('Response file read over at:' + new Date());
+						$('input.uploadImage[type="file"]').click();
+						return false;
+					});
+					$('input.uploadImage[type="file"]').bind('change', handleFileSelect);
+				});
+				function removeDynamicImage(e) {
+					$(e).closest('div.dynamicimagediv').remove();
+					return false;
 				}
-			}
-			document.getElementById('uploadImage').addEventListener('change', handleFileSelect, false);
-		</script>
+				function debug(i) {
+					$('div.debug').append('<div>' + i + '</div>');
+				}
+				function testProperties(o) {
+					var i = '';
+					for (var n in o) {
+						i += '<div>' + n + '</div>';
+					}
+					return i;
+				}
+				function getExt(v) {
+					var a = v.split('.');
+					return a[a.length - 1];
+				}
+				function handleFileSelect(evt) {
+	// 				debug('Response handleFileSelect at:' + new Date());
+					var files = evt.target.files; // FileList object
+					// Loop through the FileList and render image files as thumbnails.
+					for (var i = 0, f; f = files[i]; i++) {
+						debug('Response file type:|' + f.type + '|');
+						//IMAGE_FILTER
+// 						if (!f.type.match('image.*')) {
+// 							continue;
+// 						}
+						var reader = new FileReader();
+						// Closure to capture the file information.
+						reader.onload = (function(theFile) {
+							return function(e) {
+								var div = document.createElement('div');
+								var width = $('div.purchaseaddpage').width() - 20;
+								debug('page width:|' + width + '|');
+								div.style.width = width + 'px'; 
+								div.style.height = width + 'px';
+								div.style.margin = '10px';
+								div.className = 'dynamicimagediv';
+								var result = e.target.result.replace(/data:base64,/, 'data:image/' + getExt(theFile.name) + ';base64,');
+								div.innerHTML = [
+										'<a href="#" onclick="return removeDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
+										'<img class="uploaddynamicimage" style="width:100%;height:100%" src="',
+										result, '" title="', escape(theFile.name),
+										'"/>',
+										'<input type="hidden" name="images" value="', 
+									result, '" />' ]
+										.join('');
+								$('div.imagelistdiv').append(div);
+								debug('onload file finish!');
+							};
+						})(f);
+						reader.onerror = function(evt) {
+							switch (evt.target.error.code) {
+							case evt.target.error.NOT_FOUND_ERR:
+								alert('File Not Found!');
+								break;
+							case evt.target.error.NOT_READABLE_ERR:
+								alert('File is not readable');
+								break;
+							case evt.target.error.ABORT_ERR:
+								break; // noop
+							default:
+								alert('An error occurred reading this file.');
+							}
+							;
+						};
+						reader.onabort = function(e) {
+							alert('File read cancelled');
+						};
+						reader.onloadstart = function(e) {
+	
+						};
+						// Read in the image file as a data URL.
+						reader.readAsDataURL(f);
+						debug('Response file read over at:' + new Date());
+					}
+				}
+			</script>
+		</div>
 		<jsp:include page="footer.jsp">
 			<jsp:param value="3" name="offset"/>
 		</jsp:include>

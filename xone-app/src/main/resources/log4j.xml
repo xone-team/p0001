@@ -29,6 +29,9 @@
 	<category name="org.apache.http">
 		<priority value="info"/>
 	</category>
+	<category name="com.xone.model.hibernate.entity">
+		<priority value="error"/>
+	</category>
 	<category name="com.opensymphony.xwork2">
 		<priority value="error"/>
 	</category>

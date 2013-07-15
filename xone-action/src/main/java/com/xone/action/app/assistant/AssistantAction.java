@@ -1,28 +1,28 @@
 package com.xone.action.app.assistant;
 
-import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Properties;
 
-import javax.imageio.ImageIO;
-
-import org.apache.commons.lang.xwork.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
-import com.xone.action.utils.ImageUtils;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.service.app.ImageUploadedService;
 
 public class AssistantAction extends Action {
 	
+	private static final long serialVersionUID = -334632510092302567L;
+
 	@Autowired
 	protected ImageUploadedService imageUploadedService;
+	
+	protected String imageUploadPath;
 	
 	protected String redirect;
 	protected Long id;
@@ -42,12 +42,31 @@ public class AssistantAction extends Action {
 				return null;
 			}
 			ImageUploaded imageUploaded = getImageUploadedService().findById(id);
-			BufferedImage bufferedImage = ImageUtils.decodeToImage(imageUploaded.getImage());
-			String type = StringUtils.isBlank(imageUploaded.getImageType()) ? "image/jpeg" : imageUploaded.getImageType();
-			response.setContentType(type);
-			OutputStream out = response.getOutputStream();
-			ImageIO.write(bufferedImage, type.replaceFirst("image/", ""), out);
-			out.close();
+//			BufferedImage bufferedImage = ImageUtils.decodeToImage(imageUploaded.getImage());
+//			String type = StringUtils.isBlank(imageUploaded.getImageType()) ? "image/jpeg" : imageUploaded.getImageType();
+//			response.setContentType(type);
+//			OutputStream out = response.getOutputStream();
+//			ImageIO.write(bufferedImage, type.replaceFirst("image/", ""), out);
+//			out.close();
+			OutputStream output = response.getOutputStream();//得到输出流
+			String filename = "photo-not-available.jpg";
+			String contentType = "image/jpg";
+			if (null != imageUploaded && null != imageUploaded.getImage()) {
+				filename = imageUploaded.getImage();
+				contentType = null == imageUploaded.getImageType() ? "image/*" : imageUploaded.getImageType();
+			}
+			File file = new File(getImageUploadPath());
+			File imageFile = new File(file.getCanonicalPath() + File.separator + filename);
+			InputStream imageIn = new FileInputStream(imageFile);
+			byte data[] = new byte[1000];
+            while (imageIn.read(data) > 0) {
+            	output.write(data);  
+            }  
+            imageIn.close();
+//            response.setHeader("Content-Type", getServletContext().getMimeType(image.getFilename()));
+            response.setHeader("Content-Disposition", "inline; filename=\"" + imageFile.getName() + "\"");
+            response.setContentType(contentType); // 设置返回的文件类型  
+            output.write(data); // 输出数据
 		} catch (Exception e) {
 			e.printStackTrace();
 			redirectToPhotoNotAvailable();
@@ -96,6 +115,14 @@ public class AssistantAction extends Action {
 				}
 			}
 		}
+	}
+	
+	public String getImageUploadPath() {
+		return imageUploadPath;
+	}
+
+	public void setImageUploadPath(String uploadPath) {
+		this.imageUploadPath = uploadPath;
 	}
 
 	public Long getId() {

@@ -85,15 +85,15 @@
 	            </a></li>
 	        </ul>
 		</div>
+		<script type="text/javascript">
+			$(document).bind('pagebeforeload', function() {
+				//$('#listview1').hide().prev().first().hide();
+				//$('#listview2').hide().prev().first().hide();
+			});
+		</script>
 		<jsp:include page="footer.jsp">
 			<jsp:param value="2" name="offset"/>
 		</jsp:include>
 	</div>
-	<script type="text/javascript">
-		$(document).bind('pagebeforeload', function() {
-			//$('#listview1').hide().prev().first().hide();
-			//$('#listview2').hide().prev().first().hide();
-		});
-	</script>
 	</body>
 </html>

@@ -10,6 +10,10 @@ public interface PurchaseService {
 	
 	public Purchase save(Purchase entity);
 	
+	public Purchase save(Purchase entity, List<ImageUploaded> imageUploadeds);
+	
+	public List<Purchase> save(List<Purchase> entity);
+	
 	public Purchase save(Purchase entity, ImageUploaded imageUploaded);
 	
 	public List<Purchase> findAllByMap(Map<String, String> params);

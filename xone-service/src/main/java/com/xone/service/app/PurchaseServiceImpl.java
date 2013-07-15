@@ -47,6 +47,11 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public Purchase save(Purchase entity) {
 		return getPurchaseDao().save(entity);
 	}
+	
+	@Override
+	public List<Purchase> save(List<Purchase> entity) {
+		return getPurchaseDao().save(entity);
+	}
 
 
 	@Override
@@ -55,6 +60,21 @@ public class PurchaseServiceImpl implements PurchaseService {
 		imageUploaded.setRefId(entity.getId());
 		imageUploaded = getImageUploadedDao().save(imageUploaded);
 		entity.getIds().add(imageUploaded.getId());
+		return entity;
+	}
+	
+	@Override
+	public Purchase save(Purchase entity, List<ImageUploaded> imageUploadeds) {
+		entity = getPurchaseDao().save(entity);
+		for (ImageUploaded imageUploaded : imageUploadeds) {
+			imageUploaded.setRefId(entity.getId());
+		}
+		imageUploadeds = getImageUploadedDao().save(imageUploadeds);
+		List<Long> ids = new ArrayList<Long>();
+		for (ImageUploaded imageUploaded : imageUploadeds) {
+			ids.add(imageUploaded.getId());
+		}
+		entity.setIds(ids);
 		return entity;
 	}
 	
