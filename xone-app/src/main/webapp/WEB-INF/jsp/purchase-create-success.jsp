@@ -10,31 +10,48 @@
 	</head>
 	<body>
 	<div data-role="page" class="purchasesuccesspage">
+		<style type="text/css">
+			td.mylabel {
+				width:80px;
+			}
+		</style>
 		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${identify}" data-icon="check" class="btn-banner">返回</a>
 			<h1>求购发布成功</h1>
+			<a href="#" class="purchase-success-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
 		</div>
 		<div data-role="content" data-dom-cache="false">
 			<ul class="purchase-success-view" data-role="listview" data-inset="true" data-mini="true">
-				<li data-role="list-divider"><h4>求购发布成功</h4></li>
+				<li data-role="list-divider">求购发布成功</li>
 				<li class="purchasesuccessloading"><a href="#">No.${purchase.id}详细信息加载中...</a></li>
 			</ul>
-			<c:forEach var="id" items="${purchase.ids}" >
-			<div>
-				<img alt="" src="${pageContext.request.contextPath}/assistant/image.html?id=${id}">
-			</div>
-			</c:forEach>
 			<script type="text/javascript" language="javascript">
-				$(document).delegate('div.purchasesuccesspage', "pageinit", function() {
-// 					$.ajax({
-// 						type: 'GET',
-// 						url: '${pageContext.request.contextPath}/purchase/itemDetails.html',
-// 						data: '_=' + new Date().getTime() + '&id=' + '${purchase.id}',
-// 						success: function(html) {
-// 							$('li.purchasesuccessloading').remove();
-// 							$('ul.purchase-success-view').append(html).listview('refresh');
-// 						}
-// 					});
+				$('div.purchasesuccesspage').bind("pageinit", function() {
+					var width = $('div.purchasesuccesspage').width() - 11;
+					var css = ['<style type="text/css">div.purchaseimage {text-align:center;height:', width, 'px;width:', width, 'px;}',
+					           'div.purchaseimage img {width:', width,'px;height:', width, 'px;}',
+					'<\/style>'];
+					$('div.purchasesuccesspage').append(css.join(''));
+					doRequest();
+					$('a.purchase-success-page-refresh').click(function(e) {
+						doRequest();
+					});
+					function doRequest() {
+						$.mobile.loading('show');
+						$('ul.purchase-success-view').html('<li data-icon="none" class="purchasepageitemloading"><a href="#">详细信息加载中...</a></li>').listview('refresh');
+						$.ajax({
+							type: 'GET',
+							url: '${pageContext.request.contextPath}/purchase/itemDetails.html',
+							data: '_=' + new Date().getTime() + '&purchase.id=' + '${purchase.id}',
+							success: function(html) {
+								$('ul.purchase-success-view').html(html).listview('refresh');
+								$.mobile.loading('hide');
+							},
+							error: function() {
+								$.mobile.loading('hide');
+							}
+						});
+					}
 				});
 			</script>
 		</div>

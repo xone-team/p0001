@@ -36,13 +36,11 @@
 					function doRequest() {
 						$.mobile.loading('show');
 						$('ul.purchase-item-page-view').html('<li data-icon="none" class="purchasepageitemloading"><a href="#">详细信息加载中...</a></li>').listview('refresh');
-						console('Ready to do request.');
 						$.ajax({
 							type: 'GET',
 							url: '${pageContext.request.contextPath}/purchase/itemDetails.html',
 							data: '_=' + new Date().getTime() + '&purchase.id=' + '${purchase.id}',
 							success: function(html) {
-								console('success');
 								$('ul.purchase-item-page-view').html(html).listview('refresh');
 								$.mobile.loading('hide');
 							},

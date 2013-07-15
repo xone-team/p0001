@@ -81,7 +81,7 @@
 					 	<input type="file" data-role="none" name="file" id="uploadImageFile" accept="image/*" capture="camera" value="" class="uploadImage ui-hidden-accessible"/>
 					 	<input type="button" data-icon="plus" class="uploadImageButton" value="选择图片"/>
 					</li>
-					<li>
+					<li class="publishformbutton">
 					 	<input type="submit" value="确认发布" class="submit${identify}"/>
 					</li>
 				</ul>
@@ -95,6 +95,11 @@
 					});
 				});
 				$('div.purchaseaddpage').bind('pageinit', function() {
+					var width = $('div.purchaseaddpage').width() - 11;
+					var css = ['<style type="text/css">div.purchaseimage {text-align:center;height:', width, 'px;width:', width, 'px;}',
+					           'div.purchaseimage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
+					'<\/style>'];
+					$('div.purchaseaddpage').append(css.join(''));
 					$('a.purchasesave').click(function(e) {
 						e.preventDefault();
 						$('form.purchaseform').submit();
@@ -102,16 +107,22 @@
 					});
 					$('input.uploadImageButton').click(function(e) {
 						e.preventDefault();
+						$('form li.errorli').remove();
 						if ($('img.uploaddynamicimage').length >= 3) {
+							$('<li class="errorli"><div class="error ui-btn-inner">一个产品最多只能发布3张图片.</div></li>').insertBefore('li.publishformbutton');
+							$('ul.purchaselistview').listview('refresh');
 							return false;
 						}
+						$('ul.purchaselistview').listview('refresh');
 						$('input.uploadImage[type="file"]').click();
 						return false;
 					});
 					$('input.uploadImage[type="file"]').bind('change', handleFileSelect);
 				});
 				function removeDynamicImage(e) {
-					$(e).closest('div.dynamicimagediv').remove();
+					$(e).closest('li').remove();
+					$('ul.purchaselistview').listview('refresh');
+					$('#uploadImageFile').val('');
 					return false;
 				}
 				function debug(i) {
@@ -133,7 +144,7 @@
 					var files = evt.target.files; // FileList object
 					// Loop through the FileList and render image files as thumbnails.
 					for (var i = 0, f; f = files[i]; i++) {
-						debug('Response file type:|' + f.type + '|');
+// 						debug('Response file type:|' + f.type + '|');
 						//IMAGE_FILTER
 // 						if (!f.type.match('image.*')) {
 // 							continue;
@@ -143,23 +154,27 @@
 						reader.onload = (function(theFile) {
 							return function(e) {
 								var div = document.createElement('div');
-								var width = $('div.purchaseaddpage').width() - 20;
-								debug('page width:|' + width + '|');
-								div.style.width = width + 'px'; 
-								div.style.height = width + 'px';
-								div.style.margin = '10px';
-								div.className = 'dynamicimagediv';
+// 								var width = $('div.purchaseaddpage').width() - 20;
+// 								debug('page width:|' + width + '|');
+// 								div.style.width = width + 'px'; 
+// 								div.style.height = width + 'px';
+// 								div.style.margin = '10px';
+								div.className = 'purchaseaddpage';
 								var result = e.target.result.replace(/data:base64,/, 'data:image/' + getExt(theFile.name) + ';base64,');
 								div.innerHTML = [
 										'<a href="#" onclick="return removeDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
-										'<img class="uploaddynamicimage" style="width:100%;height:100%" src="',
+										'<img class="uploaddynamicimage" width="100%" height="100%" src="',
 										result, '" title="', escape(theFile.name),
 										'"/>',
 										'<input type="hidden" name="images" value="', 
 									result, '" />' ]
 										.join('');
-								$('div.imagelistdiv').append(div);
-								debug('onload file finish!');
+// 								$('div.imagelistdiv').append(div);
+								var listview = $('ul.purchaselistview');
+								listview.append('<li></li>');
+								listview.find('li').last().append(div);
+								listview.listview('refresh');
+// 								debug('onload file finish!');
 							};
 						})(f);
 						reader.onerror = function(evt) {
@@ -185,7 +200,7 @@
 						};
 						// Read in the image file as a data URL.
 						reader.readAsDataURL(f);
-						debug('Response file read over at:' + new Date());
+// 						debug('Response file read over at:' + new Date());
 					}
 				}
 			</script>
