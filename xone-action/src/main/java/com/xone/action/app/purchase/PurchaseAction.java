@@ -61,6 +61,17 @@ public class PurchaseAction extends Action {
 		setList(purchaseService.findAllByMap(params));
 		return SUCCESS;
 	}
+	
+	public String item() {
+		return SUCCESS;
+	}
+	
+	public String itemDetails() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(getPurchase().getId()));
+		setPurchase(purchaseService.findByMap(params));
+		return SUCCESS;
+	}
 
 	public List<Purchase> getList() {
 		return list;

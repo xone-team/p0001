@@ -43,10 +43,10 @@ public class AssistantAction extends Action {
 			}
 			ImageUploaded imageUploaded = getImageUploadedService().findById(id);
 			BufferedImage bufferedImage = ImageUtils.decodeToImage(imageUploaded.getImage());
-
-			response.setContentType(StringUtils.isBlank(imageUploaded.getImageType()) ? "image/jpeg" : imageUploaded.getImageType());
+			String type = StringUtils.isBlank(imageUploaded.getImageType()) ? "image/jpeg" : imageUploaded.getImageType();
+			response.setContentType(type);
 			OutputStream out = response.getOutputStream();
-			ImageIO.write(bufferedImage, "jpeg", out);
+			ImageIO.write(bufferedImage, type.replaceFirst("image/", ""), out);
 			out.close();
 		} catch (Exception e) {
 			e.printStackTrace();

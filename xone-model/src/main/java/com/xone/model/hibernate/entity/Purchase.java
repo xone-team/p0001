@@ -13,7 +13,7 @@ public class Purchase implements Serializable {
 	protected String purchaseType;
 	protected String purchaseNum;
 	protected Date purchaseValid;
-	protected String productAddress;
+	protected String purchaseAddress;
 	protected String purchaseLocation;
 	protected String purchaseDesc;
 	protected String flagDeleted;
@@ -58,11 +58,11 @@ public class Purchase implements Serializable {
 	public void setPurchaseValid(Date purchaseValid) {
 		this.purchaseValid = purchaseValid;
 	}
-	public String getProductAddress() {
-		return productAddress;
+	public String getPurchaseAddress() {
+		return purchaseAddress;
 	}
-	public void setProductAddress(String productAddress) {
-		this.productAddress = productAddress;
+	public void setPurchaseAddress(String purchaseAddress) {
+		this.purchaseAddress = purchaseAddress;
 	}
 	public String getPurchaseLocation() {
 		return purchaseLocation;

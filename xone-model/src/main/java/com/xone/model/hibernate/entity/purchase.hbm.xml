@@ -19,8 +19,8 @@
 	<property name="purchaseValid" type="java.util.Date">
 		<column name="PURCHASE_VALID" length="19"/>
 	</property>
-	<property name="productAddress" type="java.lang.String">
-		<column name="PRODUCT_ADDRESS" length="255"/>
+	<property name="purchaseAddress" type="java.lang.String">
+		<column name="PURCHASE_ADDRESS" length="255"/>
 	</property>
 	<property name="purchaseLocation" type="java.lang.String">
 		<column name="PURCHASE_LOCATION" length="255"/>

@@ -112,7 +112,10 @@ public class PurchaseServiceImpl implements PurchaseService {
 		if (null == l) {
 			return new Purchase();
 		}
-		return l.get(0);
+		Purchase p = l.get(0);
+		List<Long> ids = getImageUploadedDao().findAllIdsByRefId(p.getId());
+		p.setIds(ids);
+		return p;
 	}
 
 }

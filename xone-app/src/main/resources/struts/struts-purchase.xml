@@ -22,5 +22,11 @@
 		<action name="listItems" class="purchaseAction" method="listItems">
 			<result name="success">/WEB-INF/jsp/purchase-list-items.jsp</result>
 		</action>
+		<action name="item" class="purchaseAction" method="item">
+			<result name="success">/WEB-INF/jsp/purchase-item-page.jsp</result>
+		</action>
+		<action name="itemDetails" class="purchaseAction" method="itemDetails">
+			<result name="success">/WEB-INF/jsp/purchase-item-details.jsp</result>
+		</action>
 	</package>
 </struts>
