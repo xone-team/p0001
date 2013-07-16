@@ -90,7 +90,27 @@ public class PurchaseAction extends Action {
 		return SUCCESS;
 	}
 	
+	public String listAllForUser() {
+		return SUCCESS;
+	}
+	
+	public String listItemsForUser() {
+		Map<String, String> map = getRequestMap();
+		Map<String, String> params = new HashMap<String, String>();
+		if ("down".equals(map.get("itemaction"))) {
+			params.put("gtDateCreated", DateUtils.format(getPurchase().getDateCreated()));
+		} else if ("up".equals(map.get("itemaction"))) {
+			params.put("ltDateCreated", DateUtils.format(getPurchase().getDateCreated()));
+		}
+		setList(purchaseService.findAllByMap(params));
+		return SUCCESS;
+	}
+	
 	public String item() {
+		return SUCCESS;
+	}
+	
+	public String itemForUser() {
 		return SUCCESS;
 	}
 	

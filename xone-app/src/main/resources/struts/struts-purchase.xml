@@ -28,5 +28,17 @@
 		<action name="itemDetails" class="purchaseAction" method="itemDetails">
 			<result name="success">/WEB-INF/jsp/purchase-item-details.jsp</result>
 		</action>
+		<action name="listAllForUser" class="purchaseAction" method="listAllForUser">
+			<result name="success">/WEB-INF/jsp/purchase-user-list-main.jsp</result>
+		</action>
+		<action name="listItemsForUser" class="purchaseAction" method="listItemsForUser">
+			<result name="success">/WEB-INF/jsp/purchase-user-list-items.jsp</result>
+		</action>
+		<action name="itemDetailsForUser" class="purchaseAction" method="itemDetails">
+			<result name="success">/WEB-INF/jsp/purchase-user-item-details.jsp</result>
+		</action>
+		<action name="itemForUser" class="purchaseAction" method="itemForUser">
+			<result name="success">/WEB-INF/jsp/purchase-user-item-page.jsp</result>
+		</action>
 	</package>
 </struts>
