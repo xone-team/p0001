@@ -16,11 +16,14 @@
 			}
 		</style>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-tap-toggle="false" data-position="fixed">
-			<a href="${pageContext.request.contextPath}/login/index.html?_=${identify}" data-icon="check" class="btn-banner">返回</a>
+			<a href="${pageContext.request.contextPath}/purchase/listAllForUser.html?_=${identify}" data-icon="check" class="btn-banner">返回</a>
 			<h1>求购详情</h1>
 			<a href="#" class="purchase-user-item-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
 		</div>
 		<div data-role="content" data-dom-cache="false">
+			<c:if test="${!empty mapValue}">
+				<div class="error">${mapValue['msg']}</div>
+			</c:if>
 			<ul class="purchase-user-item-page-view" data-role="listview" data-inset="true" data-mini="true"></ul>
 			<script type="text/javascript" language="javascript">
 				$('div.purchaseuseritempage').bind("pageinit", function() {
@@ -29,6 +32,15 @@
 					           'div.purchaseimage img {width:', width,'px;height:', width, 'px;}',
 					'<\/style>'];
 					$('div.purchaseuseritempage').append(css.join(''));
+// 					$(document).on('load', 'img.purchaseliimage', function() {
+// 						var t = $(this);
+// 						t.css({
+// 							height: width + 'px',
+// 							width: width + 'px'
+// 						});
+// 						t.attr('height', width + 'px').attr('width', width + 'px');
+// 						console('<div>src=' + t.attr('src') + ', width=' + t.width() + ', height=' + t.height() +  + '</div>');
+// 					});
 					doRequest();
 					$('a.purchase-user-item-page-refresh').click(function(e) {
 						doRequest();

@@ -2,6 +2,7 @@ package com.xone.service.app;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -52,8 +53,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public List<Purchase> save(List<Purchase> entity) {
 		return getPurchaseDao().save(entity);
 	}
-
-
+	
 	@Override
 	public Purchase save(Purchase entity, ImageUploaded imageUploaded) {
 		entity = getPurchaseDao().save(entity);
@@ -71,6 +71,32 @@ public class PurchaseServiceImpl implements PurchaseService {
 		}
 		imageUploadeds = getImageUploadedDao().save(imageUploadeds);
 		List<Long> ids = new ArrayList<Long>();
+		for (ImageUploaded imageUploaded : imageUploadeds) {
+			ids.add(imageUploaded.getId());
+		}
+		entity.setIds(ids);
+		return entity;
+	}
+	
+	public Purchase update(Purchase entity, List<ImageUploaded> imageUploadeds, List<Long> imageIds) {
+		entity = getPurchaseDao().update(entity);
+		for (ImageUploaded imageUploaded : imageUploadeds) {
+			imageUploaded.setRefId(entity.getId());
+			imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
+		}
+		imageUploadeds = getImageUploadedDao().save(imageUploadeds);
+		Map<Long, Boolean> imageIdMap = new HashMap<Long, Boolean>();
+		List<Long> ids = new ArrayList<Long>();
+		for (Long id : imageIds) {
+			imageIdMap.put(id, true);
+		}
+		for (Long id : entity.getIds()) {
+			if (null == imageIdMap.get(id)) {
+				getImageUploadedDao().deleteLogicById(id);
+			} else {
+				ids.add(id);
+			}
+		}
 		for (ImageUploaded imageUploaded : imageUploadeds) {
 			ids.add(imageUploaded.getId());
 		}

@@ -58,7 +58,7 @@
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 				    <li><a href="${pageContext.request.contextPath}/delivery/listIndex.html?_=${identify}">查看物流配送列表</a></li>
 				    <li><a href="#">查看广告发布列表</a></li>
-				    <li><a href="#">查看资金担保列表</a></li>
+<!-- 				    <li><a href="#">查看资金担保列表</a></li> -->
 				</ul>
 		    </div>
 		</div>

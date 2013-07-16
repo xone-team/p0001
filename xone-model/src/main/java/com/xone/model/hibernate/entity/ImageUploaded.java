@@ -7,6 +7,22 @@ public class ImageUploaded implements Serializable {
 	
 	private static final long serialVersionUID = -6681022707035534978L;
 	
+	/**
+	 * 删除标志
+	 */
+	public enum FlagDeleted {
+		NORMAL("0"), DELETED("1");
+		protected String value = "0";
+		
+		private FlagDeleted(String value) {
+			this.value = value;
+		}
+		
+		public String getValue() {
+			return this.value;
+		}
+	}
+	
 	protected Long id;
 	protected Long refId;
 	protected String imageType;
@@ -15,6 +31,7 @@ public class ImageUploaded implements Serializable {
 	protected Long userUpdated;
 	protected Date lastUpdated;
 	protected String image;
+	protected String flagDeleted;
 	public Long getId() {
 		return id;
 	}
@@ -63,5 +80,10 @@ public class ImageUploaded implements Serializable {
 	public void setImageType(String imageType) {
 		this.imageType = imageType;
 	}
-	
+	public String getFlagDeleted() {
+		return flagDeleted;
+	}
+	public void setFlagDeleted(String flagDeleted) {
+		this.flagDeleted = flagDeleted;
+	}
 }

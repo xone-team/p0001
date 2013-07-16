@@ -28,5 +28,8 @@
 	<property name="image" type="java.lang.String">
 		<column name="IMAGE" length="64"/>
 	</property>
+	<property name="flagDeleted" type="java.lang.String">
+		<column name="FLAG_DELETED" length="1"/>
+	</property>
 	</class>
 </hibernate-mapping>

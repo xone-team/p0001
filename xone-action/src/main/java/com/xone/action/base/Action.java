@@ -9,18 +9,21 @@
 package com.xone.action.base;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
@@ -28,6 +31,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 import com.xone.model.persistence.Pager;
 import com.xone.model.utils.ConfigUtils;
+import com.xone.model.utils.DateUtils;
 
 /**
  * @TODO 请Hunny添加代码注释 
@@ -105,20 +109,28 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 	 * @return the userMap
 	 */
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> getUserMap() {
+	public Map<String, String> getUserMap() {
 		Object object = getSession().getAttribute(USER);
 		if (null == object) {
 			return Collections.emptyMap();
 		}
-		return (Map<String, Object>)object;
+		return (Map<String, String>)object;
 	}
 	
 	public final Long getUserId() {
-		return (Long)getUserMap().get("id");
+		return Long.parseLong(getUserMap().get("id"));
 	}
 	
 	public final String getUsername() {
-		return (String)getUserMap().get("username");
+		return getUserMap().get("username");
+	}
+	
+	public final String getUniqueId() {
+		return getRandomChar() + UUID.randomUUID().toString().toUpperCase().replaceAll("-", String.valueOf(getRandomChar())) + DateUtils.format(new Date(), "yyyyMMddHHmmssS");
+	}
+	
+	public final char getRandomChar() {
+		return (char)(65 + new Random().nextInt(26));
 	}
 	
 	@SuppressWarnings("unchecked")

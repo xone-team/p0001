@@ -12,7 +12,6 @@
 	padding-left: 5px;
 	padding-right: 5px;
 }
-
 .ui-mybanner {
 	height: 40px;
 	width: 100%;
@@ -47,16 +46,12 @@
 </c:if>
 <script type="text/javascript">
 $(document).bind("mobileinit", function() {  
-// 	if (navigator.userAgent.indexOf("Android") != -1) {  
-// 		$.mobile.defaultPageTransition = 'none';  
-// 		$.mobile.defaultDialogTransition = 'none';  
-// 	}
 	$.extend($.mobile, {
 		defaultPageTransition:'slide',
-// 		defaultDialogTransition:'none',
+		defaultDialogTransition:'slideup',
 		linkBindingEnabled: true,
 		pageLoadErrorMessage: '哇～～网络不给力呀！',
-		transitionFallbacks: 'none',
+		transitionFallbacks: 'slidedown',
 		pushStateEnabled: false,
 		loadingMessageTheme: 'e',
 		loadingMessage: '系统正在加载请求的数据，请稍候...',
@@ -65,14 +60,43 @@ $(document).bind("mobileinit", function() {
 	});
 });
 function console(i) {
-	var activePage = $('div.ui-page-active[data-role="page"]');
+	var activePage = $.mobile.activePage;
 	var c = activePage.find('div.console');
 	if (c.length == 0) {
 		activePage.append('<div class="console">&nbsp;</div>');
 		c = activePage.find('div.console');
 	}
-	c.append(i);
+	c.append('<div>' + i + '</div>');
 }
+function appendImageAttr(t) {
+	var activePage = $.mobile.activePage;
+    var sw = activePage.width();
+    if (parseInt(t.width, 10) > parseInt(sw, 10)) {
+    	t.style.width = sw + 'px';
+    	t.width = sw + 'px';
+    }
+    if (parseInt(t.height, 10) > 40) {
+    	t.style.height = 40 + 'px';
+    	t.height = 40 + 'px';
+    }
+}
+function globalBannerSwitch() {
+	var activePage = $.mobile.activePage;
+	var activeHeader = activePage.find('div[data-role="header"]');
+	var banner = activeHeader.find('div.ui-mybanner');
+	var li = banner.find('li.ui-mybanner-link');
+	if (li.length <= 1) {
+		return;
+	}
+	var cs = banner.find('li.ui-mybanner-link:visible');
+	var next = cs.next('li');
+	if (next.length == 0) {
+		next = li.first();
+	}
+	li.hide();
+	next.show('slow');
+}
+setInterval('globalBannerSwitch();', 5 * 1000);
 </script>
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery.mobile-1.3.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/myadbanner.js"></script>

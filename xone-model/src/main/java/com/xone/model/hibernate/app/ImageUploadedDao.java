@@ -8,6 +8,8 @@ import com.xone.model.hibernate.generic.HibernateDao;
 
 public interface ImageUploadedDao extends HibernateDao<ImageUploaded> {
 
+	public int deleteLogicById(Long id);
+	
 	public List<Long> findAllIdsByRefId(Long refId);
 	
 	public Map<Long, List<Long>> findAllIdsByRefIds(List<Long> refIds, int index, int maxResult);

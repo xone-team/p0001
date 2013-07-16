@@ -40,5 +40,13 @@
 		<action name="itemForUser" class="purchaseAction" method="itemForUser">
 			<result name="success">/WEB-INF/jsp/purchase-user-item-page.jsp</result>
 		</action>
+		<action name="updateItem" class="purchaseAction" method="updateItem">
+			<result name="error">//WEB-INF/jsp/purchase-user-item-page.jsp</result>
+			<result name="success">/WEB-INF/jsp/purchase-update-item-page.jsp</result>
+		</action>
+		<action name="update" class="purchaseAction" method="update">
+			<result name="success">//WEB-INF/jsp/purchase-user-item-page.jsp</result>
+			<result name="error">//WEB-INF/jsp/purchase-update-item-page.jsp</result>
+		</action>
 	</package>
 </struts>

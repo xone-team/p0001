@@ -13,10 +13,17 @@ import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.generic.AbstractHibernateDao;
 
 public class ImageUploadedDaoImpl extends AbstractHibernateDao<ImageUploaded> implements ImageUploadedDao {
+	
+	public int deleteLogicById(Long id) {
+		return getHibernateTemplate().bulkUpdate("update " + ImageUploaded.class.getName() + " clazz set clazz.flagDeleted = ? where clazz.id = ?", new Object[] {
+			ImageUploaded.FlagDeleted.DELETED.getValue(), id
+		});
+	}
 
 	public List<Long> findAllIdsByRefId(Long refId) {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ImageUploaded.class);
 		detachedCriteria.add(Restrictions.eq("refId", refId));
+		detachedCriteria.add(Restrictions.eq("flagDeleted", ImageUploaded.FlagDeleted.NORMAL.getValue()));
 		List<ImageUploaded> l = this.findListByDetachedCriteria(detachedCriteria, 0, 5);
 		if (null == l || l.size() <= 0) {
 			return Collections.emptyList();
@@ -31,6 +38,7 @@ public class ImageUploadedDaoImpl extends AbstractHibernateDao<ImageUploaded> im
 	public Map<Long, List<Long>> findAllIdsByRefIds(List<Long> refIds, int index, int maxResult) {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ImageUploaded.class);
 		detachedCriteria.add(Restrictions.in("refId", refIds));
+		detachedCriteria.add(Restrictions.eq("flagDeleted", ImageUploaded.FlagDeleted.NORMAL.getValue()));
 		List<ImageUploaded> l = this.findListByDetachedCriteria(detachedCriteria, index, maxResult);
 		if (null == l || l.size() <= 0) {
 			return Collections.emptyMap();
