@@ -12,7 +12,7 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page" class="product-page" data-dom-cache="false">
+	<div data-role="page" class="product-main-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>
@@ -22,38 +22,15 @@
 			    </ul>
 			</div>
 		</div>
-		<div class="product-list" data-role="content" data-iscroll>
+		<div class="product-list-main" data-role="content" data-iscroll>
 			<div class="iscroll-pulldown">
 		        <span class="iscroll-pull-icon"></span>
 		        <span class="iscroll-pull-label"></span>
 			</div>
 			<div style="height:15px">&nbsp;</div>
-			<ul data-id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true">
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/lumia_800.png">
-	            	<h2>WP 7.8</h2>
-	                <p>Nokia rolls out WP 7.8 to Lumia 800</p>
-	                <p class="ui-li-aside">Windows Phone</p>
-	            </a></li>
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/galaxy_express.png">
-	            	<h2>Galaxy</h2>
-	                <p>New Samsung Galaxy Express</p>
-	                <p class="ui-li-aside">Samsung</p>
-	            </a></li>
-	            <li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/apple.png">
-	            	<h2>iOS 6.1</h2>
-	                <p>Apple released iOS 6.1</p>
-	                <p class="ui-li-aside">iOS</p>
-	            </a></li>
-	        	<li><a href="#">
-	            	<img src="${STATIC_ROOT}/image/blackberry_10.png">
-	            	<h2>BlackBerry 10</h2>
-	                <p>BlackBerry launched the Z10 and Q10 with the new BB10 OS</p>
-	                <p class="ui-li-aside">BlackBerry</p>
-	            </a></li>
-	        </ul>
+				<ul class="ul-product-list" data-id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true">
+			        <li data-role="list-divider">数据加载中，请稍候...</li>
+		        </ul>
 			<div class="iscroll-pullup">
 				<span class="iscroll-pull-icon"></span>
 				<span class="iscroll-pull-label"></span>
@@ -61,19 +38,55 @@
 		</div>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${identify}"></script>
 		<script defer="defer" type="text/javascript">
-			$(document).delegate('div.product-page', "pageinit", function(event) {
+			$(document).delegate('div.product-main-page', "pageinit", function(event) {
 				$('a.allproducts').addClass('ui-btn-active');
 			});
-			$('div.product-page').bind("pageinit", function(event) {
-				$('div.product-list').mypullupdown({
-					url:'${pageContext.request.contextPath}/product/listMobileMore.html',
+			$('div.product-main-page').bind("pageinit", function(event) {
+				$('div.product-list-main').mypullupdown({
+					url:'${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}',
+					onDown: function() {
+						var item = $('ul.ul-product-list').find('li.productdatecreateditem');
+						return {
+							'itemcount': item.length,
+							'itemaction': 'down',
+							'product.dateCreated': item.first().attr('timestamp')
+						}
+					},
+					onUp: function() {
+						var item = $('ul.ul-product-list').find('li.productdatecreateditem');
+						return {
+							'itemcount': item.length,
+							'itemaction': 'up',
+							'product.dateCreated': item.last().attr('timestamp')
+						}
+					},
 					down: function(html) {
-						$('ul[data-id="listview"]').prepend(html).listview('refresh');
+						$('ul.ul-product-list').prepend(html).listview('refresh');
 					},
 					up: function(html) {
-						$('ul[data-id="listview"]').append(html).listview('refresh');
+						$('ul.ul-product-list').append(html).listview('refresh');
 					}
 				});
+	        	doRequest();
+				function doRequest() {
+					$.ajax({
+						type: 'GET',
+						url: '${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}',
+						data: '_=' + new Date().getTime(),
+						success: function(html) {
+							$('ul.ul-product-list').html(html).listview('refresh');
+							fixedPurchaseImage();
+						}
+					});
+				}
+				function fixedPurchaseImage() {
+					var lis = $('li.productdatecreateditem:eq(0)');
+					if (lis.length > 0) {
+						var height = lis.height() - 3;
+						var css = ['<style type="text/css" class="product"> img.productliimage {height:', height, 'px;', 'width:', height, 'px;}</style>'];
+						$('div.product-main-page').append(css.join(''));
+					}
+				}
 			});
 		</script>
 		<jsp:include page="footer.jsp">

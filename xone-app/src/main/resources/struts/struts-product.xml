@@ -16,5 +16,20 @@
 		<action name="listGroups" class="productAction" method="listGroups">
 			<result name="success">/WEB-INF/jsp/product-list-groups.jsp</result>
 		</action>
+		<action name="add" class="productAction" method="add">
+			<result name="success">/WEB-INF/jsp/product-add-page.jsp</result>
+		</action>
+		<action name="create" class="productAction" method="create">
+			<result name="success">/WEB-INF/jsp/product-create-success.jsp</result>
+		</action>
+		<action name="itemDetails" class="productAction" method="itemDetails">
+			<result name="success">/WEB-INF/jsp/product-item-details.jsp</result>
+		</action>
+		<action name="listItems" class="productAction" method="listItems">
+			<result name="success">/WEB-INF/jsp/product-list-items.jsp</result>
+		</action>
+		<action name="item" class="productAction" method="item">
+			<result name="success">/WEB-INF/jsp/product-item-page.jsp</result>
+		</action>
 	</package>
 </struts>

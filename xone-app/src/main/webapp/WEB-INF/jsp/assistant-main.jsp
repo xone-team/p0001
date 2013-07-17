@@ -32,9 +32,9 @@
 		    <div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
 		        <h3>售卖发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
-				    <li><a href="#">产品发布</a></li>
-				    <li><a href="#">促销发布</a></li>
-				    <li><a href="#">组团发布</a></li>
+				    <li><a href="${pageContext.request.contextPath}/product/add.html?type=0&_=${identify}">产品发布</a></li>
+				    <li><a href="${pageContext.request.contextPath}/product/add.html?type=1&_=${identify}">促销发布</a></li>
+				    <li><a href="${pageContext.request.contextPath}/product/add.html?type=2&_=${identify}">组团发布</a></li>
 				</ul>
 		    </div>
 		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">

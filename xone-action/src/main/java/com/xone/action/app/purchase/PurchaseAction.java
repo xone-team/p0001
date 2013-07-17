@@ -70,6 +70,7 @@ public class PurchaseAction extends Action {
 			ImageUploaded iu = new ImageUploaded();
 			iu.setImageType(aImage[0].replaceFirst("data:", ""));
 			iu.setImage(null);
+			iu.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
 			images.add(iu);
 			String suffix = iu.getImageType().replaceFirst("image/", "");
 			try {

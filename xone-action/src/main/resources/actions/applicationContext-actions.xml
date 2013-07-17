@@ -10,7 +10,9 @@
 			http://www.springframework.org/schema/context   
 			http://www.springframework.org/schema/context/spring-context-2.5.xsd" default-lazy-init="true" default-autowire="byName">
 	<bean id="loginRefAction" class="com.xone.action.app.loginref.LoginRefAction" scope="prototype" />
-	<bean id="productAction" class="com.xone.action.app.product.ProductAction" scope="prototype" />
+	<bean id="productAction" class="com.xone.action.app.product.ProductAction" scope="prototype" >
+	    <property name="imageUploadPath" value="${com.xone.image.uploaded.file.dir}" />
+	</bean>
 	<bean id="purchaseAction" class="com.xone.action.app.purchase.PurchaseAction" scope="prototype" >
 	    <property name="imageUploadPath" value="${com.xone.image.uploaded.file.dir}" />
 	</bean>

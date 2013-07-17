@@ -162,6 +162,10 @@ public class GenerateTableToEntityAndHbmXml {
 		serviceBuffer.append(tableJavaName);
 		serviceBuffer.append(" entity);");
 		serviceBuffer.append("\n");
+		serviceBuffer.append("public ");
+		serviceBuffer.append(tableJavaName);
+		serviceBuffer.append(" findById(Long id);");
+		serviceBuffer.append("\n");
 		serviceBuffer.append("public List<");
 		serviceBuffer.append(tableJavaName);
 		serviceBuffer.append("> findAllByMap(Map<String, String> params);");
