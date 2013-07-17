@@ -56,11 +56,9 @@
 					},
 					down: function(html) {
 						$('ul.ul-purchase-list-for-user').prepend(html).listview('refresh');
-	// 					fixedPurchaseImage();
 					},
 					up: function(html) {
 						$('ul.ul-purchase-list-for-user').append(html).listview('refresh');
-						fixedPurchaseImage();
 					}
 				});
 	        	doRequest();
@@ -82,9 +80,15 @@
 				}
 				function fixedPurchaseImage() {
 					if (!$('div.purchase-list-for-user-page').data('cssbinding')) {
-						var height = $('li.purchasedatecreateditem:eq(0)').height();
-						var css = ['<style type="text/css"> img.purchaseliimage {width:', height, 'px;', 'width:', height, 'px;}</style>'];
-						$('div.purchase-list-for-user-page').append(css.join(''));
+// 						var height = $('li.purchasedatecreateditem:eq(0)').height();
+// 						var css = ['<style type="text/css"> img.purchaseliimage {width:', height, 'px;', 'width:', height, 'px;}</style>'];
+// 						$('div.purchase-list-for-user-page').append(css.join(''));
+						var lis = $('li.purchasedatecreateditem:eq(0)');
+						if (lis.length > 0) {
+							var height = lis.height() - 3;
+							var css = ['<style type="text/css"> img.purchaseliimage {height:', height, 'px;', 'width:', height, 'px;}</style>'];
+							$('div.purchase-list-for-user-page').append(css.join(''));
+						}
 						$('div.purchase-list-for-user-page').data('cssbinding', true);
 					}
 				}

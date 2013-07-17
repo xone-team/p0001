@@ -58,7 +58,6 @@
 					},
 					up: function(html) {
 						$('ul.ul-purchase-list').append(html).listview('refresh');
-						fixedPurchaseImage();
 					}
 				});
 	        	doRequest();
@@ -79,9 +78,12 @@
 					});
 				}
 				function fixedPurchaseImage() {
-					var height = $('li.purchasedatecreateditem:eq(0)').height();
-					var css = ['<style type="text/css"> img.purchaseliimage {width:', 80, 'px;', 'width:', 80, 'px;}</style>'];
-					$('div.purchase-main-page').append(css.join(''));
+					var lis = $('li.purchasedatecreateditem:eq(0)');
+					if (lis.length > 0) {
+						var height = lis.height() - 3;
+						var css = ['<style type="text/css"> img.purchaseliimage {height:', height, 'px;', 'width:', height, 'px;}</style>'];
+						$('div.purchase-main-page').append(css.join(''));
+					}
 				}
 			});
 		</script>
