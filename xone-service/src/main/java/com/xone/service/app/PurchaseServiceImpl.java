@@ -58,6 +58,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public Purchase save(Purchase entity, ImageUploaded imageUploaded) {
 		entity = getPurchaseDao().save(entity);
 		imageUploaded.setRefId(entity.getId());
+		imageUploaded.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
+		imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
 		imageUploaded = getImageUploadedDao().save(imageUploaded);
 		entity.getIds().add(imageUploaded.getId());
 		return entity;
@@ -68,6 +70,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 		entity = getPurchaseDao().save(entity);
 		for (ImageUploaded imageUploaded : imageUploadeds) {
 			imageUploaded.setRefId(entity.getId());
+			imageUploaded.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
+			imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
 		}
 		imageUploadeds = getImageUploadedDao().save(imageUploadeds);
 		List<Long> ids = new ArrayList<Long>();
@@ -82,6 +86,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 		entity = getPurchaseDao().update(entity);
 		for (ImageUploaded imageUploaded : imageUploadeds) {
 			imageUploaded.setRefId(entity.getId());
+			imageUploaded.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
 			imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
 		}
 		imageUploadeds = getImageUploadedDao().save(imageUploadeds);
@@ -134,7 +139,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			for (Purchase p : list) {
 				ids.add(p.getId());
 			}
-			Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, 0, ids.size() * 3);
+			Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.PURCHASE, 0, ids.size() * 3);
 			for (int i = 0; i < ids.size(); i++) {
 				Purchase ip = list.get(i);
 				List<Long> imageIds = maps.get(ip.getId());
@@ -159,7 +164,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			return new Purchase();
 		}
 		Purchase p = l.get(0);
-		List<Long> ids = getImageUploadedDao().findAllIdsByRefId(p.getId());
+		List<Long> ids = getImageUploadedDao().findAllIdsByRefId(p.getId(), ImageUploaded.RefType.PURCHASE);
 		p.setIds(ids);
 		return p;
 	}

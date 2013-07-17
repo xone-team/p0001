@@ -20,9 +20,10 @@ public class ImageUploadedDaoImpl extends AbstractHibernateDao<ImageUploaded> im
 		});
 	}
 
-	public List<Long> findAllIdsByRefId(Long refId) {
+	public List<Long> findAllIdsByRefId(Long refId, ImageUploaded.RefType refType) {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ImageUploaded.class);
 		detachedCriteria.add(Restrictions.eq("refId", refId));
+		detachedCriteria.add(Restrictions.eq("refType", refType.getValue()));
 		detachedCriteria.add(Restrictions.eq("flagDeleted", ImageUploaded.FlagDeleted.NORMAL.getValue()));
 		List<ImageUploaded> l = this.findListByDetachedCriteria(detachedCriteria, 0, 5);
 		if (null == l || l.size() <= 0) {
@@ -35,9 +36,10 @@ public class ImageUploadedDaoImpl extends AbstractHibernateDao<ImageUploaded> im
 		return ids;
 	}
 	
-	public Map<Long, List<Long>> findAllIdsByRefIds(List<Long> refIds, int index, int maxResult) {
+	public Map<Long, List<Long>> findAllIdsByRefIds(List<Long> refIds, ImageUploaded.RefType refType, int index, int maxResult) {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ImageUploaded.class);
 		detachedCriteria.add(Restrictions.in("refId", refIds));
+		detachedCriteria.add(Restrictions.eq("refType", refType.getValue()));
 		detachedCriteria.add(Restrictions.eq("flagDeleted", ImageUploaded.FlagDeleted.NORMAL.getValue()));
 		List<ImageUploaded> l = this.findListByDetachedCriteria(detachedCriteria, index, maxResult);
 		if (null == l || l.size() <= 0) {

@@ -23,8 +23,25 @@ public class ImageUploaded implements Serializable {
 		}
 	}
 	
+	/**
+	 * 相关类型
+	 */
+	public enum RefType {
+		PRODUCT("0"), PURCHASE("1"), ABBANNER("2");
+		protected String value = null;
+		
+		private RefType(String v) {
+			this.value = v;
+		}
+		
+		public String getValue() {
+			return this.value;
+		}
+	}
+	
 	protected Long id;
 	protected Long refId;
+	protected String refType;
 	protected String imageType;
 	protected Long userCreated;
 	protected Date dateCreated;
@@ -43,6 +60,12 @@ public class ImageUploaded implements Serializable {
 	}
 	public void setRefId(Long refId) {
 		this.refId = refId;
+	}
+	public String getRefType() {
+		return refType;
+	}
+	public void setRefType(String refType) {
+		this.refType = refType;
 	}
 	public String getImage() {
 		return image;

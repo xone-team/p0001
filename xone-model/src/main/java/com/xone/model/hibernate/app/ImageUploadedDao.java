@@ -10,8 +10,8 @@ public interface ImageUploadedDao extends HibernateDao<ImageUploaded> {
 
 	public int deleteLogicById(Long id);
 	
-	public List<Long> findAllIdsByRefId(Long refId);
+	public List<Long> findAllIdsByRefId(Long refId, ImageUploaded.RefType refType);
 	
-	public Map<Long, List<Long>> findAllIdsByRefIds(List<Long> refIds, int index, int maxResult);
+	public Map<Long, List<Long>> findAllIdsByRefIds(List<Long> refIds, ImageUploaded.RefType refType, int index, int maxResult);
 
 }
