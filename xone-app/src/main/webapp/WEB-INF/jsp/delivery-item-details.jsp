@@ -67,7 +67,7 @@
    	</table>
    </li>
    <li style="padding-right:0px;">
-   	<table style="width:100%">
+   	<table style="width:100%" style="border-collapse: collapse;border-spacing: 0;">
    		<tr>
    			<td rowspan="3" class="mylabel" style="border-right:1px solid gray;">货　　量:</td>
   			<td style="width:40px;text-align:right;">共</td>

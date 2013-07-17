@@ -1,6 +1,7 @@
 package com.xone.action.app.adbanner;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Adbanner;
+import com.xone.model.utils.DateUtils;
 import com.xone.service.app.AdbannerService;
 
 public class AdBannerAction extends Action {
@@ -16,6 +18,8 @@ public class AdBannerAction extends Action {
 	
 	@Autowired
 	protected AdbannerService adbannerService;
+	
+	protected Adbanner adbanner = new Adbanner();
 	
 	protected List<Adbanner> list = new ArrayList<Adbanner>();
 
@@ -29,8 +33,24 @@ public class AdBannerAction extends Action {
 	}
 	
 	public String list() {
-		Map<String, String> params = getRequestMap();
-		System.err.println("AdBanner params:" + params);
+		return SUCCESS;
+	}
+	
+	public String items() {
+		Map<String, String> map = getRequestMap();
+		Map<String, String> params = new HashMap<String, String>();
+		if ("down".equals(map.get("itemaction"))) {
+			params.put("gtDateCreated", DateUtils.format(getAdbanner().getDateCreated()));
+		} else if ("up".equals(map.get("itemaction"))) {
+			params.put("ltDateCreated", DateUtils.format(getAdbanner().getDateCreated()));
+		}
+		params.put("userId", getUserId().toString());
+		setList(getAdbannerService().findItemsByMap(params));
+		return SUCCESS;
+	}
+	
+	public String item() {
+		setAdbanner(getAdbannerService().findById(getAdbanner().getId()));
 		return SUCCESS;
 	}
 
@@ -40,6 +60,14 @@ public class AdBannerAction extends Action {
 
 	public void setList(List<Adbanner> list) {
 		this.list = list;
+	}
+
+	public Adbanner getAdbanner() {
+		return adbanner;
+	}
+
+	public void setAdbanner(Adbanner adbanner) {
+		this.adbanner = adbanner;
 	}
 
 	public AdbannerService getAdbannerService() {

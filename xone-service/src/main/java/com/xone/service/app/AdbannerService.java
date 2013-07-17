@@ -12,4 +12,6 @@ public interface AdbannerService {
 	public Adbanner findById(Long id);
 	
 	public List<Adbanner> findAllByMap(Map<String, String> params);
+	
+	public List<Adbanner> findItemsByMap(Map<String, String> params);
 }

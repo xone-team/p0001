@@ -8,6 +8,7 @@ import java.util.Map;
 import org.apache.commons.lang.xwork.StringUtils;
 import org.apache.commons.lang.xwork.time.DateUtils;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -46,6 +47,38 @@ public class AdbannerServiceImpl implements AdbannerService {
 		}
 		detachedCriteria.add(Restrictions.eq("flagDeleted", Adbanner.FlagDeleted.NORMAL.getValue()));
 		List<Adbanner> list =getAdbannerDao().findListByDetachedCriteria(detachedCriteria, 0, 10);
+		return list;
+	}
+	
+	@Override
+	public List<Adbanner> findItemsByMap(Map<String, String> params) {
+		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Adbanner.class);
+		String gtDateCreated = params.get("gtDateCreated");
+		if (!StringUtils.isBlank(gtDateCreated)) {
+			try {
+				detachedCriteria.add(Restrictions.gt("dateCreated", DateUtils.parseDate(gtDateCreated, new String[] {
+						"yyyy-MM-dd HH:mm:ss"
+				})));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		String ltDateCreated = params.get("ltDateCreated");
+		if (!StringUtils.isBlank(ltDateCreated)) {
+			try {
+				detachedCriteria.add(Restrictions.lt("dateCreated", DateUtils.parseDate(ltDateCreated, new String[] {
+						"yyyy-MM-dd HH:mm:ss"
+				})));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		if (!StringUtils.isBlank(params.get("userId"))) {
+			detachedCriteria.add(Restrictions.eq("userId", Long.parseLong(params.get("userId"))));
+		}
+		detachedCriteria.add(Restrictions.eq("flagDeleted", Adbanner.FlagDeleted.NORMAL.getValue()));
+		detachedCriteria.addOrder(Order.desc("dateCreated"));
+		List<Adbanner> list = getAdbannerDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
 		return list;
 	}
 
