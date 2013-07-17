@@ -58,6 +58,7 @@
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 				    <li><a href="${pageContext.request.contextPath}/delivery/listIndex.html?_=${identify}">查看物流配送列表</a></li>
 				    <li><a href="${pageContext.request.contextPath}/adbanner/list.html?_=${identify}">查看我的广告列表</a></li>
+				    <li><a href="#">查看我的订阅列表</a></li>
 <!-- 				    <li><a href="#">查看资金担保列表</a></li> -->
 				</ul>
 		    </div>
