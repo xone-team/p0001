@@ -17,7 +17,9 @@
 				url: s.url,
 				data: s.data,
 				handler: function(html) {
-					activeHtmlHandler(html);
+					if ($.trim(html).length != 0) {
+						activeHtmlHandler(html);
+					}
 				}
 			});
 		}
@@ -46,7 +48,7 @@
 				info.banner.html(html);
 //				console.log('At:' + new Date() + ' inner activeHtmlHandler, append html to banner:' + html);
 				var lis = info.banner.find('li.ui-mybanner-link');
-				if (lis.length > 0) {
+				if (lis.length >= 1) {
 					info.banner.show().data('loaded', true);
 					var i = Math.round(Math.random() * 10) % lis.length;
 					rollbanner(info, i);
@@ -62,12 +64,11 @@
 			t.show('slow');
 		}
 		function activePageInfo() {
-			var activePage = $('div.ui-page-active[data-role="page"]');//$.mobile.activePage;//
+			var activePage = $.mobile.activePage;//$('div.ui-page-active[data-role="page"]');//
 			var activeHeader = activePage.find('div[data-role="header"]');
 			var activeBanner = activeHeader.find('div.' + s.bannerClass);
 			if (activeBanner.length == 0) {
-//				console.log('At:' + new Date() + ' activePageInfo page has no banner, append.' + activePage.attr('data-url'));
-				activeHeader.append('<div class="' + s.bannerClass + '">&nbsp;</div>');
+				activeHeader.append('<div class="' + s.bannerClass + '" style="display:none;">&nbsp;</div>');
 				activeBanner = activeHeader.find('div.' + s.bannerClass);
 				activeBanner.hide();
 			}

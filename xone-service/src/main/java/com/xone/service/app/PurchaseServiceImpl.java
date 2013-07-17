@@ -43,7 +43,6 @@ public class PurchaseServiceImpl implements PurchaseService {
 		this.imageUploadedDao = imageUploadedDao;
 	}
 
-
 	@Override
 	public Purchase save(Purchase entity) {
 		return getPurchaseDao().save(entity);

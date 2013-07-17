@@ -107,7 +107,6 @@ setInterval('globalBannerSwitch();', 5 * 1000);
 	function globalAdBanner() {
 		$('body').myadbanner({
 			url: '${pageContext.request.contextPath}/adbanner/index.html',
-			testUrl: '${pageContext.request.contextPath}/adbanner/list.html',
 			data: {
 				'_': new Date().getTime()
 			}
