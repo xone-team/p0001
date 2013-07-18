@@ -76,6 +76,11 @@ public class GenerateTableToEntityAndHbmXml {
 		hibernateXml.append("\" table=\"");
 		hibernateXml.append(tableName.toUpperCase());
 		hibernateXml.append("\">\n");
+		javaProperties.append("package com.xone.model.hibernate.entity;\n\n");
+		javaProperties.append("import java.io.Serializable;\n\n");
+		javaProperties.append("public class ");
+		javaProperties.append(tableJavaName);
+		javaProperties.append(" implements Serializable {\n");
 		for (Map<String, String> map : list) {
 			javaProperties.append("protected ");
 			javaProperties.append(convertClassName(map.get("columnClassName")));
@@ -88,14 +93,17 @@ public class GenerateTableToEntityAndHbmXml {
 				hibernateXml.append(generateProperty(map.get("columnName"), map.get("columnClassName"), map.get("columnDisplaySize")));
 			}
 		}
+		javaProperties.append("}\n");
 		hibernateXml.append("\t</class>\n");
 		hibernateXml.append("</hibernate-mapping>\n");
 		System.out.println("+--------------------------------------------+");
 		System.out.println("+---------------Java Properties--------------+");
+		System.out.println(tableJavaName + ".java");
 		System.out.println("+--------------------------------------------+");
 		System.out.println(javaProperties.toString());
 		System.out.println("+-------------------------------------------------+");
 		System.out.println("+------------------Hibernate xml------------------+");
+		System.out.println(tableJavaVar + ".hbm.xml");
 		System.out.println("+-------------------------------------------------+");
 		System.out.println(hibernateXml.toString());
 		System.out.println("+-----------------+");

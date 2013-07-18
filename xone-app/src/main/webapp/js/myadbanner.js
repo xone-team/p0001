@@ -26,7 +26,6 @@
 		$(document).bind("pageshow", function(event) {
 //			testEvent();
 			var info = activePageInfo();
-//			console.log('At:' + new Date() + ' info banner data:' + info.banner.data('loaded'));
 //			console.log('At:' + new Date() + ' info banner page:' + info.page.attr('data-url'));
 			if (!info.banner.data('loaded')) {
 				if ($('body').data('myadbanner')) {

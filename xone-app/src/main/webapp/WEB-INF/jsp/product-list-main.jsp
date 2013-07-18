@@ -12,11 +12,11 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page" class="product-main-page" data-dom-cache="false">
+	<div data-role="page" class="product-main-page" data-dom-cache="true">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>
-			        <li><a class="allproducts" href="${pageContext.request.contextPath}/product/index.html?_=${identify}" class="ui-btn-active">所有产品</a></li>
+			        <li><a class="allproducts" data-prefetch="true" href="${pageContext.request.contextPath}/product/index.html?_=${identify}" class="ui-btn-active">所有产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listSales.html?_=${identify}">促销产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html?_=${identify}">组团产品</a></li>
 			    </ul>

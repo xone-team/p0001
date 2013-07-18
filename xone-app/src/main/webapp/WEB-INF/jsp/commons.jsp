@@ -96,14 +96,20 @@ function globalBannerSwitch() {
 	li.hide();
 	next.show('slow');
 }
-setInterval('globalBannerSwitch();', 5 * 1000);
 </script>
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery.mobile-1.3.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/myadbanner.js"></script>
 <<script type="text/javascript">
 <!--
+	$(document).delegate($.mobile.activePage, 'pageshow', function() {
+		var interval = $('body').data('_globalinterval');
+		if (interval) {
+			clearInterval(interval);
+		}
+		interval= setInterval('globalBannerSwitch();', 5 * 1000);
+		$('body').data('_globalinterval', interval);
+	});
 	globalAdBanner();
-// 	setInterval('globalAdBanner()', 5000);//数据请求的间隔
 	function globalAdBanner() {
 		$('body').myadbanner({
 			url: '${pageContext.request.contextPath}/adbanner/index.html',

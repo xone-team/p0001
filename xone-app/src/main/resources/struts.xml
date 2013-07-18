@@ -52,4 +52,5 @@
 	<include file="struts/struts-assistant.xml" />
 	<include file="struts/struts-delivery.xml" />
 	<include file="struts/struts-adbanner.xml" />
+	<include file="struts/struts-subscribe.xml" />
 </struts>

@@ -21,4 +21,5 @@
 	</bean>
 	<bean id="deliveryAction" class="com.xone.action.app.assistant.DeliveryAction" scope="prototype" />
 	<bean id="adBannerAction" class="com.xone.action.app.adbanner.AdBannerAction" scope="prototype" />
+	<bean id="subscribeAction" class="com.xone.action.app.subscribe.SubscribeAction" scope="prototype" />
 </beans>

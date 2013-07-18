@@ -9,7 +9,7 @@
 		<jsp:include page="commons.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page" class="product-groups-page" data-dom-cache="false">
+	<div data-role="page" class="product-groups-page" data-dom-cache="true">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>
