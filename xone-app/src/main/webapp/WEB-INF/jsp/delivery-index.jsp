@@ -13,6 +13,10 @@
 	</head>
 	<body>
 	<div data-role="page" class="deliverypage${identify}" data-dom-cache="false">
+		<link rel="stylesheet" href="${STATIC_ROOT}/mobiscroll/css/mobiscroll.core-2.6.2.css" />
+		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2.js"></script>
+		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.datetime-2.6.2.js"></script>
+		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2-zh.js"></script>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${identify}" data-icon="check" class="btn-banner">返回</a>
 			<h1>物流配送</h1>
@@ -43,7 +47,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">上货时间:</td>
-				    			<td><input type="text" name="delivery.loadtime" data-mini="true" value="2013-07-09 13:43" autocomplete="off"/></td>
+				    			<td><input type="text" id="deliveryloadtime" name="delivery.loadtime" data-mini="true" value="2013-07-09 13:43" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -96,12 +100,24 @@
 				$('div.deliverycontent').css({
 					paddingTop: '0px'
 				});
+				$('#deliveryloadtime').val('').scroller('destroy')
+					.scroller($.extend({
+						preset : 'datetime',
+						minDate : new Date(2012, 3, 10, 9, 22),
+						maxDate : new Date(2020, 7, 30, 15, 44),
+						stepMinute : 5
+					}, {
+						theme : 'default',
+						mode : 'scroller',
+						display : 'modal',
+						lang : 'zh'
+					}));
 				$('a.deliverysave').click(function(e) {
 					e.preventDefault();
 					$('form.deliveryform').submit();
-// 					$('form.deliveryform${identify}').submit(function() {
-// 						return true;
-// 					});
+					// 					$('form.deliveryform${identify}').submit(function() {
+					// 						return true;
+					// 					});
 					return false;
 				});
 			});

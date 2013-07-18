@@ -62,6 +62,9 @@ public class PurchaseAction extends Action {
 	protected List<ImageUploaded> findImageByParams() {
 		Map<String, String[]> map = (Map<String, String[]>)getRequest().getParameterMap();
 		List<ImageUploaded> images = new ArrayList<ImageUploaded>();
+		if (null == map || map.isEmpty() || null ==  map.get("images")) {
+			return images;
+		}
 		for (String image : map.get("images")) {
 			String [] aImage = image.split(";base64,");
 			if (aImage.length != 2 || !aImage[0].startsWith("data:")) {

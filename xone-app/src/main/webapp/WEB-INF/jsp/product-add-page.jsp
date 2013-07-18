@@ -13,6 +13,10 @@
 	</head>
 	<body>
 	<div data-role="page" class="productaddpage" data-dom-cache="false">
+		<link rel="stylesheet" href="${STATIC_ROOT}/mobiscroll/css/mobiscroll.core-2.6.2.css" />
+		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2.js"></script>
+		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.datetime-2.6.2.js"></script>
+		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2-zh.js"></script>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${identify}" data-icon="check">返回</a>
 			<h1>发布产品</h1>
@@ -74,7 +78,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">有&nbsp&nbsp效&nbsp&nbsp期:</td>
-				    			<td><input type="text" name="product.productValid" placeholder="有效期" data-mini="true" value="2013-07-15 12:23:04" autocomplete="off"/></td>
+				    			<td><input type="text" id="productproductValid" name="product.productValid" placeholder="有效期" data-mini="true" value="2013-07-15 12:23:04" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -114,6 +118,17 @@
 						$('form.productform').submit();
 						return false;
 					});
+					$('#productproductValid').scroller('destroy')
+					.scroller($.extend({
+						preset : 'date',
+						minDate : new Date(2012, 3, 10),
+						maxDate : new Date(2020, 7, 30)
+					}, {
+						theme : 'default',
+						mode : 'scroller',
+						display : 'modal',
+						lang : 'zh'
+					}));
 					$('input.uploadImageProductButton').click(function(e) {
 						e.preventDefault();
 						$('form li.errorli').remove();
