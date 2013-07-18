@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.xone.model.hibernate.entity.Adbanner" table="T_ADBANNER">
+	<id name="id" type="java.lang.Long">
+		<column name="ID" length="20" not-null="true"/>
+		<generator class="increment" />
+	</id>
+	<property name="refId" type="java.lang.Long">
+		<column name="REF_ID" length="20"/>
+	</property>
+	<property name="adType" type="java.lang.String">
+		<column name="AD_TYPE" length="2"/>
+	</property>
+	<property name="adRefId" type="java.lang.Long">
+		<column name="AD_REF_ID" length="20"/>
+	</property>
+	<property name="adStart" type="java.util.Date">
+		<column name="AD_START" length="19"/>
+	</property>
+	<property name="adEnd" type="java.util.Date">
+		<column name="AD_END" length="19"/>
+	</property>
+	<property name="userId" type="java.lang.Long">
+		<column name="USER_ID" length="20"/>
+	</property>
+	<property name="flagDeleted" type="java.lang.String">
+		<column name="FLAG_DELETED" length="1"/>
+	</property>
+	<property name="userApply" type="java.lang.Long">
+		<column name="USER_APPLY" length="20"/>
+	</property>
+	<property name="dateApply" type="java.util.Date">
+		<column name="DATE_APPLY" length="19"/>
+	</property>
+	<property name="userCheck" type="java.lang.Long">
+		<column name="USER_CHECK" length="20"/>
+	</property>
+	<property name="dateCheck" type="java.util.Date">
+		<column name="DATE_CHECK" length="19"/>
+	</property>
+	<property name="userCreated" type="java.lang.Long">
+		<column name="USER_CREATED" length="20"/>
+	</property>
+	<property name="dateCreated" type="java.util.Date">
+		<column name="DATE_CREATED" length="19"/>
+	</property>
+	<property name="userUpdated" type="java.lang.Long">
+		<column name="USER_UPDATED" length="20"/>
+	</property>
+	<property name="lastUpdated" type="java.util.Date">
+		<column name="LAST_UPDATED" length="19"/>
+	</property>
+	</class>
+</hibernate-mapping>

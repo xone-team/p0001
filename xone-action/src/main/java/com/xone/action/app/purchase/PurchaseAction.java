@@ -18,6 +18,7 @@ import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.utils.DateUtils;
 import com.xone.service.app.PurchaseService;
+import com.xone.service.app.PurchaseServiceImpl;
 
 public class PurchaseAction extends Action {
 	
@@ -47,15 +48,32 @@ public class PurchaseAction extends Action {
 		return SUCCESS;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public String create() {
+//		ImageUploaded image = getImageUploaded();
+//		String [] aImage = image.getImage().split(";base64,");
+//		image.setImageType(aImage[0].replaceFirst("data:", ""));
+//		image.setImage(aImage[1]);
+		List<ImageUploaded> images = findImageByParams();
+		setPurchase(purchaseService.save(getPurchase(), images));
+		return SUCCESS;
+	}
+
+	@SuppressWarnings("unchecked")
+	protected List<ImageUploaded> findImageByParams() {
 		Map<String, String[]> map = (Map<String, String[]>)getRequest().getParameterMap();
 		List<ImageUploaded> images = new ArrayList<ImageUploaded>();
+		if (null == map || map.isEmpty() || null ==  map.get("images")) {
+			return images;
+		}
 		for (String image : map.get("images")) {
-			ImageUploaded iu = new ImageUploaded();
 			String [] aImage = image.split(";base64,");
+			if (aImage.length != 2 || !aImage[0].startsWith("data:")) {
+				continue;
+			}
+			ImageUploaded iu = new ImageUploaded();
 			iu.setImageType(aImage[0].replaceFirst("data:", ""));
 			iu.setImage(null);
+			iu.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
 			images.add(iu);
 			String suffix = iu.getImageType().replaceFirst("image/", "");
 			try {
@@ -63,19 +81,14 @@ public class PurchaseAction extends Action {
 				if (!file.exists()) {
 					file.mkdirs();
 				}
-				String filename = DateUtils.format(new Date(), "yyyyMMddHHmmssS") + suffix + System.currentTimeMillis() + "." + suffix;
+				String filename = getUniqueId() + "." + suffix;
 				ImageIO.write(ImageUtils.decodeToImage(aImage[1]), suffix, new File(file.getCanonicalPath() + File.separator + filename));
 				iu.setImage(filename);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-//		ImageUploaded image = getImageUploaded();
-//		String [] aImage = image.getImage().split(";base64,");
-//		image.setImageType(aImage[0].replaceFirst("data:", ""));
-//		image.setImage(aImage[1]);
-		setPurchase(purchaseService.save(getPurchase(), images));
-		return SUCCESS;
+		return images;
 	}
 	
 	public String listItems() {
@@ -103,6 +116,55 @@ public class PurchaseAction extends Action {
 			params.put("ltDateCreated", DateUtils.format(getPurchase().getDateCreated()));
 		}
 		setList(purchaseService.findAllByMap(params));
+		return SUCCESS;
+	}
+	
+	public String updateItem() {
+		Long id = getPurchase().getId();
+		if (null != id) {
+			Purchase p = findById(id);
+			if (null == p || null == p.getId()) {
+				getMapValue().put("msg", "无此记录.");
+				return ERROR;
+			}
+//			if (p.get) {
+//				getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
+//				return ERROR;
+//			}
+			setPurchase(p);
+			return SUCCESS;
+		}
+		getMapValue().put("msg", "缺失数据标识.");
+		return ERROR;
+	}
+	
+	protected Purchase findById(Long id) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(id));
+		return purchaseService.findByMap(params);
+	}
+	
+	public String update() {
+		Purchase pu = getPurchase();
+		if (null == pu || null == pu.getId()) {
+			getMapValue().put("msg", "无此记录.");
+			return ERROR;
+		}
+		Purchase entity = findById(pu.getId());
+//		if (p.get) {
+//		getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
+//		return ERROR;
+//	}
+		entity.setPurchaseName(pu.getPurchaseName());
+		entity.setPurchaseNum(pu.getPurchaseNum());
+		entity.setPurchaseType(pu.getPurchaseType());
+		entity.setPurchaseValid(pu.getPurchaseValid());
+		entity.setPurchaseLocation(pu.getPurchaseLocation());
+		entity.setPurchaseDesc(pu.getPurchaseDesc());
+		entity.setPurchaseAddress(pu.getPurchaseAddress());
+		List<ImageUploaded> imageUploadeds = findImageByParams();
+		entity = purchaseService.update(entity, imageUploadeds, pu.getIds());
+		setPurchase(entity);
 		return SUCCESS;
 	}
 	

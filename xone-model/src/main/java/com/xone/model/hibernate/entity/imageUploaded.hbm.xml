@@ -10,6 +10,9 @@
 	<property name="refId" type="java.lang.Long">
 		<column name="REF_ID" length="20"/>
 	</property>
+	<property name="refType" type="java.lang.String">
+		<column name="REF_TYPE" length="2"/>
+	</property>
 	<property name="imageType" type="java.lang.String">
 		<column name="IMAGE_TYPE" length="20"/>
 	</property>
@@ -27,6 +30,9 @@
 	</property>
 	<property name="image" type="java.lang.String">
 		<column name="IMAGE" length="64"/>
+	</property>
+	<property name="flagDeleted" type="java.lang.String">
+		<column name="FLAG_DELETED" length="1"/>
 	</property>
 	</class>
 </hibernate-mapping>

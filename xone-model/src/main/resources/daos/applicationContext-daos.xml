@@ -14,4 +14,7 @@
 	<bean id="deliveryDao" class="com.xone.model.hibernate.app.DeliveryDaoImpl" parent="abstractHibernateDao"/>
 	<bean id="purchaseDao" class="com.xone.model.hibernate.app.PurchaseDaoImpl" parent="abstractHibernateDao"/>
 	<bean id="imageUploadedDao" class="com.xone.model.hibernate.app.ImageUploadedDaoImpl" parent="abstractHibernateDao" />
+	<bean id="adbannerDao" class="com.xone.model.hibernate.app.AdbannerDaoImpl" parent="abstractHibernateDao" />
+	<bean id="productDao" class="com.xone.model.hibernate.app.ProductDaoImpl" parent="abstractHibernateDao" />
+	<bean id="subscribeDao" class="com.xone.model.hibernate.app.SubscribeDaoImpl" parent="abstractHibernateDao" />
 </beans>
