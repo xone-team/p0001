@@ -7,8 +7,6 @@
 	<name>xone-back</name>
 	<url>http://maven.apache.org</url>
 	<modules>
-		<module>../xone-action</module>
-		<module>../xone-service</module>
 		<module>../xone-model</module>
 	</modules>
 	<properties>
@@ -195,6 +193,11 @@
 			<!-- <artifactId>ibatis2-sqlmap</artifactId> -->
 			<artifactId>ibatis-sqlmap</artifactId>
 			<version>2.3.4.726</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.2</version>
 		</dependency>
 	</dependencies>
 	<build>
