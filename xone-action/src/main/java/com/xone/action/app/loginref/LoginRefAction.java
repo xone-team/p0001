@@ -220,7 +220,7 @@ public class LoginRefAction extends Action {
 		Person up = pList.get(0);
 		up.setPassword(EncryptRef.SHA1(getPerson().getPassword()));
 		up.setCellphone(getPerson().getCellphone());
-		up.setContact(getPerson().getContact());
+		up.setContactor(getPerson().getContactor());
 		up.setQq(getPerson().getQq());
 		up.setEmail(getPerson().getEmail());
 //		up.setAddress(getPerson().getAddress());
