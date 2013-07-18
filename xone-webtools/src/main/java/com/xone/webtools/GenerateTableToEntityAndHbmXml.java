@@ -24,7 +24,7 @@ public class GenerateTableToEntityAndHbmXml {
 
 	public static void main(String[] args) throws Exception {
 		new GenerateTableToEntityAndHbmXml("com.mysql.jdbc.Driver", 
-				"jdbc:mysql://mysqllocal.com:4306/sample?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true",
+				"jdbc:mysql://localhost:3306/sample?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true",
 				"root", "admin").start("com.xone.model.hibernate.entity", null);
 	}
 	

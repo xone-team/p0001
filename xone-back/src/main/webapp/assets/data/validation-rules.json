@@ -1,0 +1,40 @@
+{
+	"validationRules" :
+	[
+		{
+			"validatorName" : "notNull",
+			"textPattern" : "[${fieldText}] is required."
+		},
+		{
+			"validatorName" : "length",
+			"paramTypes" : 
+			[
+				{
+					"min" : "int",
+					"max" : "int"
+				}
+			],
+			"textPattern" : "[${fieldText}] length is between ${params[0]} and ${params[1]} bytes."
+		},
+		{
+			"validatorName" : "maxLength",
+			"paramTypes" : 
+			[
+				{
+					"max" : "int"
+				}
+			],
+			"textPattern" : "[${fieldText}] length cannot be greater than ${params[0]} bytes."
+		},
+		{
+			"validatorName" : "minLength",
+			"paramTypes" : 
+			[
+				{
+					"min" : "int"
+				}
+			],
+			"textPattern" : "[${fieldText}] length cannot be less than ${params[0]} bytes."
+		}
+	]
+}

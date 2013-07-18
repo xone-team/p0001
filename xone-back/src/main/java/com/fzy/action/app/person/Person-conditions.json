@@ -1,0 +1,41 @@
+{
+	"conditions" : 
+	[
+		{
+			"field" : "username",
+			"column" : "username"
+		},
+        {
+            "field" : "nickName",
+            "column" : "nick_name"
+        },
+        {
+            "field" : "qq",
+            "column" : "qq"
+        },
+        {
+            "field" : "cellphone",
+            "column" : "cellphone"
+        },
+        {
+            "field" : "contact",
+            "column" : "contact"
+        },
+        {
+            "field" : "email",
+            "column" : "email"
+        },
+        {
+            "field" : "province",
+            "column" : "b.province_code"
+        },
+        {
+            "field" : "city",
+            "column" : "b.city_code"
+        },
+        {
+            "field" : "district",
+            "column" : "b.district_code"
+        }
+	]
+}

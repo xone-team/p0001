@@ -1,0 +1,15 @@
+{
+	"validators" : 
+	[
+		{
+			"name" : "unique",
+			"class" : "com.fzy.action.app.person.PersonValidUnique",
+			"singleton" : true
+		},
+		{
+			"name" : "validShanghai",
+			"class" : "com.fzy.action.app.person.PersonValidShanghai",
+			"singleton" : true
+		}
+	]
+}
