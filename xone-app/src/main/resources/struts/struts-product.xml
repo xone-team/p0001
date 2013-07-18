@@ -31,5 +31,25 @@
 		<action name="item" class="productAction" method="item">
 			<result name="success">/WEB-INF/jsp/product-item-page.jsp</result>
 		</action>
+		<action name="listAllForUser" class="productAction" method="listAllForUser">
+			<result name="success">/WEB-INF/jsp/product-user-list-main.jsp</result>
+		</action>
+		<action name="listItemsForUser" class="productAction" method="listItemsForUser">
+			<result name="success">/WEB-INF/jsp/product-user-list-items.jsp</result>
+		</action>
+		<action name="itemDetailsForUser" class="productAction" method="itemDetails">
+			<result name="success">/WEB-INF/jsp/product-user-item-details.jsp</result>
+		</action>
+		<action name="itemForUser" class="productAction" method="itemForUser">
+			<result name="success">/WEB-INF/jsp/product-user-item-page.jsp</result>
+		</action>
+		<action name="updateItem" class="productAction" method="updateItem">
+			<result name="error">/WEB-INF/jsp/product-user-item-page.jsp</result>
+			<result name="success">/WEB-INF/jsp/product-update-item-page.jsp</result>
+		</action>
+		<action name="update" class="productAction" method="update">
+			<result name="success">/WEB-INF/jsp/product-user-item-page.jsp</result>
+			<result name="error">/WEB-INF/jsp/product-update-item-page.jsp</result>
+		</action>
 	</package>
 </struts>

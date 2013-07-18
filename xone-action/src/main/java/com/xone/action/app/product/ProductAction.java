@@ -120,6 +120,72 @@ public class ProductAction extends Action {
 		return SUCCESS;
 	}
 	
+	public String listAllForUser() {
+		return SUCCESS;
+	}
+	
+	public String listItemsForUser() {
+		Map<String, String> map = getRequestMap();
+		Map<String, String> params = new HashMap<String, String>();
+		if ("down".equals(map.get("itemaction"))) {
+			params.put("gtDateCreated", DateUtils.format(getProduct().getDateCreated()));
+		} else if ("up".equals(map.get("itemaction"))) {
+			params.put("ltDateCreated", DateUtils.format(getProduct().getDateCreated()));
+		}
+		params.put("saleType", getProduct().getSaleType());
+		setList(getProductService().findAllByMap(params));
+		return SUCCESS;
+	}
+	
+	public String update() {
+		Product pu = getProduct();
+		if (null == pu || null == pu.getId()) {
+			getMapValue().put("msg", "无此记录.");
+			return ERROR;
+		}
+		Product entity = findById(pu.getId());
+//		if (p.get) {
+//		getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
+//		return ERROR;
+//	}
+		entity.setProductName(pu.getProductName());
+		entity.setProductNum(pu.getProductNum());
+		entity.setProductType(pu.getProductType());
+		entity.setProductValid(pu.getProductValid());
+		entity.setProductLocation(pu.getProductLocation());
+		entity.setProductDesc(pu.getProductDesc());
+		entity.setProductAddress(pu.getProductAddress());
+		List<ImageUploaded> imageUploadeds = findImageByParams();
+		entity = getProductService().update(entity, imageUploadeds, pu.getIds());
+		setProduct(entity);
+		return SUCCESS;
+	}
+	
+	public String updateItem() {
+		Long id = getProduct().getId();
+		if (null != id) {
+			Product p = findById(id);
+			if (null == p || null == p.getId()) {
+				getMapValue().put("msg", "无此记录.");
+				return ERROR;
+			}
+//			if (p.get) {
+//				getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
+//				return ERROR;
+//			}
+			setProduct(p);
+			return SUCCESS;
+		}
+		getMapValue().put("msg", "缺失数据标识.");
+		return ERROR;
+	}
+	
+	protected Product findById(Long id) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(id));
+		return getProductService().findByMap(params);
+	}
+	
 	public List<Product> getList() {
 		return list;
 	}
