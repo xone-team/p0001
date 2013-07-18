@@ -7,14 +7,48 @@ public class ImageUploaded implements Serializable {
 	
 	private static final long serialVersionUID = -6681022707035534978L;
 	
+	/**
+	 * 删除标志
+	 */
+	public enum FlagDeleted {
+		NORMAL("0"), DELETED("1");
+		protected String value = "0";
+		
+		private FlagDeleted(String value) {
+			this.value = value;
+		}
+		
+		public String getValue() {
+			return this.value;
+		}
+	}
+	
+	/**
+	 * 相关类型
+	 */
+	public enum RefType {
+		PRODUCT("0"), PURCHASE("1"), ABBANNER("2");
+		protected String value = null;
+		
+		private RefType(String v) {
+			this.value = v;
+		}
+		
+		public String getValue() {
+			return this.value;
+		}
+	}
+	
 	protected Long id;
 	protected Long refId;
+	protected String refType;
 	protected String imageType;
 	protected Long userCreated;
 	protected Date dateCreated;
 	protected Long userUpdated;
 	protected Date lastUpdated;
 	protected String image;
+	protected String flagDeleted;
 	public Long getId() {
 		return id;
 	}
@@ -26,6 +60,12 @@ public class ImageUploaded implements Serializable {
 	}
 	public void setRefId(Long refId) {
 		this.refId = refId;
+	}
+	public String getRefType() {
+		return refType;
+	}
+	public void setRefType(String refType) {
+		this.refType = refType;
 	}
 	public String getImage() {
 		return image;
@@ -63,5 +103,10 @@ public class ImageUploaded implements Serializable {
 	public void setImageType(String imageType) {
 		this.imageType = imageType;
 	}
-	
+	public String getFlagDeleted() {
+		return flagDeleted;
+	}
+	public void setFlagDeleted(String flagDeleted) {
+		this.flagDeleted = flagDeleted;
+	}
 }

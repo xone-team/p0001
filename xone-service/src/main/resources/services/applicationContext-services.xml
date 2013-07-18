@@ -13,4 +13,7 @@
 	<bean id="deliveryService" class="com.xone.service.app.DeliveryServiceImpl" />
 	<bean id="purchaseService" class="com.xone.service.app.PurchaseServiceImpl" />
 	<bean id="imageUploadedService" class="com.xone.service.app.ImageUploadedServiceImpl" />
+	<bean id="adbannerService" class="com.xone.service.app.AdbannerServiceImpl" />
+	<bean id="productService" class="com.xone.service.app.ProductServiceImpl" />
+	<bean id="subscribeService" class="com.xone.service.app.SubscribeServiceImpl" />
 </beans>

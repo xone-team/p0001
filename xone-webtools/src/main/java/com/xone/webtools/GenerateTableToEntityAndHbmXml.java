@@ -76,6 +76,11 @@ public class GenerateTableToEntityAndHbmXml {
 		hibernateXml.append("\" table=\"");
 		hibernateXml.append(tableName.toUpperCase());
 		hibernateXml.append("\">\n");
+		javaProperties.append("package com.xone.model.hibernate.entity;\n\n");
+		javaProperties.append("import java.io.Serializable;\n\n");
+		javaProperties.append("public class ");
+		javaProperties.append(tableJavaName);
+		javaProperties.append(" implements Serializable {\n");
 		for (Map<String, String> map : list) {
 			javaProperties.append("protected ");
 			javaProperties.append(convertClassName(map.get("columnClassName")));
@@ -88,14 +93,17 @@ public class GenerateTableToEntityAndHbmXml {
 				hibernateXml.append(generateProperty(map.get("columnName"), map.get("columnClassName"), map.get("columnDisplaySize")));
 			}
 		}
+		javaProperties.append("}\n");
 		hibernateXml.append("\t</class>\n");
 		hibernateXml.append("</hibernate-mapping>\n");
 		System.out.println("+--------------------------------------------+");
 		System.out.println("+---------------Java Properties--------------+");
+		System.out.println(tableJavaName + ".java");
 		System.out.println("+--------------------------------------------+");
 		System.out.println(javaProperties.toString());
 		System.out.println("+-------------------------------------------------+");
 		System.out.println("+------------------Hibernate xml------------------+");
+		System.out.println(tableJavaVar + ".hbm.xml");
 		System.out.println("+-------------------------------------------------+");
 		System.out.println(hibernateXml.toString());
 		System.out.println("+-----------------+");
@@ -148,6 +156,8 @@ public class GenerateTableToEntityAndHbmXml {
 		System.out.println("+-------------------------------------------------+");
 		StringBuffer serviceBuffer = new StringBuffer();
 		serviceBuffer.append("package com.xone.service.app;\n\n");
+		serviceBuffer.append("import java.util.List;\n");
+		serviceBuffer.append("import java.util.Map;\n");
 		serviceBuffer.append("import com.xone.model.hibernate.entity.");
 		serviceBuffer.append(tableJavaName);
 		serviceBuffer.append(";\n");
@@ -160,16 +170,22 @@ public class GenerateTableToEntityAndHbmXml {
 		serviceBuffer.append(tableJavaName);
 		serviceBuffer.append(" entity);");
 		serviceBuffer.append("\n");
-		serviceBuffer.append("\n");
 		serviceBuffer.append("public ");
 		serviceBuffer.append(tableJavaName);
 		serviceBuffer.append(" findById(Long id);");
 		serviceBuffer.append("\n");
+		serviceBuffer.append("public List<");
+		serviceBuffer.append(tableJavaName);
+		serviceBuffer.append("> findAllByMap(Map<String, String> params);");
+		serviceBuffer.append("\n");
 		serviceBuffer.append("}\n");
+		serviceBuffer.append("\n");
 		System.out.println(serviceBuffer.toString());
 		System.out.println("+-------------------------------------------------+");
 		StringBuffer serviceImplBuffer = new StringBuffer();
 		serviceImplBuffer.append("package com.xone.service.app;\n\n");
+		serviceImplBuffer.append("import java.util.List;\n");
+		serviceImplBuffer.append("import java.util.Map;\n");
 		serviceImplBuffer.append("import org.springframework.beans.factory.annotation.Autowired;\n\n");
 		serviceImplBuffer.append("import com.xone.model.hibernate.app.");
 		serviceImplBuffer.append(tableJavaName);
@@ -210,6 +226,17 @@ public class GenerateTableToEntityAndHbmXml {
 		serviceImplBuffer.append("Dao().findById(id);\n");
 		serviceImplBuffer.append("}\n");
 		
+		serviceImplBuffer.append("@Override\n");
+		serviceImplBuffer.append("public List<");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append("> findAllByMap(Map<String, String> params) {\n");
+		serviceImplBuffer.append("DetachedCriteria detachedCriteria = DetachedCriteria.forClass(");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append(".class);\n");
+		serviceImplBuffer.append("return get");
+		serviceImplBuffer.append(tableJavaName);
+		serviceImplBuffer.append("Dao().findListByDetachedCriteria(detachedCriteria, 0, 10);\n");
+		serviceImplBuffer.append("}\n");
 		serviceImplBuffer.append("}\n");
 		System.out.println(serviceImplBuffer.toString());
 		System.out.println("+-------------------------------------------------+");

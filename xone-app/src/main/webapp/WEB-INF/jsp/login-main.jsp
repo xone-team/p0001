@@ -10,7 +10,7 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page" data-dom-cache="false">
+	<div data-role="page" data-dom-cache="true">
 		<style type="text/css">
 			span.myspanstyle {
 				padding-left:5px;
@@ -42,9 +42,9 @@
 		    <div data-role="collapsible" data-theme="b" data-content-theme="d">
 		        <h3>我的售卖发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
-				    <li><a href="#">查看产品发布列表</a></li>
-				    <li><a href="#">查看促销发布列表</a></li>
-				    <li><a href="#">查看组团发布列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=0&_=${identify}">查看产品发布列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=1&_=${identify}">查看促销发布列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=2&_=${identify}">查看组团发布列表</a></li>
 				</ul>
 		    </div>
 		    <div data-role="collapsible" data-theme="b" data-content-theme="d">
@@ -57,8 +57,9 @@
 		        <h3>我的其它服务</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 				    <li><a href="${pageContext.request.contextPath}/delivery/listIndex.html?_=${identify}">查看物流配送列表</a></li>
-				    <li><a href="#">查看广告发布列表</a></li>
-				    <li><a href="#">查看资金担保列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/adbanner/list.html?_=${identify}">查看我的广告列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/subscribe/list.html?_=${identify}">查看我的订阅列表</a></li>
+<!-- 				    <li><a href="#">查看资金担保列表</a></li> -->
 				</ul>
 		    </div>
 		</div>

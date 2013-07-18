@@ -6,6 +6,14 @@
 <li>
 	<table style="width:100%">
 		<tr>
+			<td class="mylabel">编　　号:</td>
+			<td>${purchase.id}</td>
+		</tr>
+	</table>
+</li>
+<li>
+	<table style="width:100%">
+		<tr>
 			<td class="mylabel">产品名称:</td>
 			<td>${purchase.purchaseName}</td>
 		</tr>
@@ -76,14 +84,11 @@
 		</tr>
 	</table>
 </li>
-<li>
-	<input type="button" data-icon="edit" value="更新信息" disabled="disabled"/>
+<li data-icon="edit">
+	<a href="${pageContext.request.contextPath}/purchase/updateItem.html?purchase.id=${purchase.id}" class="purchaseupdatebutton" data-role="button">更新信息</a>
 </li>
-<li>
-	<a href="#" data-role="button" data-icon="edit" disabled="disabled">更新信息</a>
-</li>
-<li>
-	<input type="button" data-icon="star" value="申请顶置"/>
+<li data-icon="plus">
+	<a href="#" data-role="button">申请顶置</a>
 </li>
 <li data-role="list-divider">产品图片</li>
 <c:forEach var="item" items="${purchase.ids}">

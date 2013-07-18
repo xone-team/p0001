@@ -13,14 +13,6 @@
 	<div data-role="page" class="login-ref-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-backbtn="false" data-position="fixed">
 			<h1>用户登录页面</h1>
-			<div class="ui-mybanner">
-				<ul>
-					<li class="ui-mybanner-link"><a href="#" data-role="none"><img src="${STATIC_ROOT}/image/ad1.png"/></a></li>
-					<li class="ui-mybanner-link"><a href="#" data-role="none"><img src="${STATIC_ROOT}/image/ad2.png"/></a></li>
-					<li class="ui-mybanner-link"><a href="#" data-role="none"><img src="${STATIC_ROOT}/image/ad3.png"/></a></li>
-					<li class="ui-mybanner-link"><a href="#" data-role="none"><img src="${STATIC_ROOT}/image/ad4.png"/></a></li>
-				</ul>
-			</div>
 		</div>
 		<div data-role="content" class="login-ref-page-content">
 			<c:if test="${!(empty mapValue)}">
@@ -66,43 +58,12 @@
 				    </li>
 				</ul>
 			</form>
-<!-- 			<a href="#" class="testhref" data-role="button">测试广告</a> -->
-<!-- 			<div class="debug" style="width:100%;">&nbsp;</div> -->
 			<script type="text/javascript">
 				$('div.login-ref-page').bind('pageshow', function() {
 					$('div.login-ref-popup-page').css({
 						width: ($('div.login-ref-page').width() - 30) + 'px'
 					}).popup('open');
 				});
-// 				$('div.login-ref-page').bind('pageinit', function() {
-// 					$('div.login-ref-page').data('pt', parseInt($('div.login-ref-page').css('paddingTop').replace(/px/, ''), 10));
-// 					$('a.testhref').click(function() {
-// 						var r = Math.round(Math.random() * 10);
-// 						var i = r % 4;
-// 						rollbanner(i);
-// 					});
-// 					function rollbanner(i) {
-// 						var t = $('li.ui-mybanner-link:eq(' + i + ')');
-// 						resizeImage(t.find('img'));
-// 						$('li.ui-mybanner-link').hide();
-// 						t.show('slow');
-// 						$('div[data-role="header"]').fixedtoolbar('updatePagePadding');
-// 					}
-// 					function resizeImage(img) {
-// 						var sh = $('div.ui-mybanner').height();
-// 						var sw = $('div.login-ref-page').width();
-// 						var t = new Image();
-// 						var n = img.get(0);
-// 					    t.src = (n.getAttribute ? n.getAttribute("src") : false) || n.src;
-// 					    if (parseInt(t.height, 10) > parseInt(sh, 10)) {
-// 					    	img.css({height: sh + 'px'});
-// 					    }
-// 					    if (parseInt(t.width, 10) > parseInt(sw, 10)) {
-// 					    	img.css({width: sw + 'px'});
-// 					    }
-// 						$('div.debug').append('<div>src:' + n.src + '(' + t.height + ',' + t.width + ')</div>');
-// 					}
-// 				});
 			</script>
 		</div>
 		<jsp:include page="footer.jsp">

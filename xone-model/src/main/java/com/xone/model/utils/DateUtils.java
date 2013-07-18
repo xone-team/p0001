@@ -23,7 +23,13 @@ import java.util.Date;
 public class DateUtils {
 
 	public static final String format(Date date, String format) {
-		return new SimpleDateFormat(format).format(date);
+		String result = null;
+		try {
+			result = new SimpleDateFormat(format).format(date);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	public static final String format(Date date) {

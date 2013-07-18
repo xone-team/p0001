@@ -15,9 +15,8 @@
 		</style>
 	</head>
 	<body>
-	<div data-role="page" class="sales-page" data-dom-cache="false">
+	<div data-role="page" class="product-sales-page" data-dom-cache="true">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-<!-- 			<h1>产品列表</h1> -->
 			<div data-role="navbar" data-theme="e">
 			    <ul>
 			        <li><a href="${pageContext.request.contextPath}/product/index.html?_=${identify}">所有产品</a></li>
@@ -53,15 +52,6 @@
 				    <label for="checkbox-1b">上海</label>
 				    <input type="checkbox" name="checkbox-2a" id="checkbox-2b">
 				    <label for="checkbox-2b">天津</label>
-<!-- 				    <table style="width:100%"> -->
-<!-- 				    	<tr> -->
-<!-- 				    		<td style="width:65px;">其它地区</td><td><input type="text" name="checkbox-2a" id="checkbox-3b"></td> -->
-<!-- 				    	</tr> -->
-<!-- 				    </table> -->
-<!-- 				    <div data-role="fieldcontain"> -->
-<!-- 					    <label for="textinput-fc">其它地区:</label> -->
-<!-- 					    <input type="text" name="textinput-fc" id="textinput-fc" placeholder="输入地区关键字" value=""> -->
-<!-- 					</div> -->
 				</div>
 				<div data-id="#searchcredit" data-role="controlgroup" data-mini="true" class="salesearchclass" style="display:none;">
 				    <input type="checkbox" name="checkbox-1a" id="checkbox-1c" checked="">
@@ -70,29 +60,13 @@
 				    <label for="checkbox-2c">信誉一般</label>
 				</div>
 			</div>
-			<div style="width:100%;padding-top:10px;" class="sales-list" data-iscroll>
+			<div style="width:100%;padding-top:10px;" class="product-sales-list" data-iscroll>
 				<div class="iscroll-pulldown">
 			        <span class="iscroll-pull-icon"></span>
 			        <span class="iscroll-pull-label"></span>
 				</div>
-		        <ul class="sales-listview" data-role="listview" data-filter="true" data-filter-placeholder="促销关键字搜索..." data-inset="true">
-		        	<li><a href="#">
-		            	<img src="${STATIC_ROOT}/image/firefox_os.png">
-		            	<h2>Firefox OS</h2>
-		                <p>ZTE to launch Firefox OS smartphone at MWC</p>
-		                <p class="ui-li-aside">Firefox</p>
-		            </a></li>
-		        	<li><a href="#">
-		            	<img src="${STATIC_ROOT}/image/tizen.png">
-		            	<h2>Tizen</h2>
-		                <p>First Samsung phones with Tizen can be expected in 2013</p>
-		                <p class="ui-li-aside">Tizen</p>
-		            </a></li>
-		        	<li><a href="#">
-		            	<h2>Symbian</h2>
-		                <p>Nokia confirms the end of Symbian</p>
-		                <p class="ui-li-aside">Symbian</p>
-		            </a></li>
+		        <ul class="product-sales-listview" data-role="listview" data-filter="true" data-filter-placeholder="促销关键字搜索..." data-inset="true">
+			        <li data-role="list-divider">数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>
@@ -102,7 +76,7 @@
 		</div>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${identify}"></script>
 		<script type="text/javascript">
-			$('div.sales-page').bind('pageinit', function(event) {
+			$('div.product-sales-page').bind('pageinit', function(event) {
 				$('a.navbartabs').click(function(e) {
 					e.preventDefault();
 					$('div.salesearchclass').hide();
@@ -111,23 +85,51 @@
 					$('div[data-id="' + t.attr('href') + '"]').show();
 					t.addClass('ui-btn-active');
 				});
-				$('div.sales-list').mypullupdown({
-					url:'${pageContext.request.contextPath}/product/listMobileMore.html',
+				$('div.product-sales-list').mypullupdown({
+					url:'${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}',
+					onDown: function() {
+						var item = $('ul.product-sales-listview').find('li.productdatecreateditem');
+						return {
+							'itemcount': item.length,
+							'itemaction': 'down',
+							'product.dateCreated': item.first().attr('timestamp')
+						}
+					},
+					onUp: function() {
+						var item = $('ul.product-sales-listview').find('li.productdatecreateditem');
+						return {
+							'itemcount': item.length,
+							'itemaction': 'up',
+							'product.dateCreated': item.last().attr('timestamp')
+						}
+					},
 					down: function(html) {
-						$('ul.sales-listview').prepend(html).listview('refresh');
+						$('ul.product-sales-listview').prepend(html).listview('refresh');
 					},
 					up: function(html) {
-						$('ul.sales-listview').append(html).listview('refresh');
-					},
-					downed: function() {
-	// 					$('div.searchconditionssales').hide();
-	// 					$.mobile.activePage.trigger("refresh");
-					},
-					uped: function() {
-	// 					$('div.searchconditionssales').show();
-	// 					$.mobile.activePage.trigger("refresh");
+						$('ul.product-sales-listview').append(html).listview('refresh');
 					}
 				});
+	        	doRequest();
+				function doRequest() {
+					$.ajax({
+						type: 'GET',
+						url: '${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}',
+						data: '_=' + new Date().getTime(),
+						success: function(html) {
+							$('ul.product-sales-listview').html(html).listview('refresh');
+							fixedProductSaleImage();
+						}
+					});
+				}
+				function fixedProductSaleImage() {
+					var lis = $('ul.product-sales-listview').find('li.productdatecreateditem:eq(0)');
+					if (lis.length > 0) {
+						var height = lis.height() - 3;
+						var css = ['<style type="text/css" class="product"> img.productliimage {height:', height, 'px;', 'width:', height, 'px;}</style>'];
+						$('div.product-sales-page').append(css.join(''));
+					}
+				}
 			});
 		</script>
 		<jsp:include page="footer.jsp">
