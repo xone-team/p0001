@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 import javax.imageio.ImageIO;
 
-import org.apache.commons.lang.xwork.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class ExportImageToDisk {
 

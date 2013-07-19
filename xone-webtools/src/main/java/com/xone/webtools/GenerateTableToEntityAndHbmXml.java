@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.xwork.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public class GenerateTableToEntityAndHbmXml {
 	
@@ -24,7 +24,7 @@ public class GenerateTableToEntityAndHbmXml {
 
 	public static void main(String[] args) throws Exception {
 		new GenerateTableToEntityAndHbmXml("com.mysql.jdbc.Driver", 
-				"jdbc:mysql://localhost:3306/sample?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true",
+				"jdbc:mysql://mysqllocal.com:4306/sample?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true",
 				"root", "admin").start("com.xone.model.hibernate.entity", null);
 	}
 	
