@@ -2,11 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<li>
-	<a href="#">
-		<img src="${STATIC_ROOT}/image/apple.png">
-		<h2>iOS 6.1</h2>
-		<p>${productName}</p>
-		<p class="ui-li-aside">iOS</p>
-	</a>
-</li>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Hello World</title>
+	</head>
+	<body>
+		<h1>Login Error.</h1>
+	</body>
+</html>
