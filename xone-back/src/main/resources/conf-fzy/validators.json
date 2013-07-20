@@ -3,22 +3,26 @@
 	[
 		{
 			"name" : "notNull",
-			"class" : "com.fzy.core.validators.NotNull",
+			"className" : "com.fzy.core.validators.NotNull",
+			"customized" : false,
 			"singleton" : true
 		},
 		{
 			"name" : "length",
-			"class" : "com.fzy.core.validators.Length",
+			"className" : "com.fzy.core.validators.Length",
+			"customized" : false,
 			"singleton" : true
 		},
 		{
 			"name" : "maxLength",
-			"class" : "com.fzy.core.validators.MaxLength",
+			"className" : "com.fzy.core.validators.MaxLength",
+			"customized" : false,
 			"singleton" : true
 		},
 		{
 			"name" : "minLength",
-			"class" : "com.fzy.core.validators.MinLength",
+			"className" : "com.fzy.core.validators.MinLength",
+			"customized" : false,
 			"singleton" : true
 		}
 	]

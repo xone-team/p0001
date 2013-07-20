@@ -199,6 +199,13 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.2</version>
 		</dependency>
+		<dependency>
+			<!-- <groupId>com.ibatis</groupId> -->
+			<groupId>org.apache.ibatis</groupId>
+			<!-- <artifactId>ibatis2-sqlmap</artifactId> -->
+			<artifactId>ibatis-sqlmap</artifactId>
+			<version>2.3.4.726</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>xone-back</finalName>

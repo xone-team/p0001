@@ -6,10 +6,10 @@
 			"subRules" : 
 			[
 				{
-					"validatorName" : "validIE"
+					"validatorName" : "validShanghai"
 				},
 				{
-					"validatorName" : "validIE8"
+					"validatorName" : "unique"
 				}
 			]
 		},

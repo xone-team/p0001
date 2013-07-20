@@ -1,12 +1,12 @@
 {
-	"validationRules" :
+	"validators" :
 	[
 		{
-			"validatorName" : "notNull",
+			"name" : "notNull",
 			"textPattern" : "[${fieldText}] is required."
 		},
 		{
-			"validatorName" : "length",
+			"name" : "length",
 			"paramTypes" : 
 			[
 				{
@@ -17,7 +17,7 @@
 			"textPattern" : "[${fieldText}] length is between ${params[0]} and ${params[1]} bytes."
 		},
 		{
-			"validatorName" : "maxLength",
+			"name" : "maxLength",
 			"paramTypes" : 
 			[
 				{
@@ -27,7 +27,7 @@
 			"textPattern" : "[${fieldText}] length cannot be greater than ${params[0]} bytes."
 		},
 		{
-			"validatorName" : "minLength",
+			"name" : "minLength",
 			"paramTypes" : 
 			[
 				{

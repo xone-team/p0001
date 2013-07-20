@@ -3,6 +3,8 @@ package com.fzy.core.entity;
 import java.util.List;
 
 public class ValidationRuleGroup {
+    protected String type;
+    protected String field;
     protected List group;
     protected Boolean shortcut;
     public List getGroup() {
@@ -16,6 +18,18 @@ public class ValidationRuleGroup {
     }
     public void setShortcut(Boolean shortcut) {
         this.shortcut = shortcut;
+    }
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+    public String getField() {
+        return field;
+    }
+    public void setField(String field) {
+        this.field = field;
     }
     
 }

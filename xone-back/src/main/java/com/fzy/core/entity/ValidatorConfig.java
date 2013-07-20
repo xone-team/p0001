@@ -1,9 +1,17 @@
 package com.fzy.core.entity;
 
+import java.util.Map;
+
+import com.fzy.core.validators.Validator;
+
 public class ValidatorConfig {
     protected String name;
     protected String className;
-    protected String singleton;
+    protected boolean singleton;
+    protected boolean customized;
+    protected Map paramTypes;
+    protected String textPattern;
+    protected Validator validator;
     public String getName() {
         return name;
     }
@@ -16,11 +24,36 @@ public class ValidatorConfig {
     public void setClassName(String className) {
         this.className = className;
     }
-    public String getSingleton() {
+
+    public Map getParamTypes() {
+        return paramTypes;
+    }
+    public void setParamTypes(Map paramTypes) {
+        this.paramTypes = paramTypes;
+    }
+    public String getTextPattern() {
+        return textPattern;
+    }
+    public void setTextPattern(String textPattern) {
+        this.textPattern = textPattern;
+    }
+    public Validator getValidator() {
+        return validator;
+    }
+    public void setValidator(Validator validator) {
+        this.validator = validator;
+    }
+    public boolean isSingleton() {
         return singleton;
     }
-    public void setSingleton(String singleton) {
+    public void setSingleton(boolean singleton) {
         this.singleton = singleton;
     }
-    
+    public boolean isCustomized() {
+        return customized;
+    }
+    public void setCustomized(boolean customized) {
+        this.customized = customized;
+    }
+
 }

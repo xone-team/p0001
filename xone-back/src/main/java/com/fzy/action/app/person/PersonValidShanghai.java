@@ -9,7 +9,7 @@ public class PersonValidShanghai implements Validator {
 
     public boolean execute(RestForm form, ValidationContext context, ValidationRule rule) throws Exception {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
 }

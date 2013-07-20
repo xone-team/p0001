@@ -3,12 +3,14 @@
 	[
 		{
 			"name" : "unique",
-			"class" : "com.fzy.action.app.person.PersonValidUnique",
+			"className" : "com.fzy.action.app.person.PersonValidUnique",
+			"customized" : true,
 			"singleton" : true
 		},
 		{
 			"name" : "validShanghai",
-			"class" : "com.fzy.action.app.person.PersonValidShanghai",
+			"className" : "com.fzy.action.app.person.PersonValidShanghai",
+			"customized" : true,
 			"singleton" : true
 		}
 	]
