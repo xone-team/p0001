@@ -140,7 +140,7 @@
 	<listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-    <listener>  
+    <listener>
         <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>  
     </listener>
     	<!-- Spring 刷新Introspector防止内存泄露 -->
@@ -153,6 +153,10 @@
             org.springframework.security.web.session.HttpSessionEventPublisher   
         </listener-class>  
     </listener>
+    <listener>  
+		<listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class>  
+	</listener>
+    
 <!--     <listener> -->
 <!--         <listener-class>org.apache.struts2.dispatcher.ng.listener.StrutsListener</listener-class>   -->
 <!--     </listener>   -->
@@ -180,6 +184,7 @@
     
     <!-- Welcome file lists -->
     <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>default.jsp</welcome-file>
         <welcome-file>index.htm</welcome-file>
