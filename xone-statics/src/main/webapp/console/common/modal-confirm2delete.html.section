@@ -1,0 +1,17 @@
+	<!--  modal confirm to delete -->
+	<div id="X_model_confirm2delete" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">删除确认</h3>
+		</div>
+		<div class="modal-body">
+			<p>确定要删除该记录吗？</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+			<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">确定</button>
+		</div>
+	</div>
+	<!--  /modal confirm to delete -->

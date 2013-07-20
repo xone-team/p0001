@@ -1,9 +1,29 @@
+jQuery.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    jQuery.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
+
 window.XONE = {};
 (function(X){
 	X.log = function(e){
 		if(console && console.log)
 			console.log(e);
 	};
+	X.null2blank = function(o){
+	    return o == null ? "" : o;
+	}
 	X.getContextPath = function() {
 		if(X.contextPath != null) 
 			return X.contextPath;
@@ -18,22 +38,36 @@ window.XONE = {};
 	    return X.contextPath;
 	};
 	X.contextPath = X.getContextPath();
-	X.getJson = function(url){
-		var result = null;
-	    jQuery.ajax({
-	        url : X.contextPath + url,
-	        type : "GET",
-	        dataType: "json",
-	        async: false,
-	        success : function(data, textStatus, jqXHR){
-	        	result = data;
-	        },
-	        error : function(jqXHR, textStatus, errorThrown) {
-	        	X.log("error getJson from url ["+url+"].");
-	        }
-	    });
-	    return result;
-	};
+    X.ajax = function(config){
+        if(config.url != null){
+            config.url = X.contextPath + config.url;
+        }
+        if(config.dataType == null){
+            config.dataType = "JSON";
+        }
+        if(config.error == null){
+            config.error = function(jqXHR, textStatus, errorThrown) {
+                X.log("error getJson from url ["+config.url+"].");
+            }
+        }
+        return jQuery.ajax(config);
+    };  
+    X.getJson = function(url){
+        var result = null;
+        jQuery.ajax({
+            url : X.contextPath + url,
+            type : "GET",
+            dataType : "JSON",
+            async: false,
+            success : function(data, textStatus, jqXHR){
+                result = data;
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                X.log("error getJson from url ["+url+"].");
+            }
+        });
+        return result;
+    };
 	X.getHtml = function(url){
 		var result = null;
 	    jQuery.ajax({
@@ -53,11 +87,11 @@ window.XONE = {};
 	
 	
 	X.initConsoleMenu = function(activeMenuCode){
-		jQuery("body").prepend(XONE.getHtml("/console/common/top.html.section"));
-		jQuery("#X_bodyContainer").prepend(XONE.getHtml("/console/common/left-nav.html.section"));
-		jQuery("#X_contentContainer").prepend(XONE.getHtml("/console/common/breadcrumbs.html.section"));
-		jQuery("body").append(XONE.getHtml("/console/common/footer.html.section"));
-		var menus = XONE.getJson("/console/common/menus.json");
+		jQuery("body").prepend(XONE.getHtml("/common/top.html.section"));
+		jQuery("#X_bodyContainer").prepend(XONE.getHtml("/common/left-nav.html.section"));
+		jQuery("#X_contentContainer").prepend(XONE.getHtml("/common/breadcrumbs.html.section"));
+		jQuery("body").append(XONE.getHtml("/common/footer.html.section"));
+		var menus = XONE.getJson("/common/menus.json");
 		var mc = jQuery("#X_menu_container");
 		var activeMenu = null;
 		for(var i = 0; i < menus.menus.length; i++){
@@ -128,6 +162,6 @@ window.XONE = {};
 	};
 	
 	X.initModal = function(modalName){
-		jQuery("body").append(XONE.getHtml("/console/common/modal-"+modalName+".html.section"));
+		jQuery("body").append(XONE.getHtml("/common/modal-"+modalName+".html.section"));
 	};
 })(window.XONE);

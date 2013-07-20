@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="person" namespace="/person" extends="default">
+		<action name="index" class="backPersonAction" method="dispatch">
+			<result name="success">/WEB-INF/jsp/person-list.jsp</result>
+		</action>
+		<action name="input" class="backPersonAction" method="dispatch">
+			<result name="success">/WEB-INF/jsp/person-input.jsp</result>
+		</action>
+		
+		<action name="list" class="backPersonAction" method="list">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		<action name="get" class="backPersonAction" method="get">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		<action name="create" class="backPersonAction" method="create">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		<action name="save" class="backPersonAction" method="save">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+		<action name="delete" class="backPersonAction" method="delete">
+			<result type="json">
+				<param name="excludeNullProperties">true</param>
+			</result>
+		</action>
+	</package>
+</struts>
