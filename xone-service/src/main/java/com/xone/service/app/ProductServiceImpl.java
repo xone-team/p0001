@@ -119,10 +119,7 @@ public class ProductServiceImpl implements ProductService {
 			detachedCriteria.add(Restrictions.eq("saleType", saleType));
 		}
 		detachedCriteria.addOrder(Order.desc("dateCreated"));
-		
-		int limitNum = params.get("limit")==null?0:Integer.parseInt(params.get("limit"));
-		System.out.println("limit ------------------------  "+limitNum);
-		List<Product> list = getProductDao().findListByDetachedCriteria(detachedCriteria, limitNum, 5);
+		List<Product> list = getProductDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
 		if (null != list && !list.isEmpty()) {
 			List<Long> ids = new ArrayList<Long>();
 			for (Product p : list) {
