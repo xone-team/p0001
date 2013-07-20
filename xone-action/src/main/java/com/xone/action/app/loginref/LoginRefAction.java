@@ -9,7 +9,6 @@
 package com.xone.action.app.loginref;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -18,13 +17,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.lang.xwork.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
-import com.xone.action.base.EncryptRef;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.service.app.PersonService;
+import com.xone.service.app.utils.EncryptRef;
 
 
 /**

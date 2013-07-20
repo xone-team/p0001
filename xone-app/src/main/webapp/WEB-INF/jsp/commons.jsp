@@ -109,6 +109,11 @@ function globalBannerSwitch() {
 		interval= setInterval('globalBannerSwitch();', 5 * 1000);
 		$('body').data('_globalinterval', interval);
 	});
+// 	$(document).delegate($.mobile.activePage, 'pageload', function() {
+// 		if ($('div[data-role="page"']).length <= 3) {
+// 			$('div[data-role="page"]:not(.ui-page-active)').stop().hide();
+// 		}
+// 	});
 	globalAdBanner();
 	function globalAdBanner() {
 		$('body').myadbanner({

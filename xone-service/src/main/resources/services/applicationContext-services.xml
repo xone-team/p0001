@@ -16,4 +16,8 @@
 	<bean id="adbannerService" class="com.xone.service.app.AdbannerServiceImpl" />
 	<bean id="productService" class="com.xone.service.app.ProductServiceImpl" />
 	<bean id="subscribeService" class="com.xone.service.app.SubscribeServiceImpl" />
+	<bean id="userRolesService" class="com.xone.service.app.UserRolesServiceImpl" />
+	<bean id="resourcesService" class="com.xone.service.app.ResourcesServiceImpl" />
+	<bean id="rolesService" class="com.xone.service.app.RolesServiceImpl" />
+	<bean id="rolesResourcesService" class="com.xone.service.app.RolesResourcesServiceImpl" />
 </beans>

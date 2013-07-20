@@ -66,7 +66,7 @@
 			        <span class="iscroll-pull-label"></span>
 				</div>
 		        <ul class="product-sales-listview" data-role="listview" data-filter="true" data-filter-placeholder="促销关键字搜索..." data-inset="true">
-			        <li data-role="list-divider">数据加载中，请稍候...</li>
+<!-- 			        <li data-role="list-divider">数据加载中，请稍候...</li> -->
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>

@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.lang.xwork.time.DateFormatUtils;
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

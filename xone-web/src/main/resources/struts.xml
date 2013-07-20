@@ -9,7 +9,8 @@
 	<constant name="struts.devMode" value="true" />
 <!-- 	struts.convention.default.parent.package属性，指定使用注解标注的控制器的默认包。可以在这个默认包中配置全局信息。 -->
 	<constant name="struts.convention.default.parent.package" value="default-package" />
-	
+	<constant name="struts.action.excludePattern" value="/j_spring_security_check"/>  
+ 	<constant name="struts.action.excludePattern" value="/j_spring_security_check.*,.*\\.j_spring_security_check"/>
 <!-- 	com.mycompany.action.user，都会被struts2扫描。里面有继承至Action的类，或类名以Action结尾的类，都会做为Action处理。 -->
     <constant name="struts.convention.package.locators" value="action" />
 	<package name="default" extends="json-default">
@@ -46,9 +47,5 @@
             <result name="index">/index.jsp</result>
         </global-results>
     </package>
-	<include file="struts/struts-login-ref.xml" />
-	<include file="struts/struts-product.xml" />
-	<include file="struts/struts-purchase.xml" />
-	<include file="struts/struts-assistant.xml" />
-	<include file="struts/struts-delivery.xml" />
+	<include file="struts/struts-login-web.xml" />
 </struts>

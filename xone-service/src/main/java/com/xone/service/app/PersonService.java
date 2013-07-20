@@ -9,6 +9,7 @@
 package com.xone.service.app;
 
 import java.util.List;
+import java.util.Map;
 
 import com.xone.model.hibernate.entity.Person;
 
@@ -29,4 +30,6 @@ public interface PersonService {
 	public Person save(Person p);
 	
 	public Person update(Person p);
+	
+	public Person findByMap(Map<String, String> params);
 }

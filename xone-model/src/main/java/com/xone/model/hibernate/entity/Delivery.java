@@ -2,8 +2,6 @@ package com.xone.model.hibernate.entity;
 
 import java.util.Date;
 
-import org.apache.commons.lang.xwork.StringUtils;
-
 
 public class Delivery extends CommonEntity {
 

@@ -17,4 +17,8 @@
 	<bean id="adbannerDao" class="com.xone.model.hibernate.app.AdbannerDaoImpl" parent="abstractHibernateDao" />
 	<bean id="productDao" class="com.xone.model.hibernate.app.ProductDaoImpl" parent="abstractHibernateDao" />
 	<bean id="subscribeDao" class="com.xone.model.hibernate.app.SubscribeDaoImpl" parent="abstractHibernateDao" />
+	<bean id="userRolesDao" class="com.xone.model.hibernate.app.UserRolesDaoImpl" parent="abstractHibernateDao" />
+	<bean id="resourcesDao" class="com.xone.model.hibernate.app.ResourcesDaoImpl" parent="abstractHibernateDao" />
+	<bean id="rolesDao" class="com.xone.model.hibernate.app.RolesDaoImpl" parent="abstractHibernateDao" />
+	<bean id="rolesResourcesDao" class="com.xone.model.hibernate.app.RolesResourcesDaoImpl" parent="abstractHibernateDao" />
 </beans>
