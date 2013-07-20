@@ -10,7 +10,11 @@ package com.xone.service.app;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -70,6 +74,25 @@ public class PersonServiceImpl implements PersonService {
 			return this.personDao.update(p);
 		}
 		return null;
+	}
+	
+	@Override
+	public Person findByMap(Map<String, String> params) {
+		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Person.class);
+		String id = params.get("id");
+		if (!StringUtils.isBlank(id)) {
+			detachedCriteria.add(Restrictions.eq("id", Long.parseLong(id)));
+		}
+		String username = params.get("username");
+		if (!StringUtils.isBlank(username)) {
+			detachedCriteria.add(Restrictions.eq("username", username));
+		}
+		List<Person> l = getPersonDao().findListByDetachedCriteria(detachedCriteria, 0, 1);
+		if (null == l || l.isEmpty()) {
+			return new Person();
+		}
+		Person p = l.get(0);
+		return p;
 	}
 	
 }

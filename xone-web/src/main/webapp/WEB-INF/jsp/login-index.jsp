@@ -12,7 +12,7 @@
 	    	<table style="width:100%">
 	    		<tr>
 	    			<td style="width:60px;">用户名:</td>
-	    			<td><input type="text" name="j_username" id="text-username" value="admin" autocomplete="off"/></td>
+	    			<td><input type="text" name="j_username" id="text-username" value="15800000000" autocomplete="off"/></td>
 	    		</tr>
 	    		<tr>
 	    			<td style="width:60px;">密　码:</td>

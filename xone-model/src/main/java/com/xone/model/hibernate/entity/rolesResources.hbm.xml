@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.xone.model.hibernate.entity.RolesResources" table="T_ROLES_RESOURCES">
+	<id name="id" type="java.lang.Long">
+		<column name="ID" length="20" not-null="true"/>
+		<generator class="increment" />
+	</id>
+	<property name="resourceId" type="java.lang.Long">
+		<column name="RESOURCE_ID" length="20"/>
+	</property>
+	<property name="roleId" type="java.lang.Long">
+		<column name="ROLE_ID" length="20"/>
+	</property>
+	<property name="enable" type="java.lang.String">
+		<column name="ENABLE" length="1"/>
+	</property>
+	<property name="userCreated" type="java.lang.Long">
+		<column name="USER_CREATED" length="20"/>
+	</property>
+	<property name="dateCreated" type="java.util.Date">
+		<column name="DATE_CREATED" length="19"/>
+	</property>
+	<property name="userUpdated" type="java.lang.Long">
+		<column name="USER_UPDATED" length="20"/>
+	</property>
+	<property name="lastUpdated" type="java.util.Date">
+		<column name="LAST_UPDATED" length="19"/>
+	</property>
+	</class>
+</hibernate-mapping>

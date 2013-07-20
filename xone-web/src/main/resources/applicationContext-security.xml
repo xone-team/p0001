@@ -15,42 +15,50 @@
 	<http pattern="/images/**" security="none"></http>
 	<http auto-config="true" use-expressions="true" access-denied-page="/user/denied">
 	    <http-basic/>
-	    <intercept-url pattern="/admin/**" access="permitAll" />  
-        <intercept-url pattern="/ssq/**" access="permitAll" />  
-        <intercept-url pattern="/browser/**" access="permitAll" /> 
-        
-<!-- 这是因为配置文件中的“/**”配置，要求用户访问任意一个系统资源时， -->
-<!-- 必须拥有ROLE_ADMIN,ROLE_EDITOR,ROLE_USER角色中的一种，/login.html也不例外。 -->
         <intercept-url pattern="/**" access="permitAll" />
-        
-		<intercept-url pattern="/welcome" access="hasRole('ROLE_USER')" />
-<!-- 		让没登陆的用户也可以访问login.html, 当然可以吧login.action放到入common等不需要过滤的url路径(命名空间)下 -->
-<!-- 		<intercept-url pattern="/login.html" security="none" />  -->
-		
-<!--   
-    default-target-url       指定了从登录页面登录后进行跳转的页面  
-    always-use-default-target   true表示登录成功后强制跳转  
-    authentication-failure-url  表示验证失败后进入的页面  
-    login-processing-url       设置验证登录验证地址，如果不设置，默认是j_spring_security_check  
-    username-parameter,password-parameter     设置登录用户名和密码的请求name，默认：j_username,j_password  
-    default-target-url="/user/home"   
-   -->
-<!-- 		login-page表示用户登陆时显示我们自定义的login.action对应的页面。 -->
-<!-- 		authentication-failure-url表示用户登陆失败时，跳转到哪个action。 -->
-<!-- 		当用户输入的登录名和密码不正确时，系统将再次跳转到/login.action，并添加一个error=true参数作为登陆失败的标示。 -->
-<!-- 		default-target-url表示登陆成功时，跳转的url。  -->
-        <form-login login-page="/login.html" authentication-failure-url="/login.html?error=true" default-target-url="/welcome.html" />
+	    <intercept-url pattern="/admin/**" access="permitAll" />  
+        <intercept-url pattern="/browser/**" access="permitAll" /> 
+<!-- 		<intercept-url pattern="/welcome" access="hasRole('ROLE_USER')" /> -->
+		<form-login />
+<!--         <form-login login-page="/login.html" authentication-failure-url="/login.html?error=true" default-target-url="/welcome.html" /> -->
 <!-- 		<form-login login-page="/login.html" default-target-url="/welcome.html" -->
 <!-- 			authentication-failure-url="/loginfailed.html?error=true" /> -->
 		<!-- <intercept-url pattern="/**" access="permitAll" /> -->
 		<logout />
-		<session-management session-fixation-protection="newSession" />
+		<!-- 实现免登陆验证 -->
+        <remember-me />
+		<session-management session-fixation-protection="newSession" invalid-session-url="/timeout.jsp">
+		    <concurrency-control max-sessions="2" error-if-maximum-exceeded="true" />
+		</session-management>
+<!-- 		FILTER_SECURITY_INTERCEPTOR是Spring Security默认的Filter，我们自定义的Filter必须在它之前，过滤客服请求。 -->
+		<custom-filter ref="myFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
 	</http>
-	<authentication-manager>
-		<authentication-provider>
-			<user-service>
-				<user name="admin" password="123456" authorities="ROLE_USER" />
-			</user-service>
-		</authentication-provider>
-	</authentication-manager>
+	<!-- 配置过滤器 -->  
+    <beans:bean id="myFilter" class="com.xone.service.security.MySecurityFilter">
+        <!-- 用户拥有的权限 -->  
+        <beans:property name="authenticationManager" ref="myAuthenticationManager" />  
+        <!-- 用户是否拥有所请求资源的权限 -->  
+        <beans:property name="accessDecisionManager" ref="myAccessDecisionManager" />  
+        <!-- 资源与权限对应关系 -->  
+        <beans:property name="securityMetadataSource" ref="mySecurityMetadataSource" />
+    </beans:bean>
+    <!-- 实现了UserDetailsService的Bean -->  
+    <authentication-manager alias="myAuthenticationManager">  
+        <authentication-provider user-service-ref="myUserDetailServiceImpl" />  
+    </authentication-manager>  
+    <beans:bean id="myAccessDecisionManager" class="com.xone.service.security.MyAccessDecisionManager"></beans:bean>  
+    <beans:bean id="mySecurityMetadataSource" class="com.xone.service.security.MySecurityMetadataSource">  
+        <beans:constructor-arg name="resourcesService" ref="resourcesService"></beans:constructor-arg>  
+    </beans:bean>  
+    <beans:bean id="myUserDetailServiceImpl" class="com.xone.service.security.MyUserDetailServiceImpl">  
+        <beans:property name="personService" ref="personService"></beans:property>
+        <beans:property name="rolesService" ref="rolesService"></beans:property>
+    </beans:bean>
+<!-- 	<authentication-manager> -->
+<!-- 		<authentication-provider> -->
+<!-- 			<user-service> -->
+<!-- 				<user name="admin" password="123456" authorities="ROLE_USER" /> -->
+<!-- 			</user-service> -->
+<!-- 		</authentication-provider> -->
+<!-- 	</authentication-manager> -->
 </beans:beans> 
