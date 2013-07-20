@@ -46,11 +46,5 @@
             <result name="index">/index.jsp</result>
         </global-results>
     </package>
-	<include file="struts/struts-login-ref.xml" />
-	<include file="struts/struts-product.xml" />
-	<include file="struts/struts-purchase.xml" />
-	<include file="struts/struts-assistant.xml" />
-	<include file="struts/struts-delivery.xml" />
-	<include file="struts/struts-adbanner.xml" />
-	<include file="struts/struts-subscribe.xml" />
+	<include file="struts/struts-person.xml" />
 </struts>

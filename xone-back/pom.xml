@@ -10,7 +10,9 @@
 	<name>xone-back</name>
 	<url>http://maven.apache.org</url>
 	<modules>
+		<module>../xone-action</module>
 		<module>../xone-model</module>
+		<module>../xone-service</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
