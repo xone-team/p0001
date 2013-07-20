@@ -32,7 +32,7 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
                     return;  
                 }  
             }  
-        }  
+        }
         //没有权限  
         throw new AccessDeniedException(" 没有权限访问！ ");
 	}

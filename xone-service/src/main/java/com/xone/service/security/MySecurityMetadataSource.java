@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
@@ -13,6 +14,7 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 
 import com.xone.model.hibernate.entity.Resources;
+import com.xone.model.hibernate.entity.Roles;
 import com.xone.service.app.ResourcesService;
 
 /**
@@ -22,6 +24,9 @@ import com.xone.service.app.ResourcesService;
 public class MySecurityMetadataSource implements
 		FilterInvocationSecurityMetadataSource {
 
+	/**
+	 * TODO 该部分可改进到放入在Ehcache中，后期进行。
+	 */
 	private static Map<String, Collection<ConfigAttribute>> resourceMap = null;
 	
 	@Autowired
@@ -38,15 +43,18 @@ public class MySecurityMetadataSource implements
 		if (resourceMap == null) {
 			resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
 			Map<String, String> params = new HashMap<String, String>();
-			List<Resources> resources = getResourcesService().findAllByMap(
+			Map<Resources, List<Roles>> mapResourcesRoles = getResourcesService().findMapByParams(
 					params);
-			for (Resources resource : resources) {
+			for (Map.Entry<Resources, List<Roles>> m : mapResourcesRoles.entrySet()) {
 				Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
-				// 以权限名封装为Spring的security Object
-				ConfigAttribute configAttribute = new SecurityConfig(
-						resource.getName());
-				configAttributes.add(configAttribute);
-				resourceMap.put(resource.getResourceUrl(), configAttributes);
+				List<Roles> rolesList = m.getValue();
+				for (Roles roles : rolesList) {
+					// 以权限名封装为Spring的security Object
+					ConfigAttribute configAttribute = new SecurityConfig(
+							roles.getName());
+					configAttributes.add(configAttribute);
+				}
+				resourceMap.put(m.getKey().getResourceUrl(), configAttributes);
 			}
 		}
 
@@ -63,12 +71,18 @@ public class MySecurityMetadataSource implements
 	@Override
 	public Collection<ConfigAttribute> getAttributes(Object object)
 			throws IllegalArgumentException {
-		String requestUrl = ((FilterInvocation) object).getRequestUrl();  
-        System.out.println("requestUrl is " + requestUrl);  
-        if(resourceMap == null) {  
-            loadResourceDefine();  
-        }  
-        return resourceMap.get(requestUrl);
+		String requestUrl = ((FilterInvocation) object).getRequestUrl();
+		System.out.println("requestUrl is " + requestUrl);
+		if (null == resourceMap) {
+			loadResourceDefine();
+		}
+		Set<String> urls = resourceMap.keySet();
+		for (String url : urls) {
+			if (requestUrl.matches(url)) {
+				return resourceMap.get(url);
+			}
+		}
+		return null;
 	}
 
 	@Override

@@ -5,8 +5,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.xone.action.base.Action;
@@ -38,6 +36,10 @@ public class LoginWebAction extends Action {
 			return INPUT;
 		}
 
+	}
+	
+	public String loginFailed() throws Exception {
+		return SUCCESS;
 	}
 	
 	public String welcome() throws Exception {
