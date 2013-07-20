@@ -229,6 +229,7 @@
 					data : d,
 					success : function(data, textStatus, jqXHR) {
 						renderForm(data.person);
+						alert("操作成功");
 					}
 				})
             }
