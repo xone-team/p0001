@@ -38,7 +38,9 @@ public class PersonAction extends Action {
     
     public String save() {
         Long id = person.getId();
-        Person p = personService.findById(id);
+        Person p = null;
+        if(id != null)
+            personService.findById(id);
         if(p == null){
             p = new Person();
         }
