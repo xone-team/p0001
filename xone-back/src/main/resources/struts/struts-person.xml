@@ -4,7 +4,7 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<package name="person" namespace="/person" extends="default">
-		<action name="index" class="personAction" method="list">
+		<action name="index" class="backPersonAction" method="list">
 			<result name="success">/WEB-INF/jsp/person-list.jsp</result>
 		</action>
 	</package>
