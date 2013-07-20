@@ -1,2 +1,2 @@
 
-<% response.sendRedirect("login/index.html"); %>
+<% response.sendRedirect("person/index.html"); %>

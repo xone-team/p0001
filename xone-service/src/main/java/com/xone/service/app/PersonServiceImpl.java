@@ -8,6 +8,7 @@
  */
 package com.xone.service.app;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -94,5 +95,25 @@ public class PersonServiceImpl implements PersonService {
 		Person p = l.get(0);
 		return p;
 	}
-	
+
+    @Override
+    public Person findById(Serializable id) {
+        return personDao.findById(id);
+    }
+
+    @Override
+    public void deleteById(Serializable id) {
+        personDao.deleteById(id);
+    }
+
+    @Override
+    public List findAll() {
+        return personDao.findAll();
+    }
+
+    @Override
+    public Person saveOrUpdate(Person p) {
+        return personDao.saveOrUpdate(p);
+    }
+
 }

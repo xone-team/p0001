@@ -2,6 +2,7 @@ package com.xone.model.hibernate.generic;
 
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.sql.SQLException;
@@ -13,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
@@ -50,6 +53,9 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	
 	public AbstractHibernateDao() {
 	}
+	
+
+
 
 	/**
 	 * 保存对象

@@ -1,0 +1,22 @@
+	<!-- modal to upload -->
+	<div id="X_modal_upload" class="modal hide fade" tabindex="-1">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>上传</h3>
+		</div>
+		<div class="modal-body">
+			<div class="row-fluid">
+				<div class="control-group">
+					<label class="control-label" for="inputUsername">选择文件</label>
+					<div class="controls">
+						<input type="file" name="username" id="inputUsername">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal">取消</button>
+			<button class="btn btn-primary" data-dismiss="modal">完成</button>
+		</div>
+	</div>
+	<!-- /modal to upload -->
