@@ -30,7 +30,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品名称:</td>
-				    			<td><input type="text" name="product.productName" placeholder="产品名称" data-mini="true" value="产品名称" autocomplete="off"/></td>
+				    			<td><input type="text" name="product.productName" placeholder="产品名称" data-mini="true"  autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -46,7 +46,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品产地:</td>
-				    			<td><input type="text" name="product.productAddress" placeholder="产品产地" data-mini="true" value="产品产地" autocomplete="off"/></td>
+				    			<td><input type="text" name="product.productAddress" placeholder="产品产地" data-mini="true"  autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -54,7 +54,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品属地:</td>
-				    			<td><input type="text" name="product.productLocation" placeholder="产品属地" data-mini="true" value="产品属地" autocomplete="off"/></td>
+				    			<td><input type="text" name="product.productLocation" placeholder="产品属地" data-mini="true"  autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -78,7 +78,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">有&nbsp&nbsp效&nbsp&nbsp期:</td>
-				    			<td><input type="text" id="productproductValid" name="product.productValid" placeholder="有效期" data-mini="true" value="2013-07-15 12:23:04" autocomplete="off"/></td>
+				    			<td><input type="text" id="productproductValid" name="product.productValid" placeholder="有效期" data-mini="true"  autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -86,7 +86,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">描　　述:</td>
-				    			<td><input type="text" name="product.productDesc" placeholder="描述" data-mini="true" value="产品描述" autocomplete="off"/></td>
+				    			<td><input type="text" name="product.productDesc" placeholder="描述" data-mini="true"  autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
