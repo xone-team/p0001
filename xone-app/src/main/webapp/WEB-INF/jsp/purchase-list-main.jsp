@@ -53,10 +53,12 @@
 						}
 					},
 					down: function(html) {
+						$('ul.ul-purchase-list').find('li.itemtoolong').remove();
 						$('ul.ul-purchase-list').prepend(html).listview('refresh');
 	// 					fixedPurchaseImage();
 					},
 					up: function(html) {
+						$('ul.ul-purchase-list').find('li.itemtoolong').remove();
 						$('ul.ul-purchase-list').append(html).listview('refresh');
 					}
 				});

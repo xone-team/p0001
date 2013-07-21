@@ -11,7 +11,9 @@ import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.utils.DateUtils;
+import com.xone.model.utils.StringUtils;
 import com.xone.service.app.PurchaseService;
+import com.xone.service.app.utils.AppConstants;
 
 public class PurchaseAction extends LogicAction {
 	
@@ -50,12 +52,17 @@ public class PurchaseAction extends LogicAction {
 	public String listItems() {
 		Map<String, String> map = getRequestMap();
 		Map<String, String> params = new HashMap<String, String>();
-		if ("down".equals(map.get("itemaction"))) {
-			params.put("gtDateCreated", DateUtils.format(getPurchase().getDateCreated()));
-		} else if ("up".equals(map.get("itemaction"))) {
-			params.put("ltDateCreated", DateUtils.format(getPurchase().getDateCreated()));
+		int length = StringUtils.parseInt(map.get("itemcount"), 0);
+		if (length >= AppConstants.LIST_ITEM_LENGTH) {
+			getMapValue().put("ITEM_TOO_LONG", "YES");
+		} else {
+			if ("down".equals(map.get("itemaction"))) {
+				params.put("gtDateCreated", DateUtils.format(getPurchase().getDateCreated()));
+			} else if ("up".equals(map.get("itemaction"))) {
+				params.put("ltDateCreated", DateUtils.format(getPurchase().getDateCreated()));
+			}
+			setList(getPurchaseService().findAllByMap(params));
 		}
-		setList(getPurchaseService().findAllByMap(params));
 		return SUCCESS;
 	}
 	
