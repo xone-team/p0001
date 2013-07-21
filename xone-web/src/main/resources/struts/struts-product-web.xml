@@ -10,5 +10,8 @@
 		<action name="list" class="productWebAction" method="list">
 			<result name="success">/WEB-INF/jsp/product-list.jsp</result>
 		</action>
+		<action name="item" class="productWebAction" method="item">
+			<result name="success">/WEB-INF/jsp/product-item.jsp</result>
+		</action>
 	</package>
 </struts>

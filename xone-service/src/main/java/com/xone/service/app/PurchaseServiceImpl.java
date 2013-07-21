@@ -159,7 +159,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 			detachedCriteria.add(Restrictions.eq("id", Long.parseLong(id)));
 		}
 		List<Purchase> l = getPurchaseDao().findListByDetachedCriteria(detachedCriteria, 0, 1);
-		if (null == l) {
+		if (null == l || l.isEmpty()) {
 			return new Purchase();
 		}
 		Purchase p = l.get(0);

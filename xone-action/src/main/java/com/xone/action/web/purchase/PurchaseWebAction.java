@@ -18,6 +18,7 @@ public class PurchaseWebAction extends Action {
 	@Autowired
 	protected PurchaseService purchaseService;
 	protected List<Purchase> list = new ArrayList<Purchase>();
+	protected Purchase purchase = new Purchase();
 	
 	public String list() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
@@ -25,6 +26,13 @@ public class PurchaseWebAction extends Action {
 		if (null != l && !l.isEmpty()) {
 			getList().addAll(l);
 		}
+		return SUCCESS;
+	}
+	
+	public String item() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(getPurchase().getId()));
+		setPurchase(getPurchaseService().findByMap(params));
 		return SUCCESS;
 	}
 
@@ -42,6 +50,14 @@ public class PurchaseWebAction extends Action {
 
 	public void setList(List<Purchase> list) {
 		this.list = list;
+	}
+
+	public Purchase getPurchase() {
+		return purchase;
+	}
+
+	public void setPurchase(Purchase purchase) {
+		this.purchase = purchase;
 	}
 
 }

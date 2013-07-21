@@ -18,6 +18,7 @@ public class ProductWebAction extends Action {
 	@Autowired
 	protected ProductService productService;
 	protected List<Product> list = new ArrayList<Product>();
+	protected Product product = new Product();
 
 	public String list() {
 		Map<String, String> params = new HashMap<String, String>();
@@ -25,6 +26,13 @@ public class ProductWebAction extends Action {
 		if (null != l && !l.isEmpty()) {
 			list.addAll(l);
 		}
+		return SUCCESS;
+	}
+	
+	public String item() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(getProduct().getId()));
+		setProduct(getProductService().findByMap(params));
 		return SUCCESS;
 	}
 
@@ -42,6 +50,14 @@ public class ProductWebAction extends Action {
 
 	public void setList(List<Product> list) {
 		this.list = list;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 	
 }

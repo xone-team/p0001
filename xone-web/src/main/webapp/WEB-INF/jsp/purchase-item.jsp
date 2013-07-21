@@ -19,43 +19,54 @@
 		<div class="container">
 			<div class="row">
 				<div class="span9 bs-docs-sidebar">
-					<form class="form-search">
-						<div class="span6 input-prepend" style="text-align: right;">
-							<span class="add-on">搜索产品</span> <input type="text" class="span4" />
-						</div>
-						<div class="input-append">
-							<button type="submit" class="btn">搜索</button>
-						</div>
-					</form>
 					<div class="row-fluid">
 					    <div class="span12">
-							<ul class="listview image" style="width:100%">
-								<c:forEach var="item" items="${list}">
-								<li>
-		                            <div class="icon">
-		                                <img src="${pageContext.request.contextPath}/image.html?id=${item.ids[0]}">
-		                            </div>
-		                            <div class="data">
-										<h4>${item.purchaseName}</h4>
-										<p>发布日期:${item.dateCreated},更新日期:${item.lastUpdated}</p>
-										<p>产品地址:${item.purchaseAddress},产品属地:${item.purchaseLocation},产品类型:${item.purchaseType},产品描述:${item.purchaseDesc}</p>
-		                                <a href="${pageContext.request.contextPath}/purchase/item.html?purchase.id=${item.id}" target="_blank">查看详情</a>
-		                            </div>
-		                        </li>
-								</c:forEach>
-							</ul>
+					    	<c:choose>
+					    		<c:when test="${not empty purchase && not empty purchase.id}">
+					    			<table class="table table-bordered" style="width:100%">
+										<tr>
+											<td>产品名称</td>
+											<td>${purchase.purchaseName}</td>
+										</tr>
+										<tr>
+											<td>产品类型</td>
+											<td>${purchase.purchaseType}</td>
+										</tr>
+										<tr>
+											<td>产品产地</td>
+											<td>${purchase.purchaseAddress}</td>
+										</tr>
+										<tr>
+											<td>产品属地</td>
+											<td>${purchase.purchaseLocation}</td>
+										</tr>
+										<tr>
+											<td>数　　量</td>
+											<td>${purchase.purchaseNum}</td>
+										</tr>
+										<tr>
+											<td>有&nbsp&nbsp效&nbsp&nbsp期</td>
+											<td>${purchase.purchaseValid}</td>
+										</tr>
+										<tr>
+											<td>描　　述</td>
+											<td>${purchase.purchaseDesc}</td>
+										</tr>
+										<c:forEach var="item" items="${purchase.ids}">
+										<tr>
+											<td colspan="2">
+												<img class="img-rounded" src="${pageContext.request.contextPath}/image.html?id=${item}" alt=""/>
+											</td>
+										</tr>
+										</c:forEach>
+									</table>
+					    		</c:when>
+					    		<c:otherwise>
+					    			<p>对不起，该页面已经被移走或者访问参数不正确!</p>
+					    		</c:otherwise>
+					    	</c:choose>
+							
 						</div>
-					</div>
-					<div class="pagination pagination-centered">
-					  <ul>
-					    <li><a href="#" class="disabled">上一页</a></li>
-					    <li><a href="#" class="active">1</a></li>
-					    <li><a href="#">2</a></li>
-					    <li><a href="#">3</a></li>
-					    <li><a href="#">4</a></li>
-					    <li><a href="#">5</a></li>
-					    <li><a href="#">下一页</a></li>
-					  </ul>
 					</div>
 				</div>
 				<div class="span3" style="margin-left:13px;">
