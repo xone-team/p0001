@@ -52,7 +52,7 @@ public class LoginWebAction extends Action {
 		return SUCCESS;
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public String welcome() throws Exception {
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -63,22 +63,26 @@ public class LoginWebAction extends Action {
 		if (StringUtils.isBlank(username)) {
 			return ERROR;
 		}
-        this.setName(request.getUserPrincipal().getName());
-        this.setMessage("Successful Struts spring secuirty authentication");
-        Person p = new Person();
-        p.setUsername(username);
-        List<Person> pList = getPersonService().findAllByPerson(p);
-		if (pList.size() > 1 || pList.size() <= 0) {//没有记录或者能匹配到多个记录,都要求重新登陆
-			return ERROR;
+		if (null == getUserMap() || getUserMap().isEmpty()) {
+			this.setName(request.getUserPrincipal().getName());
+			this.setMessage("Successful Struts spring secuirty authentication");
+			Person p = new Person();
+			p.setUsername(username);
+			List<Person> pList = getPersonService().findAllByPerson(p);
+			if (pList.size() > 1 || pList.size() <= 0) {//没有记录或者能匹配到多个记录,都要求重新登陆
+				return ERROR;
+			}
+			Map<String, String> porperties = null;
+			try {
+				porperties = BeanUtils.describe(pList.get(0));
+			} catch (Exception e) {
+				porperties = Collections.EMPTY_MAP;
+				e.printStackTrace();
+			}
+			if (null != porperties && !porperties.isEmpty()) {
+				getSession().setAttribute(USER, porperties);
+			}
 		}
-		Map porperties = null;
-		try {
-			porperties = BeanUtils.describe(p);
-		} catch (Exception e) {
-			porperties = Collections.EMPTY_MAP;
-			e.printStackTrace();
-		}
-		getSession().setAttribute(USER, porperties);
 		return SUCCESS;
 	}
 

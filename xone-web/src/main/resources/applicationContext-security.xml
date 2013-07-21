@@ -17,7 +17,7 @@
 		<logout />
 		<!-- 实现免登陆验证 -->
 <!--         <remember-me /> -->
-		<session-management session-fixation-protection="newSession" invalid-session-url="/index.html">
+		<session-management session-fixation-protection="none" invalid-session-url="/index.html">
 		    <concurrency-control max-sessions="2" error-if-maximum-exceeded="true" />
 		</session-management>
 <!-- 		FILTER_SECURITY_INTERCEPTOR是Spring Security默认的Filter，我们自定义的Filter必须在它之前，过滤客服请求。 -->
