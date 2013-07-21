@@ -15,7 +15,7 @@
 		<jsp:include page="common-header.jsp"></jsp:include>
 	</head>
 	<body>
-		<jsp:include page="common-nav.jsp"><jsp:param value="2" name="offset"/></jsp:include>
+		<jsp:include page="common-nav.jsp"><jsp:param value="3" name="offset"/></jsp:include>
 		<div class="container">
 			<div class="row">
 				<div class="span9 bs-docs-sidebar">
@@ -36,9 +36,9 @@
 		                                <img src="${pageContext.request.contextPath}/image.html?id=${item.ids[0]}">
 		                            </div>
 		                            <div class="data">
-										<h4>${item.productName}</h4>
+										<h4>${item.purchaseName}</h4>
 										<p>发布日期:${item.dateCreated},更新日期:${item.lastUpdated}</p>
-										<p>产品地址:${item.productAddress},产品属地:${item.productLocation},产品类型:${item.productType},产品描述:${item.productDesc}</p>
+										<p>产品地址:${item.purchaseAddress},产品属地:${item.purchaseLocation},产品类型:${item.purchaseType},产品描述:${item.purchaseDesc}</p>
 		                                <a href="#">查看详情</a>
 		                            </div>
 		                        </li>

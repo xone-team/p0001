@@ -1,26 +1,19 @@
 package com.xone.action.app.purchase;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.xone.action.base.Action;
-import com.xone.action.utils.ImageUtils;
+import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.utils.DateUtils;
 import com.xone.service.app.PurchaseService;
-import com.xone.service.app.PurchaseServiceImpl;
 
-public class PurchaseAction extends Action {
+public class PurchaseAction extends LogicAction {
 	
 	private static final long serialVersionUID = 8114006617561140444L;
 	
@@ -49,46 +42,9 @@ public class PurchaseAction extends Action {
 	}
 	
 	public String create() {
-//		ImageUploaded image = getImageUploaded();
-//		String [] aImage = image.getImage().split(";base64,");
-//		image.setImageType(aImage[0].replaceFirst("data:", ""));
-//		image.setImage(aImage[1]);
-		List<ImageUploaded> images = findImageByParams();
-		setPurchase(purchaseService.save(getPurchase(), images));
+		List<ImageUploaded> images = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PURCHASE);
+		setPurchase(getPurchaseService().save(getPurchase(), images));
 		return SUCCESS;
-	}
-
-	@SuppressWarnings("unchecked")
-	protected List<ImageUploaded> findImageByParams() {
-		Map<String, String[]> map = (Map<String, String[]>)getRequest().getParameterMap();
-		List<ImageUploaded> images = new ArrayList<ImageUploaded>();
-		if (null == map || map.isEmpty() || null ==  map.get("images")) {
-			return images;
-		}
-		for (String image : map.get("images")) {
-			String [] aImage = image.split(";base64,");
-			if (aImage.length != 2 || !aImage[0].startsWith("data:")) {
-				continue;
-			}
-			ImageUploaded iu = new ImageUploaded();
-			iu.setImageType(aImage[0].replaceFirst("data:", ""));
-			iu.setImage(null);
-			iu.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
-			images.add(iu);
-			String suffix = iu.getImageType().replaceFirst("image/", "");
-			try {
-				File file = new File(getImageUploadPath());
-				if (!file.exists()) {
-					file.mkdirs();
-				}
-				String filename = getUniqueId() + "." + suffix;
-				ImageIO.write(ImageUtils.decodeToImage(aImage[1]), suffix, new File(file.getCanonicalPath() + File.separator + filename));
-				iu.setImage(filename);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return images;
 	}
 	
 	public String listItems() {
@@ -99,7 +55,7 @@ public class PurchaseAction extends Action {
 		} else if ("up".equals(map.get("itemaction"))) {
 			params.put("ltDateCreated", DateUtils.format(getPurchase().getDateCreated()));
 		}
-		setList(purchaseService.findAllByMap(params));
+		setList(getPurchaseService().findAllByMap(params));
 		return SUCCESS;
 	}
 	
@@ -115,7 +71,7 @@ public class PurchaseAction extends Action {
 		} else if ("up".equals(map.get("itemaction"))) {
 			params.put("ltDateCreated", DateUtils.format(getPurchase().getDateCreated()));
 		}
-		setList(purchaseService.findAllByMap(params));
+		setList(getPurchaseService().findAllByMap(params));
 		return SUCCESS;
 	}
 	
@@ -162,8 +118,8 @@ public class PurchaseAction extends Action {
 		entity.setPurchaseLocation(pu.getPurchaseLocation());
 		entity.setPurchaseDesc(pu.getPurchaseDesc());
 		entity.setPurchaseAddress(pu.getPurchaseAddress());
-		List<ImageUploaded> imageUploadeds = findImageByParams();
-		entity = purchaseService.update(entity, imageUploadeds, pu.getIds());
+		List<ImageUploaded> imageUploadeds = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PURCHASE);
+		entity = getPurchaseService().update(entity, imageUploadeds, pu.getIds());
 		setPurchase(entity);
 		return SUCCESS;
 	}
@@ -179,7 +135,7 @@ public class PurchaseAction extends Action {
 	public String itemDetails() {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("id", String.valueOf(getPurchase().getId()));
-		setPurchase(purchaseService.findByMap(params));
+		setPurchase(getPurchaseService().findByMap(params));
 		return SUCCESS;
 	}
 

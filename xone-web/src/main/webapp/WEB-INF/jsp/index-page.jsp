@@ -15,16 +15,26 @@
 <body>
 	<jsp:include page="common-nav.jsp"><jsp:param value="1" name="offset"/></jsp:include>
 	<div class="container">
-		<div class="hero-unit">
+		<div class="hero-unit" style="padding-top:10px;padding-bottom:10px;">
 			<h1>恒鑫水产品交易平台</h1>
-			<p>这里是关于网站，公司及公司产品的大概介绍.本网站总共分为三个大频道，售卖产品、购买产品和用户中心，
-			售卖产品，是用户有产品出售，发布到交易平台上展示，让希望买到对应的产品的商家很容易购买到自己希望的产品和规格;
-			购买产品，是用户希望购买到相关产品，可以查看商家发布的求购产品及详细情况。
-			用户中心，跟用户相关的操作及信息，是用户在交易平台上对应的操作功能，例如发布产品，
-			求购产品，物流配送，产品订阅等都可在用户中心查看、发布和修改信息。</p>
-			<p>
-				<a href="#" class="btn btn-primary btn-large">更多详情 &raquo;</a>
-			</p>
+<!-- 			<p>这里是关于网站，公司及公司产品的大概介绍.本网站总共分为三个大频道，售卖产品、购买产品和用户中心， -->
+<!-- 			售卖产品，是用户有产品出售，发布到交易平台上展示，让希望买到对应的产品的商家很容易购买到自己希望的产品和规格; -->
+<!-- 			购买产品，是用户希望购买到相关产品，可以查看商家发布的求购产品及详细情况。 -->
+<!-- 			用户中心，跟用户相关的操作及信息，是用户在交易平台上对应的操作功能，例如发布产品， -->
+<!-- 			求购产品，物流配送，产品订阅等都可在用户中心查看、发布和修改信息。</p> -->
+			<div style="padding:30px;">
+				<form class="form-search">
+					<div class="span6 input-prepend" style="text-align: right;">
+						<span class="add-on">搜索产品</span> <input type="text" class="span4" />
+					</div>
+					<div class="input-append">
+						<button type="submit" class="btn">搜索</button>
+					</div>
+				</form>
+			</div>
+<!-- 			<p> -->
+<!-- 				<a href="#" class="btn btn-primary btn-large">更多详情 &raquo;</a> -->
+<!-- 			</p> -->
 		</div>
 		<!-- Example row of columns -->
 		<div class="row">

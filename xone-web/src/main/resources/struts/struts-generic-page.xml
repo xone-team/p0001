@@ -10,5 +10,9 @@
 		<action name="index" class="genericPageAction" method="index">
 			<result name="success">/WEB-INF/jsp/index-page.jsp</result>
 		</action>
+		<action name="about" class="genericPageAction" method="about">
+			<result name="success">/WEB-INF/jsp/about-page.jsp</result>
+		</action>
+		<action name="image" class="genericPageAction" method="image"></action>
 	</package>
 </struts>

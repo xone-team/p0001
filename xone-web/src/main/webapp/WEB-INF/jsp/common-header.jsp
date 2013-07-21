@@ -18,11 +18,11 @@
 	.navbar .nav {
 	  margin: 0;
 	  display: table;
-	  width: 60%;
+ 	  width: 100%;
 	}
 	.navbar .nav li.mynav {
 	  display: table-cell;
-	  width: 1%;
+ 	  width: 1%; 
 	  float: none;
 	}
 	.navbar .nav li.mynav a {
