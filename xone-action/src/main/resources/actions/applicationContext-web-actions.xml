@@ -10,4 +10,7 @@
 			http://www.springframework.org/schema/context   
 			http://www.springframework.org/schema/context/spring-context-2.5.xsd" default-lazy-init="true" default-autowire="byName">
 	<bean id="loginWebAction" class="com.xone.action.web.login.LoginWebAction" scope="prototype" />
+	<bean id="genericPageAction" class="com.xone.action.web.index.GenericPageAction" scope="prototype" />
+	<bean id="productWebAction" class="com.xone.action.web.product.ProductWebAction" scope="prototype" />
+	
 </beans>

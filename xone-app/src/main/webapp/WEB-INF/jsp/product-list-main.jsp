@@ -28,7 +28,7 @@
 		        <span class="iscroll-pull-label"></span>
 			</div>
 			<div style="height:15px">&nbsp;</div>
-				<ul class="ul-product-list" data-id="listview" data-role="listview" data-filter="true"  data-filter-placeholder="产品搜索..." data-inset="true">
+				<ul class="ul-product-list" data-id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true">
 			        <li data-role="list-divider">数据加载中，请稍候...</li>
 		        </ul>
 			<div class="iscroll-pullup">
@@ -38,13 +38,9 @@
 		</div>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${identify}"></script>
 		<script defer="defer" type="text/javascript">
-			
-			var next_step_num = 5;
-			
 			$(document).delegate('div.product-main-page', "pageinit", function(event) {
 				$('a.allproducts').addClass('ui-btn-active');
 			});
-			
 			$('div.product-main-page').bind("pageinit", function(event) {
 				$('div.product-list-main').mypullupdown({
 					url:'${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}',
@@ -53,8 +49,7 @@
 						return {
 							'itemcount': item.length,
 							'itemaction': 'down',
-							'product.dateCreated': item.first().attr('timestamp'),
-							'limit':0
+							'product.dateCreated': item.first().attr('timestamp')
 						}
 					},
 					onUp: function() {
@@ -62,22 +57,14 @@
 						return {
 							'itemcount': item.length,
 							'itemaction': 'up',
-							'product.dateCreated': item.last().attr('timestamp'),
-							'limit':next_step_num
+							'product.dateCreated': item.last().attr('timestamp')
 						}
 					},
 					down: function(html) {
-						$('ul.ul-product-list').empty();
 						$('ul.ul-product-list').prepend(html).listview('refresh');
-						next_step_num = 5; 
 					},
 					up: function(html) {
-						if(next_step_num==50)
-							html = '<li class="productdatecreateditem" style="text-align: center;" > 更多资讯请到网站上查看 </li>';
 						$('ul.ul-product-list').append(html).listview('refresh');
-						//--- mark -- // bad idea
-						if(html.length>100)
-							next_step_num+=5;
 					}
 				});
 	        	doRequest();

@@ -31,7 +31,6 @@ public class ProductAction extends Action {
 
 	public String listAll() {
 		product.setSaleType(Product.SaleType.NORMAL.getValue());
-		System.out.println("mark--------------------------"+Product.SaleType.NORMAL.getValue());
 		return SUCCESS;
 	}
 	
@@ -59,7 +58,6 @@ public class ProductAction extends Action {
 	
 	public String create() {
 		List<ImageUploaded> images = findImageByParams();
-		System.out.println("product_name ="+product.getProductName());
 		setProduct(getProductService().save(getProduct(), images));
 		return SUCCESS;
 	}
@@ -100,14 +98,12 @@ public class ProductAction extends Action {
 	public String listItems() {
 		Map<String, String> map = getRequestMap();
 		Map<String, String> params = new HashMap<String, String>();
-//		if ("down".equals(map.get("itemaction"))) {
-//			params.put("gtDateCreated", DateUtils.format(getProduct().getDateCreated()));
-//		} else if ("up".equals(map.get("itemaction"))) {
-//			params.put("ltDateCreated", DateUtils.format(getProduct().getDateCreated()));
-//		}
-		System.out.println("saleType======"+getProduct().getSaleType());
+		if ("down".equals(map.get("itemaction"))) {
+			params.put("gtDateCreated", DateUtils.format(getProduct().getDateCreated()));
+		} else if ("up".equals(map.get("itemaction"))) {
+			params.put("ltDateCreated", DateUtils.format(getProduct().getDateCreated()));
+		}
 		params.put("saleType", getProduct().getSaleType());
-		params.put("limit", map.get("limit"));
 		setList(getProductService().findAllByMap(params));
 		return SUCCESS;
 	}
