@@ -1,5 +1,6 @@
 package com.xone.action.web.login;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class LoginWebAction extends Action {
 	protected String lastname;
 	protected String message;
 	protected String name;
+	protected List<Person> list = new ArrayList<Person>();
 	
 	@Autowired
 	protected PersonService personService;
@@ -48,11 +50,20 @@ public class LoginWebAction extends Action {
 
 	}
 	
+	@SuppressWarnings("unchecked")
+	public String userList() throws Exception {
+		List<Person> l = getPersonService().findAll();
+		if (null != l && !l.isEmpty()) {
+			getList().addAll(l);
+		}
+		return SUCCESS;
+	}
+	
 	public String loginFailed() throws Exception {
 		return SUCCESS;
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({"unchecked" })
 	public String welcome() throws Exception {
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -137,6 +148,14 @@ public class LoginWebAction extends Action {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Person> getList() {
+		return list;
+	}
+
+	public void setList(List<Person> list) {
+		this.list = list;
 	}
 
 	public PersonService getPersonService() {

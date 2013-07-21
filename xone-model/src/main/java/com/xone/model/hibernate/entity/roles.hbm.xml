@@ -10,6 +10,9 @@
 	<property name="name" type="java.lang.String">
 		<column name="NAME" length="255"/>
 	</property>
+	<property name="remark" type="java.lang.String">
+		<column name="REMARK" length="255"/>
+	</property>
 	<property name="enable" type="java.lang.String">
 		<column name="ENABLE" length="1"/>
 	</property>

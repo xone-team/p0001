@@ -23,67 +23,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="span3">
-				<div class="accordion">
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_1">用户中心</div>
-						</div>
-						<div id="${identify}_1" class="accordion-body in collapse" style="height: auto;">
-							<div class="accordion-inner">
-								<ul class="nav nav-list">
-									<li id="menu_user" class="active"><a href="#" class="well well-small clearmarginbottom">用户信息</a></li>
-									<li id="menu_user_update"><a href="#" class="well well-small clearmarginbottom">用户更新</a></li>
-									<li><a href="#" class="well well-small clearmarginbottom">产品发布</a></li>
-									<li><a href="#" class="well well-small clearmarginbottom">促销发布</a></li>
-									<li><a href="#" class="well well-small clearmarginbottom">组团发布</a></li>
-									<li><a href="#" class="well well-small clearmarginbottom">求购发布</a></li>
-									<li><a href="#" class="well well-small clearmarginbottom">物流配送</a></li>
-									<li><a href="#" class="well well-small clearmarginbottom">筛选订阅</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<div class="accordion-toggle nav-header collapsed" data-toggle="collapse" data-target="#${identify}_2">我的售卖发布</div>
-						</div>
-						<div id="${identify}_2" class="accordion-body collapse" style="height: 0px;">
-							<div class="accordion-inner">
-								<ul class="nav nav-list">
-									<li><a href="#" class="well well-small clearmarginbottom">产品发布列表</a></li>
-									<li><a href="#" class="well well-small clearmarginbottom">促销发布列表</a></li>
-									<li><a href="#" class="well well-small clearmarginbottom">组团发布列表</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<div class="accordion-toggle nav-header collapsed" data-toggle="collapse" data-target="#${identify}_3">我的购买发布</div>
-						</div>
-						<div id="${identify}_3" class="accordion-body collapse" style="height: 0px;">
-							<div class="accordion-inner">
-								<ul class="nav nav-list">
-									<li><a href="#" class="well well-small clearmarginbottom">求购发布列表</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<div class="accordion-toggle nav-header collapsed" data-toggle="collapse" data-target="#${identify}_4">我的其它服务</div>
-						</div>
-						<div id="${identify}_4" class="accordion-body collapse" style="height: 0px;">
-							<div class="accordion-inner">
-								<ul class="nav nav-list">
-									<li><a href="#" class="well well-small clearmarginbottom">物流配送列表</a></li>
-									<li><a href="#" class="well well-small clearmarginbottom">我的广告列表</a></li>
-									<li><a href="#" class="well well-small clearmarginbottom">我的订阅列表</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
+				<jsp:include page="user-center-menu.jsp"><jsp:param value="1" name="menuindex"/></jsp:include>
 			</div>
 			<div class="span9">
 				<table class="table table-bordered" style="width:100%">

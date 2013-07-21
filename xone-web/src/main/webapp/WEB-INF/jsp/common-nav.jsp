@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<div class="navbar navbar-inverse navbar-fixed-top mynavheaderbar">
+<div class="navbar navbar-fixed-top mynavheaderbar">
 	<div class="navbar-inner">
 		<div class="container mynavheaderbar">
 			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">

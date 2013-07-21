@@ -10,8 +10,12 @@ import com.xone.model.hibernate.entity.Roles;
 public interface RolesService {
 
 	public Roles save(Roles entity);
+	
+	public Roles update(Roles entity);
 
 	public Roles findById(Long id);
+	
+	public void delete(Roles entity);
 
 	public List<Roles> findAllByMap(Map<String, String> params);
 	

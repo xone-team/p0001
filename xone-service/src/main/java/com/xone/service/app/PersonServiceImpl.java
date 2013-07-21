@@ -107,7 +107,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public List findAll() {
+    public List<Person> findAll() {
         return personDao.findAll();
     }
 

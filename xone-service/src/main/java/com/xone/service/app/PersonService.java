@@ -42,6 +42,6 @@ public interface PersonService {
 	
 	public void deleteById(Serializable id);
 	
-	public List findAll();
+	public List<Person> findAll();
 	
 }

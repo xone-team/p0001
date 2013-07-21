@@ -51,4 +51,6 @@
 	<include file="struts/struts-generic-page.xml" />
 	<include file="struts/struts-product-web.xml" />
 	<include file="struts/struts-purchase-web.xml" />
+	<include file="struts/struts-resources-web.xml" />
+	<include file="struts/struts-roles-web.xml" />
 </struts>

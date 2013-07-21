@@ -38,6 +38,16 @@ public class RolesServiceImpl implements RolesService {
 	public Roles save(Roles entity) {
 		return getRolesDao().save(entity);
 	}
+	
+	@Override
+	public Roles update(Roles entity) {
+		return getRolesDao().update(entity);
+	}
+	
+	@Override
+	public void delete(Roles entity) {
+		getRolesDao().deleteById(entity.getId());
+	}
 
 	@Override
 	public Roles findById(Long id) {

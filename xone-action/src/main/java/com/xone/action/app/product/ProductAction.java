@@ -12,6 +12,8 @@ import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.utils.DateUtils;
 import com.xone.service.app.ProductService;
+import com.xone.service.app.utils.MyBeanUtils;
+import com.xone.service.app.utils.MyBeanUtils.CopyRoles;
 
 public class ProductAction extends LogicAction {
 	
@@ -113,13 +115,19 @@ public class ProductAction extends LogicAction {
 //		getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
 //		return ERROR;
 //	}
-		entity.setProductName(pu.getProductName());
-		entity.setProductNum(pu.getProductNum());
-		entity.setProductType(pu.getProductType());
-		entity.setProductValid(pu.getProductValid());
-		entity.setProductLocation(pu.getProductLocation());
-		entity.setProductDesc(pu.getProductDesc());
-		entity.setProductAddress(pu.getProductAddress());
+		MyBeanUtils.copyProperties(pu, entity, Product.class, null, new CopyRoles() {
+			@Override
+			public boolean myCopyRoles(Object value) {
+				return (null != value);
+			}
+		});
+//		entity.setProductName(pu.getProductName());
+//		entity.setProductNum(pu.getProductNum());
+//		entity.setProductType(pu.getProductType());
+//		entity.setProductValid(pu.getProductValid());
+//		entity.setProductLocation(pu.getProductLocation());
+//		entity.setProductDesc(pu.getProductDesc());
+//		entity.setProductAddress(pu.getProductAddress());
 		List<ImageUploaded> imageUploadeds = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PRODUCT);
 		entity = getProductService().update(entity, imageUploadeds, pu.getIds());
 		setProduct(entity);

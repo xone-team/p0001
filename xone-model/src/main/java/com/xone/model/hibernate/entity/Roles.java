@@ -9,6 +9,7 @@ public class Roles implements Serializable {
 	private static final long serialVersionUID = -4494781057506370712L;
 	protected Long id;
 	protected String name;
+	protected String remark;
 	protected String enable;
 	protected Long userCreated;
 	protected Date dateCreated;
@@ -27,6 +28,12 @@ public class Roles implements Serializable {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	public String getEnable() {
 		return enable;

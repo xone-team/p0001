@@ -14,6 +14,8 @@ import com.xone.model.utils.DateUtils;
 import com.xone.model.utils.StringUtils;
 import com.xone.service.app.PurchaseService;
 import com.xone.service.app.utils.AppConstants;
+import com.xone.service.app.utils.MyBeanUtils;
+import com.xone.service.app.utils.MyBeanUtils.CopyRoles;
 
 public class PurchaseAction extends LogicAction {
 	
@@ -118,13 +120,19 @@ public class PurchaseAction extends LogicAction {
 //		getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
 //		return ERROR;
 //	}
-		entity.setPurchaseName(pu.getPurchaseName());
-		entity.setPurchaseNum(pu.getPurchaseNum());
-		entity.setPurchaseType(pu.getPurchaseType());
-		entity.setPurchaseValid(pu.getPurchaseValid());
-		entity.setPurchaseLocation(pu.getPurchaseLocation());
-		entity.setPurchaseDesc(pu.getPurchaseDesc());
-		entity.setPurchaseAddress(pu.getPurchaseAddress());
+		MyBeanUtils.copyProperties(pu, entity, Purchase.class, null, new CopyRoles() {
+			@Override
+			public boolean myCopyRoles(Object value) {
+				return (null != value);
+			}
+		});
+//		entity.setPurchaseName(pu.getPurchaseName());
+//		entity.setPurchaseNum(pu.getPurchaseNum());
+//		entity.setPurchaseType(pu.getPurchaseType());
+//		entity.setPurchaseValid(pu.getPurchaseValid());
+//		entity.setPurchaseLocation(pu.getPurchaseLocation());
+//		entity.setPurchaseDesc(pu.getPurchaseDesc());
+//		entity.setPurchaseAddress(pu.getPurchaseAddress());
 		List<ImageUploaded> imageUploadeds = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PURCHASE);
 		entity = getPurchaseService().update(entity, imageUploadeds, pu.getIds());
 		setPurchase(entity);

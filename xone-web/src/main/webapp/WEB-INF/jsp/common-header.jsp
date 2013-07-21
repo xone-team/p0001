@@ -39,13 +39,6 @@
 		border-right: 0;
 		border-radius: 0 3px 3px 0;
 	}
-	.navbar-inverse .navbar-inner {
-		background-color: white;
-		background-image: -webkit-gradient(linear,0 0,0 100%,from(#FCFAFA),to(#D8D7D7));
-		background-image: -webkit-linear-gradient(top,#FCFAFA,#D8D7D7);
-		background-image: -o-linear-gradient(top,#FCFAFA,#D8D7D7);
-		background-image: linear-gradient(to bottom,#FCFAFA,#D8D7D7);
-	}
 	.mymiddleimage {
 		width:90px;
 		height:90px;
