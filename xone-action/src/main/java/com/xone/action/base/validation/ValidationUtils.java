@@ -1,19 +1,27 @@
 package com.xone.action.base.validation;
 
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.xone.action.base.ActionForm;
 import com.xone.action.base.validators.Validator;
 import com.xone.action.utils.A;
+
+import freemarker.template.Configuration;
+import freemarker.template.Template;
 
 public class ValidationUtils {
     private static Log log = LogFactory.getLog(ValidationUtils.class);
@@ -47,6 +55,12 @@ public class ValidationUtils {
         return result;
     }
 
+    /** 读取所有验证规则配置
+     * @param ruleConfig
+     * @param validatorConfigArray
+     * @return
+     * @throws Exception
+     */
     public static List ruleConfig2list(JSONObject ruleConfig, JSONObject[] validatorConfigArray) throws Exception {
         JSONObject commonValidatorsParamsConfig = A.getJsonConfigWithCacheOfWeb("/assets/data/validators-params.json");
 
@@ -74,10 +88,16 @@ public class ValidationUtils {
 //                    log.info(validatorName);
                     // VALIDATION_RULE_PARAMS is not required
                     JSONObject paramsConfig = ( JSONObject )A.getJsonValueSafely(subRule, VALIDATION_RULE_PARAMS);
+                    Map params = null;
+                    if(paramsConfig != null){
+                    	params = paramsConfig2map(paramsConfig);
+                    }
+                    
                     String textPattern = vc.getTextPattern();
                     String text = null;
                     if(textPattern != null){
-                        text = getTextByPatternAndParams(textPattern, fieldText, paramsConfig);
+                        text = getTextByPatternAndParams(textPattern, fieldText, params);
+                        log.error("text:" + text);
                     }
                     
                     // VALIDATION_RULE_SHORTCUT is not required
@@ -90,6 +110,7 @@ public class ValidationUtils {
                     validationRule.setValidatorConfig(vc);
                     validationRule.setValidatorName(validatorName);
                     validationRule.setText(text);
+                    validationRule.setParams(params);
                     validationRule.setShortcut(isShortField);
                     fieldGroupList.add(validationRule);
                 }
@@ -153,12 +174,57 @@ public class ValidationUtils {
         return result;
     }
     
-    private static String getTextByPatternAndParams(String textPattern, String fieldText, JSONObject paramsConfig) throws Exception{
-        // TODO
-        return null;
+    /** 生成验证提示信息
+     * @param textPattern
+     * @param fieldText
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    private static String getTextByPatternAndParams(String textPattern, String fieldText, Map params) throws Exception{
+        String result = null;
+    	Map m = new HashMap();
+        m.put("fieldText", fieldText);
+        m.put("params", params);
+    	try {
+			Configuration c = new Configuration();
+			Template t = new Template(null, new StringReader(textPattern), null);
+			StringWriter x = new StringWriter();
+			t.process(m, x);
+			result = x.toString();
+		} catch (Exception e) {
+			log.error("cannot read textPattern of fieldText : ["+fieldText+"].", e);
+		}
+        return result;
     }
     
-    private static ValidatorConfig validatorParams2obj(String validatorName, JSONObject validatorsParmsConfig) throws Exception{
+    /** 简单的JSON对象转MAP
+     * @param paramsConfig
+     * @return
+     */
+    private static Map paramsConfig2map(JSONObject paramsConfig){
+    	Map result = new HashMap();
+    	for (Iterator iterator = paramsConfig.keys(); iterator.hasNext();) {
+			String key = (String) iterator.next();
+			Object value = null;
+			try {
+				value = paramsConfig.get(key);
+			} catch (JSONException e) {
+				log.error("Method [paramsConfig2map] config :" + paramsConfig);
+				log.error("cannot find value of key : ["+key+"].", e);
+			}
+			result.put(key, value);
+		}
+    	return result;
+    }
+    
+    /** 获取验证器配置（前后台通用的配置）
+     * @param validatorName
+     * @param validatorsParmsConfig
+     * @return
+     * @throws Exception
+     */
+    public static ValidatorConfig validatorParams2obj(String validatorName, JSONObject validatorsParmsConfig) throws Exception{
         ValidatorConfig result = null;
         JSONArray validators = validatorsParmsConfig.getJSONArray(VALIDATORS_ROOT);
         for (int i = 0; i < validators.length(); i++) {
@@ -169,6 +235,7 @@ public class ValidationUtils {
                 ValidatorConfig vc = new ValidatorConfig();
                 vc.setName(name);
                 vc.setTextPattern(textPattern);
+                result = vc;
                 break;
             }
         }
