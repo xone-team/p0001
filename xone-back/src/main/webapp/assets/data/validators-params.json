@@ -3,7 +3,7 @@
 	[
 		{
 			"name" : "notNull",
-			"textPattern" : "[${fieldText}] is required."
+			"textPattern" : "[${fieldText}] 是必填项."
 		},
 		{
 			"name" : "length",
@@ -14,7 +14,7 @@
 					"max" : "int"
 				}
 			],
-			"textPattern" : "[${fieldText}] length is between ${params[0]} and ${params[1]} bytes."
+			"textPattern" : "[${fieldText}] 的长度必须在 ${params.min} 和 ${params.max} 字节之间,一个汉字算3个字节."
 		},
 		{
 			"name" : "maxLength",
@@ -24,7 +24,7 @@
 					"max" : "int"
 				}
 			],
-			"textPattern" : "[${fieldText}] length cannot be greater than ${params[0]} bytes."
+			"textPattern" : "[${fieldText}] 的长度最大为 ${params.max} 字节,一个汉字算3个字节."
 		},
 		{
 			"name" : "minLength",
@@ -34,7 +34,7 @@
 					"min" : "int"
 				}
 			],
-			"textPattern" : "[${fieldText}] length cannot be less than ${params[0]} bytes."
+			"textPattern" : "[${fieldText}] 的长度最小为 ${params.min} 字节,一个汉字算3个字节."
 		}
 	]
 }

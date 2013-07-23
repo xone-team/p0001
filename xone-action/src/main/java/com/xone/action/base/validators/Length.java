@@ -16,7 +16,7 @@ public class Length implements Validator {
         if( value == null ){
             return false;
         }
-        int length = value.toString().length();
+        int length = value.toString().getBytes("UTF-8").length;
         
         Map params = rule.getParams();
         

@@ -3,25 +3,25 @@
 	[
 		{
 			"name" : "notNull",
-			"className" : "com.fzy.core.validators.NotNull",
+			"className" : "com.xone.action.base.validators.NotNull",
 			"customized" : false,
 			"singleton" : true
 		},
 		{
 			"name" : "length",
-			"className" : "com.fzy.core.validators.Length",
+			"className" : "com.xone.action.base.validators.Length",
 			"customized" : false,
 			"singleton" : true
 		},
 		{
 			"name" : "maxLength",
-			"className" : "com.fzy.core.validators.MaxLength",
+			"className" : "com.xone.action.base.validators.MaxLength",
 			"customized" : false,
 			"singleton" : true
 		},
 		{
 			"name" : "minLength",
-			"className" : "com.fzy.core.validators.MinLength",
+			"className" : "com.xone.action.base.validators.MinLength",
 			"customized" : false,
 			"singleton" : true
 		}

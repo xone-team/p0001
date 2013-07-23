@@ -2,6 +2,8 @@ package com.xone.action.utils;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -59,6 +61,8 @@ public class A {
     private static Map resourceCache = new HashMap();
     private static Map jsonCache = new HashMap();
     private static Map validatorCache = new HashMap();
+    
+    private static String appPathCache = null;
 
     static class DataSourceHolder {
         static DataSource defaultDataSource = initDefaultDataSource();
@@ -151,11 +155,18 @@ public class A {
     }
 
     public static String getAppPath() {
-        String result = A.getStringSafelyFromApplication("app.path");
-        if (StringUtils.isBlank(result)) {
-            // TODO require tests
-            result = getClassPath() + "../../";
-        }
+    	String result = null;
+    	if(appPathCache != null){
+    		result = appPathCache;
+    	}else{
+    		result = appPathCache = getAppPath(A.class);
+    	}
+    	
+//        String result = A.getStringSafelyFromApplication("app.path");
+//        if (StringUtils.isBlank(result)) {
+//            // TODO require tests
+//            result = getClassPath() + "../../";
+//        }
         return result;
     }
 
@@ -168,7 +179,7 @@ public class A {
     }
 
     public static JSONObject getJsonConfigWithCacheOfClass(String classRootPath) {
-        return getJsonConfigWithCache(A.class.getResource(classRootPath).getPath());
+        return getJsonConfigWithCache(A.class.getResource(classRootPath).getPath(), A.class.getResourceAsStream(classRootPath));
     }
 
     public static JSONObject getJsonConfigWithCacheOfWeb(String webRootPath) {
@@ -176,9 +187,27 @@ public class A {
     }
 
     public static JSONObject getJsonConfigWithCache(String classRelativePath, Class clazz) {
-        return getJsonConfigWithCache(clazz.getResource(classRelativePath).getPath());
+        return getJsonConfigWithCache(clazz.getResource(classRelativePath).getPath(), clazz.getResourceAsStream(classRelativePath));
     }
 
+    private static JSONObject getJsonConfigWithCache(String absolutePath, InputStream is) {
+        JSONObject result = null;
+        if (StringUtils.isBlank(absolutePath))
+            return result;
+        result = (JSONObject) jsonCache.get(absolutePath);
+        if (result != null)
+            return result;
+        try {
+            Reader r = new InputStreamReader(is);
+            JSONTokener jt = new JSONTokener(r);
+            result = new JSONObject(jt);
+        } catch (Exception e) {
+        }
+        if (result != null) {
+            jsonCache.put(absolutePath, result);
+        }
+        return result;
+    }
     private static JSONObject getJsonConfigWithCache(String absolutePath) {
         JSONObject result = null;
         if (StringUtils.isBlank(absolutePath))
@@ -310,7 +339,7 @@ public class A {
      *         ----------------------------------------------
      *         ---------------------------
      */
-    public static String getFileRealPath(Class cls) {
+    private static String getAppPath(Class cls) {
         // 检查用户传入的参数是否为空
         if (cls == null)
             throw new java.lang.IllegalArgumentException("参数不能为空！");
@@ -367,6 +396,22 @@ public class A {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        // 截取 /WEB-INF/ 前的内容
+        String endFlag = "/WEB-INF/";
+        int endIndex = realPath.indexOf(endFlag);
+        if(endIndex > -1){
+            if(realPath != null){
+            	realPath = realPath.substring(0, endIndex);
+            }
+        }else{
+        	// 不包含WEB-INF，说明不是WEB-INF服务，取本地配的路径
+        	String appPathConfig = A.getStringSafelyFromApplication("app.path");
+        	if(appPathConfig != null){
+        		realPath = appPathConfig;
+        	}
+        }
+
+        
         return realPath;
     }// getAppPath定义结束
      // -----------------------------------------------------------------
