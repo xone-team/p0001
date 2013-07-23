@@ -138,6 +138,12 @@
 <!--     </servlet-mapping> -->
     
     
+    <jsp-config>
+		<taglib>
+			<taglib-uri>/mytaglib</taglib-uri>
+			<taglib-location>/WEB-INF/mytaglib.tld</taglib-location>
+		</taglib>
+	</jsp-config>
     <!-- Welcome file lists -->
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

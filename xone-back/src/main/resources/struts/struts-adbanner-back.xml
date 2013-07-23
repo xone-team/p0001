@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="adbanner" namespace="/adbanner" extends="default">
+	    <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+        </global-results>
+		<action name="adbannerList" class="adbannerBackAction" method="adbannerList">
+			<result name="success">/WEB-INF/jsp/adbanner-back-list.jsp</result>
+		</action>
+		<action name="adbannerCreate" class="adbannerBackAction" method="adbannerCreate">
+			<result name="success">/WEB-INF/jsp/adbanner-back-create.jsp</result>
+		</action>
+		<action name="adbannerSave" class="adbannerBackAction" method="adbannerSave">
+			<result name="success">/WEB-INF/jsp/adbanner-back-item.jsp</result>
+		</action>
+		<action name="adbannerEdit" class="adbannerBackAction" method="adbannerEdit">
+			<result name="success">/WEB-INF/jsp/adbanner-back-edit.jsp</result>
+		</action>
+		<action name="adbannerUpdate" class="adbannerBackAction" method="adbannerUpdate">
+			<result name="success">/WEB-INF/jsp/adbanner-back-item.jsp</result>
+			<result name="list" type="chain">
+			    <param name="actionName">adbannerList</param> 
+    			<param name="namespace">/adbanner</param>
+			</result>
+		</action>
+		<action name="adbannerItem" class="adbannerBackAction" method="adbannerItem">
+			<result name="success">/WEB-INF/jsp/adbanner-back-item.jsp</result>
+		</action>
+	</package>
+</struts>

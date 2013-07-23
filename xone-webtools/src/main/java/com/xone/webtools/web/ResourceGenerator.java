@@ -14,6 +14,8 @@ public class ResourceGenerator {
 		ServiceGenerator serviceGenerator = new ServiceGenerator();
 		ActionGenerator actionGenerator = new ActionGenerator();
 		JspGenerator jspGenerator = new JspGenerator();
+		BackJspGenerator backJspGenerator = new BackJspGenerator();
+		BackActionGenerator backActionGenerator = new BackActionGenerator();
 		for (String table : tables) {
 //			daoGenerator.setTableName(table);
 //			daoGenerator.generateDao();
@@ -27,13 +29,20 @@ public class ResourceGenerator {
 //			serviceGenerator.generateService();
 //			serviceGenerator.generateServiceImpl();
 //			serviceGenerator.generateServiceXml();
-			actionGenerator.setTableName(table);
+//			actionGenerator.setTableName(table);
 //			actionGenerator.generateAction();
 //			actionGenerator.generateActionXml();
-			actionGenerator.generateStrutsXml();
+//			actionGenerator.generateStrutsXml();
 //			jspGenerator.setTableName(table);
 //			jspGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
 //			jspGenerator.generatePages();
+//			backActionGenerator.setTableName(table);
+//			backActionGenerator.generateAction();
+//			backActionGenerator.generateActionXml();
+//			backActionGenerator.generateStrutsXml();
+			backJspGenerator.setTableName(table);
+			backJspGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
+			backJspGenerator.generatePages();
 		}
 		databaseTableInfo.close();
 	}

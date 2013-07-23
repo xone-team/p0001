@@ -74,8 +74,8 @@
 						<td>${item.credit}</td>
 						<td>${item.userLevel}</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/user/userEdit.html?roles.id=${item.id}" class="btn btn-mini">编辑</a>
-							<a href="${pageContext.request.contextPath}/user/userItem.html?roles.id=${item.id}" class="btn btn-mini">详细</a>
+							<a href="${pageContext.request.contextPath}/user/userEdit.html?user.id=${item.id}" class="btn btn-mini">编辑</a>
+							<a href="${pageContext.request.contextPath}/user/userItem.html?user.id=${item.id}" class="btn btn-mini">详细</a>
 						</td>
 					</tr>
 					</c:forEach>

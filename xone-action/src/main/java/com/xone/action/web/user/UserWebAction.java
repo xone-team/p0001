@@ -19,7 +19,7 @@ public class UserWebAction extends Action {
 	
 	@Autowired
 	protected UserService userService;
-	protected Person person = new Person();
+	protected Person user = new Person();
 	protected List<Person> list = new ArrayList<Person>();
 	protected Pagination pagination = new Pagination();
 	
@@ -33,16 +33,15 @@ public class UserWebAction extends Action {
 //			getList().addAll(l);
 //		}
 		setPagination(p);
-		setPagination(p);
 		return SUCCESS;
 	}
 	
 	public String userItem() throws Exception {
-		Person entity = getUserService().findById(getPerson().getId());
+		Person entity = getUserService().findById(getUser().getId());
 		if (null == entity || null == entity.getId()) {
 			return ERROR;
 		}
-		setPerson(entity);
+		setUser(entity);
 		return SUCCESS;
 	}
 	
@@ -51,16 +50,16 @@ public class UserWebAction extends Action {
 	}
 	
 	public String userEdit() throws Exception {
-		Person entity = getUserService().findById(getPerson().getId());
+		Person entity = getUserService().findById(getUser().getId());
 		if (null == entity || null == entity.getId()) {
 			return ERROR;
 		}
-		setPerson(entity);
+		setUser(entity);
 		return SUCCESS;
 	}
 	
 	public String userSave() throws Exception {
-		setPerson(getUserService().save(getPerson()));
+		setUser(getUserService().save(getUser()));
 		return SUCCESS;
 	}
 	
@@ -70,7 +69,7 @@ public class UserWebAction extends Action {
 		}
 		String opt = null == getRequestMap().get("delete") ? getRequestMap().get("update") : getRequestMap().get("delete");
 		if (!StringUtils.isBlank(opt) && "delete".equals(opt)) {
-			Person entity = getUserService().findById(getPerson().getId());
+			Person entity = getUserService().findById(getUser().getId());
 			if (null == entity || null == entity.getId()) {
 				return ERROR;
 			}
@@ -78,17 +77,17 @@ public class UserWebAction extends Action {
 			return "list";
 		}
 		if (!StringUtils.isBlank(opt) && "update".equals(opt)) {
-			Person entity = getUserService().findById(getPerson().getId());
+			Person entity = getUserService().findById(getUser().getId());
 			if (null == entity || null == entity.getId()) {
 				return ERROR;
 			}
-			MyBeanUtils.copyProperties(getPerson(), entity, Person.class, null, new CopyRules() {
+			MyBeanUtils.copyProperties(getUser(), entity, Person.class, null, new CopyRules() {
 				@Override
 				public boolean myCopyRules(Object value) {
 					return (null != value);
 				}
 			});
-			setPerson(getUserService().update(entity));
+			setUser(getUserService().update(entity));
 		}
 		return SUCCESS;
 	}
@@ -113,12 +112,12 @@ public class UserWebAction extends Action {
 		return pagination;
 	}
 
-	public Person getPerson() {
-		return person;
+	public Person getUser() {
+		return user;
 	}
 
-	public void setPerson(Person person) {
-		this.person = person;
+	public void setUser(Person person) {
+		this.user = person;
 	}
 
 	public void setPagination(Pagination pagination) {

@@ -54,8 +54,8 @@
 						<td>${item.image}</td>
 						<td>${item.flagDeleted}</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/imageuploaded/imageUploadedEdit.html?roles.id=${item.id}" class="btn btn-mini">编辑</a>
-							<a href="${pageContext.request.contextPath}/imageuploaded/imageUploadedItem.html?roles.id=${item.id}" class="btn btn-mini">详细</a>
+							<a href="${pageContext.request.contextPath}/imageuploaded/imageUploadedEdit.html?imageUploaded.id=${item.id}" class="btn btn-mini">编辑</a>
+							<a href="${pageContext.request.contextPath}/imageuploaded/imageUploadedItem.html?imageUploaded.id=${item.id}" class="btn btn-mini">详细</a>
 						</td>
 					</tr>
 					</c:forEach>

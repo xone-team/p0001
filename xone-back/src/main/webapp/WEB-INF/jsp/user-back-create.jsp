@@ -1,0 +1,162 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="java.security.Principal"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>用户中心</title>
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<jsp:include page="common-header.jsp"></jsp:include>
+	</head>
+	<body>
+		<jsp:include page="common-nav.jsp"></jsp:include>
+		<div class="container-fluid">
+    		<div class="row-fluid" id="X_bodyContainer">
+				<div class="span2">
+					<jsp:include page="common-menu.jsp"></jsp:include>
+				</div>
+				<div class="span10" id="X_contentContainer">
+					<div class="row-fluid">
+						<ul class="breadcrumb" id="X_breadcrumbs_ul">
+							<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
+							<li class="active">创建User</li>
+						</ul>
+					</div>
+					<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/user/userSave.html">
+						<div class="control-group">
+							<label class="control-label" for="id">用户编号</label>
+							<div class="controls">
+								<input type="text" id="id" name="user.id" maxlength="20" placeholder="用户编号">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="username">用户名</label>
+							<div class="controls">
+								<input type="text" id="username" name="user.username" maxlength="255" placeholder="用户名">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="password">密码</label>
+							<div class="controls">
+								<input type="text" id="password" name="user.password" maxlength="255" placeholder="密码">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="userApply">申请人</label>
+							<div class="controls">
+								<input type="text" id="userApply" name="user.userApply" maxlength="20" placeholder="申请人">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="dateApply">申请时间</label>
+							<div class="controls">
+								<input type="text" id="dateApply" name="user.dateApply" maxlength="19" placeholder="申请时间">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="userCheck">审核人</label>
+							<div class="controls">
+								<input type="text" id="userCheck" name="user.userCheck" maxlength="20" placeholder="审核人">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="dateCheck">审核时间</label>
+							<div class="controls">
+								<input type="text" id="dateCheck" name="user.dateCheck" maxlength="19" placeholder="审核时间">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="flagDeleted">删除标识</label>
+							<div class="controls">
+								<input type="text" id="flagDeleted" name="user.flagDeleted" maxlength="1" placeholder="删除标识">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="userCreated">创建人</label>
+							<div class="controls">
+								<input type="text" id="userCreated" name="user.userCreated" maxlength="20" placeholder="创建人">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="dateCreated">创建时间</label>
+							<div class="controls">
+								<input type="text" id="dateCreated" name="user.dateCreated" maxlength="19" placeholder="创建时间">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="userUpdated">更新人</label>
+							<div class="controls">
+								<input type="text" id="userUpdated" name="user.userUpdated" maxlength="20" placeholder="更新人">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="lastUpdated">更新时间</label>
+							<div class="controls">
+								<input type="text" id="lastUpdated" name="user.lastUpdated" maxlength="19" placeholder="更新时间">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="nickName">昵称</label>
+							<div class="controls">
+								<input type="text" id="nickName" name="user.nickName" maxlength="255" placeholder="昵称">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="cellphone">手机号码</label>
+							<div class="controls">
+								<input type="text" id="cellphone" name="user.cellphone" maxlength="255" placeholder="手机号码">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="contactor">联系人</label>
+							<div class="controls">
+								<input type="text" id="contactor" name="user.contactor" maxlength="255" placeholder="联系人">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="qq">腾讯号码</label>
+							<div class="controls">
+								<input type="text" id="qq" name="user.qq" maxlength="255" placeholder="腾讯号码">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="email">电子邮箱</label>
+							<div class="controls">
+								<input type="text" id="email" name="user.email" maxlength="255" placeholder="电子邮箱">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="address">联系地址</label>
+							<div class="controls">
+								<input type="text" id="address" name="user.address" maxlength="255" placeholder="联系地址">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="credit">认证标识</label>
+							<div class="controls">
+								<input type="text" id="credit" name="user.credit" maxlength="2" placeholder="认证标识">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="userLevel">用户级别</label>
+							<div class="controls">
+								<input type="text" id="userLevel" name="user.userLevel" maxlength="2" placeholder="用户级别">
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<button type="submit" class="btn">提交创建</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<jsp:include page="common-footer.jsp"></jsp:include>
+	</body>
+</html>

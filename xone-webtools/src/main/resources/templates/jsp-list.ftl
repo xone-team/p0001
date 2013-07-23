@@ -40,8 +40,8 @@
 						<td>${r"${"}item.${p.javaVarName}}</td>
 					</#list>
 						<td>
-							<a href="${r"${pageContext.request.contextPath}"}/${packageName}/${tableVarName}Edit.html?roles.id=${r"${item.id}"}" class="btn btn-mini">编辑</a>
-							<a href="${r"${pageContext.request.contextPath}"}/${packageName}/${tableVarName}Item.html?roles.id=${r"${item.id}"}" class="btn btn-mini">详细</a>
+							<a href="${r"${pageContext.request.contextPath}"}/${packageName}/${tableVarName}Edit.html?${tableVarName}.id=${r"${item.id}"}" class="btn btn-mini">编辑</a>
+							<a href="${r"${pageContext.request.contextPath}"}/${packageName}/${tableVarName}Item.html?${tableVarName}.id=${r"${item.id}"}" class="btn btn-mini">详细</a>
 						</td>
 					</tr>
 					</c:forEach>

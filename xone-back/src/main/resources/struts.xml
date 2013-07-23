@@ -47,4 +47,15 @@
         </global-results>
     </package>
 	<include file="struts/struts-person.xml" />
+	<include file="struts/struts-adbanner-back.xml" />
+	<include file="struts/struts-delivery-back.xml" />
+	<include file="struts/struts-imageUploaded-back.xml" />
+	<include file="struts/struts-product-back.xml" />
+	<include file="struts/struts-purchase-back.xml" />
+	<include file="struts/struts-resources-back.xml" />
+	<include file="struts/struts-roles-back.xml" />
+	<include file="struts/struts-rolesResources-back.xml" />
+	<include file="struts/struts-subscribe-back.xml" />
+	<include file="struts/struts-user-back.xml" />
+	<include file="struts/struts-userRoles-back.xml" />
 </struts>

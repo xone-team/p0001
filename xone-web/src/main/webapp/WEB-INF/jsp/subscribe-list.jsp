@@ -64,8 +64,8 @@
 						<td>${item.userUpdated}</td>
 						<td>${item.lastUpdated}</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/subscribe/subscribeEdit.html?roles.id=${item.id}" class="btn btn-mini">编辑</a>
-							<a href="${pageContext.request.contextPath}/subscribe/subscribeItem.html?roles.id=${item.id}" class="btn btn-mini">详细</a>
+							<a href="${pageContext.request.contextPath}/subscribe/subscribeEdit.html?subscribe.id=${item.id}" class="btn btn-mini">编辑</a>
+							<a href="${pageContext.request.contextPath}/subscribe/subscribeItem.html?subscribe.id=${item.id}" class="btn btn-mini">详细</a>
 						</td>
 					</tr>
 					</c:forEach>

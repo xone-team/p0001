@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="user" namespace="/user" extends="default">
+	    <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+        </global-results>
+		<action name="userList" class="userBackAction" method="userList">
+			<result name="success">/WEB-INF/jsp/user-back-list.jsp</result>
+		</action>
+		<action name="userCreate" class="userBackAction" method="userCreate">
+			<result name="success">/WEB-INF/jsp/user-back-create.jsp</result>
+		</action>
+		<action name="userSave" class="userBackAction" method="userSave">
+			<result name="success">/WEB-INF/jsp/user-back-item.jsp</result>
+		</action>
+		<action name="userEdit" class="userBackAction" method="userEdit">
+			<result name="success">/WEB-INF/jsp/user-back-edit.jsp</result>
+		</action>
+		<action name="userUpdate" class="userBackAction" method="userUpdate">
+			<result name="success">/WEB-INF/jsp/user-back-item.jsp</result>
+			<result name="list" type="chain">
+			    <param name="actionName">userList</param> 
+    			<param name="namespace">/user</param>
+			</result>
+		</action>
+		<action name="userItem" class="userBackAction" method="userItem">
+			<result name="success">/WEB-INF/jsp/user-back-item.jsp</result>
+		</action>
+	</package>
+</struts>

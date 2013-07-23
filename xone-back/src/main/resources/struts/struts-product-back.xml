@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="product" namespace="/product" extends="default">
+	    <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+        </global-results>
+		<action name="productList" class="productBackAction" method="productList">
+			<result name="success">/WEB-INF/jsp/product-back-list.jsp</result>
+		</action>
+		<action name="productCreate" class="productBackAction" method="productCreate">
+			<result name="success">/WEB-INF/jsp/product-back-create.jsp</result>
+		</action>
+		<action name="productSave" class="productBackAction" method="productSave">
+			<result name="success">/WEB-INF/jsp/product-back-item.jsp</result>
+		</action>
+		<action name="productEdit" class="productBackAction" method="productEdit">
+			<result name="success">/WEB-INF/jsp/product-back-edit.jsp</result>
+		</action>
+		<action name="productUpdate" class="productBackAction" method="productUpdate">
+			<result name="success">/WEB-INF/jsp/product-back-item.jsp</result>
+			<result name="list" type="chain">
+			    <param name="actionName">productList</param> 
+    			<param name="namespace">/product</param>
+			</result>
+		</action>
+		<action name="productItem" class="productBackAction" method="productItem">
+			<result name="success">/WEB-INF/jsp/product-back-item.jsp</result>
+		</action>
+	</package>
+</struts>
