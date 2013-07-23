@@ -19,43 +19,58 @@
 		<div class="container">
 			<div class="row">
 				<div class="span9 bs-docs-sidebar">
-					<form class="form-search">
-						<div class="span6 input-prepend" style="text-align: right;">
-							<span class="add-on">搜索产品</span> <input type="text" class="span4" />
-						</div>
-						<div class="input-append">
-							<button type="submit" class="btn">搜索</button>
-						</div>
-					</form>
 					<div class="row-fluid">
 					    <div class="span12">
-							<ul class="listview image" style="width:100%">
-								<c:forEach var="item" items="${list}">
-								<li>
-		                            <div class="icon">
-		                                <img src="${pageContext.request.contextPath}/image.html?id=${item.ids[0]}">
-		                            </div>
-		                            <div class="data">
-										<h4>${item.productName}</h4>
-										<p>发布日期:${item.dateCreated},更新日期:${item.lastUpdated}</p>
-										<p>产品地址:${item.productAddress},产品属地:${item.productLocation},产品类型:${item.productType},产品描述:${item.productDesc}</p>
-		                                <a href="${pageContext.request.contextPath}/product/item.html?product.id=${item.id}" target="_blank">查看详情</a>
-		                            </div>
-		                        </li>
-								</c:forEach>
-							</ul>
+					    	<c:choose>
+					    		<c:when test="${not empty product && not empty product.id}">
+					    			<table class="table table-bordered" style="width:100%">
+										<tr>
+											<td>产品名称</td>
+											<td>${product.productName}</td>
+										</tr>
+										<tr>
+											<td>产品类型</td>
+											<td>${product.productType}</td>
+										</tr>
+										<tr>
+											<td>产品产地</td>
+											<td>${product.productAddress}</td>
+										</tr>
+										<tr>
+											<td>产品属地</td>
+											<td>${product.productLocation}</td>
+										</tr>
+										<tr>
+											<td>产品价格</td>
+											<td>${product.productPrice}</td>
+										</tr>
+										<tr>
+											<td>数　　量</td>
+											<td>${product.productNum}</td>
+										</tr>
+										<tr>
+											<td>有&nbsp&nbsp效&nbsp&nbsp期</td>
+											<td>${product.productValid}</td>
+										</tr>
+										<tr>
+											<td>描　　述</td>
+											<td>${product.productDesc}</td>
+										</tr>
+										<c:forEach var="item" items="${product.ids}">
+										<tr>
+											<td colspan="2">
+												<img class="img-rounded" src="${pageContext.request.contextPath}/image.html?id=${item}" alt=""/>
+											</td>
+										</tr>
+										</c:forEach>
+									</table>
+					    		</c:when>
+					    		<c:otherwise>
+					    			<p>对不起，该页面已经被移走或者访问参数不正确!</p>
+					    		</c:otherwise>
+					    	</c:choose>
+							
 						</div>
-					</div>
-					<div class="pagination pagination-centered">
-					  <ul>
-					    <li><a href="#" class="disabled">上一页</a></li>
-					    <li><a href="#" class="active">1</a></li>
-					    <li><a href="#">2</a></li>
-					    <li><a href="#">3</a></li>
-					    <li><a href="#">4</a></li>
-					    <li><a href="#">5</a></li>
-					    <li><a href="#">下一页</a></li>
-					  </ul>
 					</div>
 				</div>
 				<div class="span3" style="margin-left:13px;">

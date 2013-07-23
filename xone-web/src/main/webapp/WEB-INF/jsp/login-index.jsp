@@ -41,6 +41,11 @@
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</div>
 	<jsp:include page="common-bottom.jsp"></jsp:include>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('form.navloginform').hide();
+	});
+	</script>
 	</body>
 </html>
 

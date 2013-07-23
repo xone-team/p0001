@@ -17,5 +17,8 @@
 		<action name="welcome" class="loginWebAction" method="welcome">
 			<result>/WEB-INF/jsp/login-main.jsp</result>
 		</action>
+		<action name="userList" class="loginWebAction" method="userList">
+			<result>/WEB-INF/jsp/user-list.jsp</result>
+		</action>
 	</package>
 </struts>

@@ -1,5 +1,6 @@
 package com.xone.action.web.login;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ public class LoginWebAction extends Action {
 	protected String lastname;
 	protected String message;
 	protected String name;
+	protected List<Person> list = new ArrayList<Person>();
 	
 	@Autowired
 	protected PersonService personService;
@@ -48,11 +50,20 @@ public class LoginWebAction extends Action {
 
 	}
 	
+	@SuppressWarnings("unchecked")
+	public String userList() throws Exception {
+		List<Person> l = getPersonService().findAll();
+		if (null != l && !l.isEmpty()) {
+			getList().addAll(l);
+		}
+		return SUCCESS;
+	}
+	
 	public String loginFailed() throws Exception {
 		return SUCCESS;
 	}
 	
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({"unchecked" })
 	public String welcome() throws Exception {
 //		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -63,22 +74,26 @@ public class LoginWebAction extends Action {
 		if (StringUtils.isBlank(username)) {
 			return ERROR;
 		}
-        this.setName(request.getUserPrincipal().getName());
-        this.setMessage("Successful Struts spring secuirty authentication");
-        Person p = new Person();
-        p.setUsername(username);
-        List<Person> pList = getPersonService().findAllByPerson(p);
-		if (pList.size() > 1 || pList.size() <= 0) {//没有记录或者能匹配到多个记录,都要求重新登陆
-			return ERROR;
+		if (null == getUserMap() || getUserMap().isEmpty()) {
+			this.setName(request.getUserPrincipal().getName());
+			this.setMessage("Successful Struts spring secuirty authentication");
+			Person p = new Person();
+			p.setUsername(username);
+			List<Person> pList = getPersonService().findAllByPerson(p);
+			if (pList.size() > 1 || pList.size() <= 0) {//没有记录或者能匹配到多个记录,都要求重新登陆
+				return ERROR;
+			}
+			Map<String, String> porperties = null;
+			try {
+				porperties = BeanUtils.describe(pList.get(0));
+			} catch (Exception e) {
+				porperties = Collections.EMPTY_MAP;
+				e.printStackTrace();
+			}
+			if (null != porperties && !porperties.isEmpty()) {
+				getSession().setAttribute(USER, porperties);
+			}
 		}
-		Map porperties = null;
-		try {
-			porperties = BeanUtils.describe(p);
-		} catch (Exception e) {
-			porperties = Collections.EMPTY_MAP;
-			e.printStackTrace();
-		}
-		getSession().setAttribute(USER, porperties);
 		return SUCCESS;
 	}
 
@@ -133,6 +148,14 @@ public class LoginWebAction extends Action {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Person> getList() {
+		return list;
+	}
+
+	public void setList(List<Person> list) {
+		this.list = list;
 	}
 
 	public PersonService getPersonService() {

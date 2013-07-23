@@ -1,24 +1,21 @@
 package com.xone.action.app.product;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.imageio.ImageIO;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.xone.action.base.Action;
-import com.xone.action.utils.ImageUtils;
+import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.utils.DateUtils;
 import com.xone.service.app.ProductService;
+import com.xone.service.app.utils.MyBeanUtils;
+import com.xone.service.app.utils.MyBeanUtils.CopyRoles;
 
-public class ProductAction extends Action {
+public class ProductAction extends LogicAction {
 	
 	
 	private static final long serialVersionUID = -5292513131447154086L;
@@ -57,42 +54,9 @@ public class ProductAction extends Action {
 	}
 	
 	public String create() {
-		List<ImageUploaded> images = findImageByParams();
+		List<ImageUploaded> images = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PRODUCT);
 		setProduct(getProductService().save(getProduct(), images));
 		return SUCCESS;
-	}
-	
-	@SuppressWarnings("unchecked")
-	protected List<ImageUploaded> findImageByParams() {
-		Map<String, String[]> map = (Map<String, String[]>)getRequest().getParameterMap();
-		List<ImageUploaded> images = new ArrayList<ImageUploaded>();
-		if (null == map || map.isEmpty() || null ==  map.get("images")) {
-			return images;
-		}
-		for (String image : map.get("images")) {
-			String [] aImage = image.split(";base64,");
-			if (aImage.length != 2 || !aImage[0].startsWith("data:")) {
-				continue;
-			}
-			ImageUploaded iu = new ImageUploaded();
-			iu.setImageType(aImage[0].replaceFirst("data:", ""));
-			iu.setImage(null);
-			iu.setRefType(ImageUploaded.RefType.PRODUCT.getValue());
-			images.add(iu);
-			String suffix = iu.getImageType().replaceFirst("image/", "");
-			try {
-				File file = new File(getImageUploadPath());
-				if (!file.exists()) {
-					file.mkdirs();
-				}
-				String filename = getUniqueId() + "." + suffix;
-				ImageIO.write(ImageUtils.decodeToImage(aImage[1]), suffix, new File(file.getCanonicalPath() + File.separator + filename));
-				iu.setImage(filename);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return images;
 	}
 	
 	public String listItems() {
@@ -151,14 +115,20 @@ public class ProductAction extends Action {
 //		getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
 //		return ERROR;
 //	}
-		entity.setProductName(pu.getProductName());
-		entity.setProductNum(pu.getProductNum());
-		entity.setProductType(pu.getProductType());
-		entity.setProductValid(pu.getProductValid());
-		entity.setProductLocation(pu.getProductLocation());
-		entity.setProductDesc(pu.getProductDesc());
-		entity.setProductAddress(pu.getProductAddress());
-		List<ImageUploaded> imageUploadeds = findImageByParams();
+		MyBeanUtils.copyProperties(pu, entity, Product.class, null, new CopyRoles() {
+			@Override
+			public boolean myCopyRoles(Object value) {
+				return (null != value);
+			}
+		});
+//		entity.setProductName(pu.getProductName());
+//		entity.setProductNum(pu.getProductNum());
+//		entity.setProductType(pu.getProductType());
+//		entity.setProductValid(pu.getProductValid());
+//		entity.setProductLocation(pu.getProductLocation());
+//		entity.setProductDesc(pu.getProductDesc());
+//		entity.setProductAddress(pu.getProductAddress());
+		List<ImageUploaded> imageUploadeds = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PRODUCT);
 		entity = getProductService().update(entity, imageUploadeds, pu.getIds());
 		setProduct(entity);
 		return SUCCESS;

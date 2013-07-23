@@ -3,15 +3,12 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="product" namespace="/product" extends="default">
+	<package name="resources" namespace="/admin" extends="default">
 	    <global-results>  
             <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
         </global-results>
-		<action name="list" class="productWebAction" method="list">
-			<result name="success">/WEB-INF/jsp/product-list.jsp</result>
-		</action>
-		<action name="item" class="productWebAction" method="item">
-			<result name="success">/WEB-INF/jsp/product-item.jsp</result>
+		<action name="resourcesList" class="resourcesWebAction" method="resourcesList">
+			<result>/WEB-INF/jsp/resources-list.jsp</result>
 		</action>
 	</package>
 </struts>
