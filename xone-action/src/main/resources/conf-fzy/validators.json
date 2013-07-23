@@ -1,0 +1,31 @@
+{
+	"validators" : 
+	[
+		{
+			"name" : "notNull",
+			"className" : "com.fzy.core.validators.NotNull",
+			"customized" : false,
+			"singleton" : true
+		},
+		{
+			"name" : "length",
+			"className" : "com.fzy.core.validators.Length",
+			"customized" : false,
+			"singleton" : true
+		},
+		{
+			"name" : "maxLength",
+			"className" : "com.fzy.core.validators.MaxLength",
+			"customized" : false,
+			"singleton" : true
+		},
+		{
+			"name" : "minLength",
+			"className" : "com.fzy.core.validators.MinLength",
+			"customized" : false,
+			"singleton" : true
+		}
+	]
+}
+
+

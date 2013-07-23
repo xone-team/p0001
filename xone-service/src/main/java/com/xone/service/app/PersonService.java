@@ -26,7 +26,6 @@ import com.xone.model.hibernate.entity.Person;
  */
 
 public interface PersonService {
-    public PersonDao getPersonDao();
 	
 	public List<Person> findAllByPerson(Person person);
 	
