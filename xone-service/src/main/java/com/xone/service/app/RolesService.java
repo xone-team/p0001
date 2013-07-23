@@ -6,6 +6,7 @@ import java.util.Map;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Resources;
 import com.xone.model.hibernate.entity.Roles;
+import com.xone.model.hibernate.support.Pagination;
 
 public interface RolesService {
 
@@ -18,6 +19,8 @@ public interface RolesService {
 	public void delete(Roles entity);
 
 	public List<Roles> findAllByMap(Map<String, String> params);
+	
+	public Pagination findByParams(Map<String, String> params);
 	
 	public List<Roles> findAllByUser(Person person);
 	

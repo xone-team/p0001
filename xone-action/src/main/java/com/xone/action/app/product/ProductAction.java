@@ -13,7 +13,7 @@ import com.xone.model.hibernate.entity.Product;
 import com.xone.model.utils.DateUtils;
 import com.xone.service.app.ProductService;
 import com.xone.service.app.utils.MyBeanUtils;
-import com.xone.service.app.utils.MyBeanUtils.CopyRoles;
+import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class ProductAction extends LogicAction {
 	
@@ -115,9 +115,9 @@ public class ProductAction extends LogicAction {
 //		getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
 //		return ERROR;
 //	}
-		MyBeanUtils.copyProperties(pu, entity, Product.class, null, new CopyRoles() {
+		MyBeanUtils.copyProperties(pu, entity, Product.class, null, new CopyRules() {
 			@Override
-			public boolean myCopyRoles(Object value) {
+			public boolean myCopyRules(Object value) {
 				return (null != value);
 			}
 		});

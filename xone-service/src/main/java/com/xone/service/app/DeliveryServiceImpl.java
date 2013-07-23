@@ -1,6 +1,9 @@
 package com.xone.service.app;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.DeliveryDao;
 import com.xone.model.hibernate.entity.Delivery;
-
+import com.xone.model.hibernate.support.Pagination;
 public class DeliveryServiceImpl implements DeliveryService {
 	
 	@Autowired
@@ -30,6 +33,21 @@ public class DeliveryServiceImpl implements DeliveryService {
 	@Override
 	public Delivery save(Delivery delivery) {
 		return getDeliveryDao().save(delivery);
+	}
+	
+	@Override
+	public Delivery update(Delivery entity) {
+		return getDeliveryDao().update(entity);
+	}
+	
+	@Override
+	public void delete(Delivery entity) {
+		getDeliveryDao().deleteById(entity.getId());
+	}
+
+	@Override
+	public Delivery findById(Long id) {
+		return getDeliveryDao().findById(id);
 	}
 
 	@Override
@@ -73,4 +91,10 @@ public class DeliveryServiceImpl implements DeliveryService {
 		return l.get(0);
 	}
 
-}
+	public Pagination findByParams(Map<String, String> params) {
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(Delivery.class);
+		int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
+		int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
+		return getDeliveryDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+	}}

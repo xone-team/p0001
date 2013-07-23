@@ -15,6 +15,7 @@ import com.xone.model.hibernate.app.RolesResourcesDao;
 import com.xone.model.hibernate.entity.Resources;
 import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.entity.RolesResources;
+import com.xone.model.hibernate.support.Pagination;
 
 public class ResourcesServiceImpl implements ResourcesService {
 
@@ -31,7 +32,16 @@ public class ResourcesServiceImpl implements ResourcesService {
 	public Resources save(Resources entity) {
 		return getResourcesDao().save(entity);
 	}
-
+	
+	@Override
+	public Resources update(Resources entity) {
+		return getResourcesDao().update(entity);
+	}
+	
+	@Override
+	public void delete(Resources entity) {
+		getResourcesDao().deleteById(entity.getId());
+	}
 	@Override
 	public Resources findById(Long id) {
 		return getResourcesDao().findById(id);
@@ -96,6 +106,14 @@ public class ResourcesServiceImpl implements ResourcesService {
 			mapRolesResources.put(r, rList);
 		}
 		return mapRolesResources;
+	}
+
+	public Pagination findByParams(Map<String, String> params) {
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(Resources.class);
+		int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
+		int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
+		return getResourcesDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
 	}
 
 	public ResourcesDao getResourcesDao() {

@@ -13,5 +13,27 @@
 		<action name="item" class="productWebAction" method="item">
 			<result name="success">/WEB-INF/jsp/product-item.jsp</result>
 		</action>
+		<action name="productList" class="productWebAction" method="productList">
+			<result name="success">/WEB-INF/jsp/product-user-list.jsp</result>
+		</action>
+		<action name="productCreate" class="productWebAction" method="productCreate">
+			<result name="success">/WEB-INF/jsp/product-create.jsp</result>
+		</action>
+		<action name="productSave" class="productWebAction" method="productSave">
+			<result name="success">/WEB-INF/jsp/product-user-item.jsp</result>
+		</action>
+		<action name="productEdit" class="productWebAction" method="productEdit">
+			<result name="success">/WEB-INF/jsp/product-edit.jsp</result>
+		</action>
+		<action name="productUpdate" class="productWebAction" method="productUpdate">
+			<result name="success">/WEB-INF/jsp/product-user-item.jsp</result>
+			<result name="list" type="chain">
+			    <param name="actionName">productList</param> 
+    			<param name="namespace">/product</param>
+			</result>
+		</action>
+		<action name="productItem" class="productWebAction" method="productItem">
+			<result name="success">/WEB-INF/jsp/product-user-item.jsp</result>
+		</action>
 	</package>
 </struts>

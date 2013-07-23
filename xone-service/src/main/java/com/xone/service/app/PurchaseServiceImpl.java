@@ -2,6 +2,7 @@ package com.xone.service.app;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.model.hibernate.app.ImageUploadedDao;
 import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
+import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
-
+import com.xone.model.hibernate.support.Pagination;
 public class PurchaseServiceImpl implements PurchaseService {
 
 	@Autowired
@@ -168,4 +170,27 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return p;
 	}
 
+	@Override
+	public Purchase update(Purchase entity) {
+		return getPurchaseDao().update(entity);
+	}
+	
+	@Override
+	public void delete(Purchase entity) {
+		getPurchaseDao().deleteById(entity.getId());
+	}
+	
+	@Override
+	public Purchase findById(Long id) {
+		return getPurchaseDao().findById(id);
+	}
+
+	@Override
+	public Pagination findByParams(Map<String, String> params) {
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(Purchase.class);
+		int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
+		int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
+		return getPurchaseDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+	}
 }

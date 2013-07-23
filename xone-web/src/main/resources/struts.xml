@@ -53,4 +53,11 @@
 	<include file="struts/struts-purchase-web.xml" />
 	<include file="struts/struts-resources-web.xml" />
 	<include file="struts/struts-roles-web.xml" />
+	<include file="struts/struts-adbanner-web.xml" />
+	<include file="struts/struts-delivery-web.xml" />
+	<include file="struts/struts-imageUploaded-web.xml" />
+	<include file="struts/struts-rolesResources-web.xml" />
+	<include file="struts/struts-subscribe-web.xml" />
+	<include file="struts/struts-user-web.xml" />
+	<include file="struts/struts-userRoles-web.xml" />
 </struts>

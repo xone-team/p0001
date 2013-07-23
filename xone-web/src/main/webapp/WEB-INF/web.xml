@@ -180,7 +180,12 @@
 <!--         <servlet-name>dwr</servlet-name> -->
 <!--         <url-pattern>/dwr/*</url-pattern> -->
 <!--     </servlet-mapping> -->
-    
+    <jsp-config>
+		<taglib>
+			<taglib-uri>/mytaglib</taglib-uri>
+			<taglib-location>/WEB-INF/mytaglib.tld</taglib-location>
+		</taglib>
+	</jsp-config>
     
     <!-- Welcome file lists -->
     <welcome-file-list>

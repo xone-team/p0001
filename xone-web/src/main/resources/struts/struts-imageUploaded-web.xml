@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="imageuploaded" namespace="/imageuploaded" extends="default">
+	    <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+        </global-results>
+		<action name="imageUploadedList" class="imageUploadedWebAction" method="imageUploadedList">
+			<result name="success">/WEB-INF/jsp/image-uploaded-list.jsp</result>
+		</action>
+		<action name="imageUploadedCreate" class="imageUploadedWebAction" method="imageUploadedCreate">
+			<result name="success">/WEB-INF/jsp/image-uploaded-create.jsp</result>
+		</action>
+		<action name="imageUploadedSave" class="imageUploadedWebAction" method="imageUploadedSave">
+			<result name="success">/WEB-INF/jsp/image-uploaded-item.jsp</result>
+		</action>
+		<action name="imageUploadedEdit" class="imageUploadedWebAction" method="imageUploadedEdit">
+			<result name="success">/WEB-INF/jsp/image-uploaded-edit.jsp</result>
+		</action>
+		<action name="imageUploadedUpdate" class="imageUploadedWebAction" method="imageUploadedUpdate">
+			<result name="success">/WEB-INF/jsp/image-uploaded-item.jsp</result>
+			<result name="list" type="chain">
+			    <param name="actionName">imageUploadedList</param> 
+    			<param name="namespace">/imageuploaded</param>
+			</result>
+		</action>
+		<action name="imageUploadedItem" class="imageUploadedWebAction" method="imageUploadedItem">
+			<result name="success">/WEB-INF/jsp/image-uploaded-item.jsp</result>
+		</action>
+	</package>
+</struts>

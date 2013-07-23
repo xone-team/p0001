@@ -13,5 +13,27 @@
 		<action name="item" class="purchaseWebAction" method="item">
 			<result name="success">/WEB-INF/jsp/purchase-item.jsp</result>
 		</action>
+		<action name="purchaseList" class="purchaseWebAction" method="purchaseList">
+			<result name="success">/WEB-INF/jsp/purchase-user-list.jsp</result>
+		</action>
+		<action name="purchaseCreate" class="purchaseWebAction" method="purchaseCreate">
+			<result name="success">/WEB-INF/jsp/purchase-create.jsp</result>
+		</action>
+		<action name="purchaseSave" class="purchaseWebAction" method="purchaseSave">
+			<result name="success">/WEB-INF/jsp/purchase-user-item.jsp</result>
+		</action>
+		<action name="purchaseEdit" class="purchaseWebAction" method="purchaseEdit">
+			<result name="success">/WEB-INF/jsp/purchase-edit.jsp</result>
+		</action>
+		<action name="purchaseUpdate" class="purchaseWebAction" method="purchaseUpdate">
+			<result name="success">/WEB-INF/jsp/purchase-user-item.jsp</result>
+			<result name="list" type="chain">
+			    <param name="actionName">purchaseList</param> 
+    			<param name="namespace">/purchase</param>
+			</result>
+		</action>
+		<action name="purchaseItem" class="purchaseWebAction" method="purchaseItem">
+			<result name="success">/WEB-INF/jsp/purchase-user-item.jsp</result>
+		</action>
 	</package>
 </struts>

@@ -19,6 +19,8 @@ import com.xone.model.hibernate.entity.Resources;
 import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.entity.RolesResources;
 import com.xone.model.hibernate.entity.UserRoles;
+import com.xone.model.hibernate.support.Pagination;
+import com.xone.model.utils.StringUtils;
 
 public class RolesServiceImpl implements RolesService {
 
@@ -60,6 +62,14 @@ public class RolesServiceImpl implements RolesService {
 				.forClass(Roles.class);
 		return getRolesDao()
 				.findListByDetachedCriteria(detachedCriteria, 0, 10);
+	}
+	
+	public Pagination findByParams(Map<String, String> params) {
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(Roles.class);
+		int pageSize = StringUtils.parseInt(params.get("pageSize"), 20);
+		int startIndex = StringUtils.parseInt(params.get("pageNo"), 0);
+		return getRolesDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
 	}
 	
 	@Override

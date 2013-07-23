@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.AdbannerDao;
 import com.xone.model.hibernate.entity.Adbanner;
+import com.xone.model.hibernate.support.Pagination;
 
 public class AdbannerServiceImpl implements AdbannerService {
 
@@ -24,7 +25,16 @@ public class AdbannerServiceImpl implements AdbannerService {
 	public Adbanner save(Adbanner entity) {
 		return getAdbannerDao().save(entity);
 	}
-
+	
+	@Override
+	public Adbanner update(Adbanner entity) {
+		return getAdbannerDao().update(entity);
+	}
+	
+	@Override
+	public void delete(Adbanner entity) {
+		getAdbannerDao().deleteById(entity.getId());
+	}
 	@Override
 	public Adbanner findById(Long id) {
 		return getAdbannerDao().findById(id);
@@ -80,6 +90,14 @@ public class AdbannerServiceImpl implements AdbannerService {
 		detachedCriteria.addOrder(Order.desc("dateCreated"));
 		List<Adbanner> list = getAdbannerDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
 		return list;
+	}
+
+	public Pagination findByParams(Map<String, String> params) {
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(Adbanner.class);
+		int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
+		int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
+		return getAdbannerDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
 	}
 
 	public AdbannerDao getAdbannerDao() {
