@@ -10,9 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Roles;
+import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.RolesService;
 import com.xone.service.app.utils.MyBeanUtils;
-import com.xone.service.app.utils.MyBeanUtils.CopyRoles;
+import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class RolesWebAction extends Action {
 	
@@ -22,13 +23,18 @@ public class RolesWebAction extends Action {
 	protected RolesService rolesService;
 	protected Roles roles = new Roles();
 	protected List<Roles> list = new ArrayList<Roles>();
+	protected Pagination pagination = new Pagination();
 	
 	public String rolesList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
-		List<Roles> l = getRolesService().findAllByMap(params);
-		if (null != l && !l.isEmpty()) {
-			getList().addAll(l);
-		}
+		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
+		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
+		Pagination p = getRolesService().findByParams(params);
+//		List<Roles> l = getRolesService().findAllByMap(params);
+//		if (null != l && !l.isEmpty()) {
+//			getList().addAll(l);
+//		}
+		setPagination(p);
 		return SUCCESS;
 	}
 	
@@ -77,9 +83,9 @@ public class RolesWebAction extends Action {
 			if (null == entity || null == entity.getId()) {
 				return ERROR;
 			}
-			MyBeanUtils.copyProperties(getRoles(), entity, Roles.class, null, new CopyRoles() {
+			MyBeanUtils.copyProperties(getRoles(), entity, Roles.class, null, new CopyRules() {
 				@Override
-				public boolean myCopyRoles(Object value) {
+				public boolean myCopyRules(Object value) {
 					return (null != value);
 				}
 			});
@@ -110,6 +116,14 @@ public class RolesWebAction extends Action {
 
 	public void setRoles(Roles roles) {
 		this.roles = roles;
+	}
+
+	public Pagination getPagination() {
+		return pagination;
+	}
+
+	public void setPagination(Pagination pagination) {
+		this.pagination = pagination;
 	}
 	
 }

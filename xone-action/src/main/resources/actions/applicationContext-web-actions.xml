@@ -16,7 +16,7 @@
 	</bean>
 	<bean id="productWebAction" class="com.xone.action.web.product.ProductWebAction" scope="prototype" />
 	<bean id="purchaseWebAction" class="com.xone.action.web.purchase.PurchaseWebAction" scope="prototype" />
-	<bean id="resourcesWebAction" class="com.xone.action.web.admin.ResourcesWebAction" scope="prototype" />
+	<bean id="resourcesWebAction" class="com.xone.action.web.resources.ResourcesWebAction" scope="prototype" />
 	<bean id="rolesWebAction" class="com.xone.action.web.admin.RolesWebAction" scope="prototype" />
 	
 </beans>

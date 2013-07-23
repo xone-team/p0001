@@ -21,11 +21,11 @@ public class MyBeanUtils {
 		copyProperties(source, target, null, ignoreProperties, null);
 	}
 	
-	public static void copyProperties(Object source, Object target, CopyRoles copyRoles) throws BeansException {
+	public static void copyProperties(Object source, Object target, CopyRules copyRoles) throws BeansException {
 		copyProperties(source, target, null, null, copyRoles);
 	}
 	
-	public static void copyProperties(Object source, Object target, Class<?> editable, String[] ignoreProperties, CopyRoles copyRoles)
+	public static void copyProperties(Object source, Object target, Class<?> editable, String[] ignoreProperties, CopyRules copyRoles)
 			throws BeansException {
 
 		Assert.notNull(source, "Source must not be null");
@@ -53,7 +53,7 @@ public class MyBeanUtils {
 							readMethod.setAccessible(true);
 						}
 						Object value = readMethod.invoke(source);
-						if (null != copyRoles && !copyRoles.myCopyRoles(value)) {//如果值为null就不赋值
+						if (null != copyRoles && !copyRoles.myCopyRules(value)) {//如果值为null就不赋值
 							continue;
 						}
 						Method writeMethod = targetPd.getWriteMethod();
@@ -70,9 +70,9 @@ public class MyBeanUtils {
 		}
 	}
 	
-	public interface CopyRoles {
+	public interface CopyRules {
 		
-		public boolean myCopyRoles(Object value);
+		public boolean myCopyRules(Object value);
 		
 	}
 	

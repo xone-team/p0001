@@ -28,15 +28,45 @@
 				</ul>
 				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/admin/rolesSave.html">
 					<div class="control-group">
-						<label class="control-label" for="rolesName">角色名称</label>
+						<label class="control-label" for="name">角色名称</label>
 						<div class="controls">
-							<input type="text" id="rolesName" name="roles.name" placeholder="角色名称">
+							<input type="text" id="name" name="roles.name" maxlength="255" placeholder="角色名称">
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="rolesRemark">角色名称</label>
+						<label class="control-label" for="remark">角色备注</label>
 						<div class="controls">
-							<input type="text" id="rolesRemark" name="roles.remark" placeholder="角色备注">
+							<input type="text" id="remark" name="roles.remark" maxlength="255" placeholder="角色备注">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="enable">可用标识</label>
+						<div class="controls">
+							<input type="text" id="enable" name="roles.enable" maxlength="1" placeholder="可用标识">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="userCreated">创建人</label>
+						<div class="controls">
+							<input type="text" id="userCreated" name="roles.userCreated" maxlength="20" placeholder="创建人">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="dateCreated">创建时间</label>
+						<div class="controls">
+							<input type="text" id="dateCreated" name="roles.dateCreated" maxlength="19" placeholder="创建时间">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="userUpdated">更新人</label>
+						<div class="controls">
+							<input type="text" id="userUpdated" name="roles.userUpdated" maxlength="20" placeholder="更新人">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="lastUpdated">更新时间</label>
+						<div class="controls">
+							<input type="text" id="lastUpdated" name="roles.lastUpdated" maxlength="19" placeholder="更新时间">
 						</div>
 					</div>
 					<div class="control-group">

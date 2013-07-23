@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="userroles" namespace="/userroles" extends="default">
+	    <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+        </global-results>
+		<action name="userRolesList" class="userRolesWebAction" method="userRolesList">
+			<result name="success">/WEB-INF/jsp/user-roles-list.jsp</result>
+		</action>
+		<action name="userRolesCreate" class="userRolesWebAction" method="userRolesCreate">
+			<result name="success">/WEB-INF/jsp/user-roles-create.jsp</result>
+		</action>
+		<action name="userRolesSave" class="userRolesWebAction" method="userRolesSave">
+			<result name="success">/WEB-INF/jsp/user-roles-item.jsp</result>
+		</action>
+		<action name="userRolesEdit" class="userRolesWebAction" method="userRolesEdit">
+			<result name="success">/WEB-INF/jsp/user-roles-edit.jsp</result>
+		</action>
+		<action name="userRolesUpdate" class="userRolesWebAction" method="userRolesUpdate">
+			<result name="success">/WEB-INF/jsp/user-roles-item.jsp</result>
+			<result name="list" type="chain">
+			    <param name="actionName">userRolesList</param> 
+    			<param name="namespace">/userroles</param>
+			</result>
+		</action>
+		<action name="userRolesItem" class="userRolesWebAction" method="userRolesItem">
+			<result name="success">/WEB-INF/jsp/user-roles-item.jsp</result>
+		</action>
+	</package>
+</struts>

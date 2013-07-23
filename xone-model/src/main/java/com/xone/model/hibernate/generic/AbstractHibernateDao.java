@@ -535,21 +535,20 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	@SuppressWarnings("rawtypes")
 	public Pagination findByDetachedCriteria(DetachedCriteria detachCriteria,
 			int pageSize, int startIndex) {
-		Session session=getSession(false);
-		Criteria criteria = detachCriteria
-				.getExecutableCriteria(session);
+		Session session = getSession(false);
+		Criteria criteria = detachCriteria.getExecutableCriteria(session);
 		CriteriaImpl impl = (CriteriaImpl) criteria;
-		Projection poj=impl.getProjection();
+		Projection poj = impl.getProjection();
 		ResultTransformer transformer = impl.getResultTransformer();
 		int totalCount = (Integer) criteria.setProjection(
 				Projections.rowCount()).uniqueResult();
 		criteria.setProjection(poj);
-		if(poj==null)
+		if (poj == null)
 			criteria.setResultTransformer(CriteriaSpecification.ROOT_ENTITY);
 		if (transformer != null) {
 			criteria.setResultTransformer(transformer);
 		}
-		List items = criteria.setFirstResult(startIndex)
+		List items = criteria.setFirstResult((startIndex - 1) * pageSize)
 				.setMaxResults(pageSize).list();
 		Pagination ps = new Pagination(startIndex / pageSize + 1, pageSize,
 				totalCount, items);

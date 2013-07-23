@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="x" uri="/mytaglib" %>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -35,7 +36,7 @@
 						<th>操作</th>
 					</thead>
 					<tbody>
-					<c:forEach var="item" items="${list}">
+					<c:forEach var="item" items="${pagination.list}">
 					<tr>
 						<td>${item.id}</td>
 						<td>${item.name}</td>
@@ -49,17 +50,18 @@
 					</c:forEach>
 					</tbody>
 				</table>
-				<div class="pagination pagination-centered">
-				  <ul>
-				    <li><a href="#" class="disabled">上一页</a></li>
-				    <li><a href="#" class="active">1</a></li>
-				    <li><a href="#">2</a></li>
-				    <li><a href="#">3</a></li>
-				    <li><a href="#">4</a></li>
-				    <li><a href="#">5</a></li>
-				    <li><a href="#">下一页</a></li>
-				  </ul>
-				</div>
+				<x:page href="${pageContext.request.contextPath}/admin/rolesList.html" pagination="${pagination}"/>
+<!-- 				<div class="pagination pagination-centered"> -->
+<!-- 				  <ul> -->
+<!-- 				    <li><a href="#" class="disabled">上一页</a></li> -->
+<!-- 				    <li><a href="#" class="active">1</a></li> -->
+<!-- 				    <li><a href="#">2</a></li> -->
+<!-- 				    <li><a href="#">3</a></li> -->
+<!-- 				    <li><a href="#">4</a></li> -->
+<!-- 				    <li><a href="#">5</a></li> -->
+<!-- 				    <li><a href="#">下一页</a></li> -->
+<!-- 				  </ul> -->
+<!-- 				</div> -->
 			</div>
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>

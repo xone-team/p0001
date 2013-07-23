@@ -2,6 +2,8 @@ package com.xone.service.app;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,7 @@ import com.xone.model.hibernate.app.ImageUploadedDao;
 import com.xone.model.hibernate.app.ProductDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Product;
-
+import com.xone.model.hibernate.support.Pagination;
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
@@ -34,6 +36,16 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public Product findById(Long id) {
 		return getProductDao().findById(id);
+	}
+
+	@Override
+	public Product update(Product entity) {
+		return getProductDao().update(entity);
+	}
+	
+	@Override
+	public void delete(Product entity) {
+		getProductDao().deleteById(entity.getId());
 	}
 	
 	@Override
@@ -153,6 +165,14 @@ public class ProductServiceImpl implements ProductService {
 		List<Long> ids = getImageUploadedDao().findAllIdsByRefId(p.getId(), ImageUploaded.RefType.PRODUCT);
 		p.setIds(ids);
 		return p;
+	}
+
+	public Pagination findByParams(Map<String, String> params) {
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(Product.class);
+		int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
+		int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
+		return getProductDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
 	}
 
 	public ImageUploadedDao getImageUploadedDao() {

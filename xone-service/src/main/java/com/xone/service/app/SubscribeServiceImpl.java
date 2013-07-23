@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.model.hibernate.app.SubscribeDao;
 import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.Subscribe;
-
+import com.xone.model.hibernate.support.Pagination;
 public class SubscribeServiceImpl implements SubscribeService {
 
 	@Autowired
@@ -24,7 +24,16 @@ public class SubscribeServiceImpl implements SubscribeService {
 	public Subscribe save(Subscribe entity) {
 		return getSubscribeDao().save(entity);
 	}
-
+	
+	@Override
+	public Subscribe update(Subscribe entity) {
+		return getSubscribeDao().update(entity);
+	}
+	
+	@Override
+	public void delete(Subscribe entity) {
+		getSubscribeDao().deleteById(entity.getId());
+	}
 	@Override
 	public Subscribe findById(Long id) {
 		return getSubscribeDao().findById(id);
@@ -60,7 +69,14 @@ public class SubscribeServiceImpl implements SubscribeService {
 		detachedCriteria.addOrder(Order.desc("dateCreated"));
 		return getSubscribeDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
 	}
-
+	
+	public Pagination findByParams(Map<String, String> params) {
+		DetachedCriteria detachedCriteria = DetachedCriteria
+				.forClass(Subscribe.class);
+		int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
+		int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
+		return getSubscribeDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+	}
 	public SubscribeDao getSubscribeDao() {
 		return subscribeDao;
 	}
