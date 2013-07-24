@@ -95,6 +95,18 @@ public class AdbannerServiceImpl implements AdbannerService {
 	public Pagination findByParams(Map<String, String> params) {
 		DetachedCriteria detachedCriteria = DetachedCriteria
 				.forClass(Adbanner.class);
+		if (!StringUtils.isBlank(params.get("userId"))) {
+			detachedCriteria.add(Restrictions.eq("userId", Long.parseLong(params.get("userId"))));
+		}
+		if (!StringUtils.isBlank(params.get("refId"))) {
+			detachedCriteria.add(Restrictions.eq("refId", Long.parseLong(params.get("refId"))));
+		}
+		if (!StringUtils.isBlank(params.get("adType"))) {
+			detachedCriteria.add(Restrictions.eq("adType", params.get("adType")));
+		}
+		if (!StringUtils.isBlank(params.get("adRefId"))) {
+			detachedCriteria.add(Restrictions.eq("adRefId", Long.parseLong(params.get("adRefId"))));
+		}
 		int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
 		int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
 		return getAdbannerDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);

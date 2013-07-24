@@ -16,24 +16,18 @@
 	<body>
 		<jsp:include page="common-nav.jsp"></jsp:include>
 		<div class="container-fluid">
-    		<div class="row-fluid" id="X_bodyContainer">
+    		<div class="row-fluid">
 				<div class="span2">
 					<jsp:include page="common-menu.jsp"></jsp:include>
 				</div>
-				<div class="span10" id="X_contentContainer">
+				<div class="span10">
 					<div class="row-fluid">
-						<ul class="breadcrumb" id="X_breadcrumbs_ul">
+						<ul class="breadcrumb">
 							<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
-							<li class="active">创建Adbanner</li>
+							<li class="active">发布广告</li>
 						</ul>
 					</div>
 					<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/adbanner/adbannerSave.html">
-						<div class="control-group">
-							<label class="control-label" for="id">编号</label>
-							<div class="controls">
-								<input type="text" id="id" name="adbanner.id" maxlength="20" placeholder="编号">
-							</div>
-						</div>
 						<div class="control-group">
 							<label class="control-label" for="refId">相关编号</label>
 							<div class="controls">
@@ -70,63 +64,16 @@
 								<input type="text" id="userId" name="adbanner.userId" maxlength="20" placeholder="用户编号">
 							</div>
 						</div>
-						<div class="control-group">
-							<label class="control-label" for="flagDeleted">删除标识</label>
-							<div class="controls">
-								<input type="text" id="flagDeleted" name="adbanner.flagDeleted" maxlength="1" placeholder="删除标识">
-							</div>
+						<div class="control-group" style="display:none;">
+							<input type="file" id="uploadImage" name="image">
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="userApply">申请人</label>
-							<div class="controls">
-								<input type="text" id="userApply" name="adbanner.userApply" maxlength="20" placeholder="申请人">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="dateApply">申请时间</label>
-							<div class="controls">
-								<input type="text" id="dateApply" name="adbanner.dateApply" maxlength="19" placeholder="申请时间">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="userCheck">审核人</label>
-							<div class="controls">
-								<input type="text" id="userCheck" name="adbanner.userCheck" maxlength="20" placeholder="审核人">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="dateCheck">审核时间</label>
-							<div class="controls">
-								<input type="text" id="dateCheck" name="adbanner.dateCheck" maxlength="19" placeholder="审核时间">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="userCreated">创建人</label>
-							<div class="controls">
-								<input type="text" id="userCreated" name="adbanner.userCreated" maxlength="20" placeholder="创建人">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="dateCreated">创建时间</label>
-							<div class="controls">
-								<input type="text" id="dateCreated" name="adbanner.dateCreated" maxlength="19" placeholder="创建时间">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="userUpdated">更新人</label>
-							<div class="controls">
-								<input type="text" id="userUpdated" name="adbanner.userUpdated" maxlength="20" placeholder="更新人">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="lastUpdated">更新时间</label>
-							<div class="controls">
-								<input type="text" id="lastUpdated" name="adbanner.lastUpdated" maxlength="19" placeholder="更新时间">
-							</div>
+							<img src="text" />
 						</div>
 						<div class="control-group">
 							<div class="controls">
 								<button type="submit" class="btn">提交创建</button>
+								<button type="button" class="btn" onclick="$('#uploadImage').click();">上传图片</button>
 							</div>
 						</div>
 					</form>

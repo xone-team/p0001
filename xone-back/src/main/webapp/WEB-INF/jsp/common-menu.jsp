@@ -33,7 +33,7 @@
 					<li id="X_menu_li_want"><a href="want-list.html">求购</a></li>
 					<li id="X_menu_li_category"><a href="category-list.html">分类</a></li>
 					<li id="X_menu_li_top"><a href="top-list.html">置顶</a></li>
-					<li id="X_menu_li_bill"><a href="bill-list.html">广告</a></li>
+					<li id="X_menu_li_bill"><a href="${pageContext.request.contextPath}/adbanner/adbannerList.html">广告</a></li>
 					<li id="X_menu_li_delivery"><a href="delivery-list.html">物流</a></li>
 				</ul>
 			</div>

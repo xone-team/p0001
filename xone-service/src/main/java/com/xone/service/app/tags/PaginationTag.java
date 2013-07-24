@@ -1,5 +1,7 @@
 package com.xone.service.app.tags;
 
+import java.util.Map;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -51,11 +53,41 @@ public class PaginationTag extends TagSupport {
 		if (getHref().indexOf("?") > -1) {
 			tag = "&";
 		}
-//		String href = getHref();
-//		if (href.startsWith("/")) {
-//			href = this.pageContext.getRequest()
-//		}
-		return getHref() + tag + getName() + ".pageNo=" + offset + "&" + getName() + ".pageSize=" + p.getPageSize();
+		StringBuffer params = new StringBuffer();
+		params.append(getHref());
+		params.append(tag);
+		params.append(getName());
+		params.append(".pageNo=");
+		params.append(offset);
+		params.append("&");
+		params.append(getName());
+		params.append(".pageSize=");
+		params.append(p.getPageSize());
+		return params.toString();
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected String params() {
+		Map<String, String []> map = (Map<String, String []>)this.pageContext.getRequest().getParameterMap();
+		StringBuffer params = new StringBuffer();
+		if (null != map && !map.isEmpty()) {
+			for (Map.Entry<String, String []> m : map.entrySet()) {
+				String key = m.getKey();
+				if (key.equals(getName() + ".pageNo") || key.equals(getName() + ".pageSize")) {
+					continue;
+				}
+				for (String v : m.getValue()) {
+					if (StringUtils.isBlank(v)) {
+						continue;
+					}
+					params.append("&");
+					params.append(key);
+					params.append("=");
+					params.append(v);
+				}
+			}
+		}
+		return params.toString();
 	}
 
 	@Override
@@ -66,17 +98,31 @@ public class PaginationTag extends TagSupport {
 				return SKIP_BODY;
 			}
 			Pagination p = (Pagination)getPagination();
+			int totalPage = p.getTotalPage();
+			if (0 == totalPage) {
+				return SKIP_BODY;
+			}
+			String params = params();
 			StringBuffer buffer = new StringBuffer();
 			buffer.append("<div class=\"pagination pagination-centered\">");
 			buffer.append("<ul>");
+			buffer.append("<li><a href=\"#");
+			buffer.append("\">");
+			buffer.append("共");
+			buffer.append(totalPage);
+			buffer.append("页/");
+			buffer.append(p.getTotalCount());
+			buffer.append("条记录");
+			buffer.append("</a></li>");
 			buffer.append("<li><a href=\"");
 			buffer.append(page(p, p.getPrePage()));
+			buffer.append(params);
 			buffer.append("\">上一页</a></li>");
-			int totalPage = p.getTotalPage();
 			int pageNo = p.getPageNo();
 			for (int i = pageNo; i <= totalPage; i ++) {
 				buffer.append("<li><a href=\"");
 				buffer.append(page(p, i));
+				buffer.append(params);
 				buffer.append("\">");
 				buffer.append(i);
 				buffer.append("</a></li>");
@@ -88,6 +134,7 @@ public class PaginationTag extends TagSupport {
 			}
 			buffer.append("<li><a href=\"");
 			buffer.append(page(p, p.getNextPage()));
+			buffer.append(params);
 			buffer.append("\">下一页</a></li>");
 			buffer.append("</ul>");
 			buffer.append("</div>");

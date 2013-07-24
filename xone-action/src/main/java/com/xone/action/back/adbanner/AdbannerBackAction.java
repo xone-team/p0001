@@ -13,6 +13,7 @@ import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.AdbannerService;
 import com.xone.service.app.utils.MyBeanUtils;
+import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class AdbannerBackAction extends Action {
@@ -25,6 +26,18 @@ public class AdbannerBackAction extends Action {
 	
 	public String adbannerList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
+		MyBeanUtils.copyPropertiesToMap(getAdbanner(), params, new CopyRules() {
+			@Override
+			public boolean myCopyRules(Object value) {
+				return null != value;
+			}
+			
+		}, new AssignRules() {
+			@Override
+			public String myAssignRules(Object value) {
+				return value.toString();
+			}
+		}, null);
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
 		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
 		Pagination p = getAdbannerService().findByParams(params);

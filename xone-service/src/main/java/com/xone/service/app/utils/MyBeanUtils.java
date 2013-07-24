@@ -1,10 +1,12 @@
 package com.xone.service.app.utils;
 
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.BeansException;
@@ -70,10 +72,55 @@ public class MyBeanUtils {
 		}
 	}
 	
+	public static void copyPropertiesToMap(Object source, Map<String, String> target, CopyRules copyRoles, AssignRules assignRules, String[] ignoreProperties)
+			throws BeansException {
+		
+		Assert.notNull(source, "Source must not be null");
+		Assert.notNull(target, "Target must not be null");
+		
+		PropertyDescriptor[] targetPds = BeanUtils.getPropertyDescriptors(source.getClass());
+		List<String> ignoreList = (ignoreProperties != null) ? Arrays.asList(ignoreProperties) : null;
+		
+		for (PropertyDescriptor targetPd : targetPds) {
+			if (targetPd.getReadMethod() != null &&
+					(ignoreProperties == null || (!ignoreList.contains(targetPd.getName())))) {
+				Method readMethod = targetPd.getReadMethod();
+				if (!Modifier.isPublic(readMethod.getDeclaringClass().getModifiers())) {
+					readMethod.setAccessible(true);
+				}
+				Object value = null;
+				try {
+					value = readMethod.invoke(source);
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				}
+				if (null != copyRoles && !copyRoles.myCopyRules(value)) {//如果值为null就不赋值
+					continue;
+				}
+				String temp = null;
+				if (null != assignRules) {
+					temp = assignRules.myAssignRules(value);
+				} else {
+					temp = value.toString();
+				}
+				target.put(targetPd.getName(), temp);
+			}
+		}
+	}
+	
 	public interface CopyRules {
 		
 		public boolean myCopyRules(Object value);
 		
+	}
+
+	public interface AssignRules {
+		
+		public String myAssignRules(Object value);
 	}
 	
 }
