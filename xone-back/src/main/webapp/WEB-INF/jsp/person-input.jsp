@@ -21,7 +21,7 @@
     <!-- content -->
     <div>
      <strong>录入表单</strong>
-     <form id="mainForm">
+     <form id="inputForm">
       <input type="hidden" name="f.id">
       <div class="row-fluid form-horizontal">
        <div class="control-group success">
@@ -49,53 +49,39 @@
         </div>
        </div>
        <div class="control-group">
-        <label class="control-label" for="inputUsername">手机</label>
+        <label class="control-label" for="inputCellphone">手机</label>
         <div class="controls">
-         <input type="text" name="f.cellphone" id="inputUsername" placeholder="手机，如13612345">
+         <input type="text" name="f.cellphone" id="inputCellphone" placeholder="手机，如13612345">
         </div>
        </div>
        <div class="control-group">
-        <label class="control-label" for="inputNickName">QQ</label>
+        <label class="control-label" for="inputQq">QQ</label>
         <div class="controls">
-         <input type="text" name="f.qq" id="inputNickName" placeholder="QQ号码，如5236">
+         <input type="text" name="f.qq" id="inputQq" placeholder="QQ号码，如5236">
         </div>
        </div>
        <div class="control-group">
-        <label class="control-label" for="inputUsername">联系人</label>
+        <label class="control-label" for="inputContactor">联系人</label>
         <div class="controls">
-         <input type="text" name="f.contactor" id="inputUsername" placeholder="联系人姓名，如 张三">
+         <input type="text" name="f.contactor" id="inputContactor" placeholder="联系人姓名，如 张三">
         </div>
        </div>
        <div class="control-group">
-        <label class="control-label" for="inputNickName">邮箱</label>
+        <label class="control-label" for="inputEmail">邮箱</label>
         <div class="controls">
-         <input type="text" name="f.email" id="inputNickName" placeholder="邮箱,如 zhee@sina.com">
+         <input type="text" name="f.email" id="inputEmail" placeholder="邮箱,如 zhee@sina.com">
         </div>
        </div>
        <div class="control-group">
-        <label class="control-label" for="inputUsername">所在地</label>
+        <label class="control-label" for="inputAddress">所在地</label>
         <div class="controls">
-         <select class="span2">
-          <option>上海</option>
-          <option>浙江</option>
-          <option>江西</option>
-         </select> <select class="span2">
-          <option>上海市</option>
-          <option>杭州市</option>
-          <option>景德镇</option>
-         </select> <select class="span2">
-          <option>徐汇区</option>
-          <option>萧山区</option>
-          <option>清水县</option>
-         </select><br /> <input type="text" class="span4" placeholder="详细地址">
+         <input type="text" name="f.address" id="inputAddress" placeholder="地址,如 上海">
         </div>
        </div>
        <div class="control-group">
-        <label class="control-label" for="inputNickName">是否认证</label>
+        <label class="control-label" for="inputCredit">信用</label>
         <div class="controls">
-         <label class="radio inline"> <input type="radio" name="f.credit"> 是
-         </label> <label class="radio inline"> <input type="radio" name="f.credit" checked> 否
-         </label>
+         <input type="text" name="f.credit" id="inputCredit" placeholder="信用">
         </div>
        </div>
        <div class="control-group">
@@ -201,64 +187,19 @@
  <script type="text/javascript">
         jQuery(function() {
             XONE.initConsoleMenu("person");
-            XONE.ajax({
-                url : "/person/get.html",
-                type : "POST",
-                data : jQuery.url().param(),
-                success : function(data, textStatus, jqXHR) {
-                    renderForm(data.person);
-                }
-            });
-            renderValidation();
+            XONE.getAction("/person/get.html");
         });
-        function renderForm(o) {
-			var prefix = "f.";
-			var container = jQuery("#mainForm");
-            if (o == null)
-                return;
-            var formObj = o.f;
-            var vc = o.validationContext;
-            jQuery('#mainForm input[name="f.id"]').val(XONE.null2blank(formObj.id));
-            jQuery('#mainForm input[name="f.username"]').val(XONE.null2blank(formObj.username));
-            jQuery('#mainForm input[name="f.password"]').val(XONE.null2blank(formObj.password));
-            jQuery('#mainForm input[name="f.nickName"]').val(XONE.null2blank(formObj.nickName));
-            //TODO
-            renderValidation(validationContext, prefix, container);
+        
+        function saveForm(){
+            XONE.saveAction("/person/save.html");
         }
-
-        function renderValidation(validationContext, prefix, container) {
-			if(validationContext == null)
-			    return;
-			if(validationContext.fieldErrors != null){
-				for(var i = 0; i < validationContext.fieldErrors.length; i++){
-				    var fieldError = validationContext.fieldErrors[i];
-				    renderField(fieldError.name, fieldError.value, "error", prefix, container);
-				}
-			}
+        
+        function handlerElForm(name, container){
+            
         }
-        function renderField(fieldName, fieldText, status, prefix, container){
-			var inputEl = jQuery('input[name="'+prefix+fieldName+'"]', container);
-			if(inputEl.size() < 1)
-			    return;
-			var controlEl = inputEl.parent();
-			var controlGroupEl = controlEl.parent();
-			controlGroupEl.removeClass("warning error info success")
-			controlGroupEl.addClass(status);
-			controlEl.children().remove(".X-field-message");
-			controlEl.append('<span class="X-field-message help-inline">'+fieldText+'</span>');
-        }
-
-        function saveForm() {
-            var d = jQuery("#mainForm").serializeObject();
-            XONE.ajax({
-                url : "/person/save.html",
-                type : "POST",
-                data : d,
-                success : function(data, textStatus, jqXHR) {
-                    renderForm(data.person);
-                    alert("操作成功");
-                }
-            })
+        
+        function handlerElValidation(name, container){
+            
         }
     </script>
 </body>

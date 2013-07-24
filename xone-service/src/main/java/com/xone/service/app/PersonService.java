@@ -43,4 +43,6 @@ public interface PersonService {
 	
 	public List<Person> findAll();
 	
+	public List<Person> findHql(String hql, List<?> params);
+	
 }

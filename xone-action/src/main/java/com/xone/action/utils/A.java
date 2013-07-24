@@ -245,6 +245,10 @@ public class A {
         result = (Validator) c.newInstance();
         return result;
     }
+    public static Object getJsonValueSafely(JSONObject srcJsonObject, String key, Object defaultValue) {
+        Object result = getJsonValueSafely(srcJsonObject, key);
+        return result == null ? defaultValue : result;
+    }
 
     public static Object getJsonValueSafely(JSONObject srcJsonObject, String key) {
         Object result = null;

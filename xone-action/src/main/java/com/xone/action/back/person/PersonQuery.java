@@ -1,9 +1,10 @@
 package com.xone.action.back.person;
 
-import com.xone.action.base.ActionForm;
+import com.xone.action.base.ActionQuery;
 
-public class PersonForm implements ActionForm {
-    private static final long serialVersionUID = 2945279293939990360L;
+public class PersonQuery implements ActionQuery {
+
+    private static final long serialVersionUID = 8592417883536571706L;
     protected String id;
     protected String username;
     protected String password;

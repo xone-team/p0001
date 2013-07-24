@@ -1,0 +1,26 @@
+{
+	"conditions" : 
+	[
+		{
+			"field" : "username"
+		},
+        {
+            "field" : "nickName"
+        },
+        {
+            "field" : "qq"
+        },
+        {
+            "field" : "cellphone"
+        },
+        {
+            "field" : "contactor"
+        },
+        {
+            "field" : "email"
+        },
+        {
+            "field" : "address"
+        }
+	]
+}
