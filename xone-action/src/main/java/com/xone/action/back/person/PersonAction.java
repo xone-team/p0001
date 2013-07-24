@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import com.xone.action.base.DefaultDispatchAction;
 import com.xone.action.base.query.ConditionUtils;
 import com.xone.action.base.validation.ValidationContext;
+import com.xone.action.base.validation.ValidationUtils;
 import com.xone.action.utils.A;
 import com.xone.action.utils.ReflectUtils;
 import com.xone.model.hibernate.entity.Person;
@@ -22,7 +23,7 @@ public class PersonAction extends DefaultDispatchAction {
     protected ValidationContext validationContext = new ValidationContext();
     protected PersonForm f = new PersonForm();
     protected PersonQuery q = new PersonQuery();
-    protected Person entity = new Person();
+    protected Person o = new Person();
     protected List<Person> list = new ArrayList<Person>();
 
     public String list() {
@@ -43,9 +44,9 @@ public class PersonAction extends DefaultDispatchAction {
     }
 
     public String get() {
-        Long id = entity.getId();
+        Long id = new Long(f.getId());
         if (id != null)
-            entity = personService.findById(id);
+            o = personService.findById(id);
         return SUCCESS;
     }
 
@@ -55,38 +56,49 @@ public class PersonAction extends DefaultDispatchAction {
         // JSONObject personValidatorsConfig =
         // A.getJsonConfigWithCache("Person-validators.json",
         // PersonAction.class);
-        // try {
         // boolean pass = ValidationUtils.validate(f, validationContext,
         // personRulesConfig, personValidatorsConfig);
-        // } catch (Exception e) {
-        // e.printStackTrace();
+        // if (!pass) {
+        // return SUCCESS;
         // }
+        
+        ReflectUtils.copyPropertiesSafely(o, f);
+        personService.save(o);
 
-        personService.save(entity);
         return SUCCESS;
     }
 
     public String save() {
-        Long id = entity.getId();
-        Person p = null;
+        // JSONObject personRulesConfig =
+        // A.getJsonConfigWithCacheOfWeb("/assets/data/action/person/Person-validation-rules.json");
+        // JSONObject personValidatorsConfig =
+        // A.getJsonConfigWithCache("Person-validators.json",
+        // PersonAction.class);
+        // boolean pass = ValidationUtils.validate(f, validationContext,
+        // personRulesConfig, personValidatorsConfig);
+        // if(!pass){
+        // return SUCCESS;
+        // }
+
+        Long id = new Long(f.getId());
         if (id != null)
-            personService.findById(id);
-        if (p == null) {
-            p = new Person();
+            o = personService.findById(id);
+        if (o == null) {
+            o = new Person();
         }
-        ReflectUtils.copyPropertiesSafely(p, entity);
-        personService.saveOrUpdate(p);
+        ReflectUtils.copyPropertiesSafely(o, f);
+        personService.saveOrUpdate(o);
         return SUCCESS;
     }
 
     public String deleted() {
-        Long id = entity.getId();
+        Long id = new Long(f.getId());
         personService.deleteById(id);
         return SUCCESS;
     }
 
-    public Person getPerson() {
-        return entity;
+    public Person getO() {
+        return o;
     }
 
     public List<Person> getList() {

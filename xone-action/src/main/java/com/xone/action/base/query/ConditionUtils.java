@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.xone.action.base.ActionQuery;
+import com.xone.action.utils.A;
 import com.xone.action.utils.ReflectUtils;
 
 public class ConditionUtils {
@@ -94,9 +95,11 @@ public class ConditionUtils {
                     continue;
                 }
                 
-                String type = c.getString(CONDITION_CONFIG_TYPE);
-                String operator = c.getString(CONDITION_CONFIG_OPERATOR);
-                String column = c.getString(CONDITION_CONFIG_COLUMN);
+                // type and operator is not required
+                String column = (String) A.getJsonValueSafely(c, CONDITION_CONFIG_COLUMN, fieldValue);
+                String type = (String) A.getJsonValueSafely(c, CONDITION_CONFIG_TYPE, TYPE_STRING);
+                String operator = (String) A.getJsonValueSafely(c, CONDITION_CONFIG_TYPE, LIKE);
+                
                 
                 // TODO
                 if(TYPE_STRING.equals(type)){
@@ -112,6 +115,11 @@ public class ConditionUtils {
                 conditionItem.setColumn(column);
                 
                 queryConditions.add(conditionItem);
+                if(TYPE_STRING.equals(type)){
+                    if(LIKE.equals(operator)){
+                        fieldValue = "%" + fieldValue + "%";
+                    }
+                }
                 queryParamValueList.add(fieldValue);
             }
         } catch (JSONException e) {
@@ -156,17 +164,17 @@ public class ConditionUtils {
         String paramName = conditionItem.getField();
         String paramNameInSql = null;
         try {
-            JSONArray conditions = conditionConfig.getJSONArray("conditions");
+            JSONArray conditions = conditionConfig.getJSONArray(CONDITION_CONFIG_ROOT);
             for (int i = 0; i < conditions.length(); i++) {
                 JSONObject c = conditions.getJSONObject(i);
-                String conditionField = c.getString("field");
+                String conditionField = c.getString(CONDITION_CONFIG_FIELD);
                 if (conditionField.equals(paramName)) {
-                    paramNameInSql = c.getString("column");
+                    paramNameInSql = (String) A.getJsonValueSafely(c, CONDITION_CONFIG_COLUMN, conditionField);
                     break;
                 }
             }
         } catch (JSONException e) {
-            log.error(e);
+            log.error(e.getMessage(), e);
         }
 
         if (paramNameInSql != null) {
@@ -218,16 +226,17 @@ public class ConditionUtils {
         } else {
             operator = operator.trim().toLowerCase();
         }
-        if (LIKE.equals(operator) || NOT_LIKE.equals(operator)) {
-            // result = "'%" + STRING_QUESTION + "%'";
-            result = "CONCAT('%', " + STRING_QUESTION + ", '%')";
-        }
-        if (START_WITH.equals(operator) || NOT_START_WITH.equals(operator)) {
-            result = "CONCAT(" + STRING_QUESTION + ", '%')";
-        }
-        if (END_WITH.equals(operator) || NOT_END_WITH.equals(operator)) {
-            result = "CONCAT('%', " + STRING_QUESTION + ")";
-        }
+//        if (LIKE.equals(operator) || NOT_LIKE.equals(operator)) {
+//             result = "%" + STRING_QUESTION + "%";
+////            result = "CONCAT('%', " + STRING_QUESTION + ", '%')";
+//        }
+//        if (START_WITH.equals(operator) || NOT_START_WITH.equals(operator)) {
+//            result = "'%" + STRING_QUESTION + "%'";
+////            result = "CONCAT(" + STRING_QUESTION + ", '%')";
+//        }
+//        if (END_WITH.equals(operator) || NOT_END_WITH.equals(operator)) {
+////            result = "CONCAT('%', " + STRING_QUESTION + ")";
+//        }
         return result;
     }
 

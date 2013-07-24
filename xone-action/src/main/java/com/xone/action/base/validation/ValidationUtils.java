@@ -295,51 +295,57 @@ public class ValidationUtils {
         return result;
     }
 
-    public static boolean validate(ActionForm form, ValidationContext context, JSONObject rulesConfig, JSONObject validatorsConfig) throws Exception {
-        JSONObject commonValidatorsConfig = A.getJsonConfigWithCacheOfClass("/conf-fzy/validators.json");
-        JSONObject[] validatorConfigArray = new JSONObject[] { validatorsConfig, commonValidatorsConfig };
+    public static boolean validate(ActionForm form, ValidationContext context, JSONObject rulesConfig, JSONObject validatorsConfig) {
+        boolean result = true;
         
-        List rules = ValidationUtils.ruleConfig2list(rulesConfig, validatorConfigArray);
+        try {
+            JSONObject commonValidatorsConfig = A.getJsonConfigWithCacheOfClass("/conf-fzy/validators.json");
+            JSONObject[] validatorConfigArray = new JSONObject[] { validatorsConfig, commonValidatorsConfig };
+            
+            List rules = ValidationUtils.ruleConfig2list(rulesConfig, validatorConfigArray);
 
-        boolean passAll = true;
-        boolean isShortAtAll = false;
-        for (Iterator iterator = rules.iterator(); iterator.hasNext();) {
-            Object item = iterator.next();
-            if(item instanceof ValidationRuleConfig){
-                ValidationRuleConfig rule = (ValidationRuleConfig) item;
-                Validator v = rule.getValidatorConfig().getValidator();
-                boolean pass = v.execute(form, context, rule);
-                if(!pass)
-                    passAll = false;
-                if(!pass && isShortAtAll){
-                    break;
-                }
-            }
-            if(item instanceof ValidationRuleGroupConfig){
-                ValidationRuleGroupConfig group = (ValidationRuleGroupConfig) item;
-                List subRules = group.getGroup();
-                boolean isShortInGroup = group.getShortcut().booleanValue();
-                boolean passGroup = true;
-                for (Iterator iterator2 = subRules.iterator(); iterator2.hasNext();) {
-                    ValidationRuleConfig subRule = (ValidationRuleConfig) iterator2.next();
-                    Validator v = subRule.getValidatorConfig().getValidator();
-                    boolean pass = v.execute(form, context, subRule);
-                    if(!pass){
-                        passGroup = false;
-                    }
-                    if(!pass && isShortInGroup){
+            boolean isShortAtAll = false;
+            for (Iterator iterator = rules.iterator(); iterator.hasNext();) {
+                Object item = iterator.next();
+                if(item instanceof ValidationRuleConfig){
+                    ValidationRuleConfig rule = (ValidationRuleConfig) item;
+                    Validator v = rule.getValidatorConfig().getValidator();
+                    boolean pass = v.execute(form, context, rule);
+                    if(!pass)
+                        result = false;
+                    if(!pass && isShortAtAll){
                         break;
                     }
                 }
-                if(!passGroup)
-                    passAll = false;
-                if(!passGroup && isShortAtAll){
-                    break;
+                if(item instanceof ValidationRuleGroupConfig){
+                    ValidationRuleGroupConfig group = (ValidationRuleGroupConfig) item;
+                    List subRules = group.getGroup();
+                    boolean isShortInGroup = group.getShortcut().booleanValue();
+                    boolean passGroup = true;
+                    for (Iterator iterator2 = subRules.iterator(); iterator2.hasNext();) {
+                        ValidationRuleConfig subRule = (ValidationRuleConfig) iterator2.next();
+                        Validator v = subRule.getValidatorConfig().getValidator();
+                        boolean pass = v.execute(form, context, subRule);
+                        if(!pass){
+                            passGroup = false;
+                        }
+                        if(!pass && isShortInGroup){
+                            break;
+                        }
+                    }
+                    if(!passGroup)
+                        result = false;
+                    if(!passGroup && isShortAtAll){
+                        break;
+                    }
                 }
             }
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            result = false;
         }
         
-        return passAll;
+        return result;
 
     }
 

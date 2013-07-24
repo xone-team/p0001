@@ -9,6 +9,13 @@ public class PersonQuery implements ActionQuery {
     protected String username;
     protected String password;
     protected String nickName;
+    protected String cellphone;
+    protected String contactor;
+    protected String qq;
+    protected String email;
+    protected String address;
+    protected String credit;
+    protected String userLevel;
     public String getId() {
         return id;
     }
@@ -32,6 +39,48 @@ public class PersonQuery implements ActionQuery {
     }
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+    public String getCellphone() {
+        return cellphone;
+    }
+    public void setCellphone(String cellphone) {
+        this.cellphone = cellphone;
+    }
+    public String getContactor() {
+        return contactor;
+    }
+    public void setContactor(String contactor) {
+        this.contactor = contactor;
+    }
+    public String getQq() {
+        return qq;
+    }
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    public String getCredit() {
+        return credit;
+    }
+    public void setCredit(String credit) {
+        this.credit = credit;
+    }
+    public String getUserLevel() {
+        return userLevel;
+    }
+    public void setUserLevel(String userLevel) {
+        this.userLevel = userLevel;
     }
     
 }

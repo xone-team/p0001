@@ -162,6 +162,166 @@ window.XONE = {};
 	};
 	
 	X.initModal = function(modalName){
-		jQuery("body").append(XONE.getHtml("/common/modal-"+modalName+".html.section"));
+		jQuery("body").append(X.getHtml("/common/modal-"+modalName+".html.section"));
 	};
+	
+    
+	X.queryAction = function(queryUrl, renderRow, handleElValues, handleElValidation, listBody, prefix, container){
+        if(queryUrl == null){
+            X.log("Method[queryAction] queryUrl is null");
+            return;
+        }
+        if(renderRow == null){
+            X.log("Method[queryAction] renderRow is null");
+            return;
+        }
+            
+        if(listBody == null)
+            listBody = jQuery("#tbodyList");
+        if(prefix == null)
+            prefix = "q.";
+        if(container == null)
+            container = jQuery("#queryForm");
+        
+        var d = container.serializeObject();
+        X.ajax({
+            url : queryUrl,
+            type : "POST",
+            data : d,
+            success : function(data, textStatus, jqXHR) {
+                if(data == null)
+                    return;
+                var list = data.list;
+                var html = "";
+                if(list != null && list.length != null){
+                    for ( var i = 0; i < list.length; i++) {
+                        html += renderRow(i, list[i]);
+                    }
+                }
+                listBody.html(html);
+                
+                var formData = data.q;
+                if(formData != null){
+                    X.renderFormValues(formData, handleElValues, prefix, container);
+                }
+            }
+        });
+    }
+    
+	X.renderFormValues = function(formData, handleEl, prefix, container){
+        if(formData == null)
+            return;
+        
+        if(prefix == null)
+            prefix = "f.";
+        if(container == null)
+            container = jQuery("#inputForm");
+        
+        for(var fieldName in formData){
+            var value = formData[fieldName];
+            if(handleEl != null){
+                handleEl.call(this, (prefix+fieldName), container);
+            }else{
+                var inputEl = jQuery('input[name="'+prefix+fieldName+'"]', container); 
+                if(inputEl.size() > 1 && value != null){
+                    inputEl.val(value); 
+                }
+            }
+        }
+    }
+	
+    X.getAction = function(getUrl, handleElValues, handleElValidation, prefix, container) {
+        if(getUrl == null){
+            XONE.log("Method[initInputForm] getUrl is missing.");
+            return;
+        }
+        
+        if(prefix == null)
+            prefix = "f.";
+        if(container == null)
+            container = jQuery("#inputForm");
+        
+        XONE.ajax({
+            url : getUrl,
+            type : "POST",
+            data : jQuery.url().param(),
+            success : function(data, textStatus, jqXHR) {
+                if (data == null)
+                    return;
+                var formData = data.o;
+                var vc = data.validationContext;
+                XONE.renderFormValues(formData, handleElValues, prefix, container);
+                XONE.renderValidation(validationContext, handleElValidation, prefix, container);
+            }
+        });
+    }
+    
+    
+    X.saveAction = function(saveUrl, handleElValues, handleElValidation, prefix, container) {
+        if(saveUrl == null){
+            XONE.log("Method[saveUrl] getUrl is missing.");
+            return;
+        }
+        
+        if(prefix == null)
+            prefix = "f.";
+        if(container == null)
+            container = jQuery("#inputForm");
+        
+        var d = container.serializeObject();
+        XONE.ajax({
+            url : saveUrl,
+            type : "POST",
+            data : d,
+            success : function(data, textStatus, jqXHR) {
+                if (data == null)
+                    return;
+                var formData = data.o;
+                var vc = data.validationContext;
+                XONE.renderFormValues(formData, handleElValues, prefix, container);
+                XONE.renderValidation(validationContext, handleElValidation, prefix, container);
+            }
+        })
+    }
+    
+    X.renderValidation = function(validationContext, handleEl, prefix, container) {
+        if(validationContext == null)
+            return;
+        
+        if(prefix == null)
+            prefix = "f.";
+        if(container == null)
+            container = jQuery("#inputForm");
+        
+        if(validationContext.fieldErrors != null){
+            for(var i = 0; i < validationContext.fieldErrors.length; i++){
+                var fieldError = validationContext.fieldErrors[i];
+                X.renderFieldMessage(fieldError.name, fieldError.value, "error", handleEl, prefix, container);
+            }
+        }
+    }
+
+    
+    X.renderFieldMessage = function(fieldName, fieldText, status, handleEl, prefix, container){
+        if(prefix == null)
+            prefix = "f.";
+        if(container == null)
+            container = jQuery("#inputForm");
+        
+        var inputEl = null;
+        if(handleEl != null){
+            inputEl = handleEl.call(this, (prefix+fieldName), container);
+        }else{
+            inputEl = jQuery('input[name="'+(prefix+fieldName)+'"]', container);   
+        }
+        if(inputEl.size() < 1)
+            return;
+        var controlEl = inputEl.parent();
+        var controlGroupEl = controlEl.parent();
+        controlGroupEl.removeClass("warning error info success")
+        controlGroupEl.addClass(status);
+        controlEl.children().remove(".X-field-message");
+        controlEl.append('<span class="X-field-message help-inline">'+fieldText+'</span>');
+    }
+
 })(window.XONE);
