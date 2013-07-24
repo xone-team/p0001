@@ -77,4 +77,9 @@
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</body>
+	<script>
+	 jQuery(function(){
+	     jQuery("#X_menu_li_imageuploaded").addClass("active");
+	 });
+	</script>
 </html>

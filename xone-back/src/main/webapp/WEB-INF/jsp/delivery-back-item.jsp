@@ -121,4 +121,9 @@
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</body>
+	<script>
+	 jQuery(function(){
+	     jQuery("#X_menu_li_delivery").addClass("active");
+	 });
+	</script>
 </html>

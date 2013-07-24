@@ -19,7 +19,7 @@
 				</div>
 				<div class="span10" id="X_contentContainer">
 					<div class="row-fluid">
-						<ul class="breadcrumb" id="X_breadcrumbs_ul"><li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li><li class="active">Product列表</li></ul>
+						<ul class="breadcrumb" id="X_breadcrumbs_ul"><li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li><li class="active">列表</li></ul>
 					</div>
 					<div class="accordion">
 						<div class="accordion-group">
@@ -274,4 +274,9 @@
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</body>
+	<script>
+	 jQuery(function(){
+	     jQuery("#X_menu_li_product").addClass("active");
+	 });
+	</script>
 </html>
