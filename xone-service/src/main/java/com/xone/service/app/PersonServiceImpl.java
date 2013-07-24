@@ -116,4 +116,9 @@ public class PersonServiceImpl implements PersonService {
         return personDao.saveOrUpdate(p);
     }
 
+    @Override
+    public List<Person> findHql(String hql, List<?> params) {
+        return personDao.createQuery(hql, params.toArray()).list();
+    }
+
 }

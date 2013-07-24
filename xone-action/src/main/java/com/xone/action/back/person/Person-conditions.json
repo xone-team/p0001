@@ -1,0 +1,41 @@
+{
+	"conditions" : 
+	[
+		{
+			"field" : "username",
+			"type" : "string",
+			"operator" : "lk",
+			"column" : "username"
+		},
+        {
+            "field" : "nickName",
+			"type" : "string",
+			"operator" : "lk",
+            "column" : "nickName"
+        },
+        {
+            "field" : "qq",
+			"type" : "string",
+			"operator" : "lk",
+            "column" : "qq"
+        },
+        {
+            "field" : "cellphone",
+			"type" : "string",
+			"operator" : "lk",
+            "column" : "cellphone"
+        },
+        {
+            "field" : "contact",
+			"type" : "string",
+			"operator" : "lk",
+            "column" : "contact"
+        },
+        {
+            "field" : "email",
+			"type" : "string",
+			"operator" : "lk",
+            "column" : "email"
+        }
+	]
+}

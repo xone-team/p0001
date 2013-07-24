@@ -18,6 +18,10 @@ import com.xone.action.utils.A;
 
 public class TestA extends TestCase {
 	Log log = LogFactory.getLog(getClass());
+	public void test4(){
+	    
+	}
+	
 	public void b_test3() throws UnsupportedEncodingException{
 		String value = "1234512345";
 		int i = value.toString().getBytes("UTF-8").length;
@@ -27,7 +31,7 @@ public class TestA extends TestCase {
 		System.out.println(A.getAppPath());
 	}
 	
-	public void test1(){
+	public void b_test1(){
         JSONObject personRulesConfig = A.getJsonConfigWithCacheOfWeb("/assets/data/action/person/Person-validation-rules.json");
         JSONObject personValidatorsConfig = A.getJsonConfigWithCache("Person-validators.json", PersonAction.class);
         JSONObject commonValidatorsParamsConfig = A.getJsonConfigWithCacheOfWeb("/assets/data/validators-params.json");
