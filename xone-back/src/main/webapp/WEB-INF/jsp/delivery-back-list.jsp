@@ -28,12 +28,13 @@
 							</div>
 							<div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
 								<div class="accordion-inner">
+								<form id="myqueryform" action="${pageContext.request.contextPath}/delivery/deliveryList.html" method="get">
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
 												<label class="control-label" for="id">编号</label>
 												<div class="controls">
-													<input type="text" id="id" name="delivery.id" maxlength="20" placeholder="编号">
+													<input type="text" id="id" name="delivery.id"  value="${delivery.id}"  maxlength="20" placeholder="编号">
 												</div>
 											</div>
 										</div>
@@ -41,7 +42,7 @@
 											<div class="control-group">
 												<label class="control-label" for="productId">产品编号</label>
 												<div class="controls">
-													<input type="text" id="productId" name="delivery.productId" maxlength="20" placeholder="产品编号">
+													<input type="text" id="productId" name="delivery.productId"  value="${delivery.productId}"  maxlength="20" placeholder="产品编号">
 												</div>
 											</div>
 										</div>
@@ -51,7 +52,7 @@
 											<div class="control-group">
 												<label class="control-label" for="marketarea">市场区域</label>
 												<div class="controls">
-													<input type="text" id="marketarea" name="delivery.marketarea" maxlength="255" placeholder="市场区域">
+													<input type="text" id="marketarea" name="delivery.marketarea"  value="${delivery.marketarea}"  maxlength="255" placeholder="市场区域">
 												</div>
 											</div>
 										</div>
@@ -59,7 +60,7 @@
 											<div class="control-group">
 												<label class="control-label" for="determini">目的地点</label>
 												<div class="controls">
-													<input type="text" id="determini" name="delivery.determini" maxlength="255" placeholder="目的地点">
+													<input type="text" id="determini" name="delivery.determini"  value="${delivery.determini}"  maxlength="255" placeholder="目的地点">
 												</div>
 											</div>
 										</div>
@@ -69,7 +70,7 @@
 											<div class="control-group">
 												<label class="control-label" for="loadtime">上货时间</label>
 												<div class="controls">
-													<input type="text" id="loadtime" name="delivery.loadtime" maxlength="255" placeholder="上货时间">
+													<input type="text" id="loadtime" name="delivery.loadtime"  value="${delivery.loadtime}"  maxlength="255" placeholder="上货时间">
 												</div>
 											</div>
 										</div>
@@ -77,7 +78,7 @@
 											<div class="control-group">
 												<label class="control-label" for="loadaddress">上货地点</label>
 												<div class="controls">
-													<input type="text" id="loadaddress" name="delivery.loadaddress" maxlength="255" placeholder="上货地点">
+													<input type="text" id="loadaddress" name="delivery.loadaddress"  value="${delivery.loadaddress}"  maxlength="255" placeholder="上货地点">
 												</div>
 											</div>
 										</div>
@@ -87,7 +88,7 @@
 											<div class="control-group">
 												<label class="control-label" for="boxNum">箱数</label>
 												<div class="controls">
-													<input type="text" id="boxNum" name="delivery.boxNum" maxlength="20" placeholder="箱数">
+													<input type="text" id="boxNum" name="delivery.boxNum"  value="${delivery.boxNum}"  maxlength="20" placeholder="箱数">
 												</div>
 											</div>
 										</div>
@@ -95,7 +96,7 @@
 											<div class="control-group">
 												<label class="control-label" for="unitNum">单位重量</label>
 												<div class="controls">
-													<input type="text" id="unitNum" name="delivery.unitNum" maxlength="20" placeholder="单位重量">
+													<input type="text" id="unitNum" name="delivery.unitNum"  value="${delivery.unitNum}"  maxlength="20" placeholder="单位重量">
 												</div>
 											</div>
 										</div>
@@ -105,7 +106,7 @@
 											<div class="control-group">
 												<label class="control-label" for="boxTotal">总箱数</label>
 												<div class="controls">
-													<input type="text" id="boxTotal" name="delivery.boxTotal" maxlength="20" placeholder="总箱数">
+													<input type="text" id="boxTotal" name="delivery.boxTotal"  value="${delivery.boxTotal}"  maxlength="20" placeholder="总箱数">
 												</div>
 											</div>
 										</div>
@@ -113,7 +114,7 @@
 											<div class="control-group">
 												<label class="control-label" for="totalWeight">总重</label>
 												<div class="controls">
-													<input type="text" id="totalWeight" name="delivery.totalWeight" maxlength="20" placeholder="总重">
+													<input type="text" id="totalWeight" name="delivery.totalWeight"  value="${delivery.totalWeight}"  maxlength="20" placeholder="总重">
 												</div>
 											</div>
 										</div>
@@ -123,7 +124,7 @@
 											<div class="control-group">
 												<label class="control-label" for="flagPass">通过标识</label>
 												<div class="controls">
-													<input type="text" id="flagPass" name="delivery.flagPass" maxlength="1" placeholder="通过标识">
+													<input type="text" id="flagPass" name="delivery.flagPass"  value="${delivery.flagPass}"  maxlength="1" placeholder="通过标识">
 												</div>
 											</div>
 										</div>
@@ -131,7 +132,7 @@
 											<div class="control-group">
 												<label class="control-label" for="remark">备注</label>
 												<div class="controls">
-													<input type="text" id="remark" name="delivery.remark" maxlength="1023" placeholder="备注">
+													<input type="text" id="remark" name="delivery.remark"  value="${delivery.remark}"  maxlength="1023" placeholder="备注">
 												</div>
 											</div>
 										</div>
@@ -141,7 +142,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userApply">申请人</label>
 												<div class="controls">
-													<input type="text" id="userApply" name="delivery.userApply" maxlength="20" placeholder="申请人">
+													<input type="text" id="userApply" name="delivery.userApply"  value="${delivery.userApply}"  maxlength="20" placeholder="申请人">
 												</div>
 											</div>
 										</div>
@@ -149,7 +150,7 @@
 											<div class="control-group">
 												<label class="control-label" for="dateApply">申请时间</label>
 												<div class="controls">
-													<input type="text" id="dateApply" name="delivery.dateApply" maxlength="19" placeholder="申请时间">
+													<input type="text" id="dateApply" name="delivery.dateApply"  value="${delivery.dateApply}"  maxlength="19" placeholder="申请时间">
 												</div>
 											</div>
 										</div>
@@ -159,7 +160,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userCheck">审核人</label>
 												<div class="controls">
-													<input type="text" id="userCheck" name="delivery.userCheck" maxlength="20" placeholder="审核人">
+													<input type="text" id="userCheck" name="delivery.userCheck"  value="${delivery.userCheck}"  maxlength="20" placeholder="审核人">
 												</div>
 											</div>
 										</div>
@@ -167,7 +168,7 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCheck">审核时间</label>
 												<div class="controls">
-													<input type="text" id="dateCheck" name="delivery.dateCheck" maxlength="19" placeholder="审核时间">
+													<input type="text" id="dateCheck" name="delivery.dateCheck"  value="${delivery.dateCheck}"  maxlength="19" placeholder="审核时间">
 												</div>
 											</div>
 										</div>
@@ -177,7 +178,7 @@
 											<div class="control-group">
 												<label class="control-label" for="flagDeleted">删除标识</label>
 												<div class="controls">
-													<input type="text" id="flagDeleted" name="delivery.flagDeleted" maxlength="1" placeholder="删除标识">
+													<input type="text" id="flagDeleted" name="delivery.flagDeleted"  value="${delivery.flagDeleted}"  maxlength="1" placeholder="删除标识">
 												</div>
 											</div>
 										</div>
@@ -185,7 +186,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userCreated">创建人</label>
 												<div class="controls">
-													<input type="text" id="userCreated" name="delivery.userCreated" maxlength="20" placeholder="创建人">
+													<input type="text" id="userCreated" name="delivery.userCreated"  value="${delivery.userCreated}"  maxlength="20" placeholder="创建人">
 												</div>
 											</div>
 										</div>
@@ -195,7 +196,7 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCreated">创建时间</label>
 												<div class="controls">
-													<input type="text" id="dateCreated" name="delivery.dateCreated" maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreated" name="delivery.dateCreated"  value="${delivery.dateCreated}"  maxlength="19" placeholder="创建时间">
 												</div>
 											</div>
 										</div>
@@ -203,7 +204,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userUpdated">更新人</label>
 												<div class="controls">
-													<input type="text" id="userUpdated" name="delivery.userUpdated" maxlength="20" placeholder="更新人">
+													<input type="text" id="userUpdated" name="delivery.userUpdated"  value="${delivery.userUpdated}"  maxlength="20" placeholder="更新人">
 												</div>
 											</div>
 										</div>
@@ -213,11 +214,12 @@
 											<div class="control-group">
 												<label class="control-label" for="lastUpdated">更新时间</label>
 												<div class="controls">
-													<input type="text" id="lastUpdated" name="delivery.lastUpdated" maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdated" name="delivery.lastUpdated"  value="${delivery.lastUpdated}"  maxlength="19" placeholder="更新时间">
 												</div>
 											</div>
 										</div>
 									</div>
+								</form>
 								</div>
 							</div>
 						</div>
@@ -225,7 +227,7 @@
 					<div class="row-fluid">
 						<p class="text-right">
 							<a class="btn btn-small" href="${pageContext.request.contextPath}/delivery/deliveryCreate.html"> <iclass="icon-plus"></i>创建 </a>
-							<button class="btn btn-small">
+							<button class="btn btn-small" onclick="$('#myqueryform').submit();">
 								<span class="icon-search"></span>查询
 							</button>
 						</p>

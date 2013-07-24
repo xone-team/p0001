@@ -28,12 +28,13 @@
 							</div>
 							<div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
 								<div class="accordion-inner">
+								<form id="myqueryform" action="${pageContext.request.contextPath}/imageuploaded/imageUploadedList.html" method="get">
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
 												<label class="control-label" for="id">编号</label>
 												<div class="controls">
-													<input type="text" id="id" name="imageUploaded.id" maxlength="20" placeholder="编号">
+													<input type="text" id="id" name="imageUploaded.id"  value="${imageUploaded.id}"  maxlength="20" placeholder="编号">
 												</div>
 											</div>
 										</div>
@@ -41,7 +42,7 @@
 											<div class="control-group">
 												<label class="control-label" for="refId">相关编号</label>
 												<div class="controls">
-													<input type="text" id="refId" name="imageUploaded.refId" maxlength="20" placeholder="相关编号">
+													<input type="text" id="refId" name="imageUploaded.refId"  value="${imageUploaded.refId}"  maxlength="20" placeholder="相关编号">
 												</div>
 											</div>
 										</div>
@@ -51,7 +52,7 @@
 											<div class="control-group">
 												<label class="control-label" for="refType">相关类型</label>
 												<div class="controls">
-													<input type="text" id="refType" name="imageUploaded.refType" maxlength="2" placeholder="相关类型">
+													<input type="text" id="refType" name="imageUploaded.refType"  value="${imageUploaded.refType}"  maxlength="2" placeholder="相关类型">
 												</div>
 											</div>
 										</div>
@@ -59,7 +60,7 @@
 											<div class="control-group">
 												<label class="control-label" for="imageType">图片类型</label>
 												<div class="controls">
-													<input type="text" id="imageType" name="imageUploaded.imageType" maxlength="20" placeholder="图片类型">
+													<input type="text" id="imageType" name="imageUploaded.imageType"  value="${imageUploaded.imageType}"  maxlength="20" placeholder="图片类型">
 												</div>
 											</div>
 										</div>
@@ -69,7 +70,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userCreated">创建人</label>
 												<div class="controls">
-													<input type="text" id="userCreated" name="imageUploaded.userCreated" maxlength="20" placeholder="创建人">
+													<input type="text" id="userCreated" name="imageUploaded.userCreated"  value="${imageUploaded.userCreated}"  maxlength="20" placeholder="创建人">
 												</div>
 											</div>
 										</div>
@@ -77,7 +78,7 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCreated">创建时间</label>
 												<div class="controls">
-													<input type="text" id="dateCreated" name="imageUploaded.dateCreated" maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreated" name="imageUploaded.dateCreated"  value="${imageUploaded.dateCreated}"  maxlength="19" placeholder="创建时间">
 												</div>
 											</div>
 										</div>
@@ -87,7 +88,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userUpdated">更新人</label>
 												<div class="controls">
-													<input type="text" id="userUpdated" name="imageUploaded.userUpdated" maxlength="20" placeholder="更新人">
+													<input type="text" id="userUpdated" name="imageUploaded.userUpdated"  value="${imageUploaded.userUpdated}"  maxlength="20" placeholder="更新人">
 												</div>
 											</div>
 										</div>
@@ -95,7 +96,7 @@
 											<div class="control-group">
 												<label class="control-label" for="lastUpdated">更新时间</label>
 												<div class="controls">
-													<input type="text" id="lastUpdated" name="imageUploaded.lastUpdated" maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdated" name="imageUploaded.lastUpdated"  value="${imageUploaded.lastUpdated}"  maxlength="19" placeholder="更新时间">
 												</div>
 											</div>
 										</div>
@@ -105,7 +106,7 @@
 											<div class="control-group">
 												<label class="control-label" for="image">名称</label>
 												<div class="controls">
-													<input type="text" id="image" name="imageUploaded.image" maxlength="64" placeholder="名称">
+													<input type="text" id="image" name="imageUploaded.image"  value="${imageUploaded.image}"  maxlength="64" placeholder="名称">
 												</div>
 											</div>
 										</div>
@@ -113,11 +114,12 @@
 											<div class="control-group">
 												<label class="control-label" for="flagDeleted">删除标识</label>
 												<div class="controls">
-													<input type="text" id="flagDeleted" name="imageUploaded.flagDeleted" maxlength="1" placeholder="删除标识">
+													<input type="text" id="flagDeleted" name="imageUploaded.flagDeleted"  value="${imageUploaded.flagDeleted}"  maxlength="1" placeholder="删除标识">
 												</div>
 											</div>
 										</div>
 									</div>
+								</form>
 								</div>
 							</div>
 						</div>
@@ -125,7 +127,7 @@
 					<div class="row-fluid">
 						<p class="text-right">
 							<a class="btn btn-small" href="${pageContext.request.contextPath}/imageuploaded/imageUploadedCreate.html"> <iclass="icon-plus"></i>创建 </a>
-							<button class="btn btn-small">
+							<button class="btn btn-small" onclick="$('#myqueryform').submit();">
 								<span class="icon-search"></span>查询
 							</button>
 						</p>

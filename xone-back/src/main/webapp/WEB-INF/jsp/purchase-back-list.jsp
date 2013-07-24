@@ -28,12 +28,13 @@
 							</div>
 							<div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
 								<div class="accordion-inner">
+								<form id="myqueryform" action="${pageContext.request.contextPath}/purchase/purchaseList.html" method="get">
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
 												<label class="control-label" for="id">编号</label>
 												<div class="controls">
-													<input type="text" id="id" name="purchase.id" maxlength="20" placeholder="编号">
+													<input type="text" id="id" name="purchase.id"  value="${purchase.id}"  maxlength="20" placeholder="编号">
 												</div>
 											</div>
 										</div>
@@ -41,7 +42,7 @@
 											<div class="control-group">
 												<label class="control-label" for="purchaseName">产品名称</label>
 												<div class="controls">
-													<input type="text" id="purchaseName" name="purchase.purchaseName" maxlength="255" placeholder="产品名称">
+													<input type="text" id="purchaseName" name="purchase.purchaseName"  value="${purchase.purchaseName}"  maxlength="255" placeholder="产品名称">
 												</div>
 											</div>
 										</div>
@@ -51,7 +52,7 @@
 											<div class="control-group">
 												<label class="control-label" for="purchaseType">求购类型</label>
 												<div class="controls">
-													<input type="text" id="purchaseType" name="purchase.purchaseType" maxlength="2" placeholder="求购类型">
+													<input type="text" id="purchaseType" name="purchase.purchaseType"  value="${purchase.purchaseType}"  maxlength="2" placeholder="求购类型">
 												</div>
 											</div>
 										</div>
@@ -59,7 +60,7 @@
 											<div class="control-group">
 												<label class="control-label" for="purchaseNum">求购数量</label>
 												<div class="controls">
-													<input type="text" id="purchaseNum" name="purchase.purchaseNum" maxlength="255" placeholder="求购数量">
+													<input type="text" id="purchaseNum" name="purchase.purchaseNum"  value="${purchase.purchaseNum}"  maxlength="255" placeholder="求购数量">
 												</div>
 											</div>
 										</div>
@@ -69,7 +70,7 @@
 											<div class="control-group">
 												<label class="control-label" for="purchaseValid">有效期</label>
 												<div class="controls">
-													<input type="text" id="purchaseValid" name="purchase.purchaseValid" maxlength="19" placeholder="有效期">
+													<input type="text" id="purchaseValid" name="purchase.purchaseValid"  value="${purchase.purchaseValid}"  maxlength="19" placeholder="有效期">
 												</div>
 											</div>
 										</div>
@@ -77,7 +78,7 @@
 											<div class="control-group">
 												<label class="control-label" for="purchaseAddress">产品产地</label>
 												<div class="controls">
-													<input type="text" id="purchaseAddress" name="purchase.purchaseAddress" maxlength="255" placeholder="产品产地">
+													<input type="text" id="purchaseAddress" name="purchase.purchaseAddress"  value="${purchase.purchaseAddress}"  maxlength="255" placeholder="产品产地">
 												</div>
 											</div>
 										</div>
@@ -87,7 +88,7 @@
 											<div class="control-group">
 												<label class="control-label" for="purchaseLocation">产品属地</label>
 												<div class="controls">
-													<input type="text" id="purchaseLocation" name="purchase.purchaseLocation" maxlength="255" placeholder="产品属地">
+													<input type="text" id="purchaseLocation" name="purchase.purchaseLocation"  value="${purchase.purchaseLocation}"  maxlength="255" placeholder="产品属地">
 												</div>
 											</div>
 										</div>
@@ -95,7 +96,7 @@
 											<div class="control-group">
 												<label class="control-label" for="purchaseDesc">求购描述</label>
 												<div class="controls">
-													<input type="text" id="purchaseDesc" name="purchase.purchaseDesc" maxlength="255" placeholder="求购描述">
+													<input type="text" id="purchaseDesc" name="purchase.purchaseDesc"  value="${purchase.purchaseDesc}"  maxlength="255" placeholder="求购描述">
 												</div>
 											</div>
 										</div>
@@ -105,7 +106,7 @@
 											<div class="control-group">
 												<label class="control-label" for="flagDeleted">删除标识</label>
 												<div class="controls">
-													<input type="text" id="flagDeleted" name="purchase.flagDeleted" maxlength="1" placeholder="删除标识">
+													<input type="text" id="flagDeleted" name="purchase.flagDeleted"  value="${purchase.flagDeleted}"  maxlength="1" placeholder="删除标识">
 												</div>
 											</div>
 										</div>
@@ -113,7 +114,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userApply">申请人</label>
 												<div class="controls">
-													<input type="text" id="userApply" name="purchase.userApply" maxlength="20" placeholder="申请人">
+													<input type="text" id="userApply" name="purchase.userApply"  value="${purchase.userApply}"  maxlength="20" placeholder="申请人">
 												</div>
 											</div>
 										</div>
@@ -123,7 +124,7 @@
 											<div class="control-group">
 												<label class="control-label" for="dateApply">申请时间</label>
 												<div class="controls">
-													<input type="text" id="dateApply" name="purchase.dateApply" maxlength="19" placeholder="申请时间">
+													<input type="text" id="dateApply" name="purchase.dateApply"  value="${purchase.dateApply}"  maxlength="19" placeholder="申请时间">
 												</div>
 											</div>
 										</div>
@@ -131,7 +132,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userCheck">审核人</label>
 												<div class="controls">
-													<input type="text" id="userCheck" name="purchase.userCheck" maxlength="20" placeholder="审核人">
+													<input type="text" id="userCheck" name="purchase.userCheck"  value="${purchase.userCheck}"  maxlength="20" placeholder="审核人">
 												</div>
 											</div>
 										</div>
@@ -141,7 +142,7 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCheck">审核时间</label>
 												<div class="controls">
-													<input type="text" id="dateCheck" name="purchase.dateCheck" maxlength="19" placeholder="审核时间">
+													<input type="text" id="dateCheck" name="purchase.dateCheck"  value="${purchase.dateCheck}"  maxlength="19" placeholder="审核时间">
 												</div>
 											</div>
 										</div>
@@ -149,7 +150,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userCreated">创建人</label>
 												<div class="controls">
-													<input type="text" id="userCreated" name="purchase.userCreated" maxlength="20" placeholder="创建人">
+													<input type="text" id="userCreated" name="purchase.userCreated"  value="${purchase.userCreated}"  maxlength="20" placeholder="创建人">
 												</div>
 											</div>
 										</div>
@@ -159,7 +160,7 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCreated">创建时间</label>
 												<div class="controls">
-													<input type="text" id="dateCreated" name="purchase.dateCreated" maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreated" name="purchase.dateCreated"  value="${purchase.dateCreated}"  maxlength="19" placeholder="创建时间">
 												</div>
 											</div>
 										</div>
@@ -167,7 +168,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userUpdated">更新人</label>
 												<div class="controls">
-													<input type="text" id="userUpdated" name="purchase.userUpdated" maxlength="20" placeholder="更新人">
+													<input type="text" id="userUpdated" name="purchase.userUpdated"  value="${purchase.userUpdated}"  maxlength="20" placeholder="更新人">
 												</div>
 											</div>
 										</div>
@@ -177,11 +178,12 @@
 											<div class="control-group">
 												<label class="control-label" for="lastUpdated">更新时间</label>
 												<div class="controls">
-													<input type="text" id="lastUpdated" name="purchase.lastUpdated" maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdated" name="purchase.lastUpdated"  value="${purchase.lastUpdated}"  maxlength="19" placeholder="更新时间">
 												</div>
 											</div>
 										</div>
 									</div>
+								</form>
 								</div>
 							</div>
 						</div>
@@ -189,7 +191,7 @@
 					<div class="row-fluid">
 						<p class="text-right">
 							<a class="btn btn-small" href="${pageContext.request.contextPath}/purchase/purchaseCreate.html"> <iclass="icon-plus"></i>创建 </a>
-							<button class="btn btn-small">
+							<button class="btn btn-small" onclick="$('#myqueryform').submit();">
 								<span class="icon-search"></span>查询
 							</button>
 						</p>

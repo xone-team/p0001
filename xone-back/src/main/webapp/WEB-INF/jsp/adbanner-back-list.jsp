@@ -26,65 +26,155 @@
 							<div class="accordion-heading">
 								<div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#queryConditions">查询条件</div>
 							</div>
-							<div class="accordion-body in collapse" style="height: auto;">
+							<div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
+								<div class="accordion-inner">
 								<form id="myqueryform" action="${pageContext.request.contextPath}/adbanner/adbannerList.html" method="get">
-									<div class="accordion-inner">
-										<div class="row-fluid">
-											<div class="span5 form-horizontal">
-												<div class="control-group">
-													<label class="control-label" for="userId">用户编号</label>
-													<div class="controls">
-														<input type="text" id="userId" name="adbanner.userId" maxlength="20" value="${adbanner.userId}" placeholder="用户编号">
-													</div>
-												</div>
-											</div>
-											<div class="span5 form-horizontal">
-												<div class="control-group">
-													<label class="control-label" for="refId">相关编号</label>
-													<div class="controls">
-														<input type="text" id="refId" name="adbanner.refId" maxlength="20" value="${adbanner.refId}" placeholder="相关编号">
-													</div>
+									<div class="row-fluid">
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="id">编号</label>
+												<div class="controls">
+													<input type="text" id="id" name="adbanner.id"  value="${adbanner.id}"  maxlength="20" placeholder="编号">
 												</div>
 											</div>
 										</div>
-										<div class="row-fluid">
-											<div class="span5 form-horizontal">
-												<div class="control-group">
-													<label class="control-label" for="adType">广告类型</label>
-													<div class="controls">
-														<input type="text" id="adType" name="adbanner.adType" maxlength="2" value="${adbanner.adType}" placeholder="广告类型">
-													</div>
-												</div>
-											</div>
-											<div class="span5 form-horizontal">
-												<div class="control-group">
-													<label class="control-label" for="adRefId">相关编号</label>
-													<div class="controls">
-														<input type="text" id="adRefId" name="adbanner.adRefId" maxlength="20" value="${adbanner.adRefId}" placeholder="相关编号">
-													</div>
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="refId">相关编号</label>
+												<div class="controls">
+													<input type="text" id="refId" name="adbanner.refId"  value="${adbanner.refId}"  maxlength="20" placeholder="相关编号">
 												</div>
 											</div>
 										</div>
-										<div class="row-fluid">
-											<div class="span5 form-horizontal">
-												<div class="control-group">
-													<label class="control-label" for="adStart">开始时间</label>
-													<div class="controls">
-														<input type="text" id="adStart" name="adbanner.adStart" maxlength="19" placeholder="开始时间">
-													</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="adType">广告类型</label>
+												<div class="controls">
+													<input type="text" id="adType" name="adbanner.adType"  value="${adbanner.adType}"  maxlength="2" placeholder="广告类型">
 												</div>
 											</div>
-											<div class="span5 form-horizontal">
-												<div class="control-group">
-													<label class="control-label" for="adEnd">结束时间</label>
-													<div class="controls">
-														<input type="text" id="adEnd" name="adbanner.adEnd" maxlength="19" placeholder="结束时间">
-													</div>
+										</div>
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="adRefId">相关编号</label>
+												<div class="controls">
+													<input type="text" id="adRefId" name="adbanner.adRefId"  value="${adbanner.adRefId}"  maxlength="20" placeholder="相关编号">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="adStart">开始时间</label>
+												<div class="controls">
+													<input type="text" id="adStart" name="adbanner.adStart"  value="${adbanner.adStart}"  maxlength="19" placeholder="开始时间">
+												</div>
+											</div>
+										</div>
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="adEnd">结束时间</label>
+												<div class="controls">
+													<input type="text" id="adEnd" name="adbanner.adEnd"  value="${adbanner.adEnd}"  maxlength="19" placeholder="结束时间">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="userId">用户编号</label>
+												<div class="controls">
+													<input type="text" id="userId" name="adbanner.userId"  value="${adbanner.userId}"  maxlength="20" placeholder="用户编号">
+												</div>
+											</div>
+										</div>
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="flagDeleted">删除标识</label>
+												<div class="controls">
+													<input type="text" id="flagDeleted" name="adbanner.flagDeleted"  value="${adbanner.flagDeleted}"  maxlength="1" placeholder="删除标识">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="userApply">申请人</label>
+												<div class="controls">
+													<input type="text" id="userApply" name="adbanner.userApply"  value="${adbanner.userApply}"  maxlength="20" placeholder="申请人">
+												</div>
+											</div>
+										</div>
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="dateApply">申请时间</label>
+												<div class="controls">
+													<input type="text" id="dateApply" name="adbanner.dateApply"  value="${adbanner.dateApply}"  maxlength="19" placeholder="申请时间">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="userCheck">审核人</label>
+												<div class="controls">
+													<input type="text" id="userCheck" name="adbanner.userCheck"  value="${adbanner.userCheck}"  maxlength="20" placeholder="审核人">
+												</div>
+											</div>
+										</div>
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="dateCheck">审核时间</label>
+												<div class="controls">
+													<input type="text" id="dateCheck" name="adbanner.dateCheck"  value="${adbanner.dateCheck}"  maxlength="19" placeholder="审核时间">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="userCreated">创建人</label>
+												<div class="controls">
+													<input type="text" id="userCreated" name="adbanner.userCreated"  value="${adbanner.userCreated}"  maxlength="20" placeholder="创建人">
+												</div>
+											</div>
+										</div>
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="dateCreated">创建时间</label>
+												<div class="controls">
+													<input type="text" id="dateCreated" name="adbanner.dateCreated"  value="${adbanner.dateCreated}"  maxlength="19" placeholder="创建时间">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="userUpdated">更新人</label>
+												<div class="controls">
+													<input type="text" id="userUpdated" name="adbanner.userUpdated"  value="${adbanner.userUpdated}"  maxlength="20" placeholder="更新人">
+												</div>
+											</div>
+										</div>
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="lastUpdated">更新时间</label>
+												<div class="controls">
+													<input type="text" id="lastUpdated" name="adbanner.lastUpdated"  value="${adbanner.lastUpdated}"  maxlength="19" placeholder="更新时间">
 												</div>
 											</div>
 										</div>
 									</div>
 								</form>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -106,13 +196,15 @@
 								<th>开始时间</th>
 								<th>结束时间</th>
 								<th>用户编号</th>
+								<th>删除标识</th>
 								<th>申请人</th>
 								<th>申请时间</th>
+								<th>审核人</th>
+								<th>审核时间</th>
 								<th>创建人</th>
 								<th>创建时间</th>
 								<th>更新人</th>
 								<th>更新时间</th>
-								<th>操作</th>
 							</thead>
 							<tbody>
 							<c:forEach var="item" items="${pagination.list}">
@@ -124,8 +216,11 @@
 								<td>${item.adStart}</td>
 								<td>${item.adEnd}</td>
 								<td>${item.userId}</td>
+								<td>${item.flagDeleted}</td>
 								<td>${item.userApply}</td>
 								<td>${item.dateApply}</td>
+								<td>${item.userCheck}</td>
+								<td>${item.dateCheck}</td>
 								<td>${item.userCreated}</td>
 								<td>${item.dateCreated}</td>
 								<td>${item.userUpdated}</td>

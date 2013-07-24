@@ -170,6 +170,37 @@ public class ProductServiceImpl implements ProductService {
 	public Pagination findByParams(Map<String, String> params) {
 		DetachedCriteria detachedCriteria = DetachedCriteria
 				.forClass(Product.class);
+        if (!StringUtils.isBlank(params.get("id"))) {
+            detachedCriteria.add(Restrictions.eq("id", Long.parseLong(params.get("id"))));
+        }
+        if (!StringUtils.isBlank(params.get("productName"))) {
+            detachedCriteria.add(Restrictions.like("productName", "%" + params.get("productName") + "%"));
+        }
+        if (!StringUtils.isBlank(params.get("productType"))) {
+            detachedCriteria.add(Restrictions.like("productType", "%" + params.get("productType") + "%"));
+        }
+        if (!StringUtils.isBlank(params.get("saleType"))) {
+            detachedCriteria.add(Restrictions.like("saleType", "%" + params.get("saleType") + "%"));
+        }
+        if (!StringUtils.isBlank(params.get("productPrice"))) {
+            detachedCriteria.add(Restrictions.like("productPrice", "%" + params.get("productPrice") + "%"));
+        }
+        if (!StringUtils.isBlank(params.get("productNum"))) {
+            detachedCriteria.add(Restrictions.like("productNum", "%" + params.get("productNum") + "%"));
+        }
+        if (!StringUtils.isBlank(params.get("productAddress"))) {
+            detachedCriteria.add(Restrictions.like("productAddress", "%" + params.get("productAddress") + "%"));
+        }
+        if (!StringUtils.isBlank(params.get("productLocation"))) {
+            detachedCriteria.add(Restrictions.like("productLocation", "%" + params.get("productLocation") + "%"));
+        }
+        if (!StringUtils.isBlank(params.get("productDesc"))) {
+            detachedCriteria.add(Restrictions.like("productDesc", "%" + params.get("productDesc") + "%"));
+        }
+        if (!StringUtils.isBlank(params.get("flagDeleted"))) {
+            detachedCriteria.add(Restrictions.like("flagDeleted", "%" + params.get("flagDeleted") + "%"));
+        }
+		
 		int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
 		int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
 		return getProductDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);

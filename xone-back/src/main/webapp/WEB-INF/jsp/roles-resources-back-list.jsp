@@ -28,12 +28,13 @@
 							</div>
 							<div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
 								<div class="accordion-inner">
+								<form id="myqueryform" action="${pageContext.request.contextPath}/rolesresources/rolesResourcesList.html" method="get">
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
 												<label class="control-label" for="id">编号</label>
 												<div class="controls">
-													<input type="text" id="id" name="rolesResources.id" maxlength="20" placeholder="编号">
+													<input type="text" id="id" name="rolesResources.id"  value="${rolesResources.id}"  maxlength="20" placeholder="编号">
 												</div>
 											</div>
 										</div>
@@ -41,7 +42,7 @@
 											<div class="control-group">
 												<label class="control-label" for="resourceId">资源编号</label>
 												<div class="controls">
-													<input type="text" id="resourceId" name="rolesResources.resourceId" maxlength="20" placeholder="资源编号">
+													<input type="text" id="resourceId" name="rolesResources.resourceId"  value="${rolesResources.resourceId}"  maxlength="20" placeholder="资源编号">
 												</div>
 											</div>
 										</div>
@@ -51,7 +52,7 @@
 											<div class="control-group">
 												<label class="control-label" for="roleId">角色编号</label>
 												<div class="controls">
-													<input type="text" id="roleId" name="rolesResources.roleId" maxlength="20" placeholder="角色编号">
+													<input type="text" id="roleId" name="rolesResources.roleId"  value="${rolesResources.roleId}"  maxlength="20" placeholder="角色编号">
 												</div>
 											</div>
 										</div>
@@ -59,7 +60,7 @@
 											<div class="control-group">
 												<label class="control-label" for="enable">可用标识</label>
 												<div class="controls">
-													<input type="text" id="enable" name="rolesResources.enable" maxlength="1" placeholder="可用标识">
+													<input type="text" id="enable" name="rolesResources.enable"  value="${rolesResources.enable}"  maxlength="1" placeholder="可用标识">
 												</div>
 											</div>
 										</div>
@@ -69,7 +70,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userCreated">创建人</label>
 												<div class="controls">
-													<input type="text" id="userCreated" name="rolesResources.userCreated" maxlength="20" placeholder="创建人">
+													<input type="text" id="userCreated" name="rolesResources.userCreated"  value="${rolesResources.userCreated}"  maxlength="20" placeholder="创建人">
 												</div>
 											</div>
 										</div>
@@ -77,7 +78,7 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCreated">创建时间</label>
 												<div class="controls">
-													<input type="text" id="dateCreated" name="rolesResources.dateCreated" maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreated" name="rolesResources.dateCreated"  value="${rolesResources.dateCreated}"  maxlength="19" placeholder="创建时间">
 												</div>
 											</div>
 										</div>
@@ -87,7 +88,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userUpdated">更新人</label>
 												<div class="controls">
-													<input type="text" id="userUpdated" name="rolesResources.userUpdated" maxlength="20" placeholder="更新人">
+													<input type="text" id="userUpdated" name="rolesResources.userUpdated"  value="${rolesResources.userUpdated}"  maxlength="20" placeholder="更新人">
 												</div>
 											</div>
 										</div>
@@ -95,11 +96,12 @@
 											<div class="control-group">
 												<label class="control-label" for="lastUpdated">更新时间</label>
 												<div class="controls">
-													<input type="text" id="lastUpdated" name="rolesResources.lastUpdated" maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdated" name="rolesResources.lastUpdated"  value="${rolesResources.lastUpdated}"  maxlength="19" placeholder="更新时间">
 												</div>
 											</div>
 										</div>
 									</div>
+								</form>
 								</div>
 							</div>
 						</div>
@@ -107,7 +109,7 @@
 					<div class="row-fluid">
 						<p class="text-right">
 							<a class="btn btn-small" href="${pageContext.request.contextPath}/rolesresources/rolesResourcesCreate.html"> <iclass="icon-plus"></i>创建 </a>
-							<button class="btn btn-small">
+							<button class="btn btn-small" onclick="$('#myqueryform').submit();">
 								<span class="icon-search"></span>查询
 							</button>
 						</p>

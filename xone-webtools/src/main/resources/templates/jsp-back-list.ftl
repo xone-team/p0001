@@ -28,6 +28,7 @@
 							</div>
 							<div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
 								<div class="accordion-inner">
+								<form id="myqueryform" action="${r"${pageContext.request.contextPath}"}/${packageName}/${tableVarName}List.html" method="get">
 								<#list tableProperties as p>
 									<#if p_index % 2 == 0 >
 									<div class="row-fluid">
@@ -36,7 +37,7 @@
 											<div class="control-group">
 												<label class="control-label" for="${p.javaVarName}">${p.columnComments}</label>
 												<div class="controls">
-													<input type="text" id="${p.javaVarName}" name="${tableVarName}.${p.javaVarName}" maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
+													<input type="text" id="${p.javaVarName}" name="${tableVarName}.${p.javaVarName}"  value="${r"${"}${tableVarName}.${p.javaVarName}${r"}"}"  maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
 												</div>
 											</div>
 										</div>
@@ -47,6 +48,7 @@
 									</div>
 									</#if>
 								</#list>
+								</form>
 								</div>
 							</div>
 						</div>
@@ -54,7 +56,7 @@
 					<div class="row-fluid">
 						<p class="text-right">
 							<a class="btn btn-small" href="${r"${pageContext.request.contextPath}"}/${packageName}/${tableVarName}Create.html"> <iclass="icon-plus"></i>创建 </a>
-							<button class="btn btn-small">
+							<button class="btn btn-small" onclick="$('#myqueryform').submit();">
 								<span class="icon-search"></span>查询
 							</button>
 						</p>

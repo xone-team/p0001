@@ -28,12 +28,13 @@
 							</div>
 							<div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
 								<div class="accordion-inner">
+								<form id="myqueryform" action="${pageContext.request.contextPath}/product/productList.html" method="get">
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
 												<label class="control-label" for="id">编号</label>
 												<div class="controls">
-													<input type="text" id="id" name="product.id" maxlength="20" placeholder="编号">
+													<input type="text" id="id" name="product.id"  value="${product.id}"  maxlength="20" placeholder="编号">
 												</div>
 											</div>
 										</div>
@@ -41,7 +42,7 @@
 											<div class="control-group">
 												<label class="control-label" for="productName">产品名称</label>
 												<div class="controls">
-													<input type="text" id="productName" name="product.productName" maxlength="255" placeholder="产品名称">
+													<input type="text" id="productName" name="product.productName"  value="${product.productName}"  maxlength="255" placeholder="产品名称">
 												</div>
 											</div>
 										</div>
@@ -51,7 +52,7 @@
 											<div class="control-group">
 												<label class="control-label" for="productType">产品类型</label>
 												<div class="controls">
-													<input type="text" id="productType" name="product.productType" maxlength="2" placeholder="产品类型">
+													<input type="text" id="productType" name="product.productType"  value="${product.productType}"  maxlength="2" placeholder="产品类型">
 												</div>
 											</div>
 										</div>
@@ -59,7 +60,7 @@
 											<div class="control-group">
 												<label class="control-label" for="saleType">销售类型</label>
 												<div class="controls">
-													<input type="text" id="saleType" name="product.saleType" maxlength="2" placeholder="销售类型">
+													<input type="text" id="saleType" name="product.saleType"  value="${product.saleType}"  maxlength="2" placeholder="销售类型">
 												</div>
 											</div>
 										</div>
@@ -69,7 +70,7 @@
 											<div class="control-group">
 												<label class="control-label" for="productPrice">产品价格</label>
 												<div class="controls">
-													<input type="text" id="productPrice" name="product.productPrice" maxlength="200" placeholder="产品价格">
+													<input type="text" id="productPrice" name="product.productPrice"  value="${product.productPrice}"  maxlength="200" placeholder="产品价格">
 												</div>
 											</div>
 										</div>
@@ -77,7 +78,7 @@
 											<div class="control-group">
 												<label class="control-label" for="productNum">产品数量</label>
 												<div class="controls">
-													<input type="text" id="productNum" name="product.productNum" maxlength="255" placeholder="产品数量">
+													<input type="text" id="productNum" name="product.productNum"  value="${product.productNum}"  maxlength="255" placeholder="产品数量">
 												</div>
 											</div>
 										</div>
@@ -87,7 +88,7 @@
 											<div class="control-group">
 												<label class="control-label" for="productValid">有效期</label>
 												<div class="controls">
-													<input type="text" id="productValid" name="product.productValid" maxlength="19" placeholder="有效期">
+													<input type="text" id="productValid" name="product.productValid"  value="${product.productValid}"  maxlength="19" placeholder="有效期">
 												</div>
 											</div>
 										</div>
@@ -95,7 +96,7 @@
 											<div class="control-group">
 												<label class="control-label" for="productAddress">产品产地</label>
 												<div class="controls">
-													<input type="text" id="productAddress" name="product.productAddress" maxlength="255" placeholder="产品产地">
+													<input type="text" id="productAddress" name="product.productAddress"  value="${product.productAddress}"  maxlength="255" placeholder="产品产地">
 												</div>
 											</div>
 										</div>
@@ -105,7 +106,7 @@
 											<div class="control-group">
 												<label class="control-label" for="productLocation">产品属地</label>
 												<div class="controls">
-													<input type="text" id="productLocation" name="product.productLocation" maxlength="255" placeholder="产品属地">
+													<input type="text" id="productLocation" name="product.productLocation"  value="${product.productLocation}"  maxlength="255" placeholder="产品属地">
 												</div>
 											</div>
 										</div>
@@ -113,7 +114,7 @@
 											<div class="control-group">
 												<label class="control-label" for="productDesc">产品描述</label>
 												<div class="controls">
-													<input type="text" id="productDesc" name="product.productDesc" maxlength="255" placeholder="产品描述">
+													<input type="text" id="productDesc" name="product.productDesc"  value="${product.productDesc}"  maxlength="255" placeholder="产品描述">
 												</div>
 											</div>
 										</div>
@@ -123,7 +124,7 @@
 											<div class="control-group">
 												<label class="control-label" for="flagDeleted">删除标识</label>
 												<div class="controls">
-													<input type="text" id="flagDeleted" name="product.flagDeleted" maxlength="1" placeholder="删除标识">
+													<input type="text" id="flagDeleted" name="product.flagDeleted"  value="${product.flagDeleted}"  maxlength="1" placeholder="删除标识">
 												</div>
 											</div>
 										</div>
@@ -131,7 +132,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userApply">申请人</label>
 												<div class="controls">
-													<input type="text" id="userApply" name="product.userApply" maxlength="20" placeholder="申请人">
+													<input type="text" id="userApply" name="product.userApply"  value="${product.userApply}"  maxlength="20" placeholder="申请人">
 												</div>
 											</div>
 										</div>
@@ -141,7 +142,7 @@
 											<div class="control-group">
 												<label class="control-label" for="dateApply">申请时间</label>
 												<div class="controls">
-													<input type="text" id="dateApply" name="product.dateApply" maxlength="19" placeholder="申请时间">
+													<input type="text" id="dateApply" name="product.dateApply"  value="${product.dateApply}"  maxlength="19" placeholder="申请时间">
 												</div>
 											</div>
 										</div>
@@ -149,7 +150,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userCheck">审核人</label>
 												<div class="controls">
-													<input type="text" id="userCheck" name="product.userCheck" maxlength="20" placeholder="审核人">
+													<input type="text" id="userCheck" name="product.userCheck"  value="${product.userCheck}"  maxlength="20" placeholder="审核人">
 												</div>
 											</div>
 										</div>
@@ -159,7 +160,7 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCheck">审核时间</label>
 												<div class="controls">
-													<input type="text" id="dateCheck" name="product.dateCheck" maxlength="19" placeholder="审核时间">
+													<input type="text" id="dateCheck" name="product.dateCheck"  value="${product.dateCheck}"  maxlength="19" placeholder="审核时间">
 												</div>
 											</div>
 										</div>
@@ -167,7 +168,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userCreated">创建人</label>
 												<div class="controls">
-													<input type="text" id="userCreated" name="product.userCreated" maxlength="20" placeholder="创建人">
+													<input type="text" id="userCreated" name="product.userCreated"  value="${product.userCreated}"  maxlength="20" placeholder="创建人">
 												</div>
 											</div>
 										</div>
@@ -177,7 +178,7 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCreated">创建时间</label>
 												<div class="controls">
-													<input type="text" id="dateCreated" name="product.dateCreated" maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreated" name="product.dateCreated"  value="${product.dateCreated}"  maxlength="19" placeholder="创建时间">
 												</div>
 											</div>
 										</div>
@@ -185,7 +186,7 @@
 											<div class="control-group">
 												<label class="control-label" for="userUpdated">更新人</label>
 												<div class="controls">
-													<input type="text" id="userUpdated" name="product.userUpdated" maxlength="20" placeholder="更新人">
+													<input type="text" id="userUpdated" name="product.userUpdated"  value="${product.userUpdated}"  maxlength="20" placeholder="更新人">
 												</div>
 											</div>
 										</div>
@@ -195,11 +196,12 @@
 											<div class="control-group">
 												<label class="control-label" for="lastUpdated">更新时间</label>
 												<div class="controls">
-													<input type="text" id="lastUpdated" name="product.lastUpdated" maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdated" name="product.lastUpdated"  value="${product.lastUpdated}"  maxlength="19" placeholder="更新时间">
 												</div>
 											</div>
 										</div>
 									</div>
+								</form>
 								</div>
 							</div>
 						</div>
@@ -207,7 +209,7 @@
 					<div class="row-fluid">
 						<p class="text-right">
 							<a class="btn btn-small" href="${pageContext.request.contextPath}/product/productCreate.html"> <iclass="icon-plus"></i>创建 </a>
-							<button class="btn btn-small">
+							<button class="btn btn-small" onclick="$('#myqueryform').submit();">
 								<span class="icon-search"></span>查询
 							</button>
 						</p>

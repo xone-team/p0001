@@ -19,7 +19,7 @@
 				</div>
 				<div class="span10" id="X_contentContainer">
 					<div class="row-fluid">
-						<ul class="breadcrumb" id="X_breadcrumbs_ul"><li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li><li class="active">Resources列表</li></ul>
+						<ul class="breadcrumb" id="X_breadcrumbs_ul"><li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li><li class="active">Address列表</li></ul>
 					</div>
 					<div class="accordion">
 						<div class="accordion-group">
@@ -28,21 +28,21 @@
 							</div>
 							<div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
 								<div class="accordion-inner">
-								<form id="myqueryform" action="${pageContext.request.contextPath}/resources/resourcesList.html" method="get">
+								<form id="myqueryform" action="${pageContext.request.contextPath}/address/addressList.html" method="get">
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="id">编号</label>
+												<label class="control-label" for="id">主键</label>
 												<div class="controls">
-													<input type="text" id="id" name="resources.id"  value="${resources.id}"  maxlength="20" placeholder="编号">
+													<input type="text" id="id" name="address.id"  value="${address.id}"  maxlength="20" placeholder="主键">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="name">资源名称</label>
+												<label class="control-label" for="provinceCode">省份编码(reference:province.code)</label>
 												<div class="controls">
-													<input type="text" id="name" name="resources.name"  value="${resources.name}"  maxlength="255" placeholder="资源名称">
+													<input type="text" id="provinceCode" name="address.provinceCode"  value="${address.provinceCode}"  maxlength="20" placeholder="省份编码(reference:province.code)">
 												</div>
 											</div>
 										</div>
@@ -50,35 +50,17 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="resourceType">资源类型</label>
+												<label class="control-label" for="cityCode">城市编码(reference:city.code)</label>
 												<div class="controls">
-													<input type="text" id="resourceType" name="resources.resourceType"  value="${resources.resourceType}"  maxlength="11" placeholder="资源类型">
+													<input type="text" id="cityCode" name="address.cityCode"  value="${address.cityCode}"  maxlength="20" placeholder="城市编码(reference:city.code)">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="priority">优先级</label>
+												<label class="control-label" for="districtCode">区县编码(reference:district.code)</label>
 												<div class="controls">
-													<input type="text" id="priority" name="resources.priority"  value="${resources.priority}"  maxlength="11" placeholder="优先级">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row-fluid">
-										<div class="span5 form-horizontal">
-											<div class="control-group">
-												<label class="control-label" for="resourceUrl">资源地址</label>
-												<div class="controls">
-													<input type="text" id="resourceUrl" name="resources.resourceUrl"  value="${resources.resourceUrl}"  maxlength="255" placeholder="资源地址">
-												</div>
-											</div>
-										</div>
-										<div class="span5 form-horizontal">
-											<div class="control-group">
-												<label class="control-label" for="remark">备注</label>
-												<div class="controls">
-													<input type="text" id="remark" name="resources.remark"  value="${resources.remark}"  maxlength="1024" placeholder="备注">
+													<input type="text" id="districtCode" name="address.districtCode"  value="${address.districtCode}"  maxlength="20" placeholder="区县编码(reference:district.code)">
 												</div>
 											</div>
 										</div>
@@ -86,35 +68,17 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="enable">可用标识</label>
+												<label class="control-label" for="detail">详细地址</label>
 												<div class="controls">
-													<input type="text" id="enable" name="resources.enable"  value="${resources.enable}"  maxlength="1" placeholder="可用标识">
+													<input type="text" id="detail" name="address.detail"  value="${address.detail}"  maxlength="1023" placeholder="详细地址">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userCreated">创建人</label>
+												<label class="control-label" for="zip">邮编</label>
 												<div class="controls">
-													<input type="text" id="userCreated" name="resources.userCreated"  value="${resources.userCreated}"  maxlength="20" placeholder="创建人">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row-fluid">
-										<div class="span5 form-horizontal">
-											<div class="control-group">
-												<label class="control-label" for="dateCreated">创建时间</label>
-												<div class="controls">
-													<input type="text" id="dateCreated" name="resources.dateCreated"  value="${resources.dateCreated}"  maxlength="19" placeholder="创建时间">
-												</div>
-											</div>
-										</div>
-										<div class="span5 form-horizontal">
-											<div class="control-group">
-												<label class="control-label" for="userUpdated">更新人</label>
-												<div class="controls">
-													<input type="text" id="userUpdated" name="resources.userUpdated"  value="${resources.userUpdated}"  maxlength="20" placeholder="更新人">
+													<input type="text" id="zip" name="address.zip"  value="${address.zip}"  maxlength="10" placeholder="邮编">
 												</div>
 											</div>
 										</div>
@@ -122,9 +86,45 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="lastUpdated">更新时间</label>
+												<label class="control-label" for="flagDeleted">是否被删除了(dict:yn)(0,否,1,是)(default:0)</label>
 												<div class="controls">
-													<input type="text" id="lastUpdated" name="resources.lastUpdated"  value="${resources.lastUpdated}"  maxlength="19" placeholder="更新时间">
+													<input type="text" id="flagDeleted" name="address.flagDeleted"  value="${address.flagDeleted}"  maxlength="1" placeholder="是否被删除了(dict:yn)(0,否,1,是)(default:0)">
+												</div>
+											</div>
+										</div>
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="userCreated">创建人(reference:user.id)(default:0)</label>
+												<div class="controls">
+													<input type="text" id="userCreated" name="address.userCreated"  value="${address.userCreated}"  maxlength="20" placeholder="创建人(reference:user.id)(default:0)">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="dateCreated">创建日期</label>
+												<div class="controls">
+													<input type="text" id="dateCreated" name="address.dateCreated"  value="${address.dateCreated}"  maxlength="19" placeholder="创建日期">
+												</div>
+											</div>
+										</div>
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="userUpdated">更新人(reference:user.id)(default:0)</label>
+												<div class="controls">
+													<input type="text" id="userUpdated" name="address.userUpdated"  value="${address.userUpdated}"  maxlength="20" placeholder="更新人(reference:user.id)(default:0)">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="lastUpdated">更新日期</label>
+												<div class="controls">
+													<input type="text" id="lastUpdated" name="address.lastUpdated"  value="${address.lastUpdated}"  maxlength="19" placeholder="更新日期">
 												</div>
 											</div>
 										</div>
@@ -136,7 +136,7 @@
 					</div>
 					<div class="row-fluid">
 						<p class="text-right">
-							<a class="btn btn-small" href="${pageContext.request.contextPath}/resources/resourcesCreate.html"> <iclass="icon-plus"></i>创建 </a>
+							<a class="btn btn-small" href="${pageContext.request.contextPath}/address/addressCreate.html"> <iclass="icon-plus"></i>创建 </a>
 							<button class="btn btn-small" onclick="$('#myqueryform').submit();">
 								<span class="icon-search"></span>查询
 							</button>
@@ -145,41 +145,41 @@
 					<div class="row-fluid">
 						<table class="table table-bordered" style="width:100%">
 							<thead>
-								<th>编号</th>
-								<th>资源名称</th>
-								<th>资源类型</th>
-								<th>优先级</th>
-								<th>资源地址</th>
-								<th>备注</th>
-								<th>可用标识</th>
-								<th>创建人</th>
-								<th>创建时间</th>
-								<th>更新人</th>
-								<th>更新时间</th>
+								<th>主键</th>
+								<th>省份编码(reference:province.code)</th>
+								<th>城市编码(reference:city.code)</th>
+								<th>区县编码(reference:district.code)</th>
+								<th>详细地址</th>
+								<th>邮编</th>
+								<th>是否被删除了(dict:yn)(0,否,1,是)(default:0)</th>
+								<th>创建人(reference:user.id)(default:0)</th>
+								<th>创建日期</th>
+								<th>更新人(reference:user.id)(default:0)</th>
+								<th>更新日期</th>
 							</thead>
 							<tbody>
 							<c:forEach var="item" items="${pagination.list}">
 							<tr>
 								<td>${item.id}</td>
-								<td>${item.name}</td>
-								<td>${item.resourceType}</td>
-								<td>${item.priority}</td>
-								<td>${item.resourceUrl}</td>
-								<td>${item.remark}</td>
-								<td>${item.enable}</td>
+								<td>${item.provinceCode}</td>
+								<td>${item.cityCode}</td>
+								<td>${item.districtCode}</td>
+								<td>${item.detail}</td>
+								<td>${item.zip}</td>
+								<td>${item.flagDeleted}</td>
 								<td>${item.userCreated}</td>
 								<td>${item.dateCreated}</td>
 								<td>${item.userUpdated}</td>
 								<td>${item.lastUpdated}</td>
 								<td>
-									<a href="${pageContext.request.contextPath}/resources/resourcesEdit.html?resources.id=${item.id}" class="btn btn-mini">编辑</a>
-									<a href="${pageContext.request.contextPath}/resources/resourcesItem.html?resources.id=${item.id}" class="btn btn-mini">详细</a>
+									<a href="${pageContext.request.contextPath}/address/addressEdit.html?address.id=${item.id}" class="btn btn-mini">编辑</a>
+									<a href="${pageContext.request.contextPath}/address/addressItem.html?address.id=${item.id}" class="btn btn-mini">详细</a>
 								</td>
 							</tr>
 							</c:forEach>
 							</tbody>
 						</table>
-						<x:page href="${pageContext.request.contextPath}/resources/resourcesList.html" pagination="${pagination}"/>
+						<x:page href="${pageContext.request.contextPath}/address/addressList.html" pagination="${pagination}"/>
 					</div>
 				</div>
 			</div>

@@ -24,55 +24,55 @@
 				<div class="row-fluid">
 					<ul class="breadcrumb" id="X_breadcrumbs_ul">
 						<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
-						<li><a href="${pageContext.request.contextPath}/resources/resourcesList.html">resources列表</a> <span class="divider">/</span></li>
-						<li class="active">resources详细</li>
+						<li><a href="${pageContext.request.contextPath}/address/addressList.html">address列表</a> <span class="divider">/</span></li>
+						<li class="active">address详细</li>
 					</ul>
 				</div>
 				<table class="table table-bordered" style="width:100%">
 					<tbody>
 						<tr>
-							<td style="width:60px;">编号</td>
-							<td>${resources.id}</td>
+							<td style="width:60px;">主键</td>
+							<td>${address.id}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">资源名称</td>
-							<td>${resources.name}</td>
+							<td style="width:60px;">省份编码(reference:province.code)</td>
+							<td>${address.provinceCode}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">资源类型</td>
-							<td>${resources.resourceType}</td>
+							<td style="width:60px;">城市编码(reference:city.code)</td>
+							<td>${address.cityCode}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">优先级</td>
-							<td>${resources.priority}</td>
+							<td style="width:60px;">区县编码(reference:district.code)</td>
+							<td>${address.districtCode}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">资源地址</td>
-							<td>${resources.resourceUrl}</td>
+							<td style="width:60px;">详细地址</td>
+							<td>${address.detail}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">备注</td>
-							<td>${resources.remark}</td>
+							<td style="width:60px;">邮编</td>
+							<td>${address.zip}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">可用标识</td>
-							<td>${resources.enable}</td>
+							<td style="width:60px;">是否被删除了(dict:yn)(0,否,1,是)(default:0)</td>
+							<td>${address.flagDeleted}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">创建人</td>
-							<td>${resources.userCreated}</td>
+							<td style="width:60px;">创建人(reference:user.id)(default:0)</td>
+							<td>${address.userCreated}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">创建时间</td>
-							<td>${resources.dateCreated}</td>
+							<td style="width:60px;">创建日期</td>
+							<td>${address.dateCreated}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">更新人</td>
-							<td>${resources.userUpdated}</td>
+							<td style="width:60px;">更新人(reference:user.id)(default:0)</td>
+							<td>${address.userUpdated}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">更新时间</td>
-							<td>${resources.lastUpdated}</td>
+							<td style="width:60px;">更新日期</td>
+							<td>${address.lastUpdated}</td>
 						</tr>
 					</tbody>
 				</table>
