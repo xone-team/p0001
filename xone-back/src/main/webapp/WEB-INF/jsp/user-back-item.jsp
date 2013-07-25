@@ -48,7 +48,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">申请时间</td>
-							<td>${user.dateApply}</td>
+							<td><fmt:formatDate value="${user.dateApply}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">审核人</td>
@@ -56,7 +56,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">审核时间</td>
-							<td>${user.dateCheck}</td>
+							<td><fmt:formatDate value="${user.dateCheck}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">删除标识</td>
@@ -68,7 +68,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">创建时间</td>
-							<td>${user.dateCreated}</td>
+							<td><fmt:formatDate value="${user.dateCreated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新人</td>
@@ -76,7 +76,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">更新时间</td>
-							<td>${user.lastUpdated}</td>
+							<td><fmt:formatDate value="${user.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">昵称</td>
@@ -117,4 +117,9 @@
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</body>
+	<script>
+	 jQuery(function(){
+	     jQuery("#X_menu_li_user").addClass("active");
+	 });
+	</script>
 </html>

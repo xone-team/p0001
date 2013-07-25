@@ -28,7 +28,7 @@
 						<li class="active">user编辑</li>
 					</ul>
 				</div>
-				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/admin/userUpdate.html">
+				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/user/userUpdate.html">
 					<div class="control-group">
 						<label class="control-label" for="id">用户编号</label>
 						<div class="controls">
@@ -56,7 +56,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateApply">申请时间</label>
 						<div class="controls">
-							<input type="text" id="dateApply" name="user.dateApply" value="${user.dateApply}" maxlength="19" placeholder="申请时间">
+							<input type="text" id="dateApply" name="user.dateApply" value="<fmt:formatDate value="${user.dateApply}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="申请时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -68,7 +68,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateCheck">审核时间</label>
 						<div class="controls">
-							<input type="text" id="dateCheck" name="user.dateCheck" value="${user.dateCheck}" maxlength="19" placeholder="审核时间">
+							<input type="text" id="dateCheck" name="user.dateCheck" value="<fmt:formatDate value="${user.dateCheck}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="审核时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -86,7 +86,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateCreated">创建时间</label>
 						<div class="controls">
-							<input type="text" id="dateCreated" name="user.dateCreated" value="${user.dateCreated}" maxlength="19" placeholder="创建时间">
+							<input type="text" id="dateCreated" name="user.dateCreated" value="<fmt:formatDate value="${user.dateCreated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -98,7 +98,7 @@
 					<div class="control-group">
 						<label class="control-label" for="lastUpdated">更新时间</label>
 						<div class="controls">
-							<input type="text" id="lastUpdated" name="user.lastUpdated" value="${user.lastUpdated}" maxlength="19" placeholder="更新时间">
+							<input type="text" id="lastUpdated" name="user.lastUpdated" value="<fmt:formatDate value="${user.lastUpdated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -152,7 +152,6 @@
 					<div class="control-group">
 						<div class="controls">
 							<button type="submit" name="update" value="update" class="btn">提交更新</button>
-							<button type="submit" name="delete" value="delete" class="btn">删除角色</button>
 						</div>
 					</div>
 				</form>
@@ -161,4 +160,9 @@
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</body>
+	<script>
+	 jQuery(function(){
+	     jQuery("#X_menu_li_user").addClass("active");
+	 });
+	</script>
 </html>

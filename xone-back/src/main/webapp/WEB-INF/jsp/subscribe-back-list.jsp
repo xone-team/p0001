@@ -19,7 +19,7 @@
 				</div>
 				<div class="span10" id="X_contentContainer">
 					<div class="row-fluid">
-						<ul class="breadcrumb" id="X_breadcrumbs_ul"><li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li><li class="active">Subscribe列表</li></ul>
+						<ul class="breadcrumb" id="X_breadcrumbs_ul"><li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li><li class="active">列表</li></ul>
 					</div>
 					<div class="accordion">
 						<div class="accordion-group">
@@ -28,12 +28,15 @@
 							</div>
 							<div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
 								<div class="accordion-inner">
+								<form id="myqueryform" action="${pageContext.request.contextPath}/subscribe/subscribeList.html" method="get">
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="id">编号</label>
+												<label class="control-label" for="idMin">编号</label>
 												<div class="controls">
-													<input type="text" id="id" name="subscribe.id" maxlength="20" placeholder="编号">
+													<input type="text" id="idMin" class="span5" name="subscribe.idMin"  value="${subscribe.idMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="idMax" class="span5" name="subscribe.idMax"  value="${subscribe.idMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -41,7 +44,7 @@
 											<div class="control-group">
 												<label class="control-label" for="marketarea">市场区域</label>
 												<div class="controls">
-													<input type="text" id="marketarea" name="subscribe.marketarea" maxlength="20" placeholder="市场区域">
+													<input type="text" id="marketarea" name="subscribe.marketarea"  value="${subscribe.marketarea}"  maxlength="20" placeholder="市场区域">
 												</div>
 											</div>
 										</div>
@@ -51,7 +54,7 @@
 											<div class="control-group">
 												<label class="control-label" for="productNameKey">产品名称</label>
 												<div class="controls">
-													<input type="text" id="productNameKey" name="subscribe.productNameKey" maxlength="20" placeholder="产品名称">
+													<input type="text" id="productNameKey" name="subscribe.productNameKey"  value="${subscribe.productNameKey}"  maxlength="20" placeholder="产品名称">
 												</div>
 											</div>
 										</div>
@@ -59,7 +62,7 @@
 											<div class="control-group">
 												<label class="control-label" for="saleType">销售类型</label>
 												<div class="controls">
-													<input type="text" id="saleType" name="subscribe.saleType" maxlength="2" placeholder="销售类型">
+													<input type="text" id="saleType" name="subscribe.saleType"  value="${subscribe.saleType}"  maxlength="2" placeholder="销售类型">
 												</div>
 											</div>
 										</div>
@@ -69,33 +72,17 @@
 											<div class="control-group">
 												<label class="control-label" for="credit">公司信誉</label>
 												<div class="controls">
-													<input type="text" id="credit" name="subscribe.credit" maxlength="2" placeholder="公司信誉">
+													<input type="text" id="credit" name="subscribe.credit"  value="${subscribe.credit}"  maxlength="2" placeholder="公司信誉">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="refId">相关编号</label>
+												<label class="control-label" for="refIdMin">相关编号</label>
 												<div class="controls">
-													<input type="text" id="refId" name="subscribe.refId" maxlength="20" placeholder="相关编号">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row-fluid">
-										<div class="span5 form-horizontal">
-											<div class="control-group">
-												<label class="control-label" for="userApply">申请人</label>
-												<div class="controls">
-													<input type="text" id="userApply" name="subscribe.userApply" maxlength="20" placeholder="申请人">
-												</div>
-											</div>
-										</div>
-										<div class="span5 form-horizontal">
-											<div class="control-group">
-												<label class="control-label" for="dateApply">申请时间</label>
-												<div class="controls">
-													<input type="text" id="dateApply" name="subscribe.dateApply" maxlength="19" placeholder="申请时间">
+													<input type="text" id="refIdMin" class="span5" name="subscribe.refIdMin"  value="${subscribe.refIdMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="refIdMax" class="span5" name="subscribe.refIdMax"  value="${subscribe.refIdMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -103,17 +90,43 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userCheck">审核人</label>
+												<label class="control-label" for="userApplyMin">申请人</label>
 												<div class="controls">
-													<input type="text" id="userCheck" name="subscribe.userCheck" maxlength="20" placeholder="审核人">
+													<input type="text" id="userApplyMin" class="span5" name="subscribe.userApplyMin"  value="${subscribe.userApplyMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userApplyMax" class="span5" name="subscribe.userApplyMax"  value="${subscribe.userApplyMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="dateCheck">审核时间</label>
+												<label class="control-label" for="dateApplyMin">申请时间</label>
 												<div class="controls">
-													<input type="text" id="dateCheck" name="subscribe.dateCheck" maxlength="19" placeholder="审核时间">
+													<input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="subscribe.dateApplyMin"  value="${subscribe.dateApplyMin}"  maxlength="19" placeholder="最小日期">
+													<span class="add-on">~</span>
+													<input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="subscribe.dateApplyMax"  value="${subscribe.dateApplyMax}"  maxlength="19" placeholder="最大日期">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="userCheckMin">审核人</label>
+												<div class="controls">
+													<input type="text" id="userCheckMin" class="span5" name="subscribe.userCheckMin"  value="${subscribe.userCheckMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userCheckMax" class="span5" name="subscribe.userCheckMax"  value="${subscribe.userCheckMax}"  maxlength="20" placeholder="最大值">
+												</div>
+											</div>
+										</div>
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="dateCheckMin">审核时间</label>
+												<div class="controls">
+													<input type="text" id="dateCheckMin" class="span5 Wdate" onclick="WdatePicker()" name="subscribe.dateCheckMin"  value="${subscribe.dateCheckMin}"  maxlength="19" placeholder="最小日期">
+													<span class="add-on">~</span>
+													<input type="text" id="dateCheckMax" class="span5 Wdate" onclick="WdatePicker()" name="subscribe.dateCheckMax"  value="${subscribe.dateCheckMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -123,15 +136,17 @@
 											<div class="control-group">
 												<label class="control-label" for="flagDeleted">删除标识</label>
 												<div class="controls">
-													<input type="text" id="flagDeleted" name="subscribe.flagDeleted" maxlength="1" placeholder="删除标识">
+													<input type="text" id="flagDeleted" name="subscribe.flagDeleted"  value="${subscribe.flagDeleted}"  maxlength="1" placeholder="删除标识">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userCreated">创建人</label>
+												<label class="control-label" for="userCreatedMin">创建人</label>
 												<div class="controls">
-													<input type="text" id="userCreated" name="subscribe.userCreated" maxlength="20" placeholder="创建人">
+													<input type="text" id="userCreatedMin" class="span5" name="subscribe.userCreatedMin"  value="${subscribe.userCreatedMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userCreatedMax" class="span5" name="subscribe.userCreatedMax"  value="${subscribe.userCreatedMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -139,17 +154,21 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="dateCreated">创建时间</label>
+												<label class="control-label" for="dateCreatedMin">创建时间</label>
 												<div class="controls">
-													<input type="text" id="dateCreated" name="subscribe.dateCreated" maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="subscribe.dateCreatedMin"  value="${subscribe.dateCreatedMin}"  maxlength="19" placeholder="最小日期">
+													<span class="add-on">~</span>
+													<input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="subscribe.dateCreatedMax"  value="${subscribe.dateCreatedMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userUpdated">更新人</label>
+												<label class="control-label" for="userUpdatedMin">更新人</label>
 												<div class="controls">
-													<input type="text" id="userUpdated" name="subscribe.userUpdated" maxlength="20" placeholder="更新人">
+													<input type="text" id="userUpdatedMin" class="span5" name="subscribe.userUpdatedMin"  value="${subscribe.userUpdatedMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userUpdatedMax" class="span5" name="subscribe.userUpdatedMax"  value="${subscribe.userUpdatedMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -157,13 +176,16 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="lastUpdated">更新时间</label>
+												<label class="control-label" for="lastUpdatedMin">更新时间</label>
 												<div class="controls">
-													<input type="text" id="lastUpdated" name="subscribe.lastUpdated" maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdatedMin" class="span5 Wdate" onclick="WdatePicker()" name="subscribe.lastUpdatedMin"  value="${subscribe.lastUpdatedMin}"  maxlength="19" placeholder="最小日期">
+													<span class="add-on">~</span>
+													<input type="text" id="lastUpdatedMax" class="span5 Wdate" onclick="WdatePicker()" name="subscribe.lastUpdatedMax"  value="${subscribe.lastUpdatedMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
 									</div>
+								</form>
 								</div>
 							</div>
 						</div>
@@ -171,7 +193,7 @@
 					<div class="row-fluid">
 						<p class="text-right">
 							<a class="btn btn-small" href="${pageContext.request.contextPath}/subscribe/subscribeCreate.html"> <iclass="icon-plus"></i>创建 </a>
-							<button class="btn btn-small">
+							<button class="btn btn-small" onclick="$('#myqueryform').submit();">
 								<span class="icon-search"></span>查询
 							</button>
 						</p>
@@ -194,6 +216,7 @@
 								<th>创建时间</th>
 								<th>更新人</th>
 								<th>更新时间</th>
+								<th>操作</th>
 							</thead>
 							<tbody>
 							<c:forEach var="item" items="${pagination.list}">
@@ -205,14 +228,14 @@
 								<td>${item.credit}</td>
 								<td>${item.refId}</td>
 								<td>${item.userApply}</td>
-								<td>${item.dateApply}</td>
+								<td><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.userCheck}</td>
-								<td>${item.dateCheck}</td>
+								<td><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.flagDeleted}</td>
 								<td>${item.userCreated}</td>
-								<td>${item.dateCreated}</td>
+								<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.userUpdated}</td>
-								<td>${item.lastUpdated}</td>
+								<td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 								<td>
 									<a href="${pageContext.request.contextPath}/subscribe/subscribeEdit.html?subscribe.id=${item.id}" class="btn btn-mini">编辑</a>
 									<a href="${pageContext.request.contextPath}/subscribe/subscribeItem.html?subscribe.id=${item.id}" class="btn btn-mini">详细</a>
@@ -228,4 +251,9 @@
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</body>
+	<script>
+	 jQuery(function(){
+	     jQuery("#X_menu_li_subscribe").addClass("active");
+	 });
+	</script>
 </html>

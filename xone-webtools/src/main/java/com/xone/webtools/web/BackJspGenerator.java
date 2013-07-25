@@ -32,7 +32,7 @@ public class BackJspGenerator extends BaseGenerator {
 			File file = null;
 			String jsp = page.replaceFirst("jsp", jspName).replaceFirst("\\.ftl", ".jsp");
 			if (null != path) {
-				file = new File(path + File.separator + "/xone-back/src/main/webapp/WEB-INF/jsp" + File.separator + jsp);
+				file = new File(path + File.separator + "/output/jsp" + File.separator + jsp);
 			}
 			generate(root, page, file);
 		}

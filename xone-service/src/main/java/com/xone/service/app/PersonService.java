@@ -8,12 +8,11 @@
  */
 package com.xone.service.app;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import com.xone.model.hibernate.app.PersonDao;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.support.Pagination;
 
 
 /**
@@ -27,22 +26,22 @@ import com.xone.model.hibernate.entity.Person;
 
 public interface PersonService {
 	
-	public List<Person> findAllByPerson(Person person);
-	
-	public Person save(Person p);
+    public Person save(Person entity);
     
-    public Person update(Person p);
+    public Person update(Person entity);
+
+    public Person findById(Long id);
     
-    public Person saveOrUpdate(Person p);
-	
-	public Person findByMap(Map<String, String> params);
-	
-	public Person findById(Serializable id);
-	
-	public void deleteById(Serializable id);
-	
-	public List<Person> findAll();
-	
-	public List<Person> findHql(String hql, List<?> params);
+    public void delete(Person entity);
+    
+    public List<Person> findAllByMap(Map<String, String> params);
+    
+    public Person findByMap(Map<String, String> params);
+
+    public Pagination findByParams(Map<String, String> params);
+    
+    public List<Person> findAllByPerson(Person person);
+
+    List<Person> findAll();
 	
 }

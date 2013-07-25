@@ -84,7 +84,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">申请时间</td>
-							<td>${delivery.dateApply}</td>
+							<td><fmt:formatDate value="${delivery.dateApply}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">审核人</td>
@@ -92,7 +92,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">审核时间</td>
-							<td>${delivery.dateCheck}</td>
+							<td><fmt:formatDate value="${delivery.dateCheck}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">删除标识</td>
@@ -104,7 +104,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">创建时间</td>
-							<td>${delivery.dateCreated}</td>
+							<td><fmt:formatDate value="${delivery.dateCreated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新人</td>
@@ -112,7 +112,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">更新时间</td>
-							<td>${delivery.lastUpdated}</td>
+							<td><fmt:formatDate value="${delivery.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 					</tbody>
 				</table>
@@ -121,4 +121,9 @@
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</body>
+	<script>
+	 jQuery(function(){
+	     jQuery("#X_menu_li_delivery").addClass("active");
+	 });
+	</script>
 </html>

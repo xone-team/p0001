@@ -22,7 +22,15 @@ import com.xone.action.utils.A;
 
 public class TestA extends TestCase {
 	Log log = LogFactory.getLog(getClass());
-	public void test4(){
+	public void test5(){
+	    String comments="所在地(reference:address.id)";
+        int kuohaoIndex = comments.indexOf("(");
+        if(kuohaoIndex > -1){
+            comments = comments.substring(0, kuohaoIndex);
+        }
+        System.out.println(comments);
+	}
+	public void b_test4(){
 	    PersonQuery q = new PersonQuery();
 	    q.setEmail("vi");
         List queryConditions = new ArrayList();

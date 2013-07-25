@@ -9,6 +9,7 @@
 			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 				<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 			</button>
+<!-- 				<a class="brand" href="#">恒鑫软件</a> -->
 			<div class="nav-collapse collapse navbar">
 				<ul class="nav">
 					<li class="<c:if test="${param.offset == '1'}">active</c:if> mynav"><a href="${pageContext.request.contextPath}/index.html">首页</a></li>
@@ -17,19 +18,19 @@
 					<li class="<c:if test="${param.offset == '4'}">active</c:if> mynav"><a href="${pageContext.request.contextPath}/about.html">关于</a></li>
 					<c:choose>
 					<c:when test="${not empty userMap}">
-					<li class="<c:if test="${param.offset == '5'}">active</c:if> dropdown mynav">
-						<a href="${pageContext.request.contextPath}/admin/welcome.html" data-toggle="dropdown">用户中心 <b class="caret"></b></a>
-						<ul class="dropdown-menu" style="text-align:left;">
-							<li><a href="">Action</a></li>
-							<li><a href="#">Another action</a></li>
-							<li><a href="#">Something else here</a></li>
-							<li class="divider"></li>
-							<li class="nav-header">Nav header</li>
-							<li><a href="${pageContext.request.contextPath}/admin/welcome.html">用户中心</a></li>
-							<li><a href="#">用户名：${username}</a></li>
-							<li><a href="<c:url value="/j_spring_security_logout"/>" style="margin-left:5px;">退出登录</a></li>
-						</ul>
-					</li>
+						<li class="<c:if test="${param.offset == '5'}">active</c:if> dropdown mynav">
+							<a href="${pageContext.request.contextPath}/admin/welcome.html" class="dropdown-toggle" data-toggle="dropdown">用户中心 <b class="caret"></b></a>
+							<ul class="dropdown-menu" style="text-align:left;">
+								<li><a href="">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+								<li class="divider"></li>
+								<li class="nav-header">Nav header</li>
+								<li><a href="${pageContext.request.contextPath}/admin/welcome.html">用户中心</a></li>
+								<li><a href="#">用户名：${username}</a></li>
+								<li><a href="<c:url value="/j_spring_security_logout"/>" style="margin-left:5px;">退出登录</a></li>
+							</ul>
+						</li>
 					</c:when>
 					<c:otherwise>
 					<li class="dropdown mynav">

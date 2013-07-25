@@ -61,7 +61,7 @@
 						<div class="control-group">
 							<label class="control-label" for="dateCreated">创建时间</label>
 							<div class="controls">
-								<input type="text" id="dateCreated" name="imageUploaded.dateCreated" maxlength="19" placeholder="创建时间">
+								<input type="text" id="dateCreated" name="imageUploaded.dateCreated" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -73,7 +73,7 @@
 						<div class="control-group">
 							<label class="control-label" for="lastUpdated">更新时间</label>
 							<div class="controls">
-								<input type="text" id="lastUpdated" name="imageUploaded.lastUpdated" maxlength="19" placeholder="更新时间">
+								<input type="text" id="lastUpdated" name="imageUploaded.lastUpdated" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -99,4 +99,9 @@
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</body>
+	<script>
+	 jQuery(function(){
+	     jQuery("#X_menu_li_imageuploaded").addClass("active");
+	 });
+	</script>
 </html>

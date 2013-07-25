@@ -13,9 +13,9 @@
 			class="accordion-body in collapse" style="height: auto;">
 			<div class="accordion-inner">
 				<ul class="nav nav-list" id="X_menu_ul_personManagement">
-					<li id="X_menu_li_person" class="active"><a href="index.html">用户</a></li>
-					<li id="X_menu_li_role"><a href="${pageContext.request.contextPath}/roles/rolesList.html">角色</a></li>
-					<li id="X_menu_li_resource"><a href="${pageContext.request.contextPath}/resources/resourcesList.html">资源</a></li>
+					<li id="X_menu_li_person"><a href="${pageContext.request.contextPath}/person/personList.html">用户</a></li>
+					<li id="X_menu_li_roles"><a href="${pageContext.request.contextPath}/roles/rolesList.html">角色</a></li>
+					<li id="X_menu_li_resources"><a href="${pageContext.request.contextPath}/resources/resourcesList.html">资源</a></li>
 				</ul>
 			</div>
 		</div>
@@ -29,19 +29,19 @@
 			class="accordion-body in collapse" style="height: auto;">
 			<div class="accordion-inner">
 				<ul class="nav nav-list" id="X_menu_ul_productManagement">
-					<li id="X_menu_li_product"><a href="product-list.html">产品</a></li>
-					<li id="X_menu_li_want"><a href="want-list.html">求购</a></li>
-					<li id="X_menu_li_category"><a href="category-list.html">分类</a></li>
-					<li id="X_menu_li_top"><a href="top-list.html">置顶</a></li>
+					<li id="X_menu_li_product"><a href="${pageContext.request.contextPath}/product/productList.html">产品</a></li>
+					<li id="X_menu_li_purchase"><a href="${pageContext.request.contextPath}/purchase/purchaseList.html">求购</a></li>
+					<li id="X_menu_li_category"><a href="${pageContext.request.contextPath}/category/categoryList.html">分类</a></li>
+					<li id="X_menu_li_topad"><a href="${pageContext.request.contextPath}/topad/topadList.html">置顶</a></li>
 					<li id="X_menu_li_bill"><a href="${pageContext.request.contextPath}/adbanner/adbannerList.html">广告</a></li>
-					<li id="X_menu_li_delivery"><a href="delivery-list.html">物流</a></li>
+					<li id="X_menu_li_delivery"><a href="${pageContext.request.contextPath}/delivery/deliveryList.html">物流</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 	<div>
 		<ul class="nav nav-list">
-			<li id="X_menu_li_config"><a href="config-list.html">系统设置</a></li>
+			<li id="X_menu_li_config"><a href="${pageContext.request.contextPath}/config/configList.html">系统设置</a></li>
 		</ul>
 	</div>
 </div>

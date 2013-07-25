@@ -11,6 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class DatabaseTableInfo {
 	
 	protected String driver;
@@ -107,7 +109,17 @@ public class DatabaseTableInfo {
 			map.put("columnTypeName", columnTypeName);
 			map.put("columnName", columnName);
 			map.put("columnDisplaySize", String.valueOf(columnDisplaySize));
-			map.put("columnComments", columnInfo.get(columnName.toUpperCase()));
+			// fix bug comments too long
+			String comments = columnInfo.get(columnName.toUpperCase());
+			if(!StringUtils.isBlank(comments)){
+			    int kuohaoIndex = comments.indexOf("(");
+			    if(kuohaoIndex > -1){
+			        comments = comments.substring(0, kuohaoIndex);
+			    }
+			}else{
+			    comments = "";
+			}
+			map.put("columnComments", comments);
 			if (resultSetMetaData.isAutoIncrement(i + 1)) {
 				map.put("autoIncrement", "1");
 			} else {

@@ -109,7 +109,7 @@
 						<div class="control-group">
 							<label class="control-label" for="dateApply">申请时间</label>
 							<div class="controls">
-								<input type="text" id="dateApply" name="delivery.dateApply" maxlength="19" placeholder="申请时间">
+								<input type="text" id="dateApply" name="delivery.dateApply" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="申请时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -121,7 +121,7 @@
 						<div class="control-group">
 							<label class="control-label" for="dateCheck">审核时间</label>
 							<div class="controls">
-								<input type="text" id="dateCheck" name="delivery.dateCheck" maxlength="19" placeholder="审核时间">
+								<input type="text" id="dateCheck" name="delivery.dateCheck" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="审核时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -139,7 +139,7 @@
 						<div class="control-group">
 							<label class="control-label" for="dateCreated">创建时间</label>
 							<div class="controls">
-								<input type="text" id="dateCreated" name="delivery.dateCreated" maxlength="19" placeholder="创建时间">
+								<input type="text" id="dateCreated" name="delivery.dateCreated" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -151,7 +151,7 @@
 						<div class="control-group">
 							<label class="control-label" for="lastUpdated">更新时间</label>
 							<div class="controls">
-								<input type="text" id="lastUpdated" name="delivery.lastUpdated" maxlength="19" placeholder="更新时间">
+								<input type="text" id="lastUpdated" name="delivery.lastUpdated" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -165,4 +165,9 @@
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</body>
+	<script>
+	 jQuery(function(){
+	     jQuery("#X_menu_li_delivery").addClass("active");
+	 });
+	</script>
 </html>

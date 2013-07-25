@@ -67,7 +67,7 @@
 						<div class="control-group">
 							<label class="control-label" for="productValid">有效期</label>
 							<div class="controls">
-								<input type="text" id="productValid" name="product.productValid" maxlength="19" placeholder="有效期">
+								<input type="text" id="productValid" name="product.productValid" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="有效期">
 							</div>
 						</div>
 						<div class="control-group">
@@ -103,7 +103,7 @@
 						<div class="control-group">
 							<label class="control-label" for="dateApply">申请时间</label>
 							<div class="controls">
-								<input type="text" id="dateApply" name="product.dateApply" maxlength="19" placeholder="申请时间">
+								<input type="text" id="dateApply" name="product.dateApply" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="申请时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -115,7 +115,7 @@
 						<div class="control-group">
 							<label class="control-label" for="dateCheck">审核时间</label>
 							<div class="controls">
-								<input type="text" id="dateCheck" name="product.dateCheck" maxlength="19" placeholder="审核时间">
+								<input type="text" id="dateCheck" name="product.dateCheck" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="审核时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -127,7 +127,7 @@
 						<div class="control-group">
 							<label class="control-label" for="dateCreated">创建时间</label>
 							<div class="controls">
-								<input type="text" id="dateCreated" name="product.dateCreated" maxlength="19" placeholder="创建时间">
+								<input type="text" id="dateCreated" name="product.dateCreated" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -139,7 +139,7 @@
 						<div class="control-group">
 							<label class="control-label" for="lastUpdated">更新时间</label>
 							<div class="controls">
-								<input type="text" id="lastUpdated" name="product.lastUpdated" maxlength="19" placeholder="更新时间">
+								<input type="text" id="lastUpdated" name="product.lastUpdated" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -153,4 +153,9 @@
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</body>
+	<script>
+	 jQuery(function(){
+	     jQuery("#X_menu_li_product").addClass("active");
+	 });
+	</script>
 </html>

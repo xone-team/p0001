@@ -19,7 +19,7 @@
 				</div>
 				<div class="span10" id="X_contentContainer">
 					<div class="row-fluid">
-						<ul class="breadcrumb" id="X_breadcrumbs_ul"><li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li><li class="active">${tableName}列表</li></ul>
+						<ul class="breadcrumb" id="X_breadcrumbs_ul"><li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li><li class="active">列表</li></ul>
 					</div>
 					<div class="accordion">
 						<div class="accordion-group">
@@ -28,16 +28,43 @@
 							</div>
 							<div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
 								<div class="accordion-inner">
+								<form id="myqueryform" action="${r"${pageContext.request.contextPath}"}/${packageName}/${tableVarName}List.html" method="get">
 								<#list tableProperties as p>
 									<#if p_index % 2 == 0 >
 									<div class="row-fluid">
 									</#if>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
+												<#if p.columnClassName == "java.lang.String">
 												<label class="control-label" for="${p.javaVarName}">${p.columnComments}</label>
 												<div class="controls">
-													<input type="text" id="${p.javaVarName}" name="${tableVarName}.${p.javaVarName}" maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
+													<input type="text" id="${p.javaVarName}" name="${tableVarName}.${p.javaVarName}"  value="${"$"}{${tableVarName}.${p.javaVarName}}"  maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
 												</div>
+												</#if>
+												<#if p.columnClassName == "java.lang.Long">
+												<label class="control-label" for="${p.javaVarName}Min">${p.columnComments}</label>
+												<div class="controls">
+													<input type="text" id="${p.javaVarName}Min" class="span5" name="${tableVarName}.${p.javaVarName}Min"  value="${"$"}{${tableVarName}.${p.javaVarName}Min}"  maxlength="${p.columnDisplaySize}" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="${p.javaVarName}Max" class="span5" name="${tableVarName}.${p.javaVarName}Max"  value="${"$"}{${tableVarName}.${p.javaVarName}Max}"  maxlength="${p.columnDisplaySize}" placeholder="最大值">
+												</div>
+												</#if>
+												<#if p.columnClassName == "java.lang.Integer">
+												<label class="control-label" for="${p.javaVarName}Min">${p.columnComments}</label>
+												<div class="controls">
+													<input type="text" id="${p.javaVarName}Min" class="span5" name="${tableVarName}.${p.javaVarName}Min"  value="${"$"}{${tableVarName}.${p.javaVarName}Min}"  maxlength="${p.columnDisplaySize}" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="${p.javaVarName}Max" class="span5" name="${tableVarName}.${p.javaVarName}Max"  value="${"$"}{${tableVarName}.${p.javaVarName}Max}"  maxlength="${p.columnDisplaySize}" placeholder="最大值">
+												</div>
+												</#if>
+												<#if p.columnClassName == "java.util.Date">
+												<label class="control-label" for="${p.javaVarName}Min">${p.columnComments}</label>
+												<div class="controls">
+													<input type="text" id="${p.javaVarName}Min" class="span5 Wdate" onclick="WdatePicker()" name="${tableVarName}.${p.javaVarName}Min"  value="${"$"}{${tableVarName}.${p.javaVarName}Min}"  maxlength="${p.columnDisplaySize}" placeholder="最小日期">
+													<span class="add-on">~</span>
+													<input type="text" id="${p.javaVarName}Max" class="span5 Wdate" onclick="WdatePicker()" name="${tableVarName}.${p.javaVarName}Max"  value="${"$"}{${tableVarName}.${p.javaVarName}Max}"  maxlength="${p.columnDisplaySize}" placeholder="最大日期">
+												</div>
+												</#if>
 											</div>
 										</div>
 									<#if p_index % 2 == 1 && (p_has_next)>
@@ -47,6 +74,7 @@
 									</div>
 									</#if>
 								</#list>
+								</form>
 								</div>
 							</div>
 						</div>
@@ -54,7 +82,7 @@
 					<div class="row-fluid">
 						<p class="text-right">
 							<a class="btn btn-small" href="${r"${pageContext.request.contextPath}"}/${packageName}/${tableVarName}Create.html"> <iclass="icon-plus"></i>创建 </a>
-							<button class="btn btn-small">
+							<button class="btn btn-small" onclick="$('#myqueryform').submit();">
 								<span class="icon-search"></span>查询
 							</button>
 						</p>
@@ -65,12 +93,17 @@
 							<#list tableProperties as p>
 								<th>${p.columnComments}</th>
 							</#list>
+								<th>操作</th>
 							</thead>
 							<tbody>
 							<c:forEach var="item" items="${r"${pagination.list}"}">
 							<tr>
 							<#list tableProperties as p>
+								<#if p.columnClassName == "java.util.Date">
+								<td><fmt:formatDate value="${r"${"}item.${p.javaVarName}}" pattern="yyyy-MM-dd"/></td>
+								<#else>
 								<td>${r"${"}item.${p.javaVarName}}</td>
+								</#if>
 							</#list>
 								<td>
 									<a href="${r"${pageContext.request.contextPath}"}/${packageName}/${tableVarName}Edit.html?${tableVarName}.id=${r"${item.id}"}" class="btn btn-mini">编辑</a>
@@ -87,4 +120,9 @@
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</body>
+	<script>
+	 jQuery(function(){
+	     jQuery("#X_menu_li_${packageName}").addClass("active");
+	 });
+	</script>
 </html>
