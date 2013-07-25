@@ -64,7 +64,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">创建时间</td>
-							<td>${resources.dateCreated}</td>
+							<td><fmt:formatDate value="${resources.dateCreated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新人</td>
@@ -72,7 +72,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">更新时间</td>
-							<td>${resources.lastUpdated}</td>
+							<td><fmt:formatDate value="${resources.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 					</tbody>
 				</table>

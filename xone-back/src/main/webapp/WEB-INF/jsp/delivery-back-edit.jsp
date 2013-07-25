@@ -28,7 +28,7 @@
 						<li class="active">delivery编辑</li>
 					</ul>
 				</div>
-				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/admin/deliveryUpdate.html">
+				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/delivery/deliveryUpdate.html">
 					<div class="control-group">
 						<label class="control-label" for="id">编号</label>
 						<div class="controls">
@@ -110,7 +110,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateApply">申请时间</label>
 						<div class="controls">
-							<input type="text" id="dateApply" name="delivery.dateApply" value="${delivery.dateApply}" maxlength="19" placeholder="申请时间">
+							<input type="text" id="dateApply" name="delivery.dateApply" value="<fmt:formatDate value="${delivery.dateApply}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="申请时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -122,7 +122,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateCheck">审核时间</label>
 						<div class="controls">
-							<input type="text" id="dateCheck" name="delivery.dateCheck" value="${delivery.dateCheck}" maxlength="19" placeholder="审核时间">
+							<input type="text" id="dateCheck" name="delivery.dateCheck" value="<fmt:formatDate value="${delivery.dateCheck}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="审核时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -140,7 +140,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateCreated">创建时间</label>
 						<div class="controls">
-							<input type="text" id="dateCreated" name="delivery.dateCreated" value="${delivery.dateCreated}" maxlength="19" placeholder="创建时间">
+							<input type="text" id="dateCreated" name="delivery.dateCreated" value="<fmt:formatDate value="${delivery.dateCreated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -152,13 +152,12 @@
 					<div class="control-group">
 						<label class="control-label" for="lastUpdated">更新时间</label>
 						<div class="controls">
-							<input type="text" id="lastUpdated" name="delivery.lastUpdated" value="${delivery.lastUpdated}" maxlength="19" placeholder="更新时间">
+							<input type="text" id="lastUpdated" name="delivery.lastUpdated" value="<fmt:formatDate value="${delivery.lastUpdated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
 						</div>
 					</div>
 					<div class="control-group">
 						<div class="controls">
 							<button type="submit" name="update" value="update" class="btn">提交更新</button>
-							<button type="submit" name="delete" value="delete" class="btn">删除角色</button>
 						</div>
 					</div>
 				</form>

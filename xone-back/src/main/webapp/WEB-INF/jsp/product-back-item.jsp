@@ -56,7 +56,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">有效期</td>
-							<td>${product.productValid}</td>
+							<td><fmt:formatDate value="${product.productValid}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">产品产地</td>
@@ -80,7 +80,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">申请时间</td>
-							<td>${product.dateApply}</td>
+							<td><fmt:formatDate value="${product.dateApply}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">审核人</td>
@@ -88,7 +88,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">审核时间</td>
-							<td>${product.dateCheck}</td>
+							<td><fmt:formatDate value="${product.dateCheck}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">创建人</td>
@@ -96,7 +96,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">创建时间</td>
-							<td>${product.dateCreated}</td>
+							<td><fmt:formatDate value="${product.dateCreated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新人</td>
@@ -104,7 +104,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">更新时间</td>
-							<td>${product.lastUpdated}</td>
+							<td><fmt:formatDate value="${product.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 					</tbody>
 				</table>

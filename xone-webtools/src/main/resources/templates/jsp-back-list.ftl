@@ -42,17 +42,27 @@
 												</div>
 												</#if>
 												<#if p.columnClassName == "java.lang.Long">
-												<label class="control-label" for="${p.javaVarName}">${p.columnComments}</label>
+												<label class="control-label" for="${p.javaVarName}Min">${p.columnComments}</label>
 												<div class="controls">
-													<input type="text" id="${p.javaVarName}" name="${tableVarName}.${p.javaVarName}"  value="${"$"}{${tableVarName}.${p.javaVarName}}"  maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
+													<input type="text" id="${p.javaVarName}Min" class="span5" name="${tableVarName}.${p.javaVarName}Min"  value="${"$"}{${tableVarName}.${p.javaVarName}Min}"  maxlength="${p.columnDisplaySize}" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="${p.javaVarName}Max" class="span5" name="${tableVarName}.${p.javaVarName}Max"  value="${"$"}{${tableVarName}.${p.javaVarName}Max}"  maxlength="${p.columnDisplaySize}" placeholder="最大值">
+												</div>
+												</#if>
+												<#if p.columnClassName == "java.lang.Integer">
+												<label class="control-label" for="${p.javaVarName}Min">${p.columnComments}</label>
+												<div class="controls">
+													<input type="text" id="${p.javaVarName}Min" class="span5" name="${tableVarName}.${p.javaVarName}Min"  value="${"$"}{${tableVarName}.${p.javaVarName}Min}"  maxlength="${p.columnDisplaySize}" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="${p.javaVarName}Max" class="span5" name="${tableVarName}.${p.javaVarName}Max"  value="${"$"}{${tableVarName}.${p.javaVarName}Max}"  maxlength="${p.columnDisplaySize}" placeholder="最大值">
 												</div>
 												</#if>
 												<#if p.columnClassName == "java.util.Date">
 												<label class="control-label" for="${p.javaVarName}Min">${p.columnComments}</label>
 												<div class="controls">
-													<input type="text" id="${p.javaVarName}Min" class="span5 Wdate" onclick="WdatePicker()" name="${tableVarName}.${p.javaVarName}Min"  value="${"$"}{${tableVarName}.${p.javaVarName}Min}"  maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
+													<input type="text" id="${p.javaVarName}Min" class="span5 Wdate" onclick="WdatePicker()" name="${tableVarName}.${p.javaVarName}Min"  value="${"$"}{${tableVarName}.${p.javaVarName}Min}"  maxlength="${p.columnDisplaySize}" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="${p.javaVarName}Max" class="span5 Wdate" onclick="WdatePicker()" name="${tableVarName}.${p.javaVarName}Max"  value="${"$"}{${tableVarName}.${p.javaVarName}Max}"  maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
+													<input type="text" id="${p.javaVarName}Max" class="span5 Wdate" onclick="WdatePicker()" name="${tableVarName}.${p.javaVarName}Max"  value="${"$"}{${tableVarName}.${p.javaVarName}Max}"  maxlength="${p.columnDisplaySize}" placeholder="最大日期">
 												</div>
 												</#if>
 											</div>
@@ -83,12 +93,17 @@
 							<#list tableProperties as p>
 								<th>${p.columnComments}</th>
 							</#list>
+								<th>操作</th>
 							</thead>
 							<tbody>
 							<c:forEach var="item" items="${r"${pagination.list}"}">
 							<tr>
 							<#list tableProperties as p>
+								<#if p.columnClassName == "java.util.Date">
+								<td><fmt:formatDate value="${r"${"}item.${p.javaVarName}}" pattern="yyyy-MM-dd"/></td>
+								<#else>
 								<td>${r"${"}item.${p.javaVarName}}</td>
+								</#if>
 							</#list>
 								<td>
 									<a href="${r"${pageContext.request.contextPath}"}/${packageName}/${tableVarName}Edit.html?${tableVarName}.id=${r"${item.id}"}" class="btn btn-mini">编辑</a>

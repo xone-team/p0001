@@ -11,6 +11,14 @@ public class ${tableName} implements Serializable {
 
 // business logic
 <#list tableProperties as p>
+	<#if p.columnClassName == "java.lang.Integer">
+	protected Integer ${p.javaVarName}Min;
+	protected Integer ${p.javaVarName}Max;
+	</#if>
+	<#if p.columnClassName == "java.lang.Long">
+	protected Long ${p.javaVarName}Min;
+	protected Long ${p.javaVarName}Max;
+	</#if>
 	<#if p.columnClassName == "java.util.Date">
 	protected String ${p.javaVarName}Min;
 	protected String ${p.javaVarName}Max;
@@ -26,20 +34,6 @@ public class ${tableName} implements Serializable {
 	}
 </#list>
 
-// business logic
-<#list tableProperties as p>
-	public ${p.className} get${p.javaName}Min() {
-		return ${p.javaVarName}Min;
-	}
-	public void set${p.javaName}Min(${p.className} ${p.javaVarName}Min) {
-		this.${p.javaVarName}Min = ${p.javaVarName}Min;
-	}
-	public ${p.className} get${p.javaName}Max() {
-		return ${p.javaVarName}Max;
-	}
-	public void set${p.javaName}Max(${p.className} ${p.javaVarName}Max) {
-		this.${p.javaVarName}Max = ${p.javaVarName}Max;
-	}
-</#list>
+
 	
 }

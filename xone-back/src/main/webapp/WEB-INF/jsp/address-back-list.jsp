@@ -32,17 +32,19 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="id">主键</label>
+												<label class="control-label" for="idMin">主键</label>
 												<div class="controls">
-													<input type="text" id="id" name="address.id"  value="${address.id}"  maxlength="20" placeholder="主键">
+													<input type="text" id="idMin" class="span5" name="address.idMin"  value="${address.idMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="idMax" class="span5" name="address.idMax"  value="${address.idMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="provinceCode">省份编码(reference:province.code)</label>
+												<label class="control-label" for="provinceCode">省份编码</label>
 												<div class="controls">
-													<input type="text" id="provinceCode" name="address.provinceCode"  value="${address.provinceCode}"  maxlength="20" placeholder="省份编码(reference:province.code)">
+													<input type="text" id="provinceCode" name="address.provinceCode"  value="${address.provinceCode}"  maxlength="20" placeholder="省份编码">
 												</div>
 											</div>
 										</div>
@@ -50,17 +52,17 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="cityCode">城市编码(reference:city.code)</label>
+												<label class="control-label" for="cityCode">城市编码</label>
 												<div class="controls">
-													<input type="text" id="cityCode" name="address.cityCode"  value="${address.cityCode}"  maxlength="20" placeholder="城市编码(reference:city.code)">
+													<input type="text" id="cityCode" name="address.cityCode"  value="${address.cityCode}"  maxlength="20" placeholder="城市编码">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="districtCode">区县编码(reference:district.code)</label>
+												<label class="control-label" for="districtCode">区县编码</label>
 												<div class="controls">
-													<input type="text" id="districtCode" name="address.districtCode"  value="${address.districtCode}"  maxlength="20" placeholder="区县编码(reference:district.code)">
+													<input type="text" id="districtCode" name="address.districtCode"  value="${address.districtCode}"  maxlength="20" placeholder="区县编码">
 												</div>
 											</div>
 										</div>
@@ -86,17 +88,19 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="flagDeleted">是否被删除了(dict:yn)(0,否,1,是)(default:0)</label>
+												<label class="control-label" for="flagDeleted">是否被删除了</label>
 												<div class="controls">
-													<input type="text" id="flagDeleted" name="address.flagDeleted"  value="${address.flagDeleted}"  maxlength="1" placeholder="是否被删除了(dict:yn)(0,否,1,是)(default:0)">
+													<input type="text" id="flagDeleted" name="address.flagDeleted"  value="${address.flagDeleted}"  maxlength="1" placeholder="是否被删除了">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userCreated">创建人(reference:user.id)(default:0)</label>
+												<label class="control-label" for="userCreatedMin">创建人</label>
 												<div class="controls">
-													<input type="text" id="userCreated" name="address.userCreated"  value="${address.userCreated}"  maxlength="20" placeholder="创建人(reference:user.id)(default:0)">
+													<input type="text" id="userCreatedMin" class="span5" name="address.userCreatedMin"  value="${address.userCreatedMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userCreatedMax" class="span5" name="address.userCreatedMax"  value="${address.userCreatedMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -106,17 +110,19 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCreatedMin">创建日期</label>
 												<div class="controls">
-													<input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="address.dateCreatedMin"  value="${address.dateCreatedMin}"  maxlength="19" placeholder="创建日期">
+													<input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="address.dateCreatedMin"  value="${address.dateCreatedMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="address.dateCreatedMax"  value="${address.dateCreatedMax}"  maxlength="19" placeholder="创建日期">
+													<input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="address.dateCreatedMax"  value="${address.dateCreatedMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userUpdated">更新人(reference:user.id)(default:0)</label>
+												<label class="control-label" for="userUpdatedMin">更新人</label>
 												<div class="controls">
-													<input type="text" id="userUpdated" name="address.userUpdated"  value="${address.userUpdated}"  maxlength="20" placeholder="更新人(reference:user.id)(default:0)">
+													<input type="text" id="userUpdatedMin" class="span5" name="address.userUpdatedMin"  value="${address.userUpdatedMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userUpdatedMax" class="span5" name="address.userUpdatedMax"  value="${address.userUpdatedMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -126,9 +132,9 @@
 											<div class="control-group">
 												<label class="control-label" for="lastUpdatedMin">更新日期</label>
 												<div class="controls">
-													<input type="text" id="lastUpdatedMin" class="span5 Wdate" onclick="WdatePicker()" name="address.lastUpdatedMin"  value="${address.lastUpdatedMin}"  maxlength="19" placeholder="更新日期">
+													<input type="text" id="lastUpdatedMin" class="span5 Wdate" onclick="WdatePicker()" name="address.lastUpdatedMin"  value="${address.lastUpdatedMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="lastUpdatedMax" class="span5 Wdate" onclick="WdatePicker()" name="address.lastUpdatedMax"  value="${address.lastUpdatedMax}"  maxlength="19" placeholder="更新日期">
+													<input type="text" id="lastUpdatedMax" class="span5 Wdate" onclick="WdatePicker()" name="address.lastUpdatedMax"  value="${address.lastUpdatedMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -150,15 +156,15 @@
 						<table class="table table-bordered" style="width:100%">
 							<thead>
 								<th>主键</th>
-								<th>省份编码(reference:province.code)</th>
-								<th>城市编码(reference:city.code)</th>
-								<th>区县编码(reference:district.code)</th>
+								<th>省份编码</th>
+								<th>城市编码</th>
+								<th>区县编码</th>
 								<th>详细地址</th>
 								<th>邮编</th>
-								<th>是否被删除了(dict:yn)(0,否,1,是)(default:0)</th>
-								<th>创建人(reference:user.id)(default:0)</th>
+								<th>是否被删除了</th>
+								<th>创建人</th>
 								<th>创建日期</th>
-								<th>更新人(reference:user.id)(default:0)</th>
+								<th>更新人</th>
 								<th>更新日期</th>
 							</thead>
 							<tbody>
@@ -172,9 +178,9 @@
 								<td>${item.zip}</td>
 								<td>${item.flagDeleted}</td>
 								<td>${item.userCreated}</td>
-								<td>${item.dateCreated}</td>
+								<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.userUpdated}</td>
-								<td>${item.lastUpdated}</td>
+								<td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 								<td>
 									<a href="${pageContext.request.contextPath}/address/addressEdit.html?address.id=${item.id}" class="btn btn-mini">编辑</a>
 									<a href="${pageContext.request.contextPath}/address/addressItem.html?address.id=${item.id}" class="btn btn-mini">详细</a>

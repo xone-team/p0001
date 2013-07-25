@@ -179,10 +179,18 @@ public class ProductServiceImpl implements ProductService {
 		return getProductDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
 	}
 	
-	protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params){
+    protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params){
         String id = params.get("id");
         if (!StringUtils.isBlank(id)) {
             criteria.add(Restrictions.eq("id", Long.parseLong(id)));
+        }
+        String idMin = params.get("idMin");
+        if (!StringUtils.isBlank(idMin)) {
+            criteria.add(Restrictions.ge("id", Long.parseLong(idMin)));
+        }
+        String idMax = params.get("idMax");
+        if (!StringUtils.isBlank(idMax)) {
+            criteria.add(Restrictions.le("id", Long.parseLong(idMax)));
         }
         String productName = params.get("productName");
         if (!StringUtils.isBlank(productName)) {
@@ -240,6 +248,14 @@ public class ProductServiceImpl implements ProductService {
         if (!StringUtils.isBlank(userApply)) {
             criteria.add(Restrictions.eq("userApply", Long.parseLong(userApply)));
         }
+        String userApplyMin = params.get("userApplyMin");
+        if (!StringUtils.isBlank(userApplyMin)) {
+            criteria.add(Restrictions.ge("userApply", Long.parseLong(userApplyMin)));
+        }
+        String userApplyMax = params.get("userApplyMax");
+        if (!StringUtils.isBlank(userApplyMax)) {
+            criteria.add(Restrictions.le("userApply", Long.parseLong(userApplyMax)));
+        }
         String dateApplyMin = params.get("dateApplyMin");
         if (!StringUtils.isBlank(dateApplyMin)) {
             try {
@@ -259,6 +275,14 @@ public class ProductServiceImpl implements ProductService {
         String userCheck = params.get("userCheck");
         if (!StringUtils.isBlank(userCheck)) {
             criteria.add(Restrictions.eq("userCheck", Long.parseLong(userCheck)));
+        }
+        String userCheckMin = params.get("userCheckMin");
+        if (!StringUtils.isBlank(userCheckMin)) {
+            criteria.add(Restrictions.ge("userCheck", Long.parseLong(userCheckMin)));
+        }
+        String userCheckMax = params.get("userCheckMax");
+        if (!StringUtils.isBlank(userCheckMax)) {
+            criteria.add(Restrictions.le("userCheck", Long.parseLong(userCheckMax)));
         }
         String dateCheckMin = params.get("dateCheckMin");
         if (!StringUtils.isBlank(dateCheckMin)) {
@@ -280,6 +304,14 @@ public class ProductServiceImpl implements ProductService {
         if (!StringUtils.isBlank(userCreated)) {
             criteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
         }
+        String userCreatedMin = params.get("userCreatedMin");
+        if (!StringUtils.isBlank(userCreatedMin)) {
+            criteria.add(Restrictions.ge("userCreated", Long.parseLong(userCreatedMin)));
+        }
+        String userCreatedMax = params.get("userCreatedMax");
+        if (!StringUtils.isBlank(userCreatedMax)) {
+            criteria.add(Restrictions.le("userCreated", Long.parseLong(userCreatedMax)));
+        }
         String dateCreatedMin = params.get("dateCreatedMin");
         if (!StringUtils.isBlank(dateCreatedMin)) {
             try {
@@ -300,6 +332,14 @@ public class ProductServiceImpl implements ProductService {
         if (!StringUtils.isBlank(userUpdated)) {
             criteria.add(Restrictions.eq("userUpdated", Long.parseLong(userUpdated)));
         }
+        String userUpdatedMin = params.get("userUpdatedMin");
+        if (!StringUtils.isBlank(userUpdatedMin)) {
+            criteria.add(Restrictions.ge("userUpdated", Long.parseLong(userUpdatedMin)));
+        }
+        String userUpdatedMax = params.get("userUpdatedMax");
+        if (!StringUtils.isBlank(userUpdatedMax)) {
+            criteria.add(Restrictions.le("userUpdated", Long.parseLong(userUpdatedMax)));
+        }
         String lastUpdatedMin = params.get("lastUpdatedMin");
         if (!StringUtils.isBlank(lastUpdatedMin)) {
             try {
@@ -319,6 +359,7 @@ public class ProductServiceImpl implements ProductService {
         
         criteria.addOrder(Order.desc("dateCreated"));
     }
+
 
 	public ImageUploadedDao getImageUploadedDao() {
 		return imageUploadedDao;

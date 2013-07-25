@@ -32,17 +32,21 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="id">编号</label>
+												<label class="control-label" for="idMin">编号</label>
 												<div class="controls">
-													<input type="text" id="id" name="adbanner.id"  value="${adbanner.id}"  maxlength="20" placeholder="编号">
+													<input type="text" id="idMin" class="span5" name="adbanner.idMin"  value="${adbanner.idMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="idMax" class="span5" name="adbanner.idMax"  value="${adbanner.idMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="refId">相关编号</label>
+												<label class="control-label" for="refIdMin">相关编号</label>
 												<div class="controls">
-													<input type="text" id="refId" name="adbanner.refId"  value="${adbanner.refId}"  maxlength="20" placeholder="相关编号">
+													<input type="text" id="refIdMin" class="span5" name="adbanner.refIdMin"  value="${adbanner.refIdMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="refIdMax" class="span5" name="adbanner.refIdMax"  value="${adbanner.refIdMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -58,9 +62,11 @@
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="adRefId">相关编号</label>
+												<label class="control-label" for="adRefIdMin">相关编号</label>
 												<div class="controls">
-													<input type="text" id="adRefId" name="adbanner.adRefId"  value="${adbanner.adRefId}"  maxlength="20" placeholder="相关编号">
+													<input type="text" id="adRefIdMin" class="span5" name="adbanner.adRefIdMin"  value="${adbanner.adRefIdMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="adRefIdMax" class="span5" name="adbanner.adRefIdMax"  value="${adbanner.adRefIdMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -70,9 +76,9 @@
 											<div class="control-group">
 												<label class="control-label" for="adStartMin">开始时间</label>
 												<div class="controls">
-													<input type="text" id="adStartMin" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.adStartMin"  value="${adbanner.adStartMin}"  maxlength="19" placeholder="开始时间">
+													<input type="text" id="adStartMin" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.adStartMin"  value="${adbanner.adStartMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="adStartMax" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.adStartMax"  value="${adbanner.adStartMax}"  maxlength="19" placeholder="开始时间">
+													<input type="text" id="adStartMax" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.adStartMax"  value="${adbanner.adStartMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -80,9 +86,9 @@
 											<div class="control-group">
 												<label class="control-label" for="adEndMin">结束时间</label>
 												<div class="controls">
-													<input type="text" id="adEndMin" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.adEndMin"  value="${adbanner.adEndMin}"  maxlength="19" placeholder="结束时间">
+													<input type="text" id="adEndMin" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.adEndMin"  value="${adbanner.adEndMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="adEndMax" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.adEndMax"  value="${adbanner.adEndMax}"  maxlength="19" placeholder="结束时间">
+													<input type="text" id="adEndMax" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.adEndMax"  value="${adbanner.adEndMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -90,9 +96,11 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userId">用户编号</label>
+												<label class="control-label" for="userIdMin">用户编号</label>
 												<div class="controls">
-													<input type="text" id="userId" name="adbanner.userId"  value="${adbanner.userId}"  maxlength="20" placeholder="用户编号">
+													<input type="text" id="userIdMin" class="span5" name="adbanner.userIdMin"  value="${adbanner.userIdMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userIdMax" class="span5" name="adbanner.userIdMax"  value="${adbanner.userIdMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -108,9 +116,11 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userApply">申请人</label>
+												<label class="control-label" for="userApplyMin">申请人</label>
 												<div class="controls">
-													<input type="text" id="userApply" name="adbanner.userApply"  value="${adbanner.userApply}"  maxlength="20" placeholder="申请人">
+													<input type="text" id="userApplyMin" class="span5" name="adbanner.userApplyMin"  value="${adbanner.userApplyMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userApplyMax" class="span5" name="adbanner.userApplyMax"  value="${adbanner.userApplyMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -118,9 +128,9 @@
 											<div class="control-group">
 												<label class="control-label" for="dateApplyMin">申请时间</label>
 												<div class="controls">
-													<input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.dateApplyMin"  value="${adbanner.dateApplyMin}"  maxlength="19" placeholder="申请时间">
+													<input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.dateApplyMin"  value="${adbanner.dateApplyMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.dateApplyMax"  value="${adbanner.dateApplyMax}"  maxlength="19" placeholder="申请时间">
+													<input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.dateApplyMax"  value="${adbanner.dateApplyMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -128,9 +138,11 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userCheck">审核人</label>
+												<label class="control-label" for="userCheckMin">审核人</label>
 												<div class="controls">
-													<input type="text" id="userCheck" name="adbanner.userCheck"  value="${adbanner.userCheck}"  maxlength="20" placeholder="审核人">
+													<input type="text" id="userCheckMin" class="span5" name="adbanner.userCheckMin"  value="${adbanner.userCheckMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userCheckMax" class="span5" name="adbanner.userCheckMax"  value="${adbanner.userCheckMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -138,9 +150,9 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCheckMin">审核时间</label>
 												<div class="controls">
-													<input type="text" id="dateCheckMin" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.dateCheckMin"  value="${adbanner.dateCheckMin}"  maxlength="19" placeholder="审核时间">
+													<input type="text" id="dateCheckMin" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.dateCheckMin"  value="${adbanner.dateCheckMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="dateCheckMax" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.dateCheckMax"  value="${adbanner.dateCheckMax}"  maxlength="19" placeholder="审核时间">
+													<input type="text" id="dateCheckMax" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.dateCheckMax"  value="${adbanner.dateCheckMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -148,9 +160,11 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userCreated">创建人</label>
+												<label class="control-label" for="userCreatedMin">创建人</label>
 												<div class="controls">
-													<input type="text" id="userCreated" name="adbanner.userCreated"  value="${adbanner.userCreated}"  maxlength="20" placeholder="创建人">
+													<input type="text" id="userCreatedMin" class="span5" name="adbanner.userCreatedMin"  value="${adbanner.userCreatedMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userCreatedMax" class="span5" name="adbanner.userCreatedMax"  value="${adbanner.userCreatedMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -158,9 +172,9 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCreatedMin">创建时间</label>
 												<div class="controls">
-													<input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.dateCreatedMin"  value="${adbanner.dateCreatedMin}"  maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.dateCreatedMin"  value="${adbanner.dateCreatedMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.dateCreatedMax"  value="${adbanner.dateCreatedMax}"  maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.dateCreatedMax"  value="${adbanner.dateCreatedMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -168,9 +182,11 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userUpdated">更新人</label>
+												<label class="control-label" for="userUpdatedMin">更新人</label>
 												<div class="controls">
-													<input type="text" id="userUpdated" name="adbanner.userUpdated"  value="${adbanner.userUpdated}"  maxlength="20" placeholder="更新人">
+													<input type="text" id="userUpdatedMin" class="span5" name="adbanner.userUpdatedMin"  value="${adbanner.userUpdatedMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userUpdatedMax" class="span5" name="adbanner.userUpdatedMax"  value="${adbanner.userUpdatedMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -178,9 +194,9 @@
 											<div class="control-group">
 												<label class="control-label" for="lastUpdatedMin">更新时间</label>
 												<div class="controls">
-													<input type="text" id="lastUpdatedMin" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.lastUpdatedMin"  value="${adbanner.lastUpdatedMin}"  maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdatedMin" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.lastUpdatedMin"  value="${adbanner.lastUpdatedMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="lastUpdatedMax" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.lastUpdatedMax"  value="${adbanner.lastUpdatedMax}"  maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdatedMax" class="span5 Wdate" onclick="WdatePicker()" name="adbanner.lastUpdatedMax"  value="${adbanner.lastUpdatedMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -217,6 +233,7 @@
 								<th>创建时间</th>
 								<th>更新人</th>
 								<th>更新时间</th>
+								<th>操作</th>
 							</thead>
 							<tbody>
 							<c:forEach var="item" items="${pagination.list}">
@@ -225,18 +242,18 @@
 								<td>${item.refId}</td>
 								<td>${item.adType}</td>
 								<td>${item.adRefId}</td>
-								<td>${item.adStart}</td>
-								<td>${item.adEnd}</td>
+								<td><fmt:formatDate value="${item.adStart}" pattern="yyyy-MM-dd"/></td>
+								<td><fmt:formatDate value="${item.adEnd}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.userId}</td>
 								<td>${item.flagDeleted}</td>
 								<td>${item.userApply}</td>
-								<td>${item.dateApply}</td>
+								<td><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.userCheck}</td>
-								<td>${item.dateCheck}</td>
+								<td><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.userCreated}</td>
-								<td>${item.dateCreated}</td>
+								<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.userUpdated}</td>
-								<td>${item.lastUpdated}</td>
+								<td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 								<td>
 									<a href="${pageContext.request.contextPath}/adbanner/adbannerEdit.html?adbanner.id=${item.id}" class="btn btn-mini">编辑</a>
 									<a href="${pageContext.request.contextPath}/adbanner/adbannerItem.html?adbanner.id=${item.id}" class="btn btn-mini">详细</a>

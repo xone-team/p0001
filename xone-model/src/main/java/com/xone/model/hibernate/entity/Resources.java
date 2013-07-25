@@ -20,8 +20,18 @@ public class Resources implements Serializable {
 	protected Date lastUpdated;
 	
 	// business logic
+    protected Long idMin;
+    protected Long idMax;
+    protected Integer resourceTypeMin;
+    protected Integer resourceTypeMax;
+    protected Integer priorityMin;
+    protected Integer priorityMax;
+    protected Long userCreatedMin;
+    protected Long userCreatedMax;
     protected String dateCreatedMin;
     protected String dateCreatedMax;
+    protected Long userUpdatedMin;
+    protected Long userUpdatedMax;
     protected String lastUpdatedMin;
     protected String lastUpdatedMax;
 	
@@ -117,6 +127,66 @@ public class Resources implements Serializable {
     }
     public void setLastUpdatedMax(String lastUpdatedMax) {
         this.lastUpdatedMax = lastUpdatedMax;
+    }
+    public Long getIdMin() {
+        return idMin;
+    }
+    public void setIdMin(Long idMin) {
+        this.idMin = idMin;
+    }
+    public Long getIdMax() {
+        return idMax;
+    }
+    public void setIdMax(Long idMax) {
+        this.idMax = idMax;
+    }
+    public Long getUserCreatedMin() {
+        return userCreatedMin;
+    }
+    public void setUserCreatedMin(Long userCreatedMin) {
+        this.userCreatedMin = userCreatedMin;
+    }
+    public Long getUserCreatedMax() {
+        return userCreatedMax;
+    }
+    public void setUserCreatedMax(Long userCreatedMax) {
+        this.userCreatedMax = userCreatedMax;
+    }
+    public Long getUserUpdatedMin() {
+        return userUpdatedMin;
+    }
+    public void setUserUpdatedMin(Long userUpdatedMin) {
+        this.userUpdatedMin = userUpdatedMin;
+    }
+    public Long getUserUpdatedMax() {
+        return userUpdatedMax;
+    }
+    public void setUserUpdatedMax(Long userUpdatedMax) {
+        this.userUpdatedMax = userUpdatedMax;
+    }
+    public Integer getResourceTypeMin() {
+        return resourceTypeMin;
+    }
+    public void setResourceTypeMin(Integer resourceTypeMin) {
+        this.resourceTypeMin = resourceTypeMin;
+    }
+    public Integer getResourceTypeMax() {
+        return resourceTypeMax;
+    }
+    public void setResourceTypeMax(Integer resourceTypeMax) {
+        this.resourceTypeMax = resourceTypeMax;
+    }
+    public Integer getPriorityMin() {
+        return priorityMin;
+    }
+    public void setPriorityMin(Integer priorityMin) {
+        this.priorityMin = priorityMin;
+    }
+    public Integer getPriorityMax() {
+        return priorityMax;
+    }
+    public void setPriorityMax(Integer priorityMax) {
+        this.priorityMax = priorityMax;
     }
 	
 	

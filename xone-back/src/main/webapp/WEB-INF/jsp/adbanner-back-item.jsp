@@ -48,11 +48,11 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">开始时间</td>
-							<td>${adbanner.adStart}</td>
+							<td><fmt:formatDate value="${adbanner.adStart}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">结束时间</td>
-							<td>${adbanner.adEnd}</td>
+							<td><fmt:formatDate value="${adbanner.adEnd}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">用户编号</td>
@@ -68,7 +68,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">申请时间</td>
-							<td>${adbanner.dateApply}</td>
+							<td><fmt:formatDate value="${adbanner.dateApply}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">审核人</td>
@@ -76,7 +76,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">审核时间</td>
-							<td>${adbanner.dateCheck}</td>
+							<td><fmt:formatDate value="${adbanner.dateCheck}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">创建人</td>
@@ -84,7 +84,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">创建时间</td>
-							<td>${adbanner.dateCreated}</td>
+							<td><fmt:formatDate value="${adbanner.dateCreated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新人</td>
@@ -92,7 +92,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">更新时间</td>
-							<td>${adbanner.lastUpdated}</td>
+							<td><fmt:formatDate value="${adbanner.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 					</tbody>
 				</table>

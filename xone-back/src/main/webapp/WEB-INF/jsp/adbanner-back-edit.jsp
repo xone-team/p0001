@@ -28,7 +28,7 @@
 						<li class="active">adbanner编辑</li>
 					</ul>
 				</div>
-				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/admin/adbannerUpdate.html">
+				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/adbanner/adbannerUpdate.html">
 					<div class="control-group">
 						<label class="control-label" for="id">编号</label>
 						<div class="controls">
@@ -56,13 +56,13 @@
 					<div class="control-group">
 						<label class="control-label" for="adStart">开始时间</label>
 						<div class="controls">
-							<input type="text" id="adStart" name="adbanner.adStart" value="${adbanner.adStart}" maxlength="19" placeholder="开始时间">
+							<input type="text" id="adStart" name="adbanner.adStart" value="<fmt:formatDate value="${adbanner.adStart}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="开始时间">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="adEnd">结束时间</label>
 						<div class="controls">
-							<input type="text" id="adEnd" name="adbanner.adEnd" value="${adbanner.adEnd}" maxlength="19" placeholder="结束时间">
+							<input type="text" id="adEnd" name="adbanner.adEnd" value="<fmt:formatDate value="${adbanner.adEnd}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="结束时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -86,7 +86,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateApply">申请时间</label>
 						<div class="controls">
-							<input type="text" id="dateApply" name="adbanner.dateApply" value="${adbanner.dateApply}" maxlength="19" placeholder="申请时间">
+							<input type="text" id="dateApply" name="adbanner.dateApply" value="<fmt:formatDate value="${adbanner.dateApply}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="申请时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -98,7 +98,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateCheck">审核时间</label>
 						<div class="controls">
-							<input type="text" id="dateCheck" name="adbanner.dateCheck" value="${adbanner.dateCheck}" maxlength="19" placeholder="审核时间">
+							<input type="text" id="dateCheck" name="adbanner.dateCheck" value="<fmt:formatDate value="${adbanner.dateCheck}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="审核时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -110,7 +110,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateCreated">创建时间</label>
 						<div class="controls">
-							<input type="text" id="dateCreated" name="adbanner.dateCreated" value="${adbanner.dateCreated}" maxlength="19" placeholder="创建时间">
+							<input type="text" id="dateCreated" name="adbanner.dateCreated" value="<fmt:formatDate value="${adbanner.dateCreated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -122,13 +122,12 @@
 					<div class="control-group">
 						<label class="control-label" for="lastUpdated">更新时间</label>
 						<div class="controls">
-							<input type="text" id="lastUpdated" name="adbanner.lastUpdated" value="${adbanner.lastUpdated}" maxlength="19" placeholder="更新时间">
+							<input type="text" id="lastUpdated" name="adbanner.lastUpdated" value="<fmt:formatDate value="${adbanner.lastUpdated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
 						</div>
 					</div>
 					<div class="control-group">
 						<div class="controls">
 							<button type="submit" name="update" value="update" class="btn">提交更新</button>
-							<button type="submit" name="delete" value="delete" class="btn">删除角色</button>
 						</div>
 					</div>
 				</form>

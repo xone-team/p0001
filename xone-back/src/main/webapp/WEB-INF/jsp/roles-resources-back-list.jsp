@@ -32,17 +32,21 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="id">编号</label>
+												<label class="control-label" for="idMin">编号</label>
 												<div class="controls">
-													<input type="text" id="id" name="rolesResources.id"  value="${rolesResources.id}"  maxlength="20" placeholder="编号">
+													<input type="text" id="idMin" class="span5" name="rolesResources.idMin"  value="${rolesResources.idMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="idMax" class="span5" name="rolesResources.idMax"  value="${rolesResources.idMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="resourceId">资源编号</label>
+												<label class="control-label" for="resourceIdMin">资源编号</label>
 												<div class="controls">
-													<input type="text" id="resourceId" name="rolesResources.resourceId"  value="${rolesResources.resourceId}"  maxlength="20" placeholder="资源编号">
+													<input type="text" id="resourceIdMin" class="span5" name="rolesResources.resourceIdMin"  value="${rolesResources.resourceIdMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="resourceIdMax" class="span5" name="rolesResources.resourceIdMax"  value="${rolesResources.resourceIdMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -50,9 +54,11 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="roleId">角色编号</label>
+												<label class="control-label" for="roleIdMin">角色编号</label>
 												<div class="controls">
-													<input type="text" id="roleId" name="rolesResources.roleId"  value="${rolesResources.roleId}"  maxlength="20" placeholder="角色编号">
+													<input type="text" id="roleIdMin" class="span5" name="rolesResources.roleIdMin"  value="${rolesResources.roleIdMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="roleIdMax" class="span5" name="rolesResources.roleIdMax"  value="${rolesResources.roleIdMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -68,9 +74,11 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userCreated">创建人</label>
+												<label class="control-label" for="userCreatedMin">创建人</label>
 												<div class="controls">
-													<input type="text" id="userCreated" name="rolesResources.userCreated"  value="${rolesResources.userCreated}"  maxlength="20" placeholder="创建人">
+													<input type="text" id="userCreatedMin" class="span5" name="rolesResources.userCreatedMin"  value="${rolesResources.userCreatedMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userCreatedMax" class="span5" name="rolesResources.userCreatedMax"  value="${rolesResources.userCreatedMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -78,9 +86,9 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCreatedMin">创建时间</label>
 												<div class="controls">
-													<input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="rolesResources.dateCreatedMin"  value="${rolesResources.dateCreatedMin}"  maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="rolesResources.dateCreatedMin"  value="${rolesResources.dateCreatedMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="rolesResources.dateCreatedMax"  value="${rolesResources.dateCreatedMax}"  maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="rolesResources.dateCreatedMax"  value="${rolesResources.dateCreatedMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -88,9 +96,11 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userUpdated">更新人</label>
+												<label class="control-label" for="userUpdatedMin">更新人</label>
 												<div class="controls">
-													<input type="text" id="userUpdated" name="rolesResources.userUpdated"  value="${rolesResources.userUpdated}"  maxlength="20" placeholder="更新人">
+													<input type="text" id="userUpdatedMin" class="span5" name="rolesResources.userUpdatedMin"  value="${rolesResources.userUpdatedMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userUpdatedMax" class="span5" name="rolesResources.userUpdatedMax"  value="${rolesResources.userUpdatedMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -98,9 +108,9 @@
 											<div class="control-group">
 												<label class="control-label" for="lastUpdatedMin">更新时间</label>
 												<div class="controls">
-													<input type="text" id="lastUpdatedMin" class="span5 Wdate" onclick="WdatePicker()" name="rolesResources.lastUpdatedMin"  value="${rolesResources.lastUpdatedMin}"  maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdatedMin" class="span5 Wdate" onclick="WdatePicker()" name="rolesResources.lastUpdatedMin"  value="${rolesResources.lastUpdatedMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="lastUpdatedMax" class="span5 Wdate" onclick="WdatePicker()" name="rolesResources.lastUpdatedMax"  value="${rolesResources.lastUpdatedMax}"  maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdatedMax" class="span5 Wdate" onclick="WdatePicker()" name="rolesResources.lastUpdatedMax"  value="${rolesResources.lastUpdatedMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -129,6 +139,7 @@
 								<th>创建时间</th>
 								<th>更新人</th>
 								<th>更新时间</th>
+								<th>操作</th>
 							</thead>
 							<tbody>
 							<c:forEach var="item" items="${pagination.list}">
@@ -138,9 +149,9 @@
 								<td>${item.roleId}</td>
 								<td>${item.enable}</td>
 								<td>${item.userCreated}</td>
-								<td>${item.dateCreated}</td>
+								<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.userUpdated}</td>
-								<td>${item.lastUpdated}</td>
+								<td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 								<td>
 									<a href="${pageContext.request.contextPath}/rolesresources/rolesResourcesEdit.html?rolesResources.id=${item.id}" class="btn btn-mini">编辑</a>
 									<a href="${pageContext.request.contextPath}/rolesresources/rolesResourcesItem.html?rolesResources.id=${item.id}" class="btn btn-mini">详细</a>

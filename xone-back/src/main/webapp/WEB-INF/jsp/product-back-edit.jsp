@@ -28,7 +28,7 @@
 						<li class="active">product编辑</li>
 					</ul>
 				</div>
-				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/admin/productUpdate.html">
+				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/product/productUpdate.html">
 					<div class="control-group">
 						<label class="control-label" for="id">编号</label>
 						<div class="controls">
@@ -104,7 +104,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateApply">申请时间</label>
 						<div class="controls">
-							<input type="text" id="dateApply" name="product.dateApply" value="${product.dateApply}" maxlength="19" placeholder="申请时间">
+							<input type="text" id="dateApply" name="product.dateApply" value="<fmt:formatDate value="${product.dateApply}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="申请时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -116,7 +116,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateCheck">审核时间</label>
 						<div class="controls">
-							<input type="text" id="dateCheck" name="product.dateCheck" value="${product.dateCheck}" maxlength="19" placeholder="审核时间">
+							<input type="text" id="dateCheck" name="product.dateCheck" value="<fmt:formatDate value="${product.dateCheck}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="审核时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -128,7 +128,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateCreated">创建时间</label>
 						<div class="controls">
-							<input type="text" id="dateCreated" name="product.dateCreated" value="${product.dateCreated}" maxlength="19" placeholder="创建时间">
+							<input type="text" id="dateCreated" name="product.dateCreated" value="<fmt:formatDate value="${product.dateCreated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -140,13 +140,12 @@
 					<div class="control-group">
 						<label class="control-label" for="lastUpdated">更新时间</label>
 						<div class="controls">
-							<input type="text" id="lastUpdated" name="product.lastUpdated" value="${product.lastUpdated}" maxlength="19" placeholder="更新时间">
+							<input type="text" id="lastUpdated" name="product.lastUpdated" value="<fmt:formatDate value="${product.lastUpdated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
 						</div>
 					</div>
 					<div class="control-group">
 						<div class="controls">
 							<button type="submit" name="update" value="update" class="btn">提交更新</button>
-							<button type="submit" name="delete" value="delete" class="btn">删除角色</button>
 						</div>
 					</div>
 				</form>

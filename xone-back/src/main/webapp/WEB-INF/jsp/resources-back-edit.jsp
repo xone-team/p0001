@@ -28,7 +28,7 @@
 						<li class="active">resources编辑</li>
 					</ul>
 				</div>
-				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/admin/resourcesUpdate.html">
+				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/resources/resourcesUpdate.html">
 					<div class="control-group">
 						<label class="control-label" for="id">编号</label>
 						<div class="controls">
@@ -80,7 +80,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateCreated">创建时间</label>
 						<div class="controls">
-							<input type="text" id="dateCreated" name="resources.dateCreated" value="${resources.dateCreated}" maxlength="19" placeholder="创建时间">
+							<input type="text" id="dateCreated" name="resources.dateCreated" value="<fmt:formatDate value="${resources.dateCreated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -92,13 +92,12 @@
 					<div class="control-group">
 						<label class="control-label" for="lastUpdated">更新时间</label>
 						<div class="controls">
-							<input type="text" id="lastUpdated" name="resources.lastUpdated" value="${resources.lastUpdated}" maxlength="19" placeholder="更新时间">
+							<input type="text" id="lastUpdated" name="resources.lastUpdated" value="<fmt:formatDate value="${resources.lastUpdated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
 						</div>
 					</div>
 					<div class="control-group">
 						<div class="controls">
 							<button type="submit" name="update" value="update" class="btn">提交更新</button>
-							<button type="submit" name="delete" value="delete" class="btn">删除角色</button>
 						</div>
 					</div>
 				</form>

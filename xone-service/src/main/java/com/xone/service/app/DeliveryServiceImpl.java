@@ -100,14 +100,30 @@ public class DeliveryServiceImpl implements DeliveryService {
         return getDeliveryDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
     }
 
-    protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params) {
+    protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params){
         String id = params.get("id");
         if (!StringUtils.isBlank(id)) {
             criteria.add(Restrictions.eq("id", Long.parseLong(id)));
         }
+        String idMin = params.get("idMin");
+        if (!StringUtils.isBlank(idMin)) {
+            criteria.add(Restrictions.ge("id", Long.parseLong(idMin)));
+        }
+        String idMax = params.get("idMax");
+        if (!StringUtils.isBlank(idMax)) {
+            criteria.add(Restrictions.le("id", Long.parseLong(idMax)));
+        }
         String productId = params.get("productId");
         if (!StringUtils.isBlank(productId)) {
             criteria.add(Restrictions.eq("productId", Long.parseLong(productId)));
+        }
+        String productIdMin = params.get("productIdMin");
+        if (!StringUtils.isBlank(productIdMin)) {
+            criteria.add(Restrictions.ge("productId", Long.parseLong(productIdMin)));
+        }
+        String productIdMax = params.get("productIdMax");
+        if (!StringUtils.isBlank(productIdMax)) {
+            criteria.add(Restrictions.le("productId", Long.parseLong(productIdMax)));
         }
         String marketarea = params.get("marketarea");
         if (!StringUtils.isBlank(marketarea)) {
@@ -153,10 +169,18 @@ public class DeliveryServiceImpl implements DeliveryService {
         if (!StringUtils.isBlank(userApply)) {
             criteria.add(Restrictions.eq("userApply", Long.parseLong(userApply)));
         }
+        String userApplyMin = params.get("userApplyMin");
+        if (!StringUtils.isBlank(userApplyMin)) {
+            criteria.add(Restrictions.ge("userApply", Long.parseLong(userApplyMin)));
+        }
+        String userApplyMax = params.get("userApplyMax");
+        if (!StringUtils.isBlank(userApplyMax)) {
+            criteria.add(Restrictions.le("userApply", Long.parseLong(userApplyMax)));
+        }
         String dateApplyMin = params.get("dateApplyMin");
         if (!StringUtils.isBlank(dateApplyMin)) {
             try {
-                criteria.add(Restrictions.ge("dateApply", DateUtils.parseDate(dateApplyMin, "yyyy-MM-dd")));
+                criteria.add(Restrictions.ge("dateApply", DateUtils.parseDate(dateApplyMin, "yyyy-MM-dd" )));
             } catch (ParseException e) {
                 log.error("[dateApplyMin] parsed exception :", e);
             }
@@ -164,7 +188,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         String dateApplyMax = params.get("dateApplyMax");
         if (!StringUtils.isBlank(dateApplyMax)) {
             try {
-                criteria.add(Restrictions.lt("dateApply", DateUtils.addDays(DateUtils.parseDate(dateApplyMax, "yyyy-MM-dd"), 1)));
+                criteria.add(Restrictions.lt("dateApply", DateUtils.addDays(DateUtils.parseDate(dateApplyMax, "yyyy-MM-dd" ), 1)));
             } catch (ParseException e) {
                 log.error("[dateApplyMax] parsed exception :", e);
             }
@@ -173,10 +197,18 @@ public class DeliveryServiceImpl implements DeliveryService {
         if (!StringUtils.isBlank(userCheck)) {
             criteria.add(Restrictions.eq("userCheck", Long.parseLong(userCheck)));
         }
+        String userCheckMin = params.get("userCheckMin");
+        if (!StringUtils.isBlank(userCheckMin)) {
+            criteria.add(Restrictions.ge("userCheck", Long.parseLong(userCheckMin)));
+        }
+        String userCheckMax = params.get("userCheckMax");
+        if (!StringUtils.isBlank(userCheckMax)) {
+            criteria.add(Restrictions.le("userCheck", Long.parseLong(userCheckMax)));
+        }
         String dateCheckMin = params.get("dateCheckMin");
         if (!StringUtils.isBlank(dateCheckMin)) {
             try {
-                criteria.add(Restrictions.ge("dateCheck", DateUtils.parseDate(dateCheckMin, "yyyy-MM-dd")));
+                criteria.add(Restrictions.ge("dateCheck", DateUtils.parseDate(dateCheckMin, "yyyy-MM-dd" )));
             } catch (ParseException e) {
                 log.error("[dateCheckMin] parsed exception :", e);
             }
@@ -184,7 +216,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         String dateCheckMax = params.get("dateCheckMax");
         if (!StringUtils.isBlank(dateCheckMax)) {
             try {
-                criteria.add(Restrictions.lt("dateCheck", DateUtils.addDays(DateUtils.parseDate(dateCheckMax, "yyyy-MM-dd"), 1)));
+                criteria.add(Restrictions.lt("dateCheck", DateUtils.addDays(DateUtils.parseDate(dateCheckMax, "yyyy-MM-dd" ), 1)));
             } catch (ParseException e) {
                 log.error("[dateCheckMax] parsed exception :", e);
             }
@@ -197,10 +229,18 @@ public class DeliveryServiceImpl implements DeliveryService {
         if (!StringUtils.isBlank(userCreated)) {
             criteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
         }
+        String userCreatedMin = params.get("userCreatedMin");
+        if (!StringUtils.isBlank(userCreatedMin)) {
+            criteria.add(Restrictions.ge("userCreated", Long.parseLong(userCreatedMin)));
+        }
+        String userCreatedMax = params.get("userCreatedMax");
+        if (!StringUtils.isBlank(userCreatedMax)) {
+            criteria.add(Restrictions.le("userCreated", Long.parseLong(userCreatedMax)));
+        }
         String dateCreatedMin = params.get("dateCreatedMin");
         if (!StringUtils.isBlank(dateCreatedMin)) {
             try {
-                criteria.add(Restrictions.ge("dateCreated", DateUtils.parseDate(dateCreatedMin, "yyyy-MM-dd")));
+                criteria.add(Restrictions.ge("dateCreated", DateUtils.parseDate(dateCreatedMin, "yyyy-MM-dd" )));
             } catch (ParseException e) {
                 log.error("[dateCreatedMin] parsed exception :", e);
             }
@@ -208,7 +248,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         String dateCreatedMax = params.get("dateCreatedMax");
         if (!StringUtils.isBlank(dateCreatedMax)) {
             try {
-                criteria.add(Restrictions.lt("dateCreated", DateUtils.addDays(DateUtils.parseDate(dateCreatedMax, "yyyy-MM-dd"), 1)));
+                criteria.add(Restrictions.lt("dateCreated", DateUtils.addDays(DateUtils.parseDate(dateCreatedMax, "yyyy-MM-dd" ), 1)));
             } catch (ParseException e) {
                 log.error("[dateCreatedMax] parsed exception :", e);
             }
@@ -217,10 +257,18 @@ public class DeliveryServiceImpl implements DeliveryService {
         if (!StringUtils.isBlank(userUpdated)) {
             criteria.add(Restrictions.eq("userUpdated", Long.parseLong(userUpdated)));
         }
+        String userUpdatedMin = params.get("userUpdatedMin");
+        if (!StringUtils.isBlank(userUpdatedMin)) {
+            criteria.add(Restrictions.ge("userUpdated", Long.parseLong(userUpdatedMin)));
+        }
+        String userUpdatedMax = params.get("userUpdatedMax");
+        if (!StringUtils.isBlank(userUpdatedMax)) {
+            criteria.add(Restrictions.le("userUpdated", Long.parseLong(userUpdatedMax)));
+        }
         String lastUpdatedMin = params.get("lastUpdatedMin");
         if (!StringUtils.isBlank(lastUpdatedMin)) {
             try {
-                criteria.add(Restrictions.ge("lastUpdated", DateUtils.parseDate(lastUpdatedMin, "yyyy-MM-dd")));
+                criteria.add(Restrictions.ge("lastUpdated", DateUtils.parseDate(lastUpdatedMin, "yyyy-MM-dd" )));
             } catch (ParseException e) {
                 log.error("[lastUpdatedMin] parsed exception :", e);
             }
@@ -228,12 +276,12 @@ public class DeliveryServiceImpl implements DeliveryService {
         String lastUpdatedMax = params.get("lastUpdatedMax");
         if (!StringUtils.isBlank(lastUpdatedMax)) {
             try {
-                criteria.add(Restrictions.lt("lastUpdated", DateUtils.addDays(DateUtils.parseDate(lastUpdatedMax, "yyyy-MM-dd"), 1)));
+                criteria.add(Restrictions.lt("lastUpdated", DateUtils.addDays(DateUtils.parseDate(lastUpdatedMax, "yyyy-MM-dd" ), 1)));
             } catch (ParseException e) {
                 log.error("[lastUpdatedMax] parsed exception :", e);
             }
         }
-
+        
         criteria.addOrder(Order.desc("dateCreated"));
     }
 }

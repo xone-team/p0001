@@ -179,53 +179,53 @@ public class PurchaseServiceImpl implements PurchaseService {
         if (!StringUtils.isBlank(id)) {
             criteria.add(Restrictions.eq("id", Long.parseLong(id)));
         }
-        String productName = params.get("productName");
-        if (!StringUtils.isBlank(productName)) {
-            criteria.add(Restrictions.like("productName", "%" + productName + "%"));
+        String idMin = params.get("idMin");
+        if (!StringUtils.isBlank(idMin)) {
+            criteria.add(Restrictions.ge("id", Long.parseLong(idMin)));
         }
-        String productType = params.get("productType");
-        if (!StringUtils.isBlank(productType)) {
-            criteria.add(Restrictions.like("productType", "%" + productType + "%"));
+        String idMax = params.get("idMax");
+        if (!StringUtils.isBlank(idMax)) {
+            criteria.add(Restrictions.le("id", Long.parseLong(idMax)));
         }
-        String saleType = params.get("saleType");
-        if (!StringUtils.isBlank(saleType)) {
-            criteria.add(Restrictions.like("saleType", "%" + saleType + "%"));
+        String purchaseName = params.get("purchaseName");
+        if (!StringUtils.isBlank(purchaseName)) {
+            criteria.add(Restrictions.like("purchaseName", "%" + purchaseName + "%"));
         }
-        String productPrice = params.get("productPrice");
-        if (!StringUtils.isBlank(productPrice)) {
-            criteria.add(Restrictions.like("productPrice", "%" + productPrice + "%"));
+        String purchaseType = params.get("purchaseType");
+        if (!StringUtils.isBlank(purchaseType)) {
+            criteria.add(Restrictions.like("purchaseType", "%" + purchaseType + "%"));
         }
-        String productNum = params.get("productNum");
-        if (!StringUtils.isBlank(productNum)) {
-            criteria.add(Restrictions.like("productNum", "%" + productNum + "%"));
+        String purchaseNum = params.get("purchaseNum");
+        if (!StringUtils.isBlank(purchaseNum)) {
+            criteria.add(Restrictions.like("purchaseNum", "%" + purchaseNum + "%"));
         }
-        String productValidMin = params.get("productValidMin");
-        if (!StringUtils.isBlank(productValidMin)) {
+        String purchaseValidMin = params.get("purchaseValidMin");
+        if (!StringUtils.isBlank(purchaseValidMin)) {
             try {
-                criteria.add(Restrictions.ge("productValid", DateUtils.parseDate(productValidMin, "yyyy-MM-dd" )));
+                criteria.add(Restrictions.ge("purchaseValid", DateUtils.parseDate(purchaseValidMin, "yyyy-MM-dd" )));
             } catch (ParseException e) {
-                log.error("[productValidMin] parsed exception :", e);
+                log.error("[purchaseValidMin] parsed exception :", e);
             }
         }
-        String productValidMax = params.get("productValidMax");
-        if (!StringUtils.isBlank(productValidMax)) {
+        String purchaseValidMax = params.get("purchaseValidMax");
+        if (!StringUtils.isBlank(purchaseValidMax)) {
             try {
-                criteria.add(Restrictions.lt("productValid", DateUtils.addDays(DateUtils.parseDate(productValidMax, "yyyy-MM-dd" ), 1)));
+                criteria.add(Restrictions.lt("purchaseValid", DateUtils.addDays(DateUtils.parseDate(purchaseValidMax, "yyyy-MM-dd" ), 1)));
             } catch (ParseException e) {
-                log.error("[productValidMax] parsed exception :", e);
+                log.error("[purchaseValidMax] parsed exception :", e);
             }
         }
-        String productAddress = params.get("productAddress");
-        if (!StringUtils.isBlank(productAddress)) {
-            criteria.add(Restrictions.like("productAddress", "%" + productAddress + "%"));
+        String purchaseAddress = params.get("purchaseAddress");
+        if (!StringUtils.isBlank(purchaseAddress)) {
+            criteria.add(Restrictions.like("purchaseAddress", "%" + purchaseAddress + "%"));
         }
-        String productLocation = params.get("productLocation");
-        if (!StringUtils.isBlank(productLocation)) {
-            criteria.add(Restrictions.like("productLocation", "%" + productLocation + "%"));
+        String purchaseLocation = params.get("purchaseLocation");
+        if (!StringUtils.isBlank(purchaseLocation)) {
+            criteria.add(Restrictions.like("purchaseLocation", "%" + purchaseLocation + "%"));
         }
-        String productDesc = params.get("productDesc");
-        if (!StringUtils.isBlank(productDesc)) {
-            criteria.add(Restrictions.like("productDesc", "%" + productDesc + "%"));
+        String purchaseDesc = params.get("purchaseDesc");
+        if (!StringUtils.isBlank(purchaseDesc)) {
+            criteria.add(Restrictions.like("purchaseDesc", "%" + purchaseDesc + "%"));
         }
         String flagDeleted = params.get("flagDeleted");
         if (!StringUtils.isBlank(flagDeleted)) {
@@ -234,6 +234,14 @@ public class PurchaseServiceImpl implements PurchaseService {
         String userApply = params.get("userApply");
         if (!StringUtils.isBlank(userApply)) {
             criteria.add(Restrictions.eq("userApply", Long.parseLong(userApply)));
+        }
+        String userApplyMin = params.get("userApplyMin");
+        if (!StringUtils.isBlank(userApplyMin)) {
+            criteria.add(Restrictions.ge("userApply", Long.parseLong(userApplyMin)));
+        }
+        String userApplyMax = params.get("userApplyMax");
+        if (!StringUtils.isBlank(userApplyMax)) {
+            criteria.add(Restrictions.le("userApply", Long.parseLong(userApplyMax)));
         }
         String dateApplyMin = params.get("dateApplyMin");
         if (!StringUtils.isBlank(dateApplyMin)) {
@@ -255,6 +263,14 @@ public class PurchaseServiceImpl implements PurchaseService {
         if (!StringUtils.isBlank(userCheck)) {
             criteria.add(Restrictions.eq("userCheck", Long.parseLong(userCheck)));
         }
+        String userCheckMin = params.get("userCheckMin");
+        if (!StringUtils.isBlank(userCheckMin)) {
+            criteria.add(Restrictions.ge("userCheck", Long.parseLong(userCheckMin)));
+        }
+        String userCheckMax = params.get("userCheckMax");
+        if (!StringUtils.isBlank(userCheckMax)) {
+            criteria.add(Restrictions.le("userCheck", Long.parseLong(userCheckMax)));
+        }
         String dateCheckMin = params.get("dateCheckMin");
         if (!StringUtils.isBlank(dateCheckMin)) {
             try {
@@ -275,6 +291,14 @@ public class PurchaseServiceImpl implements PurchaseService {
         if (!StringUtils.isBlank(userCreated)) {
             criteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
         }
+        String userCreatedMin = params.get("userCreatedMin");
+        if (!StringUtils.isBlank(userCreatedMin)) {
+            criteria.add(Restrictions.ge("userCreated", Long.parseLong(userCreatedMin)));
+        }
+        String userCreatedMax = params.get("userCreatedMax");
+        if (!StringUtils.isBlank(userCreatedMax)) {
+            criteria.add(Restrictions.le("userCreated", Long.parseLong(userCreatedMax)));
+        }
         String dateCreatedMin = params.get("dateCreatedMin");
         if (!StringUtils.isBlank(dateCreatedMin)) {
             try {
@@ -294,6 +318,14 @@ public class PurchaseServiceImpl implements PurchaseService {
         String userUpdated = params.get("userUpdated");
         if (!StringUtils.isBlank(userUpdated)) {
             criteria.add(Restrictions.eq("userUpdated", Long.parseLong(userUpdated)));
+        }
+        String userUpdatedMin = params.get("userUpdatedMin");
+        if (!StringUtils.isBlank(userUpdatedMin)) {
+            criteria.add(Restrictions.ge("userUpdated", Long.parseLong(userUpdatedMin)));
+        }
+        String userUpdatedMax = params.get("userUpdatedMax");
+        if (!StringUtils.isBlank(userUpdatedMax)) {
+            criteria.add(Restrictions.le("userUpdated", Long.parseLong(userUpdatedMax)));
         }
         String lastUpdatedMin = params.get("lastUpdatedMin");
         if (!StringUtils.isBlank(lastUpdatedMin)) {

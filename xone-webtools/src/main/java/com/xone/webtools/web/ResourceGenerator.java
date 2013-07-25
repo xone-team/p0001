@@ -24,7 +24,7 @@ public class ResourceGenerator {
 			entityGenerator.setTableName(table);
 			entityGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
 			entityGenerator.generateEntity();
-//			entityGenerator.generateHibernateXml();
+			entityGenerator.generateHibernateXml();
 			serviceGenerator.setTableName(table);
 //			serviceGenerator.generateService();
 			serviceGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));

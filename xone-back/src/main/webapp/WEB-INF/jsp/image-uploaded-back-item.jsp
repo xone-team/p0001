@@ -52,7 +52,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">创建时间</td>
-							<td>${imageUploaded.dateCreated}</td>
+							<td><fmt:formatDate value="${imageUploaded.dateCreated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新人</td>
@@ -60,7 +60,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">更新时间</td>
-							<td>${imageUploaded.lastUpdated}</td>
+							<td><fmt:formatDate value="${imageUploaded.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">名称</td>

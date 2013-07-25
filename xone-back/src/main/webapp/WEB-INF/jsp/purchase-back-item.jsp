@@ -48,7 +48,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">有效期</td>
-							<td>${purchase.purchaseValid}</td>
+							<td><fmt:formatDate value="${purchase.purchaseValid}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">产品产地</td>
@@ -72,7 +72,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">申请时间</td>
-							<td>${purchase.dateApply}</td>
+							<td><fmt:formatDate value="${purchase.dateApply}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">审核人</td>
@@ -80,7 +80,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">审核时间</td>
-							<td>${purchase.dateCheck}</td>
+							<td><fmt:formatDate value="${purchase.dateCheck}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">创建人</td>
@@ -88,7 +88,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">创建时间</td>
-							<td>${purchase.dateCreated}</td>
+							<td><fmt:formatDate value="${purchase.dateCreated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新人</td>
@@ -96,7 +96,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">更新时间</td>
-							<td>${purchase.lastUpdated}</td>
+							<td><fmt:formatDate value="${purchase.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 					</tbody>
 				</table>

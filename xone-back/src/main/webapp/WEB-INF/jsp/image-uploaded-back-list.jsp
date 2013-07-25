@@ -32,17 +32,21 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="id">编号</label>
+												<label class="control-label" for="idMin">编号</label>
 												<div class="controls">
-													<input type="text" id="id" name="imageUploaded.id"  value="${imageUploaded.id}"  maxlength="20" placeholder="编号">
+													<input type="text" id="idMin" class="span5" name="imageUploaded.idMin"  value="${imageUploaded.idMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="idMax" class="span5" name="imageUploaded.idMax"  value="${imageUploaded.idMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="refId">相关编号</label>
+												<label class="control-label" for="refIdMin">相关编号</label>
 												<div class="controls">
-													<input type="text" id="refId" name="imageUploaded.refId"  value="${imageUploaded.refId}"  maxlength="20" placeholder="相关编号">
+													<input type="text" id="refIdMin" class="span5" name="imageUploaded.refIdMin"  value="${imageUploaded.refIdMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="refIdMax" class="span5" name="imageUploaded.refIdMax"  value="${imageUploaded.refIdMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -68,9 +72,11 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userCreated">创建人</label>
+												<label class="control-label" for="userCreatedMin">创建人</label>
 												<div class="controls">
-													<input type="text" id="userCreated" name="imageUploaded.userCreated"  value="${imageUploaded.userCreated}"  maxlength="20" placeholder="创建人">
+													<input type="text" id="userCreatedMin" class="span5" name="imageUploaded.userCreatedMin"  value="${imageUploaded.userCreatedMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userCreatedMax" class="span5" name="imageUploaded.userCreatedMax"  value="${imageUploaded.userCreatedMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -78,9 +84,9 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCreatedMin">创建时间</label>
 												<div class="controls">
-													<input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="imageUploaded.dateCreatedMin"  value="${imageUploaded.dateCreatedMin}"  maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="imageUploaded.dateCreatedMin"  value="${imageUploaded.dateCreatedMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="imageUploaded.dateCreatedMax"  value="${imageUploaded.dateCreatedMax}"  maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="imageUploaded.dateCreatedMax"  value="${imageUploaded.dateCreatedMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -88,9 +94,11 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userUpdated">更新人</label>
+												<label class="control-label" for="userUpdatedMin">更新人</label>
 												<div class="controls">
-													<input type="text" id="userUpdated" name="imageUploaded.userUpdated"  value="${imageUploaded.userUpdated}"  maxlength="20" placeholder="更新人">
+													<input type="text" id="userUpdatedMin" class="span5" name="imageUploaded.userUpdatedMin"  value="${imageUploaded.userUpdatedMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userUpdatedMax" class="span5" name="imageUploaded.userUpdatedMax"  value="${imageUploaded.userUpdatedMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -98,9 +106,9 @@
 											<div class="control-group">
 												<label class="control-label" for="lastUpdatedMin">更新时间</label>
 												<div class="controls">
-													<input type="text" id="lastUpdatedMin" class="span5 Wdate" onclick="WdatePicker()" name="imageUploaded.lastUpdatedMin"  value="${imageUploaded.lastUpdatedMin}"  maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdatedMin" class="span5 Wdate" onclick="WdatePicker()" name="imageUploaded.lastUpdatedMin"  value="${imageUploaded.lastUpdatedMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="lastUpdatedMax" class="span5 Wdate" onclick="WdatePicker()" name="imageUploaded.lastUpdatedMax"  value="${imageUploaded.lastUpdatedMax}"  maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdatedMax" class="span5 Wdate" onclick="WdatePicker()" name="imageUploaded.lastUpdatedMax"  value="${imageUploaded.lastUpdatedMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -149,6 +157,7 @@
 								<th>更新时间</th>
 								<th>名称</th>
 								<th>删除标识</th>
+								<th>操作</th>
 							</thead>
 							<tbody>
 							<c:forEach var="item" items="${pagination.list}">
@@ -158,9 +167,9 @@
 								<td>${item.refType}</td>
 								<td>${item.imageType}</td>
 								<td>${item.userCreated}</td>
-								<td>${item.dateCreated}</td>
+								<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.userUpdated}</td>
-								<td>${item.lastUpdated}</td>
+								<td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.image}</td>
 								<td>${item.flagDeleted}</td>
 								<td>

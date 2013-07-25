@@ -28,7 +28,7 @@
 						<li class="active">${tableVarName}编辑</li>
 					</ul>
 				</div>
-				<form class="form-horizontal" method="post" action="${r"${pageContext.request.contextPath}"}/admin/${tableVarName}Update.html">
+				<form class="form-horizontal" method="post" action="${r"${pageContext.request.contextPath}"}/${tableVarName}/${tableVarName}Update.html">
 				<#list tableProperties as p>
 					<#if p.autoIncrement == '1'>
 					<input type="hidden" name="${tableVarName}.${p.javaVarName}" value="${r"${"}${tableVarName}.${p.javaVarName}}" />
@@ -53,7 +53,6 @@
 					<div class="control-group">
 						<div class="controls">
 							<button type="submit" name="update" value="update" class="btn">提交更新</button>
-							<button type="submit" name="delete" value="delete" class="btn">删除角色</button>
 						</div>
 					</div>
 				</form>

@@ -71,14 +71,30 @@ public class ImageUploadedServiceImpl implements ImageUploadedService {
 		return getImageUploadedDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
 	}
 	
-	protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params){
+    protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params){
         String id = params.get("id");
         if (!StringUtils.isBlank(id)) {
             criteria.add(Restrictions.eq("id", Long.parseLong(id)));
         }
+        String idMin = params.get("idMin");
+        if (!StringUtils.isBlank(idMin)) {
+            criteria.add(Restrictions.ge("id", Long.parseLong(idMin)));
+        }
+        String idMax = params.get("idMax");
+        if (!StringUtils.isBlank(idMax)) {
+            criteria.add(Restrictions.le("id", Long.parseLong(idMax)));
+        }
         String refId = params.get("refId");
         if (!StringUtils.isBlank(refId)) {
             criteria.add(Restrictions.eq("refId", Long.parseLong(refId)));
+        }
+        String refIdMin = params.get("refIdMin");
+        if (!StringUtils.isBlank(refIdMin)) {
+            criteria.add(Restrictions.ge("refId", Long.parseLong(refIdMin)));
+        }
+        String refIdMax = params.get("refIdMax");
+        if (!StringUtils.isBlank(refIdMax)) {
+            criteria.add(Restrictions.le("refId", Long.parseLong(refIdMax)));
         }
         String refType = params.get("refType");
         if (!StringUtils.isBlank(refType)) {
@@ -91,6 +107,14 @@ public class ImageUploadedServiceImpl implements ImageUploadedService {
         String userCreated = params.get("userCreated");
         if (!StringUtils.isBlank(userCreated)) {
             criteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
+        }
+        String userCreatedMin = params.get("userCreatedMin");
+        if (!StringUtils.isBlank(userCreatedMin)) {
+            criteria.add(Restrictions.ge("userCreated", Long.parseLong(userCreatedMin)));
+        }
+        String userCreatedMax = params.get("userCreatedMax");
+        if (!StringUtils.isBlank(userCreatedMax)) {
+            criteria.add(Restrictions.le("userCreated", Long.parseLong(userCreatedMax)));
         }
         String dateCreatedMin = params.get("dateCreatedMin");
         if (!StringUtils.isBlank(dateCreatedMin)) {
@@ -111,6 +135,14 @@ public class ImageUploadedServiceImpl implements ImageUploadedService {
         String userUpdated = params.get("userUpdated");
         if (!StringUtils.isBlank(userUpdated)) {
             criteria.add(Restrictions.eq("userUpdated", Long.parseLong(userUpdated)));
+        }
+        String userUpdatedMin = params.get("userUpdatedMin");
+        if (!StringUtils.isBlank(userUpdatedMin)) {
+            criteria.add(Restrictions.ge("userUpdated", Long.parseLong(userUpdatedMin)));
+        }
+        String userUpdatedMax = params.get("userUpdatedMax");
+        if (!StringUtils.isBlank(userUpdatedMax)) {
+            criteria.add(Restrictions.le("userUpdated", Long.parseLong(userUpdatedMax)));
         }
         String lastUpdatedMin = params.get("lastUpdatedMin");
         if (!StringUtils.isBlank(lastUpdatedMin)) {

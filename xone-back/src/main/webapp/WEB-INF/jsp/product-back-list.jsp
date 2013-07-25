@@ -32,9 +32,11 @@
 									<div class="row-fluid">
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="id">编号</label>
+												<label class="control-label" for="idMin">编号</label>
 												<div class="controls">
-													<input type="text" id="id" name="product.id"  value="${product.id}"  maxlength="20" placeholder="编号">
+													<input type="text" id="idMin" class="span5" name="product.idMin"  value="${product.idMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="idMax" class="span5" name="product.idMax"  value="${product.idMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -88,9 +90,9 @@
 											<div class="control-group">
 												<label class="control-label" for="productValidMin">有效期</label>
 												<div class="controls">
-													<input type="text" id="productValidMin" class="span5 Wdate" onclick="WdatePicker()" name="product.productValidMin"  value="${product.productValidMin}"  maxlength="19" placeholder="有效期">
+													<input type="text" id="productValidMin" class="span5 Wdate" onclick="WdatePicker()" name="product.productValidMin"  value="${product.productValidMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="productValidMax" class="span5 Wdate" onclick="WdatePicker()" name="product.productValidMax"  value="${product.productValidMax}"  maxlength="19" placeholder="有效期">
+													<input type="text" id="productValidMax" class="span5 Wdate" onclick="WdatePicker()" name="product.productValidMax"  value="${product.productValidMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -132,9 +134,11 @@
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userApply">申请人</label>
+												<label class="control-label" for="userApplyMin">申请人</label>
 												<div class="controls">
-													<input type="text" id="userApply" name="product.userApply"  value="${product.userApply}"  maxlength="20" placeholder="申请人">
+													<input type="text" id="userApplyMin" class="span5" name="product.userApplyMin"  value="${product.userApplyMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userApplyMax" class="span5" name="product.userApplyMax"  value="${product.userApplyMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -144,17 +148,19 @@
 											<div class="control-group">
 												<label class="control-label" for="dateApplyMin">申请时间</label>
 												<div class="controls">
-													<input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="product.dateApplyMin"  value="${product.dateApplyMin}"  maxlength="19" placeholder="申请时间">
+													<input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="product.dateApplyMin"  value="${product.dateApplyMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="product.dateApplyMax"  value="${product.dateApplyMax}"  maxlength="19" placeholder="申请时间">
+													<input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="product.dateApplyMax"  value="${product.dateApplyMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userCheck">审核人</label>
+												<label class="control-label" for="userCheckMin">审核人</label>
 												<div class="controls">
-													<input type="text" id="userCheck" name="product.userCheck"  value="${product.userCheck}"  maxlength="20" placeholder="审核人">
+													<input type="text" id="userCheckMin" class="span5" name="product.userCheckMin"  value="${product.userCheckMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userCheckMax" class="span5" name="product.userCheckMax"  value="${product.userCheckMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -164,17 +170,19 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCheckMin">审核时间</label>
 												<div class="controls">
-													<input type="text" id="dateCheckMin" class="span5 Wdate" onclick="WdatePicker()" name="product.dateCheckMin"  value="${product.dateCheckMin}"  maxlength="19" placeholder="审核时间">
+													<input type="text" id="dateCheckMin" class="span5 Wdate" onclick="WdatePicker()" name="product.dateCheckMin"  value="${product.dateCheckMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="dateCheckMax" class="span5 Wdate" onclick="WdatePicker()" name="product.dateCheckMax"  value="${product.dateCheckMax}"  maxlength="19" placeholder="审核时间">
+													<input type="text" id="dateCheckMax" class="span5 Wdate" onclick="WdatePicker()" name="product.dateCheckMax"  value="${product.dateCheckMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userCreated">创建人</label>
+												<label class="control-label" for="userCreatedMin">创建人</label>
 												<div class="controls">
-													<input type="text" id="userCreated" name="product.userCreated"  value="${product.userCreated}"  maxlength="20" placeholder="创建人">
+													<input type="text" id="userCreatedMin" class="span5" name="product.userCreatedMin"  value="${product.userCreatedMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userCreatedMax" class="span5" name="product.userCreatedMax"  value="${product.userCreatedMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -184,17 +192,19 @@
 											<div class="control-group">
 												<label class="control-label" for="dateCreatedMin">创建时间</label>
 												<div class="controls">
-													<input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="product.dateCreatedMin"  value="${product.dateCreatedMin}"  maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="product.dateCreatedMin"  value="${product.dateCreatedMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="product.dateCreatedMax"  value="${product.dateCreatedMax}"  maxlength="19" placeholder="创建时间">
+													<input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="product.dateCreatedMax"  value="${product.dateCreatedMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
-												<label class="control-label" for="userUpdated">更新人</label>
+												<label class="control-label" for="userUpdatedMin">更新人</label>
 												<div class="controls">
-													<input type="text" id="userUpdated" name="product.userUpdated"  value="${product.userUpdated}"  maxlength="20" placeholder="更新人">
+													<input type="text" id="userUpdatedMin" class="span5" name="product.userUpdatedMin"  value="${product.userUpdatedMin}"  maxlength="20" placeholder="最小值">
+													<span class="add-on">~</span>
+													<input type="text" id="userUpdatedMax" class="span5" name="product.userUpdatedMax"  value="${product.userUpdatedMax}"  maxlength="20" placeholder="最大值">
 												</div>
 											</div>
 										</div>
@@ -204,9 +214,9 @@
 											<div class="control-group">
 												<label class="control-label" for="lastUpdatedMin">更新时间</label>
 												<div class="controls">
-													<input type="text" id="lastUpdatedMin" class="span5 Wdate" onclick="WdatePicker()" name="product.lastUpdatedMin"  value="${product.lastUpdatedMin}"  maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdatedMin" class="span5 Wdate" onclick="WdatePicker()" name="product.lastUpdatedMin"  value="${product.lastUpdatedMin}"  maxlength="19" placeholder="最小日期">
 													<span class="add-on">~</span>
-													<input type="text" id="lastUpdatedMax" class="span5 Wdate" onclick="WdatePicker()" name="product.lastUpdatedMax"  value="${product.lastUpdatedMax}"  maxlength="19" placeholder="更新时间">
+													<input type="text" id="lastUpdatedMax" class="span5 Wdate" onclick="WdatePicker()" name="product.lastUpdatedMax"  value="${product.lastUpdatedMax}"  maxlength="19" placeholder="最大日期">
 												</div>
 											</div>
 										</div>
@@ -246,6 +256,7 @@
 								<th>创建时间</th>
 								<th>更新人</th>
 								<th>更新时间</th>
+								<th>操作</th>
 							</thead>
 							<tbody>
 							<c:forEach var="item" items="${pagination.list}">
@@ -256,19 +267,19 @@
 								<td>${item.saleType}</td>
 								<td>${item.productPrice}</td>
 								<td>${item.productNum}</td>
-								<td>${item.productValid}</td>
+								<td><fmt:formatDate value="${item.productValid}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.productAddress}</td>
 								<td>${item.productLocation}</td>
 								<td>${item.productDesc}</td>
 								<td>${item.flagDeleted}</td>
 								<td>${item.userApply}</td>
-								<td>${item.dateApply}</td>
+								<td><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.userCheck}</td>
-								<td>${item.dateCheck}</td>
+								<td><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.userCreated}</td>
-								<td>${item.dateCreated}</td>
+								<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd"/></td>
 								<td>${item.userUpdated}</td>
-								<td>${item.lastUpdated}</td>
+								<td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 								<td>
 									<a href="${pageContext.request.contextPath}/product/productEdit.html?product.id=${item.id}" class="btn btn-mini">编辑</a>
 									<a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}" class="btn btn-mini">详细</a>

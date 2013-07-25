@@ -35,21 +35,21 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="provinceCode">省份编码(reference:province.code)</label>
+							<label class="control-label" for="provinceCode">省份编码</label>
 							<div class="controls">
-								<input type="text" id="provinceCode" name="address.provinceCode" maxlength="20" placeholder="省份编码(reference:province.code)">
+								<input type="text" id="provinceCode" name="address.provinceCode" maxlength="20" placeholder="省份编码">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="cityCode">城市编码(reference:city.code)</label>
+							<label class="control-label" for="cityCode">城市编码</label>
 							<div class="controls">
-								<input type="text" id="cityCode" name="address.cityCode" maxlength="20" placeholder="城市编码(reference:city.code)">
+								<input type="text" id="cityCode" name="address.cityCode" maxlength="20" placeholder="城市编码">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="districtCode">区县编码(reference:district.code)</label>
+							<label class="control-label" for="districtCode">区县编码</label>
 							<div class="controls">
-								<input type="text" id="districtCode" name="address.districtCode" maxlength="20" placeholder="区县编码(reference:district.code)">
+								<input type="text" id="districtCode" name="address.districtCode" maxlength="20" placeholder="区县编码">
 							</div>
 						</div>
 						<div class="control-group">
@@ -65,33 +65,33 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="flagDeleted">是否被删除了(dict:yn)(0,否,1,是)(default:0)</label>
+							<label class="control-label" for="flagDeleted">是否被删除了</label>
 							<div class="controls">
-								<input type="text" id="flagDeleted" name="address.flagDeleted" maxlength="1" placeholder="是否被删除了(dict:yn)(0,否,1,是)(default:0)">
+								<input type="text" id="flagDeleted" name="address.flagDeleted" maxlength="1" placeholder="是否被删除了">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="userCreated">创建人(reference:user.id)(default:0)</label>
+							<label class="control-label" for="userCreated">创建人</label>
 							<div class="controls">
-								<input type="text" id="userCreated" name="address.userCreated" maxlength="20" placeholder="创建人(reference:user.id)(default:0)">
+								<input type="text" id="userCreated" name="address.userCreated" maxlength="20" placeholder="创建人">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="dateCreated">创建日期</label>
 							<div class="controls">
-								<input type="text" id="dateCreated" name="address.dateCreated" maxlength="19" placeholder="创建日期">
+								<input type="text" id="dateCreated" name="address.dateCreated" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建日期">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="userUpdated">更新人(reference:user.id)(default:0)</label>
+							<label class="control-label" for="userUpdated">更新人</label>
 							<div class="controls">
-								<input type="text" id="userUpdated" name="address.userUpdated" maxlength="20" placeholder="更新人(reference:user.id)(default:0)">
+								<input type="text" id="userUpdated" name="address.userUpdated" maxlength="20" placeholder="更新人">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="lastUpdated">更新日期</label>
 							<div class="controls">
-								<input type="text" id="lastUpdated" name="address.lastUpdated" maxlength="19" placeholder="更新日期">
+								<input type="text" id="lastUpdated" name="address.lastUpdated" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新日期">
 							</div>
 						</div>
 						<div class="control-group">

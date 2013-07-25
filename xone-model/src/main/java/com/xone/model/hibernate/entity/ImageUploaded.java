@@ -51,8 +51,16 @@ public class ImageUploaded implements Serializable {
 	protected String flagDeleted;
 	
 	// business logic
+    protected Long idMin;
+    protected Long idMax;
+    protected Long refIdMin;
+    protected Long refIdMax;
+    protected Long userCreatedMin;
+    protected Long userCreatedMax;
     protected String dateCreatedMin;
     protected String dateCreatedMax;
+    protected Long userUpdatedMin;
+    protected Long userUpdatedMax;
     protected String lastUpdatedMin;
     protected String lastUpdatedMax;
 	
@@ -141,6 +149,54 @@ public class ImageUploaded implements Serializable {
     }
     public void setLastUpdatedMax(String lastUpdatedMax) {
         this.lastUpdatedMax = lastUpdatedMax;
+    }
+    public Long getIdMin() {
+        return idMin;
+    }
+    public void setIdMin(Long idMin) {
+        this.idMin = idMin;
+    }
+    public Long getIdMax() {
+        return idMax;
+    }
+    public void setIdMax(Long idMax) {
+        this.idMax = idMax;
+    }
+    public Long getRefIdMin() {
+        return refIdMin;
+    }
+    public void setRefIdMin(Long refIdMin) {
+        this.refIdMin = refIdMin;
+    }
+    public Long getRefIdMax() {
+        return refIdMax;
+    }
+    public void setRefIdMax(Long refIdMax) {
+        this.refIdMax = refIdMax;
+    }
+    public Long getUserCreatedMin() {
+        return userCreatedMin;
+    }
+    public void setUserCreatedMin(Long userCreatedMin) {
+        this.userCreatedMin = userCreatedMin;
+    }
+    public Long getUserCreatedMax() {
+        return userCreatedMax;
+    }
+    public void setUserCreatedMax(Long userCreatedMax) {
+        this.userCreatedMax = userCreatedMax;
+    }
+    public Long getUserUpdatedMin() {
+        return userUpdatedMin;
+    }
+    public void setUserUpdatedMin(Long userUpdatedMin) {
+        this.userUpdatedMin = userUpdatedMin;
+    }
+    public Long getUserUpdatedMax() {
+        return userUpdatedMax;
+    }
+    public void setUserUpdatedMax(Long userUpdatedMax) {
+        this.userUpdatedMax = userUpdatedMax;
     }
 	
 	

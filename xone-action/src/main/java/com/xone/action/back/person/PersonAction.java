@@ -38,7 +38,7 @@ public class PersonAction extends DefaultDispatchAction {
         sql += "from Person where 1=1 ";
         sql += queryConditionsSql;
 
-        list = personService.findHql(sql, queryParamValueList);
+//        list = personService.findHql(sql, queryParamValueList);
 
         return SUCCESS;
     }
@@ -87,13 +87,13 @@ public class PersonAction extends DefaultDispatchAction {
             o = new Person();
         }
         ReflectUtils.copyPropertiesSafely(o, f);
-        personService.saveOrUpdate(o);
+//        personService.saveOrUpdate(o);
         return SUCCESS;
     }
 
     public String deleted() {
         Long id = new Long(f.getId());
-        personService.deleteById(id);
+//        personService.deleteById(id);
         return SUCCESS;
     }
 

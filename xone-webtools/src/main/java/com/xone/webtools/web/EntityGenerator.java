@@ -36,7 +36,7 @@ public class EntityGenerator extends BaseGenerator {
 		String path = getProjectParentPath();
 		File file = null;
 		if (null != path) {
-			file = new File(path + File.separator + "/xone-model/src/main/java/com/xone/model/hibernate/entity/" + File.separator + getHibernateXmlName());
+			file = new File(path + File.separator + "/output/entity/" + File.separator + getHibernateXmlName());
 		}
 		generate(root, "hibernate.ftl", file);
 	}

@@ -69,13 +69,37 @@ public class RolesResourcesServiceImpl implements RolesResourcesService {
         if (!StringUtils.isBlank(id)) {
             criteria.add(Restrictions.eq("id", Long.parseLong(id)));
         }
+        String idMin = params.get("idMin");
+        if (!StringUtils.isBlank(idMin)) {
+            criteria.add(Restrictions.ge("id", Long.parseLong(idMin)));
+        }
+        String idMax = params.get("idMax");
+        if (!StringUtils.isBlank(idMax)) {
+            criteria.add(Restrictions.le("id", Long.parseLong(idMax)));
+        }
         String resourceId = params.get("resourceId");
         if (!StringUtils.isBlank(resourceId)) {
             criteria.add(Restrictions.eq("resourceId", Long.parseLong(resourceId)));
         }
+        String resourceIdMin = params.get("resourceIdMin");
+        if (!StringUtils.isBlank(resourceIdMin)) {
+            criteria.add(Restrictions.ge("resourceId", Long.parseLong(resourceIdMin)));
+        }
+        String resourceIdMax = params.get("resourceIdMax");
+        if (!StringUtils.isBlank(resourceIdMax)) {
+            criteria.add(Restrictions.le("resourceId", Long.parseLong(resourceIdMax)));
+        }
         String roleId = params.get("roleId");
         if (!StringUtils.isBlank(roleId)) {
             criteria.add(Restrictions.eq("roleId", Long.parseLong(roleId)));
+        }
+        String roleIdMin = params.get("roleIdMin");
+        if (!StringUtils.isBlank(roleIdMin)) {
+            criteria.add(Restrictions.ge("roleId", Long.parseLong(roleIdMin)));
+        }
+        String roleIdMax = params.get("roleIdMax");
+        if (!StringUtils.isBlank(roleIdMax)) {
+            criteria.add(Restrictions.le("roleId", Long.parseLong(roleIdMax)));
         }
         String enable = params.get("enable");
         if (!StringUtils.isBlank(enable)) {
@@ -84,6 +108,14 @@ public class RolesResourcesServiceImpl implements RolesResourcesService {
         String userCreated = params.get("userCreated");
         if (!StringUtils.isBlank(userCreated)) {
             criteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
+        }
+        String userCreatedMin = params.get("userCreatedMin");
+        if (!StringUtils.isBlank(userCreatedMin)) {
+            criteria.add(Restrictions.ge("userCreated", Long.parseLong(userCreatedMin)));
+        }
+        String userCreatedMax = params.get("userCreatedMax");
+        if (!StringUtils.isBlank(userCreatedMax)) {
+            criteria.add(Restrictions.le("userCreated", Long.parseLong(userCreatedMax)));
         }
         String dateCreatedMin = params.get("dateCreatedMin");
         if (!StringUtils.isBlank(dateCreatedMin)) {
@@ -104,6 +136,14 @@ public class RolesResourcesServiceImpl implements RolesResourcesService {
         String userUpdated = params.get("userUpdated");
         if (!StringUtils.isBlank(userUpdated)) {
             criteria.add(Restrictions.eq("userUpdated", Long.parseLong(userUpdated)));
+        }
+        String userUpdatedMin = params.get("userUpdatedMin");
+        if (!StringUtils.isBlank(userUpdatedMin)) {
+            criteria.add(Restrictions.ge("userUpdated", Long.parseLong(userUpdatedMin)));
+        }
+        String userUpdatedMax = params.get("userUpdatedMax");
+        if (!StringUtils.isBlank(userUpdatedMax)) {
+            criteria.add(Restrictions.le("userUpdated", Long.parseLong(userUpdatedMax)));
         }
         String lastUpdatedMin = params.get("lastUpdatedMin");
         if (!StringUtils.isBlank(lastUpdatedMin)) {

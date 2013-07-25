@@ -35,15 +35,15 @@
 							<td>${address.id}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">省份编码(reference:province.code)</td>
+							<td style="width:60px;">省份编码</td>
 							<td>${address.provinceCode}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">城市编码(reference:city.code)</td>
+							<td style="width:60px;">城市编码</td>
 							<td>${address.cityCode}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">区县编码(reference:district.code)</td>
+							<td style="width:60px;">区县编码</td>
 							<td>${address.districtCode}</td>
 						</tr>
 						<tr>
@@ -55,24 +55,24 @@
 							<td>${address.zip}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">是否被删除了(dict:yn)(0,否,1,是)(default:0)</td>
+							<td style="width:60px;">是否被删除了</td>
 							<td>${address.flagDeleted}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">创建人(reference:user.id)(default:0)</td>
+							<td style="width:60px;">创建人</td>
 							<td>${address.userCreated}</td>
 						</tr>
 						<tr>
 							<td style="width:60px;">创建日期</td>
-							<td>${address.dateCreated}</td>
+							<td><fmt:formatDate value="${address.dateCreated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 						<tr>
-							<td style="width:60px;">更新人(reference:user.id)(default:0)</td>
+							<td style="width:60px;">更新人</td>
 							<td>${address.userUpdated}</td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新日期</td>
-							<td>${address.lastUpdated}</td>
+							<td><fmt:formatDate value="${address.lastUpdated}" pattern="yyyy-MM-dd"/></td>
 						</tr>
 					</tbody>
 				</table>

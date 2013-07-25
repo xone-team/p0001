@@ -55,7 +55,7 @@
 						<div class="control-group">
 							<label class="control-label" for="purchaseValid">有效期</label>
 							<div class="controls">
-								<input type="text" id="purchaseValid" name="purchase.purchaseValid" maxlength="19" placeholder="有效期">
+								<input type="text" id="purchaseValid" name="purchase.purchaseValid" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="有效期">
 							</div>
 						</div>
 						<div class="control-group">
@@ -91,7 +91,7 @@
 						<div class="control-group">
 							<label class="control-label" for="dateApply">申请时间</label>
 							<div class="controls">
-								<input type="text" id="dateApply" name="purchase.dateApply" maxlength="19" placeholder="申请时间">
+								<input type="text" id="dateApply" name="purchase.dateApply" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="申请时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -103,7 +103,7 @@
 						<div class="control-group">
 							<label class="control-label" for="dateCheck">审核时间</label>
 							<div class="controls">
-								<input type="text" id="dateCheck" name="purchase.dateCheck" maxlength="19" placeholder="审核时间">
+								<input type="text" id="dateCheck" name="purchase.dateCheck" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="审核时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -115,7 +115,7 @@
 						<div class="control-group">
 							<label class="control-label" for="dateCreated">创建时间</label>
 							<div class="controls">
-								<input type="text" id="dateCreated" name="purchase.dateCreated" maxlength="19" placeholder="创建时间">
+								<input type="text" id="dateCreated" name="purchase.dateCreated" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
 							</div>
 						</div>
 						<div class="control-group">
@@ -127,7 +127,7 @@
 						<div class="control-group">
 							<label class="control-label" for="lastUpdated">更新时间</label>
 							<div class="controls">
-								<input type="text" id="lastUpdated" name="purchase.lastUpdated" maxlength="19" placeholder="更新时间">
+								<input type="text" id="lastUpdated" name="purchase.lastUpdated" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
 							</div>
 						</div>
 						<div class="control-group">

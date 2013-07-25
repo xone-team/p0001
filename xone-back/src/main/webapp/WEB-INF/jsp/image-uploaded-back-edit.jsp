@@ -28,7 +28,7 @@
 						<li class="active">imageUploaded编辑</li>
 					</ul>
 				</div>
-				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/admin/imageUploadedUpdate.html">
+				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/imageUploaded/imageUploadedUpdate.html">
 					<div class="control-group">
 						<label class="control-label" for="id">编号</label>
 						<div class="controls">
@@ -62,7 +62,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateCreated">创建时间</label>
 						<div class="controls">
-							<input type="text" id="dateCreated" name="imageUploaded.dateCreated" value="${imageUploaded.dateCreated}" maxlength="19" placeholder="创建时间">
+							<input type="text" id="dateCreated" name="imageUploaded.dateCreated" value="<fmt:formatDate value="${imageUploaded.dateCreated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -74,7 +74,7 @@
 					<div class="control-group">
 						<label class="control-label" for="lastUpdated">更新时间</label>
 						<div class="controls">
-							<input type="text" id="lastUpdated" name="imageUploaded.lastUpdated" value="${imageUploaded.lastUpdated}" maxlength="19" placeholder="更新时间">
+							<input type="text" id="lastUpdated" name="imageUploaded.lastUpdated" value="<fmt:formatDate value="${imageUploaded.lastUpdated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -92,7 +92,6 @@
 					<div class="control-group">
 						<div class="controls">
 							<button type="submit" name="update" value="update" class="btn">提交更新</button>
-							<button type="submit" name="delete" value="delete" class="btn">删除角色</button>
 						</div>
 					</div>
 				</form>
