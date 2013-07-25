@@ -83,8 +83,23 @@
 					</form>
 				</div>
 			</div>
+			<div id="windowTitleDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-header">
+					<a href="#" class="close" data-dismiss="modal">&times;</a>
+					<div>请选择一个用户</div>
+				</div>
+				<div class="modal-body">
+					<div class="divDialogElements">
+						<input class="xlarge" id="xlInput" name="xlInput" type="text" />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a href="#" class="btn" onclick="$('#windowTitleDialog').modal('hide');">取消</a>
+					<a href="#" class="btn btn-primary" onclick="$('#windowTitleDialog').modal('hide');">确定</a>
+				</div>
+			</div>
 		</div>
-		<jsp:include page="common-footer.jsp"></jsp:include>
+	<jsp:include page="common-footer.jsp"></jsp:include>
 		<script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
 		<script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 		<script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
@@ -111,6 +126,10 @@
 			});
 			$('.adbanneradstart, .adbanneradend').datepicker();
 			$('.selectpicker').selectpicker({style: 'btn-info'});
+			$('#userId, #refId').click(function() {
+				$('#windowTitleDialog').modal();
+			});
+// 			$('#windowTitleDialog').show();
 		});
 		function alertMessage(title, msg) {
 			return ['<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>',
