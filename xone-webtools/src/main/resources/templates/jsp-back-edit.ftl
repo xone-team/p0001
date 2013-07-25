@@ -33,12 +33,21 @@
 					<#if p.autoIncrement == '1'>
 					<input type="hidden" name="${tableVarName}.${p.javaVarName}" value="${r"${"}${tableVarName}.${p.javaVarName}}" />
 					<#else>
+						<#if p.columnClassName == "java.util.Date">
+					<div class="control-group">
+						<label class="control-label" for="${p.javaVarName}">${p.columnComments}</label>
+						<div class="controls">
+							<input type="text" id="${p.javaVarName}" name="${tableVarName}.${p.javaVarName}" value="<fmt:formatDate value="${r"${"}${tableVarName}.${p.javaVarName}}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
+						</div>
+					</div>
+						<#else>
 					<div class="control-group">
 						<label class="control-label" for="${p.javaVarName}">${p.columnComments}</label>
 						<div class="controls">
 							<input type="text" id="${p.javaVarName}" name="${tableVarName}.${p.javaVarName}" value="${r"${"}${tableVarName}.${p.javaVarName}}" maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
 						</div>
 					</div>
+						</#if>
 					</#if>
 				</#list>
 					<div class="control-group">

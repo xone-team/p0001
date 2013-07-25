@@ -33,7 +33,11 @@
 					<#list tableProperties as p>
 						<tr>
 							<td style="width:60px;">${p.columnComments}</td>
+						<#if p.columnClassName == "java.util.Date">
+							<td><fmt:formatDate value="${r"${"}${tableVarName}.${p.javaVarName}}" pattern="yyyy-MM-dd"/></td>
+						<#else>
 							<td>${r"${"}${tableVarName}.${p.javaVarName}}</td>
+						</#if>
 						</tr>
 					</#list>
 					</tbody>
