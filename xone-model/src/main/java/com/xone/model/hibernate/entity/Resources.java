@@ -18,6 +18,16 @@ public class Resources implements Serializable {
 	protected Date dateCreated;
 	protected Long userUpdated;
 	protected Date lastUpdated;
+	
+	// business logic
+    protected String dateCreatedMin;
+    protected String dateCreatedMax;
+    protected String lastUpdatedMin;
+    protected String lastUpdatedMax;
+	
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -84,5 +94,31 @@ public class Resources implements Serializable {
 	public void setLastUpdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
+    public String getDateCreatedMin() {
+        return dateCreatedMin;
+    }
+    public void setDateCreatedMin(String dateCreatedMin) {
+        this.dateCreatedMin = dateCreatedMin;
+    }
+    public String getDateCreatedMax() {
+        return dateCreatedMax;
+    }
+    public void setDateCreatedMax(String dateCreatedMax) {
+        this.dateCreatedMax = dateCreatedMax;
+    }
+    public String getLastUpdatedMin() {
+        return lastUpdatedMin;
+    }
+    public void setLastUpdatedMin(String lastUpdatedMin) {
+        this.lastUpdatedMin = lastUpdatedMin;
+    }
+    public String getLastUpdatedMax() {
+        return lastUpdatedMax;
+    }
+    public void setLastUpdatedMax(String lastUpdatedMax) {
+        this.lastUpdatedMax = lastUpdatedMax;
+    }
+	
+	
 	
 }

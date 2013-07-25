@@ -49,6 +49,15 @@ public class ImageUploaded implements Serializable {
 	protected Date lastUpdated;
 	protected String image;
 	protected String flagDeleted;
+	
+	// business logic
+    protected String dateCreatedMin;
+    protected String dateCreatedMax;
+    protected String lastUpdatedMin;
+    protected String lastUpdatedMax;
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -109,4 +118,30 @@ public class ImageUploaded implements Serializable {
 	public void setFlagDeleted(String flagDeleted) {
 		this.flagDeleted = flagDeleted;
 	}
+    public String getDateCreatedMin() {
+        return dateCreatedMin;
+    }
+    public void setDateCreatedMin(String dateCreatedMin) {
+        this.dateCreatedMin = dateCreatedMin;
+    }
+    public String getDateCreatedMax() {
+        return dateCreatedMax;
+    }
+    public void setDateCreatedMax(String dateCreatedMax) {
+        this.dateCreatedMax = dateCreatedMax;
+    }
+    public String getLastUpdatedMin() {
+        return lastUpdatedMin;
+    }
+    public void setLastUpdatedMin(String lastUpdatedMin) {
+        this.lastUpdatedMin = lastUpdatedMin;
+    }
+    public String getLastUpdatedMax() {
+        return lastUpdatedMax;
+    }
+    public void setLastUpdatedMax(String lastUpdatedMax) {
+        this.lastUpdatedMax = lastUpdatedMax;
+    }
+	
+	
 }

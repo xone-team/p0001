@@ -23,6 +23,17 @@ public class Subscribe implements Serializable {
 	protected Long userUpdated;
 	protected Date lastUpdated;
 	
+	
+	// business logic
+    protected String dateApplyMin;
+    protected String dateApplyMax;
+    protected String dateCheckMin;
+    protected String dateCheckMax;
+    protected String dateCreatedMin;
+    protected String dateCreatedMax;
+    protected String lastUpdatedMin;
+    protected String lastUpdatedMax;
+	
 	public Long getId() {
 		return id;
 	}
@@ -113,5 +124,54 @@ public class Subscribe implements Serializable {
 	public void setLastUpdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
+    public String getDateApplyMin() {
+        return dateApplyMin;
+    }
+    public void setDateApplyMin(String dateApplyMin) {
+        this.dateApplyMin = dateApplyMin;
+    }
+    public String getDateApplyMax() {
+        return dateApplyMax;
+    }
+    public void setDateApplyMax(String dateApplyMax) {
+        this.dateApplyMax = dateApplyMax;
+    }
+    public String getDateCheckMin() {
+        return dateCheckMin;
+    }
+    public void setDateCheckMin(String dateCheckMin) {
+        this.dateCheckMin = dateCheckMin;
+    }
+    public String getDateCheckMax() {
+        return dateCheckMax;
+    }
+    public void setDateCheckMax(String dateCheckMax) {
+        this.dateCheckMax = dateCheckMax;
+    }
+    public String getDateCreatedMin() {
+        return dateCreatedMin;
+    }
+    public void setDateCreatedMin(String dateCreatedMin) {
+        this.dateCreatedMin = dateCreatedMin;
+    }
+    public String getDateCreatedMax() {
+        return dateCreatedMax;
+    }
+    public void setDateCreatedMax(String dateCreatedMax) {
+        this.dateCreatedMax = dateCreatedMax;
+    }
+    public String getLastUpdatedMin() {
+        return lastUpdatedMin;
+    }
+    public void setLastUpdatedMin(String lastUpdatedMin) {
+        this.lastUpdatedMin = lastUpdatedMin;
+    }
+    public String getLastUpdatedMax() {
+        return lastUpdatedMax;
+    }
+    public void setLastUpdatedMax(String lastUpdatedMax) {
+        this.lastUpdatedMax = lastUpdatedMax;
+    }
+	
 	
 }

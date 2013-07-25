@@ -35,10 +35,26 @@
 									</#if>
 										<div class="span5 form-horizontal">
 											<div class="control-group">
+												<#if p.columnClassName == "java.lang.String">
 												<label class="control-label" for="${p.javaVarName}">${p.columnComments}</label>
 												<div class="controls">
-													<input type="text" id="${p.javaVarName}" name="${tableVarName}.${p.javaVarName}"  value="${r"${"}${tableVarName}.${p.javaVarName}${r"}"}"  maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
+													<input type="text" id="${p.javaVarName}" name="${tableVarName}.${p.javaVarName}"  value="${"$"}{${tableVarName}.${p.javaVarName}}"  maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
 												</div>
+												</#if>
+												<#if p.columnClassName == "java.lang.Long">
+												<label class="control-label" for="${p.javaVarName}">${p.columnComments}</label>
+												<div class="controls">
+													<input type="text" id="${p.javaVarName}" name="${tableVarName}.${p.javaVarName}"  value="${"$"}{${tableVarName}.${p.javaVarName}}"  maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
+												</div>
+												</#if>
+												<#if p.columnClassName == "java.util.Date">
+												<label class="control-label" for="${p.javaVarName}Min">${p.columnComments}</label>
+												<div class="controls">
+													<input type="text" id="${p.javaVarName}Min" class="span5 Wdate" onclick="WdatePicker()" name="${tableVarName}.${p.javaVarName}Min"  value="${"$"}{${tableVarName}.${p.javaVarName}Min}"  maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
+													<span class="add-on">~</span>
+													<input type="text" id="${p.javaVarName}Max" class="span5 Wdate" onclick="WdatePicker()" name="${tableVarName}.${p.javaVarName}Max"  value="${"$"}{${tableVarName}.${p.javaVarName}Max}"  maxlength="${p.columnDisplaySize}" placeholder="${p.columnComments}">
+												</div>
+												</#if>
 											</div>
 										</div>
 									<#if p_index % 2 == 1 && (p_has_next)>
