@@ -14,14 +14,22 @@
 			<result name="success">/WEB-INF/jsp/adbanner-back-create.jsp</result>
 		</action>
 		<action name="adbannerSave" class="adbannerBackAction" method="adbannerSave">
-			<result name="success">/WEB-INF/jsp/adbanner-back-item.jsp</result>
+			<result name="success" type="redirectAction">
+			    <param name="actionName">adbannerItem</param> 
+    			<param name="namespace">/adbanner</param> 
+				<param name="adbanner.id">${adbanner.id}</param>
+			</result>
 		</action>
 		<action name="adbannerEdit" class="adbannerBackAction" method="adbannerEdit">
 			<result name="success">/WEB-INF/jsp/adbanner-back-edit.jsp</result>
 		</action>
 		<action name="adbannerUpdate" class="adbannerBackAction" method="adbannerUpdate">
-			<result name="success">/WEB-INF/jsp/adbanner-back-item.jsp</result>
-			<result name="list" type="chain">
+			<result name="success" type="redirectAction">
+			    <param name="actionName">adbannerItem</param> 
+    			<param name="namespace">/adbanner</param> 
+				<param name="adbanner.id">${adbanner.id}</param>
+			</result>
+			<result name="list" type="redirectAction">
 			    <param name="actionName">adbannerList</param> 
     			<param name="namespace">/adbanner</param>
 			</result>

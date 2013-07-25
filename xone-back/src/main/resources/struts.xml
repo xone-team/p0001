@@ -45,6 +45,7 @@
         <global-results>
             <result name="index">/index.jsp</result>
         </global-results>
+        <action name="image" class="genericPageBackAction" method="image"></action>
     </package>
 	<include file="struts/struts-person.xml" />
 	<include file="struts/struts-adbanner-back.xml" />

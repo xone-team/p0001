@@ -12,6 +12,9 @@
 		<meta name="author" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<jsp:include page="common-header.jsp"></jsp:include>
+		<link href="${STATIC_ROOT}/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
+		<link href="${STATIC_ROOT}/bootstrap-datepicker/css/bootstrap-select.css" rel="stylesheet">
+		<link href="${STATIC_ROOT}/bootstrap-select/bootstrap-select.css" rel="stylesheet">
 	</head>
 	<body>
 		<jsp:include page="common-nav.jsp"></jsp:include>
@@ -27,45 +30,48 @@
 							<li class="active">发布广告</li>
 						</ul>
 					</div>
-					<form class="form-horizontal" id="adbannerSaveForm${identify}" method="post" action="${pageContext.request.contextPath}/adbanner/adbannerSave.html">
+					<form class="form-horizontal" enctype="multipart/form-data" id="adbannerSaveForm${identify}" method="post" action="${pageContext.request.contextPath}/adbanner/adbannerSave.html">
 						<div class="control-group">
-							<label class="control-label" for="refId">相关编号</label>
+							<label class="control-label" for="adType">广告类型</label>
+							<div class="controls">
+								<select class="selectpicker" id="adType" name="adbanner.adType" maxlength="2" placeholder="广告类型">
+									<option value="0">售卖产品</option>
+									<option value="1">购买产品</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="refId">选择产品</label>
 							<div class="controls">
 								<input type="text" id="refId" name="adbanner.refId" maxlength="20" placeholder="相关编号">
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="adType">广告类型</label>
+							<label class="control-label" for="userId">选择用户</label>
 							<div class="controls">
-								<input type="text" id="adType" name="adbanner.adType" maxlength="2" placeholder="广告类型">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="adRefId">相关编号</label>
-							<div class="controls">
-								<input type="text" id="adRefId" name="adbanner.adRefId" maxlength="20" placeholder="相关编号">
+								<input type="text" id="userId" name="adbanner.userId" maxlength="20" placeholder="用户编号">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="adStart">开始时间</label>
 							<div class="controls">
-								<input type="text" id="adStart" name="adbanner.adStart" maxlength="19" placeholder="开始时间">
+								<div class="input-append date datepicker adbanneradstart" data-date="2013-02-14" data-date-format="yyyy-mm-dd">
+									<input type="text" id="adStart" name="adbanner.adStart" maxlength="19" placeholder="开始时间" readonly>
+									<span class="add-on"><i class="icon-th"></i></span>
+								</div>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="adEnd">结束时间</label>
 							<div class="controls">
-								<input type="text" id="adEnd" name="adbanner.adEnd" maxlength="19" placeholder="结束时间">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="userId">用户编号</label>
-							<div class="controls">
-								<input type="text" id="userId" name="adbanner.userId" maxlength="20" placeholder="用户编号">
+								<div class="input-append date datepicker adbanneradend" data-date="2013-02-14" data-date-format="yyyy-mm-dd">
+									<input type="text" id="adEnd" name="adbanner.adEnd" maxlength="19" placeholder="结束时间" readonly>
+									<span class="add-on"><i class="icon-th"></i></span>
+								</div>
 							</div>
 						</div>
 						<div class="control-group fileupload">
-							<input type="file" id="uploadImageFile" name="image" value="">
+							<input type="file" id="uploadImageFile" name="uploadFile" value="">
 						</div>
 						<div class="control-group">
 							<div class="controls">
@@ -79,10 +85,21 @@
 			</div>
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
+		<script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+		<script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
+		<script src="${STATIC_ROOT}/js/fileupload.js"></script>
 		<script type="text/javascript" language="javascript">
 		$(document).ready(function() {
 			$('div.fileupload').hide();
-			$('#uploadImageFile[type="file"]').bind('change', handleFileSelect);
+			$('#uploadImageFile[type="file"]').fileupload({
+				onload:function(it, e) {
+					var div = document.createElement('div');
+					var result = it.data('base64source');
+					div.innerHTML = ['<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>'].join('');
+					$('div.uploadimagesdiv').html('').append(div);
+				}
+			});
 			$('#adbannerSaveForm${identify}').submit(function() {
 				var $form = $('#adbannerSaveForm${identify}');
 				$form.find('div.alert').remove();
@@ -92,6 +109,8 @@
 				}
 				return true;
 			});
+			$('.adbanneradstart, .adbanneradend').datepicker();
+			$('.selectpicker').selectpicker({style: 'btn-info'});
 		});
 		function alertMessage(title, msg) {
 			return ['<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>',
@@ -102,46 +121,6 @@
 			$('div.uploadimagesdiv').html('');
 			$('#uploadImageFile').val('');
 			return false;
-		}
-		function getExt(v) {
-			var a = v.split('.');
-			return a[a.length - 1];
-		}
-		function handleFileSelect(evt) {
-			var files = evt.target.files;
-			for (var i = 0, f; f = files[i]; i++) {
-				var reader = new FileReader();
-				reader.onload = (function(theFile) {
-					return function(e) {
-						var div = document.createElement('div');
-						var result = e.target.result.replace(/data:base64,/, 'data:image/' + getExt(theFile.name) + ';base64,');
-						div.innerHTML = ['<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '" title="', escape(theFile.name), '"/></div>'].join('');
-						$('div.uploadimagesdiv').html('').append(div);
-					};
-				})(f);
-				reader.onerror = function(evt) {
-					switch (evt.target.error.code) {
-					case evt.target.error.NOT_FOUND_ERR:
-						alert('File Not Found!');
-						break;
-					case evt.target.error.NOT_READABLE_ERR:
-						alert('File is not readable');
-						break;
-					case evt.target.error.ABORT_ERR:
-						break; // noop
-					default:
-						alert('An error occurred reading this file.');
-					};
-				};
-				reader.onabort = function(e) {
-					alert('File read cancelled');
-				};
-				reader.onloadstart = function(e) {
-
-				};
-				// Read in the image file as a data URL.
-				reader.readAsDataURL(f);
-			}
 		}
 		</script>
 	</body>

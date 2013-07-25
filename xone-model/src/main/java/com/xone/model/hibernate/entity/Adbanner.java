@@ -1,7 +1,9 @@
 package com.xone.model.hibernate.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Adbanner implements Serializable {
 

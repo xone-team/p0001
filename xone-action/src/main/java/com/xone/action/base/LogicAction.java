@@ -13,6 +13,8 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.io.FileUtils;
+
 import com.xone.action.utils.ImageUtils;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.service.app.ImageUploadedService;
@@ -136,6 +138,33 @@ public abstract class LogicAction extends Action {
 			}
 		}
 		return images;
+	}
+	
+	@SuppressWarnings("unchecked")
+	protected ImageUploaded createUploadImageByFile(String imageUploadedPath,
+			ImageUploaded.RefType refType, File uploadFile,
+			String uploadFileContentType, String uploadFileFileName) {
+		ImageUploaded iu = new ImageUploaded();
+		iu.setImageType(uploadFileContentType);//aImage[0].replaceFirst("data:", "")
+		iu.setImage(null);
+		iu.setRefType(refType.getValue());
+		String suffix = iu.getImageType().replaceFirst("image/", "");
+		try {
+			File file = new File(imageUploadedPath);
+			if (!file.exists()) {
+				file.mkdirs();
+			}
+			String filename = getUniqueId() + "." + suffix;
+			File destFile = new File(file.getCanonicalPath() + File.separator + filename);
+			if (!destFile.getParentFile().exists()) {// 判断路径"/images"是否存在
+				destFile.getParentFile().mkdirs();// 如果不存在，则创建此路径
+			}
+			FileUtils.copyFile(uploadFile, destFile);
+			iu.setImage(filename);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return iu;
 	}
 	
 }

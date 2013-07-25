@@ -10,4 +10,7 @@
 			http://www.springframework.org/schema/context   
 			http://www.springframework.org/schema/context/spring-context-2.5.xsd" default-lazy-init="true" default-autowire="byName">
 	<bean id="personBackAction" class="com.xone.action.back.person.PersonAction" scope="prototype" />
+	<bean id="genericPageBackAction" class="com.xone.action.back.index.GenericPageBackAction" scope="prototype">
+	    <property name="imageUploadPath" value="${com.xone.image.uploaded.file.dir}" />
+	</bean>
 </beans>

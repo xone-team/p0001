@@ -24,8 +24,8 @@
 				<div class="row-fluid">
 					<ul class="breadcrumb" id="X_breadcrumbs_ul">
 						<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
-						<li><a href="${pageContext.request.contextPath}/adbanner/adbannerList.html">adbanner列表</a> <span class="divider">/</span></li>
-						<li class="active">adbanner详细</li>
+						<li><a href="${pageContext.request.contextPath}/adbanner/adbannerList.html">广告列表</a> <span class="divider">/</span></li>
+						<li class="active">广告详细</li>
 					</ul>
 				</div>
 				<table class="table table-bordered" style="width:100%">
@@ -35,16 +35,12 @@
 							<td>${adbanner.id}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">相关编号</td>
+							<td style="width:60px;">产品编号</td>
 							<td>${adbanner.refId}</td>
 						</tr>
 						<tr>
 							<td style="width:60px;">广告类型</td>
 							<td>${adbanner.adType}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">相关编号</td>
-							<td>${adbanner.adRefId}</td>
 						</tr>
 						<tr>
 							<td style="width:60px;">开始时间</td>
@@ -96,6 +92,12 @@
 						</tr>
 					</tbody>
 				</table>
+				<div class="control-group uploadimagesdiv" style="margin-bottom:0px;">
+					<div class="well well-small" style="margin-bottom:0px;">广告图片预览</div>
+					<div class="well well-small">
+						<img src="${pageContext.request.contextPath}/image.html?id=${adbanner.adRefId}"/>
+					</div>
+				</div>
 				</div>
 			</div>
 		</div>

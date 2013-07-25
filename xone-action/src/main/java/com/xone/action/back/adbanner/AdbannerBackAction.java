@@ -1,5 +1,6 @@
 package com.xone.action.back.adbanner;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,21 +9,27 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.xone.action.base.Action;
+import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.Adbanner;
+import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.AdbannerService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
-public class AdbannerBackAction extends Action {
+public class AdbannerBackAction extends LogicAction {
 	
 	@Autowired
 	protected AdbannerService adbannerService;
 	protected Adbanner adbanner = new Adbanner();
 	protected List<Adbanner> list = new ArrayList<Adbanner>();
 	protected Pagination pagination = new Pagination();
+	protected File uploadFile; // 得到上传的文件,此属性对应于表单中文件字段的名称  
+    //下面的这两个属性的命名必须遵守上定的规则，即为"表单中文件字段的名称" + "相应的后缀"  
+	protected String uploadFileContentType; // 得到上传的文件的数据类型,  
+	protected String uploadFileFileName; // 得到上传的文件的名称 
+	protected String imageUploadPath;
 	
 	public String adbannerList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
@@ -72,7 +79,10 @@ public class AdbannerBackAction extends Action {
 	}
 	
 	public String adbannerSave() throws Exception {
-		setAdbanner(getAdbannerService().save(getAdbanner()));
+		ImageUploaded imageUploaded = createUploadImageByFile(imageUploadPath,
+				ImageUploaded.RefType.ABBANNER, getUploadFile(),
+				getUploadFileContentType(), getUploadFileFileName());
+		setAdbanner(getAdbannerService().save(getAdbanner(), imageUploaded));
 		return SUCCESS;
 	}
 	
@@ -136,4 +146,37 @@ public class AdbannerBackAction extends Action {
 	public void setPagination(Pagination pagination) {
 		this.pagination = pagination;
 	}
+
+	public File getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(File uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+
+	public String getUploadFileContentType() {
+		return uploadFileContentType;
+	}
+
+	public void setUploadFileContentType(String uploadFileContentType) {
+		this.uploadFileContentType = uploadFileContentType;
+	}
+
+	public String getUploadFileFileName() {
+		return uploadFileFileName;
+	}
+
+	public void setUploadFileFileName(String uploadFileFileName) {
+		this.uploadFileFileName = uploadFileFileName;
+	}
+
+	public String getImageUploadPath() {
+		return imageUploadPath;
+	}
+
+	public void setImageUploadPath(String imageUploadPath) {
+		this.imageUploadPath = imageUploadPath;
+	}
+	
 }

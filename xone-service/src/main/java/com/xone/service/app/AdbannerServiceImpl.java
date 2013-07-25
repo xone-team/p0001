@@ -1,6 +1,7 @@
 package com.xone.service.app;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,17 +14,34 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.AdbannerDao;
+import com.xone.model.hibernate.app.ImageUploadedDao;
 import com.xone.model.hibernate.entity.Adbanner;
+import com.xone.model.hibernate.entity.ImageUploaded;
+import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
 
 public class AdbannerServiceImpl implements AdbannerService {
 
 	@Autowired
 	protected AdbannerDao adbannerDao;
+	
+	@Autowired
+	protected ImageUploadedDao imageUploadedDao;
 
 	@Override
 	public Adbanner save(Adbanner entity) {
 		return getAdbannerDao().save(entity);
+	}
+	
+	@Override
+	public Adbanner save(Adbanner entity, ImageUploaded imageUploaded) {
+		entity = getAdbannerDao().save(entity);
+		imageUploaded.setRefId(entity.getId());
+		imageUploaded.setRefType(ImageUploaded.RefType.ABBANNER.getValue());
+		imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
+		imageUploaded = getImageUploadedDao().save(imageUploaded);
+		entity.setRefId(imageUploaded.getId());
+		return entity;
 	}
 	
 	@Override
@@ -35,9 +53,17 @@ public class AdbannerServiceImpl implements AdbannerService {
 	public void delete(Adbanner entity) {
 		getAdbannerDao().deleteById(entity.getId());
 	}
+	
 	@Override
 	public Adbanner findById(Long id) {
-		return getAdbannerDao().findById(id);
+		Adbanner adbanner = getAdbannerDao().findById(id);
+		if (null != adbanner) {
+			List<Long> ids = getImageUploadedDao().findAllIdsByRefId(adbanner.getId(), ImageUploaded.RefType.ABBANNER);
+			if (null != ids && !ids.isEmpty()) {
+				adbanner.setAdRefId(ids.get(0));
+			}
+		}
+		return adbanner;
 	}
 	
 	@Override
@@ -56,10 +82,28 @@ public class AdbannerServiceImpl implements AdbannerService {
 			}
 		}
 		detachedCriteria.add(Restrictions.eq("flagDeleted", Adbanner.FlagDeleted.NORMAL.getValue()));
-		List<Adbanner> list =getAdbannerDao().findListByDetachedCriteria(detachedCriteria, 0, 10);
+		List<Adbanner> list = getAdbannerDao().findListByDetachedCriteria(detachedCriteria, 0, 10);
+		if (null != list && !list.isEmpty()) {
+			List<Long> ids = new ArrayList<Long>();
+			for (Adbanner a : list) {
+				ids.add(a.getId());
+			}
+			Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.ABBANNER, 0, ids.size());
+			for (int i = 0; i < ids.size(); i++) {
+				Adbanner ad = list.get(i);
+				List<Long> imageIds = maps.get(ad.getId());
+				if (null != imageIds && !imageIds.isEmpty()) {
+					ad.setAdRefId(maps.get(ad.getId()).get(0));
+				}
+				list.set(i, ad);
+			}
+		}
 		return list;
 	}
 	
+	/**
+	 * APP广告查询专用
+	 */
 	@Override
 	public List<Adbanner> findItemsByMap(Map<String, String> params) {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Adbanner.class);
@@ -118,6 +162,14 @@ public class AdbannerServiceImpl implements AdbannerService {
 
 	public void setAdbannerDao(AdbannerDao adbannerDao) {
 		this.adbannerDao = adbannerDao;
+	}
+
+	public ImageUploadedDao getImageUploadedDao() {
+		return imageUploadedDao;
+	}
+
+	public void setImageUploadedDao(ImageUploadedDao imageUploadedDao) {
+		this.imageUploadedDao = imageUploadedDao;
 	}
 	
 }
