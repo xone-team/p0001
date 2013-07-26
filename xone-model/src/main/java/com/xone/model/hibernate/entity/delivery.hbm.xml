@@ -16,8 +16,8 @@
 		<property name="determini" type="java.lang.String">
 			<column name="DETERMINI" length="255"/>
 		</property>
-		<property name="loadtime" type="java.lang.String">
-			<column name="LOADTIME" length="255"/>
+		<property name="loadtime" type="java.util.Date">
+			<column name="LOADTIME" length="19"/>
 		</property>
 		<property name="loadaddress" type="java.lang.String">
 			<column name="LOADADDRESS" length="255"/>

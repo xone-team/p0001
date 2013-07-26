@@ -1,6 +1,7 @@
 package com.xone.action.back.delivery;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Delivery;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.model.utils.DateUtils;
 import com.xone.service.app.DeliveryService;
 import com.xone.service.app.utils.MyBeanUtils;
+import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class DeliveryBackAction extends Action {
@@ -25,13 +28,25 @@ public class DeliveryBackAction extends Action {
 	
 	public String deliveryList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
+		MyBeanUtils.copyPropertiesToMap(getDelivery(), params, new CopyRules() {
+			@Override
+			public boolean myCopyRules(Object value) {
+				return null != value;
+			}
+			
+		}, new AssignRules() {
+			@Override
+			public String myAssignRules(Object value) {
+				if (null != value && value instanceof Date) {
+					return DateUtils.format((Date)value, "yyyy-MM-dd");
+				}
+				return value.toString();
+			}
+		}, null);
+		setDelivery(getDelivery());
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
 		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
 		Pagination p = getDeliveryService().findByParams(params);
-//		List<Delivery> l = getDeliveryService().findAllByMap(params);
-//		if (null != l && !l.isEmpty()) {
-//			getList().addAll(l);
-//		}
 		setPagination(p);
 		return SUCCESS;
 	}

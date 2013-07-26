@@ -10,7 +10,7 @@ public class Delivery implements Serializable {
 	protected Long productId;
 	protected String marketarea;
 	protected String determini;
-	protected String loadtime;
+	protected Date loadtime;
 	protected String loadaddress;
 	protected String boxNum;
 	protected String unitNum;
@@ -27,6 +27,9 @@ public class Delivery implements Serializable {
 	protected Date dateCreated;
 	protected Long userUpdated;
 	protected Date lastUpdated;
+	
+	protected Date gtLoadtime;
+	protected Date ltLoadtime;
 
 // business logic
 	protected Long idMin;
@@ -74,10 +77,10 @@ public class Delivery implements Serializable {
 	public void setDetermini(String determini) {
 		this.determini = determini;
 	}
-	public String getLoadtime() {
+	public Date getLoadtime() {
 		return loadtime;
 	}
-	public void setLoadtime(String loadtime) {
+	public void setLoadtime(Date loadtime) {
 		this.loadtime = loadtime;
 	}
 	public String getLoadaddress() {
@@ -194,7 +197,19 @@ public class Delivery implements Serializable {
     public void setLastUpdated(Date lastUpdated) {
         this.lastUpdated = lastUpdated;
     }
-    public Long getIdMin() {
+    public Date getGtLoadtime() {
+		return gtLoadtime;
+	}
+	public void setGtLoadtime(Date gtLoadtime) {
+		this.gtLoadtime = gtLoadtime;
+	}
+	public Date getLtLoadtime() {
+		return ltLoadtime;
+	}
+	public void setLtLoadtime(Date ltLoadtime) {
+		this.ltLoadtime = ltLoadtime;
+	}
+	public Long getIdMin() {
         return idMin;
     }
     public void setIdMin(Long idMin) {
@@ -314,7 +329,5 @@ public class Delivery implements Serializable {
     public void setLastUpdatedMax(String lastUpdatedMax) {
         this.lastUpdatedMax = lastUpdatedMax;
     }
-
-
 	
 }

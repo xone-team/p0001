@@ -112,8 +112,9 @@ public class PaginationTag extends TagSupport {
 			buffer.append(totalPage);
 			buffer.append("页&nbsp;/&nbsp;");
 			buffer.append(p.getTotalCount());
-			buffer.append("条记录");
-			buffer.append("</a></li>");
+			buffer.append("条记录&nbsp;/&nbsp;第");
+			buffer.append(p.getPageNo());
+			buffer.append("页</a></li>");
 			buffer.append("<li><a href=\"");
 			buffer.append(page(p, p.getPrePage()));
 			buffer.append(params);

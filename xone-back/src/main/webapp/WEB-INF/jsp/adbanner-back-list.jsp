@@ -28,7 +28,7 @@
 							<div class="accordion-heading">
 								<div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#queryConditions">查询条件</div>
 							</div>
-							<div class="accordion-body in collapse" style="height: auto;">
+							<div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
 								<form id="myqueryform" action="${pageContext.request.contextPath}/adbanner/adbannerList.html" method="get">
 									<div class="accordion-inner">
 										<div class="row-fluid">
@@ -82,7 +82,7 @@
 					</div>
 					<div class="row-fluid">
 						<p class="text-right">
-							<a class="btn btn-small" href="${pageContext.request.contextPath}/adbanner/adbannerCreate.html"> <iclass="icon-plus"></i>创建 </a>
+							<a class="btn btn-small" href="${pageContext.request.contextPath}/adbanner/adbannerCreate.html"> <iclass="icon-plus"></i>发布广告 </a>
 							<button class="btn btn-small" onclick="$('#myqueryform').submit();">
 								<span class="icon-search"></span>查询
 							</button>
