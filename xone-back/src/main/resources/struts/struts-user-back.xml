@@ -29,5 +29,8 @@
 		<action name="userItem" class="userBackAction" method="userItem">
 			<result name="success">/WEB-INF/jsp/user-back-item.jsp</result>
 		</action>
+		<action name="userListAjax" class="userBackAction" method="userListAjax">
+			<result name="success">/WEB-INF/jsp/user-back-list-ajax.jsp</result>
+		</action>
 	</package>
 </struts>

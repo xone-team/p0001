@@ -1,2 +1,2 @@
 
-<% response.sendRedirect("person/index.html"); %>
+<% response.sendRedirect("adbanner/adbannerList.html"); %>

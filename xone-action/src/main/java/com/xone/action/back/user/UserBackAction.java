@@ -13,6 +13,7 @@ import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.UserService;
 import com.xone.service.app.utils.MyBeanUtils;
+import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class UserBackAction extends Action {
@@ -25,6 +26,17 @@ public class UserBackAction extends Action {
 	
 	public String userList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
+		MyBeanUtils.copyPropertiesToMap(getUser(), params, new CopyRules() {
+			@Override
+			public boolean myCopyRules(Object value) {
+				return null != value;
+			}
+		}, new AssignRules() {
+			@Override
+			public String myAssignRules(Object value) {
+				return value.toString();
+			}
+		}, null);
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
 		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
 		Pagination p = getUserService().findByParams(params);
@@ -33,7 +45,12 @@ public class UserBackAction extends Action {
 //			getList().addAll(l);
 //		}
 		setPagination(p);
+		setUser(getPerson());
 		return SUCCESS;
+	}
+	
+	public String userListAjax() throws Exception {
+		return userList();
 	}
 	
 	public String userItem() throws Exception {
@@ -106,6 +123,14 @@ public class UserBackAction extends Action {
 
 	public void setList(List<Person> list) {
 		this.list = list;
+	}
+
+	public Person getUser() {
+		return user;
+	}
+
+	public void setUser(Person user) {
+		this.user = user;
 	}
 
 	public Person getPerson() {
