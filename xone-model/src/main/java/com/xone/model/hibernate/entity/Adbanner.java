@@ -54,6 +54,20 @@ public class Adbanner implements Serializable {
 	protected Long userUpdated;
 	protected Date lastUpdated;
 	
+	protected Date ltAdStart;
+	protected Date gtAdStart;
+	protected Date ltAdEnd;
+	protected Date gtAdEnd;
+	
+	public String getAdTypeName() {
+		if (AdType.PRODUCT.getValue().equals(adType)) {
+			return "售卖产品";
+		} else if (AdType.PURCHASE.getValue().equals(adType)) {
+			return "购买产品";
+		}
+		return "未知类型";
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -149,6 +163,38 @@ public class Adbanner implements Serializable {
 	}
 	public void setLastUpdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
+	}
+
+	public Date getLtAdStart() {
+		return ltAdStart;
+	}
+
+	public void setLtAdStart(Date ltAdStart) {
+		this.ltAdStart = ltAdStart;
+	}
+
+	public Date getGtAdStart() {
+		return gtAdStart;
+	}
+
+	public void setGtAdStart(Date gtAdStart) {
+		this.gtAdStart = gtAdStart;
+	}
+
+	public Date getLtAdEnd() {
+		return ltAdEnd;
+	}
+
+	public void setLtAdEnd(Date ltAdEnd) {
+		this.ltAdEnd = ltAdEnd;
+	}
+
+	public Date getGtAdEnd() {
+		return gtAdEnd;
+	}
+
+	public void setGtAdEnd(Date gtAdEnd) {
+		this.gtAdEnd = gtAdEnd;
 	}
 
 }

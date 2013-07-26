@@ -29,5 +29,8 @@
 		<action name="purchaseItem" class="purchaseBackAction" method="purchaseItem">
 			<result name="success">/WEB-INF/jsp/purchase-back-item.jsp</result>
 		</action>
+		<action name="purchaseListAjax" class="purchaseBackAction" method="purchaseListAjax">
+			<result name="success">/WEB-INF/jsp/purchase-back-list-ajax.jsp</result>
+		</action>
 	</package>
 </struts>

@@ -29,5 +29,8 @@
 		<action name="productItem" class="productBackAction" method="productItem">
 			<result name="success">/WEB-INF/jsp/product-back-item.jsp</result>
 		</action>
+		<action name="productListAjax" class="productBackAction" method="productListAjax">
+			<result name="success">/WEB-INF/jsp/product-back-list-ajax.jsp</result>
+		</action>
 	</package>
 </struts>

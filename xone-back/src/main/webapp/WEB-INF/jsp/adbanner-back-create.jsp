@@ -13,10 +13,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<jsp:include page="common-header.jsp"></jsp:include>
 		<link href="${STATIC_ROOT}/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
-		<link href="${STATIC_ROOT}/bootstrap-datepicker/css/bootstrap-select.css" rel="stylesheet">
 		<link href="${STATIC_ROOT}/bootstrap-select/bootstrap-select.css" rel="stylesheet">
 	</head>
 	<body>
+		<c:set  var="myidentify" value="${myidentify}"/>
 		<jsp:include page="common-nav.jsp"></jsp:include>
 		<div class="container-fluid">
     		<div class="row-fluid">
@@ -30,7 +30,7 @@
 							<li class="active">发布广告</li>
 						</ul>
 					</div>
-					<form class="form-horizontal" enctype="multipart/form-data" id="adbannerSaveForm${identify}" method="post" action="${pageContext.request.contextPath}/adbanner/adbannerSave.html">
+					<form class="form-horizontal" enctype="multipart/form-data" id="adbannerSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/adbanner/adbannerSave.html">
 						<div class="control-group">
 							<label class="control-label" for="adType">广告类型</label>
 							<div class="controls">
@@ -43,19 +43,21 @@
 						<div class="control-group">
 							<label class="control-label" for="refId">选择产品</label>
 							<div class="controls">
-								<input type="text" id="refId" name="adbanner.refId" maxlength="20" placeholder="相关编号">
+								<input type="text" id="refId" name="adbanner.refId" maxlength="20" placeholder="产品编号">
+								<input type="hidden" id="refName" name="" maxlength="20" placeholder="相关编号" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="userId">选择用户</label>
 							<div class="controls">
 								<input type="text" id="userId" name="adbanner.userId" maxlength="20" placeholder="用户编号">
+								<input type="hidden" id="userName" name="" maxlength="20" placeholder="用户名称" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="adStart">开始时间</label>
 							<div class="controls">
-								<div class="input-append date datepicker adbanneradstart" data-date="2013-02-14" data-date-format="yyyy-mm-dd">
+								<div class="input-append date datepicker adbanneradstart" data-date-format="yyyy-mm-dd">
 									<input type="text" id="adStart" name="adbanner.adStart" maxlength="19" placeholder="开始时间" readonly>
 									<span class="add-on"><i class="icon-th"></i></span>
 								</div>
@@ -64,7 +66,7 @@
 						<div class="control-group">
 							<label class="control-label" for="adEnd">结束时间</label>
 							<div class="controls">
-								<div class="input-append date datepicker adbanneradend" data-date="2013-02-14" data-date-format="yyyy-mm-dd">
+								<div class="input-append date datepicker adbanneradend" data-date-format="yyyy-mm-dd">
 									<input type="text" id="adEnd" name="adbanner.adEnd" maxlength="19" placeholder="结束时间" readonly>
 									<span class="add-on"><i class="icon-th"></i></span>
 								</div>
@@ -83,27 +85,52 @@
 					</form>
 				</div>
 			</div>
-			<div id="windowTitleDialog" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
-				<div class="modal-header">
-					<a href="#" class="close" data-dismiss="modal">&times;</a>
-					<div>请选择一个用户</div>
-				</div>
-				<div class="modal-body">
-					<div class="divDialogElements">
-						<input class="xlarge" id="xlInput" name="xlInput" type="text" />
-					</div>
-				</div>
-				<div class="modal-footer">
-					<a href="#" class="btn" onclick="$('#windowTitleDialog').modal('hide');">取消</a>
-					<a href="#" class="btn btn-primary" onclick="$('#windowTitleDialog').modal('hide');">确定</a>
-				</div>
-			</div>
 		</div>
-	<jsp:include page="common-footer.jsp"></jsp:include>
-		<script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+		<jsp:include page="common-footer.jsp"></jsp:include>
 		<script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
 		<script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="${STATIC_ROOT}/js/fileupload.js"></script>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="userinfo"/>
+			<jsp:param name="title" value="请选择一个用户"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html"/>
+		</jsp:include>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="Product"/>
+			<jsp:param name="title" value="请选择广告对应的售卖产品"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/product/productListAjax.html"/>
+		</jsp:include>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="Purchase"/>
+			<jsp:param name="title" value="请选择广告对应的购买产品"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/purchase/purchaseListAjax.html"/>
+		</jsp:include>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$('#windowTitleDialoguserinfo').delegate('a.userinfoselect', 'click', function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				$('#userId').val($this.attr('attr-id'));
+				$this.closest('div.modal').modal('hide');
+				return false;
+			});
+			$('#windowTitleDialogProduct').delegate('a.productselectinfo', 'click', function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				$('#refId').val($this.attr('attr-id'));
+				$this.closest('div.modal').modal('hide');
+				return false;
+			});
+			$('#windowTitleDialogPurchase').delegate('a.purchaseselectinfo', 'click', function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				$('#refId').val($this.attr('attr-id'));
+				$this.closest('div.modal').modal('hide');
+				return false;
+			});
+		});
+		</script>
 		<script type="text/javascript" language="javascript">
 		$(document).ready(function() {
 			$('div.fileupload').hide();
@@ -115,24 +142,56 @@
 					$('div.uploadimagesdiv').html('').append(div);
 				}
 			});
-			$('#adbannerSaveForm${identify}').submit(function() {
-				var $form = $('#adbannerSaveForm${identify}');
+			$('#adbannerSaveForm${myidentify}').submit(function() {
+				var $form = $('#adbannerSaveForm${myidentify}');
 				$form.find('div.alert').remove();
 				if ('' == $('#uploadImageFile[type="file"]').val()) {
 					$form.append(alertMessage('错误', '请选择图片再提交'));
+					return false;
+				}
+				var validate = [{
+					id: 'userId',
+					name: '请选择用户'
+				},{
+					id: 'refId',
+					name: '请选择产品'
+				},{
+					id: 'adStart',
+					name: '请选择开始时间'
+				},{
+					id: 'adEnd',
+					name: '请选择结束时间'
+				}];
+				for (var i = 0; i < validate.length; i++) {
+					var v = validate[i];
+					if ($('#' + v.id).val() == '') {
+						$('#' + v.id).closest('div.control-group').append(alertMessage('错误', v.name));
+					}
+				}
+				if ($form.find('div.alert').length > 0) {
 					return false;
 				}
 				return true;
 			});
 			$('.adbanneradstart, .adbanneradend').datepicker();
 			$('.selectpicker').selectpicker({style: 'btn-info'});
-			$('#userId, #refId').click(function() {
-				$('#windowTitleDialog').modal();
+			$('#userId').click(function() {
+				$('#windowTitleDialoguserinfo').modal('show');
 			});
-// 			$('#windowTitleDialog').show();
+			$('#refId').click(function() {
+				if ($('#adType').val() == '0') {
+					$('#windowTitleDialogProduct').modal('show');
+				} else {
+					$('#windowTitleDialogPurchase').modal('show');
+				}
+			});
+			$('#adType').bind('change', function() {
+				$('#refId').val('');
+				$('#refName').val('');
+			})
 		});
 		function alertMessage(title, msg) {
-			return ['<div class="alert alert-error"><button type="button" class="close" data-dismiss="alert">&times;</button>',
+			return ['<div class="alert alert-error" style="margin-bottom:0px;"><button type="button" class="close" data-dismiss="alert">&times;</button>',
 			'<strong style="margin-right:10px;">', title, '</strong>', msg,
 			'</div>'].join('');
 		}

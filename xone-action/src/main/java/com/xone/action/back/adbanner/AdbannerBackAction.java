@@ -2,6 +2,7 @@ package com.xone.action.back.adbanner;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.model.utils.DateUtils;
 import com.xone.service.app.AdbannerService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.AssignRules;
@@ -42,6 +44,9 @@ public class AdbannerBackAction extends LogicAction {
 		}, new AssignRules() {
 			@Override
 			public String myAssignRules(Object value) {
+				if (null != value && value instanceof Date) {
+					return DateUtils.format((Date)value, "yyyy-MM-dd");
+				}
 				return value.toString();
 			}
 		}, null);

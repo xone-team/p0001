@@ -151,6 +151,46 @@ public class AdbannerServiceImpl implements AdbannerService {
 		if (!StringUtils.isBlank(params.get("adRefId"))) {
 			detachedCriteria.add(Restrictions.eq("adRefId", Long.parseLong(params.get("adRefId"))));
 		}
+		String gtAdStart = params.get("gtAdStart");
+		if (!StringUtils.isBlank(gtAdStart)) {
+			try {
+				detachedCriteria.add(Restrictions.ge("adStart", DateUtils.parseDate(gtAdStart, new String[] {
+						"yyyy-MM-dd"
+				})));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		String ltAdStart = params.get("ltAdStart");
+		if (!StringUtils.isBlank(ltAdStart)) {
+			try {
+				detachedCriteria.add(Restrictions.lt("adStart", DateUtils.addDays(DateUtils.parseDate(ltAdStart, new String[] {
+						"yyyy-MM-dd"
+				}), 1)));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		String gtAdEnd = params.get("gtAdEnd");
+		if (!StringUtils.isBlank(gtAdEnd)) {
+			try {
+				detachedCriteria.add(Restrictions.ge("adEnd", DateUtils.parseDate(gtAdEnd, new String[] {
+						"yyyy-MM-dd"
+				})));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		String ltAdEnd = params.get("ltAdEnd");
+		if (!StringUtils.isBlank(ltAdEnd)) {
+			try {
+				detachedCriteria.add(Restrictions.lt("adEnd", DateUtils.addDays(DateUtils.parseDate(ltAdEnd, new String[] {
+						"yyyy-MM-dd"
+				}), 1)));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 		int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
 		int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
 		return getAdbannerDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
