@@ -60,7 +60,7 @@
 							<label class="control-label" for="adStart">开始时间</label>
 							<div class="controls">
 								<div class="input-append date datepicker adbanneradstart" data-date-format="yyyy-mm-dd">
-									<input type="text" id="adStart" name="adbanner.adStart" value="${adbanner.adStart}" maxlength="19" placeholder="开始时间" readonly>
+									<input type="text" id="adStart" name="adbanner.adStart" value="<fmt:formatDate value="${adbanner.adStart}" pattern="yyyy-MM-dd"/>" maxlength="19" placeholder="开始时间" readonly>
 									<span class="add-on"><i class="icon-th"></i></span>
 								</div>
 							</div>
@@ -69,7 +69,7 @@
 							<label class="control-label" for="adEnd">结束时间</label>
 							<div class="controls">
 								<div class="input-append date datepicker adbanneradend" data-date-format="yyyy-mm-dd">
-									<input type="text" id="adEnd" name="adbanner.adEnd" value="${adbanner.adEnd}" maxlength="19" placeholder="结束时间" readonly>
+									<input type="text" id="adEnd" name="adbanner.adEnd" value="<fmt:formatDate value="${adbanner.adEnd}" pattern="yyyy-MM-dd"/>" maxlength="19" placeholder="结束时间" readonly>
 									<span class="add-on"><i class="icon-th"></i></span>
 								</div>
 							</div>

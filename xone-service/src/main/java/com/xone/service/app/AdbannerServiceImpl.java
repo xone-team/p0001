@@ -54,7 +54,7 @@ public class AdbannerServiceImpl implements AdbannerService {
 		entity = getAdbannerDao().update(entity);
 		if (null != imageUploaded) {
 			imageUploaded.setRefId(entity.getId());
-			imageUploaded.setRefType(ImageUploaded.RefType.PRODUCT.getValue());
+			imageUploaded.setRefType(ImageUploaded.RefType.ABBANNER.getValue());
 			imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
 			imageUploaded = getImageUploadedDao().save(imageUploaded);
 			if (null == imageId) {

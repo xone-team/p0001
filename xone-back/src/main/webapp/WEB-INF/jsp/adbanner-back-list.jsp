@@ -96,6 +96,8 @@
 								<th>广告类型</th>
 								<th>开始时间</th>
 								<th>结束时间</th>
+								<th>创建时间</th>
+								<th>修改时间</th>
 								<th>用户编号</th>
 								<th>操作</th>
 							</thead>
@@ -113,6 +115,8 @@
 								<td>${item.adTypeName}</td>
 								<td><fmt:formatDate value="${item.adStart}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 								<td><fmt:formatDate value="${item.adEnd}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+								<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+								<td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 								<td>${item.userId}</td>
 								<td>
 									<a href="${pageContext.request.contextPath}/adbanner/adbannerEdit.html?adbanner.id=${item.id}" class="btn btn-mini">编辑</a>
