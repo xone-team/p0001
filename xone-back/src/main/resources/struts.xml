@@ -47,7 +47,7 @@
         </global-results>
         <action name="image" class="genericPageBackAction" method="image"></action>
     </package>
-	<include file="struts/struts-person.xml" />
+	<include file="struts/struts-person-back.xml" />
 	<include file="struts/struts-adbanner-back.xml" />
 	<include file="struts/struts-delivery-back.xml" />
 	<include file="struts/struts-imageUploaded-back.xml" />

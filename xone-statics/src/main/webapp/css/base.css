@@ -5,6 +5,10 @@ body {
 	color: #333333;
 }
 
+div.inline {
+ display : inline;
+}
+
 .sidebar-nav {
 	padding: 9px 0;
 }

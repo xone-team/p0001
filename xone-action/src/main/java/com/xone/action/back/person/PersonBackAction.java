@@ -50,6 +50,25 @@ public class PersonBackAction extends Action {
         return SUCCESS;
     }
 
+    public String personSelect() throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        MyBeanUtils.copyPropertiesToMap(getPerson(), params, new CopyRules() {
+            @Override
+            public boolean myCopyRules(Object value) {
+                return null != value;
+            }
+
+        }, new AssignRules() {
+            @Override
+            public String myAssignRules(Object value) {
+                return value.toString();
+            }
+        }, null);
+        List<Person> list = getPersonService().findAllByMap(params);
+        setList(list);
+        return SUCCESS;
+    }
+
     public String personItem() throws Exception {
         Person entity = getPersonService().findById(getPerson().getId());
         if (null == entity || null == entity.getId()) {
@@ -103,6 +122,12 @@ public class PersonBackAction extends Action {
             });
             setPerson(getPersonService().update(entity));
         }
+        return SUCCESS;
+    }
+    
+    public String personDelete() throws Exception {
+        Person entity = getPersonService().findById(getPerson().getId());
+        personService.delete(entity);
         return SUCCESS;
     }
 
