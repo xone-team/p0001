@@ -43,15 +43,15 @@
 						<div class="control-group">
 							<label class="control-label" for="refId">选择产品</label>
 							<div class="controls">
-								<input type="hidden" id="refId" name="adbanner.refId" maxlength="20" placeholder="产品名称">
-								<input type="text" id="refName" name="" maxlength="20" placeholder="相关编号" readonly="readonly">
+								<input type="text" id="refId" name="adbanner.refId" maxlength="20" placeholder="产品编号">
+								<input type="hidden" id="refName" name="" maxlength="20" placeholder="相关编号" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="userId">选择用户</label>
 							<div class="controls">
-								<input type="hidden" id="userId" name="adbanner.userId" maxlength="20" placeholder="用户编号">
-								<input type="text" id="userName" name="" maxlength="20" placeholder="用户名称" readonly="readonly">
+								<input type="text" id="userId" name="adbanner.userId" maxlength="20" placeholder="用户编号">
+								<input type="hidden" id="userName" name="" maxlength="20" placeholder="用户名称" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
@@ -96,28 +96,41 @@
 			<jsp:param name="title" value="请选择一个用户"/>
 			<jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html"/>
 		</jsp:include>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="Product"/>
+			<jsp:param name="title" value="请选择广告对应的售卖产品"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/product/productListAjax.html"/>
+		</jsp:include>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="Purchase"/>
+			<jsp:param name="title" value="请选择广告对应的购买产品"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/purchase/purchaseListAjax.html"/>
+		</jsp:include>
 		<script type="text/javascript">
 		$(document).ready(function() {
 			$('#windowTitleDialoguserinfo').delegate('a.userinfoselect', 'click', function(e) {
 				e.preventDefault();
 				var $this = $(this);
-				$('#userName').val($this.attr('attr-name'));
 				$('#userId').val($this.attr('attr-id'));
 				$this.closest('div.modal').modal('hide');
 				return false;
-			})
+			});
+			$('#windowTitleDialogProduct').delegate('a.productselectinfo', 'click', function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				$('#refId').val($this.attr('attr-id'));
+				$this.closest('div.modal').modal('hide');
+				return false;
+			});
+			$('#windowTitleDialogPurchase').delegate('a.purchaseselectinfo', 'click', function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				$('#refId').val($this.attr('attr-id'));
+				$this.closest('div.modal').modal('hide');
+				return false;
+			});
 		});
 		</script>
-		<jsp:include page="common-modal.jsp">
-			<jsp:param name="myidentify" value="Product"/>
-			<jsp:param name="title" value="请选择广告对应的售卖产品"/>
-			<jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html"/>
-		</jsp:include>
-		<jsp:include page="common-modal.jsp">
-			<jsp:param name="myidentify" value="Purchase"/>
-			<jsp:param name="title" value="请选择广告对应的购买产品"/>
-			<jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html"/>
-		</jsp:include>
 		<script type="text/javascript" language="javascript">
 		$(document).ready(function() {
 			$('div.fileupload').hide();
@@ -162,10 +175,10 @@
 			});
 			$('.adbanneradstart, .adbanneradend').datepicker();
 			$('.selectpicker').selectpicker({style: 'btn-info'});
-			$('#userName').click(function() {
+			$('#userId').click(function() {
 				$('#windowTitleDialoguserinfo').modal('show');
 			});
-			$('#refName').click(function() {
+			$('#refId').click(function() {
 				if ($('#adType').val() == '0') {
 					$('#windowTitleDialogProduct').modal('show');
 				} else {

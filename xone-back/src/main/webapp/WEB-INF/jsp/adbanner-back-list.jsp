@@ -116,7 +116,7 @@
 								<td>${item.userId}</td>
 								<td>
 									<a href="${pageContext.request.contextPath}/adbanner/adbannerEdit.html?adbanner.id=${item.id}" class="btn btn-mini">编辑</a>
-									<a href="${pageContext.request.contextPath}/adbanner/adbannerItem.html?adbanner.id=${item.id}" class="btn btn-mini">详细</a>
+									<a href="${pageContext.request.contextPath}/adbanner/adbannerItem.html?adbanner.id=${item.id}" class="btn btn-mini"  target="_blank">详细</a>
 								</td>
 							</tr>
 							</c:forEach>

@@ -110,7 +110,7 @@ public class PaginationTag extends TagSupport {
 			buffer.append("\">");
 			buffer.append("共");
 			buffer.append(totalPage);
-			buffer.append("页/");
+			buffer.append("页&nbsp;/&nbsp;");
 			buffer.append(p.getTotalCount());
 			buffer.append("条记录");
 			buffer.append("</a></li>");

@@ -12,133 +12,181 @@
 		<meta name="author" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<jsp:include page="common-header.jsp"></jsp:include>
+		<link href="${STATIC_ROOT}/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
+		<link href="${STATIC_ROOT}/bootstrap-select/bootstrap-select.css" rel="stylesheet">
 	</head>
 	<body>
+		<c:set  var="myidentify" value="${myidentify}"/>
 		<jsp:include page="common-nav.jsp"></jsp:include>
 		<div class="container-fluid">
-    		<div class="row-fluid" id="X_bodyContainer">
+    		<div class="row-fluid">
 				<div class="span2">
 					<jsp:include page="common-menu.jsp"></jsp:include>
 				</div>
-				<div class="span10" id="X_contentContainer">
-				<div class="row-fluid">
-					<ul class="breadcrumb" id="X_breadcrumbs_ul">
-						<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
-						<li><a href="${pageContext.request.contextPath}/adbanner/adbannerList.html">adbanner列表</a> <span class="divider">/</span></li>
-						<li class="active">adbanner编辑</li>
-					</ul>
-				</div>
-				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/adbanner/adbannerUpdate.html">
-					<div class="control-group">
-						<label class="control-label" for="id">编号</label>
-						<div class="controls">
-							<input type="text" id="id" name="adbanner.id" value="${adbanner.id}" maxlength="20" placeholder="编号">
-						</div>
+				<div class="span10">
+					<div class="row-fluid">
+						<ul class="breadcrumb">
+							<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
+							<li class="active">发布广告</li>
+						</ul>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="refId">相关编号</label>
-						<div class="controls">
-							<input type="text" id="refId" name="adbanner.refId" value="${adbanner.refId}" maxlength="20" placeholder="相关编号">
+					<form class="form-horizontal" enctype="multipart/form-data" id="adbannerSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/adbanner/adbannerUpdate.html">
+						<input type="text" id="id" name="adbanner.id" value="${adbanner.id}" maxlength="20" placeholder="编号">
+						<div class="control-group">
+							<label class="control-label" for="adType">广告类型</label>
+							<div class="controls">
+								<select class="selectpicker" id="adType" name="adbanner.adType" maxlength="2" placeholder="广告类型">
+									<option value="0">售卖产品</option>
+									<option value="1">购买产品</option>
+								</select>
+							</div>
 						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="adType">广告类型</label>
-						<div class="controls">
-							<input type="text" id="adType" name="adbanner.adType" value="${adbanner.adType}" maxlength="2" placeholder="广告类型">
+						<div class="control-group">
+							<label class="control-label" for="refId">选择产品</label>
+							<div class="controls">
+								<input type="text" id="refId" name="adbanner.refId" value="${adbanner.refId}" maxlength="20" placeholder="产品名称">
+							</div>
 						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="adRefId">相关编号</label>
-						<div class="controls">
-							<input type="text" id="adRefId" name="adbanner.adRefId" value="${adbanner.adRefId}" maxlength="20" placeholder="相关编号">
+						<div class="control-group">
+							<label class="control-label" for="userId">选择用户</label>
+							<div class="controls">
+								<input type="text" id="userId" name="adbanner.userId" value="${adbanner.userId}" maxlength="20" placeholder="用户编号" readonly="readonly">
+								<input type="hidden" id="userName" name="" maxlength="20" placeholder="用户名称" readonly="readonly">
+							</div>
 						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="adStart">开始时间</label>
-						<div class="controls">
-							<input type="text" id="adStart" name="adbanner.adStart" value="<fmt:formatDate value="${adbanner.adStart}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="开始时间">
+						<div class="control-group">
+							<label class="control-label" for="adStart">开始时间</label>
+							<div class="controls">
+								<div class="input-append date datepicker adbanneradstart" data-date-format="yyyy-mm-dd">
+									<input type="text" id="adStart" name="adbanner.adStart" value="${adbanner.adStart}" maxlength="19" placeholder="开始时间" readonly>
+									<span class="add-on"><i class="icon-th"></i></span>
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="adEnd">结束时间</label>
-						<div class="controls">
-							<input type="text" id="adEnd" name="adbanner.adEnd" value="<fmt:formatDate value="${adbanner.adEnd}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="结束时间">
+						<div class="control-group">
+							<label class="control-label" for="adEnd">结束时间</label>
+							<div class="controls">
+								<div class="input-append date datepicker adbanneradend" data-date-format="yyyy-mm-dd">
+									<input type="text" id="adEnd" name="adbanner.adEnd" value="${adbanner.adEnd}" maxlength="19" placeholder="结束时间" readonly>
+									<span class="add-on"><i class="icon-th"></i></span>
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="userId">用户编号</label>
-						<div class="controls">
-							<input type="text" id="userId" name="adbanner.userId" value="${adbanner.userId}" maxlength="20" placeholder="用户编号">
+						<div class="control-group fileupload">
+							<input type="file" id="uploadImageFile" name="uploadFile" value="">
 						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="flagDeleted">删除标识</label>
-						<div class="controls">
-							<input type="text" id="flagDeleted" name="adbanner.flagDeleted" value="${adbanner.flagDeleted}" maxlength="1" placeholder="删除标识">
+						<div class="control-group">
+							<div class="controls">
+								<button type="submit" class="btn">提交创建</button>
+								<button type="button" class="btn" onclick="$('#uploadImageFile').click();">上传图片</button>
+							</div>
 						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="userApply">申请人</label>
-						<div class="controls">
-							<input type="text" id="userApply" name="adbanner.userApply" value="${adbanner.userApply}" maxlength="20" placeholder="申请人">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="dateApply">申请时间</label>
-						<div class="controls">
-							<input type="text" id="dateApply" name="adbanner.dateApply" value="<fmt:formatDate value="${adbanner.dateApply}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="申请时间">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="userCheck">审核人</label>
-						<div class="controls">
-							<input type="text" id="userCheck" name="adbanner.userCheck" value="${adbanner.userCheck}" maxlength="20" placeholder="审核人">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="dateCheck">审核时间</label>
-						<div class="controls">
-							<input type="text" id="dateCheck" name="adbanner.dateCheck" value="<fmt:formatDate value="${adbanner.dateCheck}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="审核时间">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="userCreated">创建人</label>
-						<div class="controls">
-							<input type="text" id="userCreated" name="adbanner.userCreated" value="${adbanner.userCreated}" maxlength="20" placeholder="创建人">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="dateCreated">创建时间</label>
-						<div class="controls">
-							<input type="text" id="dateCreated" name="adbanner.dateCreated" value="<fmt:formatDate value="${adbanner.dateCreated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="userUpdated">更新人</label>
-						<div class="controls">
-							<input type="text" id="userUpdated" name="adbanner.userUpdated" value="${adbanner.userUpdated}" maxlength="20" placeholder="更新人">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="lastUpdated">更新时间</label>
-						<div class="controls">
-							<input type="text" id="lastUpdated" name="adbanner.lastUpdated" value="<fmt:formatDate value="${adbanner.lastUpdated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="controls">
-							<button type="submit" name="update" value="update" class="btn">提交更新</button>
-						</div>
-					</div>
-				</form>
+						<div class="control-group uploadimagesdiv" style="margin-bottom:0px;"></div>
+					</form>
 				</div>
 			</div>
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
+		<script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+		<script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
+		<script src="${STATIC_ROOT}/js/fileupload.js"></script>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="userinfo"/>
+			<jsp:param name="title" value="请选择一个用户"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html"/>
+		</jsp:include>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$('#windowTitleDialoguserinfo').delegate('a.userinfoselect', 'click', function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				$('#userName').val($this.attr('attr-name'));
+				$('#userId').val($this.attr('attr-id'));
+				$this.closest('div.modal').modal('hide');
+				return false;
+			})
+		});
+		</script>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="Product"/>
+			<jsp:param name="title" value="请选择广告对应的售卖产品"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html"/>
+		</jsp:include>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="Purchase"/>
+			<jsp:param name="title" value="请选择广告对应的购买产品"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html"/>
+		</jsp:include>
+		<script type="text/javascript" language="javascript">
+		$(document).ready(function() {
+			$('div.fileupload').hide();
+			$('#uploadImageFile[type="file"]').fileupload({
+				onload:function(it, e) {
+					var div = document.createElement('div');
+					var result = it.data('base64source');
+					div.innerHTML = ['<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>'].join('');
+					$('div.uploadimagesdiv').html('').append(div);
+				}
+			});
+			$('#adbannerSaveForm${myidentify}').submit(function() {
+				var $form = $('#adbannerSaveForm${myidentify}');
+				$form.find('div.alert').remove();
+				if ('' == $('#uploadImageFile[type="file"]').val()) {
+					$form.append(alertMessage('错误', '请选择图片再提交'));
+					return false;
+				}
+				var validate = [{
+					id: 'userId',
+					name: '请选择用户'
+				},{
+					id: 'refId',
+					name: '请选择产品'
+				},{
+					id: 'adStart',
+					name: '请选择开始时间'
+				},{
+					id: 'adEnd',
+					name: '请选择结束时间'
+				}];
+				for (var i = 0; i < validate.length; i++) {
+					var v = validate[i];
+					if ($('#' + v.id).val() == '') {
+						$('#' + v.id).closest('div.control-group').append(alertMessage('错误', v.name));
+					}
+				}
+				if ($form.find('div.alert').length > 0) {
+					return false;
+				}
+				return true;
+			});
+			$('.adbanneradstart, .adbanneradend').datepicker();
+			$('.selectpicker').selectpicker({style: 'btn-info'});
+			$('#userName').click(function() {
+				$('#windowTitleDialoguserinfo').modal('show');
+			});
+			$('#refId').click(function() {
+				if ($('#adType').val() == '0') {
+					$('#windowTitleDialogProduct').modal('show');
+				} else {
+					$('#windowTitleDialogPurchase').modal('show');
+				}
+			});
+			$('#adType').bind('change', function() {
+				$('#refId').val('');
+				$('#refName').val('');
+			})
+		});
+		function alertMessage(title, msg) {
+			return ['<div class="alert alert-error" style="margin-bottom:0px;"><button type="button" class="close" data-dismiss="alert">&times;</button>',
+			'<strong style="margin-right:10px;">', title, '</strong>', msg,
+			'</div>'].join('');
+		}
+		function removeProductDynamicImage() {
+			$('div.uploadimagesdiv').html('');
+			$('#uploadImageFile').val('');
+			return false;
+		}
+		</script>
 	</body>
-	<script>
-	 jQuery(function(){
-	     jQuery("#X_menu_li_adbanner").addClass("active");
-	 });
-	</script>
 </html>
