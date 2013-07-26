@@ -16,7 +16,21 @@ public class ResourceGenerator {
 		JspGenerator jspGenerator = new JspGenerator();
 		BackJspGenerator backJspGenerator = new BackJspGenerator();
 		BackActionGenerator backActionGenerator = new BackActionGenerator();
+		
+		String[] selectedTables = new String[]{"t_category"};
 		for (String table : tables) {
+		    boolean selected = false;
+		    for (int i = 0; i < selectedTables.length; i++) {
+                if(selectedTables[i].equals(table)){
+                    selected = true;
+                    break;
+                }
+            }
+		    if(!selected){
+		        continue;
+		    }
+		    
+		    
 //			daoGenerator.setTableName(table);
 //			daoGenerator.generateDao();
 //			daoGenerator.generateDaoImpl();
