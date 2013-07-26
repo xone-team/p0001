@@ -81,7 +81,7 @@ table.myuserlisttable td {
 			<td title="${item.credit}">${item.credit}</td>
 			<td title="${item.userLevel}">${item.userLevel}</td>
 			<td>
-				<a href="#" attr-id="${item.id}" attr-name="${item.username}" class="btn btn-mini userinfoselect${myidentify}">选择</a>
+				<a href="#" attr-id="${item.id}" attr-name="${item.username}" class="btn btn-mini userinfoselect">选择</a>
 			</td>
 		</tr>
 		</c:forEach>
@@ -121,14 +121,6 @@ $(document).ready(function() {
 		});
 		return false;
 	});
-	$('a.userinfoselect${myidentify}').on('click', function(e) {
-		e.preventDefault();
-		var $this = $(this);
-		$('#userName').val($this.attr('attr-name'));
-		$('#userId').val($this.attr('attr-id'));
-		$this.closest('div.modal').modal('hide');
-		return false;
-	})
 });
 </script>
 </div>

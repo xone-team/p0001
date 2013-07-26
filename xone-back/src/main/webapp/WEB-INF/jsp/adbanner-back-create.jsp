@@ -96,6 +96,18 @@
 			<jsp:param name="title" value="请选择一个用户"/>
 			<jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html"/>
 		</jsp:include>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$('#windowTitleDialoguserinfo').delegate('a.userinfoselect', 'click', function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				$('#userName').val($this.attr('attr-name'));
+				$('#userId').val($this.attr('attr-id'));
+				$this.closest('div.modal').modal('hide');
+				return false;
+			})
+		});
+		</script>
 		<jsp:include page="common-modal.jsp">
 			<jsp:param name="myidentify" value="Product"/>
 			<jsp:param name="title" value="请选择广告对应的售卖产品"/>

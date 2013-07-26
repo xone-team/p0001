@@ -37,12 +37,18 @@ public class PurchaseBackAction extends Action {
 	}
 	
 	public String purchaseItem() throws Exception {
-		Purchase entity = getPurchaseService().findById(getPurchase().getId());
+		Purchase entity = findById(getPurchase().getId());
 		if (null == entity || null == entity.getId()) {
 			return ERROR;
 		}
 		setPurchase(entity);
 		return SUCCESS;
+	}
+	
+	protected Purchase findById(Long id) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(id));
+		return purchaseService.findByMap(params);
 	}
 	
 	public String purchaseCreate() throws Exception {

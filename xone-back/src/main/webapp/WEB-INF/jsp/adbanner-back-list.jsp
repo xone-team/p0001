@@ -9,6 +9,8 @@
 		<meta charset="utf-8">
 		<title>后台</title>
 		<jsp:include page="common-header.jsp"></jsp:include>
+		<link href="${STATIC_ROOT}/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
+		<link href="${STATIC_ROOT}/bootstrap-select/bootstrap-select.css" rel="stylesheet">
 	</head>
 	<body>
 		<jsp:include page="common-nav.jsp"></jsp:include>
@@ -40,27 +42,13 @@
 											</div>
 											<div class="span5 form-horizontal">
 												<div class="control-group">
-													<label class="control-label" for="refId">相关编号</label>
-													<div class="controls">
-														<input type="text" id="refId" name="adbanner.refId" maxlength="20" value="${adbanner.refId}" placeholder="相关编号">
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="row-fluid">
-											<div class="span5 form-horizontal">
-												<div class="control-group">
 													<label class="control-label" for="adType">广告类型</label>
 													<div class="controls">
-														<input type="text" id="adType" name="adbanner.adType" maxlength="2" value="${adbanner.adType}" placeholder="广告类型">
-													</div>
-												</div>
-											</div>
-											<div class="span5 form-horizontal">
-												<div class="control-group">
-													<label class="control-label" for="adRefId">相关编号</label>
-													<div class="controls">
-														<input type="text" id="adRefId" name="adbanner.adRefId" maxlength="20" value="${adbanner.adRefId}" placeholder="相关编号">
+														<select class="selectpicker" id="adType" name="adbanner.adType" maxlength="2" placeholder="广告类型">
+															<option value="">全部类型</option>
+															<option value="0">售卖产品</option>
+															<option value="1">购买产品</option>
+														</select>
 													</div>
 												</div>
 											</div>
@@ -70,7 +58,9 @@
 												<div class="control-group">
 													<label class="control-label" for="adStart">开始时间</label>
 													<div class="controls">
-														<input type="text" id="adStart" name="adbanner.adStart" maxlength="19" placeholder="开始时间">
+														<input type="text" id="adStartMin" name="adbanner.gtAdStart" value="${adbanner.gtAdStart}" class="span5" maxlength="19" placeholder="开始时间">
+														<span class="add-on">～</span>
+														<input type="text" id="adStartMax" name="adbanner.ltAdStart" value="${adbanner.ltAdStart}" class="span5" maxlength="19" placeholder="结束时间">
 													</div>
 												</div>
 											</div>
@@ -78,7 +68,9 @@
 												<div class="control-group">
 													<label class="control-label" for="adEnd">结束时间</label>
 													<div class="controls">
-														<input type="text" id="adEnd" name="adbanner.adEnd" maxlength="19" placeholder="结束时间">
+														<input type="text" id="adEndMin" name="adbanner.gtAdEnd" value="<fmt:formatDate value="${adbanner.gtAdEnd}" pattern="yyyy-MM-dd"/>" class="span5" maxlength="19" placeholder="开始时间">
+														<span class="add-on">～</span>
+														<input type="text" id="adEndMax" name="adbanner.ltAdEnd" value="<fmt:formatDate value="${adbanner.ltAdEnd}" pattern="yyyy-MM-dd"/>" class="span5" maxlength="19" placeholder="结束时间">
 													</div>
 												</div>
 											</div>
@@ -100,36 +92,28 @@
 						<table class="table table-bordered" style="width:100%">
 							<thead>
 								<th>编号</th>
-								<th>相关编号</th>
+								<th>产品编号</th>
 								<th>广告类型</th>
-								<th>相关编号</th>
 								<th>开始时间</th>
 								<th>结束时间</th>
 								<th>用户编号</th>
-								<th>申请人</th>
-								<th>申请时间</th>
-								<th>创建人</th>
-								<th>创建时间</th>
-								<th>更新人</th>
-								<th>更新时间</th>
 								<th>操作</th>
 							</thead>
 							<tbody>
 							<c:forEach var="item" items="${pagination.list}">
 							<tr>
 								<td>${item.id}</td>
-								<td>${item.refId}</td>
-								<td>${item.adType}</td>
-								<td>${item.adRefId}</td>
-								<td>${item.adStart}</td>
-								<td>${item.adEnd}</td>
+								<td>
+									<c:choose>
+										<c:when test="${item.adType == '0'}"><a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.refId}" target="_blank">${item.refId}</a></c:when>
+										<c:when test="${item.adType == '1'}"><a href="${pageContext.request.contextPath}/purchase/purchaseItem.html?purchase.id=${item.refId}" target="_blank">${item.refId}</a></c:when>
+										<c:otherwise>${item.refId}</c:otherwise>
+									</c:choose>
+								</td>
+								<td>${item.adTypeName}</td>
+								<td><fmt:formatDate value="${item.adStart}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
+								<td><fmt:formatDate value="${item.adEnd}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 								<td>${item.userId}</td>
-								<td>${item.userApply}</td>
-								<td>${item.dateApply}</td>
-								<td>${item.userCreated}</td>
-								<td>${item.dateCreated}</td>
-								<td>${item.userUpdated}</td>
-								<td>${item.lastUpdated}</td>
 								<td>
 									<a href="${pageContext.request.contextPath}/adbanner/adbannerEdit.html?adbanner.id=${item.id}" class="btn btn-mini">编辑</a>
 									<a href="${pageContext.request.contextPath}/adbanner/adbannerItem.html?adbanner.id=${item.id}" class="btn btn-mini">详细</a>
@@ -144,9 +128,33 @@
 			</div>
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
+		<script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+		<script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+		<script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="userinfo"/>
+			<jsp:param name="title" value="请选择一个用户"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html"/>
+		</jsp:include>
 		<script type="text/javascript" language="javascript">
 			$(document).ready(function() {
 				$("#X_menu_li_adbanner").addClass("active");
+				$('#adType').val('${adbanner.adType}');
+				$('#adStartMin, #adStartMax, #adEndMin, #adEndMax').datepicker({
+					language: 'zh-CN',
+					format: 'yyyy-MM-dd'
+				});
+				$('.selectpicker').selectpicker({style: 'btn-info'});
+				$('#userId').click(function() {
+					$('#windowTitleDialoguserinfo').modal('show');
+				});
+				$('#windowTitleDialoguserinfo').delegate('a.userinfoselect', 'click', function(e) {
+					e.preventDefault();
+					var $this = $(this);
+					$('#userId').val($this.attr('attr-id'));
+					$this.closest('div.modal').modal('hide');
+					return false;
+				})
 			});
 		</script>
 	</body>
