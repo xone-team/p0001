@@ -80,6 +80,7 @@
 					<div class="control-group">
 						<div class="controls">
 							<button type="submit" name="update" value="update" class="btn">提交更新</button>
+							<button type="submit" name="delete" value="delete" class="btn">删除角色</button>
 						</div>
 					</div>
 				</form>

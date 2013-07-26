@@ -27,11 +27,12 @@
 					<div class="row-fluid">
 						<ul class="breadcrumb">
 							<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
-							<li class="active">发布广告</li>
+							<li><a href="${pageContext.request.contextPath}/adbanner/adbannerList.html">广告列表</a> <span class="divider">/</span></li>
+							<li class="active">更新广告</li>
 						</ul>
 					</div>
-					<form class="form-horizontal" enctype="multipart/form-data" id="adbannerSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/adbanner/adbannerUpdate.html">
-						<input type="text" id="id" name="adbanner.id" value="${adbanner.id}" maxlength="20" placeholder="编号">
+					<form class="form-horizontal" enctype="multipart/form-data" id="adbannerEditForm${myidentify}" method="post" action="${pageContext.request.contextPath}/adbanner/adbannerUpdate.html">
+						<input type="hidden" name="adbanner.id" value="${adbanner.id}">
 						<div class="control-group">
 							<label class="control-label" for="adType">广告类型</label>
 							<div class="controls">
@@ -44,13 +45,14 @@
 						<div class="control-group">
 							<label class="control-label" for="refId">选择产品</label>
 							<div class="controls">
-								<input type="text" id="refId" name="adbanner.refId" value="${adbanner.refId}" maxlength="20" placeholder="产品名称">
+								<input type="text" id="refId" name="adbanner.refId" value="${adbanner.refId}" maxlength="20" placeholder="产品编号"  readonly="readonly">
+								<input type="hidden" id="refName" name="" maxlength="20" placeholder="相关编号" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="userId">选择用户</label>
 							<div class="controls">
-								<input type="text" id="userId" name="adbanner.userId" value="${adbanner.userId}" maxlength="20" placeholder="用户编号" readonly="readonly">
+								<input type="text" id="userId" name="adbanner.userId" value="${adbanner.userId}" maxlength="20" placeholder="用户编号"  readonly="readonly">
 								<input type="hidden" id="userName" name="" maxlength="20" placeholder="用户名称" readonly="readonly">
 							</div>
 						</div>
@@ -72,16 +74,20 @@
 								</div>
 							</div>
 						</div>
-						<div class="control-group fileupload">
+						<div class="control-group fileupload" style="display:none;">
 							<input type="file" id="uploadImageFile" name="uploadFile" value="">
 						</div>
 						<div class="control-group">
 							<div class="controls">
-								<button type="submit" class="btn">提交创建</button>
+								<button type="submit" name="update" value="update" class="btn" onclick="return confirm('确定更新本条记录?');">提交更新</button>
 								<button type="button" class="btn" onclick="$('#uploadImageFile').click();">上传图片</button>
+								<button type="submit" name="delete" value="delete" class="btn" onclick="return confirm('确定删除本条记录?');">删除记录</button>
 							</div>
 						</div>
-						<div class="control-group uploadimagesdiv" style="margin-bottom:0px;"></div>
+						<div class="control-group uploadimagesdiv" style="margin-bottom:0px;">
+							<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage();" value="删除图片">&times;</button></div>
+							<div class="well well-small"><img class="uploadproductdynamicimage" src="${pageContext.request.contextPath}/image.html?id=${adbanner.adRefId}"/></div>
+						</div>
 					</form>
 				</div>
 			</div>
@@ -96,31 +102,43 @@
 			<jsp:param name="title" value="请选择一个用户"/>
 			<jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html"/>
 		</jsp:include>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="Product"/>
+			<jsp:param name="title" value="请选择广告对应的售卖产品"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/product/productListAjax.html"/>
+		</jsp:include>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="Purchase"/>
+			<jsp:param name="title" value="请选择广告对应的购买产品"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/purchase/purchaseListAjax.html"/>
+		</jsp:include>
 		<script type="text/javascript">
 		$(document).ready(function() {
 			$('#windowTitleDialoguserinfo').delegate('a.userinfoselect', 'click', function(e) {
 				e.preventDefault();
 				var $this = $(this);
-				$('#userName').val($this.attr('attr-name'));
 				$('#userId').val($this.attr('attr-id'));
 				$this.closest('div.modal').modal('hide');
 				return false;
-			})
+			});
+			$('#windowTitleDialogProduct').delegate('a.productselectinfo', 'click', function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				$('#refId').val($this.attr('attr-id'));
+				$this.closest('div.modal').modal('hide');
+				return false;
+			});
+			$('#windowTitleDialogPurchase').delegate('a.purchaseselectinfo', 'click', function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				$('#refId').val($this.attr('attr-id'));
+				$this.closest('div.modal').modal('hide');
+				return false;
+			});
 		});
 		</script>
-		<jsp:include page="common-modal.jsp">
-			<jsp:param name="myidentify" value="Product"/>
-			<jsp:param name="title" value="请选择广告对应的售卖产品"/>
-			<jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html"/>
-		</jsp:include>
-		<jsp:include page="common-modal.jsp">
-			<jsp:param name="myidentify" value="Purchase"/>
-			<jsp:param name="title" value="请选择广告对应的购买产品"/>
-			<jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html"/>
-		</jsp:include>
 		<script type="text/javascript" language="javascript">
 		$(document).ready(function() {
-			$('div.fileupload').hide();
 			$('#uploadImageFile[type="file"]').fileupload({
 				onload:function(it, e) {
 					var div = document.createElement('div');
@@ -129,10 +147,10 @@
 					$('div.uploadimagesdiv').html('').append(div);
 				}
 			});
-			$('#adbannerSaveForm${myidentify}').submit(function() {
-				var $form = $('#adbannerSaveForm${myidentify}');
+			$('#adbannerEditForm${myidentify}').submit(function() {
+				var $form = $('#adbannerEditForm${myidentify}');
 				$form.find('div.alert').remove();
-				if ('' == $('#uploadImageFile[type="file"]').val()) {
+				if ($('img.uploadproductdynamicimage').length == 0 && '' == $('#uploadImageFile[type="file"]').val()) {
 					$form.append(alertMessage('错误', '请选择图片再提交'));
 					return false;
 				}
@@ -162,7 +180,7 @@
 			});
 			$('.adbanneradstart, .adbanneradend').datepicker();
 			$('.selectpicker').selectpicker({style: 'btn-info'});
-			$('#userName').click(function() {
+			$('#userId').click(function() {
 				$('#windowTitleDialoguserinfo').modal('show');
 			});
 			$('#refId').click(function() {
@@ -172,10 +190,11 @@
 					$('#windowTitleDialogPurchase').modal('show');
 				}
 			});
-			$('#adType').bind('change', function() {
+			$('#adType').val('${adbanner.adType}').bind('change', function() {
 				$('#refId').val('');
 				$('#refName').val('');
-			})
+			});
+			$("#X_menu_li_adbanner").addClass("active");
 		});
 		function alertMessage(title, msg) {
 			return ['<div class="alert alert-error" style="margin-bottom:0px;"><button type="button" class="close" data-dismiss="alert">&times;</button>',

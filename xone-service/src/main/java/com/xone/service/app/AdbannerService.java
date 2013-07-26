@@ -14,6 +14,8 @@ public interface AdbannerService {
 	
 	public Adbanner update(Adbanner entity);
 	
+	public Adbanner update(Adbanner entity, ImageUploaded imageUploaded, Long imageId);
+	
 	public Adbanner findById(Long id);
 	
 	public void delete(Adbanner entity);

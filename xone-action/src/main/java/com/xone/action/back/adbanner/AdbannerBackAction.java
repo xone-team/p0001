@@ -115,7 +115,13 @@ public class AdbannerBackAction extends LogicAction {
 					return (null != value);
 				}
 			});
-			setAdbanner(getAdbannerService().update(entity));
+			ImageUploaded imageUploaded = null;
+			if (null != getUploadFile()) {
+				imageUploaded = createUploadImageByFile(imageUploadPath,
+						ImageUploaded.RefType.ABBANNER, getUploadFile(),
+						getUploadFileContentType(), getUploadFileFileName());
+			}
+			setAdbanner(getAdbannerService().update(entity, imageUploaded, getAdbanner().getAdRefId()));
 		}
 		return SUCCESS;
 	}

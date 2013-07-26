@@ -27,6 +27,7 @@
 					<div class="row-fluid">
 						<ul class="breadcrumb">
 							<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
+							<li><a href="${pageContext.request.contextPath}/adbanner/adbannerList.html">广告列表</a> <span class="divider">/</span></li>
 							<li class="active">发布广告</li>
 						</ul>
 					</div>
@@ -43,14 +44,14 @@
 						<div class="control-group">
 							<label class="control-label" for="refId">选择产品</label>
 							<div class="controls">
-								<input type="text" id="refId" name="adbanner.refId" maxlength="20" placeholder="产品编号">
+								<input type="text" id="refId" name="adbanner.refId" maxlength="20" placeholder="产品编号" readonly="readonly">
 								<input type="hidden" id="refName" name="" maxlength="20" placeholder="相关编号" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="userId">选择用户</label>
 							<div class="controls">
-								<input type="text" id="userId" name="adbanner.userId" maxlength="20" placeholder="用户编号">
+								<input type="text" id="userId" name="adbanner.userId" maxlength="20" placeholder="用户编号" readonly="readonly">
 								<input type="hidden" id="userName" name="" maxlength="20" placeholder="用户名称" readonly="readonly">
 							</div>
 						</div>
@@ -72,7 +73,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="control-group fileupload">
+						<div class="control-group fileupload" style="display:none;">
 							<input type="file" id="uploadImageFile" name="uploadFile" value="">
 						</div>
 						<div class="control-group">
@@ -133,7 +134,7 @@
 		</script>
 		<script type="text/javascript" language="javascript">
 		$(document).ready(function() {
-			$('div.fileupload').hide();
+			$("#X_menu_li_adbanner").addClass("active");
 			$('#uploadImageFile[type="file"]').fileupload({
 				onload:function(it, e) {
 					var div = document.createElement('div');

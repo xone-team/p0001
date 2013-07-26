@@ -3,6 +3,7 @@ package com.xone.service.app;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,6 @@ import com.xone.model.hibernate.app.AdbannerDao;
 import com.xone.model.hibernate.app.ImageUploadedDao;
 import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.ImageUploaded;
-import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
 
 public class AdbannerServiceImpl implements AdbannerService {
@@ -47,6 +47,22 @@ public class AdbannerServiceImpl implements AdbannerService {
 	@Override
 	public Adbanner update(Adbanner entity) {
 		return getAdbannerDao().update(entity);
+	}
+	
+	@Override
+	public Adbanner update(Adbanner entity, ImageUploaded imageUploaded, Long imageId) {
+		entity = getAdbannerDao().update(entity);
+		if (null != imageUploaded) {
+			imageUploaded.setRefId(entity.getId());
+			imageUploaded.setRefType(ImageUploaded.RefType.PRODUCT.getValue());
+			imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
+			imageUploaded = getImageUploadedDao().save(imageUploaded);
+			if (null == imageId) {
+				getImageUploadedDao().deleteLogicById(imageId);
+			}
+			entity.setAdRefId(imageUploaded.getId());
+		}
+		return entity;
 	}
 	
 	@Override
