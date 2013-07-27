@@ -32,11 +32,6 @@
                         <label class="control-label" for="productId">产品</label>
                         <div class="controls">
                             <div id="productIdsSelectResult" class="inline">
-                                <c:forEach items="${productList}" var="product">
-                                    <div class="X-select-result inline">
-                                        <input type="hidden" class="X-select-hidden-value" value="${product.id}" name="topad.productId"> <span class="label label-default">${product.name}</span>
-                                    </div>
-                                </c:forEach>
                             </div>
                             <button type="button" class="btn" onclick="showModalProductSelect($('#productIdsSelectResult'), 'topad.productId');">
                                 <i class="icon-filter"></i>选择
@@ -138,7 +133,7 @@
                         var targetObj = XONE.CURRENT_MODEL.target;
                         var targetName = XONE.CURRENT_MODEL.targetName;
 
-                        var selectedResult = jQuery("input[type=checkbox]:checked", listBody).siblings(".X-select-result");
+                        var selectedResult = jQuery("input[type=radio]:checked", listBody).siblings(".X-select-result");
                         if (selectedResult != null) {
                             modalCurrent.modal('hide');
                             var h = selectedResult.clone();

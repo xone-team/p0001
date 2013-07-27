@@ -10,16 +10,20 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
+import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Topad;
 import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.service.app.PersonService;
+import com.xone.service.app.ProductService;
 import com.xone.service.app.TopadService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class TopadBackAction extends Action {
-    
+
     private static final long serialVersionUID = -7132163785627760581L;
     @Autowired
     protected TopadService topadService;
@@ -27,10 +31,15 @@ public class TopadBackAction extends Action {
     protected List<Topad> list = new ArrayList<Topad>();
     protected Pagination pagination = new Pagination();
     protected CommonTypes commonTypes = CommonTypes.getInstance();
-    
+
+    protected Person person = new Person();
+    protected Product product = new Product();
+    protected PersonService personService;
+    protected ProductService productService;
+
     public String topadList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
-        
+
         MyBeanUtils.copyPropertiesToMap(topad, params, new CopyRules() {
             @Override
             public boolean myCopyRules(Object value) {
@@ -43,47 +52,75 @@ public class TopadBackAction extends Action {
                 return value.toString();
             }
         }, null);
-        
+
         params.put("pageSize", String.valueOf(getPagination().getPageSize()));
         params.put("pageNo", String.valueOf(getPagination().getPageNo()));
         Pagination p = getTopadService().findByParams(params);
-//      List<Topad> l = getTopadService().findAllByMap(params);
-//      if (null != l && !l.isEmpty()) {
-//          getList().addAll(l);
-//      }
+        // List<Topad> l = getTopadService().findAllByMap(params);
+        // if (null != l && !l.isEmpty()) {
+        // getList().addAll(l);
+        // }
         setPagination(p);
         return SUCCESS;
     }
-    
+
     public String topadItem() throws Exception {
         Topad entity = getTopadService().findById(getTopad().getId());
         if (null == entity || null == entity.getId()) {
             return ERROR;
         }
         setTopad(entity);
+
+        if (entity.getUserApply() != null) {
+            person = personService.findById(entity.getId());
+        }
+        if (entity.getProducid() != null) {
+            product = productService.findById(entity.getProductId());
+        }
+        if (person == null) {
+            person = new Person();
+        }
+        if (product == null) {
+            product = new Product();
+        }
+
         return SUCCESS;
     }
-    
+
     public String topadCreate() throws Exception {
         return SUCCESS;
     }
-    
+
     public String topadEdit() throws Exception {
         Topad entity = getTopadService().findById(getTopad().getId());
         if (null == entity || null == entity.getId()) {
             return ERROR;
         }
         setTopad(entity);
+
+        if (entity.getUserApply() != null) {
+            person = personService.findById(entity.getId());
+        }
+        if (entity.getProducid() != null) {
+            product = productService.findById(entity.getProductId());
+        }
+        if (person == null) {
+            person = new Person();
+        }
+        if (product == null) {
+            product = new Product();
+        }
+
         return SUCCESS;
     }
-    
+
     public String topadSave() throws Exception {
         topad.setUserApply(new Long(0));
         topad.setDateApply(new Date());
         setTopad(getTopadService().save(getTopad()));
         return SUCCESS;
     }
-    
+
     public String topadUpdate() throws Exception {
         if (!"POST".equalsIgnoreCase(getRequest().getMethod())) {
             return ERROR;
@@ -108,14 +145,14 @@ public class TopadBackAction extends Action {
                     return (null != value);
                 }
             });
-            
+
             entity.setUserCheck(new Long(0));
             entity.setDateCheck(new Date());
             setTopad(getTopadService().update(entity));
         }
         return SUCCESS;
     }
-    
+
     public String topadDelete() throws Exception {
         Topad entity = topadService.findById(topad.getId());
         topadService.delete(entity);
@@ -145,7 +182,7 @@ public class TopadBackAction extends Action {
     public void setTopad(Topad topad) {
         this.topad = topad;
     }
-    
+
     public Pagination getPagination() {
         return pagination;
     }
@@ -157,6 +194,21 @@ public class TopadBackAction extends Action {
     public CommonTypes getCommonTypes() {
         return commonTypes;
     }
-    
-    
+
+    public Person getPerson() {
+        return person;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setPersonService(PersonService personService) {
+        this.personService = personService;
+    }
+
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
+    }
+
 }
