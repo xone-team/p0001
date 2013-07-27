@@ -1,6 +1,7 @@
 package com.xone.service.app;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Person save(Person entity) {
+        Long user = new Long(0);
+        Date date = new Date();
+        entity.setDateApply(date);
+        entity.setUserApply(user);
         return getUserDao().save(entity);
     }
 

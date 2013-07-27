@@ -3,6 +3,9 @@ package com.xone.model.hibernate.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.xone.model.hibernate.entity.Adbanner.AdType;
+import com.xone.model.hibernate.support.CommonTypes;
+
 /**
  * @TODO 请Hunny添加代码注释 
  * @author Hunny
@@ -66,6 +69,14 @@ public class Person implements Serializable {
 	}
 	public void setRepassword(String repassword) {
 		this.repassword = repassword;
+	}
+	
+	public String getCreditName(){
+        return CommonTypes.getYNTypeValue(credit);
+	}
+	
+	public String getFlagDeletedName(){
+	    return CommonTypes.getYNTypeValue(flagDeleted);
 	}
 	
 	
