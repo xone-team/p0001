@@ -87,3 +87,13 @@
    		</tr>
    	</table>
    </li>
+   <li>
+   <c:choose>
+   <c:when test="${delivery.flagPass == '1'}">
+   <a href="#">已交易状态的物流配送信息不可编辑</a>
+   </c:when>
+   <c:otherwise>
+   <a href="${pageContext.request.contextPath}/delivery/edit.html?delivery.id=${delivery.id}" data-role="button" data-mini="true" data-inline="true">编辑物流配送信息</a>
+   </c:otherwise>
+   </c:choose>
+   </li>

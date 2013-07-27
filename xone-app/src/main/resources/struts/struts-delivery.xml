@@ -7,6 +7,25 @@
 		<action name="index" class="deliveryAction" method="index">
 			<result name="success">/WEB-INF/jsp/delivery-index.jsp</result>
 		</action>
+		<action name="edit" class="deliveryAction" method="itemDetails">
+			<result name="success">/WEB-INF/jsp/delivery-edit.jsp</result>
+		</action>
+		<action name="update" class="deliveryAction" method="update">
+			<result name="success" type="redirectAction">
+			    <param name="actionName">itemPage</param> 
+    			<param name="namespace">/delivery</param> 
+				<param name="delivery.id">${delivery.id}</param>
+			</result>
+			<result name="error" type="redirectAction">
+			    <param name="actionName">itemPage</param> 
+    			<param name="namespace">/delivery</param> 
+				<param name="delivery.id">${delivery.id}</param>
+			</result>
+			<result name="list" type="redirectAction">
+			    <param name="actionName">listIndex</param>
+    			<param name="namespace">/delivery</param>
+			</result>
+		</action>
 		<action name="create" class="deliveryAction" method="create">
 			<result name="success">/WEB-INF/jsp/delivery-success.jsp</result>
 		</action>

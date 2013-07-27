@@ -14,7 +14,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.SubscribeDao;
-import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.Subscribe;
 import com.xone.model.hibernate.support.Pagination;
 
@@ -26,6 +25,7 @@ public class SubscribeServiceImpl implements SubscribeService {
 
     @Override
     public Subscribe save(Subscribe entity) {
+    	entity.setFlagDeleted(Subscribe.FlagDeleted.NORMAL.getValue());
         return getSubscribeDao().save(entity);
     }
 
@@ -63,15 +63,18 @@ public class SubscribeServiceImpl implements SubscribeService {
                 e.printStackTrace();
             }
         }
-        // if (!StringUtils.isBlank(params.get("refId"))) {
-        // detachedCriteria.add(Restrictions.eq("refId",
-        // Long.parseLong(params.get("refId"))));
-        // }
-        // detachedCriteria.add(Restrictions.eq("flagDeleted",
-        // Adbanner.FlagDeleted.NORMAL.getValue()));
-        // detachedCriteria.addOrder(Order.desc("dateCreated"));
-
-        handleCriteriaByParams(detachedCriteria, params);
+		if (!StringUtils.isBlank(params.get("refId"))) {
+			detachedCriteria.add(Restrictions.eq("refId",
+					Long.parseLong(params.get("refId"))));
+		}
+		String userCreated = params.get("userCreated");
+		if (!StringUtils.isBlank(userCreated)) {
+			detachedCriteria.add(Restrictions.eq("userCreated",
+					Long.parseLong(userCreated)));
+		}
+		detachedCriteria.add(Restrictions.eq("flagDeleted",
+				Subscribe.FlagDeleted.NORMAL.getValue()));
+		detachedCriteria.addOrder(Order.desc("dateCreated"));
 
         return getSubscribeDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
     }

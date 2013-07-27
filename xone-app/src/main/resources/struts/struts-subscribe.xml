@@ -20,5 +20,24 @@
 		<action name="item" class="subscribeAction" method="item">
 			<result name="success">/WEB-INF/jsp/subscribe-item-page.jsp</result>
 		</action>
+		<action name="edit" class="subscribeAction" method="item">
+			<result name="success">/WEB-INF/jsp/subscribe-edit-page.jsp</result>
+		</action>
+		<action name="update" class="subscribeAction" method="update">
+			<result name="success" type="redirectAction">
+			    <param name="actionName">item</param> 
+    			<param name="namespace">/subscribe</param> 
+				<param name="subscribe.id">${subscribe.id}</param>
+			</result>
+			<result name="error" type="redirectAction">
+			    <param name="actionName">item</param> 
+    			<param name="namespace">/subscribe</param> 
+				<param name="subscribe.id">${subscribe.id}</param>
+			</result>
+			<result name="list" type="redirectAction">
+			    <param name="actionName">list</param>
+    			<param name="namespace">/subscribe</param>
+			</result>
+		</action>
 	</package>
 </struts>

@@ -5,12 +5,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Subscribe;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.SubscribeService;
+import com.xone.service.app.utils.MyBeanUtils;
+import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class SubscribeAction extends Action {
 
@@ -32,6 +35,7 @@ public class SubscribeAction extends Action {
 	
 	public String create() {
 		getSubscribe().setRefId(getUserId());
+		getSubscribe().setUserCreated(getUserId());
 		setSubscribe(getSubscribeService().save(getSubscribe()));
 		return SUCCESS;
 	}
@@ -50,7 +54,42 @@ public class SubscribeAction extends Action {
 			params.put("ltDateCreated", MyDateUtils.format(getSubscribe().getDateCreated()));
 		}
 		params.put("refId", getUserId().toString());
+		params.put("userCreated", String.valueOf(getUserId()));
 		setList(getSubscribeService().findAllByMap(params));
+		return SUCCESS;
+	}
+	
+	public String update() {
+		if (!"POST".equalsIgnoreCase(getRequest().getMethod())) {
+			return ERROR;
+		}
+		if (!StringUtils.isBlank(getRequestMap().get("delete"))) {
+			Subscribe entity = getSubscribeService().findById(getSubscribe().getId());
+			if (null == entity || null == entity.getId()) {
+				return ERROR;
+			}
+			if (!getUserId().equals(entity.getUserCreated())) {//状态为已经交易状态的不可以删除
+				return ERROR;
+			}
+			getSubscribeService().delete(entity);
+			return "list";
+		}
+		if (!StringUtils.isBlank(getRequestMap().get("update"))) {
+			Subscribe entity = getSubscribeService().findById(getSubscribe().getId());
+			if (null == entity || null == entity.getId()) {
+				return ERROR;
+			}
+			if (!(getUserId().equals(entity.getUserCreated()))) {//状态为已经交易状态的不可以编辑
+				return ERROR;
+			}
+			MyBeanUtils.copyProperties(getSubscribe(), entity, Subscribe.class, null, new CopyRules() {
+				@Override
+				public boolean myCopyRules(Object value) {
+					return (null != value);
+				}
+			});
+			setSubscribe(getSubscribeService().update(entity));
+		}
 		return SUCCESS;
 	}
 
