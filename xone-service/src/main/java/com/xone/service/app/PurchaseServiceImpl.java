@@ -159,7 +159,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         if (!StringUtils.isBlank(userCreated)) {
         	detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
         }
-		
+        detachedCriteria.addOrder(Order.desc("dateCreated"));
 		List<Purchase> list = getPurchaseDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
 		if (null != list && !list.isEmpty()) {
 			List<Long> ids = new ArrayList<Long>();
