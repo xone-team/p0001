@@ -50,10 +50,23 @@ public class ProductAction extends LogicAction {
 	}
 	
 	public String add() {
+		getProduct().setSaleType(Product.SaleType.NORMAL.getValue());
+		return SUCCESS;
+	}
+	
+	public String addSales() {
+		getProduct().setSaleType(Product.SaleType.SALES.getValue());
+		return SUCCESS;
+	}
+	
+	public String addGroups() {
+		getProduct().setSaleType(Product.SaleType.GROUPS.getValue());
 		return SUCCESS;
 	}
 	
 	public String create() {
+		getProduct().setCheckStatus(Product.CheckStatus.WAITING.getValue());
+		getProduct().setUserCreated(getUserId());
 		List<ImageUploaded> images = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PRODUCT);
 		setProduct(getProductService().save(getProduct(), images));
 		return SUCCESS;
@@ -68,6 +81,8 @@ public class ProductAction extends LogicAction {
 			params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
 		}
 		params.put("saleType", getProduct().getSaleType());
+		params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+		params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
 		setList(getProductService().findAllByMap(params));
 		return SUCCESS;
 	}
@@ -100,6 +115,7 @@ public class ProductAction extends LogicAction {
 			params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
 		}
 		params.put("saleType", getProduct().getSaleType());
+		params.put("userCreated", String.valueOf(getUserId()));
 		setList(getProductService().findAllByMap(params));
 		return SUCCESS;
 	}
@@ -111,23 +127,16 @@ public class ProductAction extends LogicAction {
 			return ERROR;
 		}
 		Product entity = findById(pu.getId());
-//		if (p.get) {
-//		getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
-//		return ERROR;
-//	}
+		if (Product.CheckStatus.PASSED.getValue().equals(entity.getCheckStatus())) {
+			getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
+			return ERROR;
+		}
 		MyBeanUtils.copyProperties(pu, entity, Product.class, null, new CopyRules() {
 			@Override
 			public boolean myCopyRules(Object value) {
 				return (null != value);
 			}
 		});
-//		entity.setProductName(pu.getProductName());
-//		entity.setProductNum(pu.getProductNum());
-//		entity.setProductType(pu.getProductType());
-//		entity.setProductValid(pu.getProductValid());
-//		entity.setProductLocation(pu.getProductLocation());
-//		entity.setProductDesc(pu.getProductDesc());
-//		entity.setProductAddress(pu.getProductAddress());
 		List<ImageUploaded> imageUploadeds = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PRODUCT);
 		entity = getProductService().update(entity, imageUploadeds, pu.getIds());
 		setProduct(entity);
@@ -142,10 +151,10 @@ public class ProductAction extends LogicAction {
 				getMapValue().put("msg", "无此记录.");
 				return ERROR;
 			}
-//			if (p.get) {
-//				getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
-//				return ERROR;
-//			}
+			if (Product.CheckStatus.PASSED.getValue().equals(p.getCheckStatus())) {
+				getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
+				return ERROR;
+			}
 			setProduct(p);
 			return SUCCESS;
 		}

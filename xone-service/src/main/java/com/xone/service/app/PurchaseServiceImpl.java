@@ -70,6 +70,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	
 	@Override
 	public Purchase save(Purchase entity, List<ImageUploaded> imageUploadeds) {
+		entity.setFlagDeleted(Purchase.FlagDeleted.NORMAL.getValue());
 		entity = getPurchaseDao().save(entity);
 		for (ImageUploaded imageUploaded : imageUploadeds) {
 			imageUploaded.setRefId(entity.getId());
@@ -142,6 +143,10 @@ public class PurchaseServiceImpl implements PurchaseService {
         String purchaseType = params.get("purchaseType");
         if (!StringUtils.isBlank(purchaseType)) {
         	detachedCriteria.add(Restrictions.like("purchaseType", "%" + purchaseType + "%"));
+        }
+        String checkStatus = params.get("checkStatus");
+        if (!StringUtils.isBlank(checkStatus)) {
+        	detachedCriteria.add(Restrictions.eq("checkStatus", checkStatus));
         }
         String purchaseAddress = params.get("purchaseAddress");
         if (!StringUtils.isBlank(purchaseAddress)) {

@@ -34,6 +34,7 @@ public class DeliveryAction extends Action {
 		if (null != loadtime) {
 			getDelivery().setLoadtime(loadtime);
 		}
+		getDelivery().setUserCreated(getUserId());
 		setDelivery(deliveryService.save(getDelivery()));
 		return SUCCESS;
 	}
@@ -59,6 +60,9 @@ public class DeliveryAction extends Action {
 		String id = map.get("id");
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("id", id);
+//		if (null != getUserId()) {
+//			params.put("userCreated", String.valueOf(getUserId()));
+//		}
 		setDelivery(deliveryService.findByMap(params));
 		return SUCCESS;
 	}

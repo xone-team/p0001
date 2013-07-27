@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE HTML>
+<!DOCTYPE HTML><c:set var="myid" value="${identify }" />
 <html>
 	<head>
 		<title>Hello World</title>
@@ -13,24 +13,24 @@
 	</head>
 	<body>
 	<div data-role="page" class="productaddpage" data-dom-cache="false">
-		<link rel="stylesheet" href="${STATIC_ROOT}/mobiscroll/css/mobiscroll.core-2.6.2.css" />
-		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2.js"></script>
-		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.datetime-2.6.2.js"></script>
-		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2-zh.js"></script>
+<%-- 		<link rel="stylesheet" href="${STATIC_ROOT}/mobiscroll/css/mobiscroll.core-2.6.2.css" /> --%>
+<%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2.js"></script> --%>
+<%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.datetime-2.6.2.js"></script> --%>
+<%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2-zh.js"></script> --%>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${identify}" data-icon="check">返回</a>
+			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${myid}" data-icon="check">返回</a>
 			<h1>发布产品</h1>
-			<a href="#" rel="external" data-icon="check" data-role="button" class="productsave ui-btn-right">发布</a>
+			<a href="#" rel="external" data-icon="check" data-role="button" class="productsave${myid} ui-btn-right">发布</a>
 		</div>
 		<div class="productaddcontent" data-role="content" data-dom-cache="false">
-			<form class="productform" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/product/create.html?_=${identify}" autocomplete="off">
-				<input type="hidden" name="product.saleType" value="${param.type}" autocomplete="off"/>
-				<ul class="productlistview" data-role="listview" data-inset="true" data-mini="true">
+			<form class="productform${myid}" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/product/create.html?_=${myid}" autocomplete="off">
+				<input type="hidden" name="product.saleType" value="${product.saleType}" autocomplete="off"/>
+				<ul class="productlistview${myid}" data-role="listview" data-inset="true" data-mini="true">
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品名称:</td>
-				    			<td><input type="text" name="product.productName" placeholder="产品名称" data-mini="true"  autocomplete="off"/></td>
+				    			<td><input type="text" id="productproductName${myid}" name="product.productName" placeholder="产品名称" data-mini="true"  autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -38,7 +38,15 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品类型:</td>
-				    			<td><input type="text" name="product.productType" placeholder="产品类型" data-mini="true" value="1" autocomplete="off"/></td>
+				    			<td>
+				    				<select name="product.productType" placeholder="产品类型" data-mini="true">
+				    					<option value="0">冻品</option>
+				    					<option value="1">干货</option>
+				    					<option value="2">活鲜</option>
+				    					<option value="3">水果</option>
+				    					<option value="4">调料</option>
+				    				</select>
+				    			</td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -46,7 +54,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品产地:</td>
-				    			<td><input type="text" name="product.productAddress" placeholder="产品产地" data-mini="true"  autocomplete="off"/></td>
+				    			<td><input type="text" id="productproductAddress${myid}" name="product.productAddress" placeholder="产品产地" data-mini="true"  autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -54,7 +62,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品属地:</td>
-				    			<td><input type="text" name="product.productLocation" placeholder="产品属地" data-mini="true"  autocomplete="off"/></td>
+				    			<td><input type="text" id="productproductLocation${myid}" name="product.productLocation" placeholder="产品属地" data-mini="true"  autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -62,7 +70,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">价　　格:</td>
-				    			<td><input type="text" name="product.productPrice" placeholder="产品价格" data-mini="true" value="20" autocomplete="off"/></td>
+				    			<td><input type="text" id="productproductPrice${myid }" name="product.productPrice" placeholder="产品价格" data-mini="true" value="20" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -70,15 +78,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">数　　量:</td>
-				    			<td><input type="text" name="product.productNum" placeholder="数量" data-mini="true" value="2" autocomplete="off"/></td>
-				    		</tr>
-				    	</table>
-				    </li>
-				    <li>
-				    	<table style="width:100%">
-				    		<tr>
-				    			<td class="mylabel">有&nbsp&nbsp效&nbsp&nbsp期:</td>
-				    			<td><input type="text" id="productproductValid" name="product.productValid" placeholder="有效期" data-mini="true"  autocomplete="off"/></td>
+				    			<td><input type="text" id="productproductNum${myid}" name="product.productNum" placeholder="数量" data-mini="true" value="2" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -95,12 +95,11 @@
 					 	<input type="button" data-icon="plus" class="uploadImageProductButton" value="选择图片"/>
 					</li>
 					<li class="productpublishformbutton">
-					 	<input type="submit" value="确认发布" class="submit${identify}"/>
+					 	<input type="submit" value="确认发布" id="productsaveformsubmit${myid}" class="submit"/>
 					</li>
 				</ul>
 				<div class="imagelistdiv" style="padding:5px;"></div>
 			</form>
-			<div class="debug">&nbsp;</div>
 			<script type="text/javascript" language="javascript">
 				$(document).on("pageinit", function() {
 					$('div.productaddpage').css({
@@ -109,26 +108,26 @@
 				});
 				$('div.productaddpage').bind('pageinit', function() {
 					var width = $('div.productaddpage').width() - 11;
-					var css = ['<style type="text/css">div.purchaseimage {text-align:center;height:', width, 'px;width:', width, 'px;}',
-					           'div.purchaseimage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
+					var css = ['<style type="text/css">div.productimage {text-align:center;height:', width, 'px;width:', width, 'px;}',
+					           'div.productimage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
 					'<\/style>'];
 					$('div.productaddpage').append(css.join(''));
-					$('a.productsave').click(function(e) {
+					$('a.productsave${myid}').click(function(e) {
 						e.preventDefault();
-						$('form.productform').submit();
+						$('#productsaveformsubmit${myid}').click();
 						return false;
 					});
-					$('#productproductValid').scroller('destroy')
-					.scroller($.extend({
-						preset : 'date',
-						minDate : new Date(2012, 3, 10),
-						maxDate : new Date(2020, 7, 30)
-					}, {
-						theme : 'default',
-						mode : 'scroller',
-						display : 'modal',
-						lang : 'zh'
-					}));
+// 					$('#productproductValid').scroller('destroy')
+// 					.scroller($.extend({
+// 						preset : 'date',
+// 						minDate : new Date(2012, 3, 10),
+// 						maxDate : new Date(2020, 7, 30)
+// 					}, {
+// 						theme : 'default',
+// 						mode : 'scroller',
+// 						display : 'modal',
+// 						lang : 'zh'
+// 					}));
 					$('input.uploadImageProductButton').click(function(e) {
 						e.preventDefault();
 						$('form li.errorli').remove();
@@ -141,6 +140,38 @@
 						$('input.uploadImageProduct[type="file"]').click();
 						return false;
 					});
+					$('form.productform${myid}').submit(function() {
+						if ($('form.productform${myid} li.myerror').length > 0) {
+							$('li.myerror').remove();
+							$('ul.productlistview${myid}').listview('refresh');
+						}
+						var v = [{
+							id: 'productproductName${myid}',
+							msg: '请输入产品名称'
+						},{
+							id: 'productproductAddress${myid}',
+							msg: '请输入产品产地'
+						},{
+							id: 'productproductLocation${myid}',
+							msg: '请输入产品属地'
+						},{
+							id: 'productproductPrice${myid }',
+							msg: '请输入产品价格'
+						},{
+							id: 'productproductNum${myid}',
+							msg: '请输入产品数量'
+						}];
+						for (var i = 0; i < v.length; i++) {
+							var vi = v[i];
+							if ('' == $.trim($('#' + vi.id).val())) {
+								$('#' + vi.id).closest('li').before(['<li class="myerror"><div class="error ui-btn-inner">', vi.msg, '</div></li>'].join(''));
+							}
+						}
+						if ($('form.productform${myid} li.myerror').length > 0) {
+							$('ul.productlistview${myid}').listview('refresh');
+							return false;
+						}
+					});
 					$('input.uploadImageProduct[type="file"]').bind('change', handleFileSelect);
 				});
 				function removeProductDynamicImage(e) {
@@ -149,30 +180,28 @@
 					$('#uploadImageFileProduct').val('');
 					return false;
 				}
-				function debug(i) {
-					$('div.debug').append('<div>' + i + '</div>');
-				}
-				function testProperties(o) {
-					var i = '';
-					for (var n in o) {
-						i += '<div>' + n + '</div>';
-					}
-					return i;
-				}
 				function getExt(v) {
 					var a = v.split('.');
 					return a[a.length - 1];
 				}
 				function handleFileSelect(evt) {
+					if ($('li.fileerror').length > 0) {
+						$('li.fileerror').remove();
+						$('ul.productlistview${myid}').listview('refresh');
+					}
 					var files = evt.target.files; // FileList object
-					// Loop through the FileList and render image files as thumbnails.
 					for (var i = 0, f; f = files[i]; i++) {
+						var m = f.name.match(/\.(png|jpeg|jpg|gif)$/i);
+						if (null == m) {
+							$('#uploadImageFileProduct').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
+							$('ul.productlistview${myid}').listview('refresh');
+							continue;
+						}
 						var reader = new FileReader();
-						// Closure to capture the file information.
 						reader.onload = (function(theFile) {
 							return function(e) {
 								var div = document.createElement('div');
-								div.className = 'purchaseimage';
+								div.className = 'productimage';
 								var result = e.target.result.replace(/data:base64,/, 'data:image/' + getExt(theFile.name) + ';base64,');
 								div.innerHTML = [
 										'<a href="#" onclick="return removeProductDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
@@ -182,7 +211,7 @@
 										'<input type="hidden" name="images" value="', 
 									result, '" />' ]
 										.join('');
-								var listview = $('ul.productlistview');
+								var listview = $('ul.productlistview${myid}');
 								listview.append('<li></li>');
 								listview.find('li').last().append(div);
 								listview.listview('refresh');
@@ -191,24 +220,18 @@
 						reader.onerror = function(evt) {
 							switch (evt.target.error.code) {
 							case evt.target.error.NOT_FOUND_ERR:
-								alert('File Not Found!');
 								break;
 							case evt.target.error.NOT_READABLE_ERR:
-								alert('File is not readable');
 								break;
 							case evt.target.error.ABORT_ERR:
-								break; // noop
+								break;
 							default:
-								alert('An error occurred reading this file.');
 							};
 						};
 						reader.onabort = function(e) {
-							alert('File read cancelled');
 						};
 						reader.onloadstart = function(e) {
-	
 						};
-						// Read in the image file as a data URL.
 						reader.readAsDataURL(f);
 					}
 				}

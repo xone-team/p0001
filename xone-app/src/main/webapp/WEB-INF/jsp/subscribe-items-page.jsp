@@ -6,7 +6,7 @@
 <li class="subscribedatecreateditem" timestamp="${item.dateCreated}">
 	<a href="${pageContext.request.contextPath}/subscribe/item.html?subscribe.id=${item.id}&from=items">
 		<h4>${item.productNameKey}</h4>
-		<p>${item.marketarea},${item.saleType},${item.credit},${item.dateCreated}</p>
+		<p>销售方式:${item.saleTypeName},公司信誉:${item.creditName},市场区域:${item.marketarea},${item.dateCreated}</p>
 	</a>
 </li>
 </c:forEach>

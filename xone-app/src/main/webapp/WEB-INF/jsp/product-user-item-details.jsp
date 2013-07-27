@@ -23,7 +23,7 @@
 	<table style="width:100%">
 		<tr>
 			<td class="mylabel">产品类型:</td>
-			<td>${product.productType}</td>
+			<td>${product.productTypeName}</td>
 		</tr>
 	</table>
 </li>
@@ -62,14 +62,6 @@
 <li>
 	<table style="width:100%">
 		<tr>
-			<td class="mylabel">有&nbsp&nbsp效&nbsp&nbsp期:</td>
-			<td>${product.productValid}</td>
-		</tr>
-	</table>
-</li>
-<li>
-	<table style="width:100%">
-		<tr>
 			<td class="mylabel">描　　述:</td>
 			<td>${product.productDesc}</td>
 		</tr>
@@ -80,7 +72,7 @@
 	<table style="width:100%">
 		<tr>
 			<td class="mylabel">审核时间:</td>
-			<td>${product.dateApply}</td>
+			<td><fmt:formatDate value="${product.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 		</tr>
 	</table>
 </li>
@@ -88,7 +80,7 @@
 	<table style="width:100%">
 		<tr>
 			<td class="mylabel">审核状态:</td>
-			<td>审核通过</td>
+			<td>${product.checkStatusName}</td>
 		</tr>
 	</table>
 </li>

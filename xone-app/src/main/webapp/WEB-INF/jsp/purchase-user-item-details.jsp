@@ -23,7 +23,7 @@
 	<table style="width:100%">
 		<tr>
 			<td class="mylabel">产品类型:</td>
-			<td>${purchase.purchaseType}</td>
+			<td>${purchase.purchaseTypeName}</td>
 		</tr>
 	</table>
 </li>
@@ -54,14 +54,6 @@
 <li>
 	<table style="width:100%">
 		<tr>
-			<td class="mylabel">有&nbsp&nbsp效&nbsp&nbsp期:</td>
-			<td>${purchase.purchaseValid}</td>
-		</tr>
-	</table>
-</li>
-<li>
-	<table style="width:100%">
-		<tr>
 			<td class="mylabel">描　　述:</td>
 			<td>${purchase.purchaseDesc}</td>
 		</tr>
@@ -72,7 +64,7 @@
 	<table style="width:100%">
 		<tr>
 			<td class="mylabel">审核时间:</td>
-			<td>${purchase.dateApply}</td>
+			<td><fmt:formatDate value="${purchase.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 		</tr>
 	</table>
 </li>
@@ -80,7 +72,7 @@
 	<table style="width:100%">
 		<tr>
 			<td class="mylabel">审核状态:</td>
-			<td>审核通过</td>
+			<td>${purchase.checkStatusName}</td>
 		</tr>
 	</table>
 </li>

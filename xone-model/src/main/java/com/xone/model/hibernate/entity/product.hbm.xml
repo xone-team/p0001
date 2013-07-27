@@ -13,6 +13,9 @@
 	<property name="productType" type="java.lang.String">
 		<column name="PRODUCT_TYPE" length="2"/>
 	</property>
+	<property name="checkStatus" type="java.lang.String">
+		<column name="CHECK_STATUS" length="1"/>
+	</property>
 	<property name="saleType" type="java.lang.String">
 		<column name="SALE_TYPE" length="2"/>
 	</property>

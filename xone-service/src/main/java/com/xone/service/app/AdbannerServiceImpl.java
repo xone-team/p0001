@@ -3,7 +3,6 @@ package com.xone.service.app;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -149,6 +148,23 @@ public class AdbannerServiceImpl implements AdbannerService {
 		detachedCriteria.add(Restrictions.eq("flagDeleted", Adbanner.FlagDeleted.NORMAL.getValue()));
 		detachedCriteria.addOrder(Order.desc("dateCreated"));
 		List<Adbanner> list = getAdbannerDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
+		if (null != list && !list.isEmpty()) {
+			List<Long> ids = new ArrayList<Long>();
+			for (Adbanner adbanner : list) {
+				ids.add(adbanner.getId());
+			}
+			Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.ABBANNER, 0, ids.size() * 3);
+			if (null != maps && !maps.isEmpty()) {
+				for (int i = 0; i < ids.size(); i++) {
+					Adbanner ad = list.get(i);
+					List<Long> imageIds = maps.get(ad.getId());
+					if (null != imageIds && imageIds.size() > 0) {
+						ad.setAdRefId(imageIds.get(0));
+						list.set(i, ad);
+					}
+				}
+			}
+		}
 		return list;
 	}
 

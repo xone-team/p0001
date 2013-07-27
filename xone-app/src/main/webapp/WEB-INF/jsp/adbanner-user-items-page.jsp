@@ -5,7 +5,7 @@
 <c:forEach var="item" items="${list}">
 <li class="adbannerdatecreateditem" timestamp="${item.dateCreated}">
 	<a href="${pageContext.request.contextPath}/adbanner/item.html?adbanner.id=${item.id}">
-		<img class="adbannerliimage" src="${pageContext.request.contextPath}/assistant/image.html?id=${item.refId}" style="max-width:100%;max-height:100%;" alt=""/>
+		<img class="adbannerliimage" src="${pageContext.request.contextPath}/assistant/image.html?id=${item.adRefId}" style="max-width:100%;max-height:100%;" alt=""/>
 	</a>
 </li>
 </c:forEach>

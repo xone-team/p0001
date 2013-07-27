@@ -39,17 +39,17 @@
 		<div data-role="content" data-dom-cache="false">
 			<ul class="purchase-item-page-view" data-role="listview" data-inset="true" data-mini="true">
 				<li data-role="list-divider">广告图片</li>
-				<li data-icon="none"><img src="${pageContext.request.contextPath}/assistant/image.html?id=${adbanner.refId}" height="100%" width="100%" style="max-width:100%;max-height:100%;"/></li>
+				<li data-icon="none"><img src="${pageContext.request.contextPath}/assistant/image.html?id=${adbanner.adRefId}" height="100%" width="100%" style="max-width:100%;max-height:100%;"/></li>
 				<li data-role="list-divider">广告信息</li>
 				<li data-icon="none">
 					<table class="mytable" style="width:100%">
 						<tr>
 							<td class="mylabel">广告类型:</td>
-							<td>${adbanner.adType}</td>
+							<td>${adbanner.adTypeName}</td>
 						</tr>
 						<tr>
-							<td class="mylabel">对象标识:</td>
-							<td>${adbanner.adRefId}</td>
+							<td class="mylabel">产品编号:</td>
+							<td>${adbanner.refId}</td>
 						</tr>
 						<tr>
 							<td class="mylabel" rowspan="2">有&nbsp;&nbsp;效&nbsp;&nbsp;期:</td>

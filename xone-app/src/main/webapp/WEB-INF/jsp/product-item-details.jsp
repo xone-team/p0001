@@ -14,7 +14,7 @@
 	<table style="width:100%">
 		<tr>
 			<td class="mylabel">产品类型:</td>
-			<td>${product.productType}</td>
+			<td>${product.productTypeName}</td>
 		</tr>
 	</table>
 </li>
@@ -47,14 +47,6 @@
 		<tr>
 			<td class="mylabel">数　　量:</td>
 			<td>${product.productNum}</td>
-		</tr>
-	</table>
-</li>
-<li>
-	<table style="width:100%">
-		<tr>
-			<td class="mylabel">有&nbsp&nbsp效&nbsp&nbsp期:</td>
-			<td>${product.productValid}</td>
 		</tr>
 	</table>
 </li>

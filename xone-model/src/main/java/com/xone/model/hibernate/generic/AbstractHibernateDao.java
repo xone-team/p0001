@@ -87,18 +87,10 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	public T setDateCreated(T entity) {
 		try {
 			Date date = new Date();
-			Long user = new Long(0);
 			Method setDateCreated = entity.getClass().getMethod("setDateCreated", Date.class);
 			setDateCreated.invoke(entity, date);
-            Method setUserCreated = entity.getClass().getMethod("setUserCreated", Long.class);
-            setUserCreated.invoke(entity, user);
 			Method setLastUpdated = entity.getClass().getMethod("setLastUpdated", Date.class);
 			setLastUpdated.invoke(entity, date);
-            Method setUserUpdated = entity.getClass().getMethod("setUserUpdated", Long.class);
-            setUserUpdated.invoke(entity, user);
-            
-//            Method setFlagDeleted = entity.getClass().getMethod("setFlagDeleted", String.class);
-//            setFlagDeleted.invoke(entity, "0");
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 		}
