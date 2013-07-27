@@ -10,21 +10,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Resources;
+import com.xone.model.hibernate.entity.Roles;
+import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.ResourcesService;
+import com.xone.service.app.RolesResourcesService;
 import com.xone.service.app.utils.MyBeanUtils;
+import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class ResourcesBackAction extends Action {
 	
-	@Autowired
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 9147518870214179178L;
+    @Autowired
 	protected ResourcesService resourcesService;
 	protected Resources resources = new Resources();
 	protected List<Resources> list = new ArrayList<Resources>();
 	protected Pagination pagination = new Pagination();
+    protected CommonTypes commonTypes = CommonTypes.getInstance();
+    protected List<Long> roleIds = new ArrayList<Long>();
+    protected RolesResourcesService rolesResourcesService;
+    protected List<Roles> rolesList = new ArrayList<Roles>();
+	
 	
 	public String resourcesList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
+		
+        MyBeanUtils.copyPropertiesToMap(getResources(), params, new CopyRules() {
+            @Override
+            public boolean myCopyRules(Object value) {
+                return null != value;
+            }
+
+        }, new AssignRules() {
+            @Override
+            public String myAssignRules(Object value) {
+                return value.toString();
+            }
+        }, null);
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
 		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
 		Pagination p = getResourcesService().findByParams(params);
@@ -42,6 +68,9 @@ public class ResourcesBackAction extends Action {
 			return ERROR;
 		}
 		setResources(entity);
+        
+        prepareRoleList(entity.getId());
+        
 		return SUCCESS;
 	}
 	
@@ -55,11 +84,22 @@ public class ResourcesBackAction extends Action {
 			return ERROR;
 		}
 		setResources(entity);
+
+        prepareRoleList(entity.getId());
+		
 		return SUCCESS;
 	}
 	
+    
+    private void prepareRoleList(Long roleId){
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("roleId", roleId);
+        rolesList = rolesResourcesService.findRolesByRes(params);
+    }
+	
 	public String resourcesSave() throws Exception {
 		setResources(getResourcesService().save(getResources()));
+		rolesResourcesService.updateResRoles(resources.getId(), roleIds);
 		return SUCCESS;
 	}
 	
@@ -88,9 +128,17 @@ public class ResourcesBackAction extends Action {
 				}
 			});
 			setResources(getResourcesService().update(entity));
+			
+			rolesResourcesService.updateResRoles(entity.getId(), roleIds);
 		}
 		return SUCCESS;
 	}
+    
+    public String resourcesDelete() throws Exception {
+        Resources entity = resourcesService.findById(resources.getId());
+        resourcesService.delete(entity);
+        return SUCCESS;
+    }
 
 	public ResourcesService getResourcesService() {
 		return resourcesService;
@@ -123,4 +171,26 @@ public class ResourcesBackAction extends Action {
 	public void setPagination(Pagination pagination) {
 		this.pagination = pagination;
 	}
+
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
+    }
+
+    public List<Roles> getRolesList() {
+        return rolesList;
+    }
+
+    public CommonTypes getCommonTypes() {
+        return commonTypes;
+    }
+
+    public void setRolesResourcesService(RolesResourcesService rolesResourcesService) {
+        this.rolesResourcesService = rolesResourcesService;
+    }
+
+	
 }

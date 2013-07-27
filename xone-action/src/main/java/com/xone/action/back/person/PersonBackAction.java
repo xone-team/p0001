@@ -1,6 +1,7 @@
 package com.xone.action.back.person;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.PersonService;
@@ -29,6 +31,7 @@ public class PersonBackAction extends Action {
     protected CommonTypes commonTypes = CommonTypes.getInstance();
     protected List<Long> roleIds = new ArrayList<Long>();
     protected UserRolesService userRolesService;
+    protected List<Roles> rolesList = new ArrayList<Roles>();
 
     public String personList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -80,6 +83,9 @@ public class PersonBackAction extends Action {
             return ERROR;
         }
         setPerson(entity);
+        
+        prepareRoleList(entity.getId());
+        
         return SUCCESS;
     }
 
@@ -93,10 +99,20 @@ public class PersonBackAction extends Action {
             return ERROR;
         }
         setPerson(entity);
+
+        prepareRoleList(entity.getId());
+        
         return SUCCESS;
+    }
+    
+    private void prepareRoleList(Long userId){
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("userId", userId);
+        rolesList = userRolesService.findRolesByUser(params);
     }
 
     public String personSave() throws Exception {
+        person.setDateApply(new Date());
         setPerson(getPersonService().save(getPerson()));
         userRolesService.updateUserRoles(person.getId(), roleIds);
         return SUCCESS;
@@ -126,6 +142,8 @@ public class PersonBackAction extends Action {
                     return (null != value);
                 }
             });
+            
+            person.setDateCheck(new Date());
             setPerson(getPersonService().update(entity));
             
             userRolesService.updateUserRoles(entity.getId(), roleIds);
@@ -181,6 +199,14 @@ public class PersonBackAction extends Action {
 
     public void setUserRolesService(UserRolesService userRolesService) {
         this.userRolesService = userRolesService;
+    }
+
+    public List<Roles> getRolesList() {
+        return rolesList;
+    }
+
+    public void setRoleIds(List<Long> roleIds) {
+        this.roleIds = roleIds;
     }
     
 }

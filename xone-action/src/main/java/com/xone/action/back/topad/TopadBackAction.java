@@ -1,6 +1,7 @@
 package com.xone.action.back.topad;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Topad;
+import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.TopadService;
 import com.xone.service.app.utils.MyBeanUtils;
+import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class TopadBackAction extends Action {
@@ -23,9 +26,24 @@ public class TopadBackAction extends Action {
     protected Topad topad = new Topad();
     protected List<Topad> list = new ArrayList<Topad>();
     protected Pagination pagination = new Pagination();
+    protected CommonTypes commonTypes = CommonTypes.getInstance();
     
     public String topadList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
+        
+        MyBeanUtils.copyPropertiesToMap(topad, params, new CopyRules() {
+            @Override
+            public boolean myCopyRules(Object value) {
+                return null != value;
+            }
+
+        }, new AssignRules() {
+            @Override
+            public String myAssignRules(Object value) {
+                return value.toString();
+            }
+        }, null);
+        
         params.put("pageSize", String.valueOf(getPagination().getPageSize()));
         params.put("pageNo", String.valueOf(getPagination().getPageNo()));
         Pagination p = getTopadService().findByParams(params);
@@ -60,6 +78,8 @@ public class TopadBackAction extends Action {
     }
     
     public String topadSave() throws Exception {
+        topad.setUserApply(new Long(0));
+        topad.setDateApply(new Date());
         setTopad(getTopadService().save(getTopad()));
         return SUCCESS;
     }
@@ -88,8 +108,17 @@ public class TopadBackAction extends Action {
                     return (null != value);
                 }
             });
+            
+            entity.setUserCheck(new Long(0));
+            entity.setDateCheck(new Date());
             setTopad(getTopadService().update(entity));
         }
+        return SUCCESS;
+    }
+    
+    public String topadDelete() throws Exception {
+        Topad entity = topadService.findById(topad.getId());
+        topadService.delete(entity);
         return SUCCESS;
     }
 
@@ -124,4 +153,10 @@ public class TopadBackAction extends Action {
     public void setPagination(Pagination pagination) {
         this.pagination = pagination;
     }
+
+    public CommonTypes getCommonTypes() {
+        return commonTypes;
+    }
+    
+    
 }

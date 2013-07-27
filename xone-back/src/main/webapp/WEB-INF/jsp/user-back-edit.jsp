@@ -29,7 +29,7 @@
                     </ul>
                 </div>
                 <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/person/personUpdate.html">
-                    <input type="hidden" id="username" name="person.id" value="${person.id}">
+                    <input type="hidden" name="person.id" value="${person.id}">
                     <div class="control-group">
                         <label class="control-label" for="username">用户名</label>
                         <div class="controls">
@@ -102,9 +102,11 @@
                         <label class="control-label" for="roleIds">角色</label>
                         <div class="controls">
                             <div id="roleIdsSelectResult" class="inline">
-                                <div class="X-select-result inline">
-                                    <input type="hidden" class="X-select-hidden-value" value="3" name="roleIds"> <span class="label label-default">rtq</span>
-                                </div>
+                                <c:forEach items="${rolesList}" var="role">
+                                    <div class="X-select-result inline">
+                                        <input type="hidden" class="X-select-hidden-value" value="${role.id}" name="roleIds"> <span class="label label-default">${role.name}</span>
+                                    </div>
+                                </c:forEach>
                             </div>
                             <button type="button" class="btn" onclick="showModalRolesSelect($('#roleIdsSelectResult'), 'roleIds');">
                                 <i class="icon-filter"></i>选择
@@ -222,7 +224,7 @@
 </body>
 <script>
     jQuery(function() {
-        jQuery("#X_menu_li_user").addClass("active");
+        jQuery("#X_menu_li_person").addClass("active");
     });
 </script>
 </html>

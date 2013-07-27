@@ -3,6 +3,7 @@ package com.xone.service.app;
 import java.util.List;
 import java.util.Map;
 
+import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.entity.UserRoles;
 import com.xone.model.hibernate.support.Pagination;
 public interface UserRolesService {
@@ -18,4 +19,9 @@ public interface UserRolesService {
 	public Pagination findByParams(Map<String, String> params);
 	
 	public void updateUserRoles(Long userId, List<Long> roleIds);
+	
+	
+	public List<Roles> findRolesByUser(Map<String, Object> params);
+	
+	
 }

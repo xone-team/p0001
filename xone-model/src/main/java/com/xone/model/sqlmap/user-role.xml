@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="roleRel">
+
+    <sql id="roleRelUserCondition">
+        <dynamic>
+            <isPropertyAvailable property="userId">
+                <isNotNull prepend="and" property="userId">
+                    rel.user_id = $userId$
+                </isNotNull>
+            </isPropertyAvailable>
+        </dynamic>
+    </sql>
+    <select id="roleRelUser" parameterClass="java.util.HashMap" resultClass="com.xone.model.hibernate.entity.Roles">
+        select r.* from t_user_roles rel, t_roles r
+        where rel.role_id = r.id
+        <include refid="roleRelUserCondition" />
+        order by r.date_created
+    </select>
+
+    <sql id="roleRelResCondition">
+        <dynamic>
+            <isPropertyAvailable property="userId">
+                <isNotNull prepend="and" property="userId">
+                    rel.user_id = $userId$
+                </isNotNull>
+            </isPropertyAvailable>
+        </dynamic>
+    </sql>
+    <select id="roleRelRes" parameterClass="java.util.HashMap" resultClass="com.xone.model.hibernate.entity.Roles">
+        select r.* from t_roles_resources rel, t_roles r
+        where rel.role_id = r.id
+        <include refid="roleRelResCondition" />
+        order by r.date_created
+    </select>
+
+</sqlMap>

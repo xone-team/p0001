@@ -86,6 +86,12 @@
                                     <c:if test="${it.value == person.userLevel}">${it.name}</c:if>
                                 </c:forEach></td>
                         </tr>
+                        <tr>
+                            <td style="width: 60px;">角色</td>
+                            <td><c:forEach items="${rolesList}" var="role">
+                                    <span class="label label-default">${role.name}</span>
+                                </c:forEach></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -95,7 +101,7 @@
 </body>
 <script>
     jQuery(function() {
-        jQuery("#X_menu_li_user").addClass("active");
+        jQuery("#X_menu_li_person").addClass("active");
     });
 </script>
 </html>
