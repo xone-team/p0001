@@ -1,6 +1,7 @@
 package com.xone.service.app;
 
 import java.text.ParseException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +62,24 @@ public class UserRolesServiceImpl implements UserRolesService {
         int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
         int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
         return getUserRolesDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+    }
+    
+    public void updateUserRoles(Long userId, List<Long> roleIds){
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(UserRoles.class);
+        detachedCriteria.add(Restrictions.eq("userId", userId));
+        List<UserRoles> originRels = getUserRolesDao().findByDetachedCriteria(detachedCriteria);
+        for (Iterator<UserRoles> iterator = originRels.iterator(); iterator.hasNext();) {
+            UserRoles userRoles = (UserRoles) iterator.next();
+            getUserRolesDao().delete(userRoles);
+        }
+        for (Iterator<Long> iterator = roleIds.iterator(); iterator.hasNext();) {
+            Long roleId = (Long) iterator.next();
+            UserRoles userRoles = new UserRoles();
+            userRoles.setUserId(userId);
+            userRoles.setRoleId(roleId);
+            userRoles.setEnable("1");
+            getUserRolesDao().save(userRoles);
+        }
     }
 
     protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params) {

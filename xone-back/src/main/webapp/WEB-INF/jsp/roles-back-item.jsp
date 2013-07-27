@@ -24,8 +24,8 @@
 				<div class="row-fluid">
 					<ul class="breadcrumb" id="X_breadcrumbs_ul">
 						<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
-						<li><a href="${pageContext.request.contextPath}/roles/rolesList.html">roles列表</a> <span class="divider">/</span></li>
-						<li class="active">roles详细</li>
+						<li><a href="${pageContext.request.contextPath}/roles/rolesList.html">角色列表</a> <span class="divider">/</span></li>
+						<li class="active">角色详细</li>
 					</ul>
 				</div>
 				<table class="table table-bordered" style="width:100%">
@@ -44,19 +44,13 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">可用标识</td>
-							<td>${roles.enable}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">创建人</td>
-							<td>${roles.userCreated}</td>
+							<td><c:forEach items="${commonTypes.ynList}" var="it">
+                                    <c:if test="${it.value == roles.enable}">${it.name}</c:if>
+                                </c:forEach></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">创建时间</td>
 							<td><fmt:formatDate value="${roles.dateCreated}" pattern="yyyy-MM-dd"/></td>
-						</tr>
-						<tr>
-							<td style="width:60px;">更新人</td>
-							<td>${roles.userUpdated}</td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新时间</td>

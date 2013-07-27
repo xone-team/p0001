@@ -72,11 +72,11 @@ public class Person implements Serializable {
 	}
 	
 	public String getCreditName(){
-        return CommonTypes.getYNTypeValue(credit);
+        return CommonTypes.getYNTypeName(credit);
 	}
 	
 	public String getFlagDeletedName(){
-	    return CommonTypes.getYNTypeValue(flagDeleted);
+	    return CommonTypes.getYNTypeName(flagDeleted);
 	}
 	
 	

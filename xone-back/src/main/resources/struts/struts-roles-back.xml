@@ -3,31 +3,40 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="roles" namespace="/roles" extends="default">
-	    <global-results>
-            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+    <package name="roles" namespace="/roles" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
         </global-results>
-		<action name="rolesList" class="rolesBackAction" method="rolesList">
-			<result name="success">/WEB-INF/jsp/roles-back-list.jsp</result>
-		</action>
-		<action name="rolesCreate" class="rolesBackAction" method="rolesCreate">
-			<result name="success">/WEB-INF/jsp/roles-back-create.jsp</result>
-		</action>
-		<action name="rolesSave" class="rolesBackAction" method="rolesSave">
-			<result name="success">/WEB-INF/jsp/roles-back-item.jsp</result>
-		</action>
-		<action name="rolesEdit" class="rolesBackAction" method="rolesEdit">
-			<result name="success">/WEB-INF/jsp/roles-back-edit.jsp</result>
-		</action>
-		<action name="rolesUpdate" class="rolesBackAction" method="rolesUpdate">
-			<result name="success">/WEB-INF/jsp/roles-back-item.jsp</result>
-			<result name="list" type="chain">
-			    <param name="actionName">rolesList</param> 
-    			<param name="namespace">/roles</param>
-			</result>
-		</action>
-		<action name="rolesItem" class="rolesBackAction" method="rolesItem">
-			<result name="success">/WEB-INF/jsp/roles-back-item.jsp</result>
-		</action>
-	</package>
+        <action name="rolesList" class="rolesBackAction" method="rolesList">
+            <result name="success">/WEB-INF/jsp/roles-back-list.jsp</result>
+        </action>
+        <action name="rolesCreate" class="rolesBackAction" method="rolesCreate">
+            <result name="success">/WEB-INF/jsp/roles-back-create.jsp</result>
+        </action>
+        <action name="rolesSave" class="rolesBackAction" method="rolesSave">
+            <result name="success">/WEB-INF/jsp/roles-back-item.jsp</result>
+        </action>
+        <action name="rolesEdit" class="rolesBackAction" method="rolesEdit">
+            <result name="success">/WEB-INF/jsp/roles-back-edit.jsp</result>
+        </action>
+        <action name="rolesUpdate" class="rolesBackAction" method="rolesUpdate">
+            <result name="success">/WEB-INF/jsp/roles-back-item.jsp</result>
+            <result name="list" type="chain">
+                <param name="actionName">rolesList</param>
+                <param name="namespace">/roles</param>
+            </result>
+        </action>
+        <action name="rolesItem" class="rolesBackAction" method="rolesItem">
+            <result name="success">/WEB-INF/jsp/roles-back-item.jsp</result>
+        </action>
+        <action name="rolesDelete" class="rolesBackAction" method="rolesDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">rolesList</param>
+                <param name="namespace">/roles</param>
+            </result>
+        </action>
+        <action name="rolesSelect" class="rolesBackAction" method="rolesSelect">
+            <result name="success">/WEB-INF/jsp/roles-back-select.jsp</result>
+        </action>
+    </package>
 </struts>

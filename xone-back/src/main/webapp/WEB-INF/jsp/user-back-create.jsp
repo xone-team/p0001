@@ -79,7 +79,7 @@
                     <div class="control-group">
                         <label class="control-label" for="credit">认证标识</label>
                         <div class="controls">
-                            <select class="selectpicker" id="credit" name="person.credit" maxlength="2" placeholder="认证标识">
+                            <select class="selectpicker" id="credit" name="person.credit">
                                 <c:forEach items="${commonTypes.ynList}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == person.credit}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
@@ -89,7 +89,11 @@
                     <div class="control-group">
                         <label class="control-label" for="userLevel">用户级别</label>
                         <div class="controls">
-                            <input type="text" id="userLevel" name="person.userLevel" maxlength="2" placeholder="用户级别">
+                            <select class="selectpicker" id="userLevel" name="person.userLevel">
+                                <c:forEach items="${commonTypes.userLevelList}" var="it">
+                                    <option value="${it.value}" <c:if test="${it.value == person.userLevel}">selected</c:if>>${it.name}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
                     <div class="control-group">

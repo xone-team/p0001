@@ -10,21 +10,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Roles;
+import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.RolesService;
 import com.xone.service.app.utils.MyBeanUtils;
+import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class RolesBackAction extends Action {
 	
-	@Autowired
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -8123862446025502037L;
+    @Autowired
 	protected RolesService rolesService;
 	protected Roles roles = new Roles();
 	protected List<Roles> list = new ArrayList<Roles>();
 	protected Pagination pagination = new Pagination();
+	protected CommonTypes commonTypes = CommonTypes.getInstance();
 	
 	public String rolesList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
+	    MyBeanUtils.copyPropertiesToMap(getRoles(), params, new CopyRules() {
+	        @Override
+	        public boolean myCopyRules(Object value) {
+	          return null != value;
+	        }
+	      }, new AssignRules() {
+	        @Override
+	        public String myAssignRules(Object value) {
+	          return value.toString();
+	        }
+	      }, null);
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
 		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
 		Pagination p = getRolesService().findByParams(params);
@@ -91,6 +109,32 @@ public class RolesBackAction extends Action {
 		}
 		return SUCCESS;
 	}
+    
+    public String rolesDelete() throws Exception {
+        Roles entity = getRolesService().findById(getRoles().getId());
+        rolesService.delete(entity);
+        return SUCCESS;
+    }
+    
+
+    public String rolesSelect() throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        MyBeanUtils.copyPropertiesToMap(getRoles(), params, new CopyRules() {
+            @Override
+            public boolean myCopyRules(Object value) {
+                return null != value;
+            }
+
+        }, new AssignRules() {
+            @Override
+            public String myAssignRules(Object value) {
+                return value.toString();
+            }
+        }, null);
+        List<Roles> list = getRolesService().findAllByMap(params);
+        setList(list);
+        return SUCCESS;
+    }
 
 	public RolesService getRolesService() {
 		return rolesService;
@@ -123,4 +167,9 @@ public class RolesBackAction extends Action {
 	public void setPagination(Pagination pagination) {
 		this.pagination = pagination;
 	}
+
+    public CommonTypes getCommonTypes() {
+        return commonTypes;
+    }
+	
 }

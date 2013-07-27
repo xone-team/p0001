@@ -13,6 +13,7 @@ import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.PersonService;
+import com.xone.service.app.UserRolesService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
@@ -26,6 +27,8 @@ public class PersonBackAction extends Action {
     protected List<Person> list = new ArrayList<Person>();
     protected Pagination pagination = new Pagination();
     protected CommonTypes commonTypes = CommonTypes.getInstance();
+    protected List<Long> roleIds = new ArrayList<Long>();
+    protected UserRolesService userRolesService;
 
     public String personList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -95,6 +98,7 @@ public class PersonBackAction extends Action {
 
     public String personSave() throws Exception {
         setPerson(getPersonService().save(getPerson()));
+        userRolesService.updateUserRoles(person.getId(), roleIds);
         return SUCCESS;
     }
 
@@ -123,6 +127,8 @@ public class PersonBackAction extends Action {
                 }
             });
             setPerson(getPersonService().update(entity));
+            
+            userRolesService.updateUserRoles(entity.getId(), roleIds);
         }
         return SUCCESS;
     }
@@ -168,5 +174,14 @@ public class PersonBackAction extends Action {
     public CommonTypes getCommonTypes() {
         return commonTypes;
     }
+
+    public List<Long> getRoleIds() {
+        return roleIds;
+    }
+
+    public void setUserRolesService(UserRolesService userRolesService) {
+        this.userRolesService = userRolesService;
+    }
     
 }
+ 

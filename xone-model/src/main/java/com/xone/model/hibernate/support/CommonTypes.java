@@ -19,13 +19,25 @@ public class CommonTypes implements Serializable {
         return CommonTypesHolder.instance;
     }
     
+    /**
+     * @return
+     */
     private static CommonTypes init(){
         CommonTypes result = new CommonTypes();
         
+        // init yn type
         ArrayList<NameValuePairs> typeList = new ArrayList<NameValuePairs>();
         typeList.add(new NameValuePairs("是", "1"));
         typeList.add(new NameValuePairs("否", "0"));
         result.setYnList(typeList);
+        
+        // init userLevel type
+        typeList = new ArrayList<NameValuePairs>();
+        typeList.add(new NameValuePairs("A级客户", "A"));
+        typeList.add(new NameValuePairs("B级客户", "B"));
+        typeList.add(new NameValuePairs("C级客户", "C"));
+        result.setUserLevelList(typeList);
+        
         
         return result;
     }
@@ -35,12 +47,27 @@ public class CommonTypes implements Serializable {
      */    
     private List<NameValuePairs> ynList;
     
-    public static String getYNTypeValue(String key){
+    /**
+     * 用户级别类型
+     */
+    private List<NameValuePairs> userLevelList;
+    
+    public static String getYNTypeName(String value){
+        return value2name(value, getInstance().getYnList());
+    }
+    
+    public static String getUserLevelTypeName(String value){
+        return value2name(value, getInstance().getUserLevelList());
+    }
+    
+    private static String value2name(String value, List<NameValuePairs> list){
         String result = "";
-        for (Iterator<NameValuePairs> iterator = getInstance().getYnList().iterator(); iterator.hasNext();) {
+        if(value == null)
+            return result;
+        for (Iterator<NameValuePairs> iterator = list.iterator(); iterator.hasNext();) {
             NameValuePairs pair = iterator.next();
-            if(key.equals(pair.getName())){
-                result = pair.value;
+            if(value.equals(pair.getValue())){
+                result = pair.getName();
                 break;
             }
         }
@@ -54,6 +81,13 @@ public class CommonTypes implements Serializable {
     public void setYnList(List<NameValuePairs> ynList) {
         this.ynList = ynList;
     }
-    
+
+    public List<NameValuePairs> getUserLevelList() {
+        return userLevelList;
+    }
+
+    public void setUserLevelList(List<NameValuePairs> userLevelList) {
+        this.userLevelList = userLevelList;
+    }
     
 }
