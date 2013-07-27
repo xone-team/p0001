@@ -135,9 +135,31 @@ public class PurchaseServiceImpl implements PurchaseService {
 				e.printStackTrace();
 			}
 		}
-
-		handleCriteriaByParams(detachedCriteria, params);
-		
+        String purchaseName = params.get("purchaseName");
+        if (!StringUtils.isBlank(purchaseName)) {
+        	detachedCriteria.add(Restrictions.like("purchaseName", "%" + purchaseName + "%"));
+        }
+        String purchaseType = params.get("purchaseType");
+        if (!StringUtils.isBlank(purchaseType)) {
+        	detachedCriteria.add(Restrictions.like("purchaseType", "%" + purchaseType + "%"));
+        }
+        String purchaseAddress = params.get("purchaseAddress");
+        if (!StringUtils.isBlank(purchaseAddress)) {
+        	detachedCriteria.add(Restrictions.like("purchaseAddress", "%" + purchaseAddress + "%"));
+        }
+        String purchaseLocation = params.get("purchaseLocation");
+        if (!StringUtils.isBlank(purchaseLocation)) {
+        	detachedCriteria.add(Restrictions.like("purchaseLocation", "%" + purchaseLocation + "%"));
+        }
+        String flagDeleted = params.get("flagDeleted");
+        if (!StringUtils.isBlank(flagDeleted)) {
+        	detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
+        }
+        String userCreated = params.get("userCreated");
+        if (!StringUtils.isBlank(userCreated)) {
+        	detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
+        }
+        detachedCriteria.addOrder(Order.desc("dateCreated"));
 		List<Purchase> list = getPurchaseDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
 		if (null != list && !list.isEmpty()) {
 			List<Long> ids = new ArrayList<Long>();

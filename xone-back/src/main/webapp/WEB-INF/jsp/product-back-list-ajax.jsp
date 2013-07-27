@@ -37,7 +37,14 @@ table.myproductlisttable td {
 		</tr>
 		<tr>
 			<td class="mytext">产品类型</td><td><input type="text" name="product.productType"  value="${product.productType}"  maxlength="255" placeholder="产品类型"></td>
-			<td class="mytext">销售类型</td><td><input type="text" name="product.saleType"  value="${product.saleType}"  maxlength="255" placeholder="销售类型"></td>
+			<td class="mytext">销售类型</td>
+			<td>
+				<select id="productsaletype${myidentify}" name="product.saleType" placeholder="销售类型">
+					<option value="0">普通</option>
+					<option value="1">促销</option>
+					<option value="2">组团</option>
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td class="mytext">产品产地</td><td><input type="text" name="product.productAddress"  value="${product.productAddress}"  maxlength="255" placeholder="产品产地"></td>
@@ -90,6 +97,11 @@ table.myproductlisttable td {
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#myqueryform${myidentify}').find('input').css({
+		width: '90%',
+		marginBottom: '0px'
+	});
+	$('#productsaletype${myidentify}').val('${product.saleType}').selectpicker({style: 'btn-info'});
+	$('#myqueryform${myidentify}').find('.bootstrap-select').css({
 		width: '90%',
 		marginBottom: '0px'
 	});

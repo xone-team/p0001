@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE HTML>
+<!DOCTYPE HTML><<c:set var="myid" value="${identify}"/>
 <html>
 	<head>
 		<title>Hello World</title>
@@ -14,18 +14,18 @@
 	<body>
 	<div data-role="page" class="subscribe-add-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${identify}" data-icon="check">返回</a>
+			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${myid}" data-icon="check">返回</a>
 			<h1>筛选订阅</h1>
 			<a href="#" rel="external" data-icon="check" data-role="button" class="subscribe-save-button ui-btn-right">发布</a>
 		</div>
 		<div class="subscribe-add-content" data-role="content" data-dom-cache="false">
-			<form class="subscribe-add-form" method="post" action="${pageContext.request.contextPath}/subscribe/create.html?_=${identify}" autocomplete="off">
-				<ul data-role="listview" data-inset="true" data-mini="true">
+			<form class="subscribe-add-form${myid}" method="post" action="${pageContext.request.contextPath}/subscribe/create.html?_=${myid}" autocomplete="off">
+				<ul class="mylistview${myid}" data-role="listview" data-inset="true" data-mini="true">
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">市场区域:</td>
-				    			<td><input type="text" name="subscribe.marketarea" placeholder="市场区域" data-mini="true" value="市场区域" autocomplete="off"/></td>
+				    			<td><input type="text" id="subscribemarketarea${myid}" name="subscribe.marketarea" placeholder="市场区域" data-mini="true" value="市场区域" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -33,7 +33,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品名称:</td>
-				    			<td><input type="text" name="subscribe.productNameKey" placeholder="产品名称" data-mini="true" value="产品名称" autocomplete="off"/></td>
+				    			<td><input type="text" id="subscribeproductNameKey${myid}" name="subscribe.productNameKey" placeholder="产品名称" data-mini="true" value="产品名称" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -41,7 +41,13 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">销售方式:</td>
-				    			<td><input type="text" name="subscribe.saleType" placeholder="销售方式" data-mini="true" value="1" autocomplete="off"/></td>
+				    			<td>
+				    				<select name="subscribe.saleType" placeholder="销售方式" data-mini="true">
+				    					<option value="0">普通</option>
+				    					<option value="1">促销</option>
+				    					<option value="2">组团</option>
+				    				</select>
+				    			</td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -49,12 +55,18 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">公司信誉:</td>
-				    			<td><input type="text" name="subscribe.credit" placeholder="公司信誉" data-mini="true" value="1" autocomplete="off"/></td>
+				    			<td>
+				    				<select name="subscribe.credit" placeholder="公司信誉" data-mini="true">
+				    					<option value="0">全部</option>
+				    					<option value="1">信誉好</option>
+				    					<option value="2">信誉一般</option>
+				    				</select>
+				    			</td>
 				    		</tr>
 				    	</table>
 				    </li>
 					<li>
-					 	<input type="submit" value="确认发布" class="submit${identify}"/>
+					 	<input type="submit" value="确认订阅" id="mysubscribesubmit${myid}" class="submit"/>
 					</li>
 				</ul>
 			</form>
@@ -67,8 +79,32 @@
 				$('div.subscribe-add-page').bind('pageinit', function() {
 					$('a.subscribe-save-button').click(function(e) {
 						e.preventDefault();
-						$('form.subscribe-add-form').submit();
+						$('#mysubscribesubmit${myid}').click();
 						return false;
+					});
+					$('form.subscribe-add-form${myid}').submit(function() {
+						if ($('form.subscribe-add-form${myid} li.myerror').length > 0) {
+							$('li.myerror').remove();
+							$('ul.mylistview${myid}').listview('refresh');
+						}
+						var v = [{
+							id: 'subscribemarketarea${myid}',
+							msg: '请输入市场区域'
+						},{
+							id: 'subscribeproductNameKey${myid}',
+							msg: '请输入产品名称'
+						}];
+						for (var i = 0; i < v.length; i++) {
+							var vi = v[i];
+							if ('' == $.trim($('#' + vi.id).val())) {
+								$('#' + vi.id).closest('li').before(['<li class="myerror"><div class="error ui-btn-inner">', vi.msg, '</div></li>'].join(''));
+							}
+						}
+						if ($('form.subscribe-add-form${myid} li.myerror').length > 0) {
+							$('ul.mylistview${myid}').listview('refresh');
+							return false;
+						}
+						return true;
 					});
 				});
 			</script>

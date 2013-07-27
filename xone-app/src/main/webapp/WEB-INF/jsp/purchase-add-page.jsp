@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE HTML>
+<!DOCTYPE HTML><c:set var="myid" value="${identify}" />
 <html>
 	<head>
 		<title>Hello World</title>
@@ -18,18 +18,18 @@
 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.datetime-2.6.2.js"></script>
 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2-zh.js"></script>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${identify}" data-icon="check" class="btn-banner">返回</a>
+			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${myid}" data-icon="check" class="btn-banner">返回</a>
 			<h1>求购发布</h1>
 			<a href="#" rel="external" data-icon="check" data-role="button" class="purchasesave ui-btn-right">发布</a>
 		</div>
 		<div class="purchaseaddcontent" data-role="content" data-dom-cache="false">
-			<form class="purchaseform" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/purchase/create.html?_=${identify}" autocomplete="off">
-				<ul class="purchaselistview" data-role="listview" data-inset="true" data-mini="true">
+			<form class="purchaseform${myid}" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/purchase/create.html?_=${myid}" autocomplete="off">
+				<ul class="purchaselistview${myid}" data-role="listview" data-inset="true" data-mini="true">
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品名称:</td>
-				    			<td><input type="text" name="purchase.purchaseName" placeholder="产品名称" data-mini="true" value="产品名称" autocomplete="off"/></td>
+				    			<td><input type="text" id="purchasepurchaseName${myid}" name="purchase.purchaseName" placeholder="产品名称" data-mini="true" value="产品名称" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -37,7 +37,15 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品类型:</td>
-				    			<td><input type="text" name="purchase.purchaseType" placeholder="产品类型" data-mini="true" value="1" autocomplete="off"/></td>
+				    			<td>
+				    				<select name="purchase.purchaseType" placeholder="产品类型" data-mini="true">
+				    					<option value="0">冻品</option>
+				    					<option value="1">干货</option>
+				    					<option value="2">活鲜</option>
+				    					<option value="3">水果</option>
+				    					<option value="4">调料</option>
+				    				</select>
+				    			</td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -45,7 +53,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品产地:</td>
-				    			<td><input type="text" name="purchase.purchaseAddress" placeholder="产品产地" data-mini="true" value="产品产地" autocomplete="off"/></td>
+				    			<td><input type="text" id="purchasepurchaseAddress${myid}" name="purchase.purchaseAddress" placeholder="产品产地" data-mini="true" value="产品产地" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -53,7 +61,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品属地:</td>
-				    			<td><input type="text" name="purchase.purchaseLocation" placeholder="产品属地" data-mini="true" value="产品属地" autocomplete="off"/></td>
+				    			<td><input type="text" id="purchasepurchaseLocation${myid}" name="purchase.purchaseLocation" placeholder="产品属地" data-mini="true" value="产品属地" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -61,15 +69,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">数　　量:</td>
-				    			<td><input type="text" name="purchase.purchaseNum" placeholder="数量" data-mini="true" value="2" autocomplete="off"/></td>
-				    		</tr>
-				    	</table>
-				    </li>
-				    <li>
-				    	<table style="width:100%">
-				    		<tr>
-				    			<td class="mylabel">有&nbsp&nbsp效&nbsp&nbsp期:</td>
-				    			<td><input type="text" id="purchasepurchaseValid" name="purchase.purchaseValid" placeholder="有效期" data-mini="true" value="2013-07-15 12:23:04" autocomplete="off"/></td>
+				    			<td><input type="text" id="purchasepurchaseNum${myid}" name="purchase.purchaseNum" placeholder="数量" data-mini="true" value="2" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -86,7 +86,7 @@
 					 	<input type="button" data-icon="plus" class="uploadImageButton" value="选择图片"/>
 					</li>
 					<li class="publishformbutton">
-					 	<input type="submit" value="确认发布" class="submit${identify}"/>
+					 	<input type="submit" value="确认发布" id="purchasesavesubmit${myid}" class="submit${myid}"/>
 					</li>
 				</ul>
 				<div class="imagelistdiv" style="padding:5px;"></div>
@@ -117,18 +117,47 @@
 					}));
 					$('a.purchasesave').click(function(e) {
 						e.preventDefault();
-						$('form.purchaseform').submit();
+						$('#purchasesavesubmit${myid}').click();
 						return false;
+					});
+					$('form.purchaseform${myid}').submit(function() {
+						if ($('form.purchaseform${myid} li.myerror').length > 0) {
+							$('li.myerror').remove();
+							$('ul.purchaselistview${myid}').listview('refresh');
+						}
+						var v = [{
+							id: 'purchasepurchaseName${myid}',
+							msg: '请输入产品名称'
+						},{
+							id: 'purchasepurchaseAddress${myid}',
+							msg: '请输入产品产地'
+						},{
+							id: 'purchasepurchaseLocation${myid}',
+							msg: '请输入产品属地'
+						},{
+							id: 'purchasepurchaseNum${myid}',
+							msg: '请输入产品数量'
+						}];
+						for (var i = 0; i < v.length; i++) {
+							var vi = v[i];
+							if ('' == $.trim($('#' + vi.id).val())) {
+								$('#' + vi.id).closest('li').before(['<li class="myerror"><div class="error ui-btn-inner">', vi.msg, '</div></li>'].join(''));
+							}
+						}
+						if ($('form.purchaseform${myid} li.myerror').length > 0) {
+							$('ul.purchaselistview${myid}').listview('refresh');
+							return false;
+						}
 					});
 					$('input.uploadImageButton').click(function(e) {
 						e.preventDefault();
 						$('form li.errorli').remove();
 						if ($('img.uploaddynamicimage').length >= 3) {
 							$('<li class="errorli"><div class="error ui-btn-inner">一个产品最多只能发布3张图片.</div></li>').insertBefore('li.publishformbutton');
-							$('ul.purchaselistview').listview('refresh');
+							$('ul.purchaselistview${myid}').listview('refresh');
 							return false;
 						}
-						$('ul.purchaselistview').listview('refresh');
+						$('ul.purchaselistview${myid}').listview('refresh');
 						$('input.uploadImage[type="file"]').click();
 						return false;
 					});
@@ -136,44 +165,33 @@
 				});
 				function removeDynamicImage(e) {
 					$(e).closest('li').remove();
-					$('ul.purchaselistview').listview('refresh');
+					$('ul.purchaselistview${myid}').listview('refresh');
 					$('#uploadImageFile').val('');
 					return false;
 				}
 				function debug(i) {
 					$('div.debug').append('<div>' + i + '</div>');
 				}
-				function testProperties(o) {
-					var i = '';
-					for (var n in o) {
-						i += '<div>' + n + '</div>';
-					}
-					return i;
-				}
 				function getExt(v) {
 					var a = v.split('.');
 					return a[a.length - 1];
 				}
 				function handleFileSelect(evt) {
-	// 				debug('Response handleFileSelect at:' + new Date());
+					if ($('li.fileerror').length > 0) {
+						$('li.fileerror').remove();
+						$('ul.purchaselistview${myid}').listview('refresh');
+					}
 					var files = evt.target.files; // FileList object
-					// Loop through the FileList and render image files as thumbnails.
 					for (var i = 0, f; f = files[i]; i++) {
-// 						debug('Response file type:|' + f.type + '|');
-						//IMAGE_FILTER
-// 						if (!f.type.match('image.*')) {
-// 							continue;
-// 						}
+						if (!f.name.match(/\.(png|jpeg|jpg|gif)$/)) {
+							$(f).closest('li').before('<li class="fileerror" data-role="list-divider">请选择图片类型(png,jpeg,jpg,gif)</li>');
+							$('ul.purchaselistview${myid}').listview('refresh');
+							continue;
+						}
 						var reader = new FileReader();
-						// Closure to capture the file information.
 						reader.onload = (function(theFile) {
 							return function(e) {
 								var div = document.createElement('div');
-// 								var width = $('div.purchaseaddpage').width() - 20;
-// 								debug('page width:|' + width + '|');
-// 								div.style.width = width + 'px'; 
-// 								div.style.height = width + 'px';
-// 								div.style.margin = '10px';
 								div.className = 'purchaseaddpage';
 								var result = e.target.result.replace(/data:base64,/, 'data:image/' + getExt(theFile.name) + ';base64,');
 								div.innerHTML = [
@@ -184,12 +202,10 @@
 										'<input type="hidden" name="images" value="', 
 									result, '" />' ]
 										.join('');
-// 								$('div.imagelistdiv').append(div);
-								var listview = $('ul.purchaselistview');
+								var listview = $('ul.purchaselistview${myid}');
 								listview.append('<li></li>');
 								listview.find('li').last().append(div);
 								listview.listview('refresh');
-// 								debug('onload file finish!');
 							};
 						})(f);
 						reader.onerror = function(evt) {
@@ -208,14 +224,11 @@
 							;
 						};
 						reader.onabort = function(e) {
-							alert('File read cancelled');
 						};
 						reader.onloadstart = function(e) {
 	
 						};
-						// Read in the image file as a data URL.
 						reader.readAsDataURL(f);
-// 						debug('Response file read over at:' + new Date());
 					}
 				}
 			</script>
