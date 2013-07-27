@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.PersonService;
 import com.xone.service.app.utils.MyBeanUtils;
@@ -24,6 +25,7 @@ public class PersonBackAction extends Action {
     protected Person person = new Person();
     protected List<Person> list = new ArrayList<Person>();
     protected Pagination pagination = new Pagination();
+    protected CommonTypes commonTypes = CommonTypes.getInstance();
 
     public String personList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -162,4 +164,9 @@ public class PersonBackAction extends Action {
     public void setPagination(Pagination pagination) {
         this.pagination = pagination;
     }
+
+    public CommonTypes getCommonTypes() {
+        return commonTypes;
+    }
+    
 }
