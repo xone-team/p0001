@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Product;
-import com.xone.model.utils.DateUtils;
+import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.ProductService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
@@ -63,9 +63,9 @@ public class ProductAction extends LogicAction {
 		Map<String, String> map = getRequestMap();
 		Map<String, String> params = new HashMap<String, String>();
 		if ("down".equals(map.get("itemaction"))) {
-			params.put("gtDateCreated", DateUtils.format(getProduct().getDateCreated()));
+			params.put("gtDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
 		} else if ("up".equals(map.get("itemaction"))) {
-			params.put("ltDateCreated", DateUtils.format(getProduct().getDateCreated()));
+			params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
 		}
 		params.put("saleType", getProduct().getSaleType());
 		setList(getProductService().findAllByMap(params));
@@ -95,9 +95,9 @@ public class ProductAction extends LogicAction {
 		Map<String, String> map = getRequestMap();
 		Map<String, String> params = new HashMap<String, String>();
 		if ("down".equals(map.get("itemaction"))) {
-			params.put("gtDateCreated", DateUtils.format(getProduct().getDateCreated()));
+			params.put("gtDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
 		} else if ("up".equals(map.get("itemaction"))) {
-			params.put("ltDateCreated", DateUtils.format(getProduct().getDateCreated()));
+			params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
 		}
 		params.put("saleType", getProduct().getSaleType());
 		setList(getProductService().findAllByMap(params));

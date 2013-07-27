@@ -14,14 +14,22 @@
 			<result name="success">/WEB-INF/jsp/delivery-back-create.jsp</result>
 		</action>
 		<action name="deliverySave" class="deliveryBackAction" method="deliverySave">
-			<result name="success">/WEB-INF/jsp/delivery-back-item.jsp</result>
+			<result name="success" type="redirectAction">
+			    <param name="actionName">deliveryItem</param> 
+    			<param name="namespace">/delivery</param> 
+				<param name="delivery.id">${delivery.id}</param>
+			</result>
 		</action>
 		<action name="deliveryEdit" class="deliveryBackAction" method="deliveryEdit">
 			<result name="success">/WEB-INF/jsp/delivery-back-edit.jsp</result>
 		</action>
 		<action name="deliveryUpdate" class="deliveryBackAction" method="deliveryUpdate">
-			<result name="success">/WEB-INF/jsp/delivery-back-item.jsp</result>
-			<result name="list" type="chain">
+			<result name="success" type="redirectAction">
+			    <param name="actionName">deliveryItem</param> 
+    			<param name="namespace">/delivery</param> 
+				<param name="delivery.id">${delivery.id}</param>
+			</result>
+			<result name="list" type="redirectAction">
 			    <param name="actionName">deliveryList</param> 
     			<param name="namespace">/delivery</param>
 			</result>

@@ -196,11 +196,6 @@
 			});
 			$("#X_menu_li_adbanner").addClass("active");
 		});
-		function alertMessage(title, msg) {
-			return ['<div class="alert alert-error" style="margin-bottom:0px;"><button type="button" class="close" data-dismiss="alert">&times;</button>',
-			'<strong style="margin-right:10px;">', title, '</strong>', msg,
-			'</div>'].join('');
-		}
 		function removeProductDynamicImage() {
 			$('div.uploadimagesdiv').html('');
 			$('#uploadImageFile').val('');

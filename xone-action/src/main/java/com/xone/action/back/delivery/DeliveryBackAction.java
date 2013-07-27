@@ -12,13 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Delivery;
 import com.xone.model.hibernate.support.Pagination;
-import com.xone.model.utils.DateUtils;
+import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.DeliveryService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class DeliveryBackAction extends Action {
+	
+	private static final long serialVersionUID = -7565827423154640427L;
 	
 	@Autowired
 	protected DeliveryService deliveryService;
@@ -38,7 +40,7 @@ public class DeliveryBackAction extends Action {
 			@Override
 			public String myAssignRules(Object value) {
 				if (null != value && value instanceof Date) {
-					return DateUtils.format((Date)value, "yyyy-MM-dd");
+					return MyDateUtils.format((Date)value, "yyyy-MM-dd");
 				}
 				return value.toString();
 			}
@@ -95,6 +97,10 @@ public class DeliveryBackAction extends Action {
 			Delivery entity = getDeliveryService().findById(getDelivery().getId());
 			if (null == entity || null == entity.getId()) {
 				return ERROR;
+			}
+			Date loadtime = MyDateUtils.parseDate(getRequestMap().get("delivery.loadtime"), "yyyy-MM-dd HH:mm");
+			if (null != loadtime) {
+				getDelivery().setLoadtime(loadtime);
 			}
 			MyBeanUtils.copyProperties(getDelivery(), entity, Delivery.class, null, new CopyRules() {
 				@Override

@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Delivery;
-import com.xone.model.utils.DateUtils;
+import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.DeliveryService;
 
 public class DeliveryAction extends Action {
@@ -41,9 +41,9 @@ public class DeliveryAction extends Action {
 		Map<String, String> map = getRequestMap();
 		Map<String, String> params = new HashMap<String, String>();
 		if ("down".equals(map.get("itemaction"))) {
-			params.put("gtDateCreated", DateUtils.format(getDelivery().getDateCreated()));
+			params.put("gtDateCreated", MyDateUtils.format(getDelivery().getDateCreated()));
 		} else if ("up".equals(map.get("itemaction"))) {
-			params.put("ltDateCreated", DateUtils.format(getDelivery().getDateCreated()));
+			params.put("ltDateCreated", MyDateUtils.format(getDelivery().getDateCreated()));
 		}
 		setList(deliveryService.findAllByMap(params));
 		return SUCCESS;

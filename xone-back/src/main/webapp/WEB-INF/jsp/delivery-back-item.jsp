@@ -24,8 +24,8 @@
 				<div class="row-fluid">
 					<ul class="breadcrumb" id="X_breadcrumbs_ul">
 						<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
-						<li><a href="${pageContext.request.contextPath}/delivery/deliveryList.html">delivery列表</a> <span class="divider">/</span></li>
-						<li class="active">delivery详细</li>
+						<li><a href="${pageContext.request.contextPath}/delivery/deliveryList.html">物流配送列表</a> <span class="divider">/</span></li>
+						<li class="active">物流配送详细</li>
 					</ul>
 				</div>
 				<table class="table table-bordered" style="width:100%">
@@ -33,10 +33,6 @@
 						<tr>
 							<td style="width:60px;">编号</td>
 							<td>${delivery.id}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">产品编号</td>
-							<td>${delivery.productId}</td>
 						</tr>
 						<tr>
 							<td style="width:60px;">市场区域</td>
@@ -48,7 +44,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">上货时间</td>
-							<td>${delivery.loadtime}</td>
+							<td><fmt:formatDate value="${delivery.loadtime}" pattern="yyyy-MM-dd hh:mm"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">上货地点</td>
@@ -71,8 +67,8 @@
 							<td>${delivery.totalWeight}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">通过标识</td>
-							<td>${delivery.flagPass}</td>
+							<td style="width:60px;">审核状态</td>
+							<td>${delivery.flagPassName}</td>
 						</tr>
 						<tr>
 							<td style="width:60px;">备注</td>
@@ -84,7 +80,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">申请时间</td>
-							<td><fmt:formatDate value="${delivery.dateApply}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${delivery.dateApply}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">审核人</td>
@@ -92,7 +88,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">审核时间</td>
-							<td><fmt:formatDate value="${delivery.dateCheck}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${delivery.dateCheck}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">删除标识</td>
@@ -104,7 +100,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">创建时间</td>
-							<td><fmt:formatDate value="${delivery.dateCreated}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${delivery.dateCreated}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新人</td>
@@ -112,7 +108,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">更新时间</td>
-							<td><fmt:formatDate value="${delivery.lastUpdated}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${delivery.lastUpdated}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 						</tr>
 					</tbody>
 				</table>
@@ -121,9 +117,9 @@
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
 	</body>
-	<script>
-	 jQuery(function(){
-	     jQuery("#X_menu_li_delivery").addClass("active");
-	 });
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$("#X_menu_li_delivery").addClass("active");
+	});
 	</script>
 </html>

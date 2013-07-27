@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE HTML>
+<!DOCTYPE HTML><c:set var="myidentify" value="${identify}" />
 <html>
 	<head>
 		<title>用户中心</title>
@@ -12,6 +12,8 @@
 		<meta name="author" content="">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<jsp:include page="common-header.jsp"></jsp:include>
+		<link href="${STATIC_ROOT}/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet">
+		<link href="${STATIC_ROOT}/bootstrap-select/bootstrap-select.css" rel="stylesheet">
 	</head>
 	<body>
 		<jsp:include page="common-nav.jsp"></jsp:include>
@@ -24,21 +26,16 @@
 				<div class="row-fluid">
 					<ul class="breadcrumb" id="X_breadcrumbs_ul">
 						<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
-						<li><a href="${pageContext.request.contextPath}/delivery/deliveryList.html">delivery列表</a> <span class="divider">/</span></li>
-						<li class="active">delivery编辑</li>
+						<li><a href="${pageContext.request.contextPath}/delivery/deliveryList.html">物流配送列表</a> <span class="divider">/</span></li>
+						<li class="active">物流配送编辑</li>
 					</ul>
 				</div>
-				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/delivery/deliveryUpdate.html">
+				<form id="deliverysaveform${myidentify}" class="form-horizontal" method="post" action="${pageContext.request.contextPath}/delivery/deliveryUpdate.html">
+					<input type="hidden" id="id" name="delivery.id" value="${delivery.id}" maxlength="20" placeholder="编号">
 					<div class="control-group">
-						<label class="control-label" for="id">编号</label>
+						<label class="control-label" for="id">配送编号</label>
 						<div class="controls">
-							<input type="text" id="id" name="delivery.id" value="${delivery.id}" maxlength="20" placeholder="编号">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="productId">产品编号</label>
-						<div class="controls">
-							<input type="text" id="productId" name="delivery.productId" value="${delivery.productId}" maxlength="20" placeholder="产品编号">
+							<input type="text" value="${delivery.id}" maxlength="20" placeholder="编号" disabled="disabled">
 						</div>
 					</div>
 					<div class="control-group">
@@ -56,7 +53,9 @@
 					<div class="control-group">
 						<label class="control-label" for="loadtime">上货时间</label>
 						<div class="controls">
-							<input type="text" id="loadtime" name="delivery.loadtime" value="${delivery.loadtime}" maxlength="255" placeholder="上货时间">
+							<div class="input-append date" data-date-format="yyyy-mm-dd hh:ii">
+								<input type="text" id="loadtime" name="delivery.loadtime" value="<fmt:formatDate value="${delivery.loadtime}" pattern="yyyy-MM-dd hh:mm"/>" maxlength="19" placeholder="上货时间" readonly="readonly">
+							</div>
 						</div>
 					</div>
 					<div class="control-group">
@@ -90,9 +89,13 @@
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="flagPass">通过标识</label>
+						<label class="control-label" for="flagPass">审核状态</label>
 						<div class="controls">
-							<input type="text" id="flagPass" name="delivery.flagPass" value="${delivery.flagPass}" maxlength="1" placeholder="通过标识">
+							<select id="flagPass" name="delivery.flagPass" maxlength="1" placeholder="通过标识">
+								<option value="0">处理中</option>
+								<option value="1">已交易</option>
+								<option value="2">已取消</option>
+							</select>
 						</div>
 					</div>
 					<div class="control-group">
@@ -102,62 +105,33 @@
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="userApply">申请人</label>
-						<div class="controls">
-							<input type="text" id="userApply" name="delivery.userApply" value="${delivery.userApply}" maxlength="20" placeholder="申请人">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="dateApply">申请时间</label>
-						<div class="controls">
-							<input type="text" id="dateApply" name="delivery.dateApply" value="<fmt:formatDate value="${delivery.dateApply}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="申请时间">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="userCheck">审核人</label>
-						<div class="controls">
-							<input type="text" id="userCheck" name="delivery.userCheck" value="${delivery.userCheck}" maxlength="20" placeholder="审核人">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="dateCheck">审核时间</label>
-						<div class="controls">
-							<input type="text" id="dateCheck" name="delivery.dateCheck" value="<fmt:formatDate value="${delivery.dateCheck}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="审核时间">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="flagDeleted">删除标识</label>
-						<div class="controls">
-							<input type="text" id="flagDeleted" name="delivery.flagDeleted" value="${delivery.flagDeleted}" maxlength="1" placeholder="删除标识">
-						</div>
-					</div>
-					<div class="control-group">
 						<label class="control-label" for="userCreated">创建人</label>
 						<div class="controls">
-							<input type="text" id="userCreated" name="delivery.userCreated" value="${delivery.userCreated}" maxlength="20" placeholder="创建人">
+							<input type="text" id="userCreated" name="delivery.userCreated" value="${delivery.userCreated}" maxlength="20" placeholder="创建人" disabled="disabled">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="dateCreated">创建时间</label>
 						<div class="controls">
-							<input type="text" id="dateCreated" name="delivery.dateCreated" value="<fmt:formatDate value="${delivery.dateCreated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
+							<input type="text" id="dateCreated" name="delivery.dateCreated" value="<fmt:formatDate value="${delivery.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" disabled="disabled" placeholder="创建时间">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="userUpdated">更新人</label>
 						<div class="controls">
-							<input type="text" id="userUpdated" name="delivery.userUpdated" value="${delivery.userUpdated}" maxlength="20" placeholder="更新人">
+							<input type="text" id="userUpdated" name="delivery.userUpdated" value="${delivery.userUpdated}" maxlength="20" placeholder="更新人" disabled="disabled">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="lastUpdated">更新时间</label>
 						<div class="controls">
-							<input type="text" id="lastUpdated" name="delivery.lastUpdated" value="<fmt:formatDate value="${delivery.lastUpdated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
+							<input type="text" id="lastUpdated" name="delivery.lastUpdated" value="<fmt:formatDate value="${delivery.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" disabled="disabled" placeholder="更新时间">
 						</div>
 					</div>
 					<div class="control-group">
 						<div class="controls">
 							<button type="submit" name="update" value="update" class="btn">提交更新</button>
+							<button type="button" name="delete" value="delete" class="btn">删除记录</button>
 						</div>
 					</div>
 				</form>
@@ -165,10 +139,47 @@
 			</div>
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
+		<script src="${STATIC_ROOT}/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="${STATIC_ROOT}/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+		<script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
+		<script src="${STATIC_ROOT}/js/common.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			$("#X_menu_li_delivery").addClass("active");
+			$('#flagPass').val('${delivery.flagPass}');
+			$('#loadtime').datetimepicker({
+			    format: 'yyyy-mm-dd hh:ii',
+			    language: 'zh-CN'
+			});
+			$('#flagPass').selectpicker({style: 'btn-info'});
+			$('#deliverysaveform${myidentify}').submit(function() {
+				var $form = $('#deliverysaveform${myidentify}');
+				$form.find('div.alert').remove();
+				var validate = [{
+					id: 'marketarea',
+					name: '请输入市场区域'
+				},{
+					id: 'determini',
+					name: '请输入目的地点'
+				},{
+					id: 'loadtime',
+					name: '请选择上货时间'
+				},{
+					id: 'loadaddress',
+					name: '请输入上货地点'
+				}];
+				for (var i = 0; i < validate.length; i++) {
+					var v = validate[i];
+					if ($('#' + v.id).val() == '') {
+						$('#' + v.id).closest('div.control-group').append(alertMessage('错误', v.name));
+					}
+				}
+				if ($form.find('div.alert').length > 0) {
+					return false;
+				}
+				return true;
+			});
+		});
+		</script>
 	</body>
-	<script>
-	 jQuery(function(){
-	     jQuery("#X_menu_li_delivery").addClass("active");
-	 });
-	</script>
 </html>

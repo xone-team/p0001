@@ -43,7 +43,8 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public void delete(Delivery entity) {
-        getDeliveryDao().deleteById(entity.getId());
+    	getDeliveryDao().deleteLogicById(entity.getId());
+//        getDeliveryDao().deleteById(entity.getId());
     }
 
     @Override

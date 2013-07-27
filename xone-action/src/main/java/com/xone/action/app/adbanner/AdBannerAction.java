@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Adbanner;
-import com.xone.model.utils.DateUtils;
+import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.AdbannerService;
 
 public class AdBannerAction extends Action {
@@ -40,9 +40,9 @@ public class AdBannerAction extends Action {
 		Map<String, String> map = getRequestMap();
 		Map<String, String> params = new HashMap<String, String>();
 		if ("down".equals(map.get("itemaction"))) {
-			params.put("gtDateCreated", DateUtils.format(getAdbanner().getDateCreated()));
+			params.put("gtDateCreated", MyDateUtils.format(getAdbanner().getDateCreated()));
 		} else if ("up".equals(map.get("itemaction"))) {
-			params.put("ltDateCreated", DateUtils.format(getAdbanner().getDateCreated()));
+			params.put("ltDateCreated", MyDateUtils.format(getAdbanner().getDateCreated()));
 		}
 		params.put("userId", getUserId().toString());
 		setList(getAdbannerService().findItemsByMap(params));

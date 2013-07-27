@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Subscribe;
-import com.xone.model.utils.DateUtils;
+import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.SubscribeService;
 
 public class SubscribeAction extends Action {
@@ -45,9 +45,9 @@ public class SubscribeAction extends Action {
 		Map<String, String> map = getRequestMap();
 		Map<String, String> params = new HashMap<String, String>();
 		if ("down".equals(map.get("itemaction"))) {
-			params.put("gtDateCreated", DateUtils.format(getSubscribe().getDateCreated()));
+			params.put("gtDateCreated", MyDateUtils.format(getSubscribe().getDateCreated()));
 		} else if ("up".equals(map.get("itemaction"))) {
-			params.put("ltDateCreated", DateUtils.format(getSubscribe().getDateCreated()));
+			params.put("ltDateCreated", MyDateUtils.format(getSubscribe().getDateCreated()));
 		}
 		params.put("refId", getUserId().toString());
 		setList(getSubscribeService().findAllByMap(params));

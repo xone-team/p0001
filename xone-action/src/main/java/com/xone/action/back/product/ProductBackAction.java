@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
-import com.xone.model.utils.DateUtils;
+import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.ProductService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.AssignRules;
@@ -38,7 +38,7 @@ public class ProductBackAction extends Action {
 			@Override
 			public String myAssignRules(Object value) {
 				if (null != value && value instanceof Date) {
-					return DateUtils.format((Date)value, "yyyy-MM-dd");
+					return MyDateUtils.format((Date)value, "yyyy-MM-dd");
 				}
 				return value.toString();
 			}

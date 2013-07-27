@@ -31,7 +31,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.Preparable;
 import com.xone.model.persistence.Pager;
 import com.xone.model.utils.ConfigUtils;
-import com.xone.model.utils.DateUtils;
+import com.xone.model.utils.MyDateUtils;
 
 /**
  * @TODO 请Hunny添加代码注释 
@@ -126,7 +126,7 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 	}
 	
 	public final String getUniqueId() {
-		return getRandomChar() + UUID.randomUUID().toString().toUpperCase().replaceAll("-", String.valueOf(getRandomChar())) + DateUtils.format(new Date(), "yyyyMMddHHmmssS");
+		return getRandomChar() + UUID.randomUUID().toString().toUpperCase().replaceAll("-", String.valueOf(getRandomChar())) + MyDateUtils.format(new Date(), "yyyyMMddHHmmssS");
 	}
 	
 	public final char getRandomChar() {

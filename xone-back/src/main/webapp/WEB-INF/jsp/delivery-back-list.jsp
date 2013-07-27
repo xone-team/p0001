@@ -129,7 +129,7 @@
 								<td>${item.unitNum}</td>
 								<td>${item.boxTotal}</td>
 								<td>${item.totalWeight}</td>
-								<td>${item.flagPass}</td>
+								<td>${item.flagPassName}</td>
 								<td>${item.userApply}</td>
 								<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
 								<td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
