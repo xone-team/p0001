@@ -31,6 +31,7 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public Product save(Product entity) {
+		entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
 		return getProductDao().save(entity);
 	}
 
@@ -62,6 +63,7 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Override
 	public Product save(Product entity, List<ImageUploaded> imageUploadeds) {
+		entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
 		entity = getProductDao().save(entity);
 		for (ImageUploaded imageUploaded : imageUploadeds) {
 			imageUploaded.setRefId(entity.getId());
@@ -130,6 +132,34 @@ public class ProductServiceImpl implements ProductService {
 		String saleType = params.get("saleType");
 		if (!StringUtils.isBlank(saleType)) {
 			detachedCriteria.add(Restrictions.eq("saleType", saleType));
+		}
+        String productName = params.get("productName");
+        if (!StringUtils.isBlank(productName)) {
+        	detachedCriteria.add(Restrictions.like("productName", "%" + productName + "%"));
+        }
+        String productType = params.get("productType");
+        if (!StringUtils.isBlank(productType)) {
+        	detachedCriteria.add(Restrictions.like("productType", "%" + productType + "%"));
+        }
+        String checkStatus = params.get("checkStatus");
+        if (!StringUtils.isBlank(checkStatus)) {
+        	detachedCriteria.add(Restrictions.eq("checkStatus", checkStatus));
+        }
+        String productAddress = params.get("productAddress");
+        if (!StringUtils.isBlank(productAddress)) {
+        	detachedCriteria.add(Restrictions.like("productAddress", "%" + productAddress + "%"));
+        }
+        String productLocation = params.get("productLocation");
+        if (!StringUtils.isBlank(productLocation)) {
+        	detachedCriteria.add(Restrictions.like("productLocation", "%" + productLocation + "%"));
+        }
+        String flagDeleted = params.get("flagDeleted");
+        if (!StringUtils.isBlank(flagDeleted)) {
+        	detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
+        }
+		String userCreated = params.get("userCreated");
+		if (!StringUtils.isBlank(userCreated)) {
+			detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
 		}
 		detachedCriteria.addOrder(Order.desc("dateCreated"));
 		List<Product> list = getProductDao().findListByDetachedCriteria(detachedCriteria, 0, 5);

@@ -47,6 +47,7 @@ public class PurchaseAction extends LogicAction {
 	
 	public String create() {
 		getPurchase().setUserCreated(getUserId());
+		getPurchase().setCheckStatus(Purchase.CheckStatus.WAITING.getValue());
 		List<ImageUploaded> images = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PURCHASE);
 		setPurchase(getPurchaseService().save(getPurchase(), images));
 		return SUCCESS;
@@ -64,6 +65,8 @@ public class PurchaseAction extends LogicAction {
 			} else if ("up".equals(map.get("itemaction"))) {
 				params.put("ltDateCreated", MyDateUtils.format(getPurchase().getDateCreated()));
 			}
+			params.put("checkStatus", Purchase.CheckStatus.PASSED.getValue());
+			params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
 			setList(getPurchaseService().findAllByMap(params));
 		}
 		return SUCCESS;
@@ -94,10 +97,10 @@ public class PurchaseAction extends LogicAction {
 				getMapValue().put("msg", "无此记录.");
 				return ERROR;
 			}
-//			if (p.get) {
-//				getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
-//				return ERROR;
-//			}
+			if (Purchase.CheckStatus.PASSED.getValue().equals(p.getCheckStatus())) {
+				getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
+				return ERROR;
+			}
 			setPurchase(p);
 			return SUCCESS;
 		}
@@ -119,10 +122,10 @@ public class PurchaseAction extends LogicAction {
 		}
 		pu.setUserUpdated(getUserId());
 		Purchase entity = findById(pu.getId());
-//		if (p.get) {
-//		getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
-//		return ERROR;
-//	}
+		if (Purchase.CheckStatus.PASSED.getValue().equals(entity.getCheckStatus())) {
+			getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
+			return ERROR;
+		}
 		MyBeanUtils.copyProperties(pu, entity, Purchase.class, null, new CopyRules() {
 			@Override
 			public boolean myCopyRules(Object value) {

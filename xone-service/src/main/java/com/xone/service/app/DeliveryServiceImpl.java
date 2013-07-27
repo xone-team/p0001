@@ -71,10 +71,44 @@ public class DeliveryServiceImpl implements DeliveryService {
                 e.printStackTrace();
             }
         }
-        
-        handleCriteriaByParams(detachedCriteria, params);
-        
-        
+
+        String marketarea = params.get("marketarea");
+        if (!StringUtils.isBlank(marketarea)) {
+            detachedCriteria.add(Restrictions.like("marketarea", "%" + marketarea + "%"));
+        }
+        String determini = params.get("determini");
+        if (!StringUtils.isBlank(determini)) {
+            detachedCriteria.add(Restrictions.like("determini", "%" + determini + "%"));
+        }
+        String gtLoadtime = params.get("gtLoadtime");
+        if (!StringUtils.isBlank(gtLoadtime)) {
+            try {
+				detachedCriteria.add(Restrictions.gt("loadtime", DateUtils.parseDate(gtLoadtime, new String[] {
+						"yyyy-MM-dd"
+				})));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+        }
+        String ltLoadtime = params.get("ltLoadtime");
+        if (!StringUtils.isBlank(ltLoadtime)) {
+        	try {
+        		detachedCriteria.add(Restrictions.gt("loadtime", DateUtils.parseDate(ltLoadtime, new String[] {
+        				"yyyy-MM-dd"
+        		})));
+        	} catch (ParseException e) {
+        		e.printStackTrace();
+        	}
+        }
+        String loadaddress = params.get("loadaddress");
+        if (!StringUtils.isBlank(loadaddress)) {
+            detachedCriteria.add(Restrictions.like("loadaddress", "%" + loadaddress + "%"));
+        }
+        String userCreated = params.get("userCreated");
+        if (!StringUtils.isBlank(userCreated)) {
+            detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
+        }
+        detachedCriteria.addOrder(Order.desc("dateCreated"));
         return getDeliveryDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
     }
 

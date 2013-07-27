@@ -13,10 +13,10 @@
 	</head>
 	<body>
 	<div data-role="page" class="purchaseaddpage" data-dom-cache="false">
-		<link rel="stylesheet" href="${STATIC_ROOT}/mobiscroll/css/mobiscroll.core-2.6.2.css" />
-		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2.js"></script>
-		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.datetime-2.6.2.js"></script>
-		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2-zh.js"></script>
+<%-- 		<link rel="stylesheet" href="${STATIC_ROOT}/mobiscroll/css/mobiscroll.core-2.6.2.css" /> --%>
+<%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2.js"></script> --%>
+<%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.datetime-2.6.2.js"></script> --%>
+<%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2-zh.js"></script> --%>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${myid}" data-icon="check" class="btn-banner">返回</a>
 			<h1>求购发布</h1>
@@ -104,17 +104,17 @@
 					           'div.purchaseimage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
 					'<\/style>'];
 					$('div.purchaseaddpage').append(css.join(''));
-					$('#purchasepurchaseValid').scroller('destroy')
-					.scroller($.extend({
-						preset : 'date',
-						minDate : new Date(2012, 3, 10),
-						maxDate : new Date(2020, 7, 30)
-					}, {
-						theme : 'default',
-						mode : 'scroller',
-						display : 'modal',
-						lang : 'zh'
-					}));
+// 					$('#purchasepurchaseValid').scroller('destroy')
+// 					.scroller($.extend({
+// 						preset : 'date',
+// 						minDate : new Date(2012, 3, 10),
+// 						maxDate : new Date(2020, 7, 30)
+// 					}, {
+// 						theme : 'default',
+// 						mode : 'scroller',
+// 						display : 'modal',
+// 						lang : 'zh'
+// 					}));
 					$('a.purchasesave').click(function(e) {
 						e.preventDefault();
 						$('#purchasesavesubmit${myid}').click();
@@ -183,8 +183,9 @@
 					}
 					var files = evt.target.files; // FileList object
 					for (var i = 0, f; f = files[i]; i++) {
-						if (!f.name.match(/\.(png|jpeg|jpg|gif)$/)) {
-							$(f).closest('li').before('<li class="fileerror" data-role="list-divider">请选择图片类型(png,jpeg,jpg,gif)</li>');
+						var m = f.name.match(/\.(png|jpeg|jpg|gif)$/i);
+						if (null == m) {
+							$('#uploadImageFile').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
 							$('ul.purchaselistview${myid}').listview('refresh');
 							continue;
 						}

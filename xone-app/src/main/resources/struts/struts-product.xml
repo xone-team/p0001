@@ -19,6 +19,12 @@
 		<action name="add" class="productAction" method="add">
 			<result name="success">/WEB-INF/jsp/product-add-page.jsp</result>
 		</action>
+		<action name="addSales" class="productAction" method="addSales">
+			<result name="success">/WEB-INF/jsp/product-add-page.jsp</result>
+		</action>
+		<action name="addGroups" class="productAction" method="addGroups">
+			<result name="success">/WEB-INF/jsp/product-add-page.jsp</result>
+		</action>
 		<action name="create" class="productAction" method="create">
 			<result name="success">/WEB-INF/jsp/product-create-success.jsp</result>
 		</action>
