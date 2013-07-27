@@ -179,7 +179,7 @@
 				return true;
 			});
 			$('.adbanneradstart, .adbanneradend').datepicker();
-			$('.selectpicker').selectpicker({style: 'btn-info'});
+			$('.selectpicker').selectpicker({style: 'btn-info'}).val('${adbanner.adType}');
 			$('#userId').click(function() {
 				$('#windowTitleDialoguserinfo').modal('show');
 			});

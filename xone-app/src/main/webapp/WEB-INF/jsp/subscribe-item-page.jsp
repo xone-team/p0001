@@ -19,7 +19,7 @@
 			}
 		</style>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<a href="<c:choose><c:when test="${param.form == 'items'}">${pageContext.request.contextPath}/subscribe/list.html?_=${identify}</c:when><c:otherwise></c:otherwise>${pageContext.request.contextPath}/assistant/index.html?_=${identify}</c:choose>" data-icon="check">返回</a>
+			<a href="${pageContext.request.contextPath}<c:choose><c:when test="${param.form == 'items'}">/subscribe/list.html?_=</c:when><c:otherwise>/assistant/index.html?_=</c:otherwise></c:choose>${identify}" data-icon="check">返回</a>
 			<h1>订阅详情</h1>
 			<a href="${pageContext.request.contextPath}/subscribe/item.html?subscribe.id=${subscribe.id}&_=${identify}" data-icon="check" data-role="button" class="ui-btn-right">刷新</a>
 		</div>
@@ -45,7 +45,7 @@
 			    	<table style="width:100%">
 			    		<tr>
 			    			<td class="mylabel">销售方式:</td>
-			    			<td>${subscribe.saleType}</td>
+			    			<td>${subscribe.saleTypeName}</td>
 			    		</tr>
 			    	</table>
 			    </li>
@@ -53,7 +53,7 @@
 			    	<table style="width:100%">
 			    		<tr>
 			    			<td class="mylabel">公司信誉:</td>
-			    			<td>${subscribe.credit}</td>
+			    			<td>${subscribe.creditName}</td>
 			    		</tr>
 			    	</table>
 			    </li>
@@ -81,11 +81,6 @@
 					});
 				});
 				$('div.subscribe-item-page').bind('pageinit', function() {
-					$('a.subscribe-save-button').click(function(e) {
-						e.preventDefault();
-						$('form.subscribe-add-form').submit();
-						return false;
-					});
 				});
 			</script>
 		</div>

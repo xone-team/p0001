@@ -30,7 +30,7 @@
    	<table style="width:100%">
    		<tr>
    			<td class="mylabel">上货时间:</td>
-   			<td>${delivery.loadtime}</td>
+   			<td><fmt:formatDate value="${delivery.loadtime}" type="both" pattern="yyyy-MM-dd HH:mm"/></td>
    		</tr>
    	</table>
    </li>
@@ -46,7 +46,7 @@
    	<table style="width:100%">
    		<tr>
    			<td class="mylabel">流程状态:</td>
-   			<td>${delivery.handleStatus}</td>
+   			<td>${delivery.flagPassName}</td>
    		</tr>
    	</table>
    </li>

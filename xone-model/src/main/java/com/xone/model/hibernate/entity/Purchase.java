@@ -26,6 +26,21 @@ public class Purchase implements Serializable {
 	protected Long userUpdated;
 	protected Date lastUpdated;
 	
+	public String getPurchaseTypeName() {
+		if ("0".equals(purchaseType)) {
+			return "冻品";
+		} else if ("1".equals(purchaseType)) {
+			return "干货";
+		} else if ("2".equals(purchaseType)) {
+			return "活鲜";
+		} else if ("3".equals(purchaseType)) {
+			return "水果";
+		} else if ("4".equals(purchaseType)) {
+			return "调料";
+		}
+		return "未知";
+	}
+	
 	protected List<Long> ids = new ArrayList<Long>();
 	
 	// business logic

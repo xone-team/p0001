@@ -1,6 +1,7 @@
 package com.xone.action.app.assistant;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,10 @@ public class DeliveryAction extends Action {
 	}
 	
 	public String create() {
+		Date loadtime = MyDateUtils.parseDate(getRequestMap().get("delivery.loadtime"), "yyyy-MM-dd HH:mm");
+		if (null != loadtime) {
+			getDelivery().setLoadtime(loadtime);
+		}
 		setDelivery(deliveryService.save(getDelivery()));
 		return SUCCESS;
 	}

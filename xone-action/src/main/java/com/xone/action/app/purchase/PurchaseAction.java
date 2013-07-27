@@ -46,6 +46,7 @@ public class PurchaseAction extends LogicAction {
 	}
 	
 	public String create() {
+		getPurchase().setUserCreated(getUserId());
 		List<ImageUploaded> images = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PURCHASE);
 		setPurchase(getPurchaseService().save(getPurchase(), images));
 		return SUCCESS;
@@ -80,6 +81,7 @@ public class PurchaseAction extends LogicAction {
 		} else if ("up".equals(map.get("itemaction"))) {
 			params.put("ltDateCreated", MyDateUtils.format(getPurchase().getDateCreated()));
 		}
+		params.put("userCreated", String.valueOf(getUserId()));
 		setList(getPurchaseService().findAllByMap(params));
 		return SUCCESS;
 	}
@@ -115,6 +117,7 @@ public class PurchaseAction extends LogicAction {
 			getMapValue().put("msg", "无此记录.");
 			return ERROR;
 		}
+		pu.setUserUpdated(getUserId());
 		Purchase entity = findById(pu.getId());
 //		if (p.get) {
 //		getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
@@ -126,13 +129,6 @@ public class PurchaseAction extends LogicAction {
 				return (null != value);
 			}
 		});
-//		entity.setPurchaseName(pu.getPurchaseName());
-//		entity.setPurchaseNum(pu.getPurchaseNum());
-//		entity.setPurchaseType(pu.getPurchaseType());
-//		entity.setPurchaseValid(pu.getPurchaseValid());
-//		entity.setPurchaseLocation(pu.getPurchaseLocation());
-//		entity.setPurchaseDesc(pu.getPurchaseDesc());
-//		entity.setPurchaseAddress(pu.getPurchaseAddress());
 		List<ImageUploaded> imageUploadeds = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PURCHASE);
 		entity = getPurchaseService().update(entity, imageUploadeds, pu.getIds());
 		setPurchase(entity);
