@@ -43,6 +43,20 @@ public class Subscribe implements Serializable {
 		return "全部";
 	}
 	
+	/**
+	 * 删除标志
+	 */
+	public enum FlagDeleted {
+		NORMAL("0"), DELETED("1");
+		protected String value = "0";
+		private FlagDeleted(String value) {
+			this.value = value;
+		}
+		public String getValue() {
+			return this.value;
+		}
+	}
+	
 	public Long getId() {
 		return id;
 	}

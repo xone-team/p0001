@@ -73,6 +73,9 @@
 			    		</tr>
 			    	</table>
 			    </li>
+			    <li>
+			    	<a href="${pageContext.request.contextPath}/subscribe/edit.html?subscribe.id=${subscribe.id}">编辑订阅信息</a>
+			    </li>
 			</ul>
 			<script type="text/javascript" language="javascript">
 				$(document).on("pageinit", function() {
