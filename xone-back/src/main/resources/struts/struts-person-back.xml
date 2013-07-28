@@ -14,13 +14,19 @@
             <result name="success">/WEB-INF/jsp/user-back-create.jsp</result>
         </action>
         <action name="personSave" class="personBackAction" method="personSave">
-            <result name="success">/WEB-INF/jsp/user-back-item.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">personList</param>
+                <param name="namespace">/person</param>
+            </result>
         </action>
         <action name="personEdit" class="personBackAction" method="personEdit">
             <result name="success">/WEB-INF/jsp/user-back-edit.jsp</result>
         </action>
         <action name="personUpdate" class="personBackAction" method="personUpdate">
-            <result name="success">/WEB-INF/jsp/user-back-item.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">personList</param>
+                <param name="namespace">/person</param>
+            </result>
             <result name="list" type="chain">
                 <param name="actionName">personList</param>
                 <param name="namespace">/person</param>

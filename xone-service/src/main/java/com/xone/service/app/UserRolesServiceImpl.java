@@ -1,6 +1,8 @@
 package com.xone.service.app;
 
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +16,9 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ibatis.sqlmap.client.SqlMapClient;
 import com.xone.model.hibernate.app.UserRolesDao;
+import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.entity.UserRoles;
 import com.xone.model.hibernate.support.Pagination;
 
@@ -24,6 +28,8 @@ public class UserRolesServiceImpl implements UserRolesService {
 
     @Autowired
     protected UserRolesDao userRolesDao;
+    
+    protected SqlMapClient sqlMapClient;
 
     @Override
     public UserRoles save(UserRoles entity) {
@@ -52,6 +58,19 @@ public class UserRolesServiceImpl implements UserRolesService {
         handleCriteriaByParams(detachedCriteria, params);
 
         return getUserRolesDao().findListByDetachedCriteria(detachedCriteria, 0, 10);
+    }
+    
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Roles> findRolesByUser(Map<String, Object> params) {
+        List<Roles> result = null;
+        try {
+            result = sqlMapClient.queryForList("roleRel.roleRelUser", params);
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+        
+        return result == null ? new ArrayList<Roles>() : result;
     }
 
     public Pagination findByParams(Map<String, String> params) {
@@ -189,6 +208,10 @@ public class UserRolesServiceImpl implements UserRolesService {
 
     public void setUserRolesDao(UserRolesDao userRolesDao) {
         this.userRolesDao = userRolesDao;
+    }
+
+    public void setSqlMapClient(SqlMapClient sqlMapClient) {
+        this.sqlMapClient = sqlMapClient;
     }
 
 }

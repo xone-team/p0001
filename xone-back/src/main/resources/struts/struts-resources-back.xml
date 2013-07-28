@@ -3,31 +3,45 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="resources" namespace="/resources" extends="default">
-	    <global-results>
-            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+    <package name="resources" namespace="/resources" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
         </global-results>
-		<action name="resourcesList" class="resourcesBackAction" method="resourcesList">
-			<result name="success">/WEB-INF/jsp/resources-back-list.jsp</result>
-		</action>
-		<action name="resourcesCreate" class="resourcesBackAction" method="resourcesCreate">
-			<result name="success">/WEB-INF/jsp/resources-back-create.jsp</result>
-		</action>
-		<action name="resourcesSave" class="resourcesBackAction" method="resourcesSave">
-			<result name="success">/WEB-INF/jsp/resources-back-item.jsp</result>
-		</action>
-		<action name="resourcesEdit" class="resourcesBackAction" method="resourcesEdit">
-			<result name="success">/WEB-INF/jsp/resources-back-edit.jsp</result>
-		</action>
-		<action name="resourcesUpdate" class="resourcesBackAction" method="resourcesUpdate">
-			<result name="success">/WEB-INF/jsp/resources-back-item.jsp</result>
-			<result name="list" type="chain">
-			    <param name="actionName">resourcesList</param> 
-    			<param name="namespace">/resources</param>
-			</result>
-		</action>
-		<action name="resourcesItem" class="resourcesBackAction" method="resourcesItem">
-			<result name="success">/WEB-INF/jsp/resources-back-item.jsp</result>
-		</action>
-	</package>
+        <action name="resourcesList" class="resourcesBackAction" method="resourcesList">
+            <result name="success">/WEB-INF/jsp/resources-back-list.jsp</result>
+        </action>
+        <action name="resourcesCreate" class="resourcesBackAction" method="resourcesCreate">
+            <result name="success">/WEB-INF/jsp/resources-back-create.jsp</result>
+        </action>
+        <action name="resourcesSave" class="resourcesBackAction" method="resourcesSave">
+            <result name="success" type="redirectAction">
+                <param name="actionName">resourcesList</param>
+                <param name="namespace">/resources</param>
+            </result>
+        </action>
+        <action name="resourcesEdit" class="resourcesBackAction" method="resourcesEdit">
+            <result name="success">/WEB-INF/jsp/resources-back-edit.jsp</result>
+        </action>
+        <action name="resourcesUpdate" class="resourcesBackAction" method="resourcesUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">resourcesList</param>
+                <param name="namespace">/resources</param>
+            </result>
+            <result name="list" type="chain">
+                <param name="actionName">resourcesList</param>
+                <param name="namespace">/resources</param>
+            </result>
+        </action>
+        <action name="resourcesItem" class="resourcesBackAction" method="resourcesItem">
+            <result name="success">/WEB-INF/jsp/resources-back-item.jsp</result>
+        </action>
+        <action name="resourcesDelete" class="resourcesBackAction" method="resourcesDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">resourcesList</param>
+                <param name="namespace">/resources</param>
+            </result>
+        </action>
+
+
+    </package>
 </struts>

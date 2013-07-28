@@ -1,6 +1,9 @@
 package com.xone.service.app;
 
+import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +16,9 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.ibatis.sqlmap.client.SqlMapClient;
 import com.xone.model.hibernate.app.RolesResourcesDao;
+import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.entity.RolesResources;
 import com.xone.model.hibernate.support.Pagination;
 public class RolesResourcesServiceImpl implements RolesResourcesService {
@@ -22,6 +27,8 @@ public class RolesResourcesServiceImpl implements RolesResourcesService {
 
 	@Autowired
 	protected RolesResourcesDao rolesResourcesDao;
+	
+	protected SqlMapClient sqlMapClient;
 
 	@Override
 	public RolesResources save(RolesResources entity) {
@@ -63,6 +70,39 @@ public class RolesResourcesServiceImpl implements RolesResourcesService {
 		int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
 		return getRolesResourcesDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
 	}
+    
+    @Override
+    @SuppressWarnings("unchecked")
+    public List<Roles> findRolesByRes(Map<String, Object> params) {
+        List<Roles> result = null;
+        try {
+            result = sqlMapClient.queryForList("roleRel.roleRelRes", params);
+        } catch (SQLException e) {
+            log.error(e.getMessage(), e);
+        }
+        
+        return result == null ? new ArrayList<Roles>() : result;
+    }
+    
+    @Override
+    public void updateResRoles(Long resourceId, List<Long> roleIds){
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(RolesResources.class);
+        detachedCriteria.add(Restrictions.eq("resourceId", resourceId));
+        List<RolesResources> originRels = getRolesResourcesDao().findByDetachedCriteria(detachedCriteria);
+        for (Iterator<RolesResources> iterator = originRels.iterator(); iterator.hasNext();) {
+            RolesResources userRoles = (RolesResources) iterator.next();
+            getRolesResourcesDao().delete(userRoles);
+        }
+        for (Iterator<Long> iterator = roleIds.iterator(); iterator.hasNext();) {
+            Long roleId = (Long) iterator.next();
+            RolesResources userRoles = new RolesResources();
+            userRoles.setResourceId(resourceId);
+            userRoles.setRoleId(roleId);
+            userRoles.setEnable("1");
+            getRolesResourcesDao().save(userRoles);
+        }
+    }
+
 	
     protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params){
         String id = params.get("id");
@@ -172,5 +212,9 @@ public class RolesResourcesServiceImpl implements RolesResourcesService {
 	public void setRolesResourcesDao(RolesResourcesDao rolesResourcesDao) {
 		this.rolesResourcesDao = rolesResourcesDao;
 	}
-	
+
+    public void setSqlMapClient(SqlMapClient sqlMapClient) {
+        this.sqlMapClient = sqlMapClient;
+    }
+
 }

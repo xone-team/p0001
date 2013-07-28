@@ -10,5 +10,7 @@
 		List the SQL Map XML files. They can be loaded from the classpath, as they are here (com.domain.data...)
 	-->
 	<sqlMap resource="com/xone/model/sqlmap/test.xml" />
+	<sqlMap resource="com/xone/model/sqlmap/user-role.xml" />
+    
 	
 </sqlMapConfig>

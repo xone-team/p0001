@@ -3,31 +3,44 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="topad" namespace="/topad" extends="default">
-	    <global-results>
-            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+    <package name="topad" namespace="/topad" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
         </global-results>
-		<action name="topadList" class="topadBackAction" method="topadList">
-			<result name="success">/WEB-INF/jsp/topad-back-list.jsp</result>
-		</action>
-		<action name="topadCreate" class="topadBackAction" method="topadCreate">
-			<result name="success">/WEB-INF/jsp/topad-back-create.jsp</result>
-		</action>
-		<action name="topadSave" class="topadBackAction" method="topadSave">
-			<result name="success">/WEB-INF/jsp/topad-back-item.jsp</result>
-		</action>
-		<action name="topadEdit" class="topadBackAction" method="topadEdit">
-			<result name="success">/WEB-INF/jsp/topad-back-edit.jsp</result>
-		</action>
-		<action name="topadUpdate" class="topadBackAction" method="topadUpdate">
-			<result name="success">/WEB-INF/jsp/topad-back-item.jsp</result>
-			<result name="list" type="chain">
-			    <param name="actionName">topadList</param> 
-    			<param name="namespace">/topad</param>
-			</result>
-		</action>
-		<action name="topadItem" class="topadBackAction" method="topadItem">
-			<result name="success">/WEB-INF/jsp/topad-back-item.jsp</result>
-		</action>
-	</package>
+        <action name="topadList" class="topadBackAction" method="topadList">
+            <result name="success">/WEB-INF/jsp/topad-back-list.jsp</result>
+        </action>
+        <action name="topadCreate" class="topadBackAction" method="topadCreate">
+            <result name="success">/WEB-INF/jsp/topad-back-create.jsp</result>
+        </action>
+        <action name="topadSave" class="topadBackAction" method="topadSave">
+            <result name="success" type="redirectAction">
+                <param name="actionName">topadList</param>
+                <param name="namespace">/topad</param>
+            </result>
+        </action>
+        <action name="topadEdit" class="topadBackAction" method="topadEdit">
+            <result name="success">/WEB-INF/jsp/topad-back-edit.jsp</result>
+        </action>
+        <action name="topadUpdate" class="topadBackAction" method="topadUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">topadList</param>
+                <param name="namespace">/topad</param>
+            </result>
+            <result name="list" type="chain">
+                <param name="actionName">topadList</param>
+                <param name="namespace">/topad</param>
+            </result>
+        </action>
+        <action name="topadItem" class="topadBackAction" method="topadItem">
+            <result name="success">/WEB-INF/jsp/topad-back-item.jsp</result>
+        </action>
+        <action name="topadDelete" class="topadBackAction" method="topadDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">topadList</param>
+                <param name="namespace">/topad</param>
+            </result>
+        </action>
+
+    </package>
 </struts>

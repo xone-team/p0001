@@ -24,17 +24,12 @@
 				<div class="row-fluid">
 					<ul class="breadcrumb" id="X_breadcrumbs_ul">
 						<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
-						<li><a href="${pageContext.request.contextPath}/resources/resourcesList.html">resources列表</a> <span class="divider">/</span></li>
-						<li class="active">resources编辑</li>
+						<li><a href="${pageContext.request.contextPath}/resources/resourcesList.html">资源列表</a> <span class="divider">/</span></li>
+						<li class="active">资源编辑</li>
 					</ul>
 				</div>
 				<form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/resources/resourcesUpdate.html">
-					<div class="control-group">
-						<label class="control-label" for="id">编号</label>
-						<div class="controls">
-							<input type="text" id="id" name="resources.id" value="${resources.id}" maxlength="20" placeholder="编号">
-						</div>
-					</div>
+                <input type="hidden" name="resources.id" value="${resources.id}">
 					<div class="control-group">
 						<label class="control-label" for="name">资源名称</label>
 						<div class="controls">
@@ -71,30 +66,21 @@
 							<input type="text" id="enable" name="resources.enable" value="${resources.enable}" maxlength="1" placeholder="可用标识">
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="userCreated">创建人</label>
-						<div class="controls">
-							<input type="text" id="userCreated" name="resources.userCreated" value="${resources.userCreated}" maxlength="20" placeholder="创建人">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="dateCreated">创建时间</label>
-						<div class="controls">
-							<input type="text" id="dateCreated" name="resources.dateCreated" value="<fmt:formatDate value="${resources.dateCreated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="userUpdated">更新人</label>
-						<div class="controls">
-							<input type="text" id="userUpdated" name="resources.userUpdated" value="${resources.userUpdated}" maxlength="20" placeholder="更新人">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="lastUpdated">更新时间</label>
-						<div class="controls">
-							<input type="text" id="lastUpdated" name="resources.lastUpdated" value="<fmt:formatDate value="${resources.lastUpdated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
-						</div>
-					</div>
+                    <div class="control-group">
+                        <label class="control-label" for="roleIds">角色</label>
+                        <div class="controls">
+                            <div id="roleIdsSelectResult" class="inline">
+                                <c:forEach items="${rolesList}" var="role">
+                                    <div class="X-select-result inline">
+                                        <input type="hidden" class="X-select-hidden-value" value="${role.id}" name="roleIds"> <span class="label label-default">${role.name}</span>
+                                    </div>
+                                </c:forEach>
+                            </div>
+                            <button type="button" class="btn" onclick="showModalRolesSelect($('#roleIdsSelectResult'), 'roleIds');">
+                                <i class="icon-filter"></i>选择
+                            </button>
+                        </div>
+                    </div>
 					<div class="control-group">
 						<div class="controls">
 							<button type="submit" name="update" value="update" class="btn">提交更新</button>
@@ -105,6 +91,106 @@
 			</div>
 		</div>
 		<jsp:include page="common-footer.jsp"></jsp:include>
+        
+        
+    <!-- modal to select role -->
+    <div id="X_model_rolesSelect" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>选择角色</h3>
+        </div>
+        <div class="modal-body">
+            <!-- query conditions -->
+            <form id="modalRolesQueryForm">
+                <div class="row-fluid">
+                    <div class="span5 form-horizontal">
+                        <div class="control-group">
+                            <label class="control-label" for="modalInputName">名称</label>
+                            <div class="controls">
+                                <input type="text" name="roles.name" id="modalInputName" placeholder="名称">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- /query conditions -->
+            <div class="row-fluid">
+                <p class="text-right">
+                    <button class="btn btn-small" onclick="queryModalRoles();">
+                        <i class="icon-search"></i>查询
+                    </button>
+                </p>
+            </div>
+            <!-- query result -->
+            <div class="row-fluid">
+                <table class="table table-hover table-bordered table-condensed">
+                    <thead>
+                        <tr>
+                            <th>名称</th>
+                            <th>备注</th>
+                            <th>选择</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyListModalRoles">
+                    </tbody>
+                </table>
+            </div>
+            <!-- /query result -->
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal">取消</button>
+            <button class="btn btn-primary" onclick="endModalRolesSelect();">完成</button>
+        </div>
+    </div>
+    <script type="text/javascript">
+                    function showModalRolesSelect(targetObj, targetName) {
+                        XONE.CURRENT_MODEL = {};
+                        XONE.CURRENT_MODEL.target = targetObj;
+                        XONE.CURRENT_MODEL.modal = jQuery("#X_model_rolesSelect");
+                        XONE.CURRENT_MODEL.listBody = jQuery("#tbodyListModalRoles");
+                        XONE.CURRENT_MODEL.container = jQuery("#modalRolesQueryForm");
+                        XONE.CURRENT_MODEL.queryUrl = "${pageContext.request.contextPath}/roles/rolesSelect.html";
+                        XONE.CURRENT_MODEL.targetName = targetName;
+
+                        XONE.CURRENT_MODEL.modal.modal("show");
+                        queryModalRoles();
+                    }
+                    function endModalRolesSelect() {
+                        var listBody = XONE.CURRENT_MODEL.listBody;
+                        var container = XONE.CURRENT_MODEL.container;
+                        var modalCurrent = XONE.CURRENT_MODEL.modal;
+                        var targetObj = XONE.CURRENT_MODEL.target;
+                        var targetName = XONE.CURRENT_MODEL.targetName;
+
+                        var selectedResult = jQuery("input[type=checkbox]:checked", listBody).siblings(".X-select-result");
+                        if (selectedResult != null) {
+                            modalCurrent.modal('hide');
+                            var h = selectedResult.clone();
+                            h.removeClass("hide").addClass("inline");
+                            jQuery(".X-select-hidden-value", h).attr("name", targetName);
+                            targetObj.html(h);
+                        }
+                    }
+
+                    function queryModalRoles() {
+                        var listBody = XONE.CURRENT_MODEL.listBody;
+                        var container = XONE.CURRENT_MODEL.container;
+                        var queryUrl = XONE.CURRENT_MODEL.queryUrl;
+
+                        var d = container.serializeObject();
+                        jQuery.ajax({
+                            url : queryUrl,
+                            type : "POST",
+                            dataType : "html",
+                            data : d,
+                            success : function(html, textStatus, jqXHR) {
+                                listBody.html(html);
+                            }
+                        });
+                    }
+                </script>
+    <!-- /modal to select role -->
+        
 	</body>
 	<script>
 	 jQuery(function(){

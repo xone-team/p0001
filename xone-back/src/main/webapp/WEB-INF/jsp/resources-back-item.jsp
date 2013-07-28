@@ -24,8 +24,8 @@
 				<div class="row-fluid">
 					<ul class="breadcrumb" id="X_breadcrumbs_ul">
 						<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
-						<li><a href="${pageContext.request.contextPath}/resources/resourcesList.html">resources列表</a> <span class="divider">/</span></li>
-						<li class="active">resources详细</li>
+						<li><a href="${pageContext.request.contextPath}/resources/resourcesList.html">资源列表</a> <span class="divider">/</span></li>
+						<li class="active">资源详细</li>
 					</ul>
 				</div>
 				<table class="table table-bordered" style="width:100%">
@@ -54,26 +54,12 @@
 							<td style="width:60px;">备注</td>
 							<td>${resources.remark}</td>
 						</tr>
-						<tr>
-							<td style="width:60px;">可用标识</td>
-							<td>${resources.enable}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">创建人</td>
-							<td>${resources.userCreated}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">创建时间</td>
-							<td><fmt:formatDate value="${resources.dateCreated}" pattern="yyyy-MM-dd"/></td>
-						</tr>
-						<tr>
-							<td style="width:60px;">更新人</td>
-							<td>${resources.userUpdated}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">更新时间</td>
-							<td><fmt:formatDate value="${resources.lastUpdated}" pattern="yyyy-MM-dd"/></td>
-						</tr>
+                        <tr>
+                            <td style="width: 60px;">角色</td>
+                            <td><c:forEach items="${rolesList}" var="role">
+                                    <span class="label label-default">${role.name}</span>
+                                </c:forEach></td>
+                        </tr>
 					</tbody>
 				</table>
 				</div>

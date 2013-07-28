@@ -14,13 +14,19 @@
             <result name="success">/WEB-INF/jsp/roles-back-create.jsp</result>
         </action>
         <action name="rolesSave" class="rolesBackAction" method="rolesSave">
-            <result name="success">/WEB-INF/jsp/roles-back-item.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">rolesList</param>
+                <param name="namespace">/roles</param>
+            </result>
         </action>
         <action name="rolesEdit" class="rolesBackAction" method="rolesEdit">
             <result name="success">/WEB-INF/jsp/roles-back-edit.jsp</result>
         </action>
         <action name="rolesUpdate" class="rolesBackAction" method="rolesUpdate">
-            <result name="success">/WEB-INF/jsp/roles-back-item.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">rolesList</param>
+                <param name="namespace">/roles</param>
+            </result>
             <result name="list" type="chain">
                 <param name="actionName">rolesList</param>
                 <param name="namespace">/roles</param>

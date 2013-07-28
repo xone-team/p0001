@@ -22,7 +22,7 @@
                     <ul class="breadcrumb" id="X_breadcrumbs_ul">
                         <li>后台 <span class="divider">/</span></li>
                         <li>用户管理 <span class="divider">/</span></li>
-                        <li class="active">列表</li>
+                        <li class="active">用户列表</li>
                     </ul>
                 </div>
                 <div class="accordion">

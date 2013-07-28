@@ -32,5 +32,8 @@
 		<action name="productListAjax" class="productBackAction" method="productListAjax">
 			<result name="success">/WEB-INF/jsp/product-back-list-ajax.jsp</result>
 		</action>
+		<action name="productSelect" class="productBackAction" method="productListAjax">
+			<result name="success">/WEB-INF/jsp/product-back-select.jsp</result>
+		</action>
 	</package>
 </struts>
