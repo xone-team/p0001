@@ -118,6 +118,8 @@
 					           'div.productupdatepage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
 					'<\/style>'];
 					$('div.productupdateitempage').append(css.join(''));
+					var productType = $('select[name="product.productType"] option[value="${product.productType}"]').attr('selected', 'selected');
+					$('select[name="product.productType"]').siblings('span.ui-btn-inner').find('span.ui-btn-text span').text(productType.text());
 					$('a.productupdateclick').click(function(e) {
 						e.preventDefault();
 						$('#productupdatesubmit${myid}').click();

@@ -58,6 +58,24 @@
 		</tr>
 	</table>
 </li>
+<c:if test="${null != userId && null != product.person}">
+<li>
+	<table style="width:100%">
+		<tr>
+			<td class="mylabel">手机号码:</td>
+			<td>${product.person.cellphone}</td>
+		</tr>
+	</table>
+</li>
+<li>
+	<table style="width:100%">
+		<tr>
+			<td class="mylabel">联&nbsp;&nbsp;系&nbsp;&nbsp;人:</td>
+			<td>${product.person.contactor}</td>
+		</tr>
+	</table>
+</li>
+</c:if>
 <li data-role="list-divider">产品图片</li>
 <c:forEach var="item" items="${product.ids}">
 <li data-role="none" style="padding:0px;">

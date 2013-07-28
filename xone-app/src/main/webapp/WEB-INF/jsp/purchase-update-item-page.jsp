@@ -111,6 +111,8 @@
 					           'div.purchaseupdatepage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
 					'<\/style>'];
 					$('div.purchaseupdateitempage').append(css.join(''));
+					var purchaseType = $('select[name="purchase.purchaseType"] option[value="${purchase.purchaseType}"]').attr('selected', 'selected');
+					$('select[name="purchase.purchaseType"]').siblings('span.ui-btn-inner').find('span.ui-btn-text span').text(purchaseType.text());
 					$('a.purchaseupdateclick').click(function(e) {
 						e.preventDefault();
 						$('#purchasesaveformsubmit${myid}').click();

@@ -16,8 +16,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.ImageUploadedDao;
+import com.xone.model.hibernate.app.PersonDao;
 import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
+import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
 public class PurchaseServiceImpl implements PurchaseService {
@@ -30,6 +32,17 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Autowired
 	protected ImageUploadedDao imageUploadedDao;
 	
+    @Autowired
+    protected PersonDao personDao;
+	
+	public PersonDao getPersonDao() {
+		return personDao;
+	}
+
+	public void setPersonDao(PersonDao personDao) {
+		this.personDao = personDao;
+	}
+
 	public PurchaseDao getPurchaseDao() {
 		return purchaseDao;
 	}
@@ -197,6 +210,12 @@ public class PurchaseServiceImpl implements PurchaseService {
 		Purchase p = l.get(0);
 		List<Long> ids = getImageUploadedDao().findAllIdsByRefId(p.getId(), ImageUploaded.RefType.PURCHASE);
 		p.setIds(ids);
+		if (null != p.getUserCreated()) {
+			Person person = getPersonDao().findById(p.getUserCreated());
+			if (null != person) {
+				p.setPerson(person);
+			}
+		}
 		return p;
 	}
 	

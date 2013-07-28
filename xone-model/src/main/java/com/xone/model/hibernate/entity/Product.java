@@ -71,7 +71,16 @@ public class Product implements Serializable {
 	protected Date dateCreated;
 	protected Long userUpdated;
 	protected Date lastUpdated;
+	protected Person person;
 	
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
 	public String getProductTypeName() {
 		if ("0".equals(getProductType())) {
 			return "冻品";

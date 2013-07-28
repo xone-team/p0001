@@ -16,8 +16,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.ImageUploadedDao;
+import com.xone.model.hibernate.app.PersonDao;
 import com.xone.model.hibernate.app.ProductDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
+import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
 public class ProductServiceImpl implements ProductService {
@@ -28,7 +30,17 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	protected ImageUploadedDao imageUploadedDao;
+	
+    @Autowired
+    protected PersonDao personDao;
+	
+	public PersonDao getPersonDao() {
+		return personDao;
+	}
 
+	public void setPersonDao(PersonDao personDao) {
+		this.personDao = personDao;
+	}
 	@Override
 	public Product save(Product entity) {
 		entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
@@ -195,6 +207,12 @@ public class ProductServiceImpl implements ProductService {
 		Product p = l.get(0);
 		List<Long> ids = getImageUploadedDao().findAllIdsByRefId(p.getId(), ImageUploaded.RefType.PRODUCT);
 		p.setIds(ids);
+		if (null != p.getUserCreated()) {
+			Person person = getPersonDao().findById(p.getUserCreated());
+			if (null != person) {
+				p.setPerson(person);
+			}
+		}
 		return p;
 	}
 

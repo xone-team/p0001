@@ -49,7 +49,7 @@
 				});
 			</script>
 		</div>
-		<jsp:include page="footer.jsp"><jsp:param value="4" name="offset"/></jsp:include>
+		<jsp:include page="footer.jsp"><jsp:param value="1" name="offset"/></jsp:include>
 	</div>
 	</body>
 </html>

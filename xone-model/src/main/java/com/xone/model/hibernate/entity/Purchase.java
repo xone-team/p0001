@@ -55,6 +55,14 @@ public class Purchase implements Serializable {
 	protected Long userUpdated;
 	protected Date lastUpdated;
 	
+	protected Person person;
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
 	public String getPurchaseTypeName() {
 		if ("0".equals(purchaseType)) {
 			return "冻品";
