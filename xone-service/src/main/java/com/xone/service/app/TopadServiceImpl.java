@@ -68,14 +68,9 @@ public class TopadServiceImpl implements TopadService {
     }
     
     public Pagination findByParams(Map<String, String> params) {
-        DetachedCriteria detachedCriteria = DetachedCriteria
-                .forClass(Topad.class);
-                
-        handleCriteriaByParams(detachedCriteria, params);
-                
         int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
         int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
-        return getTopadDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+        return getTopadDao().findBySqlMap("back.topad", params, pageSize, startIndex);
     }
     
     protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params){

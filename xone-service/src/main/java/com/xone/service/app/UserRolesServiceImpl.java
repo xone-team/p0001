@@ -65,7 +65,7 @@ public class UserRolesServiceImpl implements UserRolesService {
     public List<Roles> findRolesByUser(Map<String, Object> params) {
         List<Roles> result = null;
         try {
-            result = sqlMapClient.queryForList("roleRel.roleRelUser", params);
+            result = sqlMapClient.queryForList("back.roleRelUser", params);
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
         }

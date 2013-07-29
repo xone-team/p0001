@@ -36,9 +36,9 @@
                                     <div class="row-fluid">
                                         <div class="span5 form-horizontal">
                                             <div class="control-group">
-                                                <label class="control-label" for="productIdMin">产品</label>
+                                                <label class="control-label" for="productName">产品名称</label>
                                                 <div class="controls">
-                                                    <input type="text" id="productIdMin" class="span5" name="topad.productIdMin" value="${topad.productIdMin}" maxlength="20" placeholder="最小值"> <span class="add-on">~</span> <input type="text" id="productIdMax" class="span5" name="topad.productIdMax" value="${topad.productIdMax}" maxlength="20" placeholder="最大值">
+                                                    <input type="text" id="productName" name="topad.productName" value="${topad.productName}" maxlength="255" placeholder="产品名称">
                                                 </div>
                                             </div>
                                         </div>
@@ -48,7 +48,11 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="checkStatus">审核状态</label>
                                                 <div class="controls">
-                                                    <input type="text" id="checkStatus" name="topad.checkStatus" value="${topad.checkStatus}" maxlength="1" placeholder="审核状态">
+                                                    <select class="selectpicker" id="checkStatus" name="topad.checkStatus">
+                                                        <c:forEach items="${commonTypes.topadCheckStatusList}" var="it">
+                                                            <option value="${it.value}" <c:if test="${it.value == topad.checkStatus}">selected</c:if>>${it.name}</option>
+                                                        </c:forEach>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -64,9 +68,9 @@
                                     <div class="row-fluid">
                                         <div class="span5 form-horizontal">
                                             <div class="control-group">
-                                                <label class="control-label" for="userApplyMin">申请人</label>
+                                                <label class="control-label" for="applyUsername">申请人用户名</label>
                                                 <div class="controls">
-                                                    <input type="text" id="userApplyMin" class="span5" name="topad.userApplyMin" value="${topad.userApplyMin}" maxlength="20" placeholder="最小值"> <span class="add-on">~</span> <input type="text" id="userApplyMax" class="span5" name="topad.userApplyMax" value="${topad.userApplyMax}" maxlength="20" placeholder="最大值">
+                                                    <input type="text" id="username" name="topad.applyUsername" value="${topad.applyUsername}" maxlength="255" placeholder="申请人用户名">
                                                 </div>
                                             </div>
                                         </div>
@@ -75,16 +79,6 @@
                                                 <label class="control-label" for="dateApplyMin">申请日期</label>
                                                 <div class="controls">
                                                     <input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="topad.dateApplyMin" value="${topad.dateApplyMin}" maxlength="19" placeholder="最小日期"> <span class="add-on">~</span> <input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="topad.dateApplyMax" value="${topad.dateApplyMax}" maxlength="19" placeholder="最大日期">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <div class="span5 form-horizontal">
-                                            <div class="control-group">
-                                                <label class="control-label" for="dateCheckMin">审核日期</label>
-                                                <div class="controls">
-                                                    <input type="text" id="dateCheckMin" class="span5 Wdate" onclick="WdatePicker()" name="topad.dateCheckMin" value="${topad.dateCheckMin}" maxlength="19" placeholder="最小日期"> <span class="add-on">~</span> <input type="text" id="dateCheckMax" class="span5 Wdate" onclick="WdatePicker()" name="topad.dateCheckMax" value="${topad.dateCheckMax}" maxlength="19" placeholder="最大日期">
                                                 </div>
                                             </div>
                                         </div>
@@ -114,17 +108,20 @@
                                 <th>申请人</th>
                                 <th>申请日期</th>
                                 <th>审核日期</th>
-                                <th>操作</th>
+                                <th style="width: 8em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
                                     <td>${status.index + 1}</td>
-                                    <td>${item.productId}</td>
-                                    <td><a href="${pageContext.request.contextPath}/topad/topadItem.html?topad.id=${item.id}">${item.checkStatus}</a></td>
+                                    <td><a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.productId}">${item.productName}</a></td>
+                                    <td><a href="${pageContext.request.contextPath}/topad/topadItem.html?topad.id=${item.id}"> <c:forEach items="${commonTypes.topadCheckStatusList}" var="it">
+                                                <c:if test="${it.value == item.checkStatus}">${it.name}</c:if>
+                                            </c:forEach>
+                                    </a></td>
                                     <td>${item.remark}</td>
-                                    <td>${item.userApply}</td>
+                                    <td><a href="${pageContext.request.contextPath}/person/personItem.html?person.id=${item.userApply}">${item.applyUsername}</a></td>
                                     <td><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd" /></td>
                                     <td><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd" /></td>
                                     <td><a href="${pageContext.request.contextPath}/topad/topadEdit.html?topad.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
@@ -141,10 +138,10 @@
         </div>
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
-    
-    
-    
-    
+
+
+
+
     <!--  modal confirm to delete -->
     <div id="X_model_confirm2delete" class="modal hide fade">
         <div class="modal-header">
@@ -176,7 +173,7 @@
                     }
                 </script>
     <!--  /modal confirm to delete -->
-    
+
 </body>
 <script>
     jQuery(function() {
