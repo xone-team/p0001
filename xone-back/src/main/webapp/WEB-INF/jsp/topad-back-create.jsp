@@ -31,8 +31,7 @@
                     <div class="control-group">
                         <label class="control-label" for="productId">产品</label>
                         <div class="controls">
-                            <div id="productIdsSelectResult" class="inline">
-                            </div>
+                            <div id="productIdsSelectResult" class="inline"></div>
                             <button type="button" class="btn" onclick="showModalProductSelect($('#productIdsSelectResult'), 'topad.productId');">
                                 <i class="icon-filter"></i>选择
                             </button>
@@ -42,7 +41,11 @@
                     <div class="control-group">
                         <label class="control-label" for="checkStatus">审核状态</label>
                         <div class="controls">
-                            <input type="text" id="checkStatus" name="topad.checkStatus" maxlength="1" placeholder="审核状态">
+                            <select class="selectpicker" id="checkStatus" name="topad.checkStatus">
+                                <c:forEach items="${commonTypes.topadCheckStatusList}" var="it">
+                                    <option value="${it.value}" <c:if test="${it.value == topad.checkStatus}">selected</c:if>>${it.name}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
                     <div class="control-group">

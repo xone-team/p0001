@@ -3,31 +3,46 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="subscribe" namespace="/subscribe" extends="default">
-	    <global-results>
-            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+    <package name="subscribe" namespace="/subscribe" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
         </global-results>
-		<action name="subscribeList" class="subscribeBackAction" method="subscribeList">
-			<result name="success">/WEB-INF/jsp/subscribe-back-list.jsp</result>
-		</action>
-		<action name="subscribeCreate" class="subscribeBackAction" method="subscribeCreate">
-			<result name="success">/WEB-INF/jsp/subscribe-back-create.jsp</result>
-		</action>
-		<action name="subscribeSave" class="subscribeBackAction" method="subscribeSave">
-			<result name="success">/WEB-INF/jsp/subscribe-back-item.jsp</result>
-		</action>
-		<action name="subscribeEdit" class="subscribeBackAction" method="subscribeEdit">
-			<result name="success">/WEB-INF/jsp/subscribe-back-edit.jsp</result>
-		</action>
-		<action name="subscribeUpdate" class="subscribeBackAction" method="subscribeUpdate">
-			<result name="success">/WEB-INF/jsp/subscribe-back-item.jsp</result>
-			<result name="list" type="chain">
-			    <param name="actionName">subscribeList</param> 
-    			<param name="namespace">/subscribe</param>
-			</result>
-		</action>
-		<action name="subscribeItem" class="subscribeBackAction" method="subscribeItem">
-			<result name="success">/WEB-INF/jsp/subscribe-back-item.jsp</result>
-		</action>
-	</package>
+        <action name="subscribeList" class="subscribeBackAction" method="subscribeList">
+            <result name="success">/WEB-INF/jsp/subscribe-back-list.jsp</result>
+        </action>
+        <action name="subscribeCreate" class="subscribeBackAction" method="subscribeCreate">
+            <result name="success">/WEB-INF/jsp/subscribe-back-create.jsp</result>
+        </action>
+        <action name="subscribeSave" class="subscribeBackAction" method="subscribeSave">
+            <result name="success" type="redirectAction">
+                <param name="actionName">subscribeItem</param>
+                <param name="namespace">/subscribe</param>
+                <param name="subscribeId">${subscribe.id}</param>
+            </result>
+        </action>
+        <action name="subscribeEdit" class="subscribeBackAction" method="subscribeEdit">
+            <result name="success">/WEB-INF/jsp/subscribe-back-edit.jsp</result>
+        </action>
+        <action name="subscribeUpdate" class="subscribeBackAction" method="subscribeUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">subscribeItem</param>
+                <param name="namespace">/subscribe</param>
+                <param name="subscribeId">${subscribe.id}</param>
+            </result>
+            <result name="list" type="chain">
+                <param name="actionName">subscribeList</param>
+                <param name="namespace">/subscribe</param>
+            </result>
+        </action>
+        <action name="subscribeItem" class="subscribeBackAction" method="subscribeItem">
+            <result name="success">/WEB-INF/jsp/subscribe-back-item.jsp</result>
+        </action>
+        <action name="subscribeDelete" class="subscribeBackAction" method="subscribeDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">subscribeList</param>
+                <param name="namespace">/subscribe</param>
+            </result>
+        </action>
+
+    </package>
 </struts>

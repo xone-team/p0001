@@ -6,12 +6,10 @@
  <tr>
   <td>${item.username}</td>
   <td>${item.nickName}</td>
-  <td>${item.cellphone}</td>
-  <td>${item.credit}</td>
-  <td>${item.userLevel}</td>
   <td><input type="radio" name="selectPersonId" value="${item.id}">
    <div class="X-select-result hide">
-     <input type="hidden" name="person.userApply" value="${item.id}">
+     <input type="hidden" class="X-select-hidden-value" value="${item.id}">
+     <input type="hidden" class="X-select-hidden-value-show" value="${item.username}">
      <span class="label label-default">${item.username}</span>
    </div>
   </td>

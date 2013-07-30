@@ -3,34 +3,50 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="purchase" namespace="/purchase" extends="default">
-	    <global-results>
-            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+    <package name="purchase" namespace="/purchase" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
         </global-results>
-		<action name="purchaseList" class="purchaseBackAction" method="purchaseList">
-			<result name="success">/WEB-INF/jsp/purchase-back-list.jsp</result>
-		</action>
-		<action name="purchaseCreate" class="purchaseBackAction" method="purchaseCreate">
-			<result name="success">/WEB-INF/jsp/purchase-back-create.jsp</result>
-		</action>
-		<action name="purchaseSave" class="purchaseBackAction" method="purchaseSave">
-			<result name="success">/WEB-INF/jsp/purchase-back-item.jsp</result>
-		</action>
-		<action name="purchaseEdit" class="purchaseBackAction" method="purchaseEdit">
-			<result name="success">/WEB-INF/jsp/purchase-back-edit.jsp</result>
-		</action>
-		<action name="purchaseUpdate" class="purchaseBackAction" method="purchaseUpdate">
-			<result name="success">/WEB-INF/jsp/purchase-back-item.jsp</result>
-			<result name="list" type="chain">
-			    <param name="actionName">purchaseList</param> 
-    			<param name="namespace">/purchase</param>
-			</result>
-		</action>
-		<action name="purchaseItem" class="purchaseBackAction" method="purchaseItem">
-			<result name="success">/WEB-INF/jsp/purchase-back-item.jsp</result>
-		</action>
-		<action name="purchaseListAjax" class="purchaseBackAction" method="purchaseListAjax">
-			<result name="success">/WEB-INF/jsp/purchase-back-list-ajax.jsp</result>
-		</action>
-	</package>
+        <action name="purchaseList" class="purchaseBackAction" method="purchaseList">
+            <result name="success">/WEB-INF/jsp/purchase-back-list.jsp</result>
+        </action>
+        <action name="purchaseCreate" class="purchaseBackAction" method="purchaseCreate">
+            <result name="success">/WEB-INF/jsp/purchase-back-create.jsp</result>
+        </action>
+        <action name="purchaseSave" class="purchaseBackAction" method="purchaseSave">
+            <result name="success" type="redirectAction">
+                <param name="actionName">purchaseItem</param>
+                <param name="namespace">/purchase</param>
+                <param name="purchaseId">${purchase.id}</param>
+            </result>
+        </action>
+        <action name="purchaseEdit" class="purchaseBackAction" method="purchaseEdit">
+            <result name="success">/WEB-INF/jsp/purchase-back-edit.jsp</result>
+        </action>
+        <action name="purchaseUpdate" class="purchaseBackAction" method="purchaseUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">purchaseItem</param>
+                <param name="namespace">/purchase</param>
+                <param name="purchaseId">${purchase.id}</param>
+            </result>
+            <result name="list" type="chain">
+                <param name="actionName">purchaseList</param>
+                <param name="namespace">/purchase</param>
+            </result>
+        </action>
+        <action name="purchaseItem" class="purchaseBackAction" method="purchaseItem">
+            <result name="success">/WEB-INF/jsp/purchase-back-item.jsp</result>
+        </action>
+        <action name="purchaseDelete" class="purchaseBackAction" method="purchaseDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">purchaseList</param>
+                <param name="namespace">/purchase</param>
+            </result>
+        </action>
+
+
+        <action name="purchaseListAjax" class="purchaseBackAction" method="purchaseListAjax">
+            <result name="success">/WEB-INF/jsp/purchase-back-list-ajax.jsp</result>
+        </action>
+    </package>
 </struts>

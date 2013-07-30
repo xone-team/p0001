@@ -17,7 +17,11 @@ import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class SubscribeBackAction extends Action {
 	
-	@Autowired
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 4010106623942564479L;
+    @Autowired
 	protected SubscribeService subscribeService;
 	protected Subscribe subscribe = new Subscribe();
 	protected List<Subscribe> list = new ArrayList<Subscribe>();
@@ -91,6 +95,12 @@ public class SubscribeBackAction extends Action {
 		}
 		return SUCCESS;
 	}
+	
+    public String subscribeDelete() throws Exception {
+        Subscribe entity = getSubscribeService().findById(getSubscribe().getId());
+        subscribeService.delete(entity);
+        return SUCCESS;
+    }
 
 	public SubscribeService getSubscribeService() {
 		return subscribeService;

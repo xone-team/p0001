@@ -37,5 +37,11 @@
 		<action name="deliveryItem" class="deliveryBackAction" method="deliveryItem">
 			<result name="success">/WEB-INF/jsp/delivery-back-item.jsp</result>
 		</action>
+        <action name="deliveryDelete" class="deliveryBackAction" method="deliveryDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">deliveryList</param>
+                <param name="namespace">/delivery</param>
+            </result>
+        </action>
 	</package>
 </struts>

@@ -15,8 +15,9 @@
         </action>
         <action name="resourcesSave" class="resourcesBackAction" method="resourcesSave">
             <result name="success" type="redirectAction">
-                <param name="actionName">resourcesList</param>
+                <param name="actionName">resourcesItem</param>
                 <param name="namespace">/resources</param>
+                <param name="resourcesId">${resources.id}</param>
             </result>
         </action>
         <action name="resourcesEdit" class="resourcesBackAction" method="resourcesEdit">
@@ -24,8 +25,9 @@
         </action>
         <action name="resourcesUpdate" class="resourcesBackAction" method="resourcesUpdate">
             <result name="success" type="redirectAction">
-                <param name="actionName">resourcesList</param>
+                <param name="actionName">resourcesItem</param>
                 <param name="namespace">/resources</param>
+                <param name="resourcesId">${resources.id}</param>
             </result>
             <result name="list" type="chain">
                 <param name="actionName">resourcesList</param>

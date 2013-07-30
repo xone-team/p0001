@@ -15,8 +15,9 @@
         </action>
         <action name="rolesSave" class="rolesBackAction" method="rolesSave">
             <result name="success" type="redirectAction">
-                <param name="actionName">rolesList</param>
+                <param name="actionName">rolesItem</param>
                 <param name="namespace">/roles</param>
+                <param name="rolesId">${roles.id}</param>
             </result>
         </action>
         <action name="rolesEdit" class="rolesBackAction" method="rolesEdit">
@@ -24,8 +25,9 @@
         </action>
         <action name="rolesUpdate" class="rolesBackAction" method="rolesUpdate">
             <result name="success" type="redirectAction">
-                <param name="actionName">rolesList</param>
+                <param name="actionName">rolesItem</param>
                 <param name="namespace">/roles</param>
+                <param name="rolesId">${roles.id}</param>
             </result>
             <result name="list" type="chain">
                 <param name="actionName">rolesList</param>
@@ -44,5 +46,6 @@
         <action name="rolesSelect" class="rolesBackAction" method="rolesSelect">
             <result name="success">/WEB-INF/jsp/roles-back-select.jsp</result>
         </action>
+        
     </package>
 </struts>

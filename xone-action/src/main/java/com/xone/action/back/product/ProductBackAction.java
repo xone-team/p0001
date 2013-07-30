@@ -10,7 +10,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
+import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
+import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.ProductService;
@@ -20,11 +22,23 @@ import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class ProductBackAction extends Action {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -8758614332522229237L;
     @Autowired
     protected ProductService productService;
     protected Product product = new Product();
     protected List<Product> list = new ArrayList<Product>();
     protected Pagination pagination = new Pagination();
+    
+    protected CommonTypes commonTypes = CommonTypes.getInstance();
+    
+    @Override
+    public void prepare() throws Exception {
+        super.prepare();
+        product.setPerson(new Person());
+    }
 
     public String productList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -113,6 +127,12 @@ public class ProductBackAction extends Action {
         }
         return SUCCESS;
     }
+    
+    public String productDelete() throws Exception {
+        Product entity = getProductService().findById(getProduct().getId());
+        productService.delete(entity);
+        return SUCCESS;
+    }
 
     public ProductService getProductService() {
         return productService;
@@ -145,4 +165,10 @@ public class ProductBackAction extends Action {
     public void setPagination(Pagination pagination) {
         this.pagination = pagination;
     }
+
+    public CommonTypes getCommonTypes() {
+        return commonTypes;
+    }
+
+
 }

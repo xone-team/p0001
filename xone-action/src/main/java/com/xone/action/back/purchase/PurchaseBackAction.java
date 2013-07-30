@@ -10,7 +10,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
+import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Purchase;
+import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.PurchaseService;
@@ -20,13 +22,25 @@ import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class PurchaseBackAction extends Action {
 	
-	@Autowired
+	/**
+     * 
+     */
+    private static final long serialVersionUID = 5760763917137319953L;
+    @Autowired
 	protected PurchaseService purchaseService;
 	protected Purchase purchase = new Purchase();
 	protected List<Purchase> list = new ArrayList<Purchase>();
 	protected Pagination pagination = new Pagination();
 	
-	public String purchaseList() throws Exception {
+	protected CommonTypes commonTypes = CommonTypes.getInstance();
+	
+	@Override
+    public void prepare() throws Exception {
+	    purchase.setPerson(new Person());
+	    super.prepare();
+    }
+
+    public String purchaseList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
 		MyBeanUtils.copyPropertiesToMap(getPurchase(), params, new CopyRules() {
 			@Override
@@ -119,6 +133,12 @@ public class PurchaseBackAction extends Action {
 		}
 		return SUCCESS;
 	}
+	
+    public String purchaseDelete() throws Exception {
+        Purchase entity = getPurchaseService().findById(getPurchase().getId());
+        purchaseService.delete(entity);
+        return SUCCESS;
+    }
 
 	public PurchaseService getPurchaseService() {
 		return purchaseService;
@@ -151,4 +171,10 @@ public class PurchaseBackAction extends Action {
 	public void setPagination(Pagination pagination) {
 		this.pagination = pagination;
 	}
+
+    public CommonTypes getCommonTypes() {
+        return commonTypes;
+    }
+
+
 }

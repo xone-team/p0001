@@ -91,7 +91,7 @@
 					<div class="control-group">
 						<label class="control-label" for="flagPass">审核状态</label>
 						<div class="controls">
-							<select id="flagPass" name="delivery.flagPass" maxlength="1" placeholder="通过标识">
+							<select id="flagPass" name="delivery.flagPass">
 								<option value="0">处理中</option>
 								<option value="1">已交易</option>
 								<option value="2">已取消</option>

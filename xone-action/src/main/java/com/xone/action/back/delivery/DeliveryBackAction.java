@@ -112,6 +112,12 @@ public class DeliveryBackAction extends Action {
 		}
 		return SUCCESS;
 	}
+	
+    public String deliveryDelete() throws Exception {
+        Delivery entity = getDeliveryService().findById(getDelivery().getId());
+        deliveryService.delete(entity);
+        return SUCCESS;
+    }
 
 	public DeliveryService getDeliveryService() {
 		return deliveryService;

@@ -105,6 +105,12 @@ public class CategoryBackAction extends Action {
 		}
 		return SUCCESS;
 	}
+	
+    public String categoryDelete() throws Exception {
+        Category entity = getCategoryService().findById(getCategory().getId());
+        categoryService.delete(entity);
+        return SUCCESS;
+    }
 
 	public CategoryService getCategoryService() {
 		return categoryService;

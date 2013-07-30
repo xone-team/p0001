@@ -92,17 +92,17 @@
                                 <th>角色备注</th>
                                 <th>创建时间</th>
                                 <th>更新时间</th>
-                                <th>操作</th>
+                                <th style="width: 8em;">操作</th>
                             <tr>
                         </thead>
                         <tbody>
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
-                                    <td>${status.index + 1}</td>
+                                    <td class="table-col-index">${status.index + 1}</td>
                                     <td><a href="${pageContext.request.contextPath}/roles/rolesItem.html?roles.id=${item.id}">${item.name} </a></td>
                                     <td>${item.remark}</td>
-                                    <td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" /></td>
-                                    <td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd" /></td>
                                     <td><a href="${pageContext.request.contextPath}/roles/rolesEdit.html?roles.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
                                         <button class="btn btn-mini" onclick="showModalDelete('roles.id=${item.id}')">
                                             <i class="icon-trash"> </i>删除
