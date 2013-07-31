@@ -17,7 +17,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">categoryItem</param>
                 <param name="namespace">/category</param>
-                <param name="categoryId">${category.id}</param>
+                <param name="category.id">${category.id}</param>
             </result>
         </action>
         <action name="categoryEdit" class="categoryBackAction" method="categoryEdit">
@@ -27,7 +27,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">categoryItem</param>
                 <param name="namespace">/category</param>
-                <param name="categoryId">${category.id}</param>
+                <param name="category.id">${category.id}</param>
             </result>
             <result name="list" type="chain">
                 <param name="actionName">categoryList</param>

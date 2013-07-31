@@ -17,7 +17,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">rolesItem</param>
                 <param name="namespace">/roles</param>
-                <param name="rolesId">${roles.id}</param>
+                <param name="roles.id">${roles.id}</param>
             </result>
         </action>
         <action name="rolesEdit" class="rolesBackAction" method="rolesEdit">
@@ -27,7 +27,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">rolesItem</param>
                 <param name="namespace">/roles</param>
-                <param name="rolesId">${roles.id}</param>
+                <param name="roles.id">${roles.id}</param>
             </result>
             <result name="list" type="chain">
                 <param name="actionName">rolesList</param>

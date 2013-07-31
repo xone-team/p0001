@@ -17,7 +17,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">subscribeItem</param>
                 <param name="namespace">/subscribe</param>
-                <param name="subscribeId">${subscribe.id}</param>
+                <param name="subscribe.id">${subscribe.id}</param>
             </result>
         </action>
         <action name="subscribeEdit" class="subscribeBackAction" method="subscribeEdit">
@@ -27,7 +27,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">subscribeItem</param>
                 <param name="namespace">/subscribe</param>
-                <param name="subscribeId">${subscribe.id}</param>
+                <param name="subscribe.id">${subscribe.id}</param>
             </result>
             <result name="list" type="chain">
                 <param name="actionName">subscribeList</param>

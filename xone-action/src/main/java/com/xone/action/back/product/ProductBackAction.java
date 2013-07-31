@@ -1,5 +1,6 @@
 package com.xone.action.back.product;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,7 +10,8 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.xone.action.base.Action;
+import com.xone.action.base.LogicAction;
+import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.CommonTypes;
@@ -20,7 +22,7 @@ import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
-public class ProductBackAction extends Action {
+public class ProductBackAction extends LogicAction {
 
     /**
      * 
@@ -33,6 +35,13 @@ public class ProductBackAction extends Action {
     protected Pagination pagination = new Pagination();
     
     protected CommonTypes commonTypes = CommonTypes.getInstance();
+    
+    protected File uploadFile; // 得到上传的文件,此属性对应于表单中文件字段的名称  
+    //下面的这两个属性的命名必须遵守上定的规则，即为"表单中文件字段的名称" + "相应的后缀"  
+    protected String uploadFileContentType; // 得到上传的文件的数据类型,  
+    protected String uploadFileFileName; // 得到上传的文件的名称 
+    
+    protected String imageUploadPath;
     
     @Override
     public void prepare() throws Exception {
@@ -95,11 +104,25 @@ public class ProductBackAction extends Action {
     }
 
     public String productSave() throws Exception {
-        setProduct(getProductService().save(getProduct()));
+        ImageUploaded imageUploaded = createUploadImageByFile(imageUploadPath,
+                ImageUploaded.RefType.PRODUCT, getUploadFile(),
+                getUploadFileContentType(), getUploadFileFileName());
+        
+        
+        List<ImageUploaded> images = new ArrayList<ImageUploaded>();
+        images.add(imageUploaded);
+        setProduct(getProductService().save(getProduct(), images));
         return SUCCESS;
     }
 
     public String productUpdate() throws Exception {
+        ImageUploaded imageUploaded = createUploadImageByFile(imageUploadPath,
+                ImageUploaded.RefType.PRODUCT, getUploadFile(),
+                getUploadFileContentType(), getUploadFileFileName());
+        List<ImageUploaded> images = new ArrayList<ImageUploaded>();
+        images.add(imageUploaded);
+
+        
         if (!"POST".equalsIgnoreCase(getRequest().getMethod())) {
             return ERROR;
         }
@@ -123,7 +146,7 @@ public class ProductBackAction extends Action {
                     return (null != value);
                 }
             });
-            setProduct(getProductService().update(entity));
+            setProduct(getProductService().update(entity, images, product.getIds()));
         }
         return SUCCESS;
     }
@@ -168,6 +191,38 @@ public class ProductBackAction extends Action {
 
     public CommonTypes getCommonTypes() {
         return commonTypes;
+    }
+
+    public File getUploadFile() {
+        return uploadFile;
+    }
+
+    public void setUploadFile(File uploadFile) {
+        this.uploadFile = uploadFile;
+    }
+
+    public String getUploadFileContentType() {
+        return uploadFileContentType;
+    }
+
+    public void setUploadFileContentType(String uploadFileContentType) {
+        this.uploadFileContentType = uploadFileContentType;
+    }
+
+    public String getUploadFileFileName() {
+        return uploadFileFileName;
+    }
+
+    public void setUploadFileFileName(String uploadFileFileName) {
+        this.uploadFileFileName = uploadFileFileName;
+    }
+
+    public String getImageUploadPath() {
+        return imageUploadPath;
+    }
+
+    public void setImageUploadPath(String imageUploadPath) {
+        this.imageUploadPath = imageUploadPath;
     }
 
 

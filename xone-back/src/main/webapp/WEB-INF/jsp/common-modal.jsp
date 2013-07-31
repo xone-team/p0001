@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="myidentify" value="${param.myidentify}"/>
-<div id="windowTitleDialog${myidentify}" class="modal hide fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div id="windowTitleDialog${myidentify}" class="modal hide fade" tabindex="-1">
 	<div class="modal-header">
 		<a href="#" class="close" data-dismiss="modal">&times;</a>
 		<div>${param.title}</div>

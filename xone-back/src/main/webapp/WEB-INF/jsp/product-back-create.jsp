@@ -27,7 +27,7 @@
                         <li class="active">创建产品</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/product/productSave.html">
+                <form class="form-horizontal" enctype="multipart/form-data" id="productSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productSave.html">
                     <div class="control-group">
                         <label class="control-label" for="productName">产品名称</label>
                         <div class="controls">
@@ -90,20 +90,39 @@
                             <input type="text" id="productDesc" name="product.productDesc" maxlength="255" placeholder="产品描述">
                         </div>
                     </div>
+                    <div class="control-group fileupload" style="display: none;">
+                        <input type="file" id="uploadImageFile" name="uploadFile" value="">
+                    </div>
                     <div class="control-group">
                         <div class="controls">
                             <button type="submit" class="btn">提交创建</button>
+                            <button type="button" class="btn" onclick="$('#uploadImageFile').click();">上传图片</button>
                         </div>
                     </div>
+                    <div class="control-group uploadimagesdiv" style="margin-bottom: 0px;"></div>
                 </form>
             </div>
         </div>
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
 </body>
+<script src="${STATIC_ROOT}/js/fileupload.js"></script>
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_product").addClass("active");
+        $('#uploadImageFile[type="file"]').fileupload({
+            onload : function(it, e) {
+                var div = document.createElement('div');
+                var result = it.data('base64source');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
+                $('div.uploadimagesdiv').html('').append(div);
+            }
+        });
     });
+    function removeProductDynamicImage() {
+        $('div.uploadimagesdiv').html('');
+        $('#uploadImageFile').val('');
+        return false;
+    }
 </script>
 </html>
