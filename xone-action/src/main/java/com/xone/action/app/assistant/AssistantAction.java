@@ -1,9 +1,18 @@
 package com.xone.action.app.assistant;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
+import com.xone.model.hibernate.entity.Subscribe;
+import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.ImageUploadedService;
+import com.xone.service.app.SubscribeService;
 
 public class AssistantAction extends LogicAction {
 	
@@ -12,6 +21,10 @@ public class AssistantAction extends LogicAction {
 	@Autowired
 	protected ImageUploadedService imageUploadedService;
 	
+	@Autowired
+	protected SubscribeService subscribeService;
+	
+	protected List<Subscribe> list = new ArrayList<Subscribe>();
 	protected String imageUploadPath;
 	
 	protected String redirect;
@@ -22,6 +35,17 @@ public class AssistantAction extends LogicAction {
 			setRedirect("assistant/index.html");
 			return "redirect";
 		}
+		return SUCCESS;
+	}
+	
+	public String subscribe() {
+		Map<String, String> params = new HashMap<String, String>();
+		List<Subscribe> l = getSubscribeService().findAllByMap(params);
+		if (null != l && !l.isEmpty()) {
+			getList().addAll(l);
+		}
+		//需要把这个值更新到数据库中去
+		getMapValue().put("lastSubscribeUpdated", MyDateUtils.format(new Date()));
 		return SUCCESS;
 	}
 	
@@ -53,12 +77,28 @@ public class AssistantAction extends LogicAction {
 		this.redirect = redirect;
 	}
 
+	public List<Subscribe> getList() {
+		return list;
+	}
+
+	public void setList(List<Subscribe> list) {
+		this.list = list;
+	}
+
 	public ImageUploadedService getImageUploadedService() {
 		return imageUploadedService;
 	}
 
 	public void setImageUploadedService(ImageUploadedService imageUploadedService) {
 		this.imageUploadedService = imageUploadedService;
+	}
+
+	public SubscribeService getSubscribeService() {
+		return subscribeService;
+	}
+
+	public void setSubscribeService(SubscribeService subscribeService) {
+		this.subscribeService = subscribeService;
 	}
 	
 }
