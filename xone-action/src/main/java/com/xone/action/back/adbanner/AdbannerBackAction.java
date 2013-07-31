@@ -22,7 +22,11 @@ import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class AdbannerBackAction extends LogicAction {
 	
-	@Autowired
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -7661392246629533090L;
+    @Autowired
 	protected AdbannerService adbannerService;
 	protected Adbanner adbanner = new Adbanner();
 	protected List<Adbanner> list = new ArrayList<Adbanner>();
@@ -125,6 +129,12 @@ public class AdbannerBackAction extends LogicAction {
 		}
 		return SUCCESS;
 	}
+	
+    public String adbannerDelete() throws Exception {
+        Adbanner entity = getAdbannerService().findById(getAdbanner().getId());
+        adbannerService.delete(entity);
+        return SUCCESS;
+    }
 
 	public AdbannerService getAdbannerService() {
 		return adbannerService;

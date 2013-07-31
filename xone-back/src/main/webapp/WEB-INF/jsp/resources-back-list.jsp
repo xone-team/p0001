@@ -82,16 +82,6 @@
                                     <div class="row-fluid">
                                         <div class="span5 form-horizontal">
                                             <div class="control-group">
-                                                <label class="control-label" for="userCreatedMin">创建人</label>
-                                                <div class="controls">
-                                                    <input type="text" id="userCreatedMin" class="span5" name="resources.userCreatedMin" value="${resources.userCreatedMin}" maxlength="20" placeholder="最小值"> <span class="add-on">~</span> <input type="text" id="userCreatedMax" class="span5" name="resources.userCreatedMax" value="${resources.userCreatedMax}" maxlength="20" placeholder="最大值">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <div class="span5 form-horizontal">
-                                            <div class="control-group">
                                                 <label class="control-label" for="dateCreatedMin">创建时间</label>
                                                 <div class="controls">
                                                     <input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="resources.dateCreatedMin" value="${resources.dateCreatedMin}" maxlength="19" placeholder="最小日期"> <span class="add-on">~</span> <input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="resources.dateCreatedMax" value="${resources.dateCreatedMax}" maxlength="19" placeholder="最大日期">
@@ -124,19 +114,19 @@
                                 <th>资源地址</th>
                                 <th>备注</th>
                                 <th>创建时间</th>
-                                <th>操作</th>
+                                <th style="width: 8em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
-                                    <td>${status.index + 1}</td>
+                                    <td class="table-col-index">${status.index + 1}</td>
                                     <td><a href="${pageContext.request.contextPath}/resources/resourcesItem.html?resources.id=${item.id}">${item.name} </a></td>
                                     <td>${item.resourceType}</td>
-                                    <td>${item.priority}</td>
+                                    <td class="table-col-number">${item.priority}</td>
                                     <td>${item.resourceUrl}</td>
                                     <td>${item.remark}</td>
-                                    <td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" /></td>
                                     <td><a href="${pageContext.request.contextPath}/resources/resourcesEdit.html?resources.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
                                         <button class="btn btn-mini" onclick="showModalDelete('resources.id=${item.id}')">
                                             <i class="icon-trash"> </i>删除

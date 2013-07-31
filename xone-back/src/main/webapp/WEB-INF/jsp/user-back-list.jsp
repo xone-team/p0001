@@ -139,7 +139,12 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="userLevel">用户级别</label>
                                                 <div class="controls">
-                                                    <input type="text" id="userLevel" name="person.userLevel" value="${person.userLevel}" maxlength="2" placeholder="用户级别">
+                                                    <select class="selectpicker" id="userLevel" name="person.userLevel">
+                                                        <option value="">全部</option>
+                                                        <c:forEach items="${commonTypes.userLevelList}" var="it">
+                                                            <option value="${it.value}" <c:if test="${it.value == person.userLevel}">selected</c:if>>${it.name}</option>
+                                                        </c:forEach>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -173,19 +178,19 @@
                                 <th>联系地址</th>
                                 <th>认证标识</th>
                                 <th>用户级别</th>
-                                <th>操作</th>
+                                <th style="width: 8em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
-                                    <td>${status.index + 1}</td>
+                                    <td class="table-col-index">${status.index + 1}</td>
                                     <td><a href="${pageContext.request.contextPath}/person/personItem.html?person.id=${item.id}">${item.username} </a></td>
-                                    <td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" /></td>
                                     <td>${item.nickName}</td>
-                                    <td>${item.cellphone}</td>
+                                    <td class="table-col-number">${item.cellphone}</td>
                                     <td>${item.contactor}</td>
-                                    <td>${item.qq}</td>
+                                    <td class="table-col-number">${item.qq}</td>
                                     <td>${item.email}</td>
                                     <td>${item.address}</td>
                                     <td><c:forEach items="${commonTypes.ynList}" var="it">
@@ -208,8 +213,8 @@
         </div>
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
-    
-    
+
+
     <!-- modal to select role -->
     <div id="X_model_rolesSelect" class="modal hide fade">
         <div class="modal-header">

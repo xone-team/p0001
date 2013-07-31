@@ -76,7 +76,7 @@ public class RolesResourcesServiceImpl implements RolesResourcesService {
     public List<Roles> findRolesByRes(Map<String, Object> params) {
         List<Roles> result = null;
         try {
-            result = sqlMapClient.queryForList("roleRel.roleRelRes", params);
+            result = sqlMapClient.queryForList("back.roleRelRes", params);
         } catch (SQLException e) {
             log.error(e.getMessage(), e);
         }

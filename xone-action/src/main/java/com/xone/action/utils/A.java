@@ -164,7 +164,6 @@ public class A {
     	
 //        String result = A.getStringSafelyFromApplication("app.path");
 //        if (StringUtils.isBlank(result)) {
-//            // TODO require tests
 //            result = getClassPath() + "../../";
 //        }
         return result;

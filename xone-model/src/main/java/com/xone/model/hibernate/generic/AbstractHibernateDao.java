@@ -16,6 +16,7 @@ import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
@@ -42,6 +43,8 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import com.ibatis.sqlmap.client.SqlMapClient;
+import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.support.Pagination;
 
 @SuppressWarnings("unchecked")
@@ -50,6 +53,8 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	protected Class<T> entityClass;
 	protected SqlMapClientTemplate sqlMapTemplate;
+	
+	protected SqlMapClient sqlMapClient;
 	
 	public AbstractHibernateDao() {
 	}
@@ -554,6 +559,35 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 				totalCount, items);
 		return ps;
 	}
+	
+	/**
+	 * 查询分页对象
+	 * @param criterion
+	 * 			游离态的动态查询对象
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public Pagination findBySqlMap(String sqlMapName, Map<String, String> params,
+	        int pageSize, int pageNo) {
+        List items = null;
+        int totalCount = 0;
+        params.put("limitStart", (pageNo - 1) * pageSize + "");
+        params.put("limitNum", pageSize + "");
+        try {
+            items = sqlMapClient.queryForList(sqlMapName, params);
+            totalCount = (Integer) sqlMapClient.queryForObject(sqlMapName + "TotalCount", params);
+        } catch (SQLException e) {
+            logger.error(e.getMessage(), e);
+        }
+        
+        if(items == null){
+            items = new ArrayList();
+        }
+        
+	    Pagination ps = new Pagination(pageNo / pageSize + 1, pageSize,
+	            totalCount, items);
+	    return ps;
+	}
 
 	/**
 	 * 根据传入sql和主键id批量操作
@@ -834,5 +868,19 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 			query.setParameterList("id", ids);
 		return query.executeUpdate();
 	}
+
+
+
+
+    public SqlMapClient getSqlMapClient() {
+        return sqlMapClient;
+    }
+
+
+
+
+    public void setSqlMapClient(SqlMapClient sqlMapClient) {
+        this.sqlMapClient = sqlMapClient;
+    }
 
 }

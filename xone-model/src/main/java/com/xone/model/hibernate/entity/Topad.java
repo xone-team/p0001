@@ -3,6 +3,10 @@ package com.xone.model.hibernate.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author mac
+ *
+ */
 public class Topad implements Serializable {
 
     private static final long serialVersionUID = 1437103503888442067L;
@@ -19,6 +23,13 @@ public class Topad implements Serializable {
 	protected Date dateCreated;
 	protected Long userUpdated;
 	protected Date lastUpdated;
+	
+	
+	/**
+	 * query conditions
+	 */
+	protected String applyUsername;
+	protected String productName;
 
 // business logic
 	protected Long idMin;
@@ -251,6 +262,18 @@ public class Topad implements Serializable {
     }
     public void setLastUpdatedMax(String lastUpdatedMax) {
         this.lastUpdatedMax = lastUpdatedMax;
+    }
+    public String getApplyUsername() {
+        return applyUsername;
+    }
+    public void setApplyUsername(String applyUsername) {
+        this.applyUsername = applyUsername;
+    }
+    public String getProductName() {
+        return productName;
+    }
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 	
 }

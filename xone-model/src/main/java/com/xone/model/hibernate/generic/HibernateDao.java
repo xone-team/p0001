@@ -268,6 +268,14 @@ public interface HibernateDao <T extends Serializable> {
 	 */
 	public Pagination findByDetachedCriteria(DetachedCriteria detachCriteria,
 			int pageSize, int startIndex);
+	/**
+	 * 查询分页对象
+	 * @param criterion
+	 * 			游离态的动态查询对象
+	 * @return
+	 */
+	public Pagination findBySqlMap(String sqlMapName, Map<String, String> params,
+	        int pageSize, int startIndex);
 
 	/**
 	 * 根据传入sql和主键id批量操作

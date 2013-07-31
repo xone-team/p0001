@@ -3,31 +3,46 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="imageuploaded" namespace="/imageuploaded" extends="default">
-	    <global-results>
-            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+    <package name="imageuploaded" namespace="/imageuploaded" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
         </global-results>
-		<action name="imageUploadedList" class="imageUploadedBackAction" method="imageUploadedList">
-			<result name="success">/WEB-INF/jsp/image-uploaded-back-list.jsp</result>
-		</action>
-		<action name="imageUploadedCreate" class="imageUploadedBackAction" method="imageUploadedCreate">
-			<result name="success">/WEB-INF/jsp/image-uploaded-back-create.jsp</result>
-		</action>
-		<action name="imageUploadedSave" class="imageUploadedBackAction" method="imageUploadedSave">
-			<result name="success">/WEB-INF/jsp/image-uploaded-back-item.jsp</result>
-		</action>
-		<action name="imageUploadedEdit" class="imageUploadedBackAction" method="imageUploadedEdit">
-			<result name="success">/WEB-INF/jsp/image-uploaded-back-edit.jsp</result>
-		</action>
-		<action name="imageUploadedUpdate" class="imageUploadedBackAction" method="imageUploadedUpdate">
-			<result name="success">/WEB-INF/jsp/image-uploaded-back-item.jsp</result>
-			<result name="list" type="chain">
-			    <param name="actionName">imageUploadedList</param> 
-    			<param name="namespace">/imageuploaded</param>
-			</result>
-		</action>
-		<action name="imageUploadedItem" class="imageUploadedBackAction" method="imageUploadedItem">
-			<result name="success">/WEB-INF/jsp/image-uploaded-back-item.jsp</result>
-		</action>
-	</package>
+        <action name="imageUploadedList" class="imageUploadedBackAction" method="imageUploadedList">
+            <result name="success">/WEB-INF/jsp/image-uploaded-back-list.jsp</result>
+        </action>
+        <action name="imageUploadedCreate" class="imageUploadedBackAction" method="imageUploadedCreate">
+            <result name="success">/WEB-INF/jsp/image-uploaded-back-create.jsp</result>
+        </action>
+        <action name="imageUploadedSave" class="imageUploadedBackAction" method="imageUploadedSave">
+            <result name="success" type="redirectAction">
+                <param name="actionName">imageUploadedItem</param>
+                <param name="namespace">/imageUploaded</param>
+                <param name="imageUploadedId">${imageUploaded.id}</param>
+            </result>
+        </action>
+        <action name="imageUploadedEdit" class="imageUploadedBackAction" method="imageUploadedEdit">
+            <result name="success">/WEB-INF/jsp/image-uploaded-back-edit.jsp</result>
+        </action>
+        <action name="imageUploadedUpdate" class="imageUploadedBackAction" method="imageUploadedUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">imageUploadedItem</param>
+                <param name="namespace">/imageUploaded</param>
+                <param name="imageUploadedId">${imageUploaded.id}</param>
+            </result>
+            <result name="list" type="chain">
+                <param name="actionName">imageUploadedList</param>
+                <param name="namespace">/imageuploaded</param>
+            </result>
+        </action>
+        <action name="imageUploadedItem" class="imageUploadedBackAction" method="imageUploadedItem">
+            <result name="success">/WEB-INF/jsp/image-uploaded-back-item.jsp</result>
+        </action>
+        <action name="imageUploadedDelete" class="imageUploadedBackAction" method="imageUploadedDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">imageUploadedList</param>
+                <param name="namespace">/imageUploaded</param>
+            </result>
+        </action>
+
+    </package>
 </struts>
