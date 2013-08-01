@@ -26,6 +26,9 @@
 			<result name="success" type="json">
 				<param name="ignoreHierarchy">false</param>
 			</result>
+            <result name="Exception">
+                /WEB-INF/jsp/exception.jsp
+            </result>
 		</global-results>
 		<global-exception-mappings>
 			<exception-mapping exception="org.apache.struts2.json.JSONException" result="JSONException"></exception-mapping>
@@ -46,6 +49,11 @@
             <result name="index">/index.jsp</result>
         </global-results>
         <action name="image" class="genericPageBackAction" method="image"></action>
+    </package>
+    <package name="console" namespace="/console" extends="default">
+        <action name="index" class="indexBackAction" method="index">
+            <result name="success">/WEB-INF/jsp/index-back.jsp</result>
+        </action>
     </package>
 	<include file="struts/struts-person-back.xml" />
     <include file="struts/struts-config-back.xml" />

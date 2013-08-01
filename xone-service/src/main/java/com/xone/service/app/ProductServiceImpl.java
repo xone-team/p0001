@@ -2,6 +2,7 @@ package com.xone.service.app;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,9 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.ImageUploadedDao;
 import com.xone.model.hibernate.app.PersonDao;
+import com.xone.model.hibernate.app.ProdCheckDao;
 import com.xone.model.hibernate.app.ProductDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.ProdCheck;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
 
@@ -32,6 +35,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     protected ImageUploadedDao imageUploadedDao;
 
+    @Autowired
+    protected ProdCheckDao prodCheckDao;
+    
     @Autowired
     protected PersonDao personDao;
 
@@ -55,6 +61,9 @@ public class ProductServiceImpl implements ProductService {
         if (null != product) {
             List<Long> ids = getImageUploadedDao().findAllIdsByRefId(product.getId(), ImageUploaded.RefType.PRODUCT);
             product.setIds(ids);
+            
+            List<ProdCheck> checks = getProdCheckDao().findByProductId(product.getId());
+            product.setCheckList(checks);
         }
         return product;
     }
@@ -99,7 +108,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     public Product update(Product entity, List<ImageUploaded> imageUploadeds, List<Long> imageIds) {
-        entity = getProductDao().update(entity);
         for (ImageUploaded imageUploaded : imageUploadeds) {
             imageUploaded.setRefId(entity.getId());
             imageUploaded.setRefType(ImageUploaded.RefType.PRODUCT.getValue());
@@ -122,6 +130,22 @@ public class ProductServiceImpl implements ProductService {
             ids.add(imageUploaded.getId());
         }
         entity.setIds(ids);
+        
+        // 审核信息处理
+        Long userCheck = new Long(0);
+        Date dateCheck = new Date();
+        
+        ProdCheck check = entity.getCheck();
+        check.setProductId(entity.getId());
+        check.setUserApply(userCheck);
+        check.setDateCheck(dateCheck);
+        prodCheckDao.save(check);
+        
+        entity.setUserCheck(userCheck);
+        entity.setDateCheck(dateCheck);
+        entity.setCheckStatus(check.getCheckStatus());
+        entity = getProductDao().update(entity);
+        
         return entity;
     }
 
@@ -424,6 +448,14 @@ public class ProductServiceImpl implements ProductService {
 
     public void setProductDao(ProductDao productDao) {
         this.productDao = productDao;
+    }
+
+    public ProdCheckDao getProdCheckDao() {
+        return prodCheckDao;
+    }
+
+    public void setProdCheckDao(ProdCheckDao prodCheckDao) {
+        this.prodCheckDao = prodCheckDao;
     }
 
 }

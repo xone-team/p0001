@@ -72,6 +72,16 @@
                             <td style="width: 60px;">申请时间</td>
                             <td><fmt:formatDate value="${purchase.dateApply}" pattern="yyyy-MM-dd" /></td>
                         </tr>
+                        <tr>
+                            <td style="width: 60px;">审核结果</td>
+                            <td><c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
+                                    <c:if test="${it.value == purchase.checkStatus}">${ it.name }</c:if>
+                                </c:forEach></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 60px;">审核意见</td>
+                            <td>${purchase.remark}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

@@ -24,4 +24,5 @@
  <bean id="resourcesService" class="com.xone.service.app.ResourcesServiceImpl" />
  <bean id="rolesService" class="com.xone.service.app.RolesServiceImpl" />
  <bean id="rolesResourcesService" class="com.xone.service.app.RolesResourcesServiceImpl" />
+ <bean id="prodCheckService" class="com.xone.service.app.ProdCheckServiceImpl" />
 </beans>

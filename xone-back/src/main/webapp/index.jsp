@@ -1,1 +1,1 @@
-<% response.sendRedirect(request.getContextPath() + "/adbanner/adbannerList.html"); %>
+<% response.sendRedirect(request.getContextPath() + "/console/index.html"); %>

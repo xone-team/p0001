@@ -16,6 +16,9 @@
 	<property name="checkStatus" type="java.lang.String">
 		<column name="CHECK_STATUS" length="1"/>
 	</property>
+	<property name="remark" type="java.lang.String">
+		<column name="REMARK" length="1023"/>
+	</property>
 	<property name="purchaseNum" type="java.lang.String">
 		<column name="PURCHASE_NUM" length="255"/>
 	</property>

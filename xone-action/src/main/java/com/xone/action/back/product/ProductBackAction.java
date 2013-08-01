@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.ProdCheck;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
@@ -36,10 +37,17 @@ public class ProductBackAction extends LogicAction {
     
     protected CommonTypes commonTypes = CommonTypes.getInstance();
     
-    protected File uploadFile; // 得到上传的文件,此属性对应于表单中文件字段的名称  
-    //下面的这两个属性的命名必须遵守上定的规则，即为"表单中文件字段的名称" + "相应的后缀"  
-    protected String uploadFileContentType; // 得到上传的文件的数据类型,  
-    protected String uploadFileFileName; // 得到上传的文件的名称 
+    protected File uploadFile1;
+    protected String uploadFile1ContentType;
+    protected String uploadFile1FileName;
+    
+    protected File uploadFile2;
+    protected String uploadFile2ContentType;
+    protected String uploadFile2FileName;
+    
+    protected File uploadFile3;
+    protected String uploadFile3ContentType;
+    protected String uploadFile3FileName;
     
     protected String imageUploadPath;
     
@@ -47,6 +55,7 @@ public class ProductBackAction extends LogicAction {
     public void prepare() throws Exception {
         super.prepare();
         product.setPerson(new Person());
+        product.setCheck(new ProdCheck());
     }
 
     public String productList() throws Exception {
@@ -104,25 +113,35 @@ public class ProductBackAction extends LogicAction {
     }
 
     public String productSave() throws Exception {
-        ImageUploaded imageUploaded = createUploadImageByFile(imageUploadPath,
-                ImageUploaded.RefType.PRODUCT, getUploadFile(),
-                getUploadFileContentType(), getUploadFileFileName());
-        
-        
-        List<ImageUploaded> images = new ArrayList<ImageUploaded>();
-        images.add(imageUploaded);
-        setProduct(getProductService().save(getProduct(), images));
+        setProduct(getProductService().save(getProduct(), getImageList()));
         return SUCCESS;
+    }
+    
+    private List<ImageUploaded> getImageList(){
+        List<ImageUploaded> images = new ArrayList<ImageUploaded>();
+        if(uploadFile1 != null){
+            ImageUploaded imageUploaded1 = createUploadImageByFile(imageUploadPath,
+                    ImageUploaded.RefType.PRODUCT, getUploadFile1(),
+                    getUploadFile1ContentType(), getUploadFile1FileName());
+            images.add(imageUploaded1);
+        }
+        if(uploadFile2 != null){
+            ImageUploaded imageUploaded2 = createUploadImageByFile(imageUploadPath,
+                    ImageUploaded.RefType.PRODUCT, getUploadFile2(),
+                    getUploadFile2ContentType(), getUploadFile2FileName());
+            images.add(imageUploaded2);
+        }
+        if(uploadFile3 != null){
+            ImageUploaded imageUploaded3 = createUploadImageByFile(imageUploadPath,
+                    ImageUploaded.RefType.PRODUCT, getUploadFile3(),
+                    getUploadFile3ContentType(), getUploadFile3FileName());
+            images.add(imageUploaded3);
+        }
+        
+        return images;
     }
 
     public String productUpdate() throws Exception {
-        ImageUploaded imageUploaded = createUploadImageByFile(imageUploadPath,
-                ImageUploaded.RefType.PRODUCT, getUploadFile(),
-                getUploadFileContentType(), getUploadFileFileName());
-        List<ImageUploaded> images = new ArrayList<ImageUploaded>();
-        images.add(imageUploaded);
-
-        
         if (!"POST".equalsIgnoreCase(getRequest().getMethod())) {
             return ERROR;
         }
@@ -146,7 +165,7 @@ public class ProductBackAction extends LogicAction {
                     return (null != value);
                 }
             });
-            setProduct(getProductService().update(entity, images, product.getIds()));
+            setProduct(getProductService().update(entity, getImageList(), product.getIds()));
         }
         return SUCCESS;
     }
@@ -193,28 +212,77 @@ public class ProductBackAction extends LogicAction {
         return commonTypes;
     }
 
-    public File getUploadFile() {
-        return uploadFile;
+
+    public File getUploadFile1() {
+        return uploadFile1;
     }
 
-    public void setUploadFile(File uploadFile) {
-        this.uploadFile = uploadFile;
+    public void setUploadFile1(File uploadFile1) {
+        this.uploadFile1 = uploadFile1;
     }
 
-    public String getUploadFileContentType() {
-        return uploadFileContentType;
+    public String getUploadFile1ContentType() {
+        return uploadFile1ContentType;
     }
 
-    public void setUploadFileContentType(String uploadFileContentType) {
-        this.uploadFileContentType = uploadFileContentType;
+    public void setUploadFile1ContentType(String uploadFile1ContentType) {
+        this.uploadFile1ContentType = uploadFile1ContentType;
     }
 
-    public String getUploadFileFileName() {
-        return uploadFileFileName;
+    public String getUploadFile1FileName() {
+        return uploadFile1FileName;
     }
 
-    public void setUploadFileFileName(String uploadFileFileName) {
-        this.uploadFileFileName = uploadFileFileName;
+    public void setUploadFile1FileName(String uploadFile1FileName) {
+        this.uploadFile1FileName = uploadFile1FileName;
+    }
+
+    public File getUploadFile2() {
+        return uploadFile2;
+    }
+
+    public void setUploadFile2(File uploadFile2) {
+        this.uploadFile2 = uploadFile2;
+    }
+
+    public String getUploadFile2ContentType() {
+        return uploadFile2ContentType;
+    }
+
+    public void setUploadFile2ContentType(String uploadFile2ContentType) {
+        this.uploadFile2ContentType = uploadFile2ContentType;
+    }
+
+    public String getUploadFile2FileName() {
+        return uploadFile2FileName;
+    }
+
+    public void setUploadFile2FileName(String uploadFile2FileName) {
+        this.uploadFile2FileName = uploadFile2FileName;
+    }
+
+    public File getUploadFile3() {
+        return uploadFile3;
+    }
+
+    public void setUploadFile3(File uploadFile3) {
+        this.uploadFile3 = uploadFile3;
+    }
+
+    public String getUploadFile3ContentType() {
+        return uploadFile3ContentType;
+    }
+
+    public void setUploadFile3ContentType(String uploadFile3ContentType) {
+        this.uploadFile3ContentType = uploadFile3ContentType;
+    }
+
+    public String getUploadFile3FileName() {
+        return uploadFile3FileName;
+    }
+
+    public void setUploadFile3FileName(String uploadFile3FileName) {
+        this.uploadFile3FileName = uploadFile3FileName;
     }
 
     public String getImageUploadPath() {

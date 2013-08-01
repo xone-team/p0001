@@ -40,6 +40,7 @@ public class Purchase implements Serializable {
 	protected String purchaseName;
 	protected String purchaseType;
 	protected String checkStatus;
+	protected String remark;
 	protected String purchaseNum;
 	protected Date purchaseValid;
 	protected String purchaseAddress;
@@ -349,6 +350,12 @@ public class Purchase implements Serializable {
     }
     public void setLastUpdatedMax(String lastUpdatedMax) {
         this.lastUpdatedMax = lastUpdatedMax;
+    }
+    public String getRemark() {
+        return remark;
+    }
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 	
 	
