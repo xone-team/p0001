@@ -51,8 +51,14 @@
         <action name="image" class="genericPageBackAction" method="image"></action>
     </package>
     <package name="console" namespace="/console" extends="default">
-        <action name="index" class="indexBackAction" method="index">
+        <action name="index" class="indexBackAction" method="dispatch">
             <result name="success">/WEB-INF/jsp/index-back.jsp</result>
+        </action>
+        <action name="login" class="indexBackAction" method="dispatch">
+            <result name="success">/WEB-INF/jsp/index-login.jsp</result>
+        </action>
+        <action name="count" class="indexBackAction" method="count">
+            <result name="success">/WEB-INF/jsp/index-back-count.jsp</result>
         </action>
     </package>
 	<include file="struts/struts-person-back.xml" />

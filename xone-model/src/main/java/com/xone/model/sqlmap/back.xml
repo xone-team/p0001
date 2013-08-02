@@ -108,5 +108,20 @@
         left join t_product p on t.product_id = p.id
         <include refid="topadCondition" />
     </select>
+    <select id="todoProductCount" resultClass="java.lang.Integer">
+        select count(1) n
+        from t_product
+        where check_status = '0'
+    </select>
+    <select id="todoPurchaseCount" resultClass="java.lang.Integer">
+        select count(1) n
+        from t_purchase
+        where check_status = '0'
+    </select>
+    <select id="todoDeliveryCount" resultClass="java.lang.Integer">
+        select count(1) n
+        from t_delivery
+        where flag_pass = '0'
+    </select>
 
 </sqlMap>

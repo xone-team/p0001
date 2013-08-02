@@ -75,6 +75,8 @@ public class ProductBackAction extends LogicAction {
 				return value.toString();
 			}
 		}, null);
+        
+        
         params.put("pageSize", String.valueOf(getPagination().getPageSize()));
         params.put("pageNo", String.valueOf(getPagination().getPageNo()));
         Pagination p = getProductService().findByParams(params);

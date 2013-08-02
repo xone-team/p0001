@@ -9,6 +9,8 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 public class MyAccessDecisionManager implements AccessDecisionManager {
 
@@ -16,6 +18,12 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 	public void decide(Authentication authentication, Object object,
 			Collection<ConfigAttribute> configAttributes)
 			throws AccessDeniedException, InsufficientAuthenticationException {
+	    // 超级管理员
+	    Object ud =  authentication.getDetails();
+	    if(ud != null && ud instanceof UserDetails && "admin".equals(((UserDetails)ud).getUsername())){
+	        return;
+	    }
+	    
 		if (configAttributes == null) {
 			return;
 		}

@@ -42,6 +42,19 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="span5 form-horizontal">
+                                            <div class="control-group">
+                                                <label class="control-label" for="checkStatus">审核状态</label>
+                                                <div class="controls">
+                                                    <select class="selectpicker" id="checkStatus" name="product.checkStatus">
+                                                        <option value="">全部</option>
+                                                        <c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
+                                                            <option value="${it.value}" <c:if test="${it.value == product.checkStatus}">selected</c:if>>${it.name}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row-fluid">
                                         <div class="span5 form-horizontal">

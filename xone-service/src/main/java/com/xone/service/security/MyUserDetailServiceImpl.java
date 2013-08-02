@@ -21,6 +21,7 @@ import com.xone.model.hibernate.entity.Resources;
 import com.xone.model.hibernate.entity.Roles;
 import com.xone.service.app.PersonService;
 import com.xone.service.app.RolesService;
+import com.xone.service.app.utils.EncryptRef;
 
 public class MyUserDetailServiceImpl implements UserDetailsService {
 	
@@ -34,17 +35,28 @@ public class MyUserDetailServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		System.out.println("username is " + username);
+        boolean enables = true;  
+        boolean accountNonExpired = true;  
+        boolean credentialsNonExpired = true;  
+        boolean accountNonLocked = true;
+        Collection<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();//obtionGrantedAuthorities(person);
+		//超级用户
+        if("admin".equals(username)){
+            grantedAuths.add(new SimpleGrantedAuthority("CONSOLE_ADMIN"));
+		    User userdetail = new User("admin", EncryptRef.SHA1(String.valueOf("admin")),
+	                enables, accountNonExpired, credentialsNonExpired,
+	                accountNonLocked, grantedAuths);
+		    return userdetail;
+		}
+        
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("username", username);
 		Person person = getPersonService().findByMap(params);
 		if (null == person.getId()) {
 			throw new UsernameNotFoundException("用户/密码错误,请重新输入!");
 		}
-		Collection<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();//obtionGrantedAuthorities(person);
-		boolean enables = true;  
-        boolean accountNonExpired = true;  
-        boolean credentialsNonExpired = true;  
-        boolean accountNonLocked = true;
+		
+
         List<Roles> roles = getRolesService().findAllByUser(person);
         if (null == roles || roles.isEmpty()) {
 			throw new UsernameNotFoundException("权限不足!");

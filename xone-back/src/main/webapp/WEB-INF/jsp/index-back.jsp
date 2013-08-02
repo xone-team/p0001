@@ -27,13 +27,13 @@
                     </ul>
                 </div>
 
-                <div class="row－fluid">
+                <div class="row－fluid" id="X_count_container">
                     <div class="span4">
                         <div class="thumbnail">
                             <div class="caption">
                                 <h3>新产品发布</h3>
                                 <p>
-                                    有 1 个新产品需要审核，<a href="#">点击进入</a>
+                                    有 ${productCount} 个新产品需要审核，<a href="${pageContext.request.contextPath}/product/productList.html?product.checkStatus=0">点击进入</a>
                                 </p>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                             <div class="caption">
                                 <h3>新求购发布</h3>
                                 <p>
-                                    有 2 个新求购需要审核，<a href="#">点击进入</a>
+                                    有 ${purchaseCount} 个新求购需要审核，<a href="${pageContext.request.contextPath}/purchase/purchaseList.html?purchase.checkStatus=0">点击进入</a>
                                 </p>
                             </div>
                         </div>
@@ -53,7 +53,7 @@
                             <div class="caption">
                                 <h3>新物流发布</h3>
                                 <p>
-                                    有 3 个新物流需要审核，<a href="#">点击进入</a>
+                                    有 ${deliveryCount } 个新物流需要审核，<a href="${pageContext.request.contextPath}/delivery/deliveryList.html?delivery.checkStatus=0">点击进入</a>
                                 </p>
                             </div>
                         </div>
@@ -67,6 +67,12 @@
 </body>
 <script>
     jQuery(function() {
+        $.ajax({
+			url : "${pageContext.request.contextPath}/console/count.html",
+			success : function(text){
+			    $("#X_count_container").html(text);
+			}
+        });
     });
 </script>
 </html>
