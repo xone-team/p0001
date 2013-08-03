@@ -72,6 +72,10 @@ public class ProductAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	public String listSubscribeProduct() {
+		return SUCCESS;
+	}
+	
 	public String listItems() {
 		Map<String, String> map = getRequestMap();
 		Map<String, String> params = new HashMap<String, String>();

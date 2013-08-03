@@ -9,17 +9,17 @@
 		<jsp:include page="commons.jsp"></jsp:include>
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
-	<body>
-	<div data-role="page" data-dom-cache="true">
+	<body><c:set var="myid" value="${identify}" />
+	<div data-role="page" data-dom-cache="true" class="loginmainpage${myid}">
 		<style type="text/css">
 			span.myspanstyle {
 				padding-left:5px;
 			}
 		</style>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<a href="${pageContext.request.contextPath}/login/indexUpdate.html?_=${identify}" data-icon="check">更新</a>
+			<a href="${pageContext.request.contextPath}/login/indexUpdate.html?_=${myid}" data-icon="check">更新</a>
 			<h1>用户中心</h1>
-			<a href="${pageContext.request.contextPath}/login/logout.html?_=${identify}" data-icon="check" class="ui-btn-right">注销</a>
+			<a href="${pageContext.request.contextPath}/login/logout.html?_=${myid}" data-icon="check" class="login-logout${myid} ui-btn-right">注销</a>
 		</div>
 		<div data-role="content">
 		    <div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
@@ -36,32 +36,48 @@
 				    <li data-icon="false"><a href="#">地　址:<span class="myspanstyle">${userMap.address}</span></a></li>
 				    <li data-icon="refresh"><a href="#" onclick="window.main.loadPage('${pageContext.request.contextPath}/login/index.html');">刷新页面</a></li>
 				    <li><a href="#" onclick="window.main.loadIndex();" rel="external" data-icon="home">软件首页</a></li>
+				    <li><a href="#" onclick="window.main.debug('0');" rel="external" data-icon="home">重置订阅</a></li>
 				    <li><a href=”#” onclick=”javascript:navigator.app.exitApp();” data-icon="exit">退出软件</a></li>
 				</ul>
 		    </div>
 		    <div data-role="collapsible" data-theme="b" data-content-theme="d">
 		        <h3>我的售卖发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
-				    <li><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=0&_=${identify}">查看产品发布列表</a></li>
-				    <li><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=1&_=${identify}">查看促销发布列表</a></li>
-				    <li><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=2&_=${identify}">查看组团发布列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=0&_=${myid}">查看产品发布列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=1&_=${myid}">查看促销发布列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=2&_=${myid}">查看组团发布列表</a></li>
 				</ul>
 		    </div>
 		    <div data-role="collapsible" data-theme="b" data-content-theme="d">
 		        <h3>我的购买发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
-				    <li><a href="${pageContext.request.contextPath}/purchase/listAllForUser.html?_=${identify}">查看求购发布列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/purchase/listAllForUser.html?_=${myid}">查看求购发布列表</a></li>
 				</ul>
 		    </div>
 		    <div data-role="collapsible" data-theme="b" data-content-theme="d">
 		        <h3>我的其它服务</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
-				    <li><a href="${pageContext.request.contextPath}/delivery/listIndex.html?_=${identify}">查看物流配送列表</a></li>
-				    <li><a href="${pageContext.request.contextPath}/adbanner/list.html?_=${identify}">查看我的广告列表</a></li>
-				    <li><a href="${pageContext.request.contextPath}/subscribe/list.html?_=${identify}">查看我的订阅列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/delivery/listIndex.html?_=${myid}">查看物流配送列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/adbanner/list.html?_=${myid}">查看我的广告列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/subscribe/list.html?_=${myid}">查看我的订阅列表</a></li>
 <!-- 				    <li><a href="#">查看资金担保列表</a></li> -->
 				</ul>
 		    </div>
+		    <script type="text/javascript">
+		    $('div.loginmainpage${myid}').bind('pageinit', function() {
+		    	try {
+			    	window.main.rockRoll('${userMap.id}');
+		    	} catch (e) {
+		    	}
+		    	$('a.login-logout${myid}').click(function(e) {
+			    	try {
+				    	window.main.rockRoll('');
+			    	} catch (e) {
+			    	}
+			    	return true;
+		    	});
+		    });
+		    </script>
 		</div>
 		<jsp:include page="footer.jsp">
 			<jsp:param value="4" name="offset"/>
