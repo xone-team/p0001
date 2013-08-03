@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
@@ -12,8 +13,10 @@ import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.ProductService;
+import com.xone.service.app.SubscribeService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
+import com.xone.service.app.utils.MyServerUtils;
 
 public class ProductAction extends LogicAction {
 	
@@ -22,6 +25,10 @@ public class ProductAction extends LogicAction {
 	
 	@Autowired
 	protected ProductService productService;
+	
+	@Autowired
+	protected SubscribeService subscribeService;
+	
 	protected Product product = new Product();
 	protected String imageUploadPath;
 	protected List<Product> list = new ArrayList<Product>();
@@ -73,6 +80,10 @@ public class ProductAction extends LogicAction {
 	}
 	
 	public String listSubscribeProduct() {
+		Map<String, String> params = getSubscribeService().updateSubscribeProductInfo(getRequestMap());
+		if (null != params && !params.isEmpty()) {
+			getMapValue().putAll(params);
+		}
 		return SUCCESS;
 	}
 	
@@ -83,6 +94,12 @@ public class ProductAction extends LogicAction {
 			params.put("gtDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
 		} else if ("up".equals(map.get("itemaction"))) {
 			params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+		}
+		if (null != getProduct().getGtDateCreated()) {
+			params.put("gtDateCreated", MyServerUtils.format(getProduct().getGtDateCreated()));
+		}
+		if (!StringUtils.isBlank(getProduct().getProductName())) {
+			params.put("productName", getProduct().getProductName());
 		}
 		params.put("saleType", getProduct().getSaleType());
 		params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
@@ -186,6 +203,14 @@ public class ProductAction extends LogicAction {
 
 	public void setProductService(ProductService productService) {
 		this.productService = productService;
+	}
+
+	public SubscribeService getSubscribeService() {
+		return subscribeService;
+	}
+
+	public void setSubscribeService(SubscribeService subscribeService) {
+		this.subscribeService = subscribeService;
 	}
 
 	public Product getProduct() {

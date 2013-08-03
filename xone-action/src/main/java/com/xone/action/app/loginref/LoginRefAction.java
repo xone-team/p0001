@@ -120,7 +120,7 @@ public class LoginRefAction extends Action {
 		String msg = "用户不存在或者密码不正确。";
 		Person p = new Person();
 		p.setUsername(getPerson().getUsername());
-		List<Person> pList = personService.findAllByPerson(p);
+		List<Person> pList = getPersonService().findAllByPerson(p);
 		if (pList.size() > 1 || pList.size() <= 0) {//没有记录或者能匹配到多个记录,都要求重新登陆
 			getMapValue().put("msg", msg);
 //			setRedirect(loginHtml);
@@ -138,6 +138,10 @@ public class LoginRefAction extends Action {
 			}
 			map.put("user", porperties);
 			getSession().setAttribute(USER, porperties);
+			Map<String, String> params = getRequestMap();
+			p.setUserUpdated(p.getId());
+			p.setLastMacUpdated(params.get("_m"));
+			getPersonService().update(p);
 //			getUserMap().put("", value)
 		} else {
 			getMapValue().put("msg", msg);

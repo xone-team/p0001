@@ -17,7 +17,7 @@
 		</style>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-tap-toggle="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/product/index.html?_=${identify}" data-icon="check" class="btn-banner">返回</a>
-			<h1>求购详情</h1>
+			<h1>产品详情</h1>
 			<a href="#" class="product-item-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
 		</div>
 		<div data-role="content" data-dom-cache="false">
