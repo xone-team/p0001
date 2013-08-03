@@ -17,7 +17,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">topadItem</param>
                 <param name="namespace">/topad</param>
-                <param name="topadId">${topad.id}</param>
+                <param name="topad.id">${topad.id}</param>
             </result>
         </action>
         <action name="topadEdit" class="topadBackAction" method="topadEdit">
@@ -27,7 +27,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">topadItem</param>
                 <param name="namespace">/topad</param>
-                <param name="topadId">${topad.id}</param>
+                <param name="topad.id">${topad.id}</param>
             </result>
             <result name="list" type="chain">
                 <param name="actionName">topadList</param>

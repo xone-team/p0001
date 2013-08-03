@@ -17,7 +17,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">personItem</param>
                 <param name="namespace">/person</param>
-                <param name="personId">${person.id}</param>
+                <param name="person.id">${person.id}</param>
             </result>
         </action>
         <action name="personEdit" class="personBackAction" method="personEdit">
@@ -27,7 +27,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">personItem</param>
                 <param name="namespace">/person</param>
-                <param name="personId">${person.id}</param>
+                <param name="person.id">${person.id}</param>
             </result>
             <result name="list" type="chain">
                 <param name="actionName">personList</param>

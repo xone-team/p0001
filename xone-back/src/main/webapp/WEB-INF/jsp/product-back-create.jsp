@@ -27,7 +27,7 @@
                         <li class="active">创建产品</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/product/productSave.html">
+                <form class="form-horizontal" enctype="multipart/form-data" id="productSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productSave.html">
                     <div class="control-group">
                         <label class="control-label" for="productName">产品名称</label>
                         <div class="controls">
@@ -91,6 +91,28 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <label class="control-label" for="productDesc">产品图片</label>
+                        <div class="controls">
+                            <div class="span4">
+                                <div class="control-group uploadimagesdiv1" style="margin-bottom: 0px;"></div>
+                                <button type="button" class="btn" onclick="$('#uploadImageFile1').click();">上传图片</button>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group uploadimagesdiv2" style="margin-bottom: 0px;"></div>
+                                <button type="button" class="btn" onclick="$('#uploadImageFile2').click();">上传图片</button>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group uploadimagesdiv3" style="margin-bottom: 0px;"></div>
+                                <button type="button" class="btn" onclick="$('#uploadImageFile3').click();">上传图片</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group fileupload" style="display: none;">
+                        <input type="file" id="uploadImageFile1" name="uploadFile1" value="">
+                        <input type="file" id="uploadImageFile2" name="uploadFile2" value="">
+                        <input type="file" id="uploadImageFile3" name="uploadFile3" value="">
+                    </div>
+                    <div class="control-group">
                         <div class="controls">
                             <button type="submit" class="btn">提交创建</button>
                         </div>
@@ -101,9 +123,49 @@
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
 </body>
+<script src="${STATIC_ROOT}/js/fileupload.js"></script>
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_product").addClass("active");
+        $('#uploadImageFile1[type="file"]').fileupload({
+            onload : function(it, e) {
+                var div = document.createElement('div');
+                var result = it.data('base64source');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage1();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
+                $('div.uploadimagesdiv1').html('').append(div);
+            }
+        });
+        $('#uploadImageFile2[type="file"]').fileupload({
+            onload : function(it, e) {
+                var div = document.createElement('div');
+                var result = it.data('base64source');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage2();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
+                $('div.uploadimagesdiv2').html('').append(div);
+            }
+        });
+        $('#uploadImageFile3[type="file"]').fileupload({
+            onload : function(it, e) {
+                var div = document.createElement('div');
+                var result = it.data('base64source');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage3();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
+                $('div.uploadimagesdiv3').html('').append(div);
+            }
+        });
     });
+    function removeProductDynamicImage1() {
+        $('div.uploadimagesdiv').html('');
+        $('#uploadImageFile').val('');
+        return false;
+    }
+    function removeProductDynamicImage2() {
+        $('div.uploadimagesdiv2').html('');
+        $('#uploadImageFile2').val('');
+        return false;
+    }
+    function removeProductDynamicImage3() {
+        $('div.uploadimagesdiv3').html('');
+        $('#uploadImageFile3').val('');
+        return false;
+    }
 </script>
 </html>

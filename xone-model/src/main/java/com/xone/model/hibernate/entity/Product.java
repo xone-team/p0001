@@ -73,6 +73,9 @@ public class Product implements Serializable {
 	protected Date lastUpdated;
 	protected Person person;
 	
+	protected List<ProdCheck> checkList;
+	protected ProdCheck check;
+	
 	public Person getPerson() {
 		return person;
 	}
@@ -419,6 +422,22 @@ public class Product implements Serializable {
 
     public void setLastUpdatedMax(String lastUpdatedMax) {
         this.lastUpdatedMax = lastUpdatedMax;
+    }
+
+    public List<ProdCheck> getCheckList() {
+        return checkList;
+    }
+
+    public void setCheckList(List<ProdCheck> checkList) {
+        this.checkList = checkList;
+    }
+
+    public ProdCheck getCheck() {
+        return check;
+    }
+
+    public void setCheck(ProdCheck check) {
+        this.check = check;
     }
 	
 	

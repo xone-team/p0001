@@ -17,7 +17,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">configItem</param>
                 <param name="namespace">/config</param>
-                <param name="configId">${config.id}</param>
+                <param name="config.id">${config.id}</param>
             </result>
         </action>
         <action name="configEdit" class="configBackAction" method="configEdit">
@@ -27,7 +27,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">configItem</param>
                 <param name="namespace">/config</param>
-                <param name="configId">${config.id}</param>
+                <param name="config.id">${config.id}</param>
             </result>
             <result name="list" type="chain">
                 <param name="actionName">configList</param>

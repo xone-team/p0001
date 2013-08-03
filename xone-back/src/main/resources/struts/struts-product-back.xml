@@ -17,7 +17,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">productItem</param>
                 <param name="namespace">/product</param>
-                <param name="productId">${product.id}</param>
+                <param name="product.id">${product.id}</param>
             </result>
         </action>
         <action name="productEdit" class="productBackAction" method="productEdit">
@@ -27,7 +27,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">productItem</param>
                 <param name="namespace">/product</param>
-                <param name="productId">${product.id}</param>
+                <param name="product.id">${product.id}</param>
             </result>
             <result name="list" type="chain">
                 <param name="actionName">productList</param>

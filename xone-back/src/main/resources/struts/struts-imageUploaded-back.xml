@@ -17,7 +17,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">imageUploadedItem</param>
                 <param name="namespace">/imageUploaded</param>
-                <param name="imageUploadedId">${imageUploaded.id}</param>
+                <param name="imageUploaded.id">${imageUploaded.id}</param>
             </result>
         </action>
         <action name="imageUploadedEdit" class="imageUploadedBackAction" method="imageUploadedEdit">
@@ -27,7 +27,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">imageUploadedItem</param>
                 <param name="namespace">/imageUploaded</param>
-                <param name="imageUploadedId">${imageUploaded.id}</param>
+                <param name="imageUploaded.id">${imageUploaded.id}</param>
             </result>
             <result name="list" type="chain">
                 <param name="actionName">imageUploadedList</param>

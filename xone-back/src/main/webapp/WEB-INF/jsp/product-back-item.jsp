@@ -86,6 +86,41 @@
                             <td style="width: 60px;">审核时间</td>
                             <td><fmt:formatDate value="${product.dateCheck}" pattern="yyyy-MM-dd" /></td>
                         </tr>
+                        <tr>
+                            <td style="width: 60px;">产品图片</td>
+                            <td><c:forEach items="${product.ids}" var="it" varStatus="status">
+                                    <div class="span4">
+                                        <div class="control-group uploadimagesdiv${status.index + 1}" style="margin-bottom: 0px;">
+                                            <div class="well well-small" style="margin-bottom: 0px;">图片预览</div>
+                                            <div class="well well-small">
+                                                <img class="uploadproductdynamicimage" src="${pageContext.request.contextPath}/image.html?id=${it}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">审核历史</td>
+                        </tr>
+                        <c:forEach items="${ product.checkList }" var="item" varStatus="status">
+                            <tr>
+                                <td colspan="2"><div class="well">
+                                        <div class="control-group">
+                                            <span>审核结果</span>
+                                            <div class="inline">
+                                                <c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
+                                                    <c:if test="${it.value == item.checkStatus}">${ it.name }</c:if>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <span>审核意见</span>
+                                            <div class="inline">${ item.remark }</div>
+                                        </div>
+                                    </div></td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

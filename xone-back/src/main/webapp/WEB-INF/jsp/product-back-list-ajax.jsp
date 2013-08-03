@@ -64,6 +64,7 @@ table.myproductlisttable td {
 <div>
 	<table class="table table-bordered myproductlisttable" style="width:100%">
 		<thead>
+            <tr>
 			<th>编号</th>
 			<th>产品名称</th>
 			<th>产品类型</th>
@@ -73,6 +74,7 @@ table.myproductlisttable td {
 			<th>产品属地</th>
 			<th>更新时间</th>
 			<th>操作</th>
+            </tr>
 		</thead>
 		<tbody>
 		<c:forEach var="item" items="${pagination.list}">

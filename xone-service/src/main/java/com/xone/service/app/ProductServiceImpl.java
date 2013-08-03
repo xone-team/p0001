@@ -2,6 +2,7 @@ package com.xone.service.app;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,228 +18,253 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.ImageUploadedDao;
 import com.xone.model.hibernate.app.PersonDao;
+import com.xone.model.hibernate.app.ProdCheckDao;
 import com.xone.model.hibernate.app.ProductDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.ProdCheck;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
+
 public class ProductServiceImpl implements ProductService {
     private static final Log log = LogFactory.getLog(ProductServiceImpl.class);
 
-	@Autowired
-	protected ProductDao productDao;
-	
-	@Autowired
-	protected ImageUploadedDao imageUploadedDao;
-	
+    @Autowired
+    protected ProductDao productDao;
+
+    @Autowired
+    protected ImageUploadedDao imageUploadedDao;
+
+    @Autowired
+    protected ProdCheckDao prodCheckDao;
+    
     @Autowired
     protected PersonDao personDao;
-	
-	public PersonDao getPersonDao() {
-		return personDao;
-	}
 
-	public void setPersonDao(PersonDao personDao) {
-		this.personDao = personDao;
-	}
-	@Override
-	public Product save(Product entity) {
-		entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
-		return getProductDao().save(entity);
-	}
+    public PersonDao getPersonDao() {
+        return personDao;
+    }
 
-	@Override
-	public Product findById(Long id) {
-		return getProductDao().findById(id);
-	}
+    public void setPersonDao(PersonDao personDao) {
+        this.personDao = personDao;
+    }
 
-	@Override
-	public Product update(Product entity) {
-		return getProductDao().update(entity);
-	}
-	
-	@Override
-	public void delete(Product entity) {
-		getProductDao().deleteById(entity.getId());
-	}
-	
-	@Override
-	public Product save(Product entity, ImageUploaded imageUploaded) {
-		entity = getProductDao().save(entity);
-		imageUploaded.setRefId(entity.getId());
-		imageUploaded.setRefType(ImageUploaded.RefType.PRODUCT.getValue());
-		imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
-		imageUploaded = getImageUploadedDao().save(imageUploaded);
-		entity.getIds().add(imageUploaded.getId());
-		return entity;
-	}
-	
-	@Override
-	public Product save(Product entity, List<ImageUploaded> imageUploadeds) {
-		entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
-		entity = getProductDao().save(entity);
-		for (ImageUploaded imageUploaded : imageUploadeds) {
-			imageUploaded.setRefId(entity.getId());
-			imageUploaded.setRefType(ImageUploaded.RefType.PRODUCT.getValue());
-			imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
-		}
-		imageUploadeds = getImageUploadedDao().save(imageUploadeds);
-		List<Long> ids = new ArrayList<Long>();
-		for (ImageUploaded imageUploaded : imageUploadeds) {
-			ids.add(imageUploaded.getId());
-		}
-		entity.setIds(ids);
-		return entity;
-	}
-	
-	public Product update(Product entity, List<ImageUploaded> imageUploadeds, List<Long> imageIds) {
-		entity = getProductDao().update(entity);
-		for (ImageUploaded imageUploaded : imageUploadeds) {
-			imageUploaded.setRefId(entity.getId());
-			imageUploaded.setRefType(ImageUploaded.RefType.PRODUCT.getValue());
-			imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
-		}
-		imageUploadeds = getImageUploadedDao().save(imageUploadeds);
-		Map<Long, Boolean> imageIdMap = new HashMap<Long, Boolean>();
-		List<Long> ids = new ArrayList<Long>();
-		for (Long id : imageIds) {
-			imageIdMap.put(id, true);
-		}
-		for (Long id : entity.getIds()) {
-			if (null == imageIdMap.get(id)) {
-				getImageUploadedDao().deleteLogicById(id);
-			} else {
-				ids.add(id);
-			}
-		}
-		for (ImageUploaded imageUploaded : imageUploadeds) {
-			ids.add(imageUploaded.getId());
-		}
-		entity.setIds(ids);
-		return entity;
-	}
-	
-	@Override
-	public List<Product> findAllByMap(Map<String, String> params) {
-		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Product.class);
-		String gtDateCreated = params.get("gtDateCreated");
-		if (!StringUtils.isBlank(gtDateCreated)) {
-			try {
-				detachedCriteria.add(Restrictions.gt("dateCreated", DateUtils.parseDate(gtDateCreated, new String[] {
-						"yyyy-MM-dd HH:mm:ss"
-				})));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		}
-		String ltDateCreated = params.get("ltDateCreated");
-		if (!StringUtils.isBlank(ltDateCreated)) {
-			try {
-				detachedCriteria.add(Restrictions.lt("dateCreated", DateUtils.parseDate(ltDateCreated, new String[] {
-						"yyyy-MM-dd HH:mm:ss"
-				})));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		}
-		String saleType = params.get("saleType");
-		if (!StringUtils.isBlank(saleType)) {
-			detachedCriteria.add(Restrictions.eq("saleType", saleType));
-		}
+    @Override
+    public Product save(Product entity) {
+        entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
+        return getProductDao().save(entity);
+    }
+
+    @Override
+    public Product findById(Long id) {
+        Product product = getProductDao().findById(id);
+        if (null != product) {
+            List<Long> ids = getImageUploadedDao().findAllIdsByRefId(product.getId(), ImageUploaded.RefType.PRODUCT);
+            product.setIds(ids);
+            
+            List<ProdCheck> checks = getProdCheckDao().findByProductId(product.getId());
+            product.setCheckList(checks);
+        }
+        return product;
+    }
+
+    @Override
+    public Product update(Product entity) {
+        return getProductDao().update(entity);
+    }
+
+    @Override
+    public void delete(Product entity) {
+        getProductDao().deleteById(entity.getId());
+    }
+
+    @Override
+    public Product save(Product entity, ImageUploaded imageUploaded) {
+        entity = getProductDao().save(entity);
+        imageUploaded.setRefId(entity.getId());
+        imageUploaded.setRefType(ImageUploaded.RefType.PRODUCT.getValue());
+        imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
+        imageUploaded = getImageUploadedDao().save(imageUploaded);
+        entity.getIds().add(imageUploaded.getId());
+        return entity;
+    }
+
+    @Override
+    public Product save(Product entity, List<ImageUploaded> imageUploadeds) {
+        entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
+        entity = getProductDao().save(entity);
+        for (ImageUploaded imageUploaded : imageUploadeds) {
+            imageUploaded.setRefId(entity.getId());
+            imageUploaded.setRefType(ImageUploaded.RefType.PRODUCT.getValue());
+            imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
+        }
+        imageUploadeds = getImageUploadedDao().save(imageUploadeds);
+        List<Long> ids = new ArrayList<Long>();
+        for (ImageUploaded imageUploaded : imageUploadeds) {
+            ids.add(imageUploaded.getId());
+        }
+        entity.setIds(ids);
+        return entity;
+    }
+
+    public Product update(Product entity, List<ImageUploaded> imageUploadeds, List<Long> imageIds) {
+        for (ImageUploaded imageUploaded : imageUploadeds) {
+            imageUploaded.setRefId(entity.getId());
+            imageUploaded.setRefType(ImageUploaded.RefType.PRODUCT.getValue());
+            imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
+        }
+        imageUploadeds = getImageUploadedDao().save(imageUploadeds);
+        Map<Long, Boolean> imageIdMap = new HashMap<Long, Boolean>();
+        List<Long> ids = new ArrayList<Long>();
+        for (Long id : imageIds) {
+            imageIdMap.put(id, true);
+        }
+        for (Long id : entity.getIds()) {
+            if (null == imageIdMap.get(id)) {
+                getImageUploadedDao().deleteLogicById(id);
+            } else {
+                ids.add(id);
+            }
+        }
+        for (ImageUploaded imageUploaded : imageUploadeds) {
+            ids.add(imageUploaded.getId());
+        }
+        entity.setIds(ids);
+        
+        // 审核信息处理
+        Long userCheck = new Long(0);
+        Date dateCheck = new Date();
+        
+        ProdCheck check = entity.getCheck();
+        check.setProductId(entity.getId());
+        check.setUserApply(userCheck);
+        check.setDateCheck(dateCheck);
+        prodCheckDao.save(check);
+        
+        entity.setUserCheck(userCheck);
+        entity.setDateCheck(dateCheck);
+        entity.setCheckStatus(check.getCheckStatus());
+        entity = getProductDao().update(entity);
+        
+        return entity;
+    }
+
+    @Override
+    public List<Product> findAllByMap(Map<String, String> params) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Product.class);
+        String gtDateCreated = params.get("gtDateCreated");
+        if (!StringUtils.isBlank(gtDateCreated)) {
+            try {
+                detachedCriteria.add(Restrictions.gt("dateCreated", DateUtils.parseDate(gtDateCreated, new String[] { "yyyy-MM-dd HH:mm:ss" })));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        String ltDateCreated = params.get("ltDateCreated");
+        if (!StringUtils.isBlank(ltDateCreated)) {
+            try {
+                detachedCriteria.add(Restrictions.lt("dateCreated", DateUtils.parseDate(ltDateCreated, new String[] { "yyyy-MM-dd HH:mm:ss" })));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        String saleType = params.get("saleType");
+        if (!StringUtils.isBlank(saleType)) {
+            detachedCriteria.add(Restrictions.eq("saleType", saleType));
+        }
         String productName = params.get("productName");
         if (!StringUtils.isBlank(productName)) {
-        	detachedCriteria.add(Restrictions.like("productName", "%" + productName + "%"));
+            detachedCriteria.add(Restrictions.like("productName", "%" + productName + "%"));
         }
         String productType = params.get("productType");
         if (!StringUtils.isBlank(productType)) {
-        	detachedCriteria.add(Restrictions.like("productType", "%" + productType + "%"));
+            detachedCriteria.add(Restrictions.like("productType", "%" + productType + "%"));
         }
         String checkStatus = params.get("checkStatus");
         if (!StringUtils.isBlank(checkStatus)) {
-        	detachedCriteria.add(Restrictions.eq("checkStatus", checkStatus));
+            detachedCriteria.add(Restrictions.eq("checkStatus", checkStatus));
         }
         String productAddress = params.get("productAddress");
         if (!StringUtils.isBlank(productAddress)) {
-        	detachedCriteria.add(Restrictions.like("productAddress", "%" + productAddress + "%"));
+            detachedCriteria.add(Restrictions.like("productAddress", "%" + productAddress + "%"));
         }
         String productLocation = params.get("productLocation");
         if (!StringUtils.isBlank(productLocation)) {
-        	detachedCriteria.add(Restrictions.like("productLocation", "%" + productLocation + "%"));
+            detachedCriteria.add(Restrictions.like("productLocation", "%" + productLocation + "%"));
         }
         String flagDeleted = params.get("flagDeleted");
         if (!StringUtils.isBlank(flagDeleted)) {
-        	detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
+            detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
         }
-		String userCreated = params.get("userCreated");
-		if (!StringUtils.isBlank(userCreated)) {
-			detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
-		}
-		detachedCriteria.addOrder(Order.desc("dateCreated"));
-		List<Product> list = getProductDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
-		if (null != list && !list.isEmpty()) {
-			List<Long> ids = new ArrayList<Long>();
-			for (Product p : list) {
-				ids.add(p.getId());
-			}
-			Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.PRODUCT, 0, ids.size() * 3);
-			for (int i = 0; i < ids.size(); i++) {
-				Product ip = list.get(i);
-				List<Long> imageIds = maps.get(ip.getId());
-				if (null != imageIds) {
-					ip.setIds(maps.get(ip.getId()));
-				}
-				list.set(i, ip);
-			}
-		}
-		return list;
-	}
-	
-	@Override
-	public Product findByMap(Map<String, String> params) {
-		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Product.class);
-		String id = params.get("id");
-		if (!StringUtils.isBlank(id)) {
-			detachedCriteria.add(Restrictions.eq("id", Long.parseLong(id)));
-		}
-		List<Product> l = getProductDao().findListByDetachedCriteria(detachedCriteria, 0, 1);
-		if (null == l || l.isEmpty()) {
-			return new Product();
-		}
-		Product p = l.get(0);
-		List<Long> ids = getImageUploadedDao().findAllIdsByRefId(p.getId(), ImageUploaded.RefType.PRODUCT);
-		p.setIds(ids);
-		if (null != p.getUserCreated()) {
-			Person person = getPersonDao().findById(p.getUserCreated());
-			if (null != person) {
-				p.setPerson(person);
-			}
-		}
-		return p;
-	}
+        String userCreated = params.get("userCreated");
+        if (!StringUtils.isBlank(userCreated)) {
+            detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
+        }
+        detachedCriteria.addOrder(Order.desc("dateCreated"));
+        List<Product> list = getProductDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
+        if (null != list && !list.isEmpty()) {
+            List<Long> ids = new ArrayList<Long>();
+            for (Product p : list) {
+                ids.add(p.getId());
+            }
+            Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.PRODUCT, 0, ids.size() * 3);
+            for (int i = 0; i < ids.size(); i++) {
+                Product ip = list.get(i);
+                List<Long> imageIds = maps.get(ip.getId());
+                if (null != imageIds) {
+                    ip.setIds(maps.get(ip.getId()));
+                }
+                list.set(i, ip);
+            }
+        }
+        return list;
+    }
 
-	public Pagination findByParams(Map<String, String> params) {
-		DetachedCriteria detachedCriteria = DetachedCriteria
-				.forClass(Product.class);
-		
-		handleCriteriaByParams(detachedCriteria, params);
-		
-		int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
-		int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
-		return getProductDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
-	}
-	
+    @Override
+    public Product findByMap(Map<String, String> params) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Product.class);
+        String id = params.get("id");
+        if (!StringUtils.isBlank(id)) {
+            detachedCriteria.add(Restrictions.eq("id", Long.parseLong(id)));
+        }
+        List<Product> l = getProductDao().findListByDetachedCriteria(detachedCriteria, 0, 1);
+        if (null == l || l.isEmpty()) {
+            return new Product();
+        }
+        Product p = l.get(0);
+        List<Long> ids = getImageUploadedDao().findAllIdsByRefId(p.getId(), ImageUploaded.RefType.PRODUCT);
+        p.setIds(ids);
+        if (null != p.getUserCreated()) {
+            Person person = getPersonDao().findById(p.getUserCreated());
+            if (null != person) {
+                p.setPerson(person);
+            }
+        }
+        return p;
+    }
+
+    public Pagination findByParams(Map<String, String> params) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Product.class);
+
+        handleCriteriaByParams(detachedCriteria, params);
+
+        int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
+        int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
+        return getProductDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+    }
+    
     protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params){
         String id = params.get("id");
         if (!StringUtils.isBlank(id)) {
-            criteria.add(Restrictions.eq("id", Long.parseLong(id)));
+            criteria.add(Restrictions.eq("id", new Long(id)));
         }
         String idMin = params.get("idMin");
         if (!StringUtils.isBlank(idMin)) {
-            criteria.add(Restrictions.ge("id", Long.parseLong(idMin)));
+            criteria.add(Restrictions.ge("id", new Long(idMin)));
         }
         String idMax = params.get("idMax");
         if (!StringUtils.isBlank(idMax)) {
-            criteria.add(Restrictions.le("id", Long.parseLong(idMax)));
+            criteria.add(Restrictions.le("id", new Long(idMax)));
         }
         String productName = params.get("productName");
         if (!StringUtils.isBlank(productName)) {
@@ -247,6 +273,10 @@ public class ProductServiceImpl implements ProductService {
         String productType = params.get("productType");
         if (!StringUtils.isBlank(productType)) {
             criteria.add(Restrictions.like("productType", "%" + productType + "%"));
+        }
+        String checkStatus = params.get("checkStatus");
+        if (!StringUtils.isBlank(checkStatus)) {
+            criteria.add(Restrictions.like("checkStatus", "%" + checkStatus + "%"));
         }
         String saleType = params.get("saleType");
         if (!StringUtils.isBlank(saleType)) {
@@ -294,15 +324,15 @@ public class ProductServiceImpl implements ProductService {
         }
         String userApply = params.get("userApply");
         if (!StringUtils.isBlank(userApply)) {
-            criteria.add(Restrictions.eq("userApply", Long.parseLong(userApply)));
+            criteria.add(Restrictions.eq("userApply", new Long(userApply)));
         }
         String userApplyMin = params.get("userApplyMin");
         if (!StringUtils.isBlank(userApplyMin)) {
-            criteria.add(Restrictions.ge("userApply", Long.parseLong(userApplyMin)));
+            criteria.add(Restrictions.ge("userApply", new Long(userApplyMin)));
         }
         String userApplyMax = params.get("userApplyMax");
         if (!StringUtils.isBlank(userApplyMax)) {
-            criteria.add(Restrictions.le("userApply", Long.parseLong(userApplyMax)));
+            criteria.add(Restrictions.le("userApply", new Long(userApplyMax)));
         }
         String dateApplyMin = params.get("dateApplyMin");
         if (!StringUtils.isBlank(dateApplyMin)) {
@@ -322,15 +352,15 @@ public class ProductServiceImpl implements ProductService {
         }
         String userCheck = params.get("userCheck");
         if (!StringUtils.isBlank(userCheck)) {
-            criteria.add(Restrictions.eq("userCheck", Long.parseLong(userCheck)));
+            criteria.add(Restrictions.eq("userCheck", new Long(userCheck)));
         }
         String userCheckMin = params.get("userCheckMin");
         if (!StringUtils.isBlank(userCheckMin)) {
-            criteria.add(Restrictions.ge("userCheck", Long.parseLong(userCheckMin)));
+            criteria.add(Restrictions.ge("userCheck", new Long(userCheckMin)));
         }
         String userCheckMax = params.get("userCheckMax");
         if (!StringUtils.isBlank(userCheckMax)) {
-            criteria.add(Restrictions.le("userCheck", Long.parseLong(userCheckMax)));
+            criteria.add(Restrictions.le("userCheck", new Long(userCheckMax)));
         }
         String dateCheckMin = params.get("dateCheckMin");
         if (!StringUtils.isBlank(dateCheckMin)) {
@@ -350,15 +380,15 @@ public class ProductServiceImpl implements ProductService {
         }
         String userCreated = params.get("userCreated");
         if (!StringUtils.isBlank(userCreated)) {
-            criteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
+            criteria.add(Restrictions.eq("userCreated", new Long(userCreated)));
         }
         String userCreatedMin = params.get("userCreatedMin");
         if (!StringUtils.isBlank(userCreatedMin)) {
-            criteria.add(Restrictions.ge("userCreated", Long.parseLong(userCreatedMin)));
+            criteria.add(Restrictions.ge("userCreated", new Long(userCreatedMin)));
         }
         String userCreatedMax = params.get("userCreatedMax");
         if (!StringUtils.isBlank(userCreatedMax)) {
-            criteria.add(Restrictions.le("userCreated", Long.parseLong(userCreatedMax)));
+            criteria.add(Restrictions.le("userCreated", new Long(userCreatedMax)));
         }
         String dateCreatedMin = params.get("dateCreatedMin");
         if (!StringUtils.isBlank(dateCreatedMin)) {
@@ -378,15 +408,15 @@ public class ProductServiceImpl implements ProductService {
         }
         String userUpdated = params.get("userUpdated");
         if (!StringUtils.isBlank(userUpdated)) {
-            criteria.add(Restrictions.eq("userUpdated", Long.parseLong(userUpdated)));
+            criteria.add(Restrictions.eq("userUpdated", new Long(userUpdated)));
         }
         String userUpdatedMin = params.get("userUpdatedMin");
         if (!StringUtils.isBlank(userUpdatedMin)) {
-            criteria.add(Restrictions.ge("userUpdated", Long.parseLong(userUpdatedMin)));
+            criteria.add(Restrictions.ge("userUpdated", new Long(userUpdatedMin)));
         }
         String userUpdatedMax = params.get("userUpdatedMax");
         if (!StringUtils.isBlank(userUpdatedMax)) {
-            criteria.add(Restrictions.le("userUpdated", Long.parseLong(userUpdatedMax)));
+            criteria.add(Restrictions.le("userUpdated", new Long(userUpdatedMax)));
         }
         String lastUpdatedMin = params.get("lastUpdatedMin");
         if (!StringUtils.isBlank(lastUpdatedMin)) {
@@ -409,20 +439,29 @@ public class ProductServiceImpl implements ProductService {
     }
 
 
-	public ImageUploadedDao getImageUploadedDao() {
-		return imageUploadedDao;
-	}
 
-	public void setImageUploadedDao(ImageUploadedDao imageUploadedDao) {
-		this.imageUploadedDao = imageUploadedDao;
-	}
+    public ImageUploadedDao getImageUploadedDao() {
+        return imageUploadedDao;
+    }
 
-	public ProductDao getProductDao() {
-		return productDao;
-	}
+    public void setImageUploadedDao(ImageUploadedDao imageUploadedDao) {
+        this.imageUploadedDao = imageUploadedDao;
+    }
 
-	public void setProductDao(ProductDao productDao) {
-		this.productDao = productDao;
-	}
-	
+    public ProductDao getProductDao() {
+        return productDao;
+    }
+
+    public void setProductDao(ProductDao productDao) {
+        this.productDao = productDao;
+    }
+
+    public ProdCheckDao getProdCheckDao() {
+        return prodCheckDao;
+    }
+
+    public void setProdCheckDao(ProdCheckDao prodCheckDao) {
+        this.prodCheckDao = prodCheckDao;
+    }
+
 }

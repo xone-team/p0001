@@ -17,7 +17,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">purchaseItem</param>
                 <param name="namespace">/purchase</param>
-                <param name="purchaseId">${purchase.id}</param>
+                <param name="purchase.id">${purchase.id}</param>
             </result>
         </action>
         <action name="purchaseEdit" class="purchaseBackAction" method="purchaseEdit">
@@ -27,7 +27,7 @@
             <result name="success" type="redirectAction">
                 <param name="actionName">purchaseItem</param>
                 <param name="namespace">/purchase</param>
-                <param name="purchaseId">${purchase.id}</param>
+                <param name="purchase.id">${purchase.id}</param>
             </result>
             <result name="list" type="chain">
                 <param name="actionName">purchaseList</param>

@@ -77,6 +77,24 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <label class="control-label" for="purchaseCheckStatus">审核结果</label>
+                        <div class="controls">
+                            <select class="selectpicker" id="purchaseCheckStatus" name="purchase.checkStatus">
+                                <c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
+                                    <option value="${it.value}" <c:if test="${it.value == purchase.checkStatus}">selected</c:if>>${it.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="purchaseRemark">审核意见</label>
+                        <div class="controls">
+                            <input type="text" id="purchaseRemark" name="purchase.remark" value="${purchase.remark}" maxlength="255" placeholder="审核意见">
+                        </div>
+                    </div>
+
+                    <div class="control-group">
                         <div class="controls">
                             <button type="submit" name="update" value="update" class="btn">提交更新</button>
                         </div>

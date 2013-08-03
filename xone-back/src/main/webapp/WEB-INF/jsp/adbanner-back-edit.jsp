@@ -137,7 +137,7 @@
 			});
 		});
 		</script>
-		<script type="text/javascript" language="javascript">
+		<script type="text/javascript" lang="javascript">
 		$(document).ready(function() {
 			$('#uploadImageFile[type="file"]').fileupload({
 				onload:function(it, e) {
