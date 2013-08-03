@@ -11,14 +11,14 @@
 		<jsp:include page="commons.jsp"></jsp:include>
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
-	<body>
+	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="product-main-page" data-dom-cache="true">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>
-			        <li><a class="allproducts" data-prefetch="true" href="${pageContext.request.contextPath}/product/index.html?_=${identify}" class="ui-btn-active">所有产品</a></li>
-			        <li><a href="${pageContext.request.contextPath}/product/listSales.html?_=${identify}">促销产品</a></li>
-			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html?_=${identify}">组团产品</a></li>
+			        <li><a class="allproducts" data-prefetch="true" href="${pageContext.request.contextPath}/product/index.html?_=${myid}" class="ui-btn-active">所有产品</a></li>
+			        <li><a href="${pageContext.request.contextPath}/product/listSales.html?_=${myid}">促销产品</a></li>
+			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html?_=${myid}">组团产品</a></li>
 			    </ul>
 			</div>
 		</div>
@@ -36,7 +36,7 @@
 				<span class="iscroll-pull-label"></span>
 			</div>
 		</div>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${identify}"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${myid}"></script>
 		<script defer="defer" type="text/javascript">
 			$(document).delegate('div.product-main-page', "pageinit", function(event) {
 				$('a.allproducts').addClass('ui-btn-active');

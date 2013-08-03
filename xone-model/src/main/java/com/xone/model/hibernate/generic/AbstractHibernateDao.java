@@ -2,7 +2,6 @@ package com.xone.model.hibernate.generic;
 
 
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.sql.SQLException;
@@ -14,9 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.CollectionUtils;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
@@ -32,7 +28,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.impl.CriteriaImpl;
 import org.hibernate.metadata.ClassMetadata;
-import org.hibernate.stat.Statistics;
 import org.hibernate.transform.ResultTransformer;
 import org.hibernate.type.Type;
 import org.slf4j.Logger;
@@ -44,7 +39,6 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
-import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.support.Pagination;
 
 @SuppressWarnings("unchecked")
@@ -569,23 +563,26 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	@SuppressWarnings("rawtypes")
 	public Pagination findBySqlMap(String sqlMapName, Map<String, String> params,
 	        int pageSize, int pageNo) {
-        List items = null;
-        int totalCount = 0;
-        params.put("limitStart", (pageNo - 1) * pageSize + "");
-        params.put("limitNum", pageSize + "");
-        try {
-            items = sqlMapClient.queryForList(sqlMapName, params);
-            totalCount = (Integer) sqlMapClient.queryForObject(sqlMapName + "TotalCount", params);
-        } catch (SQLException e) {
-            logger.error(e.getMessage(), e);
-        }
-        
-        if(items == null){
-            items = new ArrayList();
-        }
-        
-	    Pagination ps = new Pagination(pageNo / pageSize + 1, pageSize,
-	            totalCount, items);
+		List items = null;
+		Integer totalCount = 0;
+		params.put("limitStart", (pageNo - 1) * pageSize + "");
+		params.put("limitNum", pageSize + "");
+		try {
+			totalCount = (Integer) sqlMapClient.queryForObject(sqlMapName + "TotalCount", params);
+			if (null == totalCount || totalCount <= 0) {
+				return new Pagination(0, 0, 0, Collections.emptyList());
+			}
+			items = sqlMapClient.queryForList(sqlMapName, params);
+		} catch (SQLException e) {
+			logger.error(e.getMessage(), e);
+		}
+
+		if (items == null) {
+			items = Collections.emptyList();
+		}
+
+		Pagination ps = new Pagination(pageNo / pageSize + 1, pageSize,
+				totalCount, items);
 	    return ps;
 	}
 

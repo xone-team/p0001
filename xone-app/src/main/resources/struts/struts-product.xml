@@ -16,6 +16,9 @@
 		<action name="listGroups" class="productAction" method="listGroups">
 			<result name="success">/WEB-INF/jsp/product-list-groups.jsp</result>
 		</action>
+		<action name="listProduct" class="productAction" method="listSubscribeProduct">
+			<result name="success">/WEB-INF/jsp/subscribe-product-list-page.jsp</result>
+		</action>
 		<action name="add" class="productAction" method="add">
 			<result name="success">/WEB-INF/jsp/product-add-page.jsp</result>
 		</action>
