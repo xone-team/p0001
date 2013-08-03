@@ -16,6 +16,7 @@ import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.PersonService;
 import com.xone.service.app.UserRolesService;
+import com.xone.service.app.utils.EncryptRef;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
@@ -113,6 +114,9 @@ public class PersonBackAction extends Action {
 
     public String personSave() throws Exception {
         person.setDateApply(new Date());
+        if(person.getPassword() != null){
+            person.setPassword(EncryptRef.SHA1(person.getPassword()));
+        }
         setPerson(getPersonService().save(getPerson()));
         userRolesService.updateUserRoles(person.getId(), roleIds);
         return SUCCESS;

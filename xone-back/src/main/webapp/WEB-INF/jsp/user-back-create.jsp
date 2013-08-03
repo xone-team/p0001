@@ -27,7 +27,7 @@
                         <li class="active">创建用户</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/person/personSave.html">
+                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/person/personSave.html">
                     <div class="control-group">
                         <label class="control-label" for="username">用户名</label>
                         <div class="controls">
@@ -113,7 +113,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" class="btn">提交创建</button>
+                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -228,6 +228,44 @@
     jQuery(function() {
         jQuery("#X_menu_li_person").addClass("active");
     });
+    function doSaveForm(){
+		var $form = $('#saveForm');
+		var validate = [{
+			name: 'username',
+			text: '请输入用戶名'
+		}, {
+			name: 'username',
+			text: '用户名在 6 － 20 个字之间',
+			func: lengthValidation
+		}, {
+			name: 'password',
+			text: '请输入密碼'
+		}, {
+			name: 'password',
+			text: '密碼在 6 － 20 个字之间',
+			func: lengthValidation
+		}, {
+			name: 'nickName',
+			text: '请输入昵称'
+		}];
+		
+		var pass = XONE.valid(validate, $form, "person.");
+		if(pass)
+		    $form.submit();
+    }
+    
+    function lengthValidation(inputEl){
+        var result = true;
+	    var val = inputEl.val();
+	    if(val != null && val.length > 0){
+	        var l = val.length;
+	        if(l < 6 || l > 20){
+	            result = false;
+	        }
+	    }
+	    return result;
+    }
+
 </script>
 </html>
 

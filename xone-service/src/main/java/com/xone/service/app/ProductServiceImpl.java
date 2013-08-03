@@ -92,6 +92,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product entity, List<ImageUploaded> imageUploadeds) {
         entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
+        entity.setProductValid(DateUtils.addDays(new Date(), 30));
         entity = getProductDao().save(entity);
         for (ImageUploaded imageUploaded : imageUploadeds) {
             imageUploaded.setRefId(entity.getId());
@@ -135,15 +136,20 @@ public class ProductServiceImpl implements ProductService {
         Long userCheck = new Long(0);
         Date dateCheck = new Date();
         
-        ProdCheck check = entity.getCheck();
-        check.setProductId(entity.getId());
-        check.setUserApply(userCheck);
-        check.setDateCheck(dateCheck);
-        prodCheckDao.save(check);
         
-        entity.setUserCheck(userCheck);
-        entity.setDateCheck(dateCheck);
-        entity.setCheckStatus(check.getCheckStatus());
+        
+        ProdCheck check = entity.getCheck();
+        if(!Product.CheckStatus.WAITING.getValue().equals(check.getCheckStatus())){
+            check.setProductId(entity.getId());
+            check.setUserApply(userCheck);
+            check.setDateCheck(dateCheck);
+            prodCheckDao.save(check);
+            
+            entity.setUserCheck(userCheck);
+            entity.setDateCheck(dateCheck);
+            entity.setCheckStatus(check.getCheckStatus());
+        }
+
         entity = getProductDao().update(entity);
         
         return entity;

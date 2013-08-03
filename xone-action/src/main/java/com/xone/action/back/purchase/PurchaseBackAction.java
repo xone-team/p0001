@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.PurcCheck;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
@@ -37,6 +38,7 @@ public class PurchaseBackAction extends Action {
 	@Override
     public void prepare() throws Exception {
 	    purchase.setPerson(new Person());
+	    purchase.setCheck(new PurcCheck());
 	    super.prepare();
     }
 
@@ -73,7 +75,7 @@ public class PurchaseBackAction extends Action {
 	}
 	
 	public String purchaseItem() throws Exception {
-		Purchase entity = findById(getPurchase().getId());
+		Purchase entity = purchaseService.findById(getPurchase().getId());
 		if (null == entity || null == entity.getId()) {
 			return ERROR;
 		}
@@ -81,11 +83,11 @@ public class PurchaseBackAction extends Action {
 		return SUCCESS;
 	}
 	
-	protected Purchase findById(Long id) {
-		Map<String, String> params = new HashMap<String, String>();
-		params.put("id", String.valueOf(id));
-		return purchaseService.findByMap(params);
-	}
+//	protected Purchase findById(Long id) {
+//		Map<String, String> params = new HashMap<String, String>();
+//		params.put("id", String.valueOf(id));
+//		return purchaseService.findByMap(params);
+//	}
 	
 	public String purchaseCreate() throws Exception {
 		return SUCCESS;

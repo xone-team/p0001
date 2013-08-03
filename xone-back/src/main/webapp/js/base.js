@@ -1,4 +1,4 @@
-jQuery.fn.serializeObject = function()
+'jQuery.fn.serializeObject = function()
 {
     var o = {};
     var a = this.serializeArray();
@@ -296,32 +296,80 @@ window.XONE = {};
         if(validationContext.fieldErrors != null){
             for(var i = 0; i < validationContext.fieldErrors.length; i++){
                 var fieldError = validationContext.fieldErrors[i];
-                X.renderFieldMessage(fieldError.name, fieldError.value, "error", handleEl, prefix, container);
+                X.renderFieldMessage(prefix + fieldError.name, fieldError.value, "error", container, handleEl);
             }
         }
     }
 
     
-    X.renderFieldMessage = function(fieldName, fieldText, status, handleEl, prefix, container){
-        if(prefix == null)
-            prefix = "f.";
-        if(container == null)
-            container = jQuery("#inputForm");
-        
-        var inputEl = null;
-        if(handleEl != null){
-            inputEl = handleEl.call(this, (prefix+fieldName), container);
-        }else{
-            inputEl = jQuery('input[name="'+(prefix+fieldName)+'"]', container);   
-        }
-        if(inputEl.size() < 1)
-            return;
+    X.renderFieldMessage = function(fieldText, status, inputEl){
         var controlEl = inputEl.parent();
         var controlGroupEl = controlEl.parent();
         controlGroupEl.removeClass("warning error info success")
         controlGroupEl.addClass(status);
         controlEl.children().remove(".X-field-message");
         controlEl.append('<span class="X-field-message help-inline">'+fieldText+'</span>');
+    }
+    
+    X.clearFieldMessage = function(inputEl){
+        var controlEl = inputEl.parent();
+        var controlGroupEl = controlEl.parent();
+        controlGroupEl.removeClass("warning error info success")
+        controlEl.children().remove(".X-field-message");
+    }
+    
+    
+    X.valid = function(validationConfig, container, prefix){
+        var passFlag = true;
+        var firstErrorField = null;
+        var errorFieldList = [];
+        
+        for (var i = 0; i < validationConfig.length; i++) {
+            var v = validationConfig[i];
+            var fieldName = v.name;
+            var fieldText = v.text;
+            var func = v.func;
+            var handleEl = v.find;
+            
+            var passField = true;
+            var inputEl = null;
+            if(handleEl != null){
+                inputEl = handleEl.call(this, prefix + fieldName, container);
+            }else{
+                inputEl = jQuery('input[name="'+prefix + fieldName+'"]', container);   
+            }
+            if(inputEl.size() < 1)
+                continue;
+            
+            if(func == null){
+                passField = inputEl.val() != null && inputEl.val().length > 0;
+            }else{
+                passField = func.call(this, inputEl, container);
+            }
+            if (!passField) {
+                if(firstErrorField == null)
+                    firstErrorField = inputEl;
+                X.renderFieldMessage(fieldText, "error", inputEl);
+                errorFieldList.push(fieldName);
+                passFlag = false;
+            }else{
+                var inErrorList = false;
+                for(var x in errorFieldList){
+                    if(errorFieldList[x] == fieldName){
+                        inErrorList = true;
+                        break;
+                    }
+                }
+                if(!inErrorList)
+                    X.clearFieldMessage(inputEl);
+            }
+        }
+        
+        if (!passFlag && firstErrorField != null) {
+            firstErrorField.focus();
+        }
+        
+        return passFlag;
     }
 
 })(window.XONE);

@@ -27,7 +27,7 @@
                         <li class="active">创建产品</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" enctype="multipart/form-data" id="productSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productSave.html">
+                <form class="form-horizontal" id="saveForm" enctype="multipart/form-data" id="productSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productSave.html">
                     <div class="control-group">
                         <label class="control-label" for="productName">产品名称</label>
                         <div class="controls">
@@ -67,12 +67,6 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="productValid">有效期</label>
-                        <div class="controls">
-                            <input type="text" id="productValid" name="product.productValid" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="有效期">
-                        </div>
-                    </div>
-                    <div class="control-group">
                         <label class="control-label" for="productAddress">产品产地</label>
                         <div class="controls">
                             <input type="text" id="productAddress" name="product.productAddress" maxlength="255" placeholder="产品产地">
@@ -105,16 +99,12 @@
                                 <div class="control-group uploadimagesdiv3" style="margin-bottom: 0px;"></div>
                                 <button type="button" class="btn" onclick="$('#uploadImageFile3').click();">上传图片</button>
                             </div>
+                            <input type="file" class="hide" id="uploadImageFile1" name="uploadFile1" value=""> <input type="file" class="hide" id="uploadImageFile2" name="uploadFile2" value=""> <input type="file" class="hide" id="uploadImageFile3" name="uploadFile3" value="">
                         </div>
-                    </div>
-                    <div class="control-group fileupload" style="display: none;">
-                        <input type="file" id="uploadImageFile1" name="uploadFile1" value="">
-                        <input type="file" id="uploadImageFile2" name="uploadFile2" value="">
-                        <input type="file" id="uploadImageFile3" name="uploadFile3" value="">
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" class="btn">提交创建</button>
+                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -166,6 +156,50 @@
         $('div.uploadimagesdiv3').html('');
         $('#uploadImageFile3').val('');
         return false;
+    }
+    function doSaveForm() {
+        var $form = $('#saveForm');
+        var validate = [ {
+            name : 'product.productName',
+            text : '请输入产品名'
+        }, {
+            name : 'product.productPrice',
+            text : '请输入产品价格'
+        }, {
+            name : 'product.productPrice',
+            text : '产品价格必须为数字，且大于0',
+			func : numberValidation       
+        }, {
+            name : 'product.productNum',
+            text : '请输入产品数量'
+        }, {
+            name : 'product.productNum',
+            text : '产品数量必须为数字，且大于0',
+			func : numberValidation       
+        }, {
+            name : 'uploadFile1',
+            text : '请至少上传一张图片'
+        } ];
+
+        var pass = XONE.valid(validate, $form, "");
+
+        if (pass)
+            $form.submit();
+    }
+    function numberValidation(inputEl){
+        var result = true;
+	    var val = inputEl.val();
+	    if(val != null && val.length > 0){
+	        var n = null;
+	        try{
+	            n = parseInt(val);
+	        }catch(e){}
+	        
+	        if(n == null || isNaN(n) || n < 0){
+	            result = false;
+	        }
+	    }
+	    return result;
     }
 </script>
 </html>
