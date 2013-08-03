@@ -2,6 +2,7 @@ package com.xone.service.app;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,210 +18,215 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.ImageUploadedDao;
 import com.xone.model.hibernate.app.PersonDao;
+import com.xone.model.hibernate.app.PurcCheckDao;
 import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.Product;
+import com.xone.model.hibernate.entity.PurcCheck;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.service.app.utils.MyServerUtils;
+
 public class PurchaseServiceImpl implements PurchaseService {
-    
+
     private static final Log log = LogFactory.getLog(PurchaseServiceImpl.class);
 
-	@Autowired
-	protected PurchaseDao purchaseDao;
-	
-	@Autowired
-	protected ImageUploadedDao imageUploadedDao;
-	
+    @Autowired
+    protected PurchaseDao purchaseDao;
+
+    @Autowired
+    protected ImageUploadedDao imageUploadedDao;
+
     @Autowired
     protected PersonDao personDao;
-	
-	public PersonDao getPersonDao() {
-		return personDao;
-	}
 
-	public void setPersonDao(PersonDao personDao) {
-		this.personDao = personDao;
-	}
+    @Autowired
+    PurcCheckDao purcCheckDao;
 
-	public PurchaseDao getPurchaseDao() {
-		return purchaseDao;
-	}
+    public PersonDao getPersonDao() {
+        return personDao;
+    }
 
+    public void setPersonDao(PersonDao personDao) {
+        this.personDao = personDao;
+    }
 
-	public void setPurchaseDao(PurchaseDao purchaseDao) {
-		this.purchaseDao = purchaseDao;
-	}
+    public PurchaseDao getPurchaseDao() {
+        return purchaseDao;
+    }
 
-	public ImageUploadedDao getImageUploadedDao() {
-		return imageUploadedDao;
-	}
+    public void setPurchaseDao(PurchaseDao purchaseDao) {
+        this.purchaseDao = purchaseDao;
+    }
 
-	public void setImageUploadedDao(ImageUploadedDao imageUploadedDao) {
-		this.imageUploadedDao = imageUploadedDao;
-	}
+    public ImageUploadedDao getImageUploadedDao() {
+        return imageUploadedDao;
+    }
 
-	@Override
-	public Purchase save(Purchase entity) {
-		return getPurchaseDao().save(entity);
-	}
-	
-	@Override
-	public List<Purchase> save(List<Purchase> entity) {
-		return getPurchaseDao().save(entity);
-	}
-	
-	@Override
-	public Purchase save(Purchase entity, ImageUploaded imageUploaded) {
-		entity = getPurchaseDao().save(entity);
-		imageUploaded.setRefId(entity.getId());
-		imageUploaded.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
-		imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
-		imageUploaded = getImageUploadedDao().save(imageUploaded);
-		entity.getIds().add(imageUploaded.getId());
-		return entity;
-	}
-	
-	@Override
-	public Purchase save(Purchase entity, List<ImageUploaded> imageUploadeds) {
-		entity.setFlagDeleted(Purchase.FlagDeleted.NORMAL.getValue());
-		entity = getPurchaseDao().save(entity);
-		for (ImageUploaded imageUploaded : imageUploadeds) {
-			imageUploaded.setRefId(entity.getId());
-			imageUploaded.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
-			imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
-		}
-		imageUploadeds = getImageUploadedDao().save(imageUploadeds);
-		List<Long> ids = new ArrayList<Long>();
-		for (ImageUploaded imageUploaded : imageUploadeds) {
-			ids.add(imageUploaded.getId());
-		}
-		entity.setIds(ids);
-		return entity;
-	}
-	
-	public Purchase update(Purchase entity, List<ImageUploaded> imageUploadeds, List<Long> imageIds) {
-		entity = getPurchaseDao().update(entity);
-		for (ImageUploaded imageUploaded : imageUploadeds) {
-			imageUploaded.setRefId(entity.getId());
-			imageUploaded.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
-			imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
-		}
-		imageUploadeds = getImageUploadedDao().save(imageUploadeds);
-		Map<Long, Boolean> imageIdMap = new HashMap<Long, Boolean>();
-		List<Long> ids = new ArrayList<Long>();
-		for (Long id : imageIds) {
-			imageIdMap.put(id, true);
-		}
-		for (Long id : entity.getIds()) {
-			if (null == imageIdMap.get(id)) {
-				getImageUploadedDao().deleteLogicById(id);
-			} else {
-				ids.add(id);
-			}
-		}
-		for (ImageUploaded imageUploaded : imageUploadeds) {
-			ids.add(imageUploaded.getId());
-		}
-		entity.setIds(ids);
-		return entity;
-	}
-	
-	@Override
-	public List<Purchase> findAllByMap(Map<String, String> params) {
-		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Purchase.class);
-		String gtDateCreated = params.get("gtDateCreated");
-		if (!StringUtils.isBlank(gtDateCreated)) {
-			try {
-				detachedCriteria.add(Restrictions.gt("dateCreated", DateUtils.parseDate(gtDateCreated, new String[] {
-						"yyyy-MM-dd HH:mm:ss"
-				})));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		}
-		String ltDateCreated = params.get("ltDateCreated");
-		if (!StringUtils.isBlank(ltDateCreated)) {
-			try {
-				detachedCriteria.add(Restrictions.lt("dateCreated", DateUtils.parseDate(ltDateCreated, new String[] {
-						"yyyy-MM-dd HH:mm:ss"
-				})));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-		}
+    public void setImageUploadedDao(ImageUploadedDao imageUploadedDao) {
+        this.imageUploadedDao = imageUploadedDao;
+    }
+
+    @Override
+    public Purchase save(Purchase entity) {
+        return getPurchaseDao().save(entity);
+    }
+
+    @Override
+    public List<Purchase> save(List<Purchase> entity) {
+        return getPurchaseDao().save(entity);
+    }
+
+    @Override
+    public Purchase save(Purchase entity, ImageUploaded imageUploaded) {
+        entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
+        entity.setPurchaseValid(DateUtils.addDays(new Date(), 30));
+        entity = getPurchaseDao().save(entity);
+        imageUploaded.setRefId(entity.getId());
+        imageUploaded.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
+        imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
+        imageUploaded = getImageUploadedDao().save(imageUploaded);
+        entity.getIds().add(imageUploaded.getId());
+        return entity;
+    }
+
+    @Override
+    public Purchase save(Purchase entity, List<ImageUploaded> imageUploadeds) {
+        entity.setFlagDeleted(Purchase.FlagDeleted.NORMAL.getValue());
+        entity.setPurchaseValid(DateUtils.addDays(new Date(), 30));
+        entity = getPurchaseDao().save(entity);
+        for (ImageUploaded imageUploaded : imageUploadeds) {
+            imageUploaded.setRefId(entity.getId());
+            imageUploaded.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
+            imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
+        }
+        imageUploadeds = getImageUploadedDao().save(imageUploadeds);
+        List<Long> ids = new ArrayList<Long>();
+        for (ImageUploaded imageUploaded : imageUploadeds) {
+            ids.add(imageUploaded.getId());
+        }
+        entity.setIds(ids);
+        return entity;
+    }
+
+    public Purchase update(Purchase entity, List<ImageUploaded> imageUploadeds, List<Long> imageIds) {
+        entity = getPurchaseDao().update(entity);
+        for (ImageUploaded imageUploaded : imageUploadeds) {
+            imageUploaded.setRefId(entity.getId());
+            imageUploaded.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
+            imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
+        }
+        imageUploadeds = getImageUploadedDao().save(imageUploadeds);
+        Map<Long, Boolean> imageIdMap = new HashMap<Long, Boolean>();
+        List<Long> ids = new ArrayList<Long>();
+        for (Long id : imageIds) {
+            imageIdMap.put(id, true);
+        }
+        for (Long id : entity.getIds()) {
+            if (null == imageIdMap.get(id)) {
+                getImageUploadedDao().deleteLogicById(id);
+            } else {
+                ids.add(id);
+            }
+        }
+        for (ImageUploaded imageUploaded : imageUploadeds) {
+            ids.add(imageUploaded.getId());
+        }
+        entity.setIds(ids);
+        return entity;
+    }
+
+    @Override
+    public List<Purchase> findAllByMap(Map<String, String> params) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Purchase.class);
+        String gtDateCreated = params.get("gtDateCreated");
+        if (!StringUtils.isBlank(gtDateCreated)) {
+            try {
+                detachedCriteria.add(Restrictions.gt("dateCreated", DateUtils.parseDate(gtDateCreated, new String[] { "yyyy-MM-dd HH:mm:ss" })));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        String ltDateCreated = params.get("ltDateCreated");
+        if (!StringUtils.isBlank(ltDateCreated)) {
+            try {
+                detachedCriteria.add(Restrictions.lt("dateCreated", DateUtils.parseDate(ltDateCreated, new String[] { "yyyy-MM-dd HH:mm:ss" })));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
         String purchaseName = params.get("purchaseName");
         if (!StringUtils.isBlank(purchaseName)) {
-        	detachedCriteria.add(Restrictions.like("purchaseName", "%" + purchaseName + "%"));
+            detachedCriteria.add(Restrictions.like("purchaseName", "%" + purchaseName + "%"));
         }
         String purchaseType = params.get("purchaseType");
         if (!StringUtils.isBlank(purchaseType)) {
-        	detachedCriteria.add(Restrictions.like("purchaseType", "%" + purchaseType + "%"));
+            detachedCriteria.add(Restrictions.like("purchaseType", "%" + purchaseType + "%"));
         }
         String checkStatus = params.get("checkStatus");
         if (!StringUtils.isBlank(checkStatus)) {
-        	detachedCriteria.add(Restrictions.eq("checkStatus", checkStatus));
+            detachedCriteria.add(Restrictions.eq("checkStatus", checkStatus));
         }
         String purchaseAddress = params.get("purchaseAddress");
         if (!StringUtils.isBlank(purchaseAddress)) {
-        	detachedCriteria.add(Restrictions.like("purchaseAddress", "%" + purchaseAddress + "%"));
+            detachedCriteria.add(Restrictions.like("purchaseAddress", "%" + purchaseAddress + "%"));
         }
         String purchaseLocation = params.get("purchaseLocation");
         if (!StringUtils.isBlank(purchaseLocation)) {
-        	detachedCriteria.add(Restrictions.like("purchaseLocation", "%" + purchaseLocation + "%"));
+            detachedCriteria.add(Restrictions.like("purchaseLocation", "%" + purchaseLocation + "%"));
         }
         String flagDeleted = params.get("flagDeleted");
         if (!StringUtils.isBlank(flagDeleted)) {
-        	detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
+            detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
         }
         String userCreated = params.get("userCreated");
         if (!StringUtils.isBlank(userCreated)) {
-        	detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
+            detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
         }
         detachedCriteria.addOrder(Order.desc("dateCreated"));
-		List<Purchase> list = getPurchaseDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
-		if (null != list && !list.isEmpty()) {
-			List<Long> ids = new ArrayList<Long>();
-			for (Purchase p : list) {
-				ids.add(p.getId());
-			}
-			Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.PURCHASE, 0, ids.size() * 3);
-			for (int i = 0; i < ids.size(); i++) {
-				Purchase ip = list.get(i);
-				List<Long> imageIds = maps.get(ip.getId());
-				if (null != imageIds) {
-					ip.setIds(maps.get(ip.getId()));
-				}
-				list.set(i, ip);
-			}
-		}
-		return list;
-	}
+        List<Purchase> list = getPurchaseDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
+        if (null != list && !list.isEmpty()) {
+            List<Long> ids = new ArrayList<Long>();
+            for (Purchase p : list) {
+                ids.add(p.getId());
+            }
+            Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.PURCHASE, 0, ids.size() * 3);
+            for (int i = 0; i < ids.size(); i++) {
+                Purchase ip = list.get(i);
+                List<Long> imageIds = maps.get(ip.getId());
+                if (null != imageIds) {
+                    ip.setIds(maps.get(ip.getId()));
+                }
+                list.set(i, ip);
+            }
+        }
+        return list;
+    }
 
-	@Override
-	public Purchase findByMap(Map<String, String> params) {
-		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Purchase.class);
+    @Override
+    public Purchase findByMap(Map<String, String> params) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Purchase.class);
 
-		handleCriteriaByParams(detachedCriteria, params);
-		
-		List<Purchase> l = getPurchaseDao().findListByDetachedCriteria(detachedCriteria, 0, 1);
-		if (null == l || l.isEmpty()) {
-			return new Purchase();
-		}
-		Purchase p = l.get(0);
-		List<Long> ids = getImageUploadedDao().findAllIdsByRefId(p.getId(), ImageUploaded.RefType.PURCHASE);
-		p.setIds(ids);
-		if (null != p.getUserCreated()) {
-			Person person = getPersonDao().findById(p.getUserCreated());
-			if (null != person) {
-				p.setPerson(person);
-			}
-		}
-		return p;
-	}
-	
-    
-    protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params){
+        handleCriteriaByParams(detachedCriteria, params);
+
+        List<Purchase> l = getPurchaseDao().findListByDetachedCriteria(detachedCriteria, 0, 1);
+        if (null == l || l.isEmpty()) {
+            return new Purchase();
+        }
+        Purchase p = l.get(0);
+        List<Long> ids = getImageUploadedDao().findAllIdsByRefId(p.getId(), ImageUploaded.RefType.PURCHASE);
+        p.setIds(ids);
+        if (null != p.getUserCreated()) {
+            Person person = getPersonDao().findById(p.getUserCreated());
+            if (null != person) {
+                p.setPerson(person);
+            }
+        }
+        return p;
+    }
+
+    protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params) {
         String id = params.get("id");
         if (!StringUtils.isBlank(id)) {
             criteria.add(Restrictions.eq("id", Long.parseLong(id)));
@@ -248,7 +254,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         String purchaseValidMin = params.get("purchaseValidMin");
         if (!StringUtils.isBlank(purchaseValidMin)) {
             try {
-                criteria.add(Restrictions.ge("purchaseValid", DateUtils.parseDate(purchaseValidMin, "yyyy-MM-dd" )));
+                criteria.add(Restrictions.ge("purchaseValid", DateUtils.parseDate(purchaseValidMin, "yyyy-MM-dd")));
             } catch (ParseException e) {
                 log.error("[purchaseValidMin] parsed exception :", e);
             }
@@ -256,7 +262,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         String purchaseValidMax = params.get("purchaseValidMax");
         if (!StringUtils.isBlank(purchaseValidMax)) {
             try {
-                criteria.add(Restrictions.lt("purchaseValid", DateUtils.addDays(DateUtils.parseDate(purchaseValidMax, "yyyy-MM-dd" ), 1)));
+                criteria.add(Restrictions.lt("purchaseValid", DateUtils.addDays(DateUtils.parseDate(purchaseValidMax, "yyyy-MM-dd"), 1)));
             } catch (ParseException e) {
                 log.error("[purchaseValidMax] parsed exception :", e);
             }
@@ -292,7 +298,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         String dateApplyMin = params.get("dateApplyMin");
         if (!StringUtils.isBlank(dateApplyMin)) {
             try {
-                criteria.add(Restrictions.ge("dateApply", DateUtils.parseDate(dateApplyMin, "yyyy-MM-dd" )));
+                criteria.add(Restrictions.ge("dateApply", DateUtils.parseDate(dateApplyMin, "yyyy-MM-dd")));
             } catch (ParseException e) {
                 log.error("[dateApplyMin] parsed exception :", e);
             }
@@ -300,7 +306,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         String dateApplyMax = params.get("dateApplyMax");
         if (!StringUtils.isBlank(dateApplyMax)) {
             try {
-                criteria.add(Restrictions.lt("dateApply", DateUtils.addDays(DateUtils.parseDate(dateApplyMax, "yyyy-MM-dd" ), 1)));
+                criteria.add(Restrictions.lt("dateApply", DateUtils.addDays(DateUtils.parseDate(dateApplyMax, "yyyy-MM-dd"), 1)));
             } catch (ParseException e) {
                 log.error("[dateApplyMax] parsed exception :", e);
             }
@@ -320,7 +326,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         String dateCheckMin = params.get("dateCheckMin");
         if (!StringUtils.isBlank(dateCheckMin)) {
             try {
-                criteria.add(Restrictions.ge("dateCheck", DateUtils.parseDate(dateCheckMin, "yyyy-MM-dd" )));
+                criteria.add(Restrictions.ge("dateCheck", DateUtils.parseDate(dateCheckMin, "yyyy-MM-dd")));
             } catch (ParseException e) {
                 log.error("[dateCheckMin] parsed exception :", e);
             }
@@ -328,7 +334,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         String dateCheckMax = params.get("dateCheckMax");
         if (!StringUtils.isBlank(dateCheckMax)) {
             try {
-                criteria.add(Restrictions.lt("dateCheck", DateUtils.addDays(DateUtils.parseDate(dateCheckMax, "yyyy-MM-dd" ), 1)));
+                criteria.add(Restrictions.lt("dateCheck", DateUtils.addDays(DateUtils.parseDate(dateCheckMax, "yyyy-MM-dd"), 1)));
             } catch (ParseException e) {
                 log.error("[dateCheckMax] parsed exception :", e);
             }
@@ -348,7 +354,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         String dateCreatedMin = params.get("dateCreatedMin");
         if (!StringUtils.isBlank(dateCreatedMin)) {
             try {
-                criteria.add(Restrictions.ge("dateCreated", DateUtils.parseDate(dateCreatedMin, "yyyy-MM-dd" )));
+                criteria.add(Restrictions.ge("dateCreated", DateUtils.parseDate(dateCreatedMin, "yyyy-MM-dd")));
             } catch (ParseException e) {
                 log.error("[dateCreatedMin] parsed exception :", e);
             }
@@ -356,7 +362,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         String dateCreatedMax = params.get("dateCreatedMax");
         if (!StringUtils.isBlank(dateCreatedMax)) {
             try {
-                criteria.add(Restrictions.lt("dateCreated", DateUtils.addDays(DateUtils.parseDate(dateCreatedMax, "yyyy-MM-dd" ), 1)));
+                criteria.add(Restrictions.lt("dateCreated", DateUtils.addDays(DateUtils.parseDate(dateCreatedMax, "yyyy-MM-dd"), 1)));
             } catch (ParseException e) {
                 log.error("[dateCreatedMax] parsed exception :", e);
             }
@@ -376,7 +382,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         String lastUpdatedMin = params.get("lastUpdatedMin");
         if (!StringUtils.isBlank(lastUpdatedMin)) {
             try {
-                criteria.add(Restrictions.ge("lastUpdated", DateUtils.parseDate(lastUpdatedMin, "yyyy-MM-dd" )));
+                criteria.add(Restrictions.ge("lastUpdated", DateUtils.parseDate(lastUpdatedMin, "yyyy-MM-dd")));
             } catch (ParseException e) {
                 log.error("[lastUpdatedMin] parsed exception :", e);
             }
@@ -384,36 +390,65 @@ public class PurchaseServiceImpl implements PurchaseService {
         String lastUpdatedMax = params.get("lastUpdatedMax");
         if (!StringUtils.isBlank(lastUpdatedMax)) {
             try {
-                criteria.add(Restrictions.lt("lastUpdated", DateUtils.addDays(DateUtils.parseDate(lastUpdatedMax, "yyyy-MM-dd" ), 1)));
+                criteria.add(Restrictions.lt("lastUpdated", DateUtils.addDays(DateUtils.parseDate(lastUpdatedMax, "yyyy-MM-dd"), 1)));
             } catch (ParseException e) {
                 log.error("[lastUpdatedMax] parsed exception :", e);
             }
         }
-        
+
         criteria.addOrder(Order.desc("dateCreated"));
     }
 
-	@Override
-	public Purchase update(Purchase entity) {
-		return getPurchaseDao().update(entity);
-	}
-	
-	@Override
-	public void delete(Purchase entity) {
-		getPurchaseDao().deleteById(entity.getId());
-	}
-	
-	@Override
-	public Purchase findById(Long id) {
-		return getPurchaseDao().findById(id);
-	}
+    @Override
+    public Purchase update(Purchase entity) {
+        // 审核信息处理
+        Long userCheck = new Long(0);
+        Date dateCheck = new Date();
 
-	@Override
-	public Pagination findByParams(Map<String, String> params) {
-		DetachedCriteria detachedCriteria = DetachedCriteria
-				.forClass(Purchase.class);
-		int pageSize = com.xone.model.utils.MyModelUtils.parseInt(params.get("pageSize"), 20);
-		int startIndex = com.xone.model.utils.MyModelUtils.parseInt(params.get("pageNo"), 0);
-		return getPurchaseDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
-	}
+        PurcCheck check = entity.getCheck();
+        check.setPurchaseId(entity.getId());
+        check.setUserApply(userCheck);
+        check.setDateCheck(dateCheck);
+        purcCheckDao.save(check);
+
+        entity.setUserCheck(userCheck);
+        entity.setDateCheck(dateCheck);
+        entity.setCheckStatus(check.getCheckStatus());
+        entity.setRemark(check.getRemark());
+        entity = getPurchaseDao().update(entity);
+
+        return getPurchaseDao().update(entity);
+    }
+
+    @Override
+    public void delete(Purchase entity) {
+        getPurchaseDao().deleteById(entity.getId());
+    }
+
+    @Override
+    public Purchase findById(Long id) {
+        Purchase purchase = getPurchaseDao().findById(id);
+        if (purchase != null) {
+            List<PurcCheck> l = purcCheckDao.findByPurchaseId(purchase.getId());
+            purchase.setCheckList(l);
+        }
+        return purchase;
+    }
+
+    @Override
+    public Pagination findByParams(Map<String, String> params) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Purchase.class);
+        int pageSize = MyServerUtils.parseInteger(params.get("pageSize"), 20);
+        int startIndex = MyServerUtils.parseInteger(params.get("pageNo"), 0);
+        return getPurchaseDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+    }
+
+    public PurcCheckDao getPurcCheckDao() {
+        return purcCheckDao;
+    }
+
+    public void setPurcCheckDao(PurcCheckDao purcCheckDao) {
+        this.purcCheckDao = purcCheckDao;
+    }
+
 }

@@ -28,7 +28,7 @@
                         <li class="active">产品编辑</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" enctype="multipart/form-data" id="productEditForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productUpdate.html">
+                <form class="form-horizontal" id="saveForm" enctype="multipart/form-data" id="productEditForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productUpdate.html">
                     <input type="hidden" name="product.id" value="${product.id}">
                     <div class="control-group">
                         <label class="control-label" for="productName">产品名称</label>
@@ -190,7 +190,7 @@
 
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" name="update" value="update" class="btn">提交更新</button>
+                            <button type="button" class="btn" onclick="doSaveForm();">提交更新</button>
                         </div>
                     </div>
                 </form>
@@ -242,6 +242,48 @@
         $('div.uploadimagesdiv3').html('');
         $('#uploadImageFile3').val('');
         return false;
+    }
+    
+    function doSaveForm() {
+        var $form = $('#saveForm');
+        var validate = [ {
+            name : 'product.productName',
+            text : '请输入产品名'
+        }, {
+            name : 'product.productPrice',
+            text : '请输入产品价格'
+        }, {
+            name : 'product.productPrice',
+            text : '产品价格必须为数字，且大于0',
+			func : numberValidation       
+        }, {
+            name : 'product.productNum',
+            text : '请输入产品数量'
+        }, {
+            name : 'product.productNum',
+            text : '产品数量必须为数字，且大于0',
+			func : numberValidation       
+        } ];
+
+        var pass = XONE.valid(validate, $form, "");
+
+        if (pass)
+            $form.submit();
+    }
+    function numberValidation(inputEl){
+        var result = true;
+	    var val = inputEl.val();
+	    if(val != null && val.length > 0){
+	        var n = null;
+	        try{
+	            n = parseInt(val);
+	        }catch(e){}
+	        
+	        if(n == null || isNaN(n) || n < 0){
+	            result = false;
+	        }
+	    }
+	    return result;
     }
 </script>
 </html>

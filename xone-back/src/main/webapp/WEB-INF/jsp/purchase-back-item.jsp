@@ -82,6 +82,28 @@
                             <td style="width: 60px;">审核意见</td>
                             <td>${purchase.remark}</td>
                         </tr>
+                        <tr>
+                            <td colspan="2">审核历史</td>
+                        </tr>
+                        <c:forEach items="${ purchase.checkList }" var="item" varStatus="status">
+                            <tr>
+                                <td colspan="2"><div class="well">
+                                        <div class="control-group">
+                                            <span>审核结果</span>
+                                            <div class="inline">
+                                                <c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
+                                                    <c:if test="${it.value == item.checkStatus}">${ it.name }</c:if>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+
+                                        <div class="control-group">
+                                            <span>审核意见</span>
+                                            <div class="inline">${ item.remark }</div>
+                                        </div>
+                                    </div></td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

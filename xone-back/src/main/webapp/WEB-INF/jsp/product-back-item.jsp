@@ -100,6 +100,12 @@
                                 </c:forEach></td>
                         </tr>
                         <tr>
+                            <td style="width: 60px;">审核结果</td>
+                            <td><c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
+                                    <c:if test="${it.value == purchase.checkStatus}">${ it.name }</c:if>
+                                </c:forEach></td>
+                        </tr>
+                        <tr>
                             <td colspan="2">审核历史</td>
                         </tr>
                         <c:forEach items="${ product.checkList }" var="item" varStatus="status">

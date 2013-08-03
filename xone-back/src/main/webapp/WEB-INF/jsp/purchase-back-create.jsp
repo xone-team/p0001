@@ -27,7 +27,7 @@
                         <li class="active">创建求购</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/purchase/purchaseSave.html">
+                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/purchase/purchaseSave.html">
                     <div class="control-group">
                         <label class="control-label" for="purchaseName">产品名称</label>
                         <div class="controls">
@@ -51,12 +51,6 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="purchaseValid">有效期</label>
-                        <div class="controls">
-                            <input type="text" id="purchaseValid" name="purchase.purchaseValid" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="有效期">
-                        </div>
-                    </div>
-                    <div class="control-group">
                         <label class="control-label" for="purchaseAddress">产品产地</label>
                         <div class="controls">
                             <input type="text" id="purchaseAddress" name="purchase.purchaseAddress" maxlength="255" placeholder="产品产地">
@@ -76,7 +70,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" class="btn">提交创建</button>
+                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -89,5 +83,50 @@
     jQuery(function() {
         jQuery("#X_menu_li_purchase").addClass("active");
     });
+    
+    function doSaveForm() {
+        var $form = $('#saveForm');
+        var validate = [ {
+            name : 'purchase.purchaseName',
+            text : '请输入求购产品名'
+        }, {
+            name : 'purchase.purchasePrice',
+            text : '请输入求购产品价格'
+        }, {
+            name : 'purchase.purchasePrice',
+            text : '求购产品价格必须为数字，且大于0',
+			func : numberValidation       
+        }, {
+            name : 'purchase.purchaseNum',
+            text : '请输入求购产品数量'
+        }, {
+            name : 'purchase.purchaseNum',
+            text : '求购产品数量必须为数字，且大于0',
+			func : numberValidation       
+        }, {
+            name : 'uploadFile1',
+            text : '请至少上传一张图片'
+        } ];
+
+        var pass = XONE.valid(validate, $form, "");
+
+        if (pass)
+            $form.submit();
+    }
+    function numberValidation(inputEl){
+        var result = true;
+	    var val = inputEl.val();
+	    if(val != null && val.length > 0){
+	        var n = null;
+	        try{
+	            n = parseInt(val);
+	        }catch(e){}
+	        
+	        if(n == null || isNaN(n) || n < 0){
+	            result = false;
+	        }
+	    }
+	    return result;
+    }
 </script>
 </html>

@@ -56,6 +56,9 @@ public class Purchase implements Serializable {
 	protected Long userUpdated;
 	protected Date lastUpdated;
 	
+	List<PurcCheck> checkList;
+	PurcCheck check;
+	
 	protected Person person;
 	public Person getPerson() {
 		return person;
@@ -356,6 +359,18 @@ public class Purchase implements Serializable {
     }
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+    public List<PurcCheck> getCheckList() {
+        return checkList;
+    }
+    public void setCheckList(List<PurcCheck> checkList) {
+        this.checkList = checkList;
+    }
+    public PurcCheck getCheck() {
+        return check;
+    }
+    public void setCheck(PurcCheck check) {
+        this.check = check;
     }
 	
 	

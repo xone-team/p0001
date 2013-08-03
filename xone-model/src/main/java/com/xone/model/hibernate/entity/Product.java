@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.xone.model.hibernate.entity.Purchase.CheckStatus;
-
 public class Product implements Serializable {
 	
 	private static final long serialVersionUID = 1551553979029311658L;
