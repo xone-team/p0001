@@ -115,7 +115,7 @@
 
                     <div class="control-group">
                         <div class="controls">
-                            <button type="button" class="btn" onclick="doSaveForm();">提交更新
+                            <button type="submit" name="update" value="update" class="btn">提交更新
                             </button>
                         </div>
                     </div>

@@ -102,7 +102,7 @@
                         <tr>
                             <td style="width: 60px;">审核结果</td>
                             <td><c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
-                                    <c:if test="${it.value == purchase.checkStatus}">${ it.name }</c:if>
+                                    <c:if test="${it.value == product.checkStatus}">${ it.name }</c:if>
                                 </c:forEach></td>
                         </tr>
                         <tr>

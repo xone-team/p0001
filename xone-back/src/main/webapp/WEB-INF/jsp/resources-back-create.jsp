@@ -27,7 +27,7 @@
                         <li class="active">创建资源</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/resources/resourcesSave.html">
+                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/resources/resourcesSave.html">
                     <div class="control-group">
                         <label class="control-label" for="name">资源名称</label>
                         <div class="controls">
@@ -37,13 +37,13 @@
                     <div class="control-group">
                         <label class="control-label" for="resourceType">资源类型</label>
                         <div class="controls">
-                            <input type="text" id="resourceType" name="resources.resourceType" maxlength="11" placeholder="资源类型">
+                            <input type="text" id="resourceType" name="resources.resourceType" maxlength="11" placeholder="资源类型" value="1">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="priority">优先级</label>
                         <div class="controls">
-                            <input type="text" id="priority" name="resources.priority" maxlength="11" placeholder="优先级">
+                            <input type="text" id="priority" name="resources.priority" maxlength="11" placeholder="优先级" value="0">
                         </div>
                     </div>
                     <div class="control-group">
@@ -61,7 +61,11 @@
                     <div class="control-group">
                         <label class="control-label" for="enable">可用标识</label>
                         <div class="controls">
-                            <input type="text" id="enable" name="resources.enable" maxlength="1" placeholder="可用标识">
+                            <select class="selectpicker" id="enable" name="resources.enable">
+                                <c:forEach items="${commonTypes.ynList}" var="it">
+                                    <option value="${it.value}" <c:if test="${it.value == resources.enable}">selected</c:if>>${it.name}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
                     <div class="control-group">
@@ -81,7 +85,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" class="btn">提交创建</button>
+                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -195,5 +199,51 @@
     jQuery(function() {
         jQuery("#X_menu_li_resources").addClass("active");
     });
+    jQuery(function() {
+        jQuery("#X_menu_li_roles").addClass("active");
+    });
+    function doSaveForm() {
+        var $form = $('#saveForm');
+        var validate = [ {
+            name : 'name',
+            text : '请输入资源名'
+        }, {
+            name : 'resourceType',
+            text : '请输入资源类别'
+        }, {
+            name : 'resourceType',
+            text : '请输入资源类别格式错误',
+            func : numberValidation
+        }, {
+            name : 'priority',
+            text : '请输入优先级'
+        }, {
+            name : 'priority',
+            text : '优先级必须为数字',
+            func : numberValidation
+        }, {
+            name : 'resourceUrl',
+            text : '请输入资源地址'
+        } ];
+
+        var pass = XONE.valid(validate, $form, "resources.");
+        if (pass)
+            $form.submit();
+    }
+    function numberValidation(inputEl){
+        var result = true;
+	    var val = inputEl.val();
+	    if(val != null && val.length > 0){
+	        var n = null;
+	        try{
+	            n = parseInt(val);
+	        }catch(e){}
+	        
+	        if(n == null || isNaN(n) || n < 0){
+	            result = false;
+	        }
+	    }
+	    return result;
+    }
 </script>
 </html>

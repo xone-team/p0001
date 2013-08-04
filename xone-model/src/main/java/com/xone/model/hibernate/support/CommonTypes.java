@@ -61,9 +61,9 @@ public class CommonTypes implements Serializable {
         
         // init saleType type
         typeList = new ArrayList<NameValuePairs>();
-        typeList.add(new NameValuePairs("普通", "1"));
-        typeList.add(new NameValuePairs("促销", "2"));
-        typeList.add(new NameValuePairs("组团", "3"));
+        typeList.add(new NameValuePairs("普通", "0"));
+        typeList.add(new NameValuePairs("促销", "1"));
+        typeList.add(new NameValuePairs("组团", "2"));
         result.setSaleTypeList(typeList);
         
         // init productType type

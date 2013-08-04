@@ -28,7 +28,7 @@
                         <li class="active">编辑系统设置项</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/config/configUpdate.html">
+                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/config/configUpdate.html">
                     <input type="hidden" name="config.id" value="${config.id}">
                     <div class="control-group">
                         <label class="control-label" for="code">编码</label>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" name="update" value="update" class="btn">提交更新</button>
+                            <button type="button" class="btn" onclick="doSaveForm();">提交更新</button>
                         </div>
                     </div>
                 </form>

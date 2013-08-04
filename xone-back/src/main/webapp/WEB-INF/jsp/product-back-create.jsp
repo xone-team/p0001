@@ -104,7 +104,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
+                            <button type="submit" name="create" value="create" class="btn">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -159,6 +159,9 @@
     }
     function doSaveForm() {
         var $form = $('#saveForm');
+        $form.submit();
+        return;
+        
         var validate = [ {
             name : 'product.productName',
             text : '请输入产品名'

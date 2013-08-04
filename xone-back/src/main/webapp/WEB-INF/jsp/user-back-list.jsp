@@ -42,14 +42,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="span5 form-horizontal">
-                                            <div class="control-group">
-                                                <label class="control-label" for="dateCreatedMin">创建时间</label>
-                                                <div class="controls">
-                                                    <input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="person.dateCreatedMin" value="${person.dateCreatedMin}" maxlength="19" placeholder="最小日期"> <span class="add-on">~</span> <input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="person.dateCreatedMax" value="${person.dateCreatedMax}" maxlength="19" placeholder="最大日期">
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="row-fluid hide">
                                         <div class="span5 form-horizontal">
