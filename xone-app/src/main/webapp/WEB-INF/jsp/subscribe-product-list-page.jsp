@@ -32,23 +32,31 @@
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js"></script>
 		<script type="text/javascript">
 			$('div.subscribe-product-list-page${myid}').bind("pageinit", function(event) {
+				var data = {
+				<c:if test="${!(empty mapValue)}">
+					<c:forEach items="${mapValue}" var="entry">  
+						'product.${entry.key}':'${entry.value}',
+					</c:forEach>
+				</c:if>
+				'_': new Date().getTime()
+				}
 				$('div.subscribe-product-list-content').mypullupdown({
 					url:'${pageContext.request.contextPath}/product/listItems.html',
 					onDown: function() {
 						var item = $('ul.ul-subscribe-product-list').find('li.productdatecreateditem');
-						return {
+						return $.extend({}, data, {
 							'itemcount': item.length,
 							'itemaction': 'down',
 							'product.dateCreated': item.first().attr('timestamp')
-						}
+						});
 					},
 					onUp: function() {
 						var item = $('ul.ul-subscribe-product-list').find('li.productdatecreateditem');
-						return {
+						return $.extend({}, data, {
 							'itemcount': item.length,
 							'itemaction': 'up',
 							'product.dateCreated': item.last().attr('timestamp')
-						}
+						});
 					},
 					down: function(html) {
 						$('ul.ul-subscribe-product-list').prepend(html).listview('refresh');
@@ -67,7 +75,7 @@
 					$.ajax({
 						type: 'GET',
 						url: '${pageContext.request.contextPath}/product/listItems.html',
-						data: '_=' + new Date().getTime(),
+						data: data,
 						success: function(html) {
 							$('ul.ul-subscribe-product-list').html(html).listview('refresh');
 							fixedSubscribeProductImage();

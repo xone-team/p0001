@@ -39,12 +39,11 @@ public class AssistantAction extends LogicAction {
 	}
 	
 	public String subscribe() {
-		Map<String, String> params = new HashMap<String, String>();
-		List<Subscribe> l = getSubscribeService().findAllByMap(params);
+		List<Subscribe> l = getSubscribeService().findAllSubscribe(getRequestMap());
 		if (null != l && !l.isEmpty()) {
 			getList().addAll(l);
 		}
-		//需要把这个值更新到数据库中去
+		//最后一次请求数据库查询订阅的时间
 		getMapValue().put("lastSubscribeUpdated", MyDateUtils.format(new Date()));
 		return SUCCESS;
 	}

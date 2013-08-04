@@ -25,6 +25,7 @@ import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.ProdCheck;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.model.utils.MyModelUtils;
 
 public class ProductServiceImpl implements ProductService {
     private static final Log log = LogFactory.getLog(ProductServiceImpl.class);
@@ -254,8 +255,8 @@ public class ProductServiceImpl implements ProductService {
 
         handleCriteriaByParams(detachedCriteria, params);
 
-        int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
-        int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
+        int pageSize = MyModelUtils.parseInt(params.get("pageSize"), 20);
+        int startIndex = MyModelUtils.parseInt(params.get("pageNo"), 0);
         return getProductDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
     }
     

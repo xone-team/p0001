@@ -26,6 +26,7 @@ import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.PurcCheck;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.service.app.utils.MyServerUtils;
 
 public class PurchaseServiceImpl implements PurchaseService {
 
@@ -437,8 +438,8 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Pagination findByParams(Map<String, String> params) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Purchase.class);
-        int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
-        int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
+        int pageSize = MyServerUtils.parseInteger(params.get("pageSize"), 20);
+        int startIndex = MyServerUtils.parseInteger(params.get("pageNo"), 0);
         return getPurchaseDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
     }
 

@@ -9,7 +9,7 @@
 		<jsp:include page="commons.jsp"></jsp:include>
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
-	<body>
+	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="login-ref-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-backbtn="false" data-position="fixed">
 			<h1>用户登录页面</h1>
@@ -28,8 +28,9 @@
 					});
 				</script>
 			</c:if>
-			<form method="post" action="${pageContext.request.contextPath}/login/login.html">
+			<form method="post" class="loginform${myid}" action="${pageContext.request.contextPath}/login/login.html">
 				<input type="hidden" name="redirect" value="" autocomplete="off"/>
+				<input type="hidden" name="_m" id="_m${myid}" value="" autocomplete="off"/>
 				<ul data-role="listview" data-inset="true" data-mini="true">
 					<li data-role="list-divider"><h2>用户登录信息</h2></li>
 				    <li>
@@ -63,6 +64,12 @@
 					$('div.login-ref-popup-page').css({
 						width: ($('div.login-ref-page').width() - 30) + 'px'
 					}).popup('open');
+					$('form.loginform${myid}').submit(function() {
+						try {
+							$('#_m${myid}').val(window.main.mloginValue());
+						} catch (e) {}
+						return true;
+					});
 				});
 			</script>
 		</div>

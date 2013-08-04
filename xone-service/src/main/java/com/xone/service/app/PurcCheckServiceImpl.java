@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.model.hibernate.app.PurcCheckDao;
 import com.xone.model.hibernate.entity.PurcCheck;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.service.app.utils.MyServerUtils;
 
 public class PurcCheckServiceImpl implements PurcCheckService {
 	private static final Log log = LogFactory.getLog(PurcCheckServiceImpl.class);
@@ -73,8 +74,8 @@ public class PurcCheckServiceImpl implements PurcCheckService {
 				
 		handleCriteriaByParams(detachedCriteria, params);
 				
-		int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
-		int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
+		int pageSize = MyServerUtils.parseInteger(params.get("pageSize"), 20);
+		int startIndex = MyServerUtils.parseInteger(params.get("pageNo"), 0);
 		return getPurcCheckDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
 	}
 	

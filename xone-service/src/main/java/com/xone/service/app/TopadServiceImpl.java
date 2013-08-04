@@ -68,8 +68,8 @@ public class TopadServiceImpl implements TopadService {
     }
     
     public Pagination findByParams(Map<String, String> params) {
-        int pageSize = com.xone.model.utils.StringUtils.parseInt(params.get("pageSize"), 20);
-        int startIndex = com.xone.model.utils.StringUtils.parseInt(params.get("pageNo"), 0);
+        int pageSize = com.xone.model.utils.MyModelUtils.parseInt(params.get("pageSize"), 20);
+        int startIndex = com.xone.model.utils.MyModelUtils.parseInt(params.get("pageNo"), 0);
         return getTopadDao().findBySqlMap("back.topad", params, pageSize, startIndex);
     }
     

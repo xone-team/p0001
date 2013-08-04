@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE HTML><<c:set var="myid" value="${identify}"/>
+<!DOCTYPE HTML><c:set var="myid" value="${identify}"/>
 <html>
 	<head>
 		<title>Hello World</title>

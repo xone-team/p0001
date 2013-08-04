@@ -8,7 +8,7 @@
 	</date>
 	<items>
 		<c:forEach var="item" items="${list}">
-			<item market="${item.marketarea}" key="${item.productNameKey}" saleType="${item.saleTypeName}" credit="${item.creditName}">${item.productNameKey}</item>
+			<item identify="${item.id}" market="${item.marketarea}" key="${item.productNameKey}" saleType="${item.saleTypeName}" credit="${item.creditName}">${item.productNameKey}</item>
 		</c:forEach>
 	</items>
 </root>

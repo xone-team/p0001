@@ -37,6 +37,9 @@
 		<property name="userLevel" type="java.lang.String">
 			<column name="USER_LEVEL" length="2"/>
 		</property>
+		<property name="lastMacUpdated" type="java.lang.String">
+			<column name="LAST_MAC_UPDATED" length="33"/>
+		</property>
 		<property name="userApply" type="java.lang.Long">
 			<column name="USER_APPLY" length="20"/>
 		</property>

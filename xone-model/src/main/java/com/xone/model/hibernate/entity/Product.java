@@ -69,6 +69,8 @@ public class Product implements Serializable {
 	protected Date dateCreated;
 	protected Long userUpdated;
 	protected Date lastUpdated;
+	protected Date gtDateCreated;
+	
 	protected Person person;
 	
 	protected List<ProdCheck> checkList;
@@ -437,7 +439,13 @@ public class Product implements Serializable {
     public void setCheck(ProdCheck check) {
         this.check = check;
     }
-	
-	
+
+	public Date getGtDateCreated() {
+		return gtDateCreated;
+	}
+
+	public void setGtDateCreated(Date gtDateCreated) {
+		this.gtDateCreated = gtDateCreated;
+	}
 
 }
