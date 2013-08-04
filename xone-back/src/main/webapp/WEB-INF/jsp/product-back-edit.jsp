@@ -190,7 +190,7 @@
 
                     <div class="control-group">
                         <div class="controls">
-                            <button type="button" class="btn" onclick="doSaveForm();">提交更新</button>
+                            <button type="submit" name="update" value="update" class="btn">提交更新</button>
                         </div>
                     </div>
                 </form>
@@ -246,6 +246,9 @@
     
     function doSaveForm() {
         var $form = $('#saveForm');
+        $form.submit();
+        return;
+        
         var validate = [ {
             name : 'product.productName',
             text : '请输入产品名'
