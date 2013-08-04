@@ -27,7 +27,7 @@
                         <li class="active">创建角色</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/roles/rolesSave.html">
+                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/roles/rolesSave.html">
                     <div class="control-group">
                         <label class="control-label" for="name">角色名称</label>
                         <div class="controls">
@@ -52,7 +52,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" class="btn">提交创建</button>
+                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -65,5 +65,17 @@
     jQuery(function() {
         jQuery("#X_menu_li_roles").addClass("active");
     });
+    
+    function doSaveForm(){
+		var $form = $('#saveForm');
+		var validate = [{
+			name: 'name',
+			text: '请输入角色名'
+		}];
+		
+		var pass = XONE.valid(validate, $form, "roles.");
+		if(pass)
+		    $form.submit();
+    }
 </script>
 </html>

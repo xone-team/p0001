@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Delivery;
+import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.DeliveryService;
@@ -27,6 +28,8 @@ public class DeliveryBackAction extends Action {
 	protected Delivery delivery = new Delivery();
 	protected List<Delivery> list = new ArrayList<Delivery>();
 	protected Pagination pagination = new Pagination();
+	
+	protected CommonTypes commonTypes = CommonTypes.getInstance();
 	
 	public String deliveryList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
@@ -150,4 +153,14 @@ public class DeliveryBackAction extends Action {
 	public void setPagination(Pagination pagination) {
 		this.pagination = pagination;
 	}
+
+    public CommonTypes getCommonTypes() {
+        return commonTypes;
+    }
+
+    public void setCommonTypes(CommonTypes commonTypes) {
+        this.commonTypes = commonTypes;
+    }
+	
+	
 }

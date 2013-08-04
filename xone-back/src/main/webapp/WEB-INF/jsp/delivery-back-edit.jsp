@@ -67,19 +67,19 @@
 					<div class="control-group">
 						<label class="control-label" for="boxNum">箱数</label>
 						<div class="controls">
-							<input type="text" id="boxNum" name="delivery.boxNum" value="${delivery.boxNum}" maxlength="20" placeholder="箱数">
+							<input type="text" id="boxNum" onblur="calculateBoxTotal();" name="delivery.boxNum" value="${delivery.boxNum}" maxlength="20" placeholder="箱数">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="unitNum">单位重量</label>
 						<div class="controls">
-							<input type="text" id="unitNum" name="delivery.unitNum" value="${delivery.unitNum}" maxlength="20" placeholder="单位重量">
+							<input type="text" id="unitNum" onblur="calculateBoxTotal();" name="delivery.unitNum" value="${delivery.unitNum}" maxlength="20" placeholder="单位重量">
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="boxTotal">总箱数</label>
+						<label class="control-label" for="boxTotal">总箱重</label>
 						<div class="controls">
-							<input type="text" id="boxTotal" name="delivery.boxTotal" value="${delivery.boxTotal}" maxlength="20" placeholder="总箱数">
+							<input type="text" id="boxTotal" name="delivery.boxTotal" value="${delivery.boxTotal}" maxlength="20" placeholder="总箱重">
 						</div>
 					</div>
 					<div class="control-group">
@@ -105,33 +105,8 @@
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="userCreated">创建人</label>
 						<div class="controls">
-							<input type="text" id="userCreated" name="delivery.userCreated" value="${delivery.userCreated}" maxlength="20" placeholder="创建人" disabled="disabled">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="dateCreated">创建时间</label>
-						<div class="controls">
-							<input type="text" id="dateCreated" name="delivery.dateCreated" value="<fmt:formatDate value="${delivery.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" disabled="disabled" placeholder="创建时间">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="userUpdated">更新人</label>
-						<div class="controls">
-							<input type="text" id="userUpdated" name="delivery.userUpdated" value="${delivery.userUpdated}" maxlength="20" placeholder="更新人" disabled="disabled">
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="lastUpdated">更新时间</label>
-						<div class="controls">
-							<input type="text" id="lastUpdated" name="delivery.lastUpdated" value="<fmt:formatDate value="${delivery.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" disabled="disabled" placeholder="更新时间">
-						</div>
-					</div>
-					<div class="control-group">
-						<div class="controls">
-							<button type="submit" name="update" value="update" class="btn">提交更新</button>
-							<button type="button" name="delete" value="delete" class="btn">删除记录</button>
+							<button type="button" class="btn" onclick="doSaveForm();">提交更新</button>
 						</div>
 					</div>
 				</form>
@@ -152,6 +127,7 @@
 			    language: 'zh-CN'
 			});
 			$('#flagPass').selectpicker({style: 'btn-info'});
+			/*
 			$('#deliverysaveform${myidentify}').submit(function() {
 				var $form = $('#deliverysaveform${myidentify}');
 				$form.find('div.alert').remove();
@@ -179,7 +155,87 @@
 				}
 				return true;
 			});
+			*/
 		});
+	    function doSaveForm() {
+	        var $form = $('#deliverysaveform${myidentify}');
+	        var validate = [ {
+	            name : 'productId',
+	            text : '选择产品'
+	        }, {
+	            name : 'marketarea',
+	            text : '请输入市场区域'
+	        }, {
+	            name : 'determini',
+	            text : '请输入目的地'
+	        }, {
+	            name : 'loadtime',
+	            text : '请输入上货时间'
+	        }, {
+	            name : 'loadaddress',
+	            text : '请输入上货地点'
+	        }, {
+	            name : 'boxNum',
+	            text : '请输入箱数'
+	        }, {
+	            name : 'boxNum',
+	            text : '箱数必须为数字',
+	            func : numberValidation
+	        }, {
+	            name : 'unitNum',
+	            text : '请输入箱重'
+	        }, {
+	            name : 'unitNum',
+	            text : '箱重必须为数字',
+	            func : numberValidation
+	        }, {
+	            name : 'boxTotal',
+	            text : '请输入总箱重'
+	        }, {
+	            name : 'boxTotal',
+	            text : '总箱重必须为数字',
+	            func : numberValidation
+	        }, {
+	            name : 'totalWeight',
+	            text : '请输入总重'
+	        }, {
+	            name : 'totalWeight',
+	            text : '总重必须为数字',
+	            func : numberValidation
+	        } ];
+
+	        var pass = XONE.valid(validate, $form, "delivery.");
+	        if (pass)
+	            $form.submit();
+	    }
+	    function numberValidation(inputEl) {
+	        var result = true;
+	        var val = inputEl.val();
+	        if (val != null && val.length > 0) {
+	            var n = null;
+	            try {
+	                n = parseInt(val);
+	            } catch (e) {
+	            }
+
+	            if (n == null || isNaN(n) || n < 0) {
+	                result = false;
+	            }
+	        }
+	        return result;
+	    }
+
+	    function calculateBoxTotal() {
+	        var boxNumInt, unitNumInt;
+	        try {
+	            boxNumInt = parseInt($("#boxNum").val());
+	            unitNumInt = parseFloat($('#unitNum').val()).toFixed(2);
+	        } catch (e) {
+	        }
+	        if (boxNumInt != null && !isNaN(boxNumInt) && unitNumInt != null && !isNaN(unitNumInt)) {
+	            $("#boxTotal").val(boxNumInt * unitNumInt);
+	        }
+	    }
 		</script>
 	</body>
 </html>

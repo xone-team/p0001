@@ -26,7 +26,7 @@
                         <li class="active">创建设置项</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/config/configSave.html">
+                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/config/configSave.html">
                     <div class="control-group">
                         <label class="control-label" for="code">编码</label>
                         <div class="controls">
@@ -47,7 +47,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" class="btn">提交创建</button>
+                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -60,5 +60,22 @@
     jQuery(function() {
         jQuery("#X_menu_li_config").addClass("active");
     });
+    function doSaveForm() {
+        var $form = $('#saveForm');
+        var validate = [ {
+            name : 'code',
+            text : '请输入编码'
+        }, {
+            name : 'name',
+            text : '请输入名称'
+        }, {
+            name : 'value',
+            text : '请输入值'
+        } ];
+
+        var pass = XONE.valid(validate, $form, "config.");
+        if (pass)
+            $form.submit();
+    }
 </script>
 </html>

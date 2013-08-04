@@ -28,14 +28,15 @@
                         <li class="active">置顶编辑</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/topad/topadUpdate.html">
+                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/topad/topadUpdate.html">
                     <input type="hidden" name="topad.id" value="${topad.id}">
                     <div class="control-group">
                         <label class="control-label" for="productId">产品</label>
                         <div class="controls">
                             <div id="productIdsSelectResult" class="inline">
                                 <div class="X-select-result inline">
-                                    <input type="hidden" class="X-select-hidden-value" value="${topad.productId}" name="topad.productId"> <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${topad.productId}"><span class="label label-default">${product.productName}</span></a>
+                                    <input type="hidden" class="X-select-hidden-value" value="${topad.productId}" name="topad.productId">
+                                    <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${topad.productId}"><span class="label label-default">${product.productName}</span></a>
                                 </div>
                             </div>
                             <button type="button" class="btn" onclick="showModalProductSelect($('#productIdsSelectResult'), 'topad.productId');">
@@ -61,7 +62,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" name="update" value="update" class="btn">提交更新</button>
+                            <button type="button" class="btn" onclick="doSaveForm();">提交更新</button>
                         </div>
                     </div>
                 </form>
@@ -177,5 +178,16 @@
     jQuery(function() {
         jQuery("#X_menu_li_topad").addClass("active");
     });
+    function doSaveForm() {
+        var $form = $('#saveForm');
+        var validate = [ {
+            name : 'productId',
+            text : '请选择产品'
+        } ];
+
+        var pass = XONE.valid(validate, $form, "categroy.");
+        if (pass)
+            $form.submit();
+    }
 </script>
 </html>

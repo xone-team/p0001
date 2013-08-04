@@ -74,42 +74,6 @@
 							<td style="width:60px;">备注</td>
 							<td>${delivery.remark}</td>
 						</tr>
-						<tr>
-							<td style="width:60px;">申请人</td>
-							<td>${delivery.userApply}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">申请时间</td>
-							<td><fmt:formatDate value="${delivery.dateApply}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
-						</tr>
-						<tr>
-							<td style="width:60px;">审核人</td>
-							<td>${delivery.userCheck}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">审核时间</td>
-							<td><fmt:formatDate value="${delivery.dateCheck}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
-						</tr>
-						<tr>
-							<td style="width:60px;">删除标识</td>
-							<td>${delivery.flagDeleted}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">创建人</td>
-							<td>${delivery.userCreated}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">创建时间</td>
-							<td><fmt:formatDate value="${delivery.dateCreated}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
-						</tr>
-						<tr>
-							<td style="width:60px;">更新人</td>
-							<td>${delivery.userUpdated}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">更新时间</td>
-							<td><fmt:formatDate value="${delivery.lastUpdated}" pattern="yyyy-MM-dd hh:mm:ss"/></td>
-						</tr>
 					</tbody>
 				</table>
 				</div>

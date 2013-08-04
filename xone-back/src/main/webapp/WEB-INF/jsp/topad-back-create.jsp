@@ -27,7 +27,7 @@
                         <li class="active">创建置顶</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/topad/topadSave.html">
+                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/topad/topadSave.html">
                     <div class="control-group">
                         <label class="control-label" for="productId">产品</label>
                         <div class="controls">
@@ -56,7 +56,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" class="btn">提交创建</button>
+                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -172,5 +172,17 @@
     jQuery(function() {
         jQuery("#X_menu_li_topad").addClass("active");
     });
+    function doSaveForm() {
+        var $form = $('#saveForm');
+        var validate = [ {
+            name : 'productId',
+            text : '请选择产品'
+        } ];
+
+        var pass = XONE.valid(validate, $form, "categroy.");
+        if (pass)
+            $form.submit();
+    }
+
 </script>
 </html>

@@ -27,7 +27,7 @@
                         <li class="active">创建分类</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/category/categorySave.html">
+                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/category/categorySave.html">
                     <div class="control-group">
                         <label class="control-label" for="name">名称</label>
                         <div class="controls">
@@ -43,12 +43,12 @@
                     <div class="control-group">
                         <label class="control-label" for="sort">顺序</label>
                         <div class="controls">
-                            <input type="text" id="sort" name="category.sort" maxlength="11" placeholder="顺序">
+                            <input type="text" id="sort" name="category.sort" maxlength="11" placeholder="顺序" value="0">
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" class="btn">提交创建</button>
+                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -61,5 +61,38 @@
     jQuery(function() {
         jQuery("#X_menu_li_category").addClass("active");
     });
+    function doSaveForm() {
+        var $form = $('#saveForm');
+        var validate = [ {
+            name : 'name',
+            text : '请输入名称'
+        }, {
+            name : 'sort',
+            text : '请输入顺序'
+        }, {
+            name : 'sort',
+            text : '顺序必须为数字',
+            func : numberValidation
+        } ];
+
+        var pass = XONE.valid(validate, $form, "categroy.");
+        if (pass)
+            $form.submit();
+    }
+    function numberValidation(inputEl){
+        var result = true;
+	    var val = inputEl.val();
+	    if(val != null && val.length > 0){
+	        var n = null;
+	        try{
+	            n = parseInt(val);
+	        }catch(e){}
+	        
+	        if(n == null || isNaN(n) || n < 0){
+	            result = false;
+	        }
+	    }
+	    return result;
+    }
 </script>
 </html>
