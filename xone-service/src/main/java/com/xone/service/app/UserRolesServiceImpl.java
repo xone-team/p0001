@@ -1,8 +1,7 @@
 package com.xone.service.app;
 
-import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +15,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ibatis.sqlmap.client.SqlMapClient;
 import com.xone.model.hibernate.app.UserRolesDao;
 import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.entity.UserRoles;
@@ -29,7 +27,7 @@ public class UserRolesServiceImpl implements UserRolesService {
     @Autowired
     protected UserRolesDao userRolesDao;
     
-    protected SqlMapClient sqlMapClient;
+//    protected SqlMapClient sqlMapClient;
 
     @Override
     public UserRoles save(UserRoles entity) {
@@ -64,13 +62,14 @@ public class UserRolesServiceImpl implements UserRolesService {
     @SuppressWarnings("unchecked")
     public List<Roles> findRolesByUser(Map<String, Object> params) {
         List<Roles> result = null;
-        try {
-            result = sqlMapClient.queryForList("back.roleRelUser", params);
-        } catch (SQLException e) {
-            log.error(e.getMessage(), e);
-        }
+//        try {
+//            result = sqlMapClient.queryForList("back.roleRelUser", params);
+//        } catch (SQLException e) {
+//            log.error(e.getMessage(), e);
+//        }
         
-        return result == null ? new ArrayList<Roles>() : result;
+//        return result == null ? new ArrayList<Roles>() : result;
+        return Collections.emptyList();
     }
 
     public Pagination findByParams(Map<String, String> params) {
@@ -210,8 +209,8 @@ public class UserRolesServiceImpl implements UserRolesService {
         this.userRolesDao = userRolesDao;
     }
 
-    public void setSqlMapClient(SqlMapClient sqlMapClient) {
-        this.sqlMapClient = sqlMapClient;
-    }
+//    public void setSqlMapClient(SqlMapClient sqlMapClient) {
+//        this.sqlMapClient = sqlMapClient;
+//    }
 
 }

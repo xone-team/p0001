@@ -50,7 +50,7 @@
 </style>
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
-      <script src="//cdnjs.bootcss.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+      <script src="${STATIC_ROOT}/js/html5shiv.js"></script>
     <![endif]-->
 <!-- Fav and touch icons -->
 <!-- 		<link rel="shortcut icon" href="../assets/ico/favicon.png"> -->

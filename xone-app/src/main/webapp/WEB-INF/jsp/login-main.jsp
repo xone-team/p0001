@@ -10,7 +10,7 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body><c:set var="myid" value="${identify}" />
-	<div data-role="page" data-dom-cache="true" class="loginmainpage${myid}">
+	<div data-role="page" class="loginmainpage${myid}">
 		<style type="text/css">
 			span.myspanstyle {
 				padding-left:5px;

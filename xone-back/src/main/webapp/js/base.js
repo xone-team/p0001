@@ -1,4 +1,4 @@
-'jQuery.fn.serializeObject = function()
+jQuery.fn.serializeObject = function()
 {
     var o = {};
     var a = this.serializeArray();

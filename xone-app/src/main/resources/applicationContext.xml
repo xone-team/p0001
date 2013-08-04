@@ -154,19 +154,27 @@
     <bean id="proxyCreator" class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator" p:beanNames="*Service,*ServiceImpl" p:interceptorNames="transactionInterceptor" />
     
     	<!-- sqlmap 定义 -->
-	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
-		<property name="configLocation" value="WEB-INF/config/sql-map-config.xml" />
-		<property name="dataSource" ref="dataSource" />
-	</bean>
+<!-- 	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean"> -->
+<!-- 		<property name="configLocation" value="WEB-INF/config/sql-map-config.xml" /> -->
+<!-- 		<property name="dataSource" ref="dataSource" /> -->
+<!-- 	</bean> -->
 
-	<bean id="sqlMapTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate">
-		<property name="sqlMapClient" ref="sqlMapClient" />
+<!-- 	<bean id="sqlMapTemplate" class="org.springframework.orm.ibatis.SqlMapClientTemplate"> -->
+<!-- 		<property name="sqlMapClient" ref="sqlMapClient" /> -->
+<!-- 	</bean> -->
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <property name="dataSource" ref="dataSource" />  
+        <property name="configLocation" value="WEB-INF/config/mybatis-sqlmap-config.xml" />  
+    </bean>
+	
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 
 	<!-- 基类DAO定义 -->
-	<bean id="abstractHibernateDao" class="com.xone.model.hibernate.generic.AbstractHibernateDao"
-		abstract="true">
-		<property name="sqlMapTemplate" ref="sqlMapTemplate"></property>
+	<bean id="abstractHibernateDao" class="com.xone.model.hibernate.generic.AbstractHibernateDao" abstract="true">
+		<property name="sqlSession" ref="sqlSession"></property>
 	</bean>
 	
 </beans>

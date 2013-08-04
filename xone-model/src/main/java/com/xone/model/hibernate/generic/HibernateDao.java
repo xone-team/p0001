@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.SqlSession;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
 
 import com.xone.model.hibernate.support.Pagination;
 
@@ -290,132 +290,17 @@ public interface HibernateDao <T extends Serializable> {
 	 * 获取SqlMapClientTemplate对象
 	 * @return
 	 */
-	public SqlMapClientTemplate getSqlMapTemplate();
+//	public SqlMapClientTemplate getSqlMapTemplate();
 
 	/**
 	 * 设置SqlMapClientTemplate对象
 	 * @param sqlMapTemplate
 	 */
-	public void setSqlMapTemplate(SqlMapClientTemplate sqlMapTemplate);
+//	public void setSqlMapTemplate(SqlMapClientTemplate sqlMapTemplate);
+	
+	public SqlSession getSqlSession();
 
-	/**
-	 * 通过sqlmap的键值获取对象列表
-	 * @param args sqlmap配置的键值
-	 * @return
-	 */
-	public List<T> listBySqlMap(String id);
-
-	/**
-	 * 通过传递sqlmap的键值和参数获取对象列表
-	 * @param arg0 sqlmap配置的 键值
-	 * @param arg1 参数1
-	 * @param arg2 参数2
-	 * @return
-	 */
-	public T getTBySqlMap(String id);
-
-	
-	/**
-	 * 通过sqlmap的键值和传递的参数获得实体列表
-	 * @param id
-	 * @param args
-	 * @return
-	 */
-	public List<T> listBySqlMap(String id,Object args);
-	
-	/**
-	 * 通过sqlmap的键值和传递的参数列表获得实体列表
-	 * @param id
-	 * @param args
-	 * @return
-	 */
-	public List<T> listBySqlMap(String id,Object[] args);
-	
-	/**
-	 * 通过sqlmap的键值和传递的参数列表获得实体列表
-	 * @param id
-	 * @param list
-	 * @return
-	 */
-	public List<T> listBySqlMap(String id,List<Object> list);
-	
-	/**
-	 * 通过传递sqlmap的键值和参数获取实体列表
-	 * @param id sqlmap配置的 键值
-	 * @param arg1 参数1
-	 * @param arg2 参数2
-	 * @return
-	 */
-
-	
-	/**
-	 * 通过传递sqlmap的键值和参数获取实体
-	 * @param id
-	 * @param args
-	 * @return
-	 */
-	public T getTBySqlMap(String id,Object args);
-	
-	/**
-	 * 通过传递sqlmap的键值和参数获取对象
-	 * @param id
-	 * @param args
-	 * @return
-	 */
-	public Object getObjectBySqlMap(String id,Object args);
-	
-	/**
-	 * 通过传递的sqlmap的键值和参数列表获取实体
-	 * @param id
-	 * @param args
-	 * @return
-	 */
-	public T getTBySqlMap(String id, Object[] args);
-	
-	
-	/**
-	 * 通过传递的sqlmap的键值和参数列表获取实体
-	 * @param id
-	 * @param list
-	 * @return
-	 */
-	public T getTBySqlMap(String id, List<Object> list);
-	
-	/**
-	 * 通过传递的sqlmap键值获取对象
-	 * @param id1 查询列表键值
-	 * @param id2 查询总数键值
-	 * @return
-	 */
-	public Pagination getObjectBySqlMap(String id1,String id2);
-	
-	/**
-	 * 通过传递的sqlmap键值和参数获取对象
-	 * @param id1 查询列表键值
-	 * @param id2 查询总数键值
-	 * @param args 参数
-	 * @return
-	 */
-	public Pagination getObjectBySqlMap(String id1, String id2,Object args);
-	
-	/**
-	 * 通过传递的sqlmap键值和参数数组获取对象
-	 * @param id1 查询列表键值
-	 * @param id2 查询总数键值
-	 * @param args 参数数组
-	 * @return
-	 */
-	public Pagination getObjectBySqlMap(String id1, String id2, Object[] args);
-	
-	/**
-	 * 通过传递的sqlmap键值和参数数组获取对象
-	 * @param id1 查询列表键值
-	 * @param id2 查询总数键值
-	 * @param list 参数列表
-	 * @return
-	 */
-	public Pagination getObjectBySqlMap(String id1, String id2, List<Object> list);
-	
+	public void setSqlSession(SqlSession sqlSession);
 
 	/**
 	 * 根据属性删除

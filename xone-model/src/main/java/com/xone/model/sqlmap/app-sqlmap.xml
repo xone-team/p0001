@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>  <!DOCTYPE mapper   PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xone.model.hibernate.mybatis.mapper.ProductMapper">
+<!--     <resultmap id="UserMap" type="User"> -->
+<!--         <result column="ID" property="userId"> -->
+<!--         <result column="NAME" property="userName"> -->
+<!--     </resultmap> -->
+	<select id="findProductListWithUser" parameterType="java.util.Map" resultType="java.util.Map">
+        select p.*
+        from t_product p left join t_user u on p.user_created = u.id 
+        <where>
+            <if test="productId != null">
+				p.id = #{productId}
+			</if>
+        </where>
+       	order by p.date_created
+	</select>
+</mapper>

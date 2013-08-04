@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.ibatis.session.SqlSession;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.LockMode;
@@ -34,11 +35,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
-import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
-import com.ibatis.sqlmap.client.SqlMapClient;
 import com.xone.model.hibernate.support.Pagination;
 
 @SuppressWarnings("unchecked")
@@ -46,15 +45,18 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	protected Class<T> entityClass;
-	protected SqlMapClientTemplate sqlMapTemplate;
-	
-	protected SqlMapClient sqlMapClient;
+	protected SqlSession sqlSession;
 	
 	public AbstractHibernateDao() {
 	}
-	
 
+	public SqlSession getSqlSession() {
+		return sqlSession;
+	}
 
+	public void setSqlSession(SqlSession sqlSession) {
+		this.sqlSession = sqlSession;
+	}
 
 	/**
 	 * 保存对象
@@ -568,12 +570,12 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 		params.put("limitStart", (pageNo - 1) * pageSize + "");
 		params.put("limitNum", pageSize + "");
 		try {
-			totalCount = (Integer) sqlMapClient.queryForObject(sqlMapName + "TotalCount", params);
+			totalCount = (Integer) getSqlSession().selectOne(sqlMapName + "TotalCount", params);//.queryForObject(sqlMapName + "TotalCount", params);
 			if (null == totalCount || totalCount <= 0) {
 				return new Pagination(0, 0, 0, Collections.emptyList());
 			}
-			items = sqlMapClient.queryForList(sqlMapName, params);
-		} catch (SQLException e) {
+			items = getSqlSession().selectList(sqlMapName, params);//sqlMapClient.queryForList(sqlMapName, params);
+		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
 
@@ -654,177 +656,6 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	}
 
 	/**
-	 * 获取SqlMapClientTemplate对象
-	 * @return
-	 */
-	public SqlMapClientTemplate getSqlMapTemplate() {
-		return sqlMapTemplate;
-	}
-
-	/**
-	 * 设置SqlMapClientTemplate对象
-	 * @param sqlMapTemplate
-	 */
-	public void setSqlMapTemplate(SqlMapClientTemplate sqlMapTemplate) {
-		this.sqlMapTemplate = sqlMapTemplate;
-	}
-
-	/**
-	 * 通过sqlmap的键值获取对象列表
-	 * @param args sqlmap配置的键值
-	 * @return
-	 */
-	public List<T> listBySqlMap(String id) {
-		return getSqlMapTemplate().queryForList(id);
-	}
-
-	/**
-	 * 通过传递sqlmap的键值和参数获取对象列表
-	 * @param arg0 sqlmap配置的 键值
-	 * @param arg1 参数1
-	 * @param arg2 参数2
-	 * @return
-	 */
-	public T getTBySqlMap(String id) {
-		return (T)getSqlMapTemplate().queryForObject(id);
-	}
-
-	
-	/**
-	 * 通过sqlmap的键值和传递的参数获得实体列表
-	 * @param id
-	 * @param args
-	 * @return
-	 */
-	public List<T> listBySqlMap(String id,Object args){
-		return getSqlMapTemplate().queryForList(id, args);
-	}
-	
-	/**
-	 * 通过sqlmap的键值和传递的参数列表获得实体列表
-	 * @param id
-	 * @param args
-	 * @return
-	 */
-	public List<T> listBySqlMap(String id,Object[] args){
-		return getSqlMapTemplate().queryForList(id, args);
-	}
-	
-	/**
-	 * 通过sqlmap的键值和传递的参数列表获得实体列表
-	 * @param id
-	 * @param list
-	 * @return
-	 */
-	public List<T> listBySqlMap(String id,List<Object> list){
-		return getSqlMapTemplate().queryForList(id, list);
-	}
-	/**
-	 * 通过传递sqlmap的键值和参数获取实体列表
-	 * @param id sqlmap配置的 键值
-	 * @param arg1 参数1
-	 * @param arg2 参数2
-	 * @return
-	 */
-
-	
-	/**
-	 * 通过传递sqlmap的键值和参数获取实体
-	 * @param id
-	 * @param args
-	 * @return
-	 */
-	public T getTBySqlMap(String id,Object args){
-		return (T)getSqlMapTemplate().queryForObject(id,args);
-	}
-	
-	/**
-	 * 通过传递sqlmap的键值和参数获取对象
-	 * @param id
-	 * @param args
-	 * @return
-	 */
-	public Object getObjectBySqlMap(String id,Object args){
-		return getSqlMapTemplate().queryForObject(id,args);
-	}
-	/**
-	 * 通过传递的sqlmap的键值和参数列表获取实体
-	 * @param id
-	 * @param args
-	 * @return
-	 */
-	public T getTBySqlMap(String id, Object[] args){
-		return (T)getSqlMapTemplate().queryForObject(id,args);
-	}
-	
-	
-	/**
-	 * 通过传递的sqlmap的键值和参数列表获取实体
-	 * @param id
-	 * @param list
-	 * @return
-	 */
-	public T getTBySqlMap(String id, List<Object> list){
-		return (T)getSqlMapTemplate().queryForObject(id,list);
-	}
-	
-	
-	/**
-	 * 通过传递的sqlmap键值获取对象
-	 * @param id1 查询列表键值
-	 * @param id2 查询总数键值
-	 * @return
-	 */
-	public Pagination getObjectBySqlMap(String id1,String id2){
-		int totalCount = Integer.parseInt(getSqlMapTemplate().queryForList(id2).get(0).toString());
-		Pagination p = new Pagination(1, 10, totalCount);
-		p.setList(getSqlMapTemplate().queryForList(id1));
-		return p;
-	}
-	/**
-	 * 通过传递的sqlmap键值和参数获取对象
-	 * @param id1 查询列表键值
-	 * @param id2 查询总数键值
-	 * @param args 参数
-	 * @return
-	 */
-	public Pagination getObjectBySqlMap(String id1, String id2,Object args){
-		int totalCount = Integer.parseInt(getSqlMapTemplate().queryForList(id2,args).get(0).toString());
-		Pagination p = new Pagination(1, 10, totalCount);
-		p.setList(getSqlMapTemplate().queryForList(id1,args));
-		return p;
-	}
-	
-	/**
-	 * 通过传递的sqlmap键值和参数数组获取对象
-	 * @param id1 查询列表键值
-	 * @param id2 查询总数键值
-	 * @param args 参数数组
-	 * @return
-	 */
-	public Pagination getObjectBySqlMap(String id1, String id2, Object[] args){
-		int totalCount = Integer.parseInt(getSqlMapTemplate().queryForList(id2,args).get(0).toString());
-		Pagination p = new Pagination(1, 10, totalCount);
-		p.setList(getSqlMapTemplate().queryForList(id1,args));
-		return p;
-	}
-	
-	/**
-	 * 通过传递的sqlmap键值和参数数组获取对象
-	 * @param id1 查询列表键值
-	 * @param id2 查询总数键值
-	 * @param list 参数列表
-	 * @return
-	 */
-	public Pagination getObjectBySqlMap(String id1, String id2, List<Object> list){
-		int totalCount = Integer.parseInt(getSqlMapTemplate().queryForList(id2,list).get(0).toString());
-		Pagination p = new Pagination(1, 10, totalCount);
-		p.setList(getSqlMapTemplate().queryForList(id1,list));
-		return p;
-	}
-	
-
-	/**
 	 * 根据属性删除
 	 * 
 	 * @param propertyName
@@ -865,19 +696,5 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 			query.setParameterList("id", ids);
 		return query.executeUpdate();
 	}
-
-
-
-
-    public SqlMapClient getSqlMapClient() {
-        return sqlMapClient;
-    }
-
-
-
-
-    public void setSqlMapClient(SqlMapClient sqlMapClient) {
-        this.sqlMapClient = sqlMapClient;
-    }
 
 }

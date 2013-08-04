@@ -10,7 +10,7 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page" class="assistant-main-page">
+	<div data-role="page" class="assistant-main-page" data-dom-cache="true">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<h2>功能助手</h2>
 		</div>

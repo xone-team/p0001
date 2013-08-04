@@ -12,7 +12,7 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body><c:set var="myid" value="${identify}" />
-	<div data-role="page" class="product-main-page" data-dom-cache="true">
+	<div data-role="page" class="product-main-page">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>

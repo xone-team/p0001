@@ -3,6 +3,7 @@ package com.xone.service.app;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ibatis.sqlmap.client.SqlMapClient;
 import com.xone.model.hibernate.app.RolesResourcesDao;
 import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.entity.RolesResources;
@@ -28,7 +28,7 @@ public class RolesResourcesServiceImpl implements RolesResourcesService {
 	@Autowired
 	protected RolesResourcesDao rolesResourcesDao;
 	
-	protected SqlMapClient sqlMapClient;
+//	protected SqlMapClient sqlMapClient;
 
 	@Override
 	public RolesResources save(RolesResources entity) {
@@ -75,13 +75,14 @@ public class RolesResourcesServiceImpl implements RolesResourcesService {
     @SuppressWarnings("unchecked")
     public List<Roles> findRolesByRes(Map<String, Object> params) {
         List<Roles> result = null;
-        try {
-            result = sqlMapClient.queryForList("back.roleRelRes", params);
-        } catch (SQLException e) {
-            log.error(e.getMessage(), e);
-        }
+//        try {
+        	return Collections.emptyList();
+//            result = sqlMapClient.queryForList("back.roleRelRes", params);
+//        } catch (Exception e) {
+//            log.error(e.getMessage(), e);
+//        }
         
-        return result == null ? new ArrayList<Roles>() : result;
+//        return result == null ? new ArrayList<Roles>() : result;
     }
     
     @Override
@@ -213,8 +214,8 @@ public class RolesResourcesServiceImpl implements RolesResourcesService {
 		this.rolesResourcesDao = rolesResourcesDao;
 	}
 
-    public void setSqlMapClient(SqlMapClient sqlMapClient) {
-        this.sqlMapClient = sqlMapClient;
-    }
+//    public void setSqlMapClient(SqlMapClient sqlMapClient) {
+//        this.sqlMapClient = sqlMapClient;
+//    }
 
 }

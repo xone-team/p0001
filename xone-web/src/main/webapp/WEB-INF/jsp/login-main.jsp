@@ -9,8 +9,8 @@
 	<head>
 		<title>用户中心</title>
 		<meta name="description" content="">
-		<meta name="author" content="">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- 		<meta name="author" content=""> -->
+<!-- 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
 		<jsp:include page="common-header.jsp"></jsp:include>
 		<style type="text/css">
 		.clearmarginbottom {

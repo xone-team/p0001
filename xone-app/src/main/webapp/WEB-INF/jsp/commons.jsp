@@ -123,5 +123,18 @@ function globalBannerSwitch() {
 			}
 		});
 	}
+	function myBackPage() {
+		var activePage = $.mobile.activePage;
+		var backPage = activePage.prev('div');
+		while (backPage.length != 0 && !backPage.attr('data-role')) {
+			backPage = backPage.prev('div');
+		}
+		if (backPage.length > 0) {
+			var dataUrl = backPage.attr('data-url');
+			if ('' != dataUrl) {
+				$.mobile.changePage(dataUrl);
+			}
+		}
+	}
 //-->
 </script>

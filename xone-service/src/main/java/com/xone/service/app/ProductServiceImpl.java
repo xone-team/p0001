@@ -158,6 +158,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> findAllByMap(Map<String, String> params) {
+    	//TODO 即将换成mybatis来实现
+    	List<Product> l = getProductDao().findAllProductByUserRef(params);
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Product.class);
         String gtDateCreated = params.get("gtDateCreated");
         if (!StringUtils.isBlank(gtDateCreated)) {

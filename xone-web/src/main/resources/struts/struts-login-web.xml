@@ -9,13 +9,16 @@
         </global-results>
 		<action name="login" class="loginWebAction" method="login">
 			<result name="input">/WEB-INF/jsp/login-index.jsp</result>
-			<result name="success" type="redirect"></result>
+			<result name="success" type="redirectAction"> 
+				<param name="actionName">welcome</param>
+				<param name="namespace">/admin</param>
+			</result>
 		</action>
 		<action name="loginfailed" class="loginWebAction" method="loginFailed">
 			<result name="success">login-index.jsp?error=true</result>
 		</action>
 		<action name="welcome" class="loginWebAction" method="welcome">
-			<result>/WEB-INF/jsp/login-main.jsp</result>
+			<result name="success">/WEB-INF/jsp/login-main.jsp</result>
 		</action>
 <!-- 		<action name="userList" class="loginWebAction" method="userList"> -->
 <!-- 			<result>/WEB-INF/jsp/user-list.jsp</result> -->
