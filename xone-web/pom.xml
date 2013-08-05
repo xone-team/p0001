@@ -13,6 +13,7 @@
 		<module>../xone-model</module>
 	</modules>
 	<properties>
+        <product.domain>rs.fengzhangyu.com</product.domain>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<repositories>
