@@ -57,6 +57,10 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
+	
+	public <T> T getMapper(Class<T> type) {
+		return getSqlSession().getMapper(type);
+	}
 
 	/**
 	 * 保存对象
