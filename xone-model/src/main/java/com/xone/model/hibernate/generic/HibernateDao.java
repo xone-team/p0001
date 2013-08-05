@@ -301,6 +301,8 @@ public interface HibernateDao <T extends Serializable> {
 	public SqlSession getSqlSession();
 
 	public void setSqlSession(SqlSession sqlSession);
+	
+	public <T> T getMapper(Class<T> type);
 
 	/**
 	 * 根据属性删除

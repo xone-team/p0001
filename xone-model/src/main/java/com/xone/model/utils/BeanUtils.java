@@ -90,7 +90,7 @@ public class BeanUtils {
 		return buffer.toString().toUpperCase();
 	}
 	
-	public static void copyPropertiesFromMap(Map<String, String> source, Object target, MapCopyRoles copyRoles, MyAssignRules assignRules, String[] ignoreProperties)
+	public static void copyPropertiesFromMap(Map<String, Object> source, Object target, MapCopyRoles copyRoles, MyAssignRules assignRules, String[] ignoreProperties)
 			throws BeansException {
 		
 		Assert.notNull(source, "Source must not be null");
@@ -110,7 +110,7 @@ public class BeanUtils {
 				if (null != copyRoles && !copyRoles.myCopyRules(parameterTypes[0], targetPd.getName())) {//如果值为null就不赋值
 					continue;
 				}
-				String v = source.get(toMyRole(targetPd.getName()));
+				Object v = source.get(toMyRole(targetPd.getName()));
 				if (!Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers())) {
 					writeMethod.setAccessible(true);
 				}
@@ -136,6 +136,6 @@ public class BeanUtils {
 	}
 	
 	public interface MyAssignRules {
-		public Object myAssignRules(Class<?> parameterClass, String value);
+		public Object myAssignRules(Class<?> parameterClass, Object value);
 	}
 }
