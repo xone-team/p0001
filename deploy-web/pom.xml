@@ -43,7 +43,7 @@
                 <configuration>
                     <webResources>
                         <resource>
-                            <targetPath>WEB-INF</targetPath>
+                            <targetPath>WEB-INF/classes</targetPath>
                             <directory>src/main/resources</directory>
                             <filtering>false</filtering>
                         </resource>
