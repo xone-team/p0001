@@ -64,7 +64,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">创建日期</td>
-							<td><fmt:formatDate value="${address.dateCreated}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${address.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新人</td>
@@ -72,7 +72,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">更新日期</td>
-							<td><fmt:formatDate value="${address.lastUpdated}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${address.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
 					</tbody>
 				</table>

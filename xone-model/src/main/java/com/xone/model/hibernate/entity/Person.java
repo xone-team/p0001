@@ -2,6 +2,7 @@ package com.xone.model.hibernate.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Iterator;
 
 import com.xone.model.hibernate.entity.Adbanner.AdType;
 import com.xone.model.hibernate.support.CommonTypes;
@@ -16,6 +17,53 @@ import com.xone.model.hibernate.support.CommonTypes;
  * 
  */
 public class Person implements Serializable {
+    public enum YN{
+        YES("1", "是"), NO("0", "否");
+        protected String value;
+        protected String name;
+        private YN(String v, String n) {
+            this.value = v;
+            this.name = n;
+        }
+        public String getValue() {
+            return this.value;
+        } 
+        public String getName() {
+            return this.name;
+        } 
+    }
+    
+    public enum Credit{
+        YES("1", "已认证"), NO("0", "未认证");
+        protected String value;
+        protected String name;
+        private Credit(String v, String n) {
+            this.value = v;
+            this.name = n;
+        }
+        public String getValue() {
+            return this.value;
+        } 
+        public String getName() {
+            return this.name;
+        } 
+    }
+    
+    public enum UserLevel{
+        A("1", "A级客户"), B("2", "B级客户"), C("3", "C级客户");
+        protected String value;
+        protected String name;
+        private UserLevel(String v, String n) {
+            this.value = v;
+            this.name = n;
+        }
+        public String getValue() {
+            return this.value;
+        } 
+        public String getName() {
+            return this.name;
+        } 
+    }
 	
 	protected static final long serialVersionUID = -7335577468841978562L;
     protected Long id;
@@ -39,6 +87,7 @@ public class Person implements Serializable {
     protected String credit;
     protected String userLevel;
     protected String lastMacUpdated;
+
 	
 	/**
 	 * 以下为业务字段
@@ -53,11 +102,36 @@ public class Person implements Serializable {
 	}
 	
 	public String getCreditName(){
-        return CommonTypes.getYNTypeName(credit);
+	    String result = null;
+	    for (Credit e : Credit.values()) {
+	        if(e.getValue().equals(this.credit)){
+                result = e.getName();
+                break;
+	        }
+        }
+        return result;
 	}
 	
 	public String getFlagDeletedName(){
-	    return CommonTypes.getYNTypeName(flagDeleted);
+        String result = null;
+        for (YN e : YN.values()) {
+            if(e.getValue().equals(this.flagDeleted)){
+                result = e.getName();
+                break;
+            }
+        }
+        return result;
+	}
+	
+	public String getUserLevelName(){
+	    String result = null;
+	    for (UserLevel e : UserLevel.values()) {
+	        if(e.getValue().equals(this.userLevel)){
+	            result = e.getName();
+	            break;
+	        }
+	    }
+	    return result;
 	}
 	
 	

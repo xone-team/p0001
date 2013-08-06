@@ -50,7 +50,7 @@
                                                 <div class="controls">
                                                     <select class="selectpicker" id="checkStatus" name="topad.checkStatus">
                                                         <option value="">全部</option>
-                                                        <c:forEach items="${commonTypes.topadCheckStatusList}" var="it">
+                                                        <c:forEach items="${types.topadCheckStatusList}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == topad.checkStatus}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
                                                     </select>
@@ -117,14 +117,14 @@
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
                                     <td><a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.productId}">${item.productName}</a></td>
-                                    <td><a href="${pageContext.request.contextPath}/topad/topadItem.html?topad.id=${item.id}"> <c:forEach items="${commonTypes.topadCheckStatusList}" var="it">
+                                    <td><a href="${pageContext.request.contextPath}/topad/topadItem.html?topad.id=${item.id}"> <c:forEach items="${types.topadCheckStatusList}" var="it">
                                                 <c:if test="${it.value == item.checkStatus}">${it.name}</c:if>
                                             </c:forEach>
                                     </a></td>
                                     <td>${item.remark}</td>
                                     <td><a href="${pageContext.request.contextPath}/person/personItem.html?person.id=${item.userApply}">${item.applyUsername}</a></td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd" /></td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td><a href="${pageContext.request.contextPath}/topad/topadEdit.html?topad.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
                                         <button class="btn btn-mini" onclick="showModalDelete('person.id=${item.id}')">
                                             <i class="icon-trash"> </i>删除

@@ -41,18 +41,8 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="enable">可用标识</label>
                         <div class="controls">
-                            <select class="selectpicker" id="enable" name="roles.enable">
-                                <c:forEach items="${commonTypes.ynList}" var="it">
-                                    <option value="${it.value}" <c:if test="${it.value == roles.enable}">selected</c:if>>${it.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
+                            <button type="submit" class="btn">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -66,7 +56,7 @@
         jQuery("#X_menu_li_roles").addClass("active");
     });
     
-    function doSaveForm(){
+    $('#saveForm').submit(function(){
 		var $form = $('#saveForm');
 		var validate = [{
 			name: 'name',
@@ -74,8 +64,7 @@
 		}];
 		
 		var pass = XONE.valid(validate, $form, "roles.");
-		if(pass)
-		    $form.submit();
+		return pass;
     }
 </script>
 </html>

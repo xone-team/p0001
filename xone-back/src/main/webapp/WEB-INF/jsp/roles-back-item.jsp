@@ -44,17 +44,17 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">可用标识</td>
-							<td><c:forEach items="${commonTypes.ynList}" var="it">
+							<td><c:forEach items="${types.enable}" var="it">
                                     <c:if test="${it.value == roles.enable}">${it.name}</c:if>
                                 </c:forEach></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">创建时间</td>
-							<td><fmt:formatDate value="${roles.dateCreated}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${roles.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新时间</td>
-							<td><fmt:formatDate value="${roles.lastUpdated}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${roles.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
 					</tbody>
 				</table>

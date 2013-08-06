@@ -44,11 +44,11 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">申请时间</td>
-                            <td><fmt:formatDate value="${person.dateApply}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${person.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核时间</td>
-                            <td><fmt:formatDate value="${person.dateCheck}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${person.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">昵称</td>
@@ -76,15 +76,11 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">认证标识</td>
-                            <td><c:forEach items="${commonTypes.ynList}" var="it">
-                                    <c:if test="${it.value == person.credit}">${it.name}</c:if>
-                                </c:forEach></td>
+                            <td>${person.creditName }</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">用户级别</td>
-                            <td><c:forEach items="${commonTypes.userLevelList}" var="it">
-                                    <c:if test="${it.value == person.userLevel}">${it.name}</c:if>
-                                </c:forEach></td>
+                            <td>${ person.userLevelName }</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">角色</td>

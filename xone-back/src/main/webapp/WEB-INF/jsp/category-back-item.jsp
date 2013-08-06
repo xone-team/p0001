@@ -44,7 +44,7 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">创建日期</td>
-                            <td><fmt:formatDate value="${category.dateCreated}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${category.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                     </tbody>
                 </table>

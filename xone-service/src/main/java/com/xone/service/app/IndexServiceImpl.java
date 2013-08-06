@@ -1,59 +1,73 @@
 package com.xone.service.app;
 
-import java.sql.SQLException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.xone.model.hibernate.app.DeliveryDao;
+import com.xone.model.hibernate.app.ProductDao;
+import com.xone.model.hibernate.app.PurchaseDao;
+import com.xone.model.hibernate.entity.Delivery;
+import com.xone.model.hibernate.entity.Product;
+import com.xone.model.hibernate.entity.Purchase;
+
 public class IndexServiceImpl implements IndexService {
-    private static final Log log = LogFactory.getLog(IndexServiceImpl.class);
+    protected static final Log log = LogFactory.getLog(IndexServiceImpl.class);
 
     @Autowired
-//    protected SqlMapClient sqlMapClient;
+    protected ProductDao productDao;
 
+    protected PurchaseDao purchaseDao;
+    
+    protected DeliveryDao deliveryDao;
+    
     @Override
     public Integer getTodoProductCount() {
-//        Integer result = null;
-//        try {
-//            result = (Integer) sqlMapClient.queryForObject("back.todoProductCount");
-//        } catch (SQLException e) {
-//            log.error(e.getMessage(), e);
-//        }
-//        return result;
-        return 0;
+        DetachedCriteria c = DetachedCriteria.forClass(Product.class);
+        c.add(Restrictions.eq("checkStatus", Product.CheckStatus.WAITING.getValue()));
+        int result = getProductDao().countByProperty(c);
+        return result;
     }
 
     @Override
     public Integer getTodoPurchaseCount() {
-//        Integer result = null;
-//        try {
-//            result = (Integer) sqlMapClient.queryForObject("back.todoPurchaseCount");
-//        } catch (SQLException e) {
-//            log.error(e.getMessage(), e);
-//        }
-//        return result;
-        return 0;
+        DetachedCriteria c = DetachedCriteria.forClass(Purchase.class);
+        c.add(Restrictions.eq("checkStatus", Purchase.CheckStatus.WAITING.getValue()));
+        return getPurchaseDao().countByProperty(c);
     }
 
     @Override
     public Integer getTodoDeliveryCount() {
-//        Integer result = null;
-//        try {
-//            result = (Integer) sqlMapClient.queryForObject("back.todoDeliveryCount");
-//        } catch (SQLException e) {
-//            log.error(e.getMessage(), e);
-//        }
-//        return result;
-        return 0;
+        DetachedCriteria c = DetachedCriteria.forClass(Delivery.class);
+        c.add(Restrictions.eq("flagPass", Delivery.FlagPass.HANDLING.getValue()));
+        return getDeliveryDao().countByProperty(c);
     }
 
-//    public SqlMapClient getSqlMapClient() {
-//        return sqlMapClient;
-//    }
-//
-//    public void setSqlMapClient(SqlMapClient sqlMapClient) {
-//        this.sqlMapClient = sqlMapClient;
-//    }
+    public ProductDao getProductDao() {
+        return productDao;
+    }
+
+    public void setProductDao(ProductDao productDao) {
+        this.productDao = productDao;
+    }
+
+    public PurchaseDao getPurchaseDao() {
+        return purchaseDao;
+    }
+
+    public void setPurchaseDao(PurchaseDao purchaseDao) {
+        this.purchaseDao = purchaseDao;
+    }
+
+    public DeliveryDao getDeliveryDao() {
+        return deliveryDao;
+    }
+
+    public void setDeliveryDao(DeliveryDao deliveryDao) {
+        this.deliveryDao = deliveryDao;
+    }
+
 
 }

@@ -40,7 +40,7 @@
                         <label class="control-label" for="purchaseType">求购类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="purchaseType" name="purchase.purchaseType">
-                                <c:forEach items="${commonTypes.productTypeList}" var="it">
+                                <c:forEach items="${types.productTypeList}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == purchase.purchaseType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -55,7 +55,7 @@
                     <div class="control-group">
                         <label class="control-label" for="purchaseValid">有效期</label>
                         <div class="controls">
-                            <input type="text" id="purchaseValid" name="purchase.purchaseValid" value="<fmt:formatDate value="${purchase.purchaseValid}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="有效期">
+                            <input type="text" id="purchaseValid" name="purchase.purchaseValid" value="<fmt:formatDate value="${purchase.purchaseValid}" pattern="yyyy-MM-dd HH:mm:ss"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="有效期">
                         </div>
                     </div>
                     <div class="control-group">
@@ -80,7 +80,7 @@
                         <label class="control-label" for="purchaseCheckStatus">审核结果</label>
                         <div class="controls">
                             <select class="selectpicker" id="purchaseCheckStatus" name="purchase.check.checkStatus">
-                                <c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
+                                <c:forEach items="${types.other1CheckStatusList}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == purchase.check.checkStatus}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -100,7 +100,7 @@
                             <div class="control-group">
                                 <label class="control-label">审核结果</label>
                                 <div class="controls">
-                                    <c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
+                                    <c:forEach items="${types.other1CheckStatusList}" var="it">
                                         <c:if test="${it.value == item.checkStatus}">${ it.name }</c:if>
                                     </c:forEach>
                                 </div>

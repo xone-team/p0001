@@ -89,7 +89,7 @@
                         <label class="control-label" for="flagPass">通过标识</label>
                         <div class="controls">
                             <select class="selectpicker" id="flagPass" name="delivery.flagPass">
-                                <c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
+                                <c:forEach items="${types.other1CheckStatusList}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == delivery.flagPass}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>

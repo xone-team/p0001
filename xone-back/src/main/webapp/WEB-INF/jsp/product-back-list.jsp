@@ -48,7 +48,7 @@
                                                 <div class="controls">
                                                     <select class="selectpicker" id="checkStatus" name="product.checkStatus">
                                                         <option value="">全部</option>
-                                                        <c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
+                                                        <c:forEach items="${types.other1CheckStatusList}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == product.checkStatus}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
                                                     </select>
@@ -63,7 +63,7 @@
                                                 <div class="controls">
                                                     <select class="selectpicker" id="productType" name="product.productType">
                                                         <option value="">全部</option>
-                                                        <c:forEach items="${commonTypes.productTypeList}" var="it">
+                                                        <c:forEach items="${types.productTypeList}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == product.productType}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
                                                     </select>
@@ -76,7 +76,7 @@
                                                 <div class="controls">
                                                     <select class="selectpicker" id="saleType" name="product.saleType">
                                                         <option value="">全部</option>
-                                                        <c:forEach items="${commonTypes.saleTypeList}" var="it">
+                                                        <c:forEach items="${types.saleTypeList}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == product.saleType}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
                                                     </select>
@@ -201,18 +201,18 @@
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
                                     <td><a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}">${item.productName}</a></td>
-                                    <td><c:forEach items="${commonTypes.productTypeList}" var="it">
+                                    <td><c:forEach items="${types.productTypeList}" var="it">
                                             <c:if test="${it.value == item.productType}">${it.name}</c:if>
                                         </c:forEach></td>
-                                    <td><c:forEach items="${commonTypes.saleTypeList}" var="it">
+                                    <td><c:forEach items="${types.saleTypeList}" var="it">
                                             <c:if test="${it.value == item.saleType}">${it.name}</c:if>
                                         </c:forEach></td>
                                     <td class="table-col-number">${item.productPrice}</td>
                                     <td class="table-col-number">${item.productNum}</td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.productValid}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.productValid}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td>${item.productAddress}</td>
                                     <td>${item.productLocation}</td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td><a href="${pageContext.request.contextPath}/product/productEdit.html?product.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
                                         <button class="btn btn-mini" onclick="showModalDelete('product.id=${item.id}')">
                                             <i class="icon-trash"> </i>删除

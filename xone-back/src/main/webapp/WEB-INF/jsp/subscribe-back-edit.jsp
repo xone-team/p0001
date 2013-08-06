@@ -74,7 +74,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateApply">申请时间</label>
 						<div class="controls">
-							<input type="text" id="dateApply" name="subscribe.dateApply" value="<fmt:formatDate value="${subscribe.dateApply}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="申请时间">
+							<input type="text" id="dateApply" name="subscribe.dateApply" value="<fmt:formatDate value="${subscribe.dateApply}" pattern="yyyy-MM-dd HH:mm:ss"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="申请时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -86,7 +86,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateCheck">审核时间</label>
 						<div class="controls">
-							<input type="text" id="dateCheck" name="subscribe.dateCheck" value="<fmt:formatDate value="${subscribe.dateCheck}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="审核时间">
+							<input type="text" id="dateCheck" name="subscribe.dateCheck" value="<fmt:formatDate value="${subscribe.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="审核时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -104,7 +104,7 @@
 					<div class="control-group">
 						<label class="control-label" for="dateCreated">创建时间</label>
 						<div class="controls">
-							<input type="text" id="dateCreated" name="subscribe.dateCreated" value="<fmt:formatDate value="${subscribe.dateCreated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
+							<input type="text" id="dateCreated" name="subscribe.dateCreated" value="<fmt:formatDate value="${subscribe.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="创建时间">
 						</div>
 					</div>
 					<div class="control-group">
@@ -116,7 +116,7 @@
 					<div class="control-group">
 						<label class="control-label" for="lastUpdated">更新时间</label>
 						<div class="controls">
-							<input type="text" id="lastUpdated" name="subscribe.lastUpdated" value="<fmt:formatDate value="${subscribe.lastUpdated}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
+							<input type="text" id="lastUpdated" name="subscribe.lastUpdated" value="<fmt:formatDate value="${subscribe.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="更新时间">
 						</div>
 					</div>
 					<div class="control-group">

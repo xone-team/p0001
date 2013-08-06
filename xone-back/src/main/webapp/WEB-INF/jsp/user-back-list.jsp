@@ -57,7 +57,7 @@
                                                 <label class="control-label" for="roleId">角色</label>
                                                 <div class="controls">
                                                     <div id="roleId" class="inline"></div>
-                                                    <button type="button" class="btn inline" onclick="showModalRolesSelect($('#roleId'), 'roles.roleId');">
+                                                    <button type="button" class="btn inline" onclick="$('#windowTitleDialogrolesinfo').modal('show');">
                                                         <i class="icon-filter"></i>选择
                                                     </button>
                                                 </div>
@@ -123,7 +123,12 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="credit">认证标识</label>
                                                 <div class="controls">
-                                                    <input type="text" id="credit" name="person.credit" value="${person.credit}" maxlength="2" placeholder="认证标识">
+                                                    <select class="selectpicker" id="credit" name="person.credit">
+                                                        <option value="">全部</option>
+                                                        <c:forEach items="${types.credit}" var="it">
+                                                            <option value="${it.value}" <c:if test="${it.value == person.credit}">selected</c:if>>${it.name}</option>
+                                                        </c:forEach>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -133,7 +138,7 @@
                                                 <div class="controls">
                                                     <select class="selectpicker" id="userLevel" name="person.userLevel">
                                                         <option value="">全部</option>
-                                                        <c:forEach items="${commonTypes.userLevelList}" var="it">
+                                                        <c:forEach items="${types.userLevel}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == person.userLevel}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
                                                     </select>
@@ -170,7 +175,7 @@
                                 <th>联系地址</th>
                                 <th>认证标识</th>
                                 <th>用户级别</th>
-                                <th style="width: 8em;">操作</th>
+                                <th style="width: 4em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -178,23 +183,16 @@
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
                                     <td><a href="${pageContext.request.contextPath}/person/personItem.html?person.id=${item.id}">${item.username} </a></td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td>${item.nickName}</td>
                                     <td class="table-col-number">${item.cellphone}</td>
                                     <td>${item.contactor}</td>
                                     <td class="table-col-number">${item.qq}</td>
                                     <td>${item.email}</td>
                                     <td>${item.address}</td>
-                                    <td><c:forEach items="${commonTypes.ynList}" var="it">
-                                            <c:if test="${it.value == item.credit}">${it.name}</c:if>
-                                        </c:forEach></td>
-                                    <td><c:forEach items="${commonTypes.userLevelList}" var="it">
-                                            <c:if test="${it.value == item.userLevel}">${it.name}</c:if>
-                                        </c:forEach></td>
-                                    <td><a href="${pageContext.request.contextPath}/person/personEdit.html?person.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
-                                        <button class="btn btn-mini" onclick="showModalDelete('person.id=${item.id}')">
-                                            <i class="icon-trash"> </i>删除
-                                        </button></td>
+                                    <td>${item.creditName}</td>
+                                    <td>${item.userLevelName}</td>
+                                    <td><a href="${pageContext.request.contextPath}/person/personEdit.html?person.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -206,104 +204,26 @@
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
 
-
     <!-- modal to select role -->
-    <div id="X_model_rolesSelect" class="modal hide fade">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>选择角色</h3>
-        </div>
-        <div class="modal-body">
-            <!-- query conditions -->
-            <form id="modalRolesQueryForm">
-                <div class="row-fluid">
-                    <div class="span5 form-horizontal">
-                        <div class="control-group">
-                            <label class="control-label" for="modalInputName">名称</label>
-                            <div class="controls">
-                                <input type="text" name="roles.name" id="modalInputName" placeholder="名称">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <!-- /query conditions -->
-            <div class="row-fluid">
-                <p class="text-right">
-                    <button class="btn btn-small" onclick="queryModalRoles();">
-                        <i class="icon-search"></i>查询
-                    </button>
-                </p>
-            </div>
-            <!-- query result -->
-            <div class="row-fluid">
-                <table class="table table-hover table-bordered table-condensed">
-                    <thead>
-                        <tr>
-                            <th>名称</th>
-                            <th>备注</th>
-                            <th>选择</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbodyListModalRoles">
-                    </tbody>
-                </table>
-            </div>
-            <!-- /query result -->
-        </div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal">取消</button>
-            <button class="btn btn-primary" onclick="endModalRolesSelect();">完成</button>
-        </div>
-    </div>
+    <script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+    <script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
+    <script src="${STATIC_ROOT}/js/fileupload.js"></script>
+    <jsp:include page="common-modal.jsp">
+        <jsp:param name="myidentify" value="rolesinfo" />
+        <jsp:param name="title" value="请选择一个用户" />
+        <jsp:param name="url" value="${pageContext.request.contextPath }/roles/rolesListAjax.html" />
+    </jsp:include>
     <script type="text/javascript">
-                    function showModalRolesSelect(targetObj, targetName) {
-                        XONE.CURRENT_MODEL = {};
-                        XONE.CURRENT_MODEL.target = targetObj;
-                        XONE.CURRENT_MODEL.modal = jQuery("#X_model_rolesSelect");
-                        XONE.CURRENT_MODEL.listBody = jQuery("#tbodyListModalRoles");
-                        XONE.CURRENT_MODEL.container = jQuery("#modalRolesQueryForm");
-                        XONE.CURRENT_MODEL.queryUrl = "${pageContext.request.contextPath}/roles/rolesSelect.html";
-                        XONE.CURRENT_MODEL.targetName = targetName;
-
-                        XONE.CURRENT_MODEL.modal.modal("show");
-                        queryModalRoles();
-                    }
-                    function endModalRolesSelect() {
-                        var listBody = XONE.CURRENT_MODEL.listBody;
-                        var container = XONE.CURRENT_MODEL.container;
-                        var modalCurrent = XONE.CURRENT_MODEL.modal;
-                        var targetObj = XONE.CURRENT_MODEL.target;
-                        var targetName = XONE.CURRENT_MODEL.targetName;
-
-                        var selectedResult = jQuery("input[type=radio]:checked", listBody).siblings(".X-select-result");
-                        if (selectedResult == null) {
-                            alert("请选择一角色");
-                        } else {
-                            modalCurrent.modal('hide');
-                            var h = selectedResult.clone();
-                            h.removeClass("hide").addClass("inline");
-                            jQuery(".X-select-hidden-value", h).attr("name", targetName);
-                            targetObj.html(h);
-                        }
-                    }
-
-                    function queryModalRoles() {
-                        var listBody = XONE.CURRENT_MODEL.listBody;
-                        var container = XONE.CURRENT_MODEL.container;
-                        var queryUrl = XONE.CURRENT_MODEL.queryUrl;
-
-                        var d = container.serializeObject();
-                        jQuery.ajax({
-                            url : queryUrl,
-                            type : "POST",
-                            dataType : "html",
-                            data : d,
-                            success : function(html, textStatus, jqXHR) {
-                                listBody.html(html);
-                            }
+                    $(document).ready(function() {
+                        $('#windowTitleDialogrolesinfo').delegate('a.rolesinfoselect', 'click', function(e) {
+                            e.preventDefault();
+                            var $this = $(this);
+                            $('#rolesId').val($this.attr('attr-id'));
+                            $this.closest('div.modal').modal('hide');
+                            return false;
                         });
-                    }
+                    });
                 </script>
     <!-- /modal to select role -->
 

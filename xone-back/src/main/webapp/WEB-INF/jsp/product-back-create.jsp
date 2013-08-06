@@ -38,7 +38,7 @@
                         <label class="control-label" for="productType">产品类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="productType" name="product.productType">
-                                <c:forEach items="${commonTypes.productTypeList}" var="it">
+                                <c:forEach items="${types.productTypeList}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.productType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -48,7 +48,7 @@
                         <label class="control-label" for="saleType">销售类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="saleType" name="product.saleType">
-                                <c:forEach items="${commonTypes.saleTypeList}" var="it">
+                                <c:forEach items="${types.saleTypeList}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.saleType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>

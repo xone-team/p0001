@@ -34,17 +34,11 @@
                 <param name="namespace">/person</param>
             </result>
         </action>
-        <action name="personDelete" class="personBackAction" method="personDelete">
-            <result name="success" type="redirectAction">
-                <param name="actionName">personList</param>
-                <param name="namespace">/person</param>
-            </result>
-        </action>
         <action name="personItem" class="personBackAction" method="personItem">
             <result name="success">/WEB-INF/jsp/user-back-item.jsp</result>
         </action>
-        <action name="personSelect" class="personBackAction" method="personSelect">
+<!--         <action name="personSelect" class="personBackAction" method="personSelect">
             <result name="success">/WEB-INF/jsp/user-back-select.jsp</result>
-        </action>
+        </action> -->
     </package>
 </struts>

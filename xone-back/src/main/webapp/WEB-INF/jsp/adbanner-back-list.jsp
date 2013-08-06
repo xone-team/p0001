@@ -68,9 +68,9 @@
 												<div class="control-group">
 													<label class="control-label" for="adEnd">结束时间</label>
 													<div class="controls">
-														<input type="text" id="adEndMin" name="adbanner.gtAdEnd" value="<fmt:formatDate value="${adbanner.gtAdEnd}" pattern="yyyy-MM-dd"/>" class="span5" maxlength="19" placeholder="开始时间">
+														<input type="text" id="adEndMin" name="adbanner.gtAdEnd" value="<fmt:formatDate value="${adbanner.gtAdEnd}" pattern="yyyy-MM-dd HH:mm:ss"/>" class="span5" maxlength="19" placeholder="开始时间">
 														<span class="add-on">～</span>
-														<input type="text" id="adEndMax" name="adbanner.ltAdEnd" value="<fmt:formatDate value="${adbanner.ltAdEnd}" pattern="yyyy-MM-dd"/>" class="span5" maxlength="19" placeholder="结束时间">
+														<input type="text" id="adEndMax" name="adbanner.ltAdEnd" value="<fmt:formatDate value="${adbanner.ltAdEnd}" pattern="yyyy-MM-dd HH:mm:ss"/>" class="span5" maxlength="19" placeholder="结束时间">
 													</div>
 												</div>
 											</div>

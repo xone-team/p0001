@@ -215,14 +215,14 @@
                                     <td>${item.credit}</td>
                                     <td>${item.refId}</td>
                                     <td>${item.userApply}</td>
-                                    <td><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd" /></td>
+                                    <td><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td>${item.userCheck}</td>
-                                    <td><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd" /></td>
+                                    <td><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td>${item.flagDeleted}</td>
                                     <td>${item.userCreated}</td>
-                                    <td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" /></td>
+                                    <td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td>${item.userUpdated}</td>
-                                    <td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd" /></td>
+                                    <td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td><a href="${pageContext.request.contextPath}/subscribe/subscribeEdit.html?subscribe.id=${item.id}" class="btn btn-mini">编辑</a> <a href="${pageContext.request.contextPath}/subscribe/subscribeItem.html?subscribe.id=${item.id}" class="btn btn-mini">详细</a></td>
                                 </tr>
                             </c:forEach>

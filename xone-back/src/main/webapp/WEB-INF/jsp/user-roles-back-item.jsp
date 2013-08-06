@@ -52,7 +52,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">创建时间</td>
-							<td><fmt:formatDate value="${userRoles.dateCreated}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${userRoles.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新人</td>
@@ -60,7 +60,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">更新时间</td>
-							<td><fmt:formatDate value="${userRoles.lastUpdated}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${userRoles.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
 					</tbody>
 				</table>

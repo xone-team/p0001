@@ -178,9 +178,9 @@
 								<td>${item.zip}</td>
 								<td>${item.flagDeleted}</td>
 								<td>${item.userCreated}</td>
-								<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd"/></td>
+								<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 								<td>${item.userUpdated}</td>
-								<td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd"/></td>
+								<td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 								<td>
 									<a href="${pageContext.request.contextPath}/address/addressEdit.html?address.id=${item.id}" class="btn btn-mini">编辑</a>
 									<a href="${pageContext.request.contextPath}/address/addressItem.html?address.id=${item.id}" class="btn btn-mini">详细</a>

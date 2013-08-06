@@ -40,13 +40,13 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">产品类型</td>
-                            <td><c:forEach items="${commonTypes.productTypeList}" var="it">
+                            <td><c:forEach items="${types.productTypeList}" var="it">
                                     <c:if test="${it.value == product.productType}">${it.name}</c:if>
                                 </c:forEach></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">销售类型</td>
-                            <td><c:forEach items="${commonTypes.saleTypeList}" var="it">
+                            <td><c:forEach items="${types.saleTypeList}" var="it">
                                     <c:if test="${it.value == product.saleType}">${it.name}</c:if>
                                 </c:forEach></td>
                         </tr>
@@ -60,7 +60,7 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">有效期</td>
-                            <td><fmt:formatDate value="${product.productValid}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${product.productValid}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">产品产地</td>
@@ -80,11 +80,11 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">申请时间</td>
-                            <td><fmt:formatDate value="${product.dateApply}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${product.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核时间</td>
-                            <td><fmt:formatDate value="${product.dateCheck}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${product.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">产品图片</td>
@@ -101,7 +101,7 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核结果</td>
-                            <td><c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
+                            <td><c:forEach items="${types.other1CheckStatusList}" var="it">
                                     <c:if test="${it.value == product.checkStatus}">${ it.name }</c:if>
                                 </c:forEach></td>
                         </tr>
@@ -114,7 +114,7 @@
                                         <div class="control-group">
                                             <span>审核结果</span>
                                             <div class="inline">
-                                                <c:forEach items="${commonTypes.other1CheckStatusList}" var="it">
+                                                <c:forEach items="${types.other1CheckStatusList}" var="it">
                                                     <c:if test="${it.value == item.checkStatus}">${ it.name }</c:if>
                                                 </c:forEach>
                                             </div>
