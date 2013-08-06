@@ -52,11 +52,11 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">申请日期</td>
-                            <td><fmt:formatDate value="${topad.dateApply}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${topad.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核日期</td>
-                            <td><fmt:formatDate value="${topad.dateCheck}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${topad.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                     </tbody>
                 </table>

@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
@@ -47,6 +49,7 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 
 	private static final long serialVersionUID = 911975992713654543L;
 	public static final String USER = "com.xone.user";
+	protected static Log log = LogFactory.getLog(Action.class);
 	
 	protected HttpServletResponse response;
 	protected HttpServletRequest request;
@@ -118,7 +121,16 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 	}
 	
 	public final Long getUserId() {
-		return Long.parseLong(getUserMap().get("id"));
+	    Long result = null;
+	    String idString = getUserMap().get("id");
+	    if(idString != null){
+	        try {
+                result = Long.parseLong(idString);
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+            }
+	    }
+		return result == null ? 0 : result;
 	}
 	
 	public final String getUsername() {

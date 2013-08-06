@@ -1,6 +1,7 @@
 package com.xone.action.back.roles;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Roles;
-import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.RolesService;
 import com.xone.service.app.utils.MyBeanUtils;
@@ -28,9 +28,16 @@ public class RolesBackAction extends Action {
 	protected Roles roles = new Roles();
 	protected List<Roles> list = new ArrayList<Roles>();
 	protected Pagination pagination = new Pagination();
-	protected CommonTypes commonTypes = CommonTypes.getInstance();
+//	protected CommonTypes commonTypes = CommonTypes.getInstance();
+    protected Map<String, Object[]> types = new HashMap<String, Object[]>();
 	
-	public String rolesList() throws Exception {
+	@Override
+    public void prepare() throws Exception {
+	    types.put("enable", Roles.Enable.values());
+        super.prepare();
+    }
+
+    public String rolesList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
 	    MyBeanUtils.copyPropertiesToMap(getRoles(), params, new CopyRules() {
 	        @Override
@@ -77,6 +84,9 @@ public class RolesBackAction extends Action {
 	}
 	
 	public String rolesSave() throws Exception {
+	    roles.setUserCreated(getUserId());
+	    roles.setUserUpdated(getUserId());
+	    
 		setRoles(getRolesService().save(getRoles()));
 		return SUCCESS;
 	}
@@ -105,17 +115,12 @@ public class RolesBackAction extends Action {
 					return (null != value);
 				}
 			});
+			
+			entity.setUserUpdated(getUserId());
 			setRoles(getRolesService().update(entity));
 		}
 		return SUCCESS;
 	}
-    
-    public String rolesDelete() throws Exception {
-        Roles entity = getRolesService().findById(getRoles().getId());
-        rolesService.delete(entity);
-        return SUCCESS;
-    }
-    
 
     public String rolesSelect() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -168,8 +173,13 @@ public class RolesBackAction extends Action {
 		this.pagination = pagination;
 	}
 
-    public CommonTypes getCommonTypes() {
-        return commonTypes;
+    public Map<String, Object[]> getTypes() {
+        return types;
     }
+
+    public void setTypes(Map<String, Object[]> types) {
+        this.types = types;
+    }
+
 	
 }

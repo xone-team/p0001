@@ -37,7 +37,7 @@
                     <div class="control-group">
                         <label class="control-label" for="password">密码</label>
                         <div class="controls">
-                            <input type="text" id="password" name="person.password" maxlength="255" placeholder="密码">
+                            <input type="password" id="password" name="person.password" maxlength="255" placeholder="密码">
                         </div>
                     </div>
                     <div class="control-group">
@@ -80,7 +80,7 @@
                         <label class="control-label" for="credit">认证标识</label>
                         <div class="controls">
                             <select class="selectpicker" id="credit" name="person.credit">
-                                <c:forEach items="${commonTypes.ynList}" var="it">
+                                <c:forEach items="${types.credit}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == person.credit}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -90,7 +90,7 @@
                         <label class="control-label" for="userLevel">用户级别</label>
                         <div class="controls">
                             <select class="selectpicker" id="userLevel" name="person.userLevel">
-                                <c:forEach items="${commonTypes.userLevelList}" var="it">
+                                <c:forEach items="${types.userLevel}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == person.userLevel}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -102,7 +102,8 @@
                             <div id="roleIdsSelectResult" class="inline">
                                 <c:forEach items="${rolesList}" var="role">
                                     <div class="X-select-result inline">
-                                        <input type="hidden" class="X-select-hidden-value" value="${role.id}" name="roleIds"> <span class="label label-default">${role.name}</span>
+                                        <input type="hidden" class="X-select-hidden-value" value="${role.id}" name="roleIds">
+                                        <span class="label label-default">${role.name}</span>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -113,7 +114,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
+                            <button type="submit" class="btn">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -121,10 +122,10 @@
         </div>
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
-    
-    
-    
-    
+
+
+
+
     <!-- modal to select role -->
     <div id="X_model_rolesSelect" class="modal hide fade">
         <div class="modal-header">
@@ -222,37 +223,38 @@
                     }
                 </script>
     <!-- /modal to select role -->
-    
+
 </body>
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_person").addClass("active");
+        $('#saveForm').submit(function(){
+    		var $form = $('#saveForm');
+    		var validate = [{
+    			name: 'username',
+    			text: '请输入用戶名'
+    		}, {
+    			name: 'username',
+    			text: '用户名在 6 － 20 个字之间',
+    			func: lengthValidation
+    		}, {
+    			name: 'password',
+    			text: '请输入密碼'
+    		}, {
+    			name: 'password',
+    			text: '密碼在 6 － 20 个字之间',
+    			func: lengthValidation
+    		}, {
+    			name: 'nickName',
+    			text: '请输入昵称'
+    		}];
+    		
+    		var pass = XONE.valid(validate, $form, "person.");
+    		
+    		return pass;
+        });
     });
-    function doSaveForm(){
-		var $form = $('#saveForm');
-		var validate = [{
-			name: 'username',
-			text: '请输入用戶名'
-		}, {
-			name: 'username',
-			text: '用户名在 6 － 20 个字之间',
-			func: lengthValidation
-		}, {
-			name: 'password',
-			text: '请输入密碼'
-		}, {
-			name: 'password',
-			text: '密碼在 6 － 20 个字之间',
-			func: lengthValidation
-		}, {
-			name: 'nickName',
-			text: '请输入昵称'
-		}];
-		
-		var pass = XONE.valid(validate, $form, "person.");
-		if(pass)
-		    $form.submit();
-    }
+
     
     function lengthValidation(inputEl){
         var result = true;

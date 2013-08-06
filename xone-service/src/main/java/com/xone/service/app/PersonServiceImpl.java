@@ -2,6 +2,7 @@ package com.xone.service.app;
 
 import java.text.ParseException;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.model.hibernate.app.PersonDao;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.service.app.utils.EncryptRef;
 
 public class PersonServiceImpl implements PersonService {
     private static final Log log = LogFactory.getLog(PersonServiceImpl.class);
@@ -26,6 +28,10 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person save(Person entity) {
+        entity.setFlagDeleted(Person.YN.NO.getValue());
+        if(entity.getPassword() != null){
+            entity.setPassword(EncryptRef.SHA1(entity.getPassword()));
+        }
         return getPersonDao().save(entity);
     }
 

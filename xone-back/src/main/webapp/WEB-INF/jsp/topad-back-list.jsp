@@ -123,8 +123,8 @@
                                     </a></td>
                                     <td>${item.remark}</td>
                                     <td><a href="${pageContext.request.contextPath}/person/personItem.html?person.id=${item.userApply}">${item.applyUsername}</a></td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd" /></td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td><a href="${pageContext.request.contextPath}/topad/topadEdit.html?topad.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
                                         <button class="btn btn-mini" onclick="showModalDelete('person.id=${item.id}')">
                                             <i class="icon-trash"> </i>删除

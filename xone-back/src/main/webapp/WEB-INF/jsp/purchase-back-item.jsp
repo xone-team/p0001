@@ -50,7 +50,7 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">有效期</td>
-                            <td><fmt:formatDate value="${purchase.purchaseValid}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${purchase.purchaseValid}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">产品产地</td>
@@ -70,7 +70,7 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">申请时间</td>
-                            <td><fmt:formatDate value="${purchase.dateApply}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${purchase.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核结果</td>

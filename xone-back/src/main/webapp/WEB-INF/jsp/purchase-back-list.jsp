@@ -167,10 +167,10 @@
                                             <c:if test="${it.value == item.purchaseType}">${it.name}</c:if>
                                         </c:forEach></td>
                                     <td class="table-col-number">${item.purchaseNum}</td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.purchaseValid}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.purchaseValid}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td>${item.purchaseAddress}</td>
                                     <td>${item.purchaseLocation}</td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td><a href="${pageContext.request.contextPath}/purchase/purchaseEdit.html?purchase.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
                                         <button class="btn btn-mini" onclick="showModalDelete('purchase.id=${item.id}')">
                                             <i class="icon-trash"> </i>删除

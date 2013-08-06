@@ -209,10 +209,10 @@
                                         </c:forEach></td>
                                     <td class="table-col-number">${item.productPrice}</td>
                                     <td class="table-col-number">${item.productNum}</td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.productValid}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.productValid}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td>${item.productAddress}</td>
                                     <td>${item.productLocation}</td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td><a href="${pageContext.request.contextPath}/product/productEdit.html?product.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
                                         <button class="btn btn-mini" onclick="showModalDelete('product.id=${item.id}')">
                                             <i class="icon-trash"> </i>删除

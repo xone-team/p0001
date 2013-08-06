@@ -167,9 +167,9 @@
 								<td>${item.refType}</td>
 								<td>${item.imageType}</td>
 								<td>${item.userCreated}</td>
-								<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd"/></td>
+								<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 								<td>${item.userUpdated}</td>
-								<td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd"/></td>
+								<td><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 								<td>${item.image}</td>
 								<td>${item.flagDeleted}</td>
 								<td>

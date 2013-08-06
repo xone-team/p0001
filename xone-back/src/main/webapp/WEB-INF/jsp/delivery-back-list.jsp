@@ -65,7 +65,7 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="loadtime">上货时间</label>
                                                 <div class="controls">
-                                                    <input type="text" class="span5 loadtime" name="delivery.gtLoadtime" value="<fmt:formatDate value="${delivery.gtLoadtime}" pattern="yyyy-MM-dd"/>" maxlength="19" placeholder="上货开始时间"> <span class="add-on">～</span> <input type="text" class="span5 loadtime" name="delivery.ltLoadtime" value="<fmt:formatDate value="${delivery.ltLoadtime}" pattern="yyyy-MM-dd"/>" maxlength="19" placeholder="上货结束时间">
+                                                    <input type="text" class="span5 loadtime" name="delivery.gtLoadtime" value="<fmt:formatDate value="${delivery.gtLoadtime}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" placeholder="上货开始时间"> <span class="add-on">～</span> <input type="text" class="span5 loadtime" name="delivery.ltLoadtime" value="<fmt:formatDate value="${delivery.ltLoadtime}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" placeholder="上货结束时间">
                                                 </div>
                                             </div>
                                         </div>

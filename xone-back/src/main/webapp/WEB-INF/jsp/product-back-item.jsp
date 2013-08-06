@@ -60,7 +60,7 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">有效期</td>
-                            <td><fmt:formatDate value="${product.productValid}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${product.productValid}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">产品产地</td>
@@ -80,11 +80,11 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">申请时间</td>
-                            <td><fmt:formatDate value="${product.dateApply}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${product.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核时间</td>
-                            <td><fmt:formatDate value="${product.dateCheck}" pattern="yyyy-MM-dd" /></td>
+                            <td><fmt:formatDate value="${product.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">产品图片</td>

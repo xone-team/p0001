@@ -37,15 +37,18 @@
         <action name="rolesItem" class="rolesBackAction" method="rolesItem">
             <result name="success">/WEB-INF/jsp/roles-back-item.jsp</result>
         </action>
-        <action name="rolesDelete" class="rolesBackAction" method="rolesDelete">
+<!--         <action name="rolesDelete" class="rolesBackAction" method="rolesDelete">
             <result name="success" type="redirectAction">
                 <param name="actionName">rolesList</param>
                 <param name="namespace">/roles</param>
             </result>
-        </action>
+        </action> -->
         <action name="rolesSelect" class="rolesBackAction" method="rolesSelect">
             <result name="success">/WEB-INF/jsp/roles-back-select.jsp</result>
         </action>
-        
+        <action name="rolesListAjax" class="rolesBackAction" method="rolesList">
+            <result name="success">/WEB-INF/jsp/roles-back-list-ajax.jsp</result>
+        </action>
+
     </package>
 </struts>

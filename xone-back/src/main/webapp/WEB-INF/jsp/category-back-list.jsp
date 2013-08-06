@@ -102,7 +102,7 @@
                                     <td><a href="${pageContext.request.contextPath}/category/categoryItem.html?category.id=${item.id}">${item.name}</a></td>
                                     <td>${item.detail}</td>
                                     <td>${item.sort}</td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td><a href="${pageContext.request.contextPath}/category/categoryEdit.html?category.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a> 
                                     <button class="btn btn-mini" onclick="showModalDelete('category.id=${item.id}')">
                                             <i class="icon-trash"> </i>删除

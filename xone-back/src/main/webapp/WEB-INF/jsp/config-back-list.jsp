@@ -101,7 +101,7 @@
                                     <td><a href="${pageContext.request.contextPath}/config/configItem.html?config.id=${item.id}">${item.code}</a></td>
                                     <td>${item.name}</td>
                                     <td>${item.value}</td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td><a href="${pageContext.request.contextPath}/config/configEdit.html?config.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
                                         <button class="btn btn-mini" onclick="showModalDelete('config.id=${item.id}')">
                                             <i class="icon-trash"> </i>删除

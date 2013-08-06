@@ -71,7 +71,7 @@
                     <div class="control-group">
                         <label class="control-label" for="productValid">有效期</label>
                         <div class="controls">
-                            <input type="text" id="productValid" name="product.productValid" value="<fmt:formatDate value="${product.productValid}" pattern="yyyy-MM-dd"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="有效期">
+                            <input type="text" id="productValid" name="product.productValid" value="<fmt:formatDate value="${product.productValid}" pattern="yyyy-MM-dd HH:mm:ss"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="有效期">
                         </div>
                     </div>
                     <div class="control-group">

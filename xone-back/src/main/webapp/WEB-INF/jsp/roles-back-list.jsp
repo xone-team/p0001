@@ -60,14 +60,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="span5 form-horizontal">
-                                            <div class="control-group">
-                                                <label class="control-label" for="lastUpdatedMin">更新时间</label>
-                                                <div class="controls">
-                                                    <input type="text" id="lastUpdatedMin" class="span5 Wdate" onclick="WdatePicker()" name="roles.lastUpdatedMin" value="${roles.lastUpdatedMin}" maxlength="19" placeholder="最小日期"> <span class="add-on">~</span> <input type="text" id="lastUpdatedMax" class="span5 Wdate" onclick="WdatePicker()" name="roles.lastUpdatedMax" value="${roles.lastUpdatedMax}" maxlength="19" placeholder="最大日期">
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </form>
                             </div>
@@ -101,8 +93,8 @@
                                     <td class="table-col-index">${status.index + 1}</td>
                                     <td><a href="${pageContext.request.contextPath}/roles/rolesItem.html?roles.id=${item.id}">${item.name} </a></td>
                                     <td>${item.remark}</td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" /></td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td><a href="${pageContext.request.contextPath}/roles/rolesEdit.html?roles.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
                                         <button class="btn btn-mini" onclick="showModalDelete('roles.id=${item.id}')">
                                             <i class="icon-trash"> </i>删除

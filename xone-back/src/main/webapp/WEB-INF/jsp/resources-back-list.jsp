@@ -126,7 +126,7 @@
                                     <td class="table-col-number">${item.priority}</td>
                                     <td>${item.resourceUrl}</td>
                                     <td>${item.remark}</td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td><a href="${pageContext.request.contextPath}/resources/resourcesEdit.html?resources.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
                                         <button class="btn btn-mini" onclick="showModalDelete('resources.id=${item.id}')">
                                             <i class="icon-trash"> </i>删除

@@ -60,7 +60,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">申请时间</td>
-							<td><fmt:formatDate value="${subscribe.dateApply}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${subscribe.dateApply}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">审核人</td>
@@ -68,7 +68,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">审核时间</td>
-							<td><fmt:formatDate value="${subscribe.dateCheck}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${subscribe.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">删除标识</td>
@@ -80,7 +80,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">创建时间</td>
-							<td><fmt:formatDate value="${subscribe.dateCreated}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${subscribe.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
 						<tr>
 							<td style="width:60px;">更新人</td>
@@ -88,7 +88,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">更新时间</td>
-							<td><fmt:formatDate value="${subscribe.lastUpdated}" pattern="yyyy-MM-dd"/></td>
+							<td><fmt:formatDate value="${subscribe.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 						</tr>
 					</tbody>
 				</table>
