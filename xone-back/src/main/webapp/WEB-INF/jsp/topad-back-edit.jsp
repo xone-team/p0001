@@ -48,7 +48,7 @@
                         <label class="control-label" for="checkStatus">审核状态</label>
                         <div class="controls">
                             <select class="selectpicker" id="checkStatus" name="topad.checkStatus">
-                                <c:forEach items="${commonTypes.topadCheckStatusList}" var="it">
+                                <c:forEach items="${types.topadCheckStatusList}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == topad.checkStatus}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>

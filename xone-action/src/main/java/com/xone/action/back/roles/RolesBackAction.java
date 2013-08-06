@@ -84,6 +84,8 @@ public class RolesBackAction extends Action {
 	}
 	
 	public String rolesSave() throws Exception {
+	    roles.setEnable(Roles.Enable.YES.getValue());
+	    
 	    roles.setUserCreated(getUserId());
 	    roles.setUserUpdated(getUserId());
 	    

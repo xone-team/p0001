@@ -56,7 +56,9 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="dateCreatedMin">创建时间</label>
                                                 <div class="controls">
-                                                    <input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="roles.dateCreatedMin" value="${roles.dateCreatedMin}" maxlength="19" placeholder="最小日期"> <span class="add-on">~</span> <input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="roles.dateCreatedMax" value="${roles.dateCreatedMax}" maxlength="19" placeholder="最大日期">
+                                                    <input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="roles.dateCreatedMin" value="${roles.dateCreatedMin}" maxlength="19" placeholder="最小日期">
+                                                    <span class="add-on">~</span>
+                                                    <input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="roles.dateCreatedMax" value="${roles.dateCreatedMax}" maxlength="19" placeholder="最大日期">
                                                 </div>
                                             </div>
                                         </div>
@@ -95,10 +97,7 @@
                                     <td>${item.remark}</td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.lastUpdated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                    <td><a href="${pageContext.request.contextPath}/roles/rolesEdit.html?roles.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
-                                        <button class="btn btn-mini" onclick="showModalDelete('roles.id=${item.id}')">
-                                            <i class="icon-trash"> </i>删除
-                                        </button></td>
+                                    <td><a href="${pageContext.request.contextPath}/roles/rolesEdit.html?roles.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

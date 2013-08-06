@@ -50,7 +50,7 @@
                                                 <div class="controls">
                                                     <select class="selectpicker" id="purchaseType" name="purchase.purchaseType">
                                                         <option value="">全部</option>
-                                                        <c:forEach items="${commonTypes.productTypeList}" var="it">
+                                                        <c:forEach items="${types.productTypeList}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == purchase.purchaseType}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
                                                     </select>
@@ -163,7 +163,7 @@
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
                                     <td><a href="${pageContext.request.contextPath}/purchase/purchaseItem.html?purchase.id=${item.id}">${item.purchaseName} </a></td>
-                                    <td><c:forEach items="${commonTypes.productTypeList}" var="it">
+                                    <td><c:forEach items="${types.productTypeList}" var="it">
                                             <c:if test="${it.value == item.purchaseType}">${it.name}</c:if>
                                         </c:forEach></td>
                                     <td class="table-col-number">${item.purchaseNum}</td>
