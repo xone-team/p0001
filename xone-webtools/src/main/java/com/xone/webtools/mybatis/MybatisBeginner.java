@@ -29,7 +29,9 @@ public class MybatisBeginner {
 			List<Map<String, Object>> list = productMapper
 					.findProductListWithUser(params);
 			// User user = (User) session.selectOne("selectUser","1");
-			 System.out.println(list);
+			 System.out.println(list.size());
+			 Integer i = productMapper.findProductCountWithUser(params);
+			 System.out.println(i);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 		} finally {

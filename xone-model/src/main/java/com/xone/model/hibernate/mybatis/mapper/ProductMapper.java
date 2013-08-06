@@ -5,6 +5,8 @@ import java.util.Map;
 
 public interface ProductMapper {
 	
-	List<Map<String, Object>> findProductListWithUser(Map<String, String> params);
+	public List<Map<String, Object>> findProductListWithUser(Map<String, String> params);
+
+	public Integer findProductCountWithUser(Map<String, String> params);
 
 }

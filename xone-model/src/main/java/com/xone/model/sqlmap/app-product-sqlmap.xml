@@ -3,10 +3,25 @@
 <!--     <resultmap id="UserMap" type="User"> -->
 <!--         <result column="ID" property="userId"> -->
 <!--         <result column="NAME" property="userName"> -->
-<!--     </resultmap> -->
+<!--     </resultmap> -->	
 	<select id="findProductListWithUser" parameterType="java.util.Map" resultType="java.util.Map">
         select p.*
         from t_product p left join t_user u on p.user_created = u.id 
+       	<include refid="findProductWhere"/>
+       	order by p.date_created
+       	<include refid="limit"/>
+	</select>
+	<select id="findProductCountWithUser" parameterType="java.util.Map" resultType="int">
+        select count(*)
+        from t_product p left join t_user u on p.user_created = u.id 
+       	<include refid="findProductWhere"/>
+	</select>
+	<sql id="limit">
+       	<if test="offsetIndex != null and maxResult != null">
+       	    limit ${offsetIndex} , ${maxResult}
+       	</if>
+	</sql>
+	<sql id="findProductWhere">
         <where>
             <if test="id != null">
 				and p.id = #{id}
@@ -21,13 +36,13 @@
 				and p.sale_type = #{saleType}
 			</if>
             <if test="productName != null">
-				and p.product_name like '%'||#{productName}||'%'
+				and p.product_name like CONCAT('%', #{productName}, '%')
 			</if>
             <if test="productType != null">
-				and p.product_type like '%'||#{productType}||'%'
+				and p.product_type like CONCAT('%', #{productType}, '%')
 			</if>
             <if test="productAddress != null">
-				and p.product_address like '%'||#{productAddress}||'%'
+				and p.product_address like CONCAT('%', #{productAddress}, '%')
 			</if>
             <if test="checkStatus != null">
 				and p.check_status = #{checkStatus}
@@ -39,13 +54,5 @@
 				and p.user_created = #{userCreated}
 			</if>
         </where>
-       	order by p.date_created
-       	<include refid="limit"/>
-	</select>
-	<sql id="limit">
-       	<if test="offsetIndex != null and maxResult != null">
-       	    limit ${offsetIndex} , ${maxResult}
-       	</if>
 	</sql>
-	</select>
 </mapper>

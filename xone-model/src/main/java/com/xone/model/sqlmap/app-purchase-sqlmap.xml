@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>  <!DOCTYPE mapper   PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="com.xone.webtools.mybatis.ProductMapper">
+<mapper namespace="com.xone.model.hibernate.mybatis.mapper.PurchaseMapper">
 <!--     <resultmap id="UserMap" type="User"> -->
 <!--         <result column="ID" property="userId"> -->
 <!--         <result column="NAME" property="userName"> -->
 <!--     </resultmap> -->	
-	<select id="findProductListWithUser" parameterType="java.util.Map" resultType="java.util.Map">
+	<select id="findPurchaseListWithUser" parameterType="java.util.Map" resultType="java.util.Map">
         select p.*
-        from t_product p left join t_user u on p.user_created = u.id 
-       	<include refid="findProductWhere"/>
+        from t_purchase p left join t_user u on p.user_created = u.id 
+       	<include refid="findPurchaseWhere"/>
        	order by p.date_created
        	<include refid="limit"/>
 	</select>
-	<select id="findProductCountWithUser" parameterType="java.util.Map" resultType="int">
+	<select id="findPurchaseCountWithUser" parameterType="java.util.Map" resultType="int">
         select count(*)
-        from t_product p left join t_user u on p.user_created = u.id 
-       	<include refid="findProductWhere"/>
+        from t_purchase p left join t_user u on p.user_created = u.id 
+       	<include refid="findPurchaseWhere"/>
 	</select>
 	<sql id="limit">
        	<if test="offsetIndex != null and maxResult != null">
        	    limit ${offsetIndex} , ${maxResult}
        	</if>
 	</sql>
-	<sql id="findProductWhere">
+	<sql id="findPurchaseWhere">
         <where>
             <if test="id != null">
 				and p.id = #{id}
@@ -32,17 +32,14 @@
             <if test="ltDateCreated != null">
                 <![CDATA[and p.date_created < #{ltDateCreated}]]>
 			</if>
-            <if test="saleType != null">
-				and p.sale_type = #{saleType}
+            <if test="purchaseName != null">
+				and p.purchase_name like CONCAT('%', #{purchaseName}, '%')
 			</if>
-            <if test="productName != null">
-				and p.product_name like CONCAT('%', #{productName}, '%')
+            <if test="purchaseType != null">
+				and p.purchase_type like CONCAT('%', #{purchaseType}, '%')
 			</if>
-            <if test="productType != null">
-				and p.product_type like CONCAT('%', #{productType}, '%')
-			</if>
-            <if test="productAddress != null">
-				and p.product_address like CONCAT('%', #{productAddress}, '%')
+            <if test="purchaseAddress != null">
+				and p.purchase_address like CONCAT('%', #{purchaseAddress}, '%')
 			</if>
             <if test="checkStatus != null">
 				and p.check_status = #{checkStatus}
