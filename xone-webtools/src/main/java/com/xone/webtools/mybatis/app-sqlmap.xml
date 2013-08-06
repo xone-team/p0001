@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>  <!DOCTYPE mapper   PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="com.xone.model.hibernate.mybatis.mapper.ProductMapper">
+<mapper namespace="com.xone.webtools.mybatis.ProductMapper">
 <!--     <resultmap id="UserMap" type="User"> -->
 <!--         <result column="ID" property="userId"> -->
 <!--         <result column="NAME" property="userName"> -->
@@ -24,10 +24,10 @@
 				and p.product_name like '%'||#{productName}||'%'
 			</if>
             <if test="productType != null">
-				and p.product_type like '%'||#{productType}||'%'
+				and p.product_type like '%' || #{productType} || '%'
 			</if>
             <if test="productAddress != null">
-				and p.product_address like '%'||#{productAddress}||'%'
+				and p.product_address like '%' || #{productAddress} || '%'
 			</if>
             <if test="checkStatus != null">
 				and p.check_status = #{checkStatus}
@@ -47,5 +47,4 @@
        	    limit ${offsetIndex} , ${maxResult}
        	</if>
 	</sql>
-	</select>
 </mapper>

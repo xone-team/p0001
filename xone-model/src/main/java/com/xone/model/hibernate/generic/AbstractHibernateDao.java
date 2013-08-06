@@ -1,11 +1,15 @@
 package com.xone.model.hibernate.generic;
 
 
+import java.beans.PropertyDescriptor;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.lang.reflect.ParameterizedType;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -13,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -33,10 +38,10 @@ import org.hibernate.transform.ResultTransformer;
 import org.hibernate.type.Type;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeansException;
 import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 import com.xone.model.hibernate.support.Pagination;
 
@@ -649,15 +654,15 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	 * 不为空的EXAMPLE属性选择方式
 	 * 
 	 */
-	static final class NotBlankPropertySelector implements PropertySelector {
-		private static final long serialVersionUID = 1L;
-
-		public boolean include(Object object, String property, Type type) {
-			return object != null
-					&& !(object instanceof String && StringUtils
-							.hasText((String) object));
-		}
-	}
+//	static final class NotBlankPropertySelector implements PropertySelector {
+//		private static final long serialVersionUID = 1L;
+//
+//		public boolean include(Object object, String property, Type type) {
+//			return object != null
+//					&& !(object instanceof String && StringUtils
+//							.hasText((String) object));
+//		}
+//	}
 
 	/**
 	 * 根据属性删除
@@ -699,6 +704,76 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 		else
 			query.setParameterList("id", ids);
 		return query.executeUpdate();
+	}
+	
+	protected String toMyRole(String name) {
+		if (StringUtils.isBlank(name)) {
+			return StringUtils.EMPTY;
+		}
+		String n = name.replaceFirst("set", "");
+		int sz = n.length();
+		if (sz == 0) {
+			return n;
+		}
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(n.charAt(0));
+        for (int i = 1; i < sz; i++) {
+        	char c = n.charAt(i);
+            if (Character.isUpperCase(c) == true) {
+            	buffer.append("_");
+            }
+        	buffer.append(c);
+        }
+		return buffer.toString().toUpperCase();
+	}
+	
+	protected void copyPropertiesFromMap(Map<String, Object> source, Object target, DaoMapCopyRoles copyRoles, MyDaoAssignRules assignRules, String[] ignoreProperties)
+			throws BeansException {
+		
+		Assert.notNull(source, "Source must not be null");
+		Assert.notNull(target, "Target must not be null");
+		
+		PropertyDescriptor[] targetPds = org.springframework.beans.BeanUtils.getPropertyDescriptors(target.getClass());
+		List<String> ignoreList = (ignoreProperties != null) ? Arrays.asList(ignoreProperties) : null;
+		
+		for (PropertyDescriptor targetPd : targetPds) {
+			if (targetPd.getWriteMethod() != null &&
+					(ignoreProperties == null || (!ignoreList.contains(targetPd.getName())))) {
+				Method writeMethod = targetPd.getWriteMethod();
+				Class<?>[] parameterTypes = writeMethod.getParameterTypes();
+				if (parameterTypes.length >= 2 || parameterTypes.length <= 0) {
+					continue;
+				}
+				if (null != copyRoles && !copyRoles.myCopyRules(parameterTypes[0], targetPd.getName())) {//如果值为null就不赋值
+					continue;
+				}
+				Object v = source.get(toMyRole(targetPd.getName()));
+				if (!Modifier.isPublic(writeMethod.getDeclaringClass().getModifiers())) {
+					writeMethod.setAccessible(true);
+				}
+				Object value = null;
+				if (null != assignRules) {
+					value = assignRules.myAssignRules(parameterTypes[0], v);
+				}
+				try {
+					writeMethod.invoke(target, value);
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				} catch (InvocationTargetException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	public interface DaoMapCopyRoles {
+		public boolean myCopyRules(Class<?> parameterClass, String method);
+	}
+	
+	public interface MyDaoAssignRules {
+		public Object myAssignRules(Class<?> parameterClass, Object value);
 	}
 
 }

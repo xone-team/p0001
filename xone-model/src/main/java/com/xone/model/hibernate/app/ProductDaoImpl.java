@@ -7,9 +7,6 @@ import java.util.Map;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.generic.AbstractHibernateDao;
 import com.xone.model.hibernate.mybatis.mapper.ProductMapper;
-import com.xone.model.utils.BeanUtils;
-import com.xone.model.utils.BeanUtils.MapCopyRoles;
-import com.xone.model.utils.BeanUtils.MyAssignRules;
 
 public class ProductDaoImpl extends AbstractHibernateDao<Product> implements ProductDao {
 	
@@ -18,12 +15,12 @@ public class ProductDaoImpl extends AbstractHibernateDao<Product> implements Pro
 		List<Product> pList = new ArrayList<Product>();
 		for (Map<String, Object> map : l) {
 			Product p = new Product();
-			BeanUtils.copyPropertiesFromMap(map, p, new MapCopyRoles() {
+			copyPropertiesFromMap(map, p, new DaoMapCopyRoles() {
 				@Override
 				public boolean myCopyRules(Class<?> parameterClass, String method) {
 					return true;
 				}
-			}, new MyAssignRules() {
+			}, new MyDaoAssignRules() {
 				@Override
 				public Object myAssignRules(Class<?> clazz, Object value) {
 					return value;
