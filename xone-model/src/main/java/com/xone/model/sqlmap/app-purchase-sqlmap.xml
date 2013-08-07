@@ -25,18 +25,18 @@
         from t_purchase p left join t_user u on p.user_created = u.id 
        	<include refid="findPurchaseWhere"/>
        	order by p.date_created
-       	<include refid="limit"/>
+<!--        	<include refid="limit"/> -->
 	</select>
 	<select id="findPurchaseCountWithUser" parameterType="java.util.Map" resultType="int">
         select count(*)
         from t_purchase p left join t_user u on p.user_created = u.id 
        	<include refid="findPurchaseWhere"/>
 	</select>
-	<sql id="limit">
-       	<if test="offsetIndex != null and maxResult != null">
-       	    limit ${offsetIndex} , ${maxResult}
-       	</if>
-	</sql>
+<!-- 	<sql id="limit"> -->
+<!--        	<if test="offsetIndex != null and maxResult != null"> -->
+<!--        	    limit ${offsetIndex} , ${maxResult} -->
+<!--        	</if> -->
+<!-- 	</sql> -->
 	<sql id="findPurchaseWhere">
         <where>
             <if test="id != null">
