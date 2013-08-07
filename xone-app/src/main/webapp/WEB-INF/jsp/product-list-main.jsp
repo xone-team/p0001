@@ -28,9 +28,9 @@
 		        <span class="iscroll-pull-label"></span>
 			</div>
 			<div style="height:15px">&nbsp;</div>
-				<ul class="ul-product-list" data-id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true">
-			        <li data-role="list-divider">数据加载中，请稍候...</li>
-		        </ul>
+			<ul class="ul-product-list" data-id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true">
+		        <li data-role="list-divider">数据加载中，请稍候...</li>
+	        </ul>
 			<div class="iscroll-pullup">
 				<span class="iscroll-pull-icon"></span>
 				<span class="iscroll-pull-label"></span>
@@ -87,6 +87,7 @@
 						$('div.product-main-page').append(css.join(''));
 					}
 				}
+// 				$('div.product-main-page').find('form.ui-listview-filter')
 			});
 		</script>
 		<jsp:include page="footer.jsp">

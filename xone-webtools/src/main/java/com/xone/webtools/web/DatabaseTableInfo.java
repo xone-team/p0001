@@ -66,6 +66,23 @@ public class DatabaseTableInfo {
 		return tableInfo;
 	}
 	
+	public List<String> getTables(String [] t) throws Exception {
+		List<String> tableList = getTables();
+		if (null == t || t.length == 0) {
+			return tableList;
+		}
+		List<String> mixTables = new ArrayList<String>();
+		for (String s : t) {
+			if (tableList.contains(s)) {
+				mixTables.add(s);
+			}
+		}
+		if (null == mixTables || mixTables.isEmpty()) {
+			return tableList;
+		}
+		return mixTables;
+	}
+	
 	public List<String> getTables() throws Exception {
 		List<String> tables = new ArrayList<String>();
 		DatabaseMetaData metaData = getConnection().getMetaData();

@@ -8,7 +8,9 @@ public class ResourceGenerator {
 		DatabaseTableInfo databaseTableInfo = new DatabaseTableInfo("com.mysql.jdbc.Driver", 
 				"jdbc:mysql://mysqllocal.com:4306/sample?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true",
 				"root", "admin");
-		List<String> tables = databaseTableInfo.getTables();
+		List<String> tables = databaseTableInfo.getTables(new String[] {
+				"t_product", "t_purchase"
+		});//databaseTableInfo.getTables();
 		DaoGenerator daoGenerator = new DaoGenerator();
 		EntityGenerator entityGenerator = new EntityGenerator();
 		ServiceGenerator serviceGenerator = new ServiceGenerator();
@@ -17,32 +19,24 @@ public class ResourceGenerator {
 		BackJspGenerator backJspGenerator = new BackJspGenerator();
 		BackActionGenerator backActionGenerator = new BackActionGenerator();
 		
-		String[] selectedTables = new String[]{"t_category"};
+		ResultMapGenerator resultMapGenerator = new ResultMapGenerator();
+		
 		for (String table : tables) {
-		    boolean selected = false;
-		    for (int i = 0; i < selectedTables.length; i++) {
-                if(selectedTables[i].equals(table)){
-                    selected = true;
-                    break;
-                }
-            }
-		    if(!selected){
-		        continue;
-		    }
-		    
-		    
+			resultMapGenerator.setTableName(table);
+			resultMapGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
+			resultMapGenerator.generateResultMap();
 //			daoGenerator.setTableName(table);
 //			daoGenerator.generateDao();
 //			daoGenerator.generateDaoImpl();
 //			daoGenerator.generateDaoXml();
-			entityGenerator.setTableName(table);
-			entityGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
-			entityGenerator.generateEntity();
-			entityGenerator.generateHibernateXml();
-			serviceGenerator.setTableName(table);
+//			entityGenerator.setTableName(table);
+//			entityGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
+//			entityGenerator.generateEntity();
+//			entityGenerator.generateHibernateXml();
+//			serviceGenerator.setTableName(table);
 //			serviceGenerator.generateService();
-			serviceGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
-			serviceGenerator.generateServiceImpl();
+//			serviceGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
+//			serviceGenerator.generateServiceImpl();
 //			serviceGenerator.generateServiceXml();
 //			actionGenerator.setTableName(table);
 //			actionGenerator.generateAction();
@@ -55,9 +49,10 @@ public class ResourceGenerator {
 //			backActionGenerator.generateAction();
 //			backActionGenerator.generateActionXml();
 //			backActionGenerator.generateStrutsXml();
-			backJspGenerator.setTableName(table);
-			backJspGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
-			backJspGenerator.generatePages();
+//			backJspGenerator.setTableName(table);
+//			backJspGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
+//			backJspGenerator.generatePages();
+		    
 		}
 		databaseTableInfo.close();
 	}

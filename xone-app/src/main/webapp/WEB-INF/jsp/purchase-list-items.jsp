@@ -12,7 +12,7 @@
 	</c:when>
 	<c:otherwise>
 		<c:forEach var="item" items="${list}">
-		<li class="purchasedatecreateditem" timestamp="${item.dateCreated}">
+		<li class="purchasedatecreateditem" timestamp="<fmt:formatDate value="${item.dateCreated}" type="both" pattern="yyyy-MM-dd HH:mm:ss"/>">
 			<a href="${pageContext.request.contextPath}/purchase/item.html?purchase.id=${item.id}" style="padding-right:10px;padding-top:2px;padding-bottom:3px;padding-left:85px;">
 			    <p class="ui-li-aside" style="margin:0px;padding:0px;width:90%;"><fmt:formatDate value="${item.lastUpdated}" type="both" pattern="yyyy-MM-dd HH:mm:ss"/></p>
 				<img src="${pageContext.request.contextPath}/assistant/image.html?id=${item.ids[0]}" style="margin-right:2px;" class="purchaseliimage"/>
