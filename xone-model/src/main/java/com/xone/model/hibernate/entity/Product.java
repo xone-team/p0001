@@ -5,48 +5,70 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.xone.model.hibernate.entity.Person.YN;
+
 public class Product implements Serializable {
 	
 	private static final long serialVersionUID = 1551553979029311658L;
+    
 	
-	public enum SaleType {
-		NORMAL("0"), SALES("1"), GROUPS("2");
-		protected String value;
-		private SaleType(String v) {
-			this.value = v;
-		}
-		public String getValue() {
-			return this.value;
-		}
-		
-	}
+    /**
+     * 产品类别
+     *
+     */
+    public enum ProductType {
+        DONG_PIN("0", "冻品"), GAN_HUO("1", "干货"), HUO_XIAN("2", "活鲜"), SHUI_GUO("3", "水果"), TIAO_LIAO("4", "调料");
+        protected String value;
+        protected String name;
+        private ProductType(String v, String n) {
+            this.value = v;
+            this.name = n;
+        }
+        public String getValue() {
+            return this.value;
+        }
+        public String getName() {
+            return this.name;
+        }
+    }
+    
+    /**
+     * 销售类别
+     *
+     */
+    public enum SaleType {
+        NORMAL("0", "普通"), SALES("1", "促销"), GROUPS("2", "团购");
+        protected String value;
+        protected String name;
+        private SaleType(String v, String n) {
+            this.value = v;
+            this.name = n;
+        }
+        public String getValue() {
+            return this.value;
+        }
+        public String getName() {
+            return this.name;
+        }
+    }
 	
 	/**
 	 * 审核状态
 	 */
 	public enum CheckStatus {
-		WAITING("0"), PASSED("1"), DENIED("2");
-		protected String value;
-		private CheckStatus(String v) {
-			this.value = v;
-		}
-		public String getValue() {
-			return this.value;
-		}
-	}
-	
-	/**
-	 * 删除标志
-	 */
-	public enum FlagDeleted {
-		NORMAL("0"), DELETED("1");
-		protected String value = "0";
-		private FlagDeleted(String value) {
-			this.value = value;
-		}
-		public String getValue() {
-			return this.value;
-		}
+		WAITING("0", "待审核"), PASSED("1", "审核通过"), DENIED("2", "审核未通过");
+        protected String value;
+        protected String name;
+        private CheckStatus(String v, String n) {
+            this.value = v;
+            this.name = n;
+        }
+        public String getValue() {
+            return this.value;
+        }
+        public String getName() {
+            return this.name;
+        }
 	}
 	
 	protected Long id;
@@ -85,30 +107,48 @@ public class Product implements Serializable {
 	}
 
 	public String getProductTypeName() {
-		if ("0".equals(getProductType())) {
-			return "冻品";
-		} else if ("1".equals(getProductType())) {
-			return "干货";
-		} else if ("2".equals(getProductType())) {
-			return "活鲜";
-		} else if ("3".equals(getProductType())) {
-			return "水果";
-		} else if ("4".equals(getProductType())) {
-			return "调料";
-		}
-		return "未知";
+        String result = null;
+        for (ProductType e : ProductType.values()) {
+            if(e.getValue().equals(this.productType)){
+                result = e.getName();
+                break;
+            }
+        }
+        return result == null ? "未知" : result;
 	}
 	
 	
 	public String getCheckStatusName() {
-		if (CheckStatus.WAITING.getValue().equals(getCheckStatus())) {
-			return "待审核";
-		} else if (CheckStatus.PASSED.getValue().equals(getCheckStatus())) {
-			return "审核通过";
-		} else if (CheckStatus.DENIED.getValue().equals(getCheckStatus())) {
-			return "审核不通过";
-		}
-		return "未知";
+        String result = null;
+        for (CheckStatus e : CheckStatus.values()) {
+            if(e.getValue().equals(this.checkStatus)){
+                result = e.getName();
+                break;
+            }
+        }
+        return result == null ? "未知" : result;
+	}
+	
+    public String getFlagDeletedName() {
+        String result = null;
+        for (YN e : YN.values()) {
+            if (e.getValue().equals(this.flagDeleted)) {
+                result = e.getName();
+                break;
+            }
+        }
+        return result == null ? "未知" : result;
+    }
+	
+	public String getSaleTypeName() {
+	    String result = null;
+	    for (SaleType e : SaleType.values()) {
+	        if(e.getValue().equals(this.saleType)){
+	            result = e.getName();
+	            break;
+	        }
+	    }
+	    return result == null ? "未知" : result;
 	}
 	
 	protected List<Long> ids = new ArrayList<Long>();

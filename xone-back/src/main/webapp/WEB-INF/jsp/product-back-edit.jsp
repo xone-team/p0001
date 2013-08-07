@@ -28,7 +28,7 @@
                         <li class="active">产品编辑</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" id="saveForm" enctype="multipart/form-data" id="productEditForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productUpdate.html">
+                <form class="form-horizontal" enctype="multipart/form-data" id="productEditForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productUpdate.html">
                     <input type="hidden" name="product.id" value="${product.id}">
                     <div class="control-group">
                         <label class="control-label" for="productName">产品名称</label>
@@ -40,7 +40,7 @@
                         <label class="control-label" for="productType">产品类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="productType" name="product.productType">
-                                <c:forEach items="${types.productTypeList}" var="it">
+                                <c:forEach items="${types.productType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.productType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -50,7 +50,7 @@
                         <label class="control-label" for="saleType">销售类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="saleType" name="product.saleType">
-                                <c:forEach items="${types.saleTypeList}" var="it">
+                                <c:forEach items="${types.saleType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.saleType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -66,12 +66,6 @@
                         <label class="control-label" for="productNum">产品数量</label>
                         <div class="controls">
                             <input type="text" id="productNum" name="product.productNum" value="${product.productNum}" maxlength="255" placeholder="产品数量">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="productValid">有效期</label>
-                        <div class="controls">
-                            <input type="text" id="productValid" name="product.productValid" value="<fmt:formatDate value="${product.productValid}" pattern="yyyy-MM-dd HH:mm:ss"/>" class="Wdate" onclick="WdatePicker()" maxlength="19" placeholder="有效期">
                         </div>
                     </div>
                     <div class="control-group">
@@ -146,7 +140,9 @@
                         </div>
                     </div>
                     <div class="control-group fileupload" style="display: none;">
-                        <input type="file" id="uploadImageFile1" name="uploadFile1" value=""> <input type="file" id="uploadImageFile2" name="uploadFile2" value=""> <input type="file" id="uploadImageFile3" name="uploadFile3" value="">
+                        <input type="file" id="uploadImageFile1" name="uploadFile1" value="">
+                        <input type="file" id="uploadImageFile2" name="uploadFile2" value="">
+                        <input type="file" id="uploadImageFile3" name="uploadFile3" value="">
                         <c:forEach items="${product.ids}" var="it">
                             <input type="hidden" name="product.ids" value="${it}">
                         </c:forEach>
@@ -190,7 +186,8 @@
 
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" name="update" value="update" class="btn">提交更新</button>
+                            <button type="submit" name="update" value="update" class="btn" onclick="return confirm('确定更新本条记录?');">提交更新</button>
+                            <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm('确定删除本条记录?');">删除记录</button>
                         </div>
                     </div>
                 </form>
@@ -227,6 +224,37 @@
                 $('div.uploadimagesdiv3').html('').append(div);
             }
         });
+
+        $('#productEditForm${myidentify}').submit(function() {
+            var $form = $('#productEditForm${myidentify}');
+            $form.submit();
+            return;
+
+            var validate = [ {
+                name : 'product.productName',
+                text : '请输入产品名'
+            }, {
+                name : 'product.productPrice',
+                text : '请输入产品价格'
+            }, {
+                name : 'product.productPrice',
+                text : '产品价格必须为数字，且大于0',
+                func : numberValidation
+            }, {
+                name : 'product.productNum',
+                text : '请输入产品数量'
+            }, {
+                name : 'product.productNum',
+                text : '产品数量必须为数字，且大于0',
+                func : numberValidation
+            }, {
+                name : 'uploadFile1',
+                text : '请至少上传一张图片'
+            } ];
+
+            var pass = XONE.valid(validate, $form, "");
+            return pass;
+        });
     });
     function removeProductDynamicImage1() {
         $('div.uploadimagesdiv').html('');
@@ -243,50 +271,22 @@
         $('#uploadImageFile3').val('');
         return false;
     }
-    
-    function doSaveForm() {
-        var $form = $('#saveForm');
-        $form.submit();
-        return;
-        
-        var validate = [ {
-            name : 'product.productName',
-            text : '请输入产品名'
-        }, {
-            name : 'product.productPrice',
-            text : '请输入产品价格'
-        }, {
-            name : 'product.productPrice',
-            text : '产品价格必须为数字，且大于0',
-			func : numberValidation       
-        }, {
-            name : 'product.productNum',
-            text : '请输入产品数量'
-        }, {
-            name : 'product.productNum',
-            text : '产品数量必须为数字，且大于0',
-			func : numberValidation       
-        } ];
 
-        var pass = XONE.valid(validate, $form, "");
-
-        if (pass)
-            $form.submit();
-    }
-    function numberValidation(inputEl){
+    function numberValidation(inputEl) {
         var result = true;
-	    var val = inputEl.val();
-	    if(val != null && val.length > 0){
-	        var n = null;
-	        try{
-	            n = parseInt(val);
-	        }catch(e){}
-	        
-	        if(n == null || isNaN(n) || n < 0){
-	            result = false;
-	        }
-	    }
-	    return result;
+        var val = inputEl.val();
+        if (val != null && val.length > 0) {
+            var n = null;
+            try {
+                n = parseInt(val);
+            } catch (e) {
+            }
+
+            if (n == null || isNaN(n) || n < 0) {
+                result = false;
+            }
+        }
+        return result;
     }
 </script>
 </html>

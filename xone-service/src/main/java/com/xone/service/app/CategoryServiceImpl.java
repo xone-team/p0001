@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.CategoryDao;
 import com.xone.model.hibernate.entity.Category;
+import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.support.Pagination;
 
 public class CategoryServiceImpl implements CategoryService {
@@ -25,6 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category save(Category entity) {
+        entity.setFlagDeleted(Person.YN.NO.getValue());
         return getCategoryDao().save(entity);
     }
 

@@ -34,7 +34,7 @@ public class IndexServiceImpl implements IndexService {
     @Override
     public Integer getTodoPurchaseCount() {
         DetachedCriteria c = DetachedCriteria.forClass(Purchase.class);
-        c.add(Restrictions.eq("checkStatus", Purchase.CheckStatus.WAITING.getValue()));
+        c.add(Restrictions.eq("checkStatus", Product.CheckStatus.WAITING.getValue()));
         return getPurchaseDao().countByProperty(c);
     }
 

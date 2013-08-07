@@ -54,17 +54,19 @@
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_roles").addClass("active");
+        
+        $('#saveForm').submit(function(){
+    		var $form = $('#saveForm');
+    		var validate = [{
+    			name: 'name',
+    			text: '请输入角色名'
+    		}];
+    		
+    		var pass = XONE.valid(validate, $form, "roles.");
+    		return pass;
+        }
     });
     
-    $('#saveForm').submit(function(){
-		var $form = $('#saveForm');
-		var validate = [{
-			name: 'name',
-			text: '请输入角色名'
-		}];
-		
-		var pass = XONE.valid(validate, $form, "roles.");
-		return pass;
-    }
+
 </script>
 </html>

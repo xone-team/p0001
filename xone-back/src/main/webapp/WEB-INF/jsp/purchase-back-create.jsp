@@ -38,7 +38,7 @@
                         <label class="control-label" for="purchaseType">求购类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="purchaseType" name="purchase.purchaseType">
-                                <c:forEach items="${types.productTypeList}" var="it">
+                                <c:forEach items="${types.productType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == purchase.purchaseType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
+                            <button type="submit" name="create" value="create" class="btn">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -82,37 +82,36 @@
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_purchase").addClass("active");
+        
+        $('#saveForm').submit(function() {
+            var $form = $('#saveForm');
+            var validate = [ {
+                name : 'purchase.purchaseName',
+                text : '请输入求购产品名'
+            }, {
+                name : 'purchase.purchasePrice',
+                text : '请输入求购产品价格'
+            }, {
+                name : 'purchase.purchasePrice',
+                text : '求购产品价格必须为数字，且大于0',
+    			func : numberValidation       
+            }, {
+                name : 'purchase.purchaseNum',
+                text : '请输入求购产品数量'
+            }, {
+                name : 'purchase.purchaseNum',
+                text : '求购产品数量必须为数字，且大于0',
+    			func : numberValidation       
+            }, {
+                name : 'uploadFile1',
+                text : '请至少上传一张图片'
+            } ];
+
+            var pass = XONE.valid(validate, $form, "");
+    		return pass;
+        });
     });
-    
-    function doSaveForm() {
-        var $form = $('#saveForm');
-        var validate = [ {
-            name : 'purchase.purchaseName',
-            text : '请输入求购产品名'
-        }, {
-            name : 'purchase.purchasePrice',
-            text : '请输入求购产品价格'
-        }, {
-            name : 'purchase.purchasePrice',
-            text : '求购产品价格必须为数字，且大于0',
-			func : numberValidation       
-        }, {
-            name : 'purchase.purchaseNum',
-            text : '请输入求购产品数量'
-        }, {
-            name : 'purchase.purchaseNum',
-            text : '求购产品数量必须为数字，且大于0',
-			func : numberValidation       
-        }, {
-            name : 'uploadFile1',
-            text : '请至少上传一张图片'
-        } ];
 
-        var pass = XONE.valid(validate, $form, "");
-
-        if (pass)
-            $form.submit();
-    }
     function numberValidation(inputEl){
         var result = true;
 	    var val = inputEl.val();

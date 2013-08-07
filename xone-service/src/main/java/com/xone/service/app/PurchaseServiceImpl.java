@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -70,17 +71,25 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public Purchase save(Purchase entity) {
+        entity.setCheckStatus(Product.CheckStatus.WAITING.getValue());
+        entity.setFlagDeleted(Person.YN.NO.getValue());
         return getPurchaseDao().save(entity);
     }
 
     @Override
     public List<Purchase> save(List<Purchase> entity) {
+        for (Iterator<Purchase> iterator = entity.iterator(); iterator.hasNext();) {
+            Purchase purchase = (Purchase) iterator.next();
+            purchase.setCheckStatus(Product.CheckStatus.WAITING.getValue());
+            purchase.setFlagDeleted(Person.YN.NO.getValue());
+        }
         return getPurchaseDao().save(entity);
     }
 
     @Override
     public Purchase save(Purchase entity, ImageUploaded imageUploaded) {
-        entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
+        entity.setCheckStatus(Product.CheckStatus.WAITING.getValue());
+        entity.setFlagDeleted(Person.YN.NO.getValue());
         entity.setPurchaseValid(DateUtils.addDays(new Date(), 30));
         entity = getPurchaseDao().save(entity);
         imageUploaded.setRefId(entity.getId());
@@ -93,7 +102,8 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public Purchase save(Purchase entity, List<ImageUploaded> imageUploadeds) {
-        entity.setFlagDeleted(Purchase.FlagDeleted.NORMAL.getValue());
+        entity.setCheckStatus(Product.CheckStatus.WAITING.getValue());
+        entity.setFlagDeleted(Person.YN.NO.getValue());
         entity.setPurchaseValid(DateUtils.addDays(new Date(), 30));
         entity = getPurchaseDao().save(entity);
         for (ImageUploaded imageUploaded : imageUploadeds) {
@@ -402,16 +412,14 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Purchase update(Purchase entity) {
         // 审核信息处理
-        Long userCheck = new Long(0);
         Date dateCheck = new Date();
 
         PurcCheck check = entity.getCheck();
         check.setPurchaseId(entity.getId());
-        check.setUserApply(userCheck);
         check.setDateCheck(dateCheck);
+        check.setFlagDeleted(Person.YN.NO.getValue());
         purcCheckDao.save(check);
 
-        entity.setUserCheck(userCheck);
         entity.setDateCheck(dateCheck);
         entity.setCheckStatus(check.getCheckStatus());
         entity.setRemark(check.getRemark());

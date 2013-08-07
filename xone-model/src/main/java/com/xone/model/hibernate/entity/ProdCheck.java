@@ -3,6 +3,9 @@ package com.xone.model.hibernate.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.xone.model.hibernate.entity.Person.YN;
+import com.xone.model.hibernate.entity.Product.CheckStatus;
+
 public class ProdCheck implements Serializable {
 
     /**
@@ -23,6 +26,28 @@ public class ProdCheck implements Serializable {
     protected Long userUpdated;
     protected Date lastUpdated;
 
+    public String getCheckStatusName() {
+        String result = null;
+        for (CheckStatus e : CheckStatus.values()) {
+            if(e.getValue().equals(this.checkStatus)){
+                result = e.getName();
+                break;
+            }
+        }
+        return result == null ? "未知" : result;
+    }
+    
+    public String getFlagDeletedName() {
+        String result = null;
+        for (YN e : YN.values()) {
+            if (e.getValue().equals(this.flagDeleted)) {
+                result = e.getName();
+                break;
+            }
+        }
+        return result == null ? "未知" : result;
+    }
+    
     // business logic
     protected Long idMin;
     protected Long idMax;

@@ -15,10 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.DeliveryDao;
 import com.xone.model.hibernate.entity.Delivery;
+import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.support.Pagination;
 
 public class DeliveryServiceImpl implements DeliveryService {
-    private static final Log log = LogFactory.getLog(DeliveryServiceImpl.class);
+    protected static final Log log = LogFactory.getLog(DeliveryServiceImpl.class);
 
     @Autowired
     protected DeliveryDao deliveryDao;
@@ -33,7 +34,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public Delivery save(Delivery delivery) {
-    	delivery.setFlagDeleted(Delivery.FlagDeleted.NORMAL.getValue());
+    	delivery.setFlagDeleted(Person.YN.NO.getValue());
         return getDeliveryDao().save(delivery);
     }
 

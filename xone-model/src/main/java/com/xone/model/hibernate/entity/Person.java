@@ -2,10 +2,6 @@ package com.xone.model.hibernate.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Iterator;
-
-import com.xone.model.hibernate.entity.Adbanner.AdType;
-import com.xone.model.hibernate.support.CommonTypes;
 
 /**
  * @TODO 请Hunny添加代码注释 
@@ -112,16 +108,16 @@ public class Person implements Serializable {
         return result;
 	}
 	
-	public String getFlagDeletedName(){
+    public String getFlagDeletedName() {
         String result = null;
         for (YN e : YN.values()) {
-            if(e.getValue().equals(this.flagDeleted)){
+            if (e.getValue().equals(this.flagDeleted)) {
                 result = e.getName();
                 break;
             }
         }
-        return result;
-	}
+        return result == null ? "未知" : result;
+    }
 	
 	public String getUserLevelName(){
 	    String result = null;

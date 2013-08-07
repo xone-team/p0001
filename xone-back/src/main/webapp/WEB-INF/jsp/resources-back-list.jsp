@@ -48,7 +48,9 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="resourceTypeMin">资源类型</label>
                                                 <div class="controls">
-                                                    <input type="text" id="resourceTypeMin" class="span5" name="resources.resourceTypeMin" value="${resources.resourceTypeMin}" maxlength="11" placeholder="最小值"> <span class="add-on">~</span> <input type="text" id="resourceTypeMax" class="span5" name="resources.resourceTypeMax" value="${resources.resourceTypeMax}" maxlength="11" placeholder="最大值">
+                                                    <input type="text" id="resourceTypeMin" class="span5" name="resources.resourceTypeMin" value="${resources.resourceTypeMin}" maxlength="11" placeholder="最小值">
+                                                    <span class="add-on">~</span>
+                                                    <input type="text" id="resourceTypeMax" class="span5" name="resources.resourceTypeMax" value="${resources.resourceTypeMax}" maxlength="11" placeholder="最大值">
                                                 </div>
                                             </div>
                                         </div>
@@ -56,7 +58,9 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="priorityMin">优先级</label>
                                                 <div class="controls">
-                                                    <input type="text" id="priorityMin" class="span5" name="resources.priorityMin" value="${resources.priorityMin}" maxlength="11" placeholder="最小值"> <span class="add-on">~</span> <input type="text" id="priorityMax" class="span5" name="resources.priorityMax" value="${resources.priorityMax}" maxlength="11" placeholder="最大值">
+                                                    <input type="text" id="priorityMin" class="span5" name="resources.priorityMin" value="${resources.priorityMin}" maxlength="11" placeholder="最小值">
+                                                    <span class="add-on">~</span>
+                                                    <input type="text" id="priorityMax" class="span5" name="resources.priorityMax" value="${resources.priorityMax}" maxlength="11" placeholder="最大值">
                                                 </div>
                                             </div>
                                         </div>
@@ -84,7 +88,9 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="dateCreatedMin">创建时间</label>
                                                 <div class="controls">
-                                                    <input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="resources.dateCreatedMin" value="${resources.dateCreatedMin}" maxlength="19" placeholder="最小日期"> <span class="add-on">~</span> <input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="resources.dateCreatedMax" value="${resources.dateCreatedMax}" maxlength="19" placeholder="最大日期">
+                                                    <input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="resources.dateCreatedMin" value="${resources.dateCreatedMin}" maxlength="19" placeholder="最小日期">
+                                                    <span class="add-on">~</span>
+                                                    <input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="resources.dateCreatedMax" value="${resources.dateCreatedMax}" maxlength="19" placeholder="最大日期">
                                                 </div>
                                             </div>
                                         </div>
@@ -121,16 +127,13 @@
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
-                                    <td><a href="${pageContext.request.contextPath}/resources/resourcesItem.html?resources.id=${item.id}">${item.name} </a></td>
+                                    <td><a href="${pageContext.request.contextPath}/resources/resourcesItem.html?resources.id=${item.id}">${item.name}</a></td>
                                     <td>${item.resourceType}</td>
                                     <td class="table-col-number">${item.priority}</td>
                                     <td>${item.resourceUrl}</td>
                                     <td>${item.remark}</td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                    <td><a href="${pageContext.request.contextPath}/resources/resourcesEdit.html?resources.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
-                                        <button class="btn btn-mini" onclick="showModalDelete('resources.id=${item.id}')">
-                                            <i class="icon-trash"> </i>删除
-                                        </button></td>
+                                    <td><a href="${pageContext.request.contextPath}/resources/resourcesEdit.html?resources.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

@@ -1,3 +1,4 @@
+
 package com.xone.action.app.product;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
+import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.ProductService;
@@ -103,7 +105,7 @@ public class ProductAction extends LogicAction {
 		}
 		params.put("saleType", getProduct().getSaleType());
 		params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
-		params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+		params.put("flagDeleted", Person.YN.NO.getValue());
 		setList(getProductService().findAllByMap(params));
 		return SUCCESS;
 	}

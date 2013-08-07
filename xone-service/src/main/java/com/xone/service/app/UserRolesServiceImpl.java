@@ -59,8 +59,8 @@ public class UserRolesServiceImpl implements UserRolesService {
     }
     
     @Override
-    @SuppressWarnings("unchecked")
     public List<Roles> findRolesByUser(Map<String, Object> params) {
+        // TODO
         List<Roles> result = null;
 //        try {
 //            result = sqlMapClient.queryForList("back.roleRelUser", params);

@@ -3,6 +3,8 @@ package com.xone.model.hibernate.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.xone.model.hibernate.entity.Roles.Enable;
+
 public class Resources implements Serializable {
 	
 	private static final long serialVersionUID = -4661493000071477326L;
@@ -35,7 +37,17 @@ public class Resources implements Serializable {
     protected String lastUpdatedMin;
     protected String lastUpdatedMax;
 	
-	
+    
+    public String getEnableName(){
+        String result = null;
+        for (Enable e : Enable.values()) {
+            if(e.getValue().equals(this.enable)){
+                result = e.getName();
+                break;
+            }
+        }
+        return result;
+    }
 	
 	
 	public Long getId() {

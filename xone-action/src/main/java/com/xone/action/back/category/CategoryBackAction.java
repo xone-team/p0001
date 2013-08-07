@@ -1,6 +1,7 @@
 package com.xone.action.back.category;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,6 +74,8 @@ public class CategoryBackAction extends Action {
 	}
 	
 	public String categorySave() throws Exception {
+        category.setUserCreated(getUserId());
+        category.setUserUpdated(getUserId());
 		setCategory(getCategoryService().save(getCategory()));
 		return SUCCESS;
 	}
@@ -101,16 +104,17 @@ public class CategoryBackAction extends Action {
 					return (null != value);
 				}
 			});
+			category.setUserUpdated(getUserId());
 			setCategory(getCategoryService().update(entity));
 		}
 		return SUCCESS;
 	}
-	
-    public String categoryDelete() throws Exception {
-        Category entity = getCategoryService().findById(getCategory().getId());
-        categoryService.delete(entity);
-        return SUCCESS;
-    }
+//	
+//    public String categoryDelete() throws Exception {
+//        Category entity = getCategoryService().findById(getCategory().getId());
+//        categoryService.delete(entity);
+//        return SUCCESS;
+//    }
 
 	public CategoryService getCategoryService() {
 		return categoryService;

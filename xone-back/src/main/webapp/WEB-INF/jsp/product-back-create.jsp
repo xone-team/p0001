@@ -27,7 +27,7 @@
                         <li class="active">创建产品</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" id="saveForm" enctype="multipart/form-data" id="productSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productSave.html">
+                <form class="form-horizontal" enctype="multipart/form-data" id="productSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productSave.html">
                     <div class="control-group">
                         <label class="control-label" for="productName">产品名称</label>
                         <div class="controls">
@@ -38,7 +38,7 @@
                         <label class="control-label" for="productType">产品类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="productType" name="product.productType">
-                                <c:forEach items="${types.productTypeList}" var="it">
+                                <c:forEach items="${types.productType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.productType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -48,7 +48,7 @@
                         <label class="control-label" for="saleType">销售类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="saleType" name="product.saleType">
-                                <c:forEach items="${types.saleTypeList}" var="it">
+                                <c:forEach items="${types.saleType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.saleType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -141,6 +141,37 @@
                 $('div.uploadimagesdiv3').html('').append(div);
             }
         });
+        
+        $('#productSaveForm${myidentify}').submit(function() {
+            var $form = $('#productSaveForm${myidentify}');
+            $form.submit();
+            return;
+            
+            var validate = [ {
+                name : 'product.productName',
+                text : '请输入产品名'
+            }, {
+                name : 'product.productPrice',
+                text : '请输入产品价格'
+            }, {
+                name : 'product.productPrice',
+                text : '产品价格必须为数字，且大于0',
+    			func : numberValidation       
+            }, {
+                name : 'product.productNum',
+                text : '请输入产品数量'
+            }, {
+                name : 'product.productNum',
+                text : '产品数量必须为数字，且大于0',
+    			func : numberValidation       
+            }, {
+                name : 'uploadFile1',
+                text : '请至少上传一张图片'
+            } ];
+
+            var pass = XONE.valid(validate, $form, "");
+    		return pass;
+        });
     });
     function removeProductDynamicImage1() {
         $('div.uploadimagesdiv').html('');
@@ -157,38 +188,7 @@
         $('#uploadImageFile3').val('');
         return false;
     }
-    function doSaveForm() {
-        var $form = $('#saveForm');
-        $form.submit();
-        return;
-        
-        var validate = [ {
-            name : 'product.productName',
-            text : '请输入产品名'
-        }, {
-            name : 'product.productPrice',
-            text : '请输入产品价格'
-        }, {
-            name : 'product.productPrice',
-            text : '产品价格必须为数字，且大于0',
-			func : numberValidation       
-        }, {
-            name : 'product.productNum',
-            text : '请输入产品数量'
-        }, {
-            name : 'product.productNum',
-            text : '产品数量必须为数字，且大于0',
-			func : numberValidation       
-        }, {
-            name : 'uploadFile1',
-            text : '请至少上传一张图片'
-        } ];
 
-        var pass = XONE.valid(validate, $form, "");
-
-        if (pass)
-            $form.submit();
-    }
     function numberValidation(inputEl){
         var result = true;
 	    var val = inputEl.val();

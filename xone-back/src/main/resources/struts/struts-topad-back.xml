@@ -37,12 +37,12 @@
         <action name="topadItem" class="topadBackAction" method="topadItem">
             <result name="success">/WEB-INF/jsp/topad-back-item.jsp</result>
         </action>
-        <action name="topadDelete" class="topadBackAction" method="topadDelete">
+ <!--        <action name="topadDelete" class="topadBackAction" method="topadDelete">
             <result name="success" type="redirectAction">
                 <param name="actionName">topadList</param>
                 <param name="namespace">/topad</param>
             </result>
-        </action>
+        </action> -->
 
     </package>
 </struts>

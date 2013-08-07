@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.ImageUploaded;
+import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.AdbannerService;
@@ -91,6 +92,11 @@ public class AdbannerBackAction extends LogicAction {
 		ImageUploaded imageUploaded = createUploadImageByFile(imageUploadPath,
 				ImageUploaded.RefType.ABBANNER, getUploadFile(),
 				getUploadFileContentType(), getUploadFileFileName());
+		adbanner.setUserCreated(getUserId());
+		adbanner.setDateCreated(new Date());
+		adbanner.setUserUpdated(getUserId());
+		adbanner.setLastUpdated(new Date());
+		adbanner.setFlagDeleted(Person.YN.NO.getValue());
 		setAdbanner(getAdbannerService().save(getAdbanner(), imageUploaded));
 		return SUCCESS;
 	}
@@ -125,6 +131,8 @@ public class AdbannerBackAction extends LogicAction {
 						ImageUploaded.RefType.ABBANNER, getUploadFile(),
 						getUploadFileContentType(), getUploadFileFileName());
 			}
+	        adbanner.setUserUpdated(getUserId());
+	        adbanner.setLastUpdated(new Date());
 			setAdbanner(getAdbannerService().update(entity, imageUploaded, getAdbanner().getAdRefId()));
 		}
 		return SUCCESS;

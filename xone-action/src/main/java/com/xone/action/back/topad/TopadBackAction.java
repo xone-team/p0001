@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.ProdCheck;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Topad;
 import com.xone.model.hibernate.support.CommonTypes;
@@ -30,13 +31,22 @@ public class TopadBackAction extends Action {
     protected Topad topad = new Topad();
     protected List<Topad> list = new ArrayList<Topad>();
     protected Pagination pagination = new Pagination();
-    protected CommonTypes commonTypes = CommonTypes.getInstance();
+//    protected CommonTypes commonTypes = CommonTypes.getInstance();
+    protected Map<String, Object[]> types = new HashMap<String, Object[]>();
 
     protected Person person = new Person();
     protected Product product = new Product();
     protected PersonService personService;
     protected ProductService productService;
 
+    @Override
+    public void prepare() throws Exception {
+        super.prepare();
+
+        types.put("yn", Person.YN.values());
+        types.put("checkStatus", Product.CheckStatus.values());
+    }
+    
     public String topadList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
 
@@ -115,8 +125,10 @@ public class TopadBackAction extends Action {
     }
 
     public String topadSave() throws Exception {
-        topad.setUserApply(new Long(0));
+        topad.setUserApply(getUserId());
         topad.setDateApply(new Date());
+        topad.setUserCreated(getUserId());
+        topad.setUserUpdated(getUserId());
         setTopad(getTopadService().save(getTopad()));
         return SUCCESS;
     }
@@ -190,9 +202,13 @@ public class TopadBackAction extends Action {
     public void setPagination(Pagination pagination) {
         this.pagination = pagination;
     }
+    
+    public Map<String, Object[]> getTypes() {
+        return types;
+    }
 
-    public CommonTypes getCommonTypes() {
-        return commonTypes;
+    public void setTypes(Map<String, Object[]> types) {
+        this.types = types;
     }
 
     public Person getPerson() {

@@ -3,6 +3,8 @@ package com.xone.model.hibernate.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.xone.model.hibernate.entity.Person.YN;
+
 public class Subscribe implements Serializable {
 	
 	private static final long serialVersionUID = 7964924149839984200L;
@@ -56,6 +58,17 @@ public class Subscribe implements Serializable {
 			return this.value;
 		}
 	}
+	
+    public String getFlagDeletedName() {
+        String result = null;
+        for (YN e : YN.values()) {
+            if (e.getValue().equals(this.flagDeleted)) {
+                result = e.getName();
+                break;
+            }
+        }
+        return result == null ? "未知" : result;
+    }
 	
 	public Long getId() {
 		return id;

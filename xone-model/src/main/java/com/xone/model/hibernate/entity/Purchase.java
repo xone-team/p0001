@@ -5,36 +5,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.xone.model.hibernate.entity.Person.YN;
+import com.xone.model.hibernate.entity.Product.CheckStatus;
+import com.xone.model.hibernate.entity.Product.ProductType;
+
 public class Purchase implements Serializable {
 	private static final long serialVersionUID = 3871230298774379727L;
-	
-	/**
-	 * 审核状态
-	 */
-	public enum CheckStatus {
-		WAITING("0"), PASSED("1"), DENIED("2");
-		protected String value;
-		private CheckStatus(String v) {
-			this.value = v;
-		}
-		public String getValue() {
-			return this.value;
-		}
-	}
-	
-	/**
-	 * 删除标志
-	 */
-	public enum FlagDeleted {
-		NORMAL("0"), DELETED("1");
-		protected String value = "0";
-		private FlagDeleted(String value) {
-			this.value = value;
-		}
-		public String getValue() {
-			return this.value;
-		}
-	}
 	
 	protected Long id;
 	protected String purchaseName;
@@ -67,31 +43,39 @@ public class Purchase implements Serializable {
 		this.person = person;
 	}
 
-	public String getPurchaseTypeName() {
-		if ("0".equals(purchaseType)) {
-			return "冻品";
-		} else if ("1".equals(purchaseType)) {
-			return "干货";
-		} else if ("2".equals(purchaseType)) {
-			return "活鲜";
-		} else if ("3".equals(purchaseType)) {
-			return "水果";
-		} else if ("4".equals(purchaseType)) {
-			return "调料";
-		}
-		return "未知";
-	}
-	
-	public String getCheckStatusName() {
-		if (CheckStatus.WAITING.getValue().equals(getCheckStatus())) {
-			return "待审核";
-		} else if (CheckStatus.PASSED.getValue().equals(getCheckStatus())) {
-			return "审核通过";
-		} else if (CheckStatus.DENIED.getValue().equals(getCheckStatus())) {
-			return "审核不通过";
-		}
-		return "未知";
-	}
+    public String getProductTypeName() {
+        String result = null;
+        for (ProductType e : ProductType.values()) {
+            if(e.getValue().equals(this.purchaseType)){
+                result = e.getName();
+                break;
+            }
+        }
+        return result == null ? "未知" : result;
+    }
+    
+    
+    public String getCheckStatusName() {
+        String result = null;
+        for (CheckStatus e : CheckStatus.values()) {
+            if(e.getValue().equals(this.checkStatus)){
+                result = e.getName();
+                break;
+            }
+        }
+        return result == null ? "未知" : result;
+    }
+    
+    public String getFlagDeletedName() {
+        String result = null;
+        for (YN e : YN.values()) {
+            if (e.getValue().equals(this.flagDeleted)) {
+                result = e.getName();
+                break;
+            }
+        }
+        return result == null ? "未知" : result;
+    }
 	
 	protected List<Long> ids = new ArrayList<Long>();
 	

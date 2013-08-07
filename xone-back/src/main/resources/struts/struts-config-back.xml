@@ -37,11 +37,11 @@
         <action name="configItem" class="configBackAction" method="configItem">
             <result name="success">/WEB-INF/jsp/config-back-item.jsp</result>
         </action>
-        <action name="configDelete" class="configBackAction" method="configDelete">
+ <!--        <action name="configDelete" class="configBackAction" method="configDelete">
             <result name="success" type="redirectAction">
                 <param name="actionName">configList</param>
                 <param name="namespace">/config</param>
             </result>
-        </action>
+        </action> -->
     </package>
 </struts>
