@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
@@ -64,6 +65,9 @@ public class PurchaseAction extends LogicAction {
 				params.put("gtDateCreated", MyDateUtils.format(getPurchase().getDateCreated()));
 			} else if ("up".equals(map.get("itemaction"))) {
 				params.put("ltDateCreated", MyDateUtils.format(getPurchase().getDateCreated()));
+			}
+			if (null != getPurchase() && !StringUtils.isBlank(getPurchase().getPurchaseName())) {
+				params.put("purchaseName", getPurchase().getPurchaseName());
 			}
 			params.put("checkStatus", Purchase.CheckStatus.PASSED.getValue());
 			params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());

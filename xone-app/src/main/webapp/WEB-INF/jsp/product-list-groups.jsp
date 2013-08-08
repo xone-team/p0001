@@ -8,14 +8,14 @@
 		<title>Hello World</title>
 		<jsp:include page="commons.jsp"></jsp:include>
 	</head>
-	<body>
+	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="product-groups-page" data-dom-cache="true">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>
 			        <li><a href="${pageContext.request.contextPath}/product/index.html?_=${identify}">所有产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listSales.html?_=${identify}">促销产品</a></li>
-			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html?_=${identify}" class="ui-btn-active">组团产品</a></li>
+			        <li><a href="#" class="ui-btn-active">组团产品</a></li>
 			    </ul>
 			</div>
 		</div>
@@ -35,12 +35,12 @@
 				    <label for="checkbox-5a">调料</label>
 				</div>
 			</div>
-			<div class="product-groups-list" style="width:100%;padding-top:10px;" data-iscroll>
+			<div class="product-groups-list${myid}" style="width:100%;padding-top:10px;" data-iscroll>
 				<div class="iscroll-pulldown">
 			        <span class="iscroll-pull-icon"></span>
 			        <span class="iscroll-pull-label"></span>
 				</div>
-		        <ul class="product-groups-listview" data-role="listview" data-filter="true" data-filter-placeholder="促销关键字搜索..." data-inset="true">
+		        <ul class="product-groups-listview${myid}" data-role="listview" data-filter="true" data-filter-placeholder="促销关键字搜索..." data-inset="true">
 			        <li data-role="list-divider">数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
@@ -60,51 +60,80 @@
 					$('div[data-id="' + t.attr('href') + '"]').show();
 					t.addClass('ui-btn-active');
 				});
-				$('div.product-groups-list').mypullupdown({
+				$('div.product-groups-list${myid}').mypullupdown({
 					url:'${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}',
 					onDown: function() {
-						var item = $('ul.product-groups-listview').find('li.productdatecreateditem');
-						return {
+						var item = $('ul.product-groups-listview${myid}').find('li.productdatecreateditem');
+						return $.extend({}, {
+							'product.productName': $('product-groups-list${myid}').find('input[data-type="search"]').val()
+						}, {
 							'itemcount': item.length,
 							'itemaction': 'down',
 							'product.dateCreated': item.first().attr('timestamp')
-						}
+						});
 					},
 					onUp: function() {
-						var item = $('ul.product-groups-listview').find('li.productdatecreateditem');
-						return {
+						var item = $('ul.product-groups-listview${myid}').find('li.productdatecreateditem');
+						return $.extend({}, {
+							'product.productName': $('product-groups-list${myid}').find('input[data-type="search"]').val()
+						}, {
 							'itemcount': item.length,
 							'itemaction': 'up',
 							'product.dateCreated': item.last().attr('timestamp')
-						}
+						});
 					},
 					down: function(html) {
-						$('ul.product-groups-listview').prepend(html).listview('refresh');
+						$('ul.product-groups-listview${myid}').prepend(html).listview('refresh');
 					},
 					up: function(html) {
-						$('ul.product-groups-listview').append(html).listview('refresh');
+						$('ul.product-groups-listview${myid}').append(html).listview('refresh');
 					}
 				});
-	        	doRequest();
-				function doRequest() {
+	        	doGroupsRequest();
+				function doGroupsRequest() {
 					$.ajax({
 						type: 'GET',
 						url: '${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}',
 						data: '_=' + new Date().getTime(),
 						success: function(html) {
-							$('ul.product-groups-listview').html(html).listview('refresh');
-							fixedProductSaleImage();
+							$('ul.product-groups-listview${myid}').html(html).listview('refresh');
+							fixedProductGroupsImage();
 						}
 					});
 				}
-				function fixedProductSaleImage() {
-					var lis = $('ul.product-groups-listview').find('li.productdatecreateditem:eq(0)');
+				function fixedProductGroupsImage() {
+					if ($('style.productGroups').length > 0) {
+						return;
+					}
+					var lis = $('ul.product-groups-listview${myid}').find('li.productdatecreateditem:eq(0)');
 					if (lis.length > 0) {
 						var height = lis.height() - 3;
-						var css = ['<style type="text/css" class="product"> img.productliimage {height:', height, 'px;', 'width:', height, 'px;}</style>'];
+						var css = ['<style type="text/css" class="productGroups"> img.productliimage {height:', height, 'px;', 'width:', height, 'px;}</style>'];
 						$('div.product-groups-page').append(css.join(''));
 					}
 				}
+				$('ul.product-groups-listview${myid}').listview({
+					filterCallback: function() {
+					}
+				}).on("listviewbeforefilter", function (e, data) {
+					var $ul = $(this), $input = $(data.input), value = $.trim($input.val()), html = "";
+			        if (value && value.length > 2) {
+			            $ul.html( "<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>" );
+			            $ul.listview("refresh");
+			            $.ajax({
+			                url: "${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}",
+			                data: {
+			                    'product.productName': $input.val(),
+			                    '_': new Date().getTime()
+			                }
+			            }).then(function(html) {
+			                $ul.html(html);
+			                $ul.listview( "refresh" );
+			            });
+			        } else if (value.length <= 0) {
+			        	doGroupsRequest();
+			        }
+			    });
 			});
 		</script>
 		<jsp:include page="footer.jsp"><jsp:param value="1" name="offset"/></jsp:include>
