@@ -120,34 +120,32 @@
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_purchase").addClass("active");
+        $('#saveForm').submit(function() {
+            var $form = $('#saveForm');
+            var validate = [ {
+                name : 'purchase.purchaseName',
+                text : '请输入求购产品名'
+            }, {
+                name : 'purchase.purchasePrice',
+                text : '请输入求购产品价格'
+            }, {
+                name : 'purchase.purchasePrice',
+                text : '求购产品价格必须为数字，且大于0',
+                func : numberValidation
+            }, {
+                name : 'purchase.purchaseNum',
+                text : '请输入求购产品数量'
+            }, {
+                name : 'purchase.purchaseNum',
+                text : '求购产品数量必须为数字，且大于0',
+                func : numberValidation
+            } ];
+
+            var pass = XONE.valid(validate, $form, "");
+    		return pass;
+        });
     });
 
-    function doSaveForm() {
-        var $form = $('#saveForm');
-        var validate = [ {
-            name : 'purchase.purchaseName',
-            text : '请输入求购产品名'
-        }, {
-            name : 'purchase.purchasePrice',
-            text : '请输入求购产品价格'
-        }, {
-            name : 'purchase.purchasePrice',
-            text : '求购产品价格必须为数字，且大于0',
-            func : numberValidation
-        }, {
-            name : 'purchase.purchaseNum',
-            text : '请输入求购产品数量'
-        }, {
-            name : 'purchase.purchaseNum',
-            text : '求购产品数量必须为数字，且大于0',
-            func : numberValidation
-        } ];
-
-        var pass = XONE.valid(validate, $form, "");
-
-        if (pass)
-            $form.submit();
-    }
     function numberValidation(inputEl) {
         var result = true;
         var val = inputEl.val();

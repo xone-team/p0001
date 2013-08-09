@@ -10,6 +10,6 @@
 		<setting name="defaultStatementTimeout" value="25000" />
 	</settings>
 	<mappers>
-		<mapper resource="com/xone/model/sqlmap/app-sqlmap.xml" />
+		<mapper resource="com/xone/model/sqlmap/back-roles-sqlmap.xml" />
 	</mappers>
 </configuration>

@@ -54,7 +54,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" class="btn">提交更新</button>
+                            <button type="submit" name="update" value="update" class="btn" onclick="return confirm('确定更新本条记录?');">提交更新</button>
                             <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm('确定删除本条记录?');">删除记录</button>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
     		
     		var pass = XONE.valid(validate, $form, "roles.");
     		return pass;
-        }
+        });
     });
 </script>
 </html>

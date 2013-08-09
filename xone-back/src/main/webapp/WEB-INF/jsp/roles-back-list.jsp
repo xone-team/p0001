@@ -86,7 +86,7 @@
                                 <th>角色备注</th>
                                 <th>创建时间</th>
                                 <th>更新时间</th>
-                                <th style="width: 8em;">操作</th>
+                                <th style="width: 4em;">操作</th>
                             <tr>
                         </thead>
                         <tbody>

@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.model.hibernate.app.UserRolesDao;
 import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.entity.UserRoles;
+import com.xone.model.hibernate.mybatis.mapper.RolesMapper;
 import com.xone.model.hibernate.support.Pagination;
 
 public class UserRolesServiceImpl implements UserRolesService {
@@ -60,16 +61,7 @@ public class UserRolesServiceImpl implements UserRolesService {
     
     @Override
     public List<Roles> findRolesByUser(Map<String, Object> params) {
-        // TODO
-        List<Roles> result = null;
-//        try {
-//            result = sqlMapClient.queryForList("back.roleRelUser", params);
-//        } catch (SQLException e) {
-//            log.error(e.getMessage(), e);
-//        }
-        
-//        return result == null ? new ArrayList<Roles>() : result;
-        return Collections.emptyList();
+        return getUserRolesDao().getMapper(RolesMapper.class).findRolesWithUser(params);
     }
 
     public Pagination findByParams(Map<String, String> params) {

@@ -202,7 +202,7 @@
                                 <th>创建时间</th>
                                 <th>更新人</th>
                                 <th>更新时间</th>
-                                <th>操作</th>
+                                <th style="width: 4em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>

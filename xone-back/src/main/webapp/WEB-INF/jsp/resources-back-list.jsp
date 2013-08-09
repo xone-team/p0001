@@ -120,7 +120,7 @@
                                 <th>资源地址</th>
                                 <th>备注</th>
                                 <th>创建时间</th>
-                                <th style="width: 8em;">操作</th>
+                                <th style="width: 4em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -50,7 +50,8 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="button" class="btn" onclick="doSaveForm();">提交更新</button>
+                            <button type="submit" name="update" value="update" class="btn" onclick="return confirm('确定更新本条记录?');">提交更新</button>
+                            <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm('确定删除本条记录?');">删除记录</button>
                         </div>
                     </div>
                 </form>
@@ -62,39 +63,40 @@
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_category").addClass("active");
-    });
-    function doSaveForm() {
-        var $form = $('#saveForm');
-        var validate = [ {
-            name : 'name',
-            text : '请输入名称'
-        }, {
-            name : 'sort',
-            text : '请输入顺序'
-        }, {
-            name : 'sort',
-            text : '顺序必须为数字',
-            func : numberValidation
-        } ];
+        $('#saveForm').submit(function() {
+            var $form = $('#saveForm');
+            var validate = [ {
+                name : 'name',
+                text : '请输入名称'
+            }, {
+                name : 'sort',
+                text : '请输入顺序'
+            }, {
+                name : 'sort',
+                text : '顺序必须为数字',
+                func : numberValidation
+            } ];
 
-        var pass = XONE.valid(validate, $form, "categroy.");
-        if (pass)
-            $form.submit();
-    }
-    function numberValidation(inputEl){
+            var pass = XONE.valid(validate, $form, "categroy.");
+            return pass;
+        });
+    });
+
+    function numberValidation(inputEl) {
         var result = true;
-	    var val = inputEl.val();
-	    if(val != null && val.length > 0){
-	        var n = null;
-	        try{
-	            n = parseInt(val);
-	        }catch(e){}
-	        
-	        if(n == null || isNaN(n) || n < 0){
-	            result = false;
-	        }
-	    }
-	    return result;
+        var val = inputEl.val();
+        if (val != null && val.length > 0) {
+            var n = null;
+            try {
+                n = parseInt(val);
+            } catch (e) {
+            }
+
+            if (n == null || isNaN(n) || n < 0) {
+                result = false;
+            }
+        }
+        return result;
     }
 </script>
 </html>

@@ -179,7 +179,7 @@
             text : '请选择产品'
         } ];
 
-        var pass = XONE.valid(validate, $form, "categroy.");
+        var pass = XONE.valid(validate, $form, "topad.");
         if (pass)
             $form.submit();
     }
