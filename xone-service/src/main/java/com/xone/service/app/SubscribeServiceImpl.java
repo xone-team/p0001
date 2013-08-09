@@ -24,11 +24,10 @@ import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Subscribe;
 import com.xone.model.hibernate.support.Pagination;
-import com.xone.service.app.utils.MyMD5;
 import com.xone.service.app.utils.MyServerUtils;
 
 public class SubscribeServiceImpl implements SubscribeService {
-    private static final Log log = LogFactory.getLog(SubscribeServiceImpl.class);
+    protected static final Log log = LogFactory.getLog(SubscribeServiceImpl.class);
 
     @Autowired
     protected SubscribeDao subscribeDao;

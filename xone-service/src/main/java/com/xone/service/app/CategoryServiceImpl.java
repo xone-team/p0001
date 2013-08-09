@@ -25,6 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category save(Category entity) {
+        entity.setFlagDeleted(Category.FlagDeleted.NORMAL.getValue());
         return getCategoryDao().save(entity);
     }
 

@@ -55,6 +55,10 @@
 							<td>${resources.remark}</td>
 						</tr>
                         <tr>
+                            <td style="width:60px;">是否可用</td>
+                            <td>${resources.enableName}</td>
+                        </tr>
+                        <tr>
                             <td style="width: 60px;">角色</td>
                             <td><c:forEach items="${rolesList}" var="role">
                                     <span class="label label-default">${role.name}</span>

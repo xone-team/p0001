@@ -37,15 +37,15 @@
         <action name="purchaseItem" class="purchaseBackAction" method="purchaseItem">
             <result name="success">/WEB-INF/jsp/purchase-back-item.jsp</result>
         </action>
-        <action name="purchaseDelete" class="purchaseBackAction" method="purchaseDelete">
+<!--         <action name="purchaseDelete" class="purchaseBackAction" method="purchaseDelete">
             <result name="success" type="redirectAction">
                 <param name="actionName">purchaseList</param>
                 <param name="namespace">/purchase</param>
             </result>
-        </action>
+        </action> -->
 
 
-        <action name="purchaseListAjax" class="purchaseBackAction" method="purchaseListAjax">
+        <action name="purchaseListAjax" class="purchaseBackAction" method="purchaseList">
             <result name="success">/WEB-INF/jsp/purchase-back-list-ajax.jsp</result>
         </action>
     </package>

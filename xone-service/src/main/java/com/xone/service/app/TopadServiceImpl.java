@@ -25,6 +25,8 @@ public class TopadServiceImpl implements TopadService {
 
     @Override
     public Topad save(Topad entity) {
+        entity.setCheckStatus(Topad.CheckStatus.WAITING.getValue());
+        entity.setFlagDeleted(Topad.FlagDeleted.NORMAL.getValue());
         return getTopadDao().save(entity);
     }
     

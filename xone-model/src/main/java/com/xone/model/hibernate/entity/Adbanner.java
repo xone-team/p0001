@@ -1,11 +1,9 @@
 package com.xone.model.hibernate.entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-public class Adbanner implements Serializable {
+public class Adbanner extends MyModel implements Serializable {
 
 	private static final long serialVersionUID = 8267891188872906517L;
 	
@@ -13,29 +11,21 @@ public class Adbanner implements Serializable {
 	 * 广告类型
 	 */
 	public enum AdType {
-		PRODUCT("0"), PURCHASE("1");
-		protected String value;
-		private AdType(String v) {
-			this.value = v;
-		}
-		public String getValue() {
-			return this.value;
-		}
+		PRODUCT("0", "售卖产品"), PURCHASE("1", "购买产品");
+        protected String value;
+        protected String name;
+        private AdType(String v, String n) {
+            this.value = v;
+            this.name = n;
+        }
+        public String getValue() {
+            return this.value;
+        }
+        public String getName() {
+            return this.name;
+        }
 	}
-	
-	/**
-	 * 删除标志
-	 */
-	public enum FlagDeleted {
-		NORMAL("0"), DELETED("1");
-		protected String value = "0";
-		private FlagDeleted(String value) {
-			this.value = value;
-		}
-		public String getValue() {
-			return this.value;
-		}
-	}
+
 	
 	protected Long id;
 	protected Long refId;
@@ -60,13 +50,22 @@ public class Adbanner implements Serializable {
 	protected Date gtAdEnd;
 	
 	public String getAdTypeName() {
-		if (AdType.PRODUCT.getValue().equals(adType)) {
-			return "售卖产品";
-		} else if (AdType.PURCHASE.getValue().equals(adType)) {
-			return "购买产品";
-		}
-		return "未知类型";
+        for (AdType e : AdType.values()) {
+            if(e.getValue().equals(this.adType)){
+                return e.getName();
+            }
+        }
+        return UNKNOWN_STATUS_NAME;
 	}
+	
+    public String getFlagDeletedName() {
+        for (FlagDeleted e : FlagDeleted.values()) {
+            if (e.getValue().equals(this.flagDeleted)) {
+                return e.getName();
+            }
+        }
+        return UNKNOWN_STATUS_NAME;
+    }
 	
 	public Long getId() {
 		return id;

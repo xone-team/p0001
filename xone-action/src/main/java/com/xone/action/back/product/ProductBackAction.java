@@ -12,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
-import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.ProdCheck;
 import com.xone.model.hibernate.entity.Product;
-import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.ProductService;
@@ -34,29 +32,35 @@ public class ProductBackAction extends LogicAction {
     protected Product product = new Product();
     protected List<Product> list = new ArrayList<Product>();
     protected Pagination pagination = new Pagination();
-    
-    protected CommonTypes commonTypes = CommonTypes.getInstance();
-    
+
+    // protected CommonTypes commonTypes = CommonTypes.getInstance();
+    protected Map<String, Object[]> types = new HashMap<String, Object[]>();
+
     protected File uploadFile1;
     protected String uploadFile1ContentType;
     protected String uploadFile1FileName;
-    
+
     protected File uploadFile2;
     protected String uploadFile2ContentType;
     protected String uploadFile2FileName;
-    
+
     protected File uploadFile3;
     protected String uploadFile3ContentType;
     protected String uploadFile3FileName;
-    
+
     protected String imageUploadPath;
-    
-    @Override
-    public void prepare() throws Exception {
-        super.prepare();
-        product.setPerson(new Person());
-        product.setCheck(new ProdCheck());
-    }
+
+//    @Override
+//    public void prepare() throws Exception {
+//        super.prepare();
+//        product.setPerson(new Person());
+//        product.setCheck(new ProdCheck());
+//
+//        types.put("yn", Person.YN.values());
+//        types.put("checkStatus", Product.CheckStatus.values());
+//        types.put("productType", Product.ProductType.values());
+//        types.put("saleType", Product.SaleType.values());
+//    }
 
     public String productList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -67,16 +71,15 @@ public class ProductBackAction extends LogicAction {
             }
 
         }, new AssignRules() {
-			@Override
-			public String myAssignRules(Object value) {
-				if (null != value && value instanceof Date) {
-					return MyDateUtils.format((Date)value, "yyyy-MM-dd");
-				}
-				return value.toString();
-			}
-		}, null);
-        
-        
+            @Override
+            public String myAssignRules(Object value) {
+                if (null != value && value instanceof Date) {
+                    return MyDateUtils.format((Date) value, "yyyy-MM-dd");
+                }
+                return value.toString();
+            }
+        }, null);
+
         params.put("pageSize", String.valueOf(getPagination().getPageSize()));
         params.put("pageNo", String.valueOf(getPagination().getPageNo()));
         Pagination p = getProductService().findByParams(params);
@@ -86,10 +89,6 @@ public class ProductBackAction extends LogicAction {
         // }
         setPagination(p);
         return SUCCESS;
-    }
-    
-    public String productListAjax() throws Exception {
-    	return productList();
     }
 
     public String productItem() throws Exception {
@@ -102,6 +101,8 @@ public class ProductBackAction extends LogicAction {
     }
 
     public String productCreate() throws Exception {
+        product.setProductNum("0");
+        product.setProductPrice("0");
         return SUCCESS;
     }
 
@@ -115,31 +116,32 @@ public class ProductBackAction extends LogicAction {
     }
 
     public String productSave() throws Exception {
+        product.setUserCreated(getUserId());
+        product.setDateCreated(new Date());
+        product.setUserUpdated(getUserId());
+        product.setLastUpdated(new Date());
+
+        product.setUserApply(getUserId());
+        product.setDateApply(new Date());
         setProduct(getProductService().save(getProduct(), getImageList()));
         return SUCCESS;
     }
-    
-    private List<ImageUploaded> getImageList(){
+
+    private List<ImageUploaded> getImageList() {
         List<ImageUploaded> images = new ArrayList<ImageUploaded>();
-        if(uploadFile1 != null){
-            ImageUploaded imageUploaded1 = createUploadImageByFile(imageUploadPath,
-                    ImageUploaded.RefType.PRODUCT, getUploadFile1(),
-                    getUploadFile1ContentType(), getUploadFile1FileName());
+        if (uploadFile1 != null) {
+            ImageUploaded imageUploaded1 = createUploadImageByFile(imageUploadPath, ImageUploaded.RefType.PRODUCT, getUploadFile1(), getUploadFile1ContentType(), getUploadFile1FileName());
             images.add(imageUploaded1);
         }
-        if(uploadFile2 != null){
-            ImageUploaded imageUploaded2 = createUploadImageByFile(imageUploadPath,
-                    ImageUploaded.RefType.PRODUCT, getUploadFile2(),
-                    getUploadFile2ContentType(), getUploadFile2FileName());
+        if (uploadFile2 != null) {
+            ImageUploaded imageUploaded2 = createUploadImageByFile(imageUploadPath, ImageUploaded.RefType.PRODUCT, getUploadFile2(), getUploadFile2ContentType(), getUploadFile2FileName());
             images.add(imageUploaded2);
         }
-        if(uploadFile3 != null){
-            ImageUploaded imageUploaded3 = createUploadImageByFile(imageUploadPath,
-                    ImageUploaded.RefType.PRODUCT, getUploadFile3(),
-                    getUploadFile3ContentType(), getUploadFile3FileName());
+        if (uploadFile3 != null) {
+            ImageUploaded imageUploaded3 = createUploadImageByFile(imageUploadPath, ImageUploaded.RefType.PRODUCT, getUploadFile3(), getUploadFile3ContentType(), getUploadFile3FileName());
             images.add(imageUploaded3);
         }
-        
+
         return images;
     }
 
@@ -167,16 +169,24 @@ public class ProductBackAction extends LogicAction {
                     return (null != value);
                 }
             });
+            entity.setUserUpdated(getUserId());
+            entity.setLastUpdated(new Date());
+            if(Product.CheckStatus.DENIED.getValue().equals(entity.getCheckStatus())
+                    ||Product.CheckStatus.PASSED.getValue().equals(entity.getCheckStatus())){
+                entity.setUserCheck(getUserId());
+                entity.setDateCheck(new Date());
+                entity.getCheck().setUserCheck(getUserId());
+            }
             setProduct(getProductService().update(entity, getImageList(), product.getIds()));
         }
         return SUCCESS;
     }
-    
-    public String productDelete() throws Exception {
-        Product entity = getProductService().findById(getProduct().getId());
-        productService.delete(entity);
-        return SUCCESS;
-    }
+//
+//    public String productDelete() throws Exception {
+//        Product entity = getProductService().findById(getProduct().getId());
+//        productService.delete(entity);
+//        return SUCCESS;
+//    }
 
     public ProductService getProductService() {
         return productService;
@@ -210,10 +220,13 @@ public class ProductBackAction extends LogicAction {
         this.pagination = pagination;
     }
 
-    public CommonTypes getCommonTypes() {
-        return commonTypes;
-    }
-
+//    public Map<String, Object[]> getTypes() {
+//        return types;
+//    }
+//
+//    public void setTypes(Map<String, Object[]> types) {
+//        this.types = types;
+//    }
 
     public File getUploadFile1() {
         return uploadFile1;
@@ -294,6 +307,5 @@ public class ProductBackAction extends LogicAction {
     public void setImageUploadPath(String imageUploadPath) {
         this.imageUploadPath = imageUploadPath;
     }
-
 
 }

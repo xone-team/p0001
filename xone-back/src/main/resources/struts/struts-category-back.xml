@@ -37,11 +37,11 @@
         <action name="categoryItem" class="categoryBackAction" method="categoryItem">
             <result name="success">/WEB-INF/jsp/category-back-item.jsp</result>
         </action>
-        <action name="categoryDelete" class="categoryBackAction" method="categoryDelete">
+<!--         <action name="categoryDelete" class="categoryBackAction" method="categoryDelete">
             <result name="success" type="redirectAction">
                 <param name="actionName">categoryList</param>
                 <param name="namespace">/category</param>
             </result>
-        </action>
+        </action> -->
     </package>
 </struts>

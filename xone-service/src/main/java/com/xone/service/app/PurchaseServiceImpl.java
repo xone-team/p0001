@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,6 @@ import com.xone.model.hibernate.app.PurcCheckDao;
 import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
-import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.PurcCheck;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
@@ -70,17 +70,25 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public Purchase save(Purchase entity) {
+        entity.setCheckStatus(Purchase.CheckStatus.WAITING.getValue());
+        entity.setFlagDeleted(Purchase.FlagDeleted.NORMAL.getValue());
         return getPurchaseDao().save(entity);
     }
 
     @Override
     public List<Purchase> save(List<Purchase> entity) {
+        for (Iterator<Purchase> iterator = entity.iterator(); iterator.hasNext();) {
+            Purchase purchase = (Purchase) iterator.next();
+            purchase.setCheckStatus(Purchase.CheckStatus.WAITING.getValue());
+            purchase.setFlagDeleted(Purchase.FlagDeleted.NORMAL.getValue());
+        }
         return getPurchaseDao().save(entity);
     }
 
     @Override
     public Purchase save(Purchase entity, ImageUploaded imageUploaded) {
-        entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
+        entity.setCheckStatus(Purchase.CheckStatus.WAITING.getValue());
+        entity.setFlagDeleted(Purchase.FlagDeleted.NORMAL.getValue());
         entity.setPurchaseValid(DateUtils.addDays(new Date(), 30));
         entity = getPurchaseDao().save(entity);
         imageUploaded.setRefId(entity.getId());
@@ -93,6 +101,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     @Override
     public Purchase save(Purchase entity, List<ImageUploaded> imageUploadeds) {
+        entity.setCheckStatus(Purchase.CheckStatus.WAITING.getValue());
         entity.setFlagDeleted(Purchase.FlagDeleted.NORMAL.getValue());
         entity.setPurchaseValid(DateUtils.addDays(new Date(), 30));
         entity = getPurchaseDao().save(entity);
@@ -402,16 +411,14 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Purchase update(Purchase entity) {
         // 审核信息处理
-        Long userCheck = new Long(0);
         Date dateCheck = new Date();
 
         PurcCheck check = entity.getCheck();
         check.setPurchaseId(entity.getId());
-        check.setUserApply(userCheck);
         check.setDateCheck(dateCheck);
+        check.setFlagDeleted(PurcCheck.FlagDeleted.NORMAL.getValue());
         purcCheckDao.save(check);
 
-        entity.setUserCheck(userCheck);
         entity.setDateCheck(dateCheck);
         entity.setCheckStatus(check.getCheckStatus());
         entity.setRemark(check.getRemark());

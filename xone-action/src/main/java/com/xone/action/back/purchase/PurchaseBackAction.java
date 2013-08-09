@@ -10,10 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
-import com.xone.model.hibernate.entity.Person;
-import com.xone.model.hibernate.entity.PurcCheck;
+import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
-import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.PurchaseService;
@@ -33,14 +31,20 @@ public class PurchaseBackAction extends Action {
 	protected List<Purchase> list = new ArrayList<Purchase>();
 	protected Pagination pagination = new Pagination();
 	
-	protected CommonTypes commonTypes = CommonTypes.getInstance();
-	
-	@Override
-    public void prepare() throws Exception {
-	    purchase.setPerson(new Person());
-	    purchase.setCheck(new PurcCheck());
-	    super.prepare();
-    }
+//	protected CommonTypes commonTypes = CommonTypes.getInstance();
+//	protected Map<String, Object[]> types = new HashMap<String, Object[]>();
+//	
+//	@Override
+//    public void prepare() throws Exception {
+//	    purchase.setPerson(new Person());
+//	    purchase.setCheck(new PurcCheck());
+//	    
+//        types.put("yn", Person.YN.values());
+//        types.put("checkStatus", Product.CheckStatus.values());
+//        types.put("productType", Product.ProductType.values());
+//        types.put("saleType", Product.SaleType.values());
+//	    super.prepare();
+//    }
 
     public String purchaseList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
@@ -70,9 +74,9 @@ public class PurchaseBackAction extends Action {
 		return SUCCESS;
 	}
 	
-	public String purchaseListAjax() throws Exception {
-		return purchaseList();
-	}
+//	public String purchaseListAjax() throws Exception {
+//		return purchaseList();
+//	}
 	
 	public String purchaseItem() throws Exception {
 		Purchase entity = purchaseService.findById(getPurchase().getId());
@@ -103,6 +107,14 @@ public class PurchaseBackAction extends Action {
 	}
 	
 	public String purchaseSave() throws Exception {
+        purchase.setUserCreated(getUserId());
+        purchase.setDateCreated(new Date());
+        purchase.setUserUpdated(getUserId());
+        purchase.setLastUpdated(new Date());
+
+        purchase.setUserApply(getUserId());
+        purchase.setDateApply(new Date());
+	    purchase.setPurchaseNum("0");
 		setPurchase(getPurchaseService().save(getPurchase()));
 		return SUCCESS;
 	}
@@ -131,16 +143,24 @@ public class PurchaseBackAction extends Action {
 					return (null != value);
 				}
 			});
+            entity.setUserUpdated(getUserId());
+            entity.setLastUpdated(new Date());
+            if(Product.CheckStatus.DENIED.getValue().equals(entity.getCheckStatus())
+                    ||Product.CheckStatus.PASSED.getValue().equals(entity.getCheckStatus())){
+                entity.setUserCheck(getUserId());
+                entity.setDateCheck(new Date());
+                entity.getCheck().setUserCheck(getUserId());
+            }
 			setPurchase(getPurchaseService().update(entity));
 		}
 		return SUCCESS;
 	}
 	
-    public String purchaseDelete() throws Exception {
-        Purchase entity = getPurchaseService().findById(getPurchase().getId());
-        purchaseService.delete(entity);
-        return SUCCESS;
-    }
+//    public String purchaseDelete() throws Exception {
+//        Purchase entity = getPurchaseService().findById(getPurchase().getId());
+//        purchaseService.delete(entity);
+//        return SUCCESS;
+//    }
 
 	public PurchaseService getPurchaseService() {
 		return purchaseService;
@@ -173,10 +193,13 @@ public class PurchaseBackAction extends Action {
 	public void setPagination(Pagination pagination) {
 		this.pagination = pagination;
 	}
-
-    public CommonTypes getCommonTypes() {
-        return commonTypes;
-    }
-
+//
+//    public Map<String, Object[]> getTypes() {
+//        return types;
+//    }
+//
+//    public void setTypes(Map<String, Object[]> types) {
+//        this.types = types;
+//    }
 
 }

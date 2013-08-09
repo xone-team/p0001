@@ -75,6 +75,8 @@ public class ConfigBackAction extends Action {
     }
 
     public String configSave() throws Exception {
+        config.setUserCreated(getUserId());
+        config.setUserUpdated(getUserId());
         setConfig(getConfigService().save(getConfig()));
         return SUCCESS;
     }
@@ -103,15 +105,16 @@ public class ConfigBackAction extends Action {
                     return (null != value);
                 }
             });
+            config.setUserUpdated(getUserId());
             setConfig(getConfigService().update(entity));
         }
         return SUCCESS;
     }
-    public String configDelete() throws Exception {
-        Config entity = getConfigService().findById(getConfig().getId());
-        configService.delete(entity);
-        return SUCCESS;
-    }
+//    public String configDelete() throws Exception {
+//        Config entity = getConfigService().findById(getConfig().getId());
+//        configService.delete(entity);
+//        return SUCCESS;
+//    }
 
     public ConfigService getConfigService() {
         return configService;

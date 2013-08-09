@@ -12,24 +12,9 @@ import java.util.Date;
  * @modify
  * 
  */
-public class Person implements Serializable {
-    public enum YN{
-        YES("1", "是"), NO("0", "否");
-        protected String value;
-        protected String name;
-        private YN(String v, String n) {
-            this.value = v;
-            this.name = n;
-        }
-        public String getValue() {
-            return this.value;
-        } 
-        public String getName() {
-            return this.name;
-        } 
-    }
+public class Person extends MyModel implements Serializable {
     
-    public enum Credit{
+    public enum Credit {
         YES("1", "已认证"), NO("0", "未认证");
         protected String value;
         protected String name;
@@ -98,36 +83,30 @@ public class Person implements Serializable {
 	}
 	
 	public String getCreditName(){
-	    String result = null;
 	    for (Credit e : Credit.values()) {
 	        if(e.getValue().equals(this.credit)){
-                result = e.getName();
-                break;
+                return e.getName();
 	        }
         }
-        return result;
+        return UNKNOWN_STATUS_NAME;
 	}
 	
-	public String getFlagDeletedName(){
-        String result = null;
-        for (YN e : YN.values()) {
-            if(e.getValue().equals(this.flagDeleted)){
-                result = e.getName();
-                break;
+    public String getFlagDeletedName() {
+        for (FlagDeleted e : FlagDeleted.values()) {
+            if (e.getValue().equals(this.flagDeleted)) {
+                return e.getName();
             }
         }
-        return result;
-	}
+        return UNKNOWN_STATUS_NAME;
+    }
 	
 	public String getUserLevelName(){
-	    String result = null;
 	    for (UserLevel e : UserLevel.values()) {
 	        if(e.getValue().equals(this.userLevel)){
-	            result = e.getName();
-	            break;
+	            return e.getName();
 	        }
 	    }
-	    return result;
+	    return UNKNOWN_STATUS_NAME;
 	}
 	
 	

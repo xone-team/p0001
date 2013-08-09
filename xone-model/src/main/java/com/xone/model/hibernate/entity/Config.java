@@ -3,7 +3,7 @@ package com.xone.model.hibernate.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Config implements Serializable {
+public class Config extends MyModel implements Serializable {
 
     private static final long serialVersionUID = 5712426121893105769L;
     protected Long id;
@@ -15,6 +15,15 @@ public class Config implements Serializable {
 	protected Date dateCreated;
 	protected Long userUpdated;
 	protected Date lastUpdated;
+	
+    public String getFlagDeletedName() {
+        for (FlagDeleted e : FlagDeleted.values()) {
+            if (e.getValue().equals(this.flagDeleted)) {
+                return e.getName();
+            }
+        }
+        return UNKNOWN_STATUS_NAME;
+    }
 
 // business logic
 	protected Long idMin;

@@ -3,7 +3,7 @@ package com.xone.model.hibernate.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Subscribe implements Serializable {
+public class Subscribe extends MyModel implements Serializable {
 	
 	private static final long serialVersionUID = 7964924149839984200L;
 	
@@ -43,19 +43,14 @@ public class Subscribe implements Serializable {
 		return "全部";
 	}
 	
-	/**
-	 * 删除标志
-	 */
-	public enum FlagDeleted {
-		NORMAL("0"), DELETED("1");
-		protected String value = "0";
-		private FlagDeleted(String value) {
-			this.value = value;
-		}
-		public String getValue() {
-			return this.value;
-		}
-	}
+    public String getFlagDeletedName() {
+        for (FlagDeleted e : FlagDeleted.values()) {
+            if (e.getValue().equals(this.flagDeleted)) {
+                return e.getName();
+            }
+        }
+        return UNKNOWN_STATUS_NAME;
+    }
 	
 	public Long getId() {
 		return id;

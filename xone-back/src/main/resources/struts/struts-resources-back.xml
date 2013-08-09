@@ -37,12 +37,12 @@
         <action name="resourcesItem" class="resourcesBackAction" method="resourcesItem">
             <result name="success">/WEB-INF/jsp/resources-back-item.jsp</result>
         </action>
-        <action name="resourcesDelete" class="resourcesBackAction" method="resourcesDelete">
+ <!--        <action name="resourcesDelete" class="resourcesBackAction" method="resourcesDelete">
             <result name="success" type="redirectAction">
                 <param name="actionName">resourcesList</param>
                 <param name="namespace">/resources</param>
             </result>
-        </action>
+        </action> -->
 
 
     </package>

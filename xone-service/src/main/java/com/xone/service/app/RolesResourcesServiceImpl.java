@@ -1,8 +1,6 @@
 package com.xone.service.app;
 
-import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -72,8 +70,8 @@ public class RolesResourcesServiceImpl implements RolesResourcesService {
 	}
     
     @Override
-    @SuppressWarnings("unchecked")
     public List<Roles> findRolesByRes(Map<String, Object> params) {
+        // TODO
         List<Roles> result = null;
 //        try {
         	return Collections.emptyList();

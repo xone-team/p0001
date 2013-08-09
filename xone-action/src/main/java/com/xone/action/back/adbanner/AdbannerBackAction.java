@@ -91,6 +91,11 @@ public class AdbannerBackAction extends LogicAction {
 		ImageUploaded imageUploaded = createUploadImageByFile(imageUploadPath,
 				ImageUploaded.RefType.ABBANNER, getUploadFile(),
 				getUploadFileContentType(), getUploadFileFileName());
+		adbanner.setUserCreated(getUserId());
+		adbanner.setDateCreated(new Date());
+		adbanner.setUserUpdated(getUserId());
+		adbanner.setLastUpdated(new Date());
+		adbanner.setFlagDeleted(Adbanner.FlagDeleted.NORMAL.getValue());
 		setAdbanner(getAdbannerService().save(getAdbanner(), imageUploaded));
 		return SUCCESS;
 	}
@@ -125,6 +130,8 @@ public class AdbannerBackAction extends LogicAction {
 						ImageUploaded.RefType.ABBANNER, getUploadFile(),
 						getUploadFileContentType(), getUploadFileFileName());
 			}
+	        adbanner.setUserUpdated(getUserId());
+	        adbanner.setLastUpdated(new Date());
 			setAdbanner(getAdbannerService().update(entity, imageUploaded, getAdbanner().getAdRefId()));
 		}
 		return SUCCESS;

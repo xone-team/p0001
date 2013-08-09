@@ -25,6 +25,7 @@ public class ConfigServiceImpl implements ConfigService {
 
 	@Override
 	public Config save(Config entity) {
+	    entity.setFlagDeleted(Config.FlagDeleted.NORMAL.getValue());
 		return getConfigDao().save(entity);
 	}
 	

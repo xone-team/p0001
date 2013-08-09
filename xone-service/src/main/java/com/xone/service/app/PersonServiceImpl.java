@@ -2,7 +2,6 @@ package com.xone.service.app;
 
 import java.text.ParseException;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -28,7 +27,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person save(Person entity) {
-        entity.setFlagDeleted(Person.YN.NO.getValue());
+        entity.setFlagDeleted(Person.FlagDeleted.NORMAL.getValue());
         if(entity.getPassword() != null){
             entity.setPassword(EncryptRef.SHA1(entity.getPassword()));
         }

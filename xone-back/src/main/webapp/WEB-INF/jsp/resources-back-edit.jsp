@@ -64,7 +64,7 @@
                         <label class="control-label" for="enable">可用标识</label>
                         <div class="controls">
                             <select class="selectpicker" id="enable" name="resources.enable">
-                                <c:forEach items="${types.ynList}" var="it">
+                                <c:forEach items="${types.enable}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == resources.enable}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -88,7 +88,8 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="button" class="btn" onclick="doSaveForm();">提交更新</button>
+                            <button type="submit" name="update" value="update" class="btn" onclick="return confirm('确定更新本条记录?');">提交更新</button>
+                            <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm('确定删除本条记录?');">删除记录</button>
                         </div>
                     </div>
                 </form>
@@ -200,35 +201,34 @@
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_resources").addClass("active");
-    });
-    function doSaveForm() {
-        var $form = $('#saveForm');
-        var validate = [ {
-            name : 'name',
-            text : '请输入资源名'
-        }, {
-            name : 'resourceType',
-            text : '请输入资源类别'
-        }, {
-            name : 'resourceType',
-            text : '请输入资源类别格式错误',
-            func : numberValidation
-        }, {
-            name : 'priority',
-            text : '请输入优先级'
-        }, {
-            name : 'priority',
-            text : '优先级必须为数字',
-            func : numberValidation
-        }, {
-            name : 'resourceUrl',
-            text : '请输入资源地址'
-        } ];
+        $('#saveForm').submit(function(){
+            var $form = $('#saveForm');
+            var validate = [ {
+                name : 'name',
+                text : '请输入资源名'
+            }, {
+                name : 'resourceType',
+                text : '请输入资源类别'
+            }, {
+                name : 'resourceType',
+                text : '请输入资源类别格式错误',
+                func : numberValidation
+            }, {
+                name : 'priority',
+                text : '请输入优先级'
+            }, {
+                name : 'priority',
+                text : '优先级必须为数字',
+                func : numberValidation
+            }, {
+                name : 'resourceUrl',
+                text : '请输入资源地址'
+            } ];
 
-        var pass = XONE.valid(validate, $form, "resources.");
-        if (pass)
-            $form.submit();
-    }
+            var pass = XONE.valid(validate, $form, "resources.");
+            return pass;
+        });
+    });
     function numberValidation(inputEl){
         var result = true;
 	    var val = inputEl.val();

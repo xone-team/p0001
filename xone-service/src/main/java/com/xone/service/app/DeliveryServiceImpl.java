@@ -18,7 +18,7 @@ import com.xone.model.hibernate.entity.Delivery;
 import com.xone.model.hibernate.support.Pagination;
 
 public class DeliveryServiceImpl implements DeliveryService {
-    private static final Log log = LogFactory.getLog(DeliveryServiceImpl.class);
+    protected static final Log log = LogFactory.getLog(DeliveryServiceImpl.class);
 
     @Autowired
     protected DeliveryDao deliveryDao;
