@@ -2,10 +2,6 @@ package com.xone.model.hibernate.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Iterator;
-
-import com.xone.model.hibernate.entity.Adbanner.AdType;
-import com.xone.model.hibernate.support.CommonTypes;
 
 /**
  * @TODO 请Hunny添加代码注释 
