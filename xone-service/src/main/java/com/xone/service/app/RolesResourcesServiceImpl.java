@@ -1,6 +1,7 @@
 package com.xone.service.app;
 
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.model.hibernate.app.RolesResourcesDao;
 import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.entity.RolesResources;
-import com.xone.model.hibernate.mybatis.mapper.RolesMapper;
 import com.xone.model.hibernate.support.Pagination;
 public class RolesResourcesServiceImpl implements RolesResourcesService {
     
@@ -71,7 +71,16 @@ public class RolesResourcesServiceImpl implements RolesResourcesService {
     
     @Override
     public List<Roles> findRolesByRes(Map<String, Object> params) {
-        return getRolesResourcesDao().getMapper(RolesMapper.class).findRolesWithResources(params);
+        // TODO
+        List<Roles> result = null;
+//        try {
+        	return Collections.emptyList();
+//            result = sqlMapClient.queryForList("back.roleRelRes", params);
+//        } catch (Exception e) {
+//            log.error(e.getMessage(), e);
+//        }
+        
+//        return result == null ? new ArrayList<Roles>() : result;
     }
     
     @Override
