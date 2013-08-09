@@ -5,12 +5,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.xone.model.hibernate.entity.Person.YN;
-
-public class Product implements Serializable {
+public class Product extends MyModel implements Serializable {
 	
 	private static final long serialVersionUID = 1551553979029311658L;
-    
 	
     /**
      * 产品类别
@@ -93,7 +90,7 @@ public class Product implements Serializable {
 	protected Date lastUpdated;
 	protected Date gtDateCreated;
 	
-	protected Person person;
+	protected Person person = new Person();
 	
 	protected List<ProdCheck> checkList;
 	protected ProdCheck check;
@@ -107,74 +104,44 @@ public class Product implements Serializable {
 	}
 
 	public String getProductTypeName() {
-        String result = null;
         for (ProductType e : ProductType.values()) {
             if(e.getValue().equals(this.productType)){
-                result = e.getName();
-                break;
+                return e.getName();
             }
         }
-        return result == null ? "未知" : result;
+        return UNKNOWN_STATUS_NAME;
 	}
 	
 	
 	public String getCheckStatusName() {
-        String result = null;
         for (CheckStatus e : CheckStatus.values()) {
             if(e.getValue().equals(this.checkStatus)){
-                result = e.getName();
-                break;
+                return e.getName();
             }
         }
-        return result == null ? "未知" : result;
+        return UNKNOWN_STATUS_NAME;
 	}
 	
     public String getFlagDeletedName() {
-        String result = null;
-        for (YN e : YN.values()) {
+        for (FlagDeleted e : FlagDeleted.values()) {
             if (e.getValue().equals(this.flagDeleted)) {
-                result = e.getName();
-                break;
+                return e.getName();
             }
         }
-        return result == null ? "未知" : result;
+        return UNKNOWN_STATUS_NAME;
     }
 	
 	public String getSaleTypeName() {
-	    String result = null;
 	    for (SaleType e : SaleType.values()) {
 	        if(e.getValue().equals(this.saleType)){
-	            result = e.getName();
-	            break;
+	            return e.getName();
 	        }
 	    }
-	    return result == null ? "未知" : result;
+	    return UNKNOWN_STATUS_NAME;
 	}
 	
 	protected List<Long> ids = new ArrayList<Long>();
 	
-	   // business logic
-    protected Long idMin;
-    protected Long idMax;
-    protected String productValidMin;
-    protected String productValidMax;
-    protected Long userApplyMin;
-    protected Long userApplyMax;
-    protected String dateApplyMin;
-    protected String dateApplyMax;
-    protected Long userCheckMin;
-    protected Long userCheckMax;
-    protected String dateCheckMin;
-    protected String dateCheckMax;
-    protected Long userCreatedMin;
-    protected Long userCreatedMax;
-    protected String dateCreatedMin;
-    protected String dateCreatedMax;
-    protected Long userUpdatedMin;
-    protected Long userUpdatedMax;
-    protected String lastUpdatedMin;
-    protected String lastUpdatedMax;
-    
 	
 	public Long getId() {
 		return id;
@@ -303,166 +270,6 @@ public class Product implements Serializable {
 	public void setIds(List<Long> ids) {
 		this.ids = ids;
 	}
-
-    public Long getIdMin() {
-        return idMin;
-    }
-
-    public void setIdMin(Long idMin) {
-        this.idMin = idMin;
-    }
-
-    public Long getIdMax() {
-        return idMax;
-    }
-
-    public void setIdMax(Long idMax) {
-        this.idMax = idMax;
-    }
-
-    public String getProductValidMin() {
-        return productValidMin;
-    }
-
-    public void setProductValidMin(String productValidMin) {
-        this.productValidMin = productValidMin;
-    }
-
-    public String getProductValidMax() {
-        return productValidMax;
-    }
-
-    public void setProductValidMax(String productValidMax) {
-        this.productValidMax = productValidMax;
-    }
-
-    public Long getUserApplyMin() {
-        return userApplyMin;
-    }
-
-    public void setUserApplyMin(Long userApplyMin) {
-        this.userApplyMin = userApplyMin;
-    }
-
-    public Long getUserApplyMax() {
-        return userApplyMax;
-    }
-
-    public void setUserApplyMax(Long userApplyMax) {
-        this.userApplyMax = userApplyMax;
-    }
-
-    public String getDateApplyMin() {
-        return dateApplyMin;
-    }
-
-    public void setDateApplyMin(String dateApplyMin) {
-        this.dateApplyMin = dateApplyMin;
-    }
-
-    public String getDateApplyMax() {
-        return dateApplyMax;
-    }
-
-    public void setDateApplyMax(String dateApplyMax) {
-        this.dateApplyMax = dateApplyMax;
-    }
-
-    public Long getUserCheckMin() {
-        return userCheckMin;
-    }
-
-    public void setUserCheckMin(Long userCheckMin) {
-        this.userCheckMin = userCheckMin;
-    }
-
-    public Long getUserCheckMax() {
-        return userCheckMax;
-    }
-
-    public void setUserCheckMax(Long userCheckMax) {
-        this.userCheckMax = userCheckMax;
-    }
-
-    public String getDateCheckMin() {
-        return dateCheckMin;
-    }
-
-    public void setDateCheckMin(String dateCheckMin) {
-        this.dateCheckMin = dateCheckMin;
-    }
-
-    public String getDateCheckMax() {
-        return dateCheckMax;
-    }
-
-    public void setDateCheckMax(String dateCheckMax) {
-        this.dateCheckMax = dateCheckMax;
-    }
-
-    public Long getUserCreatedMin() {
-        return userCreatedMin;
-    }
-
-    public void setUserCreatedMin(Long userCreatedMin) {
-        this.userCreatedMin = userCreatedMin;
-    }
-
-    public Long getUserCreatedMax() {
-        return userCreatedMax;
-    }
-
-    public void setUserCreatedMax(Long userCreatedMax) {
-        this.userCreatedMax = userCreatedMax;
-    }
-
-    public String getDateCreatedMin() {
-        return dateCreatedMin;
-    }
-
-    public void setDateCreatedMin(String dateCreatedMin) {
-        this.dateCreatedMin = dateCreatedMin;
-    }
-
-    public String getDateCreatedMax() {
-        return dateCreatedMax;
-    }
-
-    public void setDateCreatedMax(String dateCreatedMax) {
-        this.dateCreatedMax = dateCreatedMax;
-    }
-
-    public Long getUserUpdatedMin() {
-        return userUpdatedMin;
-    }
-
-    public void setUserUpdatedMin(Long userUpdatedMin) {
-        this.userUpdatedMin = userUpdatedMin;
-    }
-
-    public Long getUserUpdatedMax() {
-        return userUpdatedMax;
-    }
-
-    public void setUserUpdatedMax(Long userUpdatedMax) {
-        this.userUpdatedMax = userUpdatedMax;
-    }
-
-    public String getLastUpdatedMin() {
-        return lastUpdatedMin;
-    }
-
-    public void setLastUpdatedMin(String lastUpdatedMin) {
-        this.lastUpdatedMin = lastUpdatedMin;
-    }
-
-    public String getLastUpdatedMax() {
-        return lastUpdatedMax;
-    }
-
-    public void setLastUpdatedMax(String lastUpdatedMax) {
-        this.lastUpdatedMax = lastUpdatedMax;
-    }
 
     public List<ProdCheck> getCheckList() {
         return checkList;

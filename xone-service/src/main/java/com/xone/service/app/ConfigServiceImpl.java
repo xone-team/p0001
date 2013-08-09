@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.ConfigDao;
 import com.xone.model.hibernate.entity.Config;
-import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.support.Pagination;
 
 public class ConfigServiceImpl implements ConfigService {
@@ -26,7 +25,7 @@ public class ConfigServiceImpl implements ConfigService {
 
 	@Override
 	public Config save(Config entity) {
-	    entity.setFlagDeleted(Person.YN.NO.getValue());
+	    entity.setFlagDeleted(Config.FlagDeleted.NORMAL.getValue());
 		return getConfigDao().save(entity);
 	}
 	

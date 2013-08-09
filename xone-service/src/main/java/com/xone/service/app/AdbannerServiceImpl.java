@@ -17,7 +17,6 @@ import com.xone.model.hibernate.app.AdbannerDao;
 import com.xone.model.hibernate.app.ImageUploadedDao;
 import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.ImageUploaded;
-import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.support.Pagination;
 
 public class AdbannerServiceImpl implements AdbannerService {
@@ -97,7 +96,7 @@ public class AdbannerServiceImpl implements AdbannerService {
 				e.printStackTrace();
 			}
 		}
-		detachedCriteria.add(Restrictions.eq("flagDeleted", Person.YN.NO.getValue()));
+		detachedCriteria.add(Restrictions.eq("flagDeleted", Adbanner.FlagDeleted.NORMAL.getValue()));
 		List<Adbanner> list = getAdbannerDao().findListByDetachedCriteria(detachedCriteria, 0, 10);
 		if (null != list && !list.isEmpty()) {
 			List<Long> ids = new ArrayList<Long>();
@@ -146,7 +145,7 @@ public class AdbannerServiceImpl implements AdbannerService {
 		if (!StringUtils.isBlank(params.get("userId"))) {
 			detachedCriteria.add(Restrictions.eq("userId", Long.parseLong(params.get("userId"))));
 		}
-		detachedCriteria.add(Restrictions.eq("flagDeleted", Person.YN.NO.getValue()));
+		detachedCriteria.add(Restrictions.eq("flagDeleted", Adbanner.FlagDeleted.NORMAL.getValue()));
 		detachedCriteria.addOrder(Order.desc("dateCreated"));
 		List<Adbanner> list = getAdbannerDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
 		if (null != list && !list.isEmpty()) {

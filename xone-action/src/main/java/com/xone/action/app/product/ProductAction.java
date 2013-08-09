@@ -92,9 +92,9 @@ public class ProductAction extends LogicAction {
 	public String listItems() {
 		Map<String, String> map = getRequestMap();
 		Map<String, String> params = new HashMap<String, String>();
-		if ("down".equals(map.get("itemaction"))) {
+		if ("down".equals(map.get("itemaction")) && null != getProduct().getDateCreated()) {
 			params.put("gtDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
-		} else if ("up".equals(map.get("itemaction"))) {
+		} else if ("up".equals(map.get("itemaction")) && null != getProduct().getDateCreated()) {
 			params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
 		}
 		if (null != getProduct().getGtDateCreated()) {
@@ -105,7 +105,7 @@ public class ProductAction extends LogicAction {
 		}
 		params.put("saleType", getProduct().getSaleType());
 		params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
-		params.put("flagDeleted", Person.YN.NO.getValue());
+		params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
 		setList(getProductService().findAllByMap(params));
 		return SUCCESS;
 	}

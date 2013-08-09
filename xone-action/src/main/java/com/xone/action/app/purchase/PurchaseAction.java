@@ -5,12 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
-import com.xone.model.hibernate.entity.Person;
-import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.model.utils.MyModelUtils;
@@ -49,7 +48,7 @@ public class PurchaseAction extends LogicAction {
 	
 	public String create() {
 		getPurchase().setUserCreated(getUserId());
-		getPurchase().setCheckStatus(Product.CheckStatus.WAITING.getValue());
+		getPurchase().setCheckStatus(Purchase.CheckStatus.WAITING.getValue());
 		List<ImageUploaded> images = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PURCHASE);
 		setPurchase(getPurchaseService().save(getPurchase(), images));
 		return SUCCESS;
@@ -67,8 +66,11 @@ public class PurchaseAction extends LogicAction {
 			} else if ("up".equals(map.get("itemaction"))) {
 				params.put("ltDateCreated", MyDateUtils.format(getPurchase().getDateCreated()));
 			}
-			params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
-			params.put("flagDeleted", Person.YN.NO.getValue());
+			if (null != getPurchase() && !StringUtils.isBlank(getPurchase().getPurchaseName())) {
+				params.put("purchaseName", getPurchase().getPurchaseName());
+			}
+			params.put("checkStatus", Purchase.CheckStatus.PASSED.getValue());
+			params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
 			setList(getPurchaseService().findAllByMap(params));
 		}
 		return SUCCESS;
@@ -99,7 +101,7 @@ public class PurchaseAction extends LogicAction {
 				getMapValue().put("msg", "无此记录.");
 				return ERROR;
 			}
-			if (Product.CheckStatus.PASSED.getValue().equals(p.getCheckStatus())) {
+			if (Purchase.CheckStatus.PASSED.getValue().equals(p.getCheckStatus())) {
 				getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
 				return ERROR;
 			}
@@ -124,7 +126,7 @@ public class PurchaseAction extends LogicAction {
 		}
 		pu.setUserUpdated(getUserId());
 		Purchase entity = findById(pu.getId());
-		if (Product.CheckStatus.PASSED.getValue().equals(entity.getCheckStatus())) {
+		if (Purchase.CheckStatus.PASSED.getValue().equals(entity.getCheckStatus())) {
 			getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
 			return ERROR;
 		}

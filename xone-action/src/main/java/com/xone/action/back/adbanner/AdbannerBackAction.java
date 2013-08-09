@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.ImageUploaded;
-import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.AdbannerService;
@@ -96,7 +95,7 @@ public class AdbannerBackAction extends LogicAction {
 		adbanner.setDateCreated(new Date());
 		adbanner.setUserUpdated(getUserId());
 		adbanner.setLastUpdated(new Date());
-		adbanner.setFlagDeleted(Person.YN.NO.getValue());
+		adbanner.setFlagDeleted(Adbanner.FlagDeleted.NORMAL.getValue());
 		setAdbanner(getAdbannerService().save(getAdbanner(), imageUploaded));
 		return SUCCESS;
 	}

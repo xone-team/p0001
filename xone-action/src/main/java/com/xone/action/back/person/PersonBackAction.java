@@ -28,18 +28,18 @@ public class PersonBackAction extends Action {
     protected List<Person> list = new ArrayList<Person>();
     protected Pagination pagination = new Pagination();
 //    protected CommonTypes commonTypes = CommonTypes.getInstance();
-    protected Map<String, Object[]> types = new HashMap<String, Object[]>();
+//    protected Map<String, Object[]> types = new HashMap<String, Object[]>();
     protected List<Long> roleIds = new ArrayList<Long>();
     protected UserRolesService userRolesService;
     protected List<Roles> rolesList = new ArrayList<Roles>();
 
-    @Override
-    public void prepare() throws Exception {
-        types.put("yn", Person.YN.values());
-        types.put("credit", Person.Credit.values());
-        types.put("userLevel", Person.UserLevel.values());
-        super.prepare();
-    }
+//    @Override
+//    public void prepare() throws Exception {
+//        types.put("yn", Person.YN.values());
+//        types.put("credit", Person.Credit.values());
+//        types.put("userLevel", Person.UserLevel.values());
+//        super.prepare();
+//    }
 
     public String personList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -216,14 +216,14 @@ public class PersonBackAction extends Action {
     public void setPagination(Pagination pagination) {
         this.pagination = pagination;
     }
-
-    public Map<String, Object[]> getTypes() {
-        return types;
-    }
-
-    public void setTypes(Map<String, Object[]> types) {
-        this.types = types;
-    }
+//
+//    public Map<String, Object[]> getTypes() {
+//        return types;
+//    }
+//
+//    public void setTypes(Map<String, Object[]> types) {
+//        this.types = types;
+//    }
 
     public List<Long> getRoleIds() {
         return roleIds;

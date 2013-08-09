@@ -10,11 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
-import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
-import com.xone.model.hibernate.entity.PurcCheck;
 import com.xone.model.hibernate.entity.Purchase;
-import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.PurchaseService;
@@ -35,19 +32,19 @@ public class PurchaseBackAction extends Action {
 	protected Pagination pagination = new Pagination();
 	
 //	protected CommonTypes commonTypes = CommonTypes.getInstance();
-	protected Map<String, Object[]> types = new HashMap<String, Object[]>();
-	
-	@Override
-    public void prepare() throws Exception {
-	    purchase.setPerson(new Person());
-	    purchase.setCheck(new PurcCheck());
-	    
-        types.put("yn", Person.YN.values());
-        types.put("checkStatus", Product.CheckStatus.values());
-        types.put("productType", Product.ProductType.values());
-        types.put("saleType", Product.SaleType.values());
-	    super.prepare();
-    }
+//	protected Map<String, Object[]> types = new HashMap<String, Object[]>();
+//	
+//	@Override
+//    public void prepare() throws Exception {
+//	    purchase.setPerson(new Person());
+//	    purchase.setCheck(new PurcCheck());
+//	    
+//        types.put("yn", Person.YN.values());
+//        types.put("checkStatus", Product.CheckStatus.values());
+//        types.put("productType", Product.ProductType.values());
+//        types.put("saleType", Product.SaleType.values());
+//	    super.prepare();
+//    }
 
     public String purchaseList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
@@ -196,13 +193,13 @@ public class PurchaseBackAction extends Action {
 	public void setPagination(Pagination pagination) {
 		this.pagination = pagination;
 	}
-
-    public Map<String, Object[]> getTypes() {
-        return types;
-    }
-
-    public void setTypes(Map<String, Object[]> types) {
-        this.types = types;
-    }
+//
+//    public Map<String, Object[]> getTypes() {
+//        return types;
+//    }
+//
+//    public void setTypes(Map<String, Object[]> types) {
+//        this.types = types;
+//    }
 
 }

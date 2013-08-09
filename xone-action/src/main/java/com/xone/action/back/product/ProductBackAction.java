@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
-import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.ProdCheck;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
@@ -51,17 +50,17 @@ public class ProductBackAction extends LogicAction {
 
     protected String imageUploadPath;
 
-    @Override
-    public void prepare() throws Exception {
-        super.prepare();
-        product.setPerson(new Person());
-        product.setCheck(new ProdCheck());
-
-        types.put("yn", Person.YN.values());
-        types.put("checkStatus", Product.CheckStatus.values());
-        types.put("productType", Product.ProductType.values());
-        types.put("saleType", Product.SaleType.values());
-    }
+//    @Override
+//    public void prepare() throws Exception {
+//        super.prepare();
+//        product.setPerson(new Person());
+//        product.setCheck(new ProdCheck());
+//
+//        types.put("yn", Person.YN.values());
+//        types.put("checkStatus", Product.CheckStatus.values());
+//        types.put("productType", Product.ProductType.values());
+//        types.put("saleType", Product.SaleType.values());
+//    }
 
     public String productList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -221,13 +220,13 @@ public class ProductBackAction extends LogicAction {
         this.pagination = pagination;
     }
 
-    public Map<String, Object[]> getTypes() {
-        return types;
-    }
-
-    public void setTypes(Map<String, Object[]> types) {
-        this.types = types;
-    }
+//    public Map<String, Object[]> getTypes() {
+//        return types;
+//    }
+//
+//    public void setTypes(Map<String, Object[]> types) {
+//        this.types = types;
+//    }
 
     public File getUploadFile1() {
         return uploadFile1;

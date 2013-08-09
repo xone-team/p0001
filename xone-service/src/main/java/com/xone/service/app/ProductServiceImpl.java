@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product save(Product entity) {
-        entity.setFlagDeleted(Person.YN.NO.getValue());
+        entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
         return getProductDao().save(entity);
     }
 
@@ -82,7 +82,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product entity, ImageUploaded imageUploaded) {
         entity.setCheckStatus(Product.CheckStatus.WAITING.getValue());
-        entity.setFlagDeleted(Person.YN.NO.getValue());
+        entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
         entity.setProductValid(DateUtils.addDays(new Date(), 30));
         entity = getProductDao().save(entity);
         imageUploaded.setRefId(entity.getId());
@@ -96,7 +96,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product entity, List<ImageUploaded> imageUploadeds) {
         entity.setCheckStatus(Product.CheckStatus.WAITING.getValue());
-        entity.setFlagDeleted(Person.YN.NO.getValue());
+        entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
         entity.setProductValid(DateUtils.addDays(new Date(), 30));
         entity = getProductDao().save(entity);
         for (ImageUploaded imageUploaded : imageUploadeds) {
@@ -141,10 +141,10 @@ public class ProductServiceImpl implements ProductService {
         Date dateCheck = new Date();
         
         ProdCheck check = entity.getCheck();
-        if (Product.CheckStatus.DENIED.equals(check.getCheckStatus()) || Product.CheckStatus.PASSED.equals(check.getCheckStatus())) {
+        if (Product.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) || Product.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
             check.setProductId(entity.getId());
             check.setDateCheck(dateCheck);
-            check.setFlagDeleted(Person.YN.NO.getValue());
+            check.setFlagDeleted(ProdCheck.FlagDeleted.NORMAL.getValue());
             prodCheckDao.save(check);
             
             entity.setDateCheck(dateCheck);

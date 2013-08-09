@@ -5,7 +5,7 @@ import java.util.Date;
 
 import com.xone.model.hibernate.entity.Roles.Enable;
 
-public class Resources implements Serializable {
+public class Resources extends MyModel implements Serializable {
 	
 	private static final long serialVersionUID = -4661493000071477326L;
 	
@@ -21,32 +21,13 @@ public class Resources implements Serializable {
 	protected Long userUpdated;
 	protected Date lastUpdated;
 	
-	// business logic
-    protected Long idMin;
-    protected Long idMax;
-    protected Integer resourceTypeMin;
-    protected Integer resourceTypeMax;
-    protected Integer priorityMin;
-    protected Integer priorityMax;
-    protected Long userCreatedMin;
-    protected Long userCreatedMax;
-    protected String dateCreatedMin;
-    protected String dateCreatedMax;
-    protected Long userUpdatedMin;
-    protected Long userUpdatedMax;
-    protected String lastUpdatedMin;
-    protected String lastUpdatedMax;
-	
-    
     public String getEnableName(){
-        String result = null;
         for (Enable e : Enable.values()) {
             if(e.getValue().equals(this.enable)){
-                result = e.getName();
-                break;
+                return e.getName();
             }
         }
-        return result;
+        return UNKNOWN_STATUS_NAME;
     }
 	
 	
@@ -116,91 +97,4 @@ public class Resources implements Serializable {
 	public void setLastUpdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
-    public String getDateCreatedMin() {
-        return dateCreatedMin;
-    }
-    public void setDateCreatedMin(String dateCreatedMin) {
-        this.dateCreatedMin = dateCreatedMin;
-    }
-    public String getDateCreatedMax() {
-        return dateCreatedMax;
-    }
-    public void setDateCreatedMax(String dateCreatedMax) {
-        this.dateCreatedMax = dateCreatedMax;
-    }
-    public String getLastUpdatedMin() {
-        return lastUpdatedMin;
-    }
-    public void setLastUpdatedMin(String lastUpdatedMin) {
-        this.lastUpdatedMin = lastUpdatedMin;
-    }
-    public String getLastUpdatedMax() {
-        return lastUpdatedMax;
-    }
-    public void setLastUpdatedMax(String lastUpdatedMax) {
-        this.lastUpdatedMax = lastUpdatedMax;
-    }
-    public Long getIdMin() {
-        return idMin;
-    }
-    public void setIdMin(Long idMin) {
-        this.idMin = idMin;
-    }
-    public Long getIdMax() {
-        return idMax;
-    }
-    public void setIdMax(Long idMax) {
-        this.idMax = idMax;
-    }
-    public Long getUserCreatedMin() {
-        return userCreatedMin;
-    }
-    public void setUserCreatedMin(Long userCreatedMin) {
-        this.userCreatedMin = userCreatedMin;
-    }
-    public Long getUserCreatedMax() {
-        return userCreatedMax;
-    }
-    public void setUserCreatedMax(Long userCreatedMax) {
-        this.userCreatedMax = userCreatedMax;
-    }
-    public Long getUserUpdatedMin() {
-        return userUpdatedMin;
-    }
-    public void setUserUpdatedMin(Long userUpdatedMin) {
-        this.userUpdatedMin = userUpdatedMin;
-    }
-    public Long getUserUpdatedMax() {
-        return userUpdatedMax;
-    }
-    public void setUserUpdatedMax(Long userUpdatedMax) {
-        this.userUpdatedMax = userUpdatedMax;
-    }
-    public Integer getResourceTypeMin() {
-        return resourceTypeMin;
-    }
-    public void setResourceTypeMin(Integer resourceTypeMin) {
-        this.resourceTypeMin = resourceTypeMin;
-    }
-    public Integer getResourceTypeMax() {
-        return resourceTypeMax;
-    }
-    public void setResourceTypeMax(Integer resourceTypeMax) {
-        this.resourceTypeMax = resourceTypeMax;
-    }
-    public Integer getPriorityMin() {
-        return priorityMin;
-    }
-    public void setPriorityMin(Integer priorityMin) {
-        this.priorityMin = priorityMin;
-    }
-    public Integer getPriorityMax() {
-        return priorityMax;
-    }
-    public void setPriorityMax(Integer priorityMax) {
-        this.priorityMax = priorityMax;
-    }
-	
-	
-	
 }

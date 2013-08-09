@@ -11,10 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Delivery;
-import com.xone.model.hibernate.entity.Person;
-import com.xone.model.hibernate.entity.ProdCheck;
-import com.xone.model.hibernate.entity.Product;
-import com.xone.model.hibernate.support.CommonTypes;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.DeliveryService;
@@ -33,13 +29,29 @@ public class DeliveryBackAction extends Action {
     protected Pagination pagination = new Pagination();
 
     // protected CommonTypes commonTypes = CommonTypes.getInstance();
-    protected Map<String, Object[]> types = new HashMap<String, Object[]>();
-
-    public void prepare() throws Exception {
-        super.prepare();
-
-        types.put("yn", Person.YN.values());
-        types.put("flagPass", Delivery.FlagPass.values());
+//    protected Map<String, Object[]> types = new HashMap<String, Object[]>();
+//
+//    public void prepare() throws Exception {
+//        super.prepare();
+//
+//        types.put("yn", Delivery.FlagDeleted.values());
+//        types.put("flagPass", Delivery.FlagPass.values());
+//    }
+//
+//    public Map<String, Object[]> getTypes() {
+//        return types;
+//    }
+//
+//    public void setTypes(Map<String, Object[]> types) {
+//        this.types = types;
+//    }
+    
+    public Enum<?>[] getFlagPass() {
+    	return Delivery.FlagPass.values();
+    }
+    
+    public Enum<?>[] getFlagDeleted() {
+    	return Delivery.FlagDeleted.values();
     }
 
     public String deliveryList() throws Exception {
@@ -178,14 +190,6 @@ public class DeliveryBackAction extends Action {
 
     public void setPagination(Pagination pagination) {
         this.pagination = pagination;
-    }
-
-    public Map<String, Object[]> getTypes() {
-        return types;
-    }
-
-    public void setTypes(Map<String, Object[]> types) {
-        this.types = types;
     }
 
 }

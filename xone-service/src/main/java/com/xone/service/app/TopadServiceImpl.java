@@ -14,8 +14,6 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.TopadDao;
-import com.xone.model.hibernate.entity.Person;
-import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Topad;
 import com.xone.model.hibernate.support.Pagination;
 
@@ -27,8 +25,8 @@ public class TopadServiceImpl implements TopadService {
 
     @Override
     public Topad save(Topad entity) {
-        entity.setCheckStatus(Product.CheckStatus.WAITING.getValue());
-        entity.setFlagDeleted(Person.YN.NO.getValue());
+        entity.setCheckStatus(Topad.CheckStatus.WAITING.getValue());
+        entity.setFlagDeleted(Topad.FlagDeleted.NORMAL.getValue());
         return getTopadDao().save(entity);
     }
     

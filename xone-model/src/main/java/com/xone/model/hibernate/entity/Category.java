@@ -3,9 +3,7 @@ package com.xone.model.hibernate.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.xone.model.hibernate.entity.Person.YN;
-
-public class Category implements Serializable {
+public class Category extends MyModel implements Serializable {
 
     private static final long serialVersionUID = -3911933862989457985L;
     protected Long id;
@@ -19,14 +17,12 @@ public class Category implements Serializable {
     protected Date lastUpdated;
     
     public String getFlagDeletedName() {
-        String result = null;
-        for (YN e : YN.values()) {
+        for (FlagDeleted e : FlagDeleted.values()) {
             if (e.getValue().equals(this.flagDeleted)) {
-                result = e.getName();
-                break;
+                return e.getName();
             }
         }
-        return result == null ? "未知" : result;
+        return UNKNOWN_STATUS_NAME;
     }
 
 // business logic

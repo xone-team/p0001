@@ -3,9 +3,7 @@ package com.xone.model.hibernate.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-import com.xone.model.hibernate.entity.Person.YN;
-
-public class Adbanner implements Serializable {
+public class Adbanner extends MyModel implements Serializable {
 
 	private static final long serialVersionUID = 8267891188872906517L;
 	
@@ -52,25 +50,21 @@ public class Adbanner implements Serializable {
 	protected Date gtAdEnd;
 	
 	public String getAdTypeName() {
-        String result = null;
         for (AdType e : AdType.values()) {
             if(e.getValue().equals(this.adType)){
-                result = e.getName();
-                break;
+                return e.getName();
             }
         }
-        return result == null ? "未知类型" : result;
+        return UNKNOWN_STATUS_NAME;
 	}
 	
     public String getFlagDeletedName() {
-        String result = null;
-        for (YN e : YN.values()) {
+        for (FlagDeleted e : FlagDeleted.values()) {
             if (e.getValue().equals(this.flagDeleted)) {
-                result = e.getName();
-                break;
+                return e.getName();
             }
         }
-        return result == null ? "未知" : result;
+        return UNKNOWN_STATUS_NAME;
     }
 	
 	public Long getId() {
