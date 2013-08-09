@@ -177,7 +177,7 @@
                                 <th>产品产地</th>
                                 <th>产品属地</th>
                                 <th>申请时间</th>
-                                <th style="width: 4em;">操作</th>
+                                <th style="width: 8em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>

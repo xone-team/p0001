@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
-import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.RolesService;
@@ -139,7 +138,6 @@ public class RolesBackAction extends Action {
                 return value.toString();
             }
         }, null);
-        params.put("enable", Person.YN.YES.getValue());
         List<Roles> list = getRolesService().findAllByMap(params);
         setList(list);
         return SUCCESS;

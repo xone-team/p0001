@@ -62,8 +62,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" name="update" value="update" class="btn" onclick="return confirm('确定更新本条记录?');">提交更新</button>
-                            <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm('确定删除本条记录?');">删除记录</button>
+                            <button type="button" class="btn" onclick="doSaveForm();">提交更新</button>
                         </div>
                     </div>
                 </form>
@@ -178,16 +177,17 @@
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_topad").addClass("active");
-        $('#saveForm').submit(function() {
-            var $form = $('#saveForm');
-            var validate = [ {
-                name : 'productId',
-                text : '请选择产品'
-            } ];
-
-            var pass = XONE.valid(validate, $form, "topad.");
-            return pass;
-        });
     });
+    function doSaveForm() {
+        var $form = $('#saveForm');
+        var validate = [ {
+            name : 'productId',
+            text : '请选择产品'
+        } ];
+
+        var pass = XONE.valid(validate, $form, "categroy.");
+        if (pass)
+            $form.submit();
+    }
 </script>
 </html>

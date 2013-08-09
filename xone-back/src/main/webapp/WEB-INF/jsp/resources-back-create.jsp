@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+'<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.security.Principal"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -59,13 +59,22 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <label class="control-label" for="enable">可用标识</label>
+                        <div class="controls">
+                            <select class="selectpicker" id="enable" name="resources.enable">
+                                <c:forEach items="${types.enable}" var="it">
+                                    <option value="${it.value}" <c:if test="${it.value == resources.enable}">selected</c:if>>${it.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <label class="control-label" for="roleIds">角色</label>
                         <div class="controls">
                             <div id="roleIdsSelectResult" class="inline">
                                 <c:forEach items="${rolesList}" var="role">
                                     <div class="X-select-result inline">
-                                        <input type="hidden" class="X-select-hidden-value" value="${role.id}" name="roleIds">
-                                        <span class="label label-default">${role.name}</span>
+                                        <input type="hidden" class="X-select-hidden-value" value="${role.id}" name="roleIds"> <span class="label label-default">${role.name}</span>
                                     </div>
                                 </c:forEach>
                             </div>
@@ -189,7 +198,7 @@
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_resources").addClass("active");
-        $('#saveForm').submit(function() {
+        $('#saveForm').submit(function(){
             var $form = $('#saveForm');
             var validate = [ {
                 name : 'name',
@@ -218,21 +227,20 @@
                 $form.submit();
         });
     });
-    function numberValidation(inputEl) {
+    function numberValidation(inputEl){
         var result = true;
-        var val = inputEl.val();
-        if (val != null && val.length > 0) {
-            var n = null;
-            try {
-                n = parseInt(val);
-            } catch (e) {
-            }
-
-            if (n == null || isNaN(n) || n < 0) {
-                result = false;
-            }
-        }
-        return result;
+	    var val = inputEl.val();
+	    if(val != null && val.length > 0){
+	        var n = null;
+	        try{
+	            n = parseInt(val);
+	        }catch(e){}
+	        
+	        if(n == null || isNaN(n) || n < 0){
+	            result = false;
+	        }
+	    }
+	    return result;
     }
 </script>
 </html>

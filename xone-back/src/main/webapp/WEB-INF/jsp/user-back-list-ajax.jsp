@@ -68,7 +68,7 @@ table.myuserlisttable td {
 			<th>联系人</th>
 			<th>认证</th>
 			<th>级别</th>
-			<th style="width: 4em;">操作</th>
+			<th>操作</th>
 		</thead>
 		<tbody>
 		<c:forEach var="item" items="${pagination.list}">

@@ -109,7 +109,7 @@
                                 <th>申请人</th>
                                 <th>申请日期</th>
                                 <th>审核日期</th>
-                                <th style="width: 4em;">操作</th>
+                                <th style="width: 8em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
