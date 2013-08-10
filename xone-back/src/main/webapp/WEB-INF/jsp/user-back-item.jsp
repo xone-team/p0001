@@ -39,10 +39,6 @@
                             <td>${person.username}</td>
                         </tr>
                         <tr>
-                            <td style="width: 60px;">密码</td>
-                            <td>${person.password}</td>
-                        </tr>
-                        <tr>
                             <td style="width: 60px;">申请时间</td>
                             <td><fmt:formatDate value="${person.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>

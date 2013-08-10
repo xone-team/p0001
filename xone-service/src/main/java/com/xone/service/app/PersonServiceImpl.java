@@ -36,6 +36,9 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person update(Person entity) {
+        if(entity.getRepassword() != null){
+            entity.setPassword(EncryptRef.SHA1(entity.getRepassword()));
+        }
         return getPersonDao().update(entity);
     }
 
