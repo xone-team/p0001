@@ -70,6 +70,7 @@
 						} catch (e) {}
 						return true;
 					});
+					$('div[data-role="page"]:not(.login-ref-page)').remove();
 				});
 			</script>
 		</div>

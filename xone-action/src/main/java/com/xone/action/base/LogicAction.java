@@ -220,21 +220,48 @@ public abstract class LogicAction extends Action {
 		if (!isLogin()) {
 			return  StringUtils.EMPTY;
 		}
-		Map<String, String> userMap = getUserMap();
-		String userLevel = userMap.get("userLevel");
-		for (UserLevel e : UserLevel.values()) {
-			if (e.getValue().equals(userLevel)) {
-				return e.getValue();
-			}
-		}
+		try {
+			Map<String, String> userMap = getUserMap();
+			String userLevel = userMap.get("userLevel");
+			return UserLevel.valueOf(userLevel).getValue();
+		} catch (Exception e) {}
+//		for (UserLevel e : UserLevel.values()) {
+//			if (e.getValue().equals(userLevel)) {
+//				return e.getValue();
+//			}
+//		}
 		return StringUtils.EMPTY;
+	}
+	
+	/**
+	 * 是不是A级用户的判断
+	 * @return
+	 */
+	public final boolean isAlevelUser() {
+		return Person.UserLevel.A.getValue().equals(getUserLevel());
+	}
+	
+	/**
+	 * 是不是B级用户的判断
+	 * @return
+	 */
+	public final boolean isBlevelUser() {
+		return Person.UserLevel.B.getValue().equals(getUserLevel());
+	}
+	
+	/**
+	 * 是不是C级用户的判断
+	 * @return
+	 */
+	public final boolean isClevelUser() {
+		return Person.UserLevel.C.getValue().equals(getUserLevel());
 	}
 	
 	/**
 	 * 判断用户是否登录
 	 * @return
 	 */
-	protected final boolean isLogin() {
+	public final boolean isLogin() {
 		Map<String, String> userMap = getUserMap();
 		if (null == userMap || userMap.isEmpty()) {
 			return false;
