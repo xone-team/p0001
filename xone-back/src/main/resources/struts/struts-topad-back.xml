@@ -3,44 +3,44 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-    <package name="topad" namespace="/topad" extends="default">
+    <package name="overhead" namespace="/overhead" extends="default">
         <global-results>
             <result name="error">/WEB-INF/jsp/login-error.jsp</result>
         </global-results>
-        <action name="topadList" class="topadBackAction" method="topadList">
-            <result name="success">/WEB-INF/jsp/topad-back-list.jsp</result>
+        <action name="overheadList" class="overheadBackAction" method="overheadList">
+            <result name="success">/WEB-INF/jsp/overhead-back-list.jsp</result>
         </action>
-        <action name="topadCreate" class="topadBackAction" method="topadCreate">
-            <result name="success">/WEB-INF/jsp/topad-back-create.jsp</result>
+        <action name="overheadCreate" class="overheadBackAction" method="overheadCreate">
+            <result name="success">/WEB-INF/jsp/overhead-back-create.jsp</result>
         </action>
-        <action name="topadSave" class="topadBackAction" method="topadSave">
+        <action name="overheadSave" class="overheadBackAction" method="overheadSave">
             <result name="success" type="redirectAction">
-                <param name="actionName">topadItem</param>
-                <param name="namespace">/topad</param>
-                <param name="topad.id">${topad.id}</param>
+                <param name="actionName">overheadItem</param>
+                <param name="namespace">/overhead</param>
+                <param name="overhead.id">${overhead.id}</param>
             </result>
         </action>
-        <action name="topadEdit" class="topadBackAction" method="topadEdit">
-            <result name="success">/WEB-INF/jsp/topad-back-edit.jsp</result>
+        <action name="overheadEdit" class="overheadBackAction" method="overheadEdit">
+            <result name="success">/WEB-INF/jsp/overhead-back-edit.jsp</result>
         </action>
-        <action name="topadUpdate" class="topadBackAction" method="topadUpdate">
+        <action name="overheadUpdate" class="overheadBackAction" method="overheadUpdate">
             <result name="success" type="redirectAction">
-                <param name="actionName">topadItem</param>
-                <param name="namespace">/topad</param>
-                <param name="topad.id">${topad.id}</param>
+                <param name="actionName">overheadItem</param>
+                <param name="namespace">/overhead</param>
+                <param name="overhead.id">${overhead.id}</param>
             </result>
             <result name="list" type="chain">
-                <param name="actionName">topadList</param>
-                <param name="namespace">/topad</param>
+                <param name="actionName">overheadList</param>
+                <param name="namespace">/overhead</param>
             </result>
         </action>
-        <action name="topadItem" class="topadBackAction" method="topadItem">
-            <result name="success">/WEB-INF/jsp/topad-back-item.jsp</result>
+        <action name="overheadItem" class="overheadBackAction" method="overheadItem">
+            <result name="success">/WEB-INF/jsp/overhead-back-item.jsp</result>
         </action>
- <!--        <action name="topadDelete" class="topadBackAction" method="topadDelete">
+ <!--        <action name="overheadDelete" class="overheadBackAction" method="overheadDelete">
             <result name="success" type="redirectAction">
-                <param name="actionName">topadList</param>
-                <param name="namespace">/topad</param>
+                <param name="actionName">overheadList</param>
+                <param name="namespace">/overhead</param>
             </result>
         </action> -->
 

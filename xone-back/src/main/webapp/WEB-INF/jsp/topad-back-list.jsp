@@ -32,13 +32,13 @@
                         </div>
                         <div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
                             <div class="accordion-inner">
-                                <form id="myqueryform" action="${pageContext.request.contextPath}/topad/topadList.html" method="get">
+                                <form id="myqueryform" action="${pageContext.request.contextPath}/overhead/overheadList.html" method="get">
                                     <div class="row-fluid">
                                         <div class="span5 form-horizontal">
                                             <div class="control-group">
                                                 <label class="control-label" for="productName">产品名称</label>
                                                 <div class="controls">
-                                                    <input type="text" id="productName" name="topad.productName" value="${topad.productName}" maxlength="255" placeholder="产品名称">
+                                                    <input type="text" id="productName" name="overhead.productName" value="${overhead.productName}" maxlength="255" placeholder="产品名称">
                                                 </div>
                                             </div>
                                         </div>
@@ -48,10 +48,10 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="checkStatus">审核状态</label>
                                                 <div class="controls">
-                                                    <select class="selectpicker" id="checkStatus" name="topad.checkStatus">
+                                                    <select class="selectpicker" id="checkStatus" name="overhead.checkStatus">
                                                         <option value="">全部</option>
                                                         <c:forEach items="${checkStatus}" var="it">
-                                                            <option value="${it.value}" <c:if test="${it.value == topad.checkStatus}">selected</c:if>>${it.name}</option>
+                                                            <option value="${it.value}" <c:if test="${it.value == overhead.checkStatus}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -61,7 +61,7 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="remark">备注</label>
                                                 <div class="controls">
-                                                    <input type="text" id="remark" name="topad.remark" value="${topad.remark}" maxlength="1023" placeholder="备注">
+                                                    <input type="text" id="remark" name="overhead.remark" value="${overhead.remark}" maxlength="1023" placeholder="备注">
                                                 </div>
                                             </div>
                                         </div>
@@ -71,7 +71,7 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="applyUsername">申请人用户名</label>
                                                 <div class="controls">
-                                                    <input type="text" id="username" name="topad.applyUsername" value="${topad.applyUsername}" maxlength="255" placeholder="申请人用户名">
+                                                    <input type="text" id="username" name="overhead.applyUsername" value="${overhead.applyUsername}" maxlength="255" placeholder="申请人用户名">
                                                 </div>
                                             </div>
                                         </div>
@@ -79,7 +79,7 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="dateApplyMin">申请日期</label>
                                                 <div class="controls">
-                                                    <input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="topad.dateApplyMin" value="${topad.dateApplyMin}" maxlength="19" placeholder="最小日期"> <span class="add-on">~</span> <input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="topad.dateApplyMax" value="${topad.dateApplyMax}" maxlength="19" placeholder="最大日期">
+                                                    <input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="overhead.dateApplyMin" value="${overhead.dateApplyMin}" maxlength="19" placeholder="最小日期"> <span class="add-on">~</span> <input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="overhead.dateApplyMax" value="${overhead.dateApplyMax}" maxlength="19" placeholder="最大日期">
                                                 </div>
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="row-fluid">
                     <p class="text-right">
-                        <a class="btn btn-small" href="${pageContext.request.contextPath}/topad/topadCreate.html"> <i class="icon-plus"> </i>创建
+                        <a class="btn btn-small" href="${pageContext.request.contextPath}/overhead/overheadCreate.html"> <i class="icon-plus"> </i>创建
                         </a>
                         <button class="btn btn-small" onclick="$('#myqueryform').submit();">
                             <span class="icon-search"></span>查询
@@ -117,7 +117,7 @@
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
                                     <td><a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.productId}">${item.productName}</a></td>
-                                    <td><a href="${pageContext.request.contextPath}/topad/topadItem.html?topad.id=${item.id}"> <c:forEach items="${checkStatus}" var="it">
+                                    <td><a href="${pageContext.request.contextPath}/overhead/overheadItem.html?overhead.id=${item.id}"> <c:forEach items="${checkStatus}" var="it">
                                                 <c:if test="${it.value == item.checkStatus}">${it.name}</c:if>
                                             </c:forEach>
                                     </a></td>
@@ -125,7 +125,7 @@
                                     <td><a href="${pageContext.request.contextPath}/person/personItem.html?person.id=${item.userApply}">${item.applyUsername}</a></td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                    <td><a href="${pageContext.request.contextPath}/topad/topadEdit.html?topad.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
+                                    <td><a href="${pageContext.request.contextPath}/overhead/overheadEdit.html?overhead.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
                                         <button class="btn btn-mini" onclick="showModalDelete('person.id=${item.id}')">
                                             <i class="icon-trash"> </i>删除
                                         </button></td>
@@ -133,7 +133,7 @@
                             </c:forEach>
                         </tbody>
                     </table>
-                    <x:page href="${pageContext.request.contextPath}/topad/topadList.html" pagination="${pagination}" />
+                    <x:page href="${pageContext.request.contextPath}/overhead/overheadList.html" pagination="${pagination}" />
                 </div>
             </div>
         </div>
@@ -162,7 +162,7 @@
                         XONE.CURRENT_MODEL = {};
                         XONE.CURRENT_MODEL.target = targetParams;
                         XONE.CURRENT_MODEL.modal = jQuery("#X_model_confirm2delete");
-                        XONE.CURRENT_MODEL.deleteUrl = "${pageContext.request.contextPath}/topad/topadDelete.html";
+                        XONE.CURRENT_MODEL.deleteUrl = "${pageContext.request.contextPath}/overhead/overheadDelete.html";
                         XONE.CURRENT_MODEL.modal.modal("show");
                     }
                     function endModalDelete() {
@@ -178,7 +178,7 @@
 </body>
 <script>
     jQuery(function() {
-        jQuery("#X_menu_li_topad").addClass("active");
+        jQuery("#X_menu_li_overhead").addClass("active");
     });
 </script>
 </html>

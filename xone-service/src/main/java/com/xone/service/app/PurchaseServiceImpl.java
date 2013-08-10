@@ -19,12 +19,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.ImageUploadedDao;
 import com.xone.model.hibernate.app.PersonDao;
-import com.xone.model.hibernate.app.PurcCheckDao;
+import com.xone.model.hibernate.app.PurchaseCheckDao;
 import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
-import com.xone.model.hibernate.entity.PurcCheck;
+import com.xone.model.hibernate.entity.PurchaseCheck;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.utils.MyServerUtils;
@@ -43,7 +43,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     protected PersonDao personDao;
 
     @Autowired
-    PurcCheckDao purcCheckDao;
+    PurchaseCheckDao purchaseCheckDao;
 
     public PersonDao getPersonDao() {
         return personDao;
@@ -435,11 +435,11 @@ public class PurchaseServiceImpl implements PurchaseService {
         // 审核信息处理
         Date dateCheck = new Date();
 
-        PurcCheck check = entity.getCheck();
+        PurchaseCheck check = entity.getCheck();
         check.setPurchaseId(entity.getId());
         check.setDateCheck(dateCheck);
-        check.setFlagDeleted(PurcCheck.FlagDeleted.NORMAL.getValue());
-        purcCheckDao.save(check);
+        check.setFlagDeleted(PurchaseCheck.FlagDeleted.NORMAL.getValue());
+        purchaseCheckDao.save(check);
 
         entity.setDateCheck(dateCheck);
         entity.setCheckStatus(check.getCheckStatus());
@@ -458,7 +458,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public Purchase findById(Long id) {
         Purchase purchase = getPurchaseDao().findById(id);
         if (purchase != null) {
-            List<PurcCheck> l = purcCheckDao.findByPurchaseId(purchase.getId());
+            List<PurchaseCheck> l = purchaseCheckDao.findByPurchaseId(purchase.getId());
             purchase.setCheckList(l);
         }
         return purchase;
@@ -472,12 +472,12 @@ public class PurchaseServiceImpl implements PurchaseService {
         return getPurchaseDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
     }
 
-    public PurcCheckDao getPurcCheckDao() {
-        return purcCheckDao;
+    public PurchaseCheckDao getPurchaseCheckDao() {
+        return purchaseCheckDao;
     }
 
-    public void setPurcCheckDao(PurcCheckDao purcCheckDao) {
-        this.purcCheckDao = purcCheckDao;
+    public void setPurchaseCheckDao(PurchaseCheckDao purchaseCheckDao) {
+        this.purchaseCheckDao = purchaseCheckDao;
     }
 
 }

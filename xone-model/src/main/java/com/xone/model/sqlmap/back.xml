@@ -38,7 +38,7 @@
         order by r.date_created
     </select>
 
-    <sql id="topadCondition">
+    <sql id="overheadCondition">
         <dynamic prepend="where">
             <isPropertyAvailable property="applyUserName">
                 <isNotEmpty prepend="and" property="applyUserName">
@@ -74,7 +74,7 @@
             </isPropertyAvailable>
         </dynamic>
     </sql>
-    <select id="topad" parameterClass="java.util.HashMap" resultClass="com.xone.model.hibernate.entity.Topad">
+    <select id="overhead" parameterClass="java.util.HashMap" resultClass="com.xone.model.hibernate.entity.Overhead">
         select
         t.id,
         p.id productId,
@@ -86,12 +86,12 @@
         p.product_name productName,
         u.username applyUsername
         from
-        t_topad t
+        t_overhead t
         left join
         t_user u ON t.user_apply = u.id
         left join
         t_product p ON t.product_id = p.id
-        <include refid="topadCondition" />
+        <include refid="overheadCondition" />
         order by t.date_created
         <isPropertyAvailable property="limitStart">
             <isPropertyAvailable property="limitNum">
@@ -101,12 +101,12 @@
             </isPropertyAvailable>
         </isPropertyAvailable>
     </select>
-    <select id="topadTotalCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+    <select id="overheadTotalCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
         select count(1) n
-        from t_topad t
+        from t_overhead t
         left join t_user u on t.user_apply = u.id
         left join t_product p on t.product_id = p.id
-        <include refid="topadCondition" />
+        <include refid="overheadCondition" />
     </select>
     <select id="todoProductCount" resultClass="java.lang.Integer">
         select count(1) n

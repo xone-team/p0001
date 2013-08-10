@@ -9,8 +9,8 @@
             <div class="nav-collapse collapse in" style="height: 40px;">
                 <p class="navbar-text pull-right">
                     <c:choose>
-                        <c:when test="${ not empty loginedUser}">
-                            欢迎您！ <a href="#" class="navbar-link">${loginedUser.nickName}</a>
+                        <c:when test="${ not empty userMap}">
+                            欢迎您！ <a href="#" class="navbar-link">${username}</a>
                             <a href="<c:url value="/j_spring_security_logout"/>">退出</a>
                         </c:when>
                         <c:otherwise>

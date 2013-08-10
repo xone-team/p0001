@@ -9,5 +9,5 @@
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 			http://www.springframework.org/schema/context   
 			http://www.springframework.org/schema/context/spring-context-2.5.xsd" default-lazy-init="true" default-autowire="byName">
-	<bean id="prodCheckDao" class="com.xone.model.hibernate.app.ProdCheckDaoImpl" parent="abstractHibernateDao" />
+	<bean id="productCheckDao" class="com.xone.model.hibernate.app.ProductCheckDaoImpl" parent="abstractHibernateDao" />
 </beans>

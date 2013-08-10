@@ -24,7 +24,7 @@
                     <ul class="breadcrumb" id="X_breadcrumbs_ul">
                         <li>后台 <span class="divider">/</span></li>
                         <li>产品管理 <span class="divider">/</span></li>
-                        <li><a href="${pageContext.request.contextPath}/topad/topadList.html">置顶列表</a> <span class="divider">/</span></li>
+                        <li><a href="${pageContext.request.contextPath}/overhead/overheadList.html">置顶列表</a> <span class="divider">/</span></li>
                         <li class="active">置顶详细</li>
                     </ul>
                 </div>
@@ -32,31 +32,31 @@
                     <tbody>
                         <tr>
                             <td style="width: 60px;">置顶编号</td>
-                            <td>${topad.id}</td>
+                            <td>${overhead.id}</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">产品</td>
-                            <td>${topad.productId}</td>
+                            <td>${overhead.productId}</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核状态</td>
-                            <td>${topad.checkStatus}</td>
+                            <td>${overhead.checkStatus}</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">备注</td>
-                            <td>${topad.remark}</td>
+                            <td>${overhead.remark}</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">申请人</td>
-                            <td>${topad.userApply}</td>
+                            <td>${overhead.userApply}</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">申请日期</td>
-                            <td><fmt:formatDate value="${topad.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                            <td><fmt:formatDate value="${overhead.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核日期</td>
-                            <td><fmt:formatDate value="${topad.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                            <td><fmt:formatDate value="${overhead.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -67,7 +67,7 @@
 </body>
 <script>
     jQuery(function() {
-        jQuery("#X_menu_li_topad").addClass("active");
+        jQuery("#X_menu_li_overhead").addClass("active");
     });
 </script>
 </html>

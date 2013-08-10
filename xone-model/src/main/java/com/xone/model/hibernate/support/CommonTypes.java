@@ -38,12 +38,12 @@ public class CommonTypes implements Serializable {
         typeList.add(new NameValuePairs("C级客户", "C"));
         result.setUserLevelList(typeList);
         
-        // init topad checkStatus type
+        // init overhead checkStatus type
         typeList = new ArrayList<NameValuePairs>();
         typeList.add(new NameValuePairs("处理中", "1"));
         typeList.add(new NameValuePairs("已取消", "2"));
         typeList.add(new NameValuePairs("已生效", "3"));
-        result.setTopadCheckStatusList(typeList);
+        result.setOverheadCheckStatusList(typeList);
         
         // init product checkStatus type
         typeList = new ArrayList<NameValuePairs>();
@@ -92,7 +92,7 @@ public class CommonTypes implements Serializable {
     /**
      * 置顶审核状态
      */
-    private List<NameValuePairs> topadCheckStatusList;
+    private List<NameValuePairs> overheadCheckStatusList;
     
     /**
      * 置顶审核状态
@@ -128,8 +128,8 @@ public class CommonTypes implements Serializable {
         return value2name(value, getInstance().getUserLevelList());
     }
     
-    public static String getTopadCheckStatusTypeName(String value){
-        return value2name(value, getInstance().getTopadCheckStatusList());
+    public static String getOverheadCheckStatusTypeName(String value){
+        return value2name(value, getInstance().getOverheadCheckStatusList());
     }
     
     public static String getProductCheckStatusTypeName(String value){
@@ -179,12 +179,12 @@ public class CommonTypes implements Serializable {
         this.userLevelList = userLevelList;
     }
 
-    public List<NameValuePairs> getTopadCheckStatusList() {
-        return topadCheckStatusList;
+    public List<NameValuePairs> getOverheadCheckStatusList() {
+        return overheadCheckStatusList;
     }
 
-    public void setTopadCheckStatusList(List<NameValuePairs> topadCheckStatusList) {
-        this.topadCheckStatusList = topadCheckStatusList;
+    public void setOverheadCheckStatusList(List<NameValuePairs> overheadCheckStatusList) {
+        this.overheadCheckStatusList = overheadCheckStatusList;
     }
 
     public List<NameValuePairs> getSaleTypeList() {

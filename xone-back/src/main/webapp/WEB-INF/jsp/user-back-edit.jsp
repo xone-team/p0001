@@ -39,7 +39,8 @@
                     <div class="control-group">
                         <label class="control-label" for="password">密码</label>
                         <div class="controls">
-                            <input type="password" id="password" name="person.password" value="${person.password}" maxlength="255" placeholder="密码">
+                            <input type="password" class="hide" id="password" maxlength="255" placeholder="密码">
+                            <a href="javascript:void(0);" onclick="$('#password').removeClass('hide').attr('name', 'person.repassword');">重设密码</a>
                         </div>
                     </div>
                     <div class="control-group">
@@ -237,10 +238,7 @@
     			text: '用户名在 6 － 20 个字之间',
     			func: lengthValidation
     		}, {
-    			name: 'password',
-    			text: '请输入密碼'
-    		}, {
-    			name: 'password',
+    			name: 'repassword',
     			text: '密碼在 6 － 20 个字之间',
     			func: lengthValidation
     		}, {

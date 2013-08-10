@@ -13,69 +13,70 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.xone.model.hibernate.app.ProdCheckDao;
-import com.xone.model.hibernate.entity.ProdCheck;
+import com.xone.model.hibernate.app.PurchaseCheckDao;
+import com.xone.model.hibernate.entity.PurchaseCheck;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.service.app.utils.MyServerUtils;
 
-public class ProdCheckServiceImpl implements ProdCheckService {
-	private static final Log log = LogFactory.getLog(ProdCheckServiceImpl.class);
+public class PurchaseCheckServiceImpl implements PurchaseCheckService {
+	private static final Log log = LogFactory.getLog(PurchaseCheckServiceImpl.class);
 
 	@Autowired
-	protected ProdCheckDao prodCheckDao;
+	protected PurchaseCheckDao purchaseCheckDao;
 
 	@Override
-	public ProdCheck save(ProdCheck entity) {
-		return getProdCheckDao().save(entity);
+	public PurchaseCheck save(PurchaseCheck entity) {
+		return getPurchaseCheckDao().save(entity);
 	}
 	
 	@Override
-	public ProdCheck update(ProdCheck entity) {
-		return getProdCheckDao().update(entity);
+	public PurchaseCheck update(PurchaseCheck entity) {
+		return getPurchaseCheckDao().update(entity);
 	}
 	
 	@Override
-	public void delete(ProdCheck entity) {
-		getProdCheckDao().deleteById(entity.getId());
+	public void delete(PurchaseCheck entity) {
+		getPurchaseCheckDao().deleteById(entity.getId());
 	}
 
 	@Override
-	public ProdCheck findById(Long id) {
-		return getProdCheckDao().findById(id);
+	public PurchaseCheck findById(Long id) {
+		return getPurchaseCheckDao().findById(id);
 	}
 	
 	@Override
-    public ProdCheck findByMap(Map<String, String> params) {
-        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ProdCheck.class);
+    public PurchaseCheck findByMap(Map<String, String> params) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(PurchaseCheck.class);
 
         handleCriteriaByParams(detachedCriteria, params);
         
-        List<ProdCheck> l = getProdCheckDao().findListByDetachedCriteria(detachedCriteria, 0, 1);
+        List<PurchaseCheck> l = getPurchaseCheckDao().findListByDetachedCriteria(detachedCriteria, 0, 1);
         if (null == l) {
-            return new ProdCheck();
+            return new PurchaseCheck();
         }
         return l.get(0);
     }
 
 	@Override
-	public List<ProdCheck> findAllByMap(Map<String, String> params) {
+	public List<PurchaseCheck> findAllByMap(Map<String, String> params) {
 		DetachedCriteria detachedCriteria = DetachedCriteria
-				.forClass(ProdCheck.class);
+				.forClass(PurchaseCheck.class);
 				
 		handleCriteriaByParams(detachedCriteria, params);
 				
-		return getProdCheckDao()
+		return getPurchaseCheckDao()
 				.findListByDetachedCriteria(detachedCriteria, 0, 10);
 	}
 	
 	public Pagination findByParams(Map<String, String> params) {
 		DetachedCriteria detachedCriteria = DetachedCriteria
-				.forClass(ProdCheck.class);
+				.forClass(PurchaseCheck.class);
 				
 		handleCriteriaByParams(detachedCriteria, params);
 				
-		int pageSize = com.xone.model.utils.MyModelUtils.parseInt(params.get("pageSize"), 20);
-		int startIndex = com.xone.model.utils.MyModelUtils.parseInt(params.get("pageNo"), 0);
-		return getProdCheckDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+		int pageSize = MyServerUtils.parseInteger(params.get("pageSize"), 20);
+		int startIndex = MyServerUtils.parseInteger(params.get("pageNo"), 0);
+		return getPurchaseCheckDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
 	}
 	
 	protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params){
@@ -91,17 +92,17 @@ public class ProdCheckServiceImpl implements ProdCheckService {
         if (!StringUtils.isBlank(idMax)) {
             criteria.add(Restrictions.le("id", new Long(idMax)));
         }
-		String productId = params.get("productId");
-        if (!StringUtils.isBlank(productId)) {
-            criteria.add(Restrictions.eq("productId", new Long(productId)));
+		String purchaseId = params.get("purchaseId");
+        if (!StringUtils.isBlank(purchaseId)) {
+            criteria.add(Restrictions.eq("purchaseId", new Long(purchaseId)));
         }
-		String productIdMin = params.get("productIdMin");
-        if (!StringUtils.isBlank(productIdMin)) {
-            criteria.add(Restrictions.ge("productId", new Long(productIdMin)));
+		String purchaseIdMin = params.get("purchaseIdMin");
+        if (!StringUtils.isBlank(purchaseIdMin)) {
+            criteria.add(Restrictions.ge("purchaseId", new Long(purchaseIdMin)));
         }
-		String productIdMax = params.get("productIdMax");
-        if (!StringUtils.isBlank(productIdMax)) {
-            criteria.add(Restrictions.le("productId", new Long(productIdMax)));
+		String purchaseIdMax = params.get("purchaseIdMax");
+        if (!StringUtils.isBlank(purchaseIdMax)) {
+            criteria.add(Restrictions.le("purchaseId", new Long(purchaseIdMax)));
         }
 		String checkStatus = params.get("checkStatus");
         if (!StringUtils.isBlank(checkStatus)) {
@@ -231,12 +232,12 @@ public class ProdCheckServiceImpl implements ProdCheckService {
         criteria.addOrder(Order.desc("dateCreated"));
 	}
 
-	public ProdCheckDao getProdCheckDao() {
-		return prodCheckDao;
+	public PurchaseCheckDao getPurchaseCheckDao() {
+		return purchaseCheckDao;
 	}
 
-	public void setProdCheckDao(ProdCheckDao prodCheckDao) {
-		this.prodCheckDao = prodCheckDao;
+	public void setPurchaseCheckDao(PurchaseCheckDao purchaseCheckDao) {
+		this.purchaseCheckDao = purchaseCheckDao;
 	}
 	
 }

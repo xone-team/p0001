@@ -9,5 +9,5 @@
 			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
 			http://www.springframework.org/schema/context   
 			http://www.springframework.org/schema/context/spring-context-2.5.xsd" default-lazy-init="true" default-autowire="byName">
-	<bean id="topadDao" class="com.xone.model.hibernate.app.TopadDaoImpl" parent="abstractHibernateDao" />
+	<bean id="overheadDao" class="com.xone.model.hibernate.app.OverheadDaoImpl" parent="abstractHibernateDao" />
 </beans>

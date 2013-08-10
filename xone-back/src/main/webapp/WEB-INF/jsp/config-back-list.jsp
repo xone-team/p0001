@@ -45,7 +45,9 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="dateCreatedMin">创建日期</label>
                                                 <div class="controls">
-                                                    <input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="config.dateCreatedMin" value="${config.dateCreatedMin}" maxlength="19" placeholder="最小日期"> <span class="add-on">~</span> <input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="config.dateCreatedMax" value="${config.dateCreatedMax}" maxlength="19" placeholder="最大日期">
+                                                    <input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="config.dateCreatedMin" value="${config.dateCreatedMin}" maxlength="19" placeholder="最小日期">
+                                                    <span class="add-on">~</span>
+                                                    <input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="config.dateCreatedMax" value="${config.dateCreatedMax}" maxlength="19" placeholder="最大日期">
                                                 </div>
                                             </div>
                                         </div>
@@ -102,10 +104,7 @@
                                     <td>${item.name}</td>
                                     <td>${item.value}</td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                    <td><a href="${pageContext.request.contextPath}/config/configEdit.html?config.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
-                                        <button class="btn btn-mini" onclick="showModalDelete('config.id=${item.id}')">
-                                            <i class="icon-trash"> </i>删除
-                                        </button></td>
+                                    <td><a href="${pageContext.request.contextPath}/config/configEdit.html?config.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -116,42 +115,7 @@
         </div>
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
-    
-    
-    <!--  modal confirm to delete -->
-    <div id="X_model_confirm2delete" class="modal hide fade">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>删除确认</h3>
-        </div>
-        <div class="modal-body">
-            <p>确定要删除该记录吗？</p>
-        </div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal">取消</button>
-            <button class="btn btn-primary" onclick="endModalDelete()">确定</button>
-        </div>
-    </div>
-    <script type="text/javascript">
-                    function showModalDelete(targetParams) {
-                        XONE.CURRENT_MODEL = {};
-                        XONE.CURRENT_MODEL.target = targetParams;
-                        XONE.CURRENT_MODEL.modal = jQuery("#X_model_confirm2delete");
-                        XONE.CURRENT_MODEL.deleteUrl = "${pageContext.request.contextPath}/config/configDelete.html";
-                        XONE.CURRENT_MODEL.modal.modal("show");
-                    }
-                    function endModalDelete() {
-                        var modalCurrent = XONE.CURRENT_MODEL.modal;
-                        var targetParams = XONE.CURRENT_MODEL.target;
-                        var deleteUrl = XONE.CURRENT_MODEL.deleteUrl + "?" + targetParams;
-                        modalCurrent.modal('hide');
-                        location.href = deleteUrl;
-                    }
-                </script>
-    <!--  /modal confirm to delete -->
-    
-    
-    
+
 </body>
 <script>
     jQuery(function() {
