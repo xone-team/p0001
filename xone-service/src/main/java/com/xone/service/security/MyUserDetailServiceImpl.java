@@ -34,7 +34,7 @@ public class MyUserDetailServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
-		System.out.println("username is " + username);
+//		System.out.println("username is " + username);
         boolean enables = true;  
         boolean accountNonExpired = true;  
         boolean credentialsNonExpired = true;  

@@ -60,7 +60,7 @@ public class IndexBackAction extends Action {
 
     }
     
-    public String dispatch() throws Exception {
+    public String index() throws Exception {
         HttpServletRequest request = ServletActionContext.getRequest();
         if (null == request.getUserPrincipal()) {
             return ERROR;

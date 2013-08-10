@@ -41,26 +41,16 @@
 <!-- 	    指定了默认action，如果指定的action不存在则访问该action。 -->
         <default-action-ref name="index" />
         <action name="index">
-            <result>/index.jsp</result>  
+            <result>/console/index.html</result>  
         </action>   
     </package>
 	<package name="struts2" namespace="/" extends="default">
         <global-results>
-            <result name="index">/index.jsp</result>
+            <result name="index">/console/index.html</result>
         </global-results>
         <action name="image" class="genericPageBackAction" method="image"></action>
     </package>
-    <package name="console" namespace="/console" extends="default">
-        <action name="index" class="indexBackAction" method="dispatch">
-            <result name="success">/WEB-INF/jsp/index-back.jsp</result>
-        </action>
-        <action name="login" class="indexBackAction" method="dispatch">
-            <result name="success">/WEB-INF/jsp/index-login.jsp</result>
-        </action>
-        <action name="count" class="indexBackAction" method="count">
-            <result name="success">/WEB-INF/jsp/index-back-count.jsp</result>
-        </action>
-    </package>
+	<include file="struts/struts-login-back.xml" />
 	<include file="struts/struts-person-back.xml" />
     <include file="struts/struts-config-back.xml" />
     <include file="struts/struts-category-back.xml" />

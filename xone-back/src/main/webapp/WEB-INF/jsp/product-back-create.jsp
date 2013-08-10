@@ -65,13 +65,13 @@
                     <div class="control-group">
                         <label class="control-label" for="productPrice">产品价格</label>
                         <div class="controls">
-                            <input type="text" id="productPrice" name="product.productPrice" maxlength="200" placeholder="产品价格">
+                            <input type="text" id="productPrice" name="product.productPrice" value="${product.productPrice }" maxlength="200" placeholder="产品价格">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productNum">产品数量</label>
                         <div class="controls">
-                            <input type="text" id="productNum" name="product.productNum" maxlength="255" placeholder="产品数量">
+                            <input type="text" id="productNum" name="product.productNum" value="${product.productNum }" maxlength="255" placeholder="产品数量">
                         </div>
                     </div>
                     <div class="control-group">
@@ -122,7 +122,6 @@
         </div>
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
-    <c:out value="${fieldErrors }"></c:out>
 </body>
 <script src="${STATIC_ROOT}/js/fileupload.js"></script>
 <script>
