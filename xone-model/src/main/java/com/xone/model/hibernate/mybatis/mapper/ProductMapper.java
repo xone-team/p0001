@@ -9,8 +9,8 @@ import com.xone.model.hibernate.entity.Product;
 
 public interface ProductMapper {
 	
-	public List<Product> findProductListWithUser(Map<String, String> params, RowBounds pageBounds);
+	public List<Product> findProductListWithUser(Map<String, Object> params, RowBounds pageBounds);
 
-	public Integer findProductCountWithUser(Map<String, String> params);
+	public Integer findProductCountWithUser(Map<String, Object> params);
 
 }

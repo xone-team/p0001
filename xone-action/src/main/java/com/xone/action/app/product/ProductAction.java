@@ -14,8 +14,10 @@ import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.utils.MyDateUtils;
+import com.xone.model.utils.MyModelUtils;
 import com.xone.service.app.ProductService;
 import com.xone.service.app.SubscribeService;
+import com.xone.service.app.utils.AppConstants;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 import com.xone.service.app.utils.MyServerUtils;
@@ -91,22 +93,28 @@ public class ProductAction extends LogicAction {
 	
 	public String listItems() {
 		Map<String, String> map = getRequestMap();
-		Map<String, String> params = new HashMap<String, String>();
-		if ("down".equals(map.get("itemaction")) && null != getProduct().getDateCreated()) {
-			params.put("gtDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
-		} else if ("up".equals(map.get("itemaction")) && null != getProduct().getDateCreated()) {
-			params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+		int length = MyModelUtils.parseInt(map.get("itemcount"), 0);
+		Map<String, Object> params = new HashMap<String, Object>();
+		if (length >= AppConstants.LIST_ITEM_LENGTH) {
+			getMapValue().put("ITEM_TOO_LONG", "YES");
+		} else {
+			if ("down".equals(map.get("itemaction")) && null != getProduct().getDateCreated()) {
+				params.put("gtDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+			} else if ("up".equals(map.get("itemaction")) && null != getProduct().getDateCreated()) {
+				params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+			}
+			if (null != getProduct().getGtDateCreated()) {
+				params.put("gtDateCreated", MyServerUtils.format(getProduct().getGtDateCreated()));
+			}
+			if (!StringUtils.isBlank(getProduct().getProductName())) {
+				params.put("productName", getProduct().getProductName());
+			}
+			params.put("saleType", getProduct().getSaleType());
+			params.put("userLevels", getLogicUserLevel());
+			params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+			params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+			setList(getProductService().findAllByMap(params));
 		}
-		if (null != getProduct().getGtDateCreated()) {
-			params.put("gtDateCreated", MyServerUtils.format(getProduct().getGtDateCreated()));
-		}
-		if (!StringUtils.isBlank(getProduct().getProductName())) {
-			params.put("productName", getProduct().getProductName());
-		}
-		params.put("saleType", getProduct().getSaleType());
-		params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
-		params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
-		setList(getProductService().findAllByMap(params));
 		return SUCCESS;
 	}
 	
@@ -139,7 +147,7 @@ public class ProductAction extends LogicAction {
 		}
 		params.put("saleType", getProduct().getSaleType());
 		params.put("userCreated", String.valueOf(getUserId()));
-		setList(getProductService().findAllByMap(params));
+		setList(getProductService().findAllByMapForUser(params));
 		return SUCCESS;
 	}
 	

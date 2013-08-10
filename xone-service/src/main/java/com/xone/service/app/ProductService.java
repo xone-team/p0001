@@ -25,7 +25,9 @@ public interface ProductService {
 	
 	public Product findByMap(Map<String, String> params);
 
-	public List<Product> findAllByMap(Map<String, String> params);
+	public List<Product> findAllByMap(Map<String, Object> params);
+	
+	public List<Product> findAllByMapForUser(Map<String, String> params);
 
 	public Pagination findByParams(Map<String, String> params);
 	

@@ -56,19 +56,23 @@ public class PurchaseAction extends LogicAction {
 	
 	public String listItems() {
 		Map<String, String> map = getRequestMap();
-		Map<String, String> params = new HashMap<String, String>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		int length = MyModelUtils.parseInt(map.get("itemcount"), 0);
+		if (null == getPurchase()) {
+			setPurchase(new Purchase());
+		}
 		if (length >= AppConstants.LIST_ITEM_LENGTH) {
 			getMapValue().put("ITEM_TOO_LONG", "YES");
 		} else {
-			if ("down".equals(map.get("itemaction"))) {
+			if ("down".equals(map.get("itemaction")) && null != getPurchase().getDateCreated()) {
 				params.put("gtDateCreated", MyDateUtils.format(getPurchase().getDateCreated()));
-			} else if ("up".equals(map.get("itemaction"))) {
+			} else if ("up".equals(map.get("itemaction")) && null != getPurchase().getDateCreated()) {
 				params.put("ltDateCreated", MyDateUtils.format(getPurchase().getDateCreated()));
 			}
-			if (null != getPurchase() && !StringUtils.isBlank(getPurchase().getPurchaseName())) {
+			if (!StringUtils.isBlank(getPurchase().getPurchaseName())) {
 				params.put("purchaseName", getPurchase().getPurchaseName());
 			}
+			params.put("userLevels", getLogicUserLevel());
 			params.put("checkStatus", Purchase.CheckStatus.PASSED.getValue());
 			params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
 			setList(getPurchaseService().findAllByMap(params));
@@ -89,7 +93,7 @@ public class PurchaseAction extends LogicAction {
 			params.put("ltDateCreated", MyDateUtils.format(getPurchase().getDateCreated()));
 		}
 		params.put("userCreated", String.valueOf(getUserId()));
-		setList(getPurchaseService().findAllByMap(params));
+		setList(getPurchaseService().findAllByMapForUser(params));
 		return SUCCESS;
 	}
 	

@@ -112,7 +112,7 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 	 * @return the userMap
 	 */
 	@SuppressWarnings("unchecked")
-	public Map<String, String> getUserMap() {
+	public final Map<String, String> getUserMap() {
 		Object object = getSession().getAttribute(USER);
 		if (null == object) {
 			return Collections.emptyMap();
@@ -121,16 +121,10 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 	}
 	
 	public final Long getUserId() {
-	    Long result = null;
-	    String idString = getUserMap().get("id");
-	    if(idString != null){
-	        try {
-                result = Long.parseLong(idString);
-            } catch (Exception e) {
-                log.error(e.getMessage(), e);
-            }
-	    }
-		return result == null ? 0 : result;
+		try {
+			return Long.parseLong(getUserMap().get("id"));
+		} catch (Exception e) {}
+		return 0l;
 	}
 	
 	public final String getUsername() {
@@ -146,7 +140,7 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 	}
 	
 	@SuppressWarnings("unchecked")
-	public Map<String, String> getRequestMap() {
+	public final Map<String, String> getRequestMap() {
 		Map<String, String> requestMap = new HashMap<String, String>();
 		Map<String, String[]> paramsMap =  getRequest().getParameterMap();
 		for (Map.Entry<String, String[]> m : paramsMap.entrySet()) {
@@ -159,32 +153,32 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 	/**
 	 * @return the items
 	 */
-	public List<Map<String, Object>> getItems() {
+	public final List<Map<String, Object>> getItems() {
 		return items;
 	}
 
 	/**
 	 * @param items the items to set
 	 */
-	public void setItems(List<Map<String, Object>> items) {
+	public final void setItems(List<Map<String, Object>> items) {
 		this.items = items;
 	}
 	
 	/**
 	 * @return the pager
 	 */
-	public Pager getPager() {
+	public final Pager getPager() {
 		return pager;
 	}
 
 	/**
 	 * @param pager the pager to set
 	 */
-	public void setPager(Pager pager) {
+	public final void setPager(Pager pager) {
 		this.pager = pager;
 	}
 	
-	public void writeMessage(String message) {
+	public final void writeMessage(String message) {
 		if (null == message) {
 			return;
 		}
@@ -199,14 +193,14 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 	/**
 	 * @return the mapValue
 	 */
-	public Map<String, Object> getMapValue() {
+	public final Map<String, Object> getMapValue() {
 		return mapValue;
 	}
 
 	/**
 	 * @param mapValue the mapValue to set
 	 */
-	public void setMapValue(Map<String, Object> mapValue) {
+	public final void setMapValue(Map<String, Object> mapValue) {
 		this.mapValue = mapValue;
 	}
 	

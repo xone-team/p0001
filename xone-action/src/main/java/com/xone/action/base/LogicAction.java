@@ -14,15 +14,25 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.xone.action.utils.ImageUtils;
 import com.xone.model.hibernate.entity.ImageUploaded;
+import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.Person.UserLevel;
 import com.xone.service.app.ImageUploadedService;
 
 public abstract class LogicAction extends Action {
 
 	private static final long serialVersionUID = 2053049281978266812L;
 	
+	/**
+	 * 展示图片的通用方法
+	 * @param id
+	 * @param imageUploadedPath
+	 * @param imageUploadedService
+	 * @return
+	 */
 	protected String image(Long id, String imageUploadedPath, ImageUploadedService imageUploadedService) {
 		try {
 			if (null == id || id <= 0) {
@@ -62,6 +72,9 @@ public abstract class LogicAction extends Action {
 		return null;
 	}
 	
+	/**
+	 * 重定向到图片找不到的路径
+	 */
 	protected void redirectToPhotoNotAvailable() {
 		try {
 			response.sendRedirect(getStaticRoot() + "/image/photo-not-available.jpg");
@@ -104,6 +117,12 @@ public abstract class LogicAction extends Action {
 		}
 	}
 	
+	/**
+	 * 通过参数创建图片
+	 * @param imageUploadedPath
+	 * @param refType
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	protected List<ImageUploaded> createImageByParams(String imageUploadedPath, ImageUploaded.RefType refType) {
 		List<ImageUploaded> images = new ArrayList<ImageUploaded>();
@@ -140,7 +159,15 @@ public abstract class LogicAction extends Action {
 		return images;
 	}
 	
-	@SuppressWarnings("unchecked")
+	/**
+	 * 通过文件创建上传文件
+	 * @param imageUploadedPath
+	 * @param refType
+	 * @param uploadFile
+	 * @param uploadFileContentType
+	 * @param uploadFileFileName
+	 * @return
+	 */
 	protected ImageUploaded createUploadImageByFile(String imageUploadedPath,
 			ImageUploaded.RefType refType, File uploadFile,
 			String uploadFileContentType, String uploadFileFileName) {
@@ -165,6 +192,57 @@ public abstract class LogicAction extends Action {
 			e.printStackTrace();
 		}
 		return iu;
+	}
+	
+	/**
+	 * 取得当前用户的逻辑用户身份，
+	 * 如果没有登录或者登录后身份不是A或者B或者C级用户，则都视为B级用户
+	 * 主要业务逻辑应用在产品列表和求购列表的展示上
+	 * @return
+	 */
+	protected final String [] getLogicUserLevel() {
+		return Person.getLogicUserLevel(getUserLevel());
+	}
+	
+	/**
+	 * 判断是不是前台用户
+	 * @return
+	 */
+	protected final boolean isForeUser() {
+		return !StringUtils.EMPTY.equals(getUserLevel());
+	}
+	
+	/**
+	 * 取得用户的用户级别
+	 * @return
+	 */
+	protected final String getUserLevel() {
+		if (!isLogin()) {
+			return  StringUtils.EMPTY;
+		}
+		Map<String, String> userMap = getUserMap();
+		String userLevel = userMap.get("userLevel");
+		for (UserLevel e : UserLevel.values()) {
+			if (e.getValue().equals(userLevel)) {
+				return e.getValue();
+			}
+		}
+		return StringUtils.EMPTY;
+	}
+	
+	/**
+	 * 判断用户是否登录
+	 * @return
+	 */
+	protected final boolean isLogin() {
+		Map<String, String> userMap = getUserMap();
+		if (null == userMap || userMap.isEmpty()) {
+			return false;
+		}
+		if (getUserId() > 0 && !StringUtils.isBlank(getUsername())) {
+			return true;
+		}
+		return false;
 	}
 	
 }

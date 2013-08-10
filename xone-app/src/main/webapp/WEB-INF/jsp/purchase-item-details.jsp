@@ -50,7 +50,7 @@
 		</tr>
 	</table>
 </li>
-<c:if test="${null != userId && null != purchase.person}">
+<c:if test="${login}">
 <li>
 	<table style="width:100%">
 		<tr>

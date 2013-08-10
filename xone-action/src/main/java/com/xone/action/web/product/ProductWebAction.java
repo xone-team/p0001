@@ -96,7 +96,7 @@ public class ProductWebAction extends Action {
 	}
 	
 	public String list() {
-		Map<String, String> params = new HashMap<String, String>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		List<Product> l = getProductService().findAllByMap(params);
 		if (null != l && !l.isEmpty()) {
 			list.addAll(l);

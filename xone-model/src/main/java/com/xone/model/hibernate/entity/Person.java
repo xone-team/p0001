@@ -13,38 +13,64 @@ import java.util.Date;
  * 
  */
 public class Person extends MyModel implements Serializable {
+	
+	public static String [] getLogicUserLevel(String userLevel) {
+		if (UserLevel.A.getValue().equals(userLevel)) {//如果是A级用户，则AB级的数据可以查看
+			return new String[] {
+				UserLevel.A.getValue(), UserLevel.B.getValue()	
+			};
+		} else if (UserLevel.B.getValue().equals(userLevel)) {//如果是B级用户，则ABC级的数据都可以查看
+			return new String[] {
+				UserLevel.A.getValue(), UserLevel.B.getValue(), UserLevel.C.getValue()	
+			};
+		} else if (UserLevel.C.getValue().equals(userLevel)) {//如果是C级用户,则BC级的数据可以查看
+			return new String[] {
+				UserLevel.B.getValue(), UserLevel.C.getValue()	
+			};
+		}
+		//如果没有登录或者登录后身份不是A或者B或者C级用户，则只能查看B级用户数据
+		return new String [] {
+			UserLevel.B.getValue()
+		};
+	}
     
-    public enum Credit {
-        YES("1", "已认证"), NO("0", "未认证");
-        protected String value;
-        protected String name;
-        private Credit(String v, String n) {
-            this.value = v;
-            this.name = n;
-        }
-        public String getValue() {
-            return this.value;
-        } 
-        public String getName() {
-            return this.name;
-        } 
-    }
-    
-    public enum UserLevel{
-        A("1", "A级客户"), B("2", "B级客户"), C("3", "C级客户");
-        protected String value;
-        protected String name;
-        private UserLevel(String v, String n) {
-            this.value = v;
-            this.name = n;
-        }
-        public String getValue() {
-            return this.value;
-        } 
-        public String getName() {
-            return this.name;
-        } 
-    }
+	public enum Credit {
+		YES("1", "已认证"), NO("0", "未认证");
+		protected String value;
+		protected String name;
+
+		private Credit(String v, String n) {
+			this.value = v;
+			this.name = n;
+		}
+
+		public String getValue() {
+			return this.value;
+		}
+
+		public String getName() {
+			return this.name;
+		}
+	}
+
+	public enum UserLevel {
+		A("A", "A级客户"), B("B", "B级客户"), C("C", "C级客户");
+		protected String value;
+		protected String name;
+
+		private UserLevel(String v, String n) {
+			this.value = v;
+			this.name = n;
+		}
+
+		public String getValue() {
+			return this.value;
+		}
+
+		public String getName() {
+			return this.name;
+		}
+	}
 	
 	protected static final long serialVersionUID = -7335577468841978562L;
     protected Long id;
@@ -82,34 +108,32 @@ public class Person extends MyModel implements Serializable {
 		this.repassword = repassword;
 	}
 	
-	public String getCreditName(){
-	    for (Credit e : Credit.values()) {
-	        if(e.getValue().equals(this.credit)){
-                return e.getName();
-	        }
-        }
-        return UNKNOWN_STATUS_NAME;
+	public String getCreditName() {
+		for (Credit e : Credit.values()) {
+			if (e.getValue().equals(this.credit)) {
+				return e.getName();
+			}
+		}
+		return UNKNOWN_STATUS_NAME;
 	}
-	
-    public String getFlagDeletedName() {
-        for (FlagDeleted e : FlagDeleted.values()) {
-            if (e.getValue().equals(this.flagDeleted)) {
-                return e.getName();
-            }
-        }
-        return UNKNOWN_STATUS_NAME;
-    }
-	
-	public String getUserLevelName(){
-	    for (UserLevel e : UserLevel.values()) {
-	        if(e.getValue().equals(this.userLevel)){
-	            return e.getName();
-	        }
-	    }
-	    return UNKNOWN_STATUS_NAME;
+
+	public String getFlagDeletedName() {
+		for (FlagDeleted e : FlagDeleted.values()) {
+			if (e.getValue().equals(this.flagDeleted)) {
+				return e.getName();
+			}
+		}
+		return UNKNOWN_STATUS_NAME;
 	}
-	
-	
+
+	public String getUserLevelName() {
+		for (UserLevel e : UserLevel.values()) {
+			if (e.getValue().equals(this.userLevel)) {
+				return e.getName();
+			}
+		}
+		return UNKNOWN_STATUS_NAME;
+	}
 	
 	public Long getId() {
 		return id;
