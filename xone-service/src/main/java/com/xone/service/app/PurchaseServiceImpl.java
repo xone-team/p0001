@@ -443,7 +443,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 
         entity.setDateCheck(dateCheck);
         entity.setCheckStatus(check.getCheckStatus());
-        entity.setRemark(check.getRemark());
+//        entity.setRemark(check.getRemark());
         entity = getPurchaseDao().update(entity);
 
         return getPurchaseDao().update(entity);
