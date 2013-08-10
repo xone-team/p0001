@@ -47,16 +47,19 @@ public class ProductBackAction extends LogicAction {
     protected String uploadFile3FileName;
 
     protected String imageUploadPath;
-    
+
     public Enum<?>[] getFlagDeleted() {
         return Product.FlagDeleted.values();
     }
+
     public Enum<?>[] getCheckStatus() {
         return Product.CheckStatus.values();
     }
+
     public Enum<?>[] getProductType() {
         return Product.ProductType.values();
     }
+
     public Enum<?>[] getSaleType() {
         return Product.SaleType.values();
     }
@@ -128,7 +131,7 @@ public class ProductBackAction extends LogicAction {
             addActionError(e.getMessage());
             return INPUT;
         }
-        
+
         return SUCCESS;
     }
 
@@ -176,8 +179,7 @@ public class ProductBackAction extends LogicAction {
             });
             entity.setUserUpdated(getUserId());
             entity.setLastUpdated(new Date());
-            if(Product.CheckStatus.DENIED.getValue().equals(entity.getCheckStatus())
-                    ||Product.CheckStatus.PASSED.getValue().equals(entity.getCheckStatus())){
+            if (Product.CheckStatus.DENIED.getValue().equals(entity.getCheckStatus()) || Product.CheckStatus.PASSED.getValue().equals(entity.getCheckStatus())) {
                 entity.setUserCheck(getUserId());
                 entity.setDateCheck(new Date());
                 entity.getCheck().setUserCheck(getUserId());
@@ -186,12 +188,13 @@ public class ProductBackAction extends LogicAction {
         }
         return SUCCESS;
     }
-//
-//    public String productDelete() throws Exception {
-//        Product entity = getProductService().findById(getProduct().getId());
-//        productService.delete(entity);
-//        return SUCCESS;
-//    }
+
+    //
+    // public String productDelete() throws Exception {
+    // Product entity = getProductService().findById(getProduct().getId());
+    // productService.delete(entity);
+    // return SUCCESS;
+    // }
 
     public ProductService getProductService() {
         return productService;
@@ -225,13 +228,13 @@ public class ProductBackAction extends LogicAction {
         this.pagination = pagination;
     }
 
-//    public Map<String, Object[]> getTypes() {
-//        return types;
-//    }
-//
-//    public void setTypes(Map<String, Object[]> types) {
-//        this.types = types;
-//    }
+    // public Map<String, Object[]> getTypes() {
+    // return types;
+    // }
+    //
+    // public void setTypes(Map<String, Object[]> types) {
+    // this.types = types;
+    // }
 
     public File getUploadFile1() {
         return uploadFile1;
