@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
+import com.xone.model.hibernate.entity.MyModel;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
@@ -31,20 +32,18 @@ public class PurchaseBackAction extends Action {
 	protected List<Purchase> list = new ArrayList<Purchase>();
 	protected Pagination pagination = new Pagination();
 	
-//	protected CommonTypes commonTypes = CommonTypes.getInstance();
-//	protected Map<String, Object[]> types = new HashMap<String, Object[]>();
-//	
-//	@Override
-//    public void prepare() throws Exception {
-//	    purchase.setPerson(new Person());
-//	    purchase.setCheck(new PurcCheck());
-//	    
-//        types.put("yn", Person.YN.values());
-//        types.put("checkStatus", Product.CheckStatus.values());
-//        types.put("productType", Product.ProductType.values());
-//        types.put("saleType", Product.SaleType.values());
-//	    super.prepare();
-//    }
+    public Enum<?>[] getFlagDeleted() {
+        return Purchase.FlagDeleted.values();
+    }
+    public Enum<?>[] getCheckStatus() {
+        return Purchase.CheckStatus.values();
+    }
+    public Enum<?>[] getProductType() {
+        return Purchase.PurchaseType.values();
+    }
+    public Enum<?>[] getSaleType() {
+        return Purchase.SaleType.values();
+    }
 
     public String purchaseList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
@@ -145,8 +144,8 @@ public class PurchaseBackAction extends Action {
 			});
             entity.setUserUpdated(getUserId());
             entity.setLastUpdated(new Date());
-            if(Product.CheckStatus.DENIED.getValue().equals(entity.getCheckStatus())
-                    ||Product.CheckStatus.PASSED.getValue().equals(entity.getCheckStatus())){
+            if(Purchase.CheckStatus.DENIED.getValue().equals(entity.getCheckStatus())
+                    ||Purchase.CheckStatus.PASSED.getValue().equals(entity.getCheckStatus())){
                 entity.setUserCheck(getUserId());
                 entity.setDateCheck(new Date());
                 entity.getCheck().setUserCheck(getUserId());

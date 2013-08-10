@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
+import com.xone.model.hibernate.entity.MyModel;
+import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.RolesService;
@@ -28,13 +30,12 @@ public class RolesBackAction extends Action {
 	protected Roles roles = new Roles();
 	protected List<Roles> list = new ArrayList<Roles>();
 	protected Pagination pagination = new Pagination();
-//	protected CommonTypes commonTypes = CommonTypes.getInstance();
-    protected Map<String, Object[]> types = new HashMap<String, Object[]>();
-	
-	@Override
-    public void prepare() throws Exception {
-	    types.put("enable", Roles.Enable.values());
-        super.prepare();
+
+    public Enum<?>[] getFlagDeleted() {
+        return Roles.FlagDeleted.values();
+    }
+    public Enum<?>[] getEnable() {
+        return Roles.Enable.values();
     }
 
     public String rolesList() throws Exception {
@@ -53,10 +54,6 @@ public class RolesBackAction extends Action {
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
 		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
 		Pagination p = getRolesService().findByParams(params);
-//		List<Roles> l = getRolesService().findAllByMap(params);
-//		if (null != l && !l.isEmpty()) {
-//			getList().addAll(l);
-//		}
 		setPagination(p);
 		return SUCCESS;
 	}
@@ -138,6 +135,7 @@ public class RolesBackAction extends Action {
                 return value.toString();
             }
         }, null);
+        params.put("enable", Roles.Enable.YES.getValue());
         List<Roles> list = getRolesService().findAllByMap(params);
         setList(list);
         return SUCCESS;
@@ -174,14 +172,5 @@ public class RolesBackAction extends Action {
 	public void setPagination(Pagination pagination) {
 		this.pagination = pagination;
 	}
-
-    public Map<String, Object[]> getTypes() {
-        return types;
-    }
-
-    public void setTypes(Map<String, Object[]> types) {
-        this.types = types;
-    }
-
 	
 }

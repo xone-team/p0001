@@ -82,7 +82,7 @@
                         <label class="control-label" for="credit">认证标识</label>
                         <div class="controls">
                             <select class="selectpicker" id="credit" name="person.credit">
-                                <c:forEach items="${types.credit}" var="it">
+                                <c:forEach items="${credit}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == person.credit}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -92,7 +92,7 @@
                         <label class="control-label" for="userLevel">用户级别</label>
                         <div class="controls">
                             <select class="selectpicker" id="userLevel" name="person.userLevel">
-                                <c:forEach items="${types.userLevel}" var="it">
+                                <c:forEach items="${userLevel}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == person.userLevel}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>

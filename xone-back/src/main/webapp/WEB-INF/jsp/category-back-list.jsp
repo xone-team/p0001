@@ -46,7 +46,9 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="dateCreatedMin">创建日期</label>
                                                 <div class="controls">
-                                                    <input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="category.dateCreatedMin" value="${category.dateCreatedMin}" maxlength="19" placeholder="最小日期"> <span class="add-on">~</span> <input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="category.dateCreatedMax" value="${category.dateCreatedMax}" maxlength="19" placeholder="最大日期">
+                                                    <input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="category.dateCreatedMin" value="${category.dateCreatedMin}" maxlength="19" placeholder="最小日期">
+                                                    <span class="add-on">~</span>
+                                                    <input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="category.dateCreatedMax" value="${category.dateCreatedMax}" maxlength="19" placeholder="最大日期">
                                                 </div>
                                             </div>
                                         </div>
@@ -64,7 +66,9 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="sortMin">顺序</label>
                                                 <div class="controls">
-                                                    <input type="text" id="sortMin" class="span5" name="category.sortMin" value="${category.sortMin}" maxlength="11" placeholder="最小值"> <span class="add-on">~</span> <input type="text" id="sortMax" class="span5" name="category.sortMax" value="${category.sortMax}" maxlength="11" placeholder="最大值">
+                                                    <input type="text" id="sortMin" class="span5" name="category.sortMin" value="${category.sortMin}" maxlength="11" placeholder="最小值">
+                                                    <span class="add-on">~</span>
+                                                    <input type="text" id="sortMax" class="span5" name="category.sortMax" value="${category.sortMax}" maxlength="11" placeholder="最大值">
                                                 </div>
                                             </div>
                                         </div>
@@ -76,8 +80,8 @@
                 </div>
                 <div class="row-fluid">
                     <p class="text-right">
-                        <a class="btn btn-small" href="${pageContext.request.contextPath}/category/categoryCreate.html"> <i class="icon-plus">
-                            </i>创建 </a>
+                        <a class="btn btn-small" href="${pageContext.request.contextPath}/category/categoryCreate.html"> <i class="icon-plus"> </i>创建
+                        </a>
                         <button class="btn btn-small" onclick="$('#myqueryform').submit();">
                             <span class="icon-search"></span>查询
                         </button>
@@ -92,7 +96,7 @@
                                 <th>描述</th>
                                 <th>顺序</th>
                                 <th>创建日期</th>
-                                <th style="width: 8em;">操作</th>
+                                <th style="width: 4em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -103,10 +107,7 @@
                                     <td>${item.detail}</td>
                                     <td>${item.sort}</td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                    <td><a href="${pageContext.request.contextPath}/category/categoryEdit.html?category.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a> 
-                                    <button class="btn btn-mini" onclick="showModalDelete('category.id=${item.id}')">
-                                            <i class="icon-trash"> </i>删除
-                                        </button></td>
+                                    <td><a href="${pageContext.request.contextPath}/category/categoryEdit.html?category.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -117,46 +118,7 @@
         </div>
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
-    
-    
-        
-    
-    <!--  modal confirm to delete -->
-    <div id="X_model_confirm2delete" class="modal hide fade">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>删除确认</h3>
-        </div>
-        <div class="modal-body">
-            <p>确定要删除该记录吗？</p>
-        </div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal">取消</button>
-            <button class="btn btn-primary" onclick="endModalDelete()">确定</button>
-        </div>
-    </div>
-    <script type="text/javascript">
-                    function showModalDelete(targetParams) {
-                        XONE.CURRENT_MODEL = {};
-                        XONE.CURRENT_MODEL.target = targetParams;
-                        XONE.CURRENT_MODEL.modal = jQuery("#X_model_confirm2delete");
-                        XONE.CURRENT_MODEL.deleteUrl = "${pageContext.request.contextPath}/category/categoryDelete.html";
-                        XONE.CURRENT_MODEL.modal.modal("show");
-                    }
-                    function endModalDelete() {
-                        var modalCurrent = XONE.CURRENT_MODEL.modal;
-                        var targetParams = XONE.CURRENT_MODEL.target;
-                        var deleteUrl = XONE.CURRENT_MODEL.deleteUrl + "?" + targetParams;
-                        modalCurrent.modal('hide');
-                        location.href = deleteUrl;
-                    }
-                </script>
-    <!--  /modal confirm to delete -->
-    
-    
-    
-    
-    
+
 </body>
 <script>
     jQuery(function() {

@@ -64,7 +64,7 @@
                         <label class="control-label" for="enable">可用标识</label>
                         <div class="controls">
                             <select class="selectpicker" id="enable" name="resources.enable">
-                                <c:forEach items="${types.enable}" var="it">
+                                <c:forEach items="${enable}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == resources.enable}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>

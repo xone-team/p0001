@@ -40,7 +40,7 @@
                         <label class="control-label" for="purchaseType">求购类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="purchaseType" name="purchase.purchaseType">
-                                <c:forEach items="${types.productType}" var="it">
+                                <c:forEach items="${productType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == purchase.purchaseType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -74,8 +74,8 @@
                         <label class="control-label" for="purchaseCheckStatus">审核结果</label>
                         <div class="controls">
                             <select class="selectpicker" id="purchaseCheckStatus" name="purchase.check.checkStatus">
-                                <c:forEach items="${types.checkStatus}" var="it">
-                                    <option value="${it.value}" <c:if test="${it.value == purchase.check.checkStatus}">selected</c:if>>${it.name}</option>
+                                <c:forEach items="${checkStatus}" var="it">
+                                    <option value="${it.value}" <c:if test="${it.value == purchase.checkStatus}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -84,7 +84,7 @@
                     <div class="control-group">
                         <label class="control-label" for="purchaseRemark">审核意见</label>
                         <div class="controls">
-                            <input type="text" id="purchaseRemark" name="purchase.check.remark" value="${purchase.check.remark}" maxlength="255" placeholder="审核意见">
+                            <input type="text" id="purchaseRemark" name="purchase.check.remark" value="${purchase.remark}" maxlength="255" placeholder="审核意见">
                         </div>
                     </div>
 
@@ -120,34 +120,32 @@
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_purchase").addClass("active");
+        $('#saveForm').submit(function() {
+            var $form = $('#saveForm');
+            var validate = [ {
+                name : 'purchase.purchaseName',
+                text : '请输入求购产品名'
+            }, {
+                name : 'purchase.purchasePrice',
+                text : '请输入求购产品价格'
+            }, {
+                name : 'purchase.purchasePrice',
+                text : '求购产品价格必须为数字，且大于0',
+                func : numberValidation
+            }, {
+                name : 'purchase.purchaseNum',
+                text : '请输入求购产品数量'
+            }, {
+                name : 'purchase.purchaseNum',
+                text : '求购产品数量必须为数字，且大于0',
+                func : numberValidation
+            } ];
+
+            var pass = XONE.valid(validate, $form, "");
+    		return pass;
+        });
     });
 
-    function doSaveForm() {
-        var $form = $('#saveForm');
-        var validate = [ {
-            name : 'purchase.purchaseName',
-            text : '请输入求购产品名'
-        }, {
-            name : 'purchase.purchasePrice',
-            text : '请输入求购产品价格'
-        }, {
-            name : 'purchase.purchasePrice',
-            text : '求购产品价格必须为数字，且大于0',
-            func : numberValidation
-        }, {
-            name : 'purchase.purchaseNum',
-            text : '请输入求购产品数量'
-        }, {
-            name : 'purchase.purchaseNum',
-            text : '求购产品数量必须为数字，且大于0',
-            func : numberValidation
-        } ];
-
-        var pass = XONE.valid(validate, $form, "");
-
-        if (pass)
-            $form.submit();
-    }
     function numberValidation(inputEl) {
         var result = true;
         var val = inputEl.val();

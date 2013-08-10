@@ -50,7 +50,7 @@
                                                 <div class="controls">
                                                     <select class="selectpicker" id="checkStatus" name="topad.checkStatus">
                                                         <option value="">全部</option>
-                                                        <c:forEach items="${types.topadCheckStatusList}" var="it">
+                                                        <c:forEach items="${checkStatus}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == topad.checkStatus}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
                                                     </select>
@@ -109,7 +109,7 @@
                                 <th>申请人</th>
                                 <th>申请日期</th>
                                 <th>审核日期</th>
-                                <th style="width: 8em;">操作</th>
+                                <th style="width: 4em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -117,7 +117,7 @@
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
                                     <td><a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.productId}">${item.productName}</a></td>
-                                    <td><a href="${pageContext.request.contextPath}/topad/topadItem.html?topad.id=${item.id}"> <c:forEach items="${types.topadCheckStatusList}" var="it">
+                                    <td><a href="${pageContext.request.contextPath}/topad/topadItem.html?topad.id=${item.id}"> <c:forEach items="${checkStatus}" var="it">
                                                 <c:if test="${it.value == item.checkStatus}">${it.name}</c:if>
                                             </c:forEach>
                                     </a></td>

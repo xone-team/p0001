@@ -125,7 +125,7 @@
                                                 <div class="controls">
                                                     <select class="selectpicker" id="credit" name="person.credit">
                                                         <option value="">全部</option>
-                                                        <c:forEach items="${types.credit}" var="it">
+                                                        <c:forEach items="${credit}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == person.credit}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
                                                     </select>
@@ -138,7 +138,7 @@
                                                 <div class="controls">
                                                     <select class="selectpicker" id="userLevel" name="person.userLevel">
                                                         <option value="">全部</option>
-                                                        <c:forEach items="${types.userLevel}" var="it">
+                                                        <c:forEach items="${userLevel}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == person.userLevel}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
                                                     </select>

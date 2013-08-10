@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.ibatis.session.RowBounds;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -24,6 +25,7 @@ import com.xone.model.hibernate.entity.Resources;
 import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.entity.RolesResources;
 import com.xone.model.hibernate.entity.UserRoles;
+import com.xone.model.hibernate.mybatis.mapper.RolesMapper;
 import com.xone.model.hibernate.support.Pagination;
 
 public class RolesServiceImpl implements RolesService {

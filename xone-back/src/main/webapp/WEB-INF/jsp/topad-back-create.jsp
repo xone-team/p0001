@@ -42,7 +42,7 @@
                         <label class="control-label" for="checkStatus">审核状态</label>
                         <div class="controls">
                             <select class="selectpicker" id="checkStatus" name="topad.checkStatus">
-                                <c:forEach items="${types.topadCheckStatusList}" var="it">
+                                <c:forEach items="${checkStatus}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == topad.checkStatus}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -179,7 +179,7 @@
             text : '请选择产品'
         } ];
 
-        var pass = XONE.valid(validate, $form, "categroy.");
+        var pass = XONE.valid(validate, $form, "topad.");
         if (pass)
             $form.submit();
     }

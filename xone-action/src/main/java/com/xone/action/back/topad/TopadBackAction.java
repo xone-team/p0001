@@ -29,22 +29,18 @@ public class TopadBackAction extends Action {
     protected Topad topad = new Topad();
     protected List<Topad> list = new ArrayList<Topad>();
     protected Pagination pagination = new Pagination();
-//    protected CommonTypes commonTypes = CommonTypes.getInstance();
-//    protected Map<String, Object[]> types = new HashMap<String, Object[]>();
 
     protected Person person = new Person();
     protected Product product = new Product();
     protected PersonService personService;
     protected ProductService productService;
 
-//    @Override
-//    public void prepare() throws Exception {
-//        super.prepare();
-//
-//        types.put("yn", Person.YN.values());
-//        types.put("checkStatus", Product.CheckStatus.values());
-//    }
-    
+    public Enum<?>[] getFlagDeleted() {
+        return Topad.FlagDeleted.values();
+    }
+    public Enum<?>[] getCheckStatus() {
+        return Topad.CheckStatus.values();
+    }    
     public String topadList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
 
