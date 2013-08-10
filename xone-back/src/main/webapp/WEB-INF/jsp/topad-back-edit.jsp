@@ -24,22 +24,22 @@
                     <ul class="breadcrumb" id="X_breadcrumbs_ul">
                         <li>后台 <span class="divider">/</span></li>
                         <li>产品管理 <span class="divider">/</span></li>
-                        <li><a href="${pageContext.request.contextPath}/topad/topadList.html">置顶列表</a> <span class="divider">/</span></li>
+                        <li><a href="${pageContext.request.contextPath}/overhead/overheadList.html">置顶列表</a> <span class="divider">/</span></li>
                         <li class="active">置顶编辑</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/topad/topadUpdate.html">
-                    <input type="hidden" name="topad.id" value="${topad.id}">
+                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/overhead/overheadUpdate.html">
+                    <input type="hidden" name="overhead.id" value="${overhead.id}">
                     <div class="control-group">
                         <label class="control-label" for="productId">产品</label>
                         <div class="controls">
                             <div id="productIdsSelectResult" class="inline">
                                 <div class="X-select-result inline">
-                                    <input type="hidden" class="X-select-hidden-value" value="${topad.productId}" name="topad.productId">
-                                    <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${topad.productId}"><span class="label label-default">${product.productName}</span></a>
+                                    <input type="hidden" class="X-select-hidden-value" value="${overhead.productId}" name="overhead.productId">
+                                    <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${overhead.productId}"><span class="label label-default">${product.productName}</span></a>
                                 </div>
                             </div>
-                            <button type="button" class="btn" onclick="showModalProductSelect($('#productIdsSelectResult'), 'topad.productId');">
+                            <button type="button" class="btn" onclick="showModalProductSelect($('#productIdsSelectResult'), 'overhead.productId');">
                                 <i class="icon-filter"></i>选择
                             </button>
                         </div>
@@ -47,9 +47,9 @@
                     <div class="control-group">
                         <label class="control-label" for="checkStatus">审核状态</label>
                         <div class="controls">
-                            <select class="selectpicker" id="checkStatus" name="topad.checkStatus">
+                            <select class="selectpicker" id="checkStatus" name="overhead.checkStatus">
                                 <c:forEach items="${checkStatus}" var="it">
-                                    <option value="${it.value}" <c:if test="${it.value == topad.checkStatus}">selected</c:if>>${it.name}</option>
+                                    <option value="${it.value}" <c:if test="${it.value == overhead.checkStatus}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -57,7 +57,7 @@
                     <div class="control-group">
                         <label class="control-label" for="remark">备注</label>
                         <div class="controls">
-                            <input type="text" id="remark" name="topad.remark" value="${topad.remark}" maxlength="1023" placeholder="备注">
+                            <input type="text" id="remark" name="overhead.remark" value="${overhead.remark}" maxlength="1023" placeholder="备注">
                         </div>
                     </div>
                     <div class="control-group">
@@ -177,7 +177,7 @@
 </body>
 <script>
     jQuery(function() {
-        jQuery("#X_menu_li_topad").addClass("active");
+        jQuery("#X_menu_li_overhead").addClass("active");
         $('#saveForm').submit(function() {
             var $form = $('#saveForm');
             var validate = [ {
@@ -185,7 +185,7 @@
                 text : '请选择产品'
             } ];
 
-            var pass = XONE.valid(validate, $form, "topad.");
+            var pass = XONE.valid(validate, $form, "overhead.");
             return pass;
         });
     });

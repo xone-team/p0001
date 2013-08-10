@@ -149,9 +149,9 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="prodCheckStatus">审核结果</label>
+                        <label class="control-label" for="productCheckStatus">审核结果</label>
                         <div class="controls">
-                            <select class="selectpicker" id="prodCheckStatus" name="product.check.checkStatus">
+                            <select class="selectpicker" id="productCheckStatus" name="product.check.checkStatus">
                                 <c:forEach items="${checkStatus}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.check.checkStatus}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
@@ -160,16 +160,16 @@
                     </div>
 
                     <div class="control-group">
-                        <label class="control-label" for="prodCheckRemark">审核意见</label>
+                        <label class="control-label" for="productCheckRemark">审核意见</label>
                         <div class="controls">
-                            <input type="text" id="prodCheckRemark" name="product.check.remark" value="${product.check.remark}" maxlength="255" placeholder="审核意见">
+                            <input type="text" id="productCheckRemark" name="product.check.remark" value="${product.check.remark}" maxlength="255" placeholder="审核意见">
                         </div>
                     </div>
                     <div class="well">
                         审核历史
                         <c:forEach items="${ product.checkList }" var="item" varStatus="status">
                             <div class="control-group">
-                                <label class="control-label" for="prodCheckStatus">审核结果</label>
+                                <label class="control-label" for="productCheckStatus">审核结果</label>
                                 <div class="controls">
                                     <c:forEach items="${checkStatus}" var="it">
                                         <c:if test="${it.value == item.checkStatus}">${ it.name }</c:if>
@@ -178,7 +178,7 @@
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="prodCheckRemark">审核意见</label>
+                                <label class="control-label" for="productCheckRemark">审核意见</label>
                                 <div class="controls">${ item.remark }</div>
                             </div>
                         </c:forEach>

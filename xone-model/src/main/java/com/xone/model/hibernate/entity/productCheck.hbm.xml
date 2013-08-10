@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.xone.model.hibernate.entity.ProdCheck" table="T_PROD_CHECK">
+    <class name="com.xone.model.hibernate.entity.ProductCheck" table="T_PRODUCT_CHECK">
         <id name="id" type="java.lang.Long">
             <column name="ID" length="20" not-null="true" />
             <generator class="increment" />

@@ -1,4 +1,4 @@
-package com.xone.action.back.topad;
+package com.xone.action.back.overhead;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,22 +12,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
-import com.xone.model.hibernate.entity.Topad;
+import com.xone.model.hibernate.entity.Overhead;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.PersonService;
 import com.xone.service.app.ProductService;
-import com.xone.service.app.TopadService;
+import com.xone.service.app.OverheadService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
-public class TopadBackAction extends Action {
+public class OverheadBackAction extends Action {
 
     private static final long serialVersionUID = -7132163785627760581L;
     @Autowired
-    protected TopadService topadService;
-    protected Topad topad = new Topad();
-    protected List<Topad> list = new ArrayList<Topad>();
+    protected OverheadService overheadService;
+    protected Overhead overhead = new Overhead();
+    protected List<Overhead> list = new ArrayList<Overhead>();
     protected Pagination pagination = new Pagination();
 
     protected Person person = new Person();
@@ -36,15 +36,15 @@ public class TopadBackAction extends Action {
     protected ProductService productService;
 
     public Enum<?>[] getFlagDeleted() {
-        return Topad.FlagDeleted.values();
+        return Overhead.FlagDeleted.values();
     }
     public Enum<?>[] getCheckStatus() {
-        return Topad.CheckStatus.values();
+        return Overhead.CheckStatus.values();
     }    
-    public String topadList() throws Exception {
+    public String overheadList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
 
-        MyBeanUtils.copyPropertiesToMap(topad, params, new CopyRules() {
+        MyBeanUtils.copyPropertiesToMap(overhead, params, new CopyRules() {
             @Override
             public boolean myCopyRules(Object value) {
                 return null != value;
@@ -59,8 +59,8 @@ public class TopadBackAction extends Action {
 
         params.put("pageSize", String.valueOf(getPagination().getPageSize()));
         params.put("pageNo", String.valueOf(getPagination().getPageNo()));
-        Pagination p = getTopadService().findByParams(params);
-        // List<Topad> l = getTopadService().findAllByMap(params);
+        Pagination p = getOverheadService().findByParams(params);
+        // List<Overhead> l = getOverheadService().findAllByMap(params);
         // if (null != l && !l.isEmpty()) {
         // getList().addAll(l);
         // }
@@ -68,12 +68,12 @@ public class TopadBackAction extends Action {
         return SUCCESS;
     }
 
-    public String topadItem() throws Exception {
-        Topad entity = getTopadService().findById(getTopad().getId());
+    public String overheadItem() throws Exception {
+        Overhead entity = getOverheadService().findById(getOverhead().getId());
         if (null == entity || null == entity.getId()) {
             return ERROR;
         }
-        setTopad(entity);
+        setOverhead(entity);
 
         if (entity.getUserApply() != null) {
             person = personService.findById(entity.getId());
@@ -91,16 +91,17 @@ public class TopadBackAction extends Action {
         return SUCCESS;
     }
 
-    public String topadCreate() throws Exception {
+    public String overheadCreate() throws Exception {
+        overhead.setOverheadType(Overhead.OverheadType.PRODUCT.getValue());
         return SUCCESS;
     }
 
-    public String topadEdit() throws Exception {
-        Topad entity = getTopadService().findById(getTopad().getId());
+    public String overheadEdit() throws Exception {
+        Overhead entity = getOverheadService().findById(getOverhead().getId());
         if (null == entity || null == entity.getId()) {
             return ERROR;
         }
-        setTopad(entity);
+        setOverhead(entity);
 
         if (entity.getUserApply() != null) {
             person = personService.findById(entity.getId());
@@ -118,34 +119,34 @@ public class TopadBackAction extends Action {
         return SUCCESS;
     }
 
-    public String topadSave() throws Exception {
-        topad.setUserApply(getUserId());
-        topad.setDateApply(new Date());
-        topad.setUserCreated(getUserId());
-        topad.setUserUpdated(getUserId());
-        setTopad(getTopadService().save(getTopad()));
+    public String overheadSave() throws Exception {
+        overhead.setUserApply(getUserId());
+        overhead.setDateApply(new Date());
+        overhead.setUserCreated(getUserId());
+        overhead.setUserUpdated(getUserId());
+        setOverhead(getOverheadService().save(getOverhead()));
         return SUCCESS;
     }
 
-    public String topadUpdate() throws Exception {
+    public String overheadUpdate() throws Exception {
         if (!"POST".equalsIgnoreCase(getRequest().getMethod())) {
             return ERROR;
         }
         String opt = null == getRequestMap().get("delete") ? getRequestMap().get("update") : getRequestMap().get("delete");
         if (!StringUtils.isBlank(opt) && "delete".equals(opt)) {
-            Topad entity = getTopadService().findById(getTopad().getId());
+            Overhead entity = getOverheadService().findById(getOverhead().getId());
             if (null == entity || null == entity.getId()) {
                 return ERROR;
             }
-            getTopadService().delete(entity);
+            getOverheadService().delete(entity);
             return "list";
         }
         if (!StringUtils.isBlank(opt) && "update".equals(opt)) {
-            Topad entity = getTopadService().findById(getTopad().getId());
+            Overhead entity = getOverheadService().findById(getOverhead().getId());
             if (null == entity || null == entity.getId()) {
                 return ERROR;
             }
-            MyBeanUtils.copyProperties(getTopad(), entity, Topad.class, null, new CopyRules() {
+            MyBeanUtils.copyProperties(getOverhead(), entity, Overhead.class, null, new CopyRules() {
                 @Override
                 public boolean myCopyRules(Object value) {
                     return (null != value);
@@ -154,39 +155,39 @@ public class TopadBackAction extends Action {
 
             entity.setUserCheck(new Long(0));
             entity.setDateCheck(new Date());
-            setTopad(getTopadService().update(entity));
+            setOverhead(getOverheadService().update(entity));
         }
         return SUCCESS;
     }
 
-    public String topadDelete() throws Exception {
-        Topad entity = topadService.findById(topad.getId());
-        topadService.delete(entity);
+    public String overheadDelete() throws Exception {
+        Overhead entity = overheadService.findById(overhead.getId());
+        overheadService.delete(entity);
         return SUCCESS;
     }
 
-    public TopadService getTopadService() {
-        return topadService;
+    public OverheadService getOverheadService() {
+        return overheadService;
     }
 
-    public void setTopadService(TopadService topadService) {
-        this.topadService = topadService;
+    public void setOverheadService(OverheadService overheadService) {
+        this.overheadService = overheadService;
     }
 
-    public List<Topad> getList() {
+    public List<Overhead> getList() {
         return list;
     }
 
-    public void setList(List<Topad> list) {
+    public void setList(List<Overhead> list) {
         this.list = list;
     }
 
-    public Topad getTopad() {
-        return topad;
+    public Overhead getOverhead() {
+        return overhead;
     }
 
-    public void setTopad(Topad topad) {
-        this.topad = topad;
+    public void setOverhead(Overhead overhead) {
+        this.overhead = overhead;
     }
 
     public Pagination getPagination() {

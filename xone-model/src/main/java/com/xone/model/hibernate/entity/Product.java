@@ -92,8 +92,8 @@ public class Product extends MyModel implements Serializable {
 	
 	protected Person person = new Person();
 	
-	protected List<ProdCheck> checkList;
-	protected ProdCheck check = new ProdCheck();
+	protected List<ProductCheck> checkList;
+	protected ProductCheck check = new ProductCheck();
 	
 	public Person getPerson() {
 		return person;
@@ -453,19 +453,19 @@ public class Product extends MyModel implements Serializable {
         this.lastUpdatedMax = lastUpdatedMax;
     }
 
-    public List<ProdCheck> getCheckList() {
+    public List<ProductCheck> getCheckList() {
         return checkList;
     }
 
-    public void setCheckList(List<ProdCheck> checkList) {
+    public void setCheckList(List<ProductCheck> checkList) {
         this.checkList = checkList;
     }
 
-    public ProdCheck getCheck() {
+    public ProductCheck getCheck() {
         return check;
     }
 
-    public void setCheck(ProdCheck check) {
+    public void setCheck(ProductCheck check) {
         this.check = check;
     }
 

@@ -2,14 +2,20 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-	<class name="com.xone.model.hibernate.entity.Topad" table="T_TOPAD">
+	<class name="com.xone.model.hibernate.entity.Overhead" table="T_OVERHEAD">
 	<id name="id" type="java.lang.Long">
 		<column name="ID" length="20" not-null="true"/>
 		<generator class="increment" />
 	</id>
+    <property name="overheadType" type="java.lang.String">
+        <column name="OVERHEAD_TYPE" length="1"/>
+    </property>
 	<property name="productId" type="java.lang.Long">
 		<column name="PRODUCT_ID" length="20"/>
 	</property>
+    <property name="purchaseId" type="java.lang.Long">
+        <column name="PURCHASE_ID" length="20"/>
+    </property>
 	<property name="checkStatus" type="java.lang.String">
 		<column name="CHECK_STATUS" length="1"/>
 	</property>

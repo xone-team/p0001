@@ -13,70 +13,69 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.xone.model.hibernate.app.PurcCheckDao;
-import com.xone.model.hibernate.entity.PurcCheck;
+import com.xone.model.hibernate.app.ProductCheckDao;
+import com.xone.model.hibernate.entity.ProductCheck;
 import com.xone.model.hibernate.support.Pagination;
-import com.xone.service.app.utils.MyServerUtils;
 
-public class PurcCheckServiceImpl implements PurcCheckService {
-	private static final Log log = LogFactory.getLog(PurcCheckServiceImpl.class);
+public class ProductCheckServiceImpl implements ProductCheckService {
+	private static final Log log = LogFactory.getLog(ProductCheckServiceImpl.class);
 
 	@Autowired
-	protected PurcCheckDao purcCheckDao;
+	protected ProductCheckDao productCheckDao;
 
 	@Override
-	public PurcCheck save(PurcCheck entity) {
-		return getPurcCheckDao().save(entity);
+	public ProductCheck save(ProductCheck entity) {
+		return getProductCheckDao().save(entity);
 	}
 	
 	@Override
-	public PurcCheck update(PurcCheck entity) {
-		return getPurcCheckDao().update(entity);
+	public ProductCheck update(ProductCheck entity) {
+		return getProductCheckDao().update(entity);
 	}
 	
 	@Override
-	public void delete(PurcCheck entity) {
-		getPurcCheckDao().deleteById(entity.getId());
+	public void delete(ProductCheck entity) {
+		getProductCheckDao().deleteById(entity.getId());
 	}
 
 	@Override
-	public PurcCheck findById(Long id) {
-		return getPurcCheckDao().findById(id);
+	public ProductCheck findById(Long id) {
+		return getProductCheckDao().findById(id);
 	}
 	
 	@Override
-    public PurcCheck findByMap(Map<String, String> params) {
-        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(PurcCheck.class);
+    public ProductCheck findByMap(Map<String, String> params) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ProductCheck.class);
 
         handleCriteriaByParams(detachedCriteria, params);
         
-        List<PurcCheck> l = getPurcCheckDao().findListByDetachedCriteria(detachedCriteria, 0, 1);
+        List<ProductCheck> l = getProductCheckDao().findListByDetachedCriteria(detachedCriteria, 0, 1);
         if (null == l) {
-            return new PurcCheck();
+            return new ProductCheck();
         }
         return l.get(0);
     }
 
 	@Override
-	public List<PurcCheck> findAllByMap(Map<String, String> params) {
+	public List<ProductCheck> findAllByMap(Map<String, String> params) {
 		DetachedCriteria detachedCriteria = DetachedCriteria
-				.forClass(PurcCheck.class);
+				.forClass(ProductCheck.class);
 				
 		handleCriteriaByParams(detachedCriteria, params);
 				
-		return getPurcCheckDao()
+		return getProductCheckDao()
 				.findListByDetachedCriteria(detachedCriteria, 0, 10);
 	}
 	
 	public Pagination findByParams(Map<String, String> params) {
 		DetachedCriteria detachedCriteria = DetachedCriteria
-				.forClass(PurcCheck.class);
+				.forClass(ProductCheck.class);
 				
 		handleCriteriaByParams(detachedCriteria, params);
 				
-		int pageSize = MyServerUtils.parseInteger(params.get("pageSize"), 20);
-		int startIndex = MyServerUtils.parseInteger(params.get("pageNo"), 0);
-		return getPurcCheckDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+		int pageSize = com.xone.model.utils.MyModelUtils.parseInt(params.get("pageSize"), 20);
+		int startIndex = com.xone.model.utils.MyModelUtils.parseInt(params.get("pageNo"), 0);
+		return getProductCheckDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
 	}
 	
 	protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params){
@@ -92,17 +91,17 @@ public class PurcCheckServiceImpl implements PurcCheckService {
         if (!StringUtils.isBlank(idMax)) {
             criteria.add(Restrictions.le("id", new Long(idMax)));
         }
-		String purchaseId = params.get("purchaseId");
-        if (!StringUtils.isBlank(purchaseId)) {
-            criteria.add(Restrictions.eq("purchaseId", new Long(purchaseId)));
+		String productId = params.get("productId");
+        if (!StringUtils.isBlank(productId)) {
+            criteria.add(Restrictions.eq("productId", new Long(productId)));
         }
-		String purchaseIdMin = params.get("purchaseIdMin");
-        if (!StringUtils.isBlank(purchaseIdMin)) {
-            criteria.add(Restrictions.ge("purchaseId", new Long(purchaseIdMin)));
+		String productIdMin = params.get("productIdMin");
+        if (!StringUtils.isBlank(productIdMin)) {
+            criteria.add(Restrictions.ge("productId", new Long(productIdMin)));
         }
-		String purchaseIdMax = params.get("purchaseIdMax");
-        if (!StringUtils.isBlank(purchaseIdMax)) {
-            criteria.add(Restrictions.le("purchaseId", new Long(purchaseIdMax)));
+		String productIdMax = params.get("productIdMax");
+        if (!StringUtils.isBlank(productIdMax)) {
+            criteria.add(Restrictions.le("productId", new Long(productIdMax)));
         }
 		String checkStatus = params.get("checkStatus");
         if (!StringUtils.isBlank(checkStatus)) {
@@ -232,12 +231,12 @@ public class PurcCheckServiceImpl implements PurcCheckService {
         criteria.addOrder(Order.desc("dateCreated"));
 	}
 
-	public PurcCheckDao getPurcCheckDao() {
-		return purcCheckDao;
+	public ProductCheckDao getProductCheckDao() {
+		return productCheckDao;
 	}
 
-	public void setPurcCheckDao(PurcCheckDao purcCheckDao) {
-		this.purcCheckDao = purcCheckDao;
+	public void setProductCheckDao(ProductCheckDao productCheckDao) {
+		this.productCheckDao = productCheckDao;
 	}
 	
 }

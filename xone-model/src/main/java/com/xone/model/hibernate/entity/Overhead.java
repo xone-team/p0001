@@ -7,11 +7,13 @@ import java.util.Date;
  * @author mac
  *
  */
-public class Topad extends MyModel implements Serializable {
+public class Overhead extends MyModel implements Serializable {
 
     private static final long serialVersionUID = 1437103503888442067L;
     protected Long id;
+    protected String overheadType;
 	protected Long productId;
+	protected Long purchaseId;
 	protected String checkStatus;
 	protected String remark;
 	protected Long userApply;
@@ -25,13 +27,13 @@ public class Topad extends MyModel implements Serializable {
 	protected Date lastUpdated;
 	
 	/**
-	 * 审核状态
+	 * 置顶类型
 	 */
-	public enum CheckStatus {
-		WAITING("0", "待审核"), PASSED("1", "审核通过"), DENIED("2", "审核未通过");
+	public enum OverheadType {
+		PRODUCT("1", "产品"), PURCHASE("2", "求购");
         protected String value;
         protected String name;
-        private CheckStatus(String v, String n) {
+        private OverheadType(String v, String n) {
             this.value = v;
             this.name = n;
         }
@@ -43,6 +45,25 @@ public class Topad extends MyModel implements Serializable {
         }
 	}
 	
+	/**
+	 * 审核状态
+	 */
+	public enum CheckStatus {
+	    WAITING("0", "待审核"), PASSED("1", "审核通过"), DENIED("2", "审核未通过");
+	    protected String value;
+	    protected String name;
+	    private CheckStatus(String v, String n) {
+	        this.value = v;
+	        this.name = n;
+	    }
+	    public String getValue() {
+	        return this.value;
+	    }
+	    public String getName() {
+	        return this.name;
+	    }
+	}
+	
     public String getCheckStatusName() {
         for (CheckStatus e : CheckStatus.values()) {
             if(e.getValue().equals(this.checkStatus)){
@@ -51,6 +72,16 @@ public class Topad extends MyModel implements Serializable {
         }
         return UNKNOWN_STATUS_NAME;
     }
+    
+    public String getOverheadTypeName() {
+        for (OverheadType e : OverheadType.values()) {
+            if(e.getValue().equals(this.overheadType)){
+                return e.getName();
+            }
+        }
+        return UNKNOWN_STATUS_NAME;
+    }
+    
     
     public String getFlagDeletedName() {
         for (FlagDeleted e : FlagDeleted.values()) {
@@ -68,26 +99,28 @@ public class Topad extends MyModel implements Serializable {
 	protected String productName;
 
 // business logic
-	protected Long idMin;
-	protected Long idMax;
-	protected Long productIdMin;
-	protected Long productIdMax;
-	protected Long userApplyMin;
-	protected Long userApplyMax;
-	protected String dateApplyMin;
-	protected String dateApplyMax;
-	protected Long userCheckMin;
-	protected Long userCheckMax;
-	protected String dateCheckMin;
-	protected String dateCheckMax;
-	protected Long userCreatedMin;
-	protected Long userCreatedMax;
-	protected String dateCreatedMin;
-	protected String dateCreatedMax;
-	protected Long userUpdatedMin;
-	protected Long userUpdatedMax;
-	protected String lastUpdatedMin;
-	protected String lastUpdatedMax;
+    protected Long idMin;
+    protected Long idMax;
+    protected Long productIdMin;
+    protected Long productIdMax;
+    protected Long purchaseIdMin;
+    protected Long purchaseIdMax;
+    protected Long userApplyMin;
+    protected Long userApplyMax;
+    protected String dateApplyMin;
+    protected String dateApplyMax;
+    protected Long userCheckMin;
+    protected Long userCheckMax;
+    protected String dateCheckMin;
+    protected String dateCheckMax;
+    protected Long userCreatedMin;
+    protected Long userCreatedMax;
+    protected String dateCreatedMin;
+    protected String dateCreatedMax;
+    protected Long userUpdatedMin;
+    protected Long userUpdatedMax;
+    protected String lastUpdatedMin;
+    protected String lastUpdatedMax;
 
 	public Long getId() {
 		return id;
@@ -310,6 +343,38 @@ public class Topad extends MyModel implements Serializable {
     }
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getOverheadType() {
+        return overheadType;
+    }
+
+    public void setOverheadType(String overheadType) {
+        this.overheadType = overheadType;
+    }
+
+    public Long getPurchaseId() {
+        return purchaseId;
+    }
+
+    public void setPurchaseId(Long purchaseId) {
+        this.purchaseId = purchaseId;
+    }
+
+    public Long getPurchaseIdMin() {
+        return purchaseIdMin;
+    }
+
+    public void setPurchaseIdMin(Long purchaseIdMin) {
+        this.purchaseIdMin = purchaseIdMin;
+    }
+
+    public Long getPurchaseIdMax() {
+        return purchaseIdMax;
+    }
+
+    public void setPurchaseIdMax(Long purchaseIdMax) {
+        this.purchaseIdMax = purchaseIdMax;
     }
 	
 }

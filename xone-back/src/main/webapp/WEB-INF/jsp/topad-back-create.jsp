@@ -27,12 +27,12 @@
                         <li class="active">创建置顶</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/topad/topadSave.html">
+                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/overhead/overheadSave.html">
                     <div class="control-group">
                         <label class="control-label" for="productId">产品</label>
                         <div class="controls">
                             <div id="productIdsSelectResult" class="inline"></div>
-                            <button type="button" class="btn" onclick="showModalProductSelect($('#productIdsSelectResult'), 'topad.productId');">
+                            <button type="button" class="btn" onclick="showModalProductSelect($('#productIdsSelectResult'), 'overhead.productId');">
                                 <i class="icon-filter"></i>选择
                             </button>
 
@@ -41,9 +41,9 @@
                     <div class="control-group">
                         <label class="control-label" for="checkStatus">审核状态</label>
                         <div class="controls">
-                            <select class="selectpicker" id="checkStatus" name="topad.checkStatus">
+                            <select class="selectpicker" id="checkStatus" name="overhead.checkStatus">
                                 <c:forEach items="${checkStatus}" var="it">
-                                    <option value="${it.value}" <c:if test="${it.value == topad.checkStatus}">selected</c:if>>${it.name}</option>
+                                    <option value="${it.value}" <c:if test="${it.value == overhead.checkStatus}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -51,7 +51,7 @@
                     <div class="control-group">
                         <label class="control-label" for="remark">备注</label>
                         <div class="controls">
-                            <input type="text" id="remark" name="topad.remark" maxlength="1023" placeholder="备注">
+                            <input type="text" id="remark" name="overhead.remark" maxlength="1023" placeholder="备注">
                         </div>
                     </div>
                     <div class="control-group">
@@ -170,7 +170,7 @@
 </body>
 <script>
     jQuery(function() {
-        jQuery("#X_menu_li_topad").addClass("active");
+        jQuery("#X_menu_li_overhead").addClass("active");
     });
     function doSaveForm() {
         var $form = $('#saveForm');
@@ -179,7 +179,7 @@
             text : '请选择产品'
         } ];
 
-        var pass = XONE.valid(validate, $form, "topad.");
+        var pass = XONE.valid(validate, $form, "overhead.");
         if (pass)
             $form.submit();
     }

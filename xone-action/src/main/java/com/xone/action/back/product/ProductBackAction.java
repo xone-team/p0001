@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.MyModel;
-import com.xone.model.hibernate.entity.ProdCheck;
+import com.xone.model.hibernate.entity.ProductCheck;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;

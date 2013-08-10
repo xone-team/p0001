@@ -18,12 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.ImageUploadedDao;
 import com.xone.model.hibernate.app.PersonDao;
-import com.xone.model.hibernate.app.ProdCheckDao;
+import com.xone.model.hibernate.app.ProductCheckDao;
 import com.xone.model.hibernate.app.ProductDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
-import com.xone.model.hibernate.entity.ProdCheck;
 import com.xone.model.hibernate.entity.Product;
+import com.xone.model.hibernate.entity.ProductCheck;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyModelUtils;
 
@@ -37,7 +37,7 @@ public class ProductServiceImpl implements ProductService {
     protected ImageUploadedDao imageUploadedDao;
 
     @Autowired
-    protected ProdCheckDao prodCheckDao;
+    protected ProductCheckDao productCheckDao;
     
     @Autowired
     protected PersonDao personDao;
@@ -63,7 +63,7 @@ public class ProductServiceImpl implements ProductService {
             List<Long> ids = getImageUploadedDao().findAllIdsByRefId(product.getId(), ImageUploaded.RefType.PRODUCT);
             product.setIds(ids);
             
-            List<ProdCheck> checks = getProdCheckDao().findByProductId(product.getId());
+            List<ProductCheck> checks = getProductCheckDao().findByProductId(product.getId());
             product.setCheckList(checks);
         }
         return product;
@@ -140,12 +140,12 @@ public class ProductServiceImpl implements ProductService {
         // 审核信息处理
         Date dateCheck = new Date();
         
-        ProdCheck check = entity.getCheck();
+        ProductCheck check = entity.getCheck();
         if (Product.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) || Product.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
             check.setProductId(entity.getId());
             check.setDateCheck(dateCheck);
-            check.setFlagDeleted(ProdCheck.FlagDeleted.NORMAL.getValue());
-            prodCheckDao.save(check);
+            check.setFlagDeleted(ProductCheck.FlagDeleted.NORMAL.getValue());
+            productCheckDao.save(check);
             
             entity.setDateCheck(dateCheck);
             entity.setCheckStatus(check.getCheckStatus());
@@ -535,12 +535,12 @@ public class ProductServiceImpl implements ProductService {
         this.productDao = productDao;
     }
 
-    public ProdCheckDao getProdCheckDao() {
-        return prodCheckDao;
+    public ProductCheckDao getProductCheckDao() {
+        return productCheckDao;
     }
 
-    public void setProdCheckDao(ProdCheckDao prodCheckDao) {
-        this.prodCheckDao = prodCheckDao;
+    public void setProductCheckDao(ProductCheckDao productCheckDao) {
+        this.productCheckDao = productCheckDao;
     }
 
 }

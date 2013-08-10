@@ -18,13 +18,13 @@
  <bean id="adbannerService" class="com.xone.service.app.AdbannerServiceImpl" />
  <bean id="categoryService" class="com.xone.service.app.CategoryServiceImpl" />
  <bean id="configService" class="com.xone.service.app.ConfigServiceImpl" />
- <bean id="topadService" class="com.xone.service.app.TopadServiceImpl" />
+ <bean id="overheadService" class="com.xone.service.app.OverheadServiceImpl" />
  <bean id="productService" class="com.xone.service.app.ProductServiceImpl" />
  <bean id="subscribeService" class="com.xone.service.app.SubscribeServiceImpl" />
  <bean id="userRolesService" class="com.xone.service.app.UserRolesServiceImpl" />
  <bean id="resourcesService" class="com.xone.service.app.ResourcesServiceImpl" />
  <bean id="rolesService" class="com.xone.service.app.RolesServiceImpl" />
  <bean id="rolesResourcesService" class="com.xone.service.app.RolesResourcesServiceImpl" />
- <bean id="prodCheckService" class="com.xone.service.app.ProdCheckServiceImpl" />
- <bean id="purcCheckService" class="com.xone.service.app.PurcCheckServiceImpl" />
+ <bean id="productCheckService" class="com.xone.service.app.ProductCheckServiceImpl" />
+ <bean id="purchaseCheckService" class="com.xone.service.app.PurchaseCheckServiceImpl" />
 </beans>
