@@ -10,13 +10,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
+import com.xone.model.hibernate.entity.Overhead;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
-import com.xone.model.hibernate.entity.Overhead;
+import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.service.app.OverheadService;
 import com.xone.service.app.PersonService;
 import com.xone.service.app.ProductService;
-import com.xone.service.app.OverheadService;
+import com.xone.service.app.PurchaseService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
@@ -32,14 +34,21 @@ public class OverheadBackAction extends Action {
 
     protected Person person = new Person();
     protected Product product = new Product();
+    protected Purchase purchase = new Purchase();
     protected PersonService personService;
     protected ProductService productService;
+    protected PurchaseService purchaseService;
+    
+    protected String refName;
 
     public Enum<?>[] getFlagDeleted() {
         return Overhead.FlagDeleted.values();
     }
     public Enum<?>[] getCheckStatus() {
         return Overhead.CheckStatus.values();
+    }    
+    public Enum<?>[] getOverheadType() {
+        return Overhead.OverheadType.values();
     }    
     public String overheadList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -78,8 +87,21 @@ public class OverheadBackAction extends Action {
         if (entity.getUserApply() != null) {
             person = personService.findById(entity.getId());
         }
-        if (entity.getProducid() != null) {
-            product = productService.findById(entity.getProductId());
+        if (entity.getRefId() != null) {
+            if(Overhead.OverheadType.PRODUCT.getValue().equals(entity.getOverheadType())){
+                product = productService.findById(entity.getRefId());
+                if(product != null){
+                    refName = product.getProductName();
+                }
+            }
+            
+            if(Overhead.OverheadType.PURCHASE.getValue().equals(entity.getOverheadType())){
+                purchase = purchaseService.findById(entity.getRefId());
+                if(purchase != null){
+                    refName = purchase.getPurchaseName();
+                }
+            }
+            
         }
         if (person == null) {
             person = new Person();
@@ -106,8 +128,21 @@ public class OverheadBackAction extends Action {
         if (entity.getUserApply() != null) {
             person = personService.findById(entity.getId());
         }
-        if (entity.getProducid() != null) {
-            product = productService.findById(entity.getProductId());
+        if (entity.getRefId() != null) {
+            if(Overhead.OverheadType.PRODUCT.getValue().equals(entity.getOverheadType())){
+                product = productService.findById(entity.getRefId());
+                if(product != null){
+                    refName = product.getProductName();
+                }
+            }
+            
+            if(Overhead.OverheadType.PURCHASE.getValue().equals(entity.getOverheadType())){
+                purchase = purchaseService.findById(entity.getRefId());
+                if(purchase != null){
+                    refName = purchase.getPurchaseName();
+                }
+            }
+            
         }
         if (person == null) {
             person = new Person();
@@ -220,6 +255,36 @@ public class OverheadBackAction extends Action {
 
     public void setProductService(ProductService productService) {
         this.productService = productService;
+    }
+    public Purchase getPurchase() {
+        return purchase;
+    }
+    public void setPurchase(Purchase purchase) {
+        this.purchase = purchase;
+    }
+    public PurchaseService getPurchaseService() {
+        return purchaseService;
+    }
+    public void setPurchaseService(PurchaseService purchaseService) {
+        this.purchaseService = purchaseService;
+    }
+    public PersonService getPersonService() {
+        return personService;
+    }
+    public ProductService getProductService() {
+        return productService;
+    }
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    public String getRefName() {
+        return refName;
+    }
+    public void setRefName(String refName) {
+        this.refName = refName;
     }
 
 }

@@ -86,7 +86,8 @@
                 </div>
                 <div class="row-fluid">
                     <p class="text-right">
-                        <a class="btn btn-small" href="${pageContext.request.contextPath}/resources/resourcesCreate.html"> <i class="icon-plus"></i>创建
+                        <a class="btn btn-small" href="${pageContext.request.contextPath}/resources/resourcesCreate.html">
+                            <i class="icon-plus"></i>创建
                         </a>
                         <button class="btn btn-small" onclick="$('#myqueryform').submit();">
                             <span class="icon-search"></span>查询
@@ -104,20 +105,25 @@
                                 <th>资源地址</th>
                                 <th>备注</th>
                                 <th>创建时间</th>
-                                <th style="width: 4em;">操作</th>
+                                <th style="width: 8em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
-                                    <td><a href="${pageContext.request.contextPath}/resources/resourcesItem.html?resources.id=${item.id}">${item.name}</a></td>
+                                    <td>${item.name}</td>
                                     <td>${item.resourceType}</td>
                                     <td class="table-col-number">${item.priority}</td>
                                     <td>${item.resourceUrl}</td>
                                     <td>${item.remark}</td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                    <td><a href="${pageContext.request.contextPath}/resources/resourcesEdit.html?resources.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a></td>
+                                    <td><a href="${pageContext.request.contextPath}/resources/resourcesEdit.html?resources.id=${item.id}" class="btn btn-mini">
+                                            <i class="icon-edit"> </i>编辑
+                                        </a>
+                                        <a href="${pageContext.request.contextPath}/resources/resourcesItem.html?resources.id=${item.id}" class="btn btn-mini">
+                                            <i class="icon-list-alt"> </i>详细
+                                        </a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

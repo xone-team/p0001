@@ -65,7 +65,9 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="loadtime">上货时间</label>
                                                 <div class="controls">
-                                                    <input type="text" class="span5 loadtime" name="delivery.gtLoadtime" value="<fmt:formatDate value="${delivery.gtLoadtime}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" placeholder="上货开始时间"> <span class="add-on">～</span> <input type="text" class="span5 loadtime" name="delivery.ltLoadtime" value="<fmt:formatDate value="${delivery.ltLoadtime}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" placeholder="上货结束时间">
+                                                    <input type="text" class="span5 loadtime" name="delivery.gtLoadtime" value="<fmt:formatDate value="${delivery.gtLoadtime}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" placeholder="上货开始时间">
+                                                    <span class="add-on">～</span>
+                                                    <input type="text" class="span5 loadtime" name="delivery.ltLoadtime" value="<fmt:formatDate value="${delivery.ltLoadtime}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" placeholder="上货结束时间">
                                                 </div>
                                             </div>
                                         </div>
@@ -95,7 +97,8 @@
                 </div>
                 <div class="row-fluid">
                     <p class="text-right">
-                        <a class="btn btn-small" href="${pageContext.request.contextPath}/delivery/deliveryCreate.html"> <i class="icon-plus"> </i>发布物流配送
+                        <a class="btn btn-small" href="${pageContext.request.contextPath}/delivery/deliveryCreate.html">
+                            <i class="icon-plus"> </i>发布物流配送
                         </a>
                         <button class="btn btn-small" onclick="$('#myqueryform').submit();">
                             <span class="icon-search"></span>查询
@@ -134,7 +137,11 @@
                                     <td class="table-col-number">${item.totalWeight}</td>
                                     <td>${item.flagPassName}</td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd hh:mm:ss" /></td>
-                                    <td><a href="${pageContext.request.contextPath}/delivery/deliveryEdit.html?delivery.id=${item.id}" class="btn btn-mini">编辑</a> <a href="${pageContext.request.contextPath}/delivery/deliveryItem.html?delivery.id=${item.id}" class="btn btn-mini">详细</a></td>
+                                    <td>
+                                    <a href="${pageContext.request.contextPath}/delivery/deliveryEdit.html?delivery.id=${item.id}" class="btn btn-mini">
+                                            <i class="icon-edit"> </i>编辑</a> 
+                                    <a href="${pageContext.request.contextPath}/delivery/deliveryItem.html?delivery.id=${item.id}" class="btn btn-mini"><i class="icon-list-alt"> </i>详细</a>
+                                    </td>
                                 </tr>
                             </c:forEach>
                         </tbody>

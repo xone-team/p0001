@@ -157,7 +157,8 @@
                 </div>
                 <div class="row-fluid">
                     <p class="text-right">
-                        <a class="btn btn-small" href="${pageContext.request.contextPath}/product/productCreate.html"> <i class="icon-plus"> </i>创建
+                        <a class="btn btn-small" href="${pageContext.request.contextPath}/product/productCreate.html">
+                            <i class="icon-plus"> </i>创建
                         </a>
                         <button class="btn btn-small" onclick="$('#myqueryform').submit();">
                             <span class="icon-search"></span>查询
@@ -177,14 +178,14 @@
                                 <th>产品产地</th>
                                 <th>产品属地</th>
                                 <th>申请时间</th>
-                                <th style="width: 4em;">操作</th>
+                                <th style="width: 8em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
-                                    <td><a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}">${item.productName}</a></td>
+                                    <td>${item.productName}</td>
                                     <td>${product.productTypeName }</td>
                                     <td>${item.saleTypeName }</td>
                                     <td class="table-col-number">${item.productPrice}</td>
@@ -192,7 +193,12 @@
                                     <td>${item.productAddress}</td>
                                     <td>${item.productLocation}</td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                    <td><a href="${pageContext.request.contextPath}/product/productEdit.html?product.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a></td>
+                                    <td><a href="${pageContext.request.contextPath}/product/productEdit.html?product.id=${item.id}" class="btn btn-mini">
+                                            <i class="icon-edit"> </i>编辑
+                                        </a>
+                                        <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}" class="btn btn-mini">
+                                            <i class="icon-list-alt"> </i>详细
+                                        </a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
