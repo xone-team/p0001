@@ -71,10 +71,6 @@
                             <td>${purchase.checkStatusName }</td>
                         </tr>
                         <tr>
-                            <td style="width: 60px;">审核意见</td>
-                            <td>${purchase.remark}</td>
-                        </tr>
-                        <tr>
                             <td colspan="2">审核历史</td>
                         </tr>
                         <c:forEach items="${ purchase.checkList }" var="item" varStatus="status">
