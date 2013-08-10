@@ -35,12 +35,12 @@
                             <td>${overhead.id}</td>
                         </tr>
                         <tr>
-                            <td style="width: 60px;">产品</td>
-                            <td>${overhead.productId}</td>
+                            <td style="width: 60px;">置顶类型</td>
+                            <td>${overhead.overheadTypeName}</td>
                         </tr>
                         <tr>
-                            <td style="width: 60px;">审核状态</td>
-                            <td>${overhead.checkStatus}</td>
+                            <td style="width: 60px;">相关编号</td>
+                            <td>${refName}</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">备注</td>
@@ -48,11 +48,15 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">申请人</td>
-                            <td>${overhead.userApply}</td>
+                            <td>${person.username}</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">申请日期</td>
                             <td><fmt:formatDate value="${overhead.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 60px;">审核状态</td>
+                            <td>${overhead.checkStatusName}</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核日期</td>

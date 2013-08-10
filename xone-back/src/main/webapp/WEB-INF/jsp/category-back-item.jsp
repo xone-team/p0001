@@ -24,8 +24,8 @@
                     <ul class="breadcrumb" id="X_breadcrumbs_ul">
                         <li>后台 <span class="divider">/</span></li>
                         <li>产品管理 <span class="divider">/</span></li>
-                        <li><a href="${pageContext.request.contextPath}/category/categoryList.html">系统设置列表</a> <span class="divider">/</span></li>
-                        <li class="active">系统设置详细</li>
+                        <li><a href="${pageContext.request.contextPath}/category/categoryList.html">分类列表</a> <span class="divider">/</span></li>
+                        <li class="active">分类详细</li>
                     </ul>
                 </div>
                 <table class="table table-bordered" style="width: 100%">

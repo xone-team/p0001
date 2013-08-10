@@ -10,12 +10,9 @@
     <property name="overheadType" type="java.lang.String">
         <column name="OVERHEAD_TYPE" length="1"/>
     </property>
-	<property name="productId" type="java.lang.Long">
-		<column name="PRODUCT_ID" length="20"/>
+	<property name="refId" type="java.lang.Long">
+		<column name="REF_ID" length="20"/>
 	</property>
-    <property name="purchaseId" type="java.lang.Long">
-        <column name="PURCHASE_ID" length="20"/>
-    </property>
 	<property name="checkStatus" type="java.lang.String">
 		<column name="CHECK_STATUS" length="1"/>
 	</property>

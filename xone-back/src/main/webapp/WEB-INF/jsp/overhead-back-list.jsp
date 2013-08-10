@@ -36,14 +36,16 @@
                                     <div class="row-fluid">
                                         <div class="span5 form-horizontal">
                                             <div class="control-group">
-                                                <label class="control-label" for="productName">产品名称</label>
+                                                <label class="control-label" for="productName">置顶类型</label>
                                                 <div class="controls">
-                                                    <input type="text" id="productName" name="overhead.productName" value="${overhead.productName}" maxlength="255" placeholder="产品名称">
+                                                    <select class="selectpicker" id="overheadType" name="overhead.overheadType">
+                                                        <c:forEach items="${overheadType}" var="it">
+                                                            <option value="${it.value}" <c:if test="${it.value == overhead.overheadType}">selected</c:if>>${it.name}</option>
+                                                        </c:forEach>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row-fluid">
                                         <div class="span5 form-horizontal">
                                             <div class="control-group">
                                                 <label class="control-label" for="checkStatus">审核状态</label>
@@ -57,6 +59,8 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row-fluid">
                                         <div class="span5 form-horizontal">
                                             <div class="control-group">
                                                 <label class="control-label" for="remark">备注</label>
@@ -65,21 +69,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <div class="span5 form-horizontal">
-                                            <div class="control-group">
-                                                <label class="control-label" for="applyUsername">申请人用户名</label>
-                                                <div class="controls">
-                                                    <input type="text" id="username" name="overhead.applyUsername" value="${overhead.applyUsername}" maxlength="255" placeholder="申请人用户名">
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="span5 form-horizontal">
                                             <div class="control-group">
                                                 <label class="control-label" for="dateApplyMin">申请日期</label>
                                                 <div class="controls">
-                                                    <input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="overhead.dateApplyMin" value="${overhead.dateApplyMin}" maxlength="19" placeholder="最小日期"> <span class="add-on">~</span> <input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="overhead.dateApplyMax" value="${overhead.dateApplyMax}" maxlength="19" placeholder="最大日期">
+                                                    <input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="overhead.dateApplyMin" value="${overhead.dateApplyMin}" maxlength="19" placeholder="最小日期">
+                                                    <span class="add-on">~</span>
+                                                    <input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="overhead.dateApplyMax" value="${overhead.dateApplyMax}" maxlength="19" placeholder="最大日期">
                                                 </div>
                                             </div>
                                         </div>
@@ -91,7 +87,8 @@
                 </div>
                 <div class="row-fluid">
                     <p class="text-right">
-                        <a class="btn btn-small" href="${pageContext.request.contextPath}/overhead/overheadCreate.html"> <i class="icon-plus"> </i>创建
+                        <a class="btn btn-small" href="${pageContext.request.contextPath}/overhead/overheadCreate.html">
+                            <i class="icon-plus"> </i>创建
                         </a>
                         <button class="btn btn-small" onclick="$('#myqueryform').submit();">
                             <span class="icon-search"></span>查询
@@ -103,32 +100,28 @@
                         <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>产品</th>
+                                <th>置顶类型</th>
                                 <th>审核状态</th>
                                 <th>备注</th>
-                                <th>申请人</th>
                                 <th>申请日期</th>
                                 <th>审核日期</th>
-                                <th style="width: 4em;">操作</th>
+                                <th style="width: 8em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
-                                    <td><a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.productId}">${item.productName}</a></td>
-                                    <td><a href="${pageContext.request.contextPath}/overhead/overheadItem.html?overhead.id=${item.id}"> <c:forEach items="${checkStatus}" var="it">
-                                                <c:if test="${it.value == item.checkStatus}">${it.name}</c:if>
-                                            </c:forEach>
-                                    </a></td>
+                                    <td>${item.overheadTypeName}</td>
+                                    <td>${item.checkStatusName}</td>
                                     <td>${item.remark}</td>
-                                    <td><a href="${pageContext.request.contextPath}/person/personItem.html?person.id=${item.userApply}">${item.applyUsername}</a></td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                    <td><a href="${pageContext.request.contextPath}/overhead/overheadEdit.html?overhead.id=${item.id}" class="btn btn-mini"><i class="icon-edit"> </i>编辑</a>
-                                        <button class="btn btn-mini" onclick="showModalDelete('person.id=${item.id}')">
-                                            <i class="icon-trash"> </i>删除
-                                        </button></td>
+                                    <td><a href="${pageContext.request.contextPath}/overhead/overheadEdit.html?overhead.id=${item.id}" class="btn btn-mini">
+                                            <i class="icon-edit"> </i>编辑
+                                        </a> <a href="${pageContext.request.contextPath}/overhead/overheadItem.html?overhead.id=${item.id}" class="btn btn-mini">
+                                            <i class="icon-list-alt"></i>详细
+                                        </a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -139,42 +132,9 @@
         </div>
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
-
-
-
-
-    <!--  modal confirm to delete -->
-    <div id="X_model_confirm2delete" class="modal hide fade">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>删除确认</h3>
-        </div>
-        <div class="modal-body">
-            <p>确定要删除该记录吗？</p>
-        </div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal">取消</button>
-            <button class="btn btn-primary" onclick="endModalDelete()">确定</button>
-        </div>
-    </div>
-    <script type="text/javascript">
-                    function showModalDelete(targetParams) {
-                        XONE.CURRENT_MODEL = {};
-                        XONE.CURRENT_MODEL.target = targetParams;
-                        XONE.CURRENT_MODEL.modal = jQuery("#X_model_confirm2delete");
-                        XONE.CURRENT_MODEL.deleteUrl = "${pageContext.request.contextPath}/overhead/overheadDelete.html";
-                        XONE.CURRENT_MODEL.modal.modal("show");
-                    }
-                    function endModalDelete() {
-                        var modalCurrent = XONE.CURRENT_MODEL.modal;
-                        var targetParams = XONE.CURRENT_MODEL.target;
-                        var deleteUrl = XONE.CURRENT_MODEL.deleteUrl + "?" + targetParams;
-                        modalCurrent.modal('hide');
-                        location.href = deleteUrl;
-                    }
-                </script>
-    <!--  /modal confirm to delete -->
-
+    <script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+    <script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
 </body>
 <script>
     jQuery(function() {

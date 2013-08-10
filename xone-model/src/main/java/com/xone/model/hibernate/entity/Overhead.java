@@ -11,9 +11,9 @@ public class Overhead extends MyModel implements Serializable {
 
     private static final long serialVersionUID = 1437103503888442067L;
     protected Long id;
+    protected Long refId;
     protected String overheadType;
-	protected Long productId;
-	protected Long purchaseId;
+    
 	protected String checkStatus;
 	protected String remark;
 	protected Long userApply;
@@ -101,10 +101,8 @@ public class Overhead extends MyModel implements Serializable {
 // business logic
     protected Long idMin;
     protected Long idMax;
-    protected Long productIdMin;
-    protected Long productIdMax;
-    protected Long purchaseIdMin;
-    protected Long purchaseIdMax;
+    protected Long refIdMin;
+    protected Long refIdMax;
     protected Long userApplyMin;
     protected Long userApplyMax;
     protected String dateApplyMin;
@@ -128,12 +126,7 @@ public class Overhead extends MyModel implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getProducid() {
-		return productId;
-	}
-	public void setProducid(Long productId) {
-		this.productId = productId;
-	}
+
 	public String getCheckStatus() {
 		return checkStatus;
 	}
@@ -200,12 +193,6 @@ public class Overhead extends MyModel implements Serializable {
 	public void setLasupdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
-    public Long getProductId() {
-        return productId;
-    }
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
     public Date getLastUpdated() {
         return lastUpdated;
     }
@@ -224,125 +211,13 @@ public class Overhead extends MyModel implements Serializable {
     public void setIdMax(Long idMax) {
         this.idMax = idMax;
     }
-    public Long getProductIdMin() {
-        return productIdMin;
+
+    public Long getRefId() {
+        return refId;
     }
-    public void setProductIdMin(Long productIdMin) {
-        this.productIdMin = productIdMin;
-    }
-    public Long getProductIdMax() {
-        return productIdMax;
-    }
-    public void setProductIdMax(Long productIdMax) {
-        this.productIdMax = productIdMax;
-    }
-    public Long getUserApplyMin() {
-        return userApplyMin;
-    }
-    public void setUserApplyMin(Long userApplyMin) {
-        this.userApplyMin = userApplyMin;
-    }
-    public Long getUserApplyMax() {
-        return userApplyMax;
-    }
-    public void setUserApplyMax(Long userApplyMax) {
-        this.userApplyMax = userApplyMax;
-    }
-    public String getDateApplyMin() {
-        return dateApplyMin;
-    }
-    public void setDateApplyMin(String dateApplyMin) {
-        this.dateApplyMin = dateApplyMin;
-    }
-    public String getDateApplyMax() {
-        return dateApplyMax;
-    }
-    public void setDateApplyMax(String dateApplyMax) {
-        this.dateApplyMax = dateApplyMax;
-    }
-    public Long getUserCheckMin() {
-        return userCheckMin;
-    }
-    public void setUserCheckMin(Long userCheckMin) {
-        this.userCheckMin = userCheckMin;
-    }
-    public Long getUserCheckMax() {
-        return userCheckMax;
-    }
-    public void setUserCheckMax(Long userCheckMax) {
-        this.userCheckMax = userCheckMax;
-    }
-    public String getDateCheckMin() {
-        return dateCheckMin;
-    }
-    public void setDateCheckMin(String dateCheckMin) {
-        this.dateCheckMin = dateCheckMin;
-    }
-    public String getDateCheckMax() {
-        return dateCheckMax;
-    }
-    public void setDateCheckMax(String dateCheckMax) {
-        this.dateCheckMax = dateCheckMax;
-    }
-    public Long getUserCreatedMin() {
-        return userCreatedMin;
-    }
-    public void setUserCreatedMin(Long userCreatedMin) {
-        this.userCreatedMin = userCreatedMin;
-    }
-    public Long getUserCreatedMax() {
-        return userCreatedMax;
-    }
-    public void setUserCreatedMax(Long userCreatedMax) {
-        this.userCreatedMax = userCreatedMax;
-    }
-    public String getDateCreatedMin() {
-        return dateCreatedMin;
-    }
-    public void setDateCreatedMin(String dateCreatedMin) {
-        this.dateCreatedMin = dateCreatedMin;
-    }
-    public String getDateCreatedMax() {
-        return dateCreatedMax;
-    }
-    public void setDateCreatedMax(String dateCreatedMax) {
-        this.dateCreatedMax = dateCreatedMax;
-    }
-    public Long getUserUpdatedMin() {
-        return userUpdatedMin;
-    }
-    public void setUserUpdatedMin(Long userUpdatedMin) {
-        this.userUpdatedMin = userUpdatedMin;
-    }
-    public Long getUserUpdatedMax() {
-        return userUpdatedMax;
-    }
-    public void setUserUpdatedMax(Long userUpdatedMax) {
-        this.userUpdatedMax = userUpdatedMax;
-    }
-    public String getLastUpdatedMin() {
-        return lastUpdatedMin;
-    }
-    public void setLastUpdatedMin(String lastUpdatedMin) {
-        this.lastUpdatedMin = lastUpdatedMin;
-    }
-    public String getLastUpdatedMax() {
-        return lastUpdatedMax;
-    }
-    public void setLastUpdatedMax(String lastUpdatedMax) {
-        this.lastUpdatedMax = lastUpdatedMax;
-    }
-    public String getApplyUsername() {
-        return applyUsername;
-    }
-    public void setApplyUsername(String applyUsername) {
-        this.applyUsername = applyUsername;
-    }
-    public String getProductName() {
-        return productName;
-    }
-    public void setProductName(String productName) {
-        this.productName = productName;
+
+    public void setRefId(Long refId) {
+        this.refId = refId;
     }
 
     public String getOverheadType() {
@@ -353,28 +228,164 @@ public class Overhead extends MyModel implements Serializable {
         this.overheadType = overheadType;
     }
 
-    public Long getPurchaseId() {
-        return purchaseId;
+    public String getApplyUsername() {
+        return applyUsername;
     }
 
-    public void setPurchaseId(Long purchaseId) {
-        this.purchaseId = purchaseId;
+    public void setApplyUsername(String applyUsername) {
+        this.applyUsername = applyUsername;
     }
 
-    public Long getPurchaseIdMin() {
-        return purchaseIdMin;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setPurchaseIdMin(Long purchaseIdMin) {
-        this.purchaseIdMin = purchaseIdMin;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public Long getPurchaseIdMax() {
-        return purchaseIdMax;
+    public Long getRefIdMin() {
+        return refIdMin;
     }
 
-    public void setPurchaseIdMax(Long purchaseIdMax) {
-        this.purchaseIdMax = purchaseIdMax;
+    public void setRefIdMin(Long refIdMin) {
+        this.refIdMin = refIdMin;
+    }
+
+    public Long getRefIdMax() {
+        return refIdMax;
+    }
+
+    public void setRefIdMax(Long refIdMax) {
+        this.refIdMax = refIdMax;
+    }
+
+    public Long getUserApplyMin() {
+        return userApplyMin;
+    }
+
+    public void setUserApplyMin(Long userApplyMin) {
+        this.userApplyMin = userApplyMin;
+    }
+
+    public Long getUserApplyMax() {
+        return userApplyMax;
+    }
+
+    public void setUserApplyMax(Long userApplyMax) {
+        this.userApplyMax = userApplyMax;
+    }
+
+    public String getDateApplyMin() {
+        return dateApplyMin;
+    }
+
+    public void setDateApplyMin(String dateApplyMin) {
+        this.dateApplyMin = dateApplyMin;
+    }
+
+    public String getDateApplyMax() {
+        return dateApplyMax;
+    }
+
+    public void setDateApplyMax(String dateApplyMax) {
+        this.dateApplyMax = dateApplyMax;
+    }
+
+    public Long getUserCheckMin() {
+        return userCheckMin;
+    }
+
+    public void setUserCheckMin(Long userCheckMin) {
+        this.userCheckMin = userCheckMin;
+    }
+
+    public Long getUserCheckMax() {
+        return userCheckMax;
+    }
+
+    public void setUserCheckMax(Long userCheckMax) {
+        this.userCheckMax = userCheckMax;
+    }
+
+    public String getDateCheckMin() {
+        return dateCheckMin;
+    }
+
+    public void setDateCheckMin(String dateCheckMin) {
+        this.dateCheckMin = dateCheckMin;
+    }
+
+    public String getDateCheckMax() {
+        return dateCheckMax;
+    }
+
+    public void setDateCheckMax(String dateCheckMax) {
+        this.dateCheckMax = dateCheckMax;
+    }
+
+    public Long getUserCreatedMin() {
+        return userCreatedMin;
+    }
+
+    public void setUserCreatedMin(Long userCreatedMin) {
+        this.userCreatedMin = userCreatedMin;
+    }
+
+    public Long getUserCreatedMax() {
+        return userCreatedMax;
+    }
+
+    public void setUserCreatedMax(Long userCreatedMax) {
+        this.userCreatedMax = userCreatedMax;
+    }
+
+    public String getDateCreatedMin() {
+        return dateCreatedMin;
+    }
+
+    public void setDateCreatedMin(String dateCreatedMin) {
+        this.dateCreatedMin = dateCreatedMin;
+    }
+
+    public String getDateCreatedMax() {
+        return dateCreatedMax;
+    }
+
+    public void setDateCreatedMax(String dateCreatedMax) {
+        this.dateCreatedMax = dateCreatedMax;
+    }
+
+    public Long getUserUpdatedMin() {
+        return userUpdatedMin;
+    }
+
+    public void setUserUpdatedMin(Long userUpdatedMin) {
+        this.userUpdatedMin = userUpdatedMin;
+    }
+
+    public Long getUserUpdatedMax() {
+        return userUpdatedMax;
+    }
+
+    public void setUserUpdatedMax(Long userUpdatedMax) {
+        this.userUpdatedMax = userUpdatedMax;
+    }
+
+    public String getLastUpdatedMin() {
+        return lastUpdatedMin;
+    }
+
+    public void setLastUpdatedMin(String lastUpdatedMin) {
+        this.lastUpdatedMin = lastUpdatedMin;
+    }
+
+    public String getLastUpdatedMax() {
+        return lastUpdatedMax;
+    }
+
+    public void setLastUpdatedMax(String lastUpdatedMax) {
+        this.lastUpdatedMax = lastUpdatedMax;
     }
 	
 }

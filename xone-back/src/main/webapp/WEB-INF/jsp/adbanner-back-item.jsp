@@ -40,7 +40,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">广告类型</td>
-							<td>${adbanner.adType}</td>
+							<td>${adbanner.adTypeName}</td>
 						</tr>
 						<tr>
 							<td style="width:60px;">开始时间</td>
@@ -49,46 +49,6 @@
 						<tr>
 							<td style="width:60px;">结束时间</td>
 							<td>${adbanner.adEnd}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">用户编号</td>
-							<td>${adbanner.userId}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">删除标识</td>
-							<td>${adbanner.flagDeleted}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">申请人</td>
-							<td>${adbanner.userApply}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">申请时间</td>
-							<td>${adbanner.dateApply}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">审核人</td>
-							<td>${adbanner.userCheck}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">审核时间</td>
-							<td>${adbanner.dateCheck}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">创建人</td>
-							<td>${adbanner.userCreated}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">创建时间</td>
-							<td>${adbanner.dateCreated}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">更新人</td>
-							<td>${adbanner.userUpdated}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">更新时间</td>
-							<td>${adbanner.lastUpdated}</td>
 						</tr>
 					</tbody>
 				</table>
