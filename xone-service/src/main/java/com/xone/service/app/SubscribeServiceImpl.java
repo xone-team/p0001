@@ -83,7 +83,7 @@ public class SubscribeServiceImpl implements SubscribeService {
     		pResult.put("saleType", subscribe.getSaleType());
     		pResult.put("productName", subscribe.getProductNameKey());
     		pResult.put("productLocation", subscribe.getMarketarea());
-//    		pResult.put("credit", subscribe.getSaleType());
+    		pResult.put("credit", subscribe.getCredit());
     		pResult.put("gtDateCreated", MyServerUtils.format(subscribe.getDateCheck()));
     		if (null != subscribe && null != subscribe.getId()) {
     			subscribe.setDateCheck(new Date());
@@ -123,24 +123,45 @@ public class SubscribeServiceImpl implements SubscribeService {
         }
         List<Subscribe> mySubscribe = new ArrayList<Subscribe>();
         for (Subscribe subscribe : subscribeList) {
-        	DetachedCriteria productCriteria = DetachedCriteria.forClass(Product.class);
-        	if (!StringUtils.isBlank(subscribe.getSaleType())) {
-        		productCriteria.add(Restrictions.eq("saleType", subscribe.getSaleType()));
-        	}
-        	if (!StringUtils.isBlank(subscribe.getProductNameKey())) {
-        		productCriteria.add(Restrictions.like("productName", "%" + subscribe.getProductNameKey() + "%"));
-        	}
-        	if (!StringUtils.isBlank(subscribe.getMarketarea())) {
-        		productCriteria.add(Restrictions.like("productLocation", "%" + subscribe.getMarketarea() + "%"));
-        	}
+//        	DetachedCriteria productCriteria = DetachedCriteria.forClass(Product.class);
+//        	if (!StringUtils.isBlank(subscribe.getSaleType())) {
+//        		productCriteria.add(Restrictions.eq("saleType", subscribe.getSaleType()));
+//        	}
+//        	if (!StringUtils.isBlank(subscribe.getProductNameKey())) {
+//        		productCriteria.add(Restrictions.like("productName", "%" + subscribe.getProductNameKey() + "%"));
+//        	}
+//        	if (!StringUtils.isBlank(subscribe.getMarketarea())) {
+//        		productCriteria.add(Restrictions.like("productLocation", "%" + subscribe.getMarketarea() + "%"));
+//        	}
 //        	if (!StringUtils.isBlank(subscribe.getProductNameKey())) {//公司信誉
 //    		productCriteria.add(Restrictions.like("productName", "%" + subscribe.getProductNameKey() + "%"));
 //    	}
+//        	Date dateCheck = subscribe.getDateCheck();
+//        	if (null != dateCheck) {
+//        		productCriteria.add(Restrictions.ge("dateCreated", dateCheck));
+//        	}
+//        	int i = getProductDao().countByProperty(productCriteria);
+        	Map<String, Object> param = new HashMap<String, Object>();
+        	if (!StringUtils.isBlank(subscribe.getSaleType())) {
+            	param.put("saleType", subscribe.getSaleType());
+	    	}
+        	if (!StringUtils.isBlank(subscribe.getProductNameKey())) {
+            	param.put("productName", subscribe.getProductNameKey());
+        	}
+        	if (!StringUtils.isBlank(subscribe.getMarketarea())) {
+            	param.put("productLocation", subscribe.getMarketarea());
+        	}
+        	if (!StringUtils.isBlank(subscribe.getCredit())) {
+        		param.put("credit", subscribe.getCredit());
+        	}
         	Date dateCheck = subscribe.getDateCheck();
         	if (null != dateCheck) {
-        		productCriteria.add(Restrictions.ge("dateCreated", dateCheck));
+        		param.put("gtDateCreated", MyServerUtils.format(dateCheck));
         	}
-        	int i = getProductDao().countByProperty(productCriteria);
+        	param.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+        	param.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+        	param.put("userLevels", Person.getLogicUserLevel(person.getUserLevel()));
+        	int i = getProductDao().findProductCountByUserRef(param);
         	if (i > 0) {
         		mySubscribe.add(subscribe);
         	}

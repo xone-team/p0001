@@ -36,4 +36,9 @@ public class ProductDaoImpl extends AbstractHibernateDao<Product> implements Pro
 //		return pList;
 	}
 
+	@Override
+	public int findProductCountByUserRef(Map<String, Object> params) {
+		return getMapper(ProductMapper.class).findProductCountWithUser(params);
+	}
+
 }

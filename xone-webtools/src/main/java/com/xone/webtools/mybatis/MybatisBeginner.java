@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
@@ -21,13 +22,13 @@ public class MybatisBeginner {
 		try {
 			ProductMapper productMapper = sqlSession
 					.getMapper(ProductMapper.class);
-			Map<String, String> params = new HashMap<String, String>();
-			params.put("productName", "鱼");
-			params.put("ltDateCreated", "2013-07-31 23:34:05");
-			params.put("offsetIndex", "0");
-			params.put("maxResult", "5");
-			List<Map<String, Object>> list = productMapper
-					.findProductListWithUser(params);
+			Map<String, Object> params = new HashMap<String, Object>();
+//			params.put("productName", "鱼");
+//			params.put("ltDateCreated", "2013-07-31 23:34:05");
+//			params.put("offsetIndex", "0");
+//			params.put("maxResult", "5");
+			List<Product> list = productMapper
+					.findProductListWithUser(params, new RowBounds(0, 3));
 			// User user = (User) session.selectOne("selectUser","1");
 			 System.out.println(list.size());
 			 Integer i = productMapper.findProductCountWithUser(params);

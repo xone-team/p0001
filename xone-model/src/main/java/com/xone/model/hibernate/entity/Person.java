@@ -13,6 +13,26 @@ import java.util.Date;
  * 
  */
 public class Person extends MyModel implements Serializable {
+	
+	public static String [] getLogicUserLevel(String userLevel) {
+		if (UserLevel.A.getValue().equals(userLevel)) {//如果是A级用户，则AB级的数据可以查看
+			return new String[] {
+				UserLevel.A.getValue(), UserLevel.B.getValue()	
+			};
+		} else if (UserLevel.B.getValue().equals(userLevel)) {//如果是B级用户，则ABC级的数据都可以查看
+			return new String[] {
+				UserLevel.A.getValue(), UserLevel.B.getValue(), UserLevel.C.getValue()	
+			};
+		} else if (UserLevel.C.getValue().equals(userLevel)) {//如果是C级用户,则BC级的数据可以查看
+			return new String[] {
+				UserLevel.B.getValue(), UserLevel.C.getValue()	
+			};
+		}
+		//如果没有登录或者登录后身份不是A或者B或者C级用户，则只能查看B级用户数据
+		return new String [] {
+			UserLevel.B.getValue()
+		};
+	}
     
 	public enum Credit {
 		YES("1", "已认证"), NO("0", "未认证");

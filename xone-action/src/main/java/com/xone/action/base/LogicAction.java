@@ -201,24 +201,7 @@ public abstract class LogicAction extends Action {
 	 * @return
 	 */
 	protected final String [] getLogicUserLevel() {
-		String userLevel = getUserLevel();
-		if (Person.UserLevel.A.getValue().equals(userLevel)) {//如果是A级用户，则AB级的数据可以查看
-			return new String[] {
-				Person.UserLevel.A.getValue(), Person.UserLevel.B.getValue()	
-			};
-		} else if (Person.UserLevel.B.getValue().equals(userLevel)) {//如果是B级用户，则ABC级的数据都可以查看
-			return new String[] {
-				Person.UserLevel.A.getValue(), Person.UserLevel.B.getValue(), Person.UserLevel.C.getValue()	
-			};
-		} else if (Person.UserLevel.C.getValue().equals(userLevel)) {//如果是C级用户,则BC级的数据可以查看
-			return new String[] {
-				Person.UserLevel.B.getValue(), Person.UserLevel.C.getValue()	
-			};
-		}
-		//如果没有登录或者登录后身份不是A或者B或者C级用户，则只能查看B级用户数据
-		return new String [] {
-			Person.UserLevel.B.getValue()
-		};
+		return Person.getLogicUserLevel(getUserLevel());
 	}
 	
 	/**
