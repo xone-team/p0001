@@ -84,7 +84,7 @@
                     <div class="control-group">
                         <label class="control-label" for="purchaseRemark">审核意见</label>
                         <div class="controls">
-                            <input type="text" id="purchaseRemark" name="purchase.check.remark" value="${purchase.remark}" maxlength="255" placeholder="审核意见">
+                            <input type="text" id="purchaseRemark" name="purchase.check.remark" maxlength="255" placeholder="审核意见">
                         </div>
                     </div>
 

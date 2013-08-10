@@ -47,7 +47,7 @@
                     <div class="control-group">
                         <label class="control-label" for="purchaseNum">求购数量</label>
                         <div class="controls">
-                            <input type="text" id="purchaseNum" name="purchase.purchaseNum" maxlength="255" placeholder="求购数量">
+                            <input type="text" id="purchaseNum" name="purchase.purchaseNum" value="${purchase.purchaseNum }" maxlength="255" placeholder="求购数量">
                         </div>
                     </div>
                     <div class="control-group">

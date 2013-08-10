@@ -93,6 +93,7 @@ public class PurchaseBackAction extends Action {
 //	}
 	
 	public String purchaseCreate() throws Exception {
+	    purchase.setPurchaseNum("0");
 		return SUCCESS;
 	}
 	
