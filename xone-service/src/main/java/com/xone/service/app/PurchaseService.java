@@ -23,7 +23,9 @@ public interface PurchaseService {
 	
 	public Purchase update(Purchase entity, List<ImageUploaded> imageUploadeds, List<Long> imageIds);
 	
-	public List<Purchase> findAllByMap(Map<String, String> params);
+	public List<Purchase> findAllByMap(Map<String, Object> params);
+	
+	public List<Purchase> findAllByMapForUser(Map<String, String> params);
 	
 	public Purchase findByMap(Map<String, String> params);
 

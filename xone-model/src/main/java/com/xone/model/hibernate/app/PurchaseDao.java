@@ -8,6 +8,6 @@ import com.xone.model.hibernate.generic.HibernateDao;
 
 public interface PurchaseDao extends HibernateDao<Purchase> {
 	
-	public List<Purchase> findAllPurchaseByUserRef(Map<String, String> params);
+	public List<Purchase> findAllPurchaseByUserRef(Map<String, Object> params);
 
 }

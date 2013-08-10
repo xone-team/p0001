@@ -12,9 +12,9 @@ import com.xone.model.utils.MyModelUtils;
 
 public class PurchaseDaoImpl extends AbstractHibernateDao<Purchase> implements PurchaseDao {
 	
-	public List<Purchase> findAllPurchaseByUserRef(Map<String, String> params) {
-		int offsetIndex = MyModelUtils.parseInt(params.get("offsetIndex"), 0);
-		int maxResult = MyModelUtils.parseInt(params.get("maxResult"), 5);
+	public List<Purchase> findAllPurchaseByUserRef(Map<String, Object> params) {
+		int offsetIndex = MyModelUtils.parseInt(String.valueOf(params.get("offsetIndex")), 0);
+		int maxResult = MyModelUtils.parseInt(String.valueOf(params.get("maxResult")), 5);
 		return getMapper(PurchaseMapper.class).findPurchaseListWithUser(params, new RowBounds(offsetIndex, maxResult));
 //		List<Map<String, Object>> l = getMapper(PurchaseMapper.class).findPurchaseListWithUser(params);
 //		List<Purchase> pList = new ArrayList<Purchase>();

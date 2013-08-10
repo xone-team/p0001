@@ -98,7 +98,7 @@ public class Purchase extends MyModel implements Serializable {
 		this.person = person;
 	}
 
-    public String getProductTypeName() {
+    public String getPurchaseTypeName() {
         for (PurchaseType e : PurchaseType.values()) {
             if(e.getValue().equals(this.purchaseType)){
                 return e.getName();

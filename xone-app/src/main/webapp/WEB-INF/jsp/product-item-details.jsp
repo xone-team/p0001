@@ -34,6 +34,7 @@
 		</tr>
 	</table>
 </li>
+<c:if test="${login}">
 <li>
 	<table style="width:100%">
 		<tr>
@@ -42,6 +43,7 @@
 		</tr>
 	</table>
 </li>
+</c:if>
 <li>
 	<table style="width:100%">
 		<tr>
@@ -58,7 +60,7 @@
 		</tr>
 	</table>
 </li>
-<c:if test="${null != userId && null != product.person}">
+<c:if test="${login}">
 <li>
 	<table style="width:100%">
 		<tr>

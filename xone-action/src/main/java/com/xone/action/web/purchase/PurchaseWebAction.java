@@ -95,7 +95,7 @@ public class PurchaseWebAction extends Action {
 	}
 	
 	public String list() throws Exception {
-		Map<String, String> params = new HashMap<String, String>();
+		Map<String, Object> params = new HashMap<String, Object>();
 		List<Purchase> l = getPurchaseService().findAllByMap(params);
 		if (null != l && !l.isEmpty()) {
 			getList().addAll(l);

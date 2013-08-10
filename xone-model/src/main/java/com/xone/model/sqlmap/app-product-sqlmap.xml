@@ -65,6 +65,12 @@
             <if test="userCreated != null">
 				and p.user_created = #{userCreated}
 			</if>
+            <if test="userLevels != null">
+				and 
+				<foreach item="item" index="index" collection="userLevels" open="(" separator="or" close=")">
+					u.user_level = #{item}
+				</foreach>
+			</if>
         </where>
 	</sql>
 </mapper>

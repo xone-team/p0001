@@ -8,6 +8,6 @@ import com.xone.model.hibernate.generic.HibernateDao;
 
 public interface ProductDao extends HibernateDao<Product> {
 	
-	public List<Product> findAllProductByUserRef(Map<String, String> params);
+	public List<Product> findAllProductByUserRef(Map<String, Object> params);
 
 }
