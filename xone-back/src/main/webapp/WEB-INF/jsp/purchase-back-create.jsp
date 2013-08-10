@@ -38,7 +38,7 @@
                         <label class="control-label" for="purchaseType">求购类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="purchaseType" name="purchase.purchaseType">
-                                <c:forEach items="${types.productType}" var="it">
+                                <c:forEach items="${productType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == purchase.purchaseType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>

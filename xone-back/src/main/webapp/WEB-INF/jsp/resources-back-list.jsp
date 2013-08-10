@@ -48,9 +48,7 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="resourceTypeMin">资源类型</label>
                                                 <div class="controls">
-                                                    <input type="text" id="resourceTypeMin" class="span5" name="resources.resourceTypeMin" value="${resources.resourceTypeMin}" maxlength="11" placeholder="最小值">
-                                                    <span class="add-on">~</span>
-                                                    <input type="text" id="resourceTypeMax" class="span5" name="resources.resourceTypeMax" value="${resources.resourceTypeMax}" maxlength="11" placeholder="最大值">
+                                                    <input type="text" id="resourceType" name="resources.resourceType" value="${resources.resourceType}" maxlength="11" placeholder="资源类型">
                                                 </div>
                                             </div>
                                         </div>
@@ -58,9 +56,7 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="priorityMin">优先级</label>
                                                 <div class="controls">
-                                                    <input type="text" id="priorityMin" class="span5" name="resources.priorityMin" value="${resources.priorityMin}" maxlength="11" placeholder="最小值">
-                                                    <span class="add-on">~</span>
-                                                    <input type="text" id="priorityMax" class="span5" name="resources.priorityMax" value="${resources.priorityMax}" maxlength="11" placeholder="最大值">
+                                                    <input type="text" id="priority" name="resources.priority" value="${resources.priority}" maxlength="11" placeholder="优先级">
                                                 </div>
                                             </div>
                                         </div>
@@ -79,18 +75,6 @@
                                                 <label class="control-label" for="remark">备注</label>
                                                 <div class="controls">
                                                     <input type="text" id="remark" name="resources.remark" value="${resources.remark}" maxlength="1024" placeholder="备注">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <div class="span5 form-horizontal">
-                                            <div class="control-group">
-                                                <label class="control-label" for="dateCreatedMin">创建时间</label>
-                                                <div class="controls">
-                                                    <input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="resources.dateCreatedMin" value="${resources.dateCreatedMin}" maxlength="19" placeholder="最小日期">
-                                                    <span class="add-on">~</span>
-                                                    <input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="resources.dateCreatedMax" value="${resources.dateCreatedMax}" maxlength="19" placeholder="最大日期">
                                                 </div>
                                             </div>
                                         </div>
@@ -120,7 +104,7 @@
                                 <th>资源地址</th>
                                 <th>备注</th>
                                 <th>创建时间</th>
-                                <th style="width: 8em;">操作</th>
+                                <th style="width: 4em;">操作</th>
                             </tr>
                         </thead>
                         <tbody>

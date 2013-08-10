@@ -42,10 +42,6 @@ public class CategoryBackAction extends Action {
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
 		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
 		Pagination p = getCategoryService().findByParams(params);
-//		List<Category> l = getCategoryService().findAllByMap(params);
-//		if (null != l && !l.isEmpty()) {
-//			getList().addAll(l);
-//		}
 		setPagination(p);
 		return SUCCESS;
 	}
@@ -108,12 +104,6 @@ public class CategoryBackAction extends Action {
 		}
 		return SUCCESS;
 	}
-//	
-//    public String categoryDelete() throws Exception {
-//        Category entity = getCategoryService().findById(getCategory().getId());
-//        categoryService.delete(entity);
-//        return SUCCESS;
-//    }
 
 	public CategoryService getCategoryService() {
 		return categoryService;

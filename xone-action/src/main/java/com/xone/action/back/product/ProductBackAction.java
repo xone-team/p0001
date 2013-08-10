@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
+import com.xone.model.hibernate.entity.MyModel;
 import com.xone.model.hibernate.entity.ProdCheck;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
@@ -33,9 +34,6 @@ public class ProductBackAction extends LogicAction {
     protected List<Product> list = new ArrayList<Product>();
     protected Pagination pagination = new Pagination();
 
-    // protected CommonTypes commonTypes = CommonTypes.getInstance();
-    protected Map<String, Object[]> types = new HashMap<String, Object[]>();
-
     protected File uploadFile1;
     protected String uploadFile1ContentType;
     protected String uploadFile1FileName;
@@ -49,18 +47,19 @@ public class ProductBackAction extends LogicAction {
     protected String uploadFile3FileName;
 
     protected String imageUploadPath;
-
-//    @Override
-//    public void prepare() throws Exception {
-//        super.prepare();
-//        product.setPerson(new Person());
-//        product.setCheck(new ProdCheck());
-//
-//        types.put("yn", Person.YN.values());
-//        types.put("checkStatus", Product.CheckStatus.values());
-//        types.put("productType", Product.ProductType.values());
-//        types.put("saleType", Product.SaleType.values());
-//    }
+    
+    public Enum<?>[] getFlagDeleted() {
+        return Product.FlagDeleted.values();
+    }
+    public Enum<?>[] getCheckStatus() {
+        return Product.CheckStatus.values();
+    }
+    public Enum<?>[] getProductType() {
+        return Product.ProductType.values();
+    }
+    public Enum<?>[] getSaleType() {
+        return Product.SaleType.values();
+    }
 
     public String productList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
@@ -123,7 +122,13 @@ public class ProductBackAction extends LogicAction {
 
         product.setUserApply(getUserId());
         product.setDateApply(new Date());
-        setProduct(getProductService().save(getProduct(), getImageList()));
+        try {
+            setProduct(getProductService().save(getProduct(), getImageList()));
+        } catch (Exception e) {
+            addActionError(e.getMessage());
+            return INPUT;
+        }
+        
         return SUCCESS;
     }
 

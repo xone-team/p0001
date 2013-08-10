@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
+import com.xone.model.hibernate.entity.Delivery;
+import com.xone.model.hibernate.entity.MyModel;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Roles;
 import com.xone.model.hibernate.support.Pagination;
@@ -40,6 +42,16 @@ public class PersonBackAction extends Action {
 //        types.put("userLevel", Person.UserLevel.values());
 //        super.prepare();
 //    }
+    
+    public Enum<?>[] getFlagDeleted() {
+        return Person.FlagDeleted.values();
+    }
+    public Enum<?>[] getCredit() {
+        return Person.Credit.values();
+    }
+    public Enum<?>[] getUserLevel() {
+        return Person.UserLevel.values();
+    }
 
     public String personList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();

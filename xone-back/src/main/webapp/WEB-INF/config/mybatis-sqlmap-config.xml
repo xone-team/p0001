@@ -15,8 +15,7 @@
 	<plugins>
 		<plugin interceptor="com.xone.model.sqlmap.MyPaginationInterceptor" />
 	</plugins>
-<!-- 	<mappers> -->
-<!-- 		<mapper resource="com/xone/model/sqlmap/app-product-sqlmap.xml" /> -->
-<!-- 		<mapper resource="com/xone/model/sqlmap/app-product-sqlmap.xml" /> -->
-<!-- 	</mappers> -->
+	<mappers>
+		<mapper resource="com/xone/model/sqlmap/back-roles-sqlmap.xml" />
+	</mappers>
 </configuration>

@@ -44,7 +44,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">可用标识</td>
-							<td><c:forEach items="${types.enable}" var="it">
+							<td><c:forEach items="${enable}" var="it">
                                     <c:if test="${it.value == roles.enable}">${it.name}</c:if>
                                 </c:forEach></td>
 						</tr>

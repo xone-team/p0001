@@ -27,31 +27,14 @@ public class DeliveryBackAction extends Action {
     protected Delivery delivery = new Delivery();
     protected List<Delivery> list = new ArrayList<Delivery>();
     protected Pagination pagination = new Pagination();
-
-    // protected CommonTypes commonTypes = CommonTypes.getInstance();
-//    protected Map<String, Object[]> types = new HashMap<String, Object[]>();
-//
-//    public void prepare() throws Exception {
-//        super.prepare();
-//
-//        types.put("yn", Delivery.FlagDeleted.values());
-//        types.put("flagPass", Delivery.FlagPass.values());
-//    }
-//
-//    public Map<String, Object[]> getTypes() {
-//        return types;
-//    }
-//
-//    public void setTypes(Map<String, Object[]> types) {
-//        this.types = types;
-//    }
+    
+    
+    public Enum<?>[] getFlagDeleted() {
+        return Delivery.FlagDeleted.values();
+    }
     
     public Enum<?>[] getFlagPass() {
     	return Delivery.FlagPass.values();
-    }
-    
-    public Enum<?>[] getFlagDeleted() {
-    	return Delivery.FlagDeleted.values();
     }
 
     public String deliveryList() throws Exception {

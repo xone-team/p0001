@@ -99,7 +99,7 @@
 								<th>创建时间</th>
 								<th>修改时间</th>
 								<th>用户编号</th>
-								<th>操作</th>
+								<th style="width: 4em;">操作</th>
 							</thead>
 							<tbody>
 							<c:forEach var="item" items="${pagination.list}">

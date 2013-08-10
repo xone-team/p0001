@@ -46,7 +46,7 @@
                         <label class="control-label" for="enable">可用标识</label>
                         <div class="controls">
                             <select class="selectpicker" id="enable" name="roles.enable">
-                                <c:forEach items="${types.enable}" var="it">
+                                <c:forEach items="${enable}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == roles.enable}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -54,7 +54,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" class="btn">提交更新</button>
+                            <button type="submit" name="update" value="update" class="btn" onclick="return confirm('确定更新本条记录?');">提交更新</button>
                             <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm('确定删除本条记录?');">删除记录</button>
                         </div>
                     </div>
@@ -76,7 +76,7 @@
     		
     		var pass = XONE.valid(validate, $form, "roles.");
     		return pass;
-        }
+        });
     });
 </script>
 </html>

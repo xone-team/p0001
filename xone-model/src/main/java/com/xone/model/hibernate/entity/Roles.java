@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Roles implements Serializable {
+public class Roles extends MyModel implements Serializable {
     private static final long serialVersionUID = -4494781057506370712L;
     protected Long id;
     protected String name;
@@ -35,16 +35,16 @@ public class Roles implements Serializable {
             return this.name;
         }
     }
-    
-    public String getEnableName(){
+
+    public String getEnableName() {
         String result = null;
         for (Enable e : Enable.values()) {
-            if(e.getValue().equals(this.enable)){
+            if (e.getValue().equals(this.enable)) {
                 result = e.getName();
                 break;
             }
         }
-        return result;
+        return result == null ? UNKNOWN_STATUS_NAME : result;
     }
 
     // business logic

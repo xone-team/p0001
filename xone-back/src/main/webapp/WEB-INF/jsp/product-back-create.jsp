@@ -27,6 +27,14 @@
                         <li class="active">创建产品</li>
                     </ul>
                 </div>
+                <c:if test="${!empty actionErrors }">
+                    <div class="alert">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <c:forEach items="${actionsErrors }" var="error">
+                            <p>${error }</p>
+                        </c:forEach>
+                    </div>
+                </c:if>
                 <form class="form-horizontal" enctype="multipart/form-data" id="productSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productSave.html">
                     <div class="control-group">
                         <label class="control-label" for="productName">产品名称</label>
@@ -38,7 +46,7 @@
                         <label class="control-label" for="productType">产品类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="productType" name="product.productType">
-                                <c:forEach items="${types.productType}" var="it">
+                                <c:forEach items="${productType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.productType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -48,7 +56,7 @@
                         <label class="control-label" for="saleType">销售类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="saleType" name="product.saleType">
-                                <c:forEach items="${types.saleType}" var="it">
+                                <c:forEach items="${saleType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.saleType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -99,7 +107,9 @@
                                 <div class="control-group uploadimagesdiv3" style="margin-bottom: 0px;"></div>
                                 <button type="button" class="btn" onclick="$('#uploadImageFile3').click();">上传图片</button>
                             </div>
-                            <input type="file" class="hide" id="uploadImageFile1" name="uploadFile1" value=""> <input type="file" class="hide" id="uploadImageFile2" name="uploadFile2" value=""> <input type="file" class="hide" id="uploadImageFile3" name="uploadFile3" value="">
+                            <input type="file" class="hide" id="uploadImageFile1" name="uploadFile1" value="">
+                            <input type="file" class="hide" id="uploadImageFile2" name="uploadFile2" value="">
+                            <input type="file" class="hide" id="uploadImageFile3" name="uploadFile3" value="">
                         </div>
                     </div>
                     <div class="control-group">
@@ -112,6 +122,7 @@
         </div>
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
+    <c:out value="${fieldErrors }"></c:out>
 </body>
 <script src="${STATIC_ROOT}/js/fileupload.js"></script>
 <script>
@@ -141,12 +152,10 @@
                 $('div.uploadimagesdiv3').html('').append(div);
             }
         });
-        
+
         $('#productSaveForm${myidentify}').submit(function() {
             var $form = $('#productSaveForm${myidentify}');
-            $form.submit();
-            return;
-            
+
             var validate = [ {
                 name : 'product.productName',
                 text : '请输入产品名'
@@ -156,21 +165,21 @@
             }, {
                 name : 'product.productPrice',
                 text : '产品价格必须为数字，且大于0',
-    			func : numberValidation       
+                func : numberValidation
             }, {
                 name : 'product.productNum',
                 text : '请输入产品数量'
             }, {
                 name : 'product.productNum',
                 text : '产品数量必须为数字，且大于0',
-    			func : numberValidation       
+                func : numberValidation
             }, {
                 name : 'uploadFile1',
                 text : '请至少上传一张图片'
             } ];
 
             var pass = XONE.valid(validate, $form, "");
-    		return pass;
+            return pass;
         });
     });
     function removeProductDynamicImage1() {
@@ -189,20 +198,28 @@
         return false;
     }
 
-    function numberValidation(inputEl){
+    function numberValidation(inputEl) {
         var result = true;
-	    var val = inputEl.val();
-	    if(val != null && val.length > 0){
-	        var n = null;
-	        try{
-	            n = parseInt(val);
-	        }catch(e){}
-	        
-	        if(n == null || isNaN(n) || n < 0){
-	            result = false;
-	        }
-	    }
-	    return result;
+        var val = inputEl.val();
+        if (val != null && val.length > 0) {
+            var n = null;
+            try {
+                n = parseInt(val);
+            } catch (e) {
+            }
+
+            if (n == null || isNaN(n) || n < 0) {
+                result = false;
+            }
+        }
+        return result;
     }
 </script>
+<c:if test="${!empty fieldErrors }">
+    <script>
+                    <c:forEach items="${fieldErrors }" var="fieldError">
+                    XONE.renderFieldMessage('${fieldError.value }', "error", $('input[name="${fieldError.key}"]'));
+                    </c:forEach>
+                </script>
+</c:if>
 </html>
