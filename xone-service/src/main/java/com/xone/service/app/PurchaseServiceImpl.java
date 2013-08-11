@@ -435,7 +435,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         // 审核信息处理
         Date dateCheck = new Date();
 
-        PurchaseCheck check = entity.getCheck();
+        PurchaseCheck check = entity.getPurchaseCheck();
         if (Purchase.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) || Purchase.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
             check.setPurchaseId(entity.getId());
             check.setDateCheck(dateCheck);
@@ -463,7 +463,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         Purchase purchase = getPurchaseDao().findById(id);
         if (purchase != null) {
             List<PurchaseCheck> l = purchaseCheckDao.findByPurchaseId(purchase.getId());
-            purchase.setCheckList(l);
+            purchase.setPurchaseCheckList(l);
         }
         return purchase;
     }

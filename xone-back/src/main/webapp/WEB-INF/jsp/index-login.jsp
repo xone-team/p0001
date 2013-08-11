@@ -21,13 +21,13 @@
                     <div class="control-group">
                         <label class="control-label" for="text-username">用户名</label>
                         <div class="controls">
-                            <input type="text" name="username" id="text-username" autocomplete="off" />
+                            <input type="text" name="username" id="text-username" value="15800000000" autocomplete="off" />
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="text-password">密 码</label>
                         <div class="controls">
-                            <input type="password" name="password" id="text-password" autocomplete="off" />
+                            <input type="password" name="password" id="text-password" value="hunny@admin" autocomplete="off" />
                         </div>
                     </div>
                     <div class="control-group">

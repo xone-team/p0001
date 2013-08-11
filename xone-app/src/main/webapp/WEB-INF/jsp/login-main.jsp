@@ -86,9 +86,6 @@
 			    	}
 			    	return true;
 		    	});
-// 		    	try {
-// 			    	$('div.login-ref-page').remove();
-// 		    	} catch (e) {}
 		    });
 		    </script>
 		</div>

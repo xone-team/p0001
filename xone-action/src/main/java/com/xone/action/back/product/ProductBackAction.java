@@ -182,7 +182,7 @@ public class ProductBackAction extends LogicAction {
             if (Product.CheckStatus.DENIED.getValue().equals(entity.getCheckStatus()) || Product.CheckStatus.PASSED.getValue().equals(entity.getCheckStatus())) {
                 entity.setUserCheck(getUserId());
                 entity.setDateCheck(new Date());
-                entity.getCheck().setUserCheck(getUserId());
+                entity.getProductCheck().setUserCheck(getUserId());
             }
             setProduct(getProductService().update(entity, getImageList(), product.getIds()));
         }

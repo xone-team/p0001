@@ -87,8 +87,8 @@ public class Purchase extends MyModel implements Serializable {
 	protected Long userUpdated;
 	protected Date lastUpdated;
 	
-	protected List<PurchaseCheck> checkList;
-	protected PurchaseCheck check = new PurchaseCheck();
+	protected List<PurchaseCheck> purchaseCheckList;
+	protected PurchaseCheck purchaseCheck = new PurchaseCheck();
 	
 	protected Person person = new Person();
 	public Person getPerson() {
@@ -387,23 +387,17 @@ public class Purchase extends MyModel implements Serializable {
     public void setLastUpdatedMax(String lastUpdatedMax) {
         this.lastUpdatedMax = lastUpdatedMax;
     }
-//    public String getRemark() {
-//        return remark;
-//    }
-//    public void setRemark(String remark) {
-//        this.remark = remark;
-//    }
-    public List<PurchaseCheck> getCheckList() {
-        return checkList;
+    public List<PurchaseCheck> getPurchaseCheckList() {
+        return purchaseCheckList;
     }
-    public void setCheckList(List<PurchaseCheck> checkList) {
-        this.checkList = checkList;
+    public void setPurchaseCheckList(List<PurchaseCheck> purchaseCheckList) {
+        this.purchaseCheckList = purchaseCheckList;
     }
-    public PurchaseCheck getCheck() {
-        return check;
+    public PurchaseCheck getPurchaseCheck() {
+        return purchaseCheck;
     }
-    public void setCheck(PurchaseCheck check) {
-        this.check = check;
+    public void setPurchaseCheck(PurchaseCheck purchaseCheck) {
+        this.purchaseCheck = purchaseCheck;
     }
 	
 	
