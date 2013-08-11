@@ -20,7 +20,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.xone.action.base.Action;
+import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.service.app.PersonService;
 import com.xone.service.app.utils.EncryptRef;
@@ -36,13 +36,31 @@ import com.xone.service.app.utils.EncryptRef;
  * @modify
  * 
  */
-public class LoginRefAction extends Action {
+public class LoginRefAction extends LogicAction {
 	
 	private static final long serialVersionUID = -6619796711772558844L;
 	
 	private String redirect;
 	protected Person person;
+	protected String actionName;
+	protected String namespace;
 	
+	public String getActionName() {
+		return actionName;
+	}
+
+	public void setActionName(String actionName) {
+		this.actionName = actionName;
+	}
+	
+	public String getNamespace() {
+		return namespace;
+	}
+
+	public void setNamespace(String namespace) {
+		this.namespace = namespace;
+	}
+
 	@Autowired
 	private PersonService personService;
 
@@ -87,6 +105,8 @@ public class LoginRefAction extends Action {
 	public String init() {
 		if (null != getUserMap() && !getUserMap().isEmpty()) {
 			setRedirect("login/main.html");
+			setActionName("main");
+			setNamespace("login");
 			return "redirect";
 		}
 		return SUCCESS;
@@ -99,6 +119,8 @@ public class LoginRefAction extends Action {
 	public String main() {
 		if (null == getUserMap() || getUserMap().isEmpty()) {
 			setRedirect("login/index.html");
+			setActionName("index");
+			setNamespace("login");
 			return "redirect";
 		}
 		return SUCCESS;
@@ -106,6 +128,8 @@ public class LoginRefAction extends Action {
 	
 	@SuppressWarnings("rawtypes")
 	public String login() {
+		setActionName("index");
+		setNamespace("login");
 		String loginHtml = "login/index.html";
 		if (null == getPerson().getUsername() || null == getPerson().getPassword()) {
 			if (StringUtils.isBlank(getRedirect())) {
@@ -115,6 +139,8 @@ public class LoginRefAction extends Action {
 		}
 		if (!getUserMap().isEmpty() && null != getUserMap().get("user")) {
 			setRedirect("login/main.html");
+			setActionName("main");
+			setNamespace("login");
 			return SUCCESS;
 		}
 		String msg = "用户不存在或者密码不正确。";
@@ -149,6 +175,8 @@ public class LoginRefAction extends Action {
 			return ERROR;
 		}
 		setRedirect("login/main.html");
+		setActionName("main");
+		setNamespace("login");
 		return SUCCESS;
 	}
 	

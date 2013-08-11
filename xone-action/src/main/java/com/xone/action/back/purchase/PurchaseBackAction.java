@@ -145,11 +145,11 @@ public class PurchaseBackAction extends Action {
 			});
             entity.setUserUpdated(getUserId());
             entity.setLastUpdated(new Date());
-            if(Purchase.CheckStatus.DENIED.getValue().equals(entity.getCheck().getCheckStatus())
-                    ||Purchase.CheckStatus.PASSED.getValue().equals(entity.getCheck().getCheckStatus())){
+            if(Purchase.CheckStatus.DENIED.getValue().equals(entity.getPurchaseCheck().getCheckStatus())
+                    ||Purchase.CheckStatus.PASSED.getValue().equals(entity.getPurchaseCheck().getCheckStatus())){
                 entity.setUserCheck(getUserId());
                 entity.setDateCheck(new Date());
-                entity.getCheck().setUserCheck(getUserId());
+                entity.getPurchaseCheck().setUserCheck(getUserId());
             }
 			setPurchase(getPurchaseService().update(entity));
 		}

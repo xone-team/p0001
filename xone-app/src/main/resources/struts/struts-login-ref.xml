@@ -6,15 +6,25 @@
 	<package name="login-ref" namespace="/login" extends="default">
 		<action name="index" class="loginRefAction" method="init">
 			<result name="success">/WEB-INF/jsp/login-ref.jsp</result>
-			<result name="redirect" type="redirect">${ROOT}/${redirect}</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">${actionName}</param>
+				<param name="namespace">/${namespace}</param>
+			</result>
 		</action>
 		<action name="login" class="loginRefAction" method="login">
-			<result name="success" type="redirect">${ROOT}/${redirect}</result>
+			<result name="success" type="redirectAction"> 
+				<param name="actionName">${actionName}</param>
+				<param name="namespace">/${namespace}</param>
+			</result>
+<!-- 			<result name="success" type="redirect">${ROOT}/${redirect}</result> -->
 			<result name="error">/WEB-INF/jsp/login-ref.jsp</result>
 		</action>
 		<action name="main" class="loginRefAction" method="main">
 			<result name="success">/WEB-INF/jsp/login-main.jsp</result>
-			<result name="redirect" type="redirect">${ROOT}/${redirect}</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">${actionName}</param>
+				<param name="namespace">/${namespace}</param>
+			</result>
 		</action>
 		<action name="indexRegister" class="loginRefAction" method="indexRegister">
 			<result name="success">/WEB-INF/jsp/login-register-page.jsp</result>
@@ -32,7 +42,10 @@
 			<result name="success">/WEB-INF/jsp/login-register-info.jsp</result>
 		</action>
 		<action name="logout" class="loginRefAction" method="logout">
-			<result name="success" type="redirect">${ROOT}/login/index.html</result>
+			<result name="success" type="redirectAction"> 
+				<param name="actionName">index</param>
+				<param name="namespace">/login</param>
+			</result>
 		</action>
 	</package>
 </struts>

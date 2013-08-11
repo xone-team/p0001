@@ -64,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
             product.setIds(ids);
             
             List<ProductCheck> checks = getProductCheckDao().findByProductId(product.getId());
-            product.setCheckList(checks);
+            product.setProductCheckList(checks);
         }
         return product;
     }
@@ -140,7 +140,7 @@ public class ProductServiceImpl implements ProductService {
         // 审核信息处理
         Date dateCheck = new Date();
         
-        ProductCheck check = entity.getCheck();
+        ProductCheck check = entity.getProductCheck();
         if (Product.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) || Product.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
             check.setProductId(entity.getId());
             check.setDateCheck(dateCheck);

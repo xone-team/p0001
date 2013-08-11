@@ -92,8 +92,8 @@ public class Product extends MyModel implements Serializable {
 	
 	protected Person person = new Person();
 	
-	protected List<ProductCheck> checkList;
-	protected ProductCheck check = new ProductCheck();
+	protected List<ProductCheck> productCheckList;
+	protected ProductCheck productCheck = new ProductCheck();
 	
 	public Person getPerson() {
 		return person;
@@ -138,6 +138,14 @@ public class Product extends MyModel implements Serializable {
 	        }
 	    }
 	    return UNKNOWN_STATUS_NAME;
+	}
+	
+	/**
+	 * 是不是团购类型
+	 * @return
+	 */
+	public boolean isGroupSaleType() {
+		return SaleType.GROUPS.getValue().equals(this.saleType);
 	}
 	
 	protected List<Long> ids = new ArrayList<Long>();
@@ -453,20 +461,20 @@ public class Product extends MyModel implements Serializable {
         this.lastUpdatedMax = lastUpdatedMax;
     }
 
-    public List<ProductCheck> getCheckList() {
-        return checkList;
+    public List<ProductCheck> getProductCheckList() {
+        return productCheckList;
     }
 
-    public void setCheckList(List<ProductCheck> checkList) {
-        this.checkList = checkList;
+    public void setProductCheckList(List<ProductCheck> productCheckList) {
+        this.productCheckList = productCheckList;
     }
 
-    public ProductCheck getCheck() {
-        return check;
+    public ProductCheck getProductCheck() {
+        return productCheck;
     }
 
-    public void setCheck(ProductCheck check) {
-        this.check = check;
+    public void setProductCheck(ProductCheck productCheck) {
+        this.productCheck = productCheck;
     }
 
 	public Date getGtDateCreated() {
