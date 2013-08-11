@@ -24,7 +24,7 @@ public class ServiceGenerator extends BaseGenerator {
 		String path = getProjectParentPath();
 		File file = null;
 		if (null != path) {
-			file = new File(path + File.separator + "/output/service/" + File.separator + getServiceName());
+			file = new File(path + File.separator + "/xone-service/src/main/java/com/xone/service/app/" + File.separator + getServiceName());
 		}
 		generate(root, "service.ftl", file);
 	}
@@ -38,7 +38,7 @@ public class ServiceGenerator extends BaseGenerator {
 		String path = getProjectParentPath();
 		File file = null;
 		if (null != path) {
-			file = new File(path + File.separator + "/output/service/" + File.separator + getServiceImplName());
+			file = new File(path + File.separator + "/xone-service/src/main/java/com/xone/service/app/" + File.separator + getServiceImplName());
 		}
 		generate(root, "serviceImpl.ftl", file);
 	}

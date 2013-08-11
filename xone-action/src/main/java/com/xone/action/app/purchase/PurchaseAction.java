@@ -25,7 +25,7 @@ public class PurchaseAction extends LogicAction {
 	@Autowired
 	protected PurchaseService purchaseService;
 	
-	protected Purchase purchase;
+	protected Purchase purchase = new Purchase();
 	protected ImageUploaded imageUploaded;
 	protected List<Purchase> list = new ArrayList<Purchase>();
 	protected String imageUploadPath;

@@ -18,6 +18,8 @@ public interface ${tableName}Service {
 
 	public List<${tableName}> findAllByMap(Map<String, String> params);
 	
+	public ${tableName} findByMap(Map<String, String> params);
+	
 	public Pagination findByParams(Map<String, String> params);
 	
 }

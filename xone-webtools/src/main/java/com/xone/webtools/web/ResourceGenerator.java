@@ -9,7 +9,7 @@ public class ResourceGenerator {
 				"jdbc:mysql://mysqllocal.com:4306/sample?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true",
 				"root", "admin");
 		List<String> tables = databaseTableInfo.getTables(new String[] {
-				"t_product", "t_purchase"
+				"t_product_group"
 		});//databaseTableInfo.getTables();
 		DaoGenerator daoGenerator = new DaoGenerator();
 		EntityGenerator entityGenerator = new EntityGenerator();
@@ -22,22 +22,22 @@ public class ResourceGenerator {
 		ResultMapGenerator resultMapGenerator = new ResultMapGenerator();
 		
 		for (String table : tables) {
-			resultMapGenerator.setTableName(table);
-			resultMapGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
-			resultMapGenerator.generateResultMap();
-//			daoGenerator.setTableName(table);
-//			daoGenerator.generateDao();
-//			daoGenerator.generateDaoImpl();
-//			daoGenerator.generateDaoXml();
-//			entityGenerator.setTableName(table);
-//			entityGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
-//			entityGenerator.generateEntity();
-//			entityGenerator.generateHibernateXml();
-//			serviceGenerator.setTableName(table);
-//			serviceGenerator.generateService();
-//			serviceGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
-//			serviceGenerator.generateServiceImpl();
-//			serviceGenerator.generateServiceXml();
+//			resultMapGenerator.setTableName(table);
+//			resultMapGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
+//			resultMapGenerator.generateResultMap();
+			daoGenerator.setTableName(table);
+			daoGenerator.generateDao();
+			daoGenerator.generateDaoImpl();
+			daoGenerator.generateDaoXml();
+			entityGenerator.setTableName(table);
+			entityGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
+			entityGenerator.generateEntity();
+			entityGenerator.generateHibernateXml();
+			serviceGenerator.setTableName(table);
+			serviceGenerator.generateService();
+			serviceGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
+			serviceGenerator.generateServiceImpl();
+			serviceGenerator.generateServiceXml();
 //			actionGenerator.setTableName(table);
 //			actionGenerator.generateAction();
 //			actionGenerator.generateActionXml();

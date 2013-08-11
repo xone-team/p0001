@@ -148,6 +148,7 @@
 							$('ul.purchaselistview${myid}').listview('refresh');
 							return false;
 						}
+						return true;
 					});
 					$('input.uploadImageButton').click(function(e) {
 						e.preventDefault();
