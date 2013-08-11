@@ -98,7 +98,7 @@
                         <tr>
                             <td colspan="2">审核历史</td>
                         </tr>
-                        <c:forEach items="${ product.checkList }" var="item" varStatus="status">
+                        <c:forEach items="${ product.productCheckList }" var="item" varStatus="status">
                             <tr>
                                 <td colspan="2"><div class="well">
                                         <div class="control-group">
