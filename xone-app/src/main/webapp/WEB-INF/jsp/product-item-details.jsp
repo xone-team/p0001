@@ -97,22 +97,35 @@
 </li>
 <c:if test="${product.groupSaleType}">
 	<li>
-		<table style="width:100%">
-			<tr>
-				<td style="width:50%;">参与组团数量:</td>
-				<td style="width:50%;"><input type="text" name="" class="textinput${myid}" value="" data-clear-btn="true"/></td>
-			</tr>
-		</table>
-		<script type="text/javascript" id="textvalueid${myid}">
-			$('input.textinput${myid}').textinput();
-			$('#textvalueid${myid}').remove();
-		</script>
+		<form action="${pageContext.request.contextPath}/product/productGroup.html" method="POST">
+			<table style="width:100%">
+				<tr>
+					<td style="width:50%;">参与组团数量:</td>
+					<td style="width:50%;">
+						<input type="text" name="productGroup.groupNum" class="textinput${myid}" value="" data-clear-btn="true"/>
+					</td>
+				</tr>
+			</table>
+			<script type="text/javascript" id="textvalueid${myid}">
+				$('input.textinput${myid}').textinput();
+				$('#textvalueid${myid}').remove();
+			</script>
+		</form>
 	</li>
 	<li>
 		<div>
 		<a href="#" class="productgroupbutton${myid}" data-role="button" data-theme="b" data-iconpos="right" data-icon="plus">参与组团</a>
 		<script type="text/javascript" id="scriptid${myid}">
-			$('a.productgroupbutton${myid}').buttonMarkup("refresh");
+			$('a.productgroupbutton${myid}').buttonMarkup("refresh").click(function() {
+				var v = $('input.textinput${myid}').val();
+				if ('' == $.trim(v)) {
+					alert('请输入参与组团的数量!');
+					return false;
+				}
+				if (confirm('确认参与组团')) {
+					
+				}
+			});
 			$('#scriptid${myid}').remove();
 		</script>
 		</div>

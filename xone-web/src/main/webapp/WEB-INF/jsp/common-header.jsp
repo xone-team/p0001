@@ -21,9 +21,12 @@
  	  width: 100%;
 	}
 	.navbar .nav li.mynav {
-	  display: table-cell;
- 	  width: 1%; 
+	  display:inline;
 	  float: none;
+	  display: table-cell;
+	  border:1px solid #beceeb; 
+	  text-align:center; 
+	  vertical-align:middle;
 	}
 	.navbar .nav li.mynav a {
 	  font-weight: bold;

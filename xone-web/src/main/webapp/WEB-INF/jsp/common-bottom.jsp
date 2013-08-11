@@ -9,3 +9,14 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery-1.10.0.min.js"></script>
 <script type="text/javascript" src="${STATIC_ROOT}/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	var p = $('li.mynav').closest('ul');
+	if (p.height() > 50) {
+		$('li.mynav').css({
+			'float': 'left',
+			width: (99  / $('li.mynav').length) + '%'
+		});
+	}
+});
+</script>
