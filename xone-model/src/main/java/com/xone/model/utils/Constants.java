@@ -21,4 +21,6 @@ public class Constants {
 
 	public static final int NUM_PER_PAGE = 20;//默认的每页显示条数
 	
+	public static final int BACK_INDEX_REFRESH_TIME = 5; //默认后台首页5分钟刷新一次
+	
 }

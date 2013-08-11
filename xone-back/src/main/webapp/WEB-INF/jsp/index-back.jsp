@@ -67,12 +67,17 @@
 </body>
 <script>
     jQuery(function() {
+        var x = <%=com.xone.model.utils.Constants.BACK_INDEX_REFRESH_TIME%>;
+        setInterval(getnums, 1000 * 60 * x);
+        getNums();
+    });
+    function getNums(){
         $.ajax({
 			url : "${pageContext.request.contextPath}/console/count.html",
 			success : function(text){
 			    $("#X_count_container").html(text);
 			}
         });
-    });
+    }
 </script>
 </html>
