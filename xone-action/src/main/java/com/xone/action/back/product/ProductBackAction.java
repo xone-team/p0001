@@ -85,10 +85,6 @@ public class ProductBackAction extends LogicAction {
         params.put("pageSize", String.valueOf(getPagination().getPageSize()));
         params.put("pageNo", String.valueOf(getPagination().getPageNo()));
         Pagination p = getProductService().findByParams(params);
-        // List<Product> l = getProductService().findAllByMap(params);
-        // if (null != l && !l.isEmpty()) {
-        // getList().addAll(l);
-        // }
         setPagination(p);
         return SUCCESS;
     }
@@ -128,6 +124,7 @@ public class ProductBackAction extends LogicAction {
         try {
             setProduct(getProductService().save(getProduct(), getImageList()));
         } catch (Exception e) {
+            log.error(e.getMessage(), e);
             addActionError(e.getMessage());
             return INPUT;
         }
@@ -184,7 +181,13 @@ public class ProductBackAction extends LogicAction {
                 entity.setDateCheck(new Date());
                 entity.getProductCheck().setUserCheck(getUserId());
             }
-            setProduct(getProductService().update(entity, getImageList(), product.getIds()));
+            try{
+                setProduct(getProductService().update(entity, getImageList(), product.getIds()));
+            } catch (Exception e) {
+                log.error(e.getMessage(), e);
+                addActionError(e.getMessage());
+                return INPUT;
+            }
         }
         return SUCCESS;
     }

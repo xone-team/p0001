@@ -3,31 +3,39 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="adbanner" namespace="/adbanner" extends="default">
-	    <global-results>
-            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+    <package name="adbanner" namespace="/adbanner" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
         </global-results>
-		<action name="adbannerList" class="adbannerWebAction" method="adbannerList">
-			<result name="success">/WEB-INF/jsp/adbanner-list.jsp</result>
-		</action>
-		<action name="adbannerCreate" class="adbannerWebAction" method="adbannerCreate">
-			<result name="success">/WEB-INF/jsp/adbanner-create.jsp</result>
-		</action>
-		<action name="adbannerSave" class="adbannerWebAction" method="adbannerSave">
-			<result name="success">/WEB-INF/jsp/adbanner-item.jsp</result>
-		</action>
-		<action name="adbannerEdit" class="adbannerWebAction" method="adbannerEdit">
-			<result name="success">/WEB-INF/jsp/adbanner-edit.jsp</result>
-		</action>
-		<action name="adbannerUpdate" class="adbannerWebAction" method="adbannerUpdate">
-			<result name="success">/WEB-INF/jsp/adbanner-item.jsp</result>
-			<result name="list" type="chain">
-			    <param name="actionName">adbannerList</param> 
-    			<param name="namespace">/adbanner</param>
-			</result>
-		</action>
-		<action name="adbannerItem" class="adbannerWebAction" method="adbannerItem">
-			<result name="success">/WEB-INF/jsp/adbanner-item.jsp</result>
-		</action>
-	</package>
+        <action name="adbannerList" class="adbannerWebAction" method="adbannerList">
+            <result name="success">/WEB-INF/jsp/adbanner-list.jsp</result>
+        </action>
+        <action name="adbannerCreate" class="adbannerWebAction" method="adbannerCreate">
+            <result name="success">/WEB-INF/jsp/adbanner-create.jsp</result>
+        </action>
+        <action name="adbannerSave" class="adbannerWebAction" method="adbannerSave">
+            <result name="success" type="redirectAction">
+                <param name="actionName">adbannerItem</param>
+                <param name="namespace">/adbanner</param>
+                <param name="adbanner.id">${adbanner.id}</param>
+            </result>
+        </action>
+        <action name="adbannerEdit" class="adbannerWebAction" method="adbannerEdit">
+            <result name="success">/WEB-INF/jsp/adbanner-edit.jsp</result>
+        </action>
+        <action name="adbannerUpdate" class="adbannerWebAction" method="adbannerUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">adbannerItem</param>
+                <param name="namespace">/adbanner</param>
+                <param name="adbanner.id">${adbanner.id}</param>
+            </result>
+            <result name="list" type="redirectAction">
+                <param name="actionName">adbannerList</param>
+                <param name="namespace">/adbanner</param>
+            </result>
+        </action>
+        <action name="adbannerItem" class="adbannerWebAction" method="adbannerItem">
+            <result name="success">/WEB-INF/jsp/adbanner-item.jsp</result>
+        </action>
+    </package>
 </struts>

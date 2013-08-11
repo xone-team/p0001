@@ -13,7 +13,9 @@
 	<bean id="genericPageAction" class="com.xone.action.web.index.GenericPageAction" scope="prototype">
 	    <property name="imageUploadPath" value="${com.xone.image.uploaded.file.dir}" />
 	</bean>
-	<bean id="productWebAction" class="com.xone.action.web.product.ProductWebAction" scope="prototype" />
+	<bean id="productWebAction" class="com.xone.action.web.product.ProductWebAction" scope="prototype">
+        <property name="imageUploadPath" value="${com.xone.image.uploaded.file.dir}" />
+    </bean>
 	<bean id="purchaseWebAction" class="com.xone.action.web.purchase.PurchaseWebAction" scope="prototype" />
 	<bean id="resourcesWebAction" class="com.xone.action.web.resources.ResourcesWebAction" scope="prototype" />
 	<bean id="rolesWebAction" class="com.xone.action.web.admin.RolesWebAction" scope="prototype" />

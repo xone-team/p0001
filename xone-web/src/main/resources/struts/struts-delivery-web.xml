@@ -3,31 +3,39 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="delivery" namespace="/delivery" extends="default">
-	    <global-results>
-            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+    <package name="delivery" namespace="/delivery" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
         </global-results>
-		<action name="deliveryList" class="deliveryWebAction" method="deliveryList">
-			<result name="success">/WEB-INF/jsp/delivery-list.jsp</result>
-		</action>
-		<action name="deliveryCreate" class="deliveryWebAction" method="deliveryCreate">
-			<result name="success">/WEB-INF/jsp/delivery-create.jsp</result>
-		</action>
-		<action name="deliverySave" class="deliveryWebAction" method="deliverySave">
-			<result name="success">/WEB-INF/jsp/delivery-item.jsp</result>
-		</action>
-		<action name="deliveryEdit" class="deliveryWebAction" method="deliveryEdit">
-			<result name="success">/WEB-INF/jsp/delivery-edit.jsp</result>
-		</action>
-		<action name="deliveryUpdate" class="deliveryWebAction" method="deliveryUpdate">
-			<result name="success">/WEB-INF/jsp/delivery-item.jsp</result>
-			<result name="list" type="chain">
-			    <param name="actionName">deliveryList</param> 
-    			<param name="namespace">/delivery</param>
-			</result>
-		</action>
-		<action name="deliveryItem" class="deliveryWebAction" method="deliveryItem">
-			<result name="success">/WEB-INF/jsp/delivery-item.jsp</result>
-		</action>
-	</package>
+        <action name="deliveryList" class="deliveryWebAction" method="deliveryList">
+            <result name="success">/WEB-INF/jsp/delivery-list.jsp</result>
+        </action>
+        <action name="deliveryCreate" class="deliveryWebAction" method="deliveryCreate">
+            <result name="success">/WEB-INF/jsp/delivery-create.jsp</result>
+        </action>
+        <action name="deliverySave" class="deliveryWebAction" method="deliverySave">
+            <result name="success" type="redirectAction">
+                <param name="actionName">deliveryItem</param>
+                <param name="namespace">/delivery</param>
+                <param name="delivery.id">${delivery.id}</param>
+            </result>
+        </action>
+        <action name="deliveryEdit" class="deliveryWebAction" method="deliveryEdit">
+            <result name="success">/WEB-INF/jsp/delivery-edit.jsp</result>
+        </action>
+        <action name="deliveryUpdate" class="deliveryWebAction" method="deliveryUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">deliveryItem</param>
+                <param name="namespace">/delivery</param>
+                <param name="delivery.id">${delivery.id}</param>
+            </result>
+            <result name="list" type="redirectAction">
+                <param name="actionName">deliveryList</param>
+                <param name="namespace">/delivery</param>
+            </result>
+        </action>
+        <action name="deliveryItem" class="deliveryWebAction" method="deliveryItem">
+            <result name="success">/WEB-INF/jsp/delivery-item.jsp</result>
+        </action>
+    </package>
 </struts>

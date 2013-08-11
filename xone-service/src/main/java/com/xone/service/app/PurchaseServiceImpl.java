@@ -23,9 +23,8 @@ import com.xone.model.hibernate.app.PurchaseCheckDao;
 import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
-import com.xone.model.hibernate.entity.Product;
-import com.xone.model.hibernate.entity.PurchaseCheck;
 import com.xone.model.hibernate.entity.Purchase;
+import com.xone.model.hibernate.entity.PurchaseCheck;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.utils.MyServerUtils;
 
@@ -67,6 +66,21 @@ public class PurchaseServiceImpl implements PurchaseService {
 
     public void setImageUploadedDao(ImageUploadedDao imageUploadedDao) {
         this.imageUploadedDao = imageUploadedDao;
+    }
+    
+    /* (non-Javadoc)
+     * @see com.xone.service.app.ProductService#updateFlagDeletedWhenExpired()
+     */
+    @Override
+    public void updateFlagDeletedWhenExpired() {
+        DetachedCriteria c = DetachedCriteria.forClass(Purchase.class);
+        c.add(Restrictions.le("purchaseValid", new Date()));
+        c.add(Restrictions.eq("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue()));
+        List<Purchase> l = getPurchaseDao().findByDetachedCriteria(c);
+        for(Purchase p : l){
+            p.setFlagDeleted(Purchase.FlagDeleted.DELETED.getValue());
+            getPurchaseDao().update(p);
+        }
     }
 
     @Override
@@ -450,7 +464,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         // entity.setRemark(check.getRemark());
         entity = getPurchaseDao().update(entity);
 
-        return getPurchaseDao().update(entity);
+        return entity;
     }
 
     @Override

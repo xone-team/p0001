@@ -31,4 +31,9 @@ public interface ProductService {
 
 	public Pagination findByParams(Map<String, String> params);
 	
+	/**
+	 * 过期更新
+	 */
+	public void updateFlagDeletedWhenExpired();
+	
 }

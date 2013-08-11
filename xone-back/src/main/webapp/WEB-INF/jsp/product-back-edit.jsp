@@ -151,9 +151,9 @@
                     <div class="control-group">
                         <label class="control-label" for="productCheckStatus">审核结果</label>
                         <div class="controls">
-                            <select class="selectpicker" id="productCheckStatus" name="product.productCheck.checkStatus">
+                            <select class="selectpicker" id="productCheckStatus" name="product.check.checkStatus">
                                 <c:forEach items="${checkStatus}" var="it">
-                                    <option value="${it.value}" <c:if test="${it.value == product.productCheck.checkStatus}">selected</c:if>>${it.name}</option>
+                                    <option value="${it.value}" <c:if test="${it.value == product.checkStatus}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -162,12 +162,12 @@
                     <div class="control-group">
                         <label class="control-label" for="productCheckRemark">审核意见</label>
                         <div class="controls">
-                            <input type="text" id="productCheckRemark" name="product.productCheck.remark" value="${product.productCheck.remark}" maxlength="255" placeholder="审核意见">
+                            <input type="text" id="productCheckRemark" name="product.check.remark" maxlength="255" placeholder="审核意见">
                         </div>
                     </div>
                     <div class="well">
                         审核历史
-                        <c:forEach items="${ product.productCheckList }" var="item" varStatus="status">
+                        <c:forEach items="${ product.checkList }" var="item" varStatus="status">
                             <div class="control-group">
                                 <label class="control-label" for="productCheckStatus">审核结果</label>
                                 <div class="controls">
@@ -195,8 +195,8 @@
         </div>
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
-    <script src="${STATIC_ROOT}/js/fileupload.js"></script>
 </body>
+<script src="${STATIC_ROOT}/js/fileupload.js"></script>
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_product").addClass("active");
@@ -249,7 +249,7 @@
                 func : numberValidation
             }, {
                 name : 'uploadFile1',
-                text : '请至少上传一张图片'
+                text : '请上传主图片'
             } ];
 
             var pass = XONE.valid(validate, $form, "");

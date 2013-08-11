@@ -28,7 +28,6 @@
                     </ul>
                 </div>
                 <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/delivery/deliverySave.html">
-                    <input type="hidden" name="delivery.id">
                     <div class="control-group">
                         <label class="control-label" for="productId">产品编号</label>
                         <div class="controls">
@@ -103,7 +102,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="button" class="btn" onclick="doSaveForm();">提交创建</button>
+                            <button type="submit" class="btn">提交创建</button>
                         </div>
                     </div>
                 </form>
@@ -125,13 +124,6 @@
     jQuery(function() {
         jQuery("#X_menu_li_delivery").addClass("active");
 
-        /*
-		$('#loadtime').datetimepicker({
-		    format: 'yyyy-mm-dd hh:ii',
-		    language: 'zh-CN'
-		});
-        */
-        
         $('.selectpicker').selectpicker({
             style : 'btn-info'
         });
@@ -145,58 +137,58 @@
         $('#productId').click(function() {
             $('#windowTitleDialogProduct').modal('show');
         });
-    });
-    function doSaveForm() {
-        var $form = $('#saveForm');
-        var validate = [ {
-            name : 'productId',
-            text : '选择产品'
-        }, {
-            name : 'marketarea',
-            text : '请输入市场区域'
-        }, {
-            name : 'determini',
-            text : '请输入目的地'
-        }, {
-            name : 'loadtime',
-            text : '请输入上货时间'
-        }, {
-            name : 'loadaddress',
-            text : '请输入上货地点'
-        }, {
-            name : 'boxNum',
-            text : '请输入箱数'
-        }, {
-            name : 'boxNum',
-            text : '箱数必须为数字',
-            func : numberValidation
-        }, {
-            name : 'unitNum',
-            text : '请输入箱重'
-        }, {
-            name : 'unitNum',
-            text : '箱重必须为数字',
-            func : numberValidation
-        }, {
-            name : 'boxTotal',
-            text : '请输入总箱重'
-        }, {
-            name : 'boxTotal',
-            text : '总箱重必须为数字',
-            func : numberValidation
-        }, {
-            name : 'totalWeight',
-            text : '请输入总重'
-        }, {
-            name : 'totalWeight',
-            text : '总重必须为数字',
-            func : numberValidation
-        } ];
 
-        var pass = XONE.valid(validate, $form, "delivery.");
-        if (pass)
-            $form.submit();
-    }
+        $('#saveForm').submit(function() {
+            var $form = $('#saveForm');
+            var validate = [ {
+                name : 'productId',
+                text : '选择产品'
+            }, {
+                name : 'marketarea',
+                text : '请输入市场区域'
+            }, {
+                name : 'determini',
+                text : '请输入目的地'
+            }, {
+                name : 'loadtime',
+                text : '请输入上货时间'
+            }, {
+                name : 'loadaddress',
+                text : '请输入上货地点'
+            }, {
+                name : 'boxNum',
+                text : '请输入箱数'
+            }, {
+                name : 'boxNum',
+                text : '箱数必须为数字',
+                func : numberValidation
+            }, {
+                name : 'unitNum',
+                text : '请输入箱重'
+            }, {
+                name : 'unitNum',
+                text : '箱重必须为数字',
+                func : numberValidation
+            }, {
+                name : 'boxTotal',
+                text : '请输入总箱重'
+            }, {
+                name : 'boxTotal',
+                text : '总箱重必须为数字',
+                func : numberValidation
+            }, {
+                name : 'totalWeight',
+                text : '请输入总重'
+            }, {
+                name : 'totalWeight',
+                text : '总重必须为数字',
+                func : numberValidation
+            } ];
+
+            var pass = XONE.valid(validate, $form, "delivery.");
+            return pass;
+        });
+    });
     function numberValidation(inputEl) {
         var result = true;
         var val = inputEl.val();

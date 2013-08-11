@@ -50,6 +50,21 @@ public class ProductServiceImpl implements ProductService {
         this.personDao = personDao;
     }
 
+    /* (non-Javadoc)
+     * @see com.xone.service.app.ProductService#updateFlagDeletedWhenExpired()
+     */
+    @Override
+    public void updateFlagDeletedWhenExpired() {
+        DetachedCriteria c = DetachedCriteria.forClass(Product.class);
+        c.add(Restrictions.le("productValid", new Date()));
+        c.add(Restrictions.eq("flagDeleted", Product.FlagDeleted.NORMAL.getValue()));
+        List<Product> l = getProductDao().findByDetachedCriteria(c);
+        for(Product p : l){
+            p.setFlagDeleted(Product.FlagDeleted.DELETED.getValue());
+            getProductDao().update(p);
+        }
+    }
+
     @Override
     public Product save(Product entity) {
         entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
@@ -544,5 +559,6 @@ public class ProductServiceImpl implements ProductService {
     public void setProductCheckDao(ProductCheckDao productCheckDao) {
         this.productCheckDao = productCheckDao;
     }
+
 
 }
