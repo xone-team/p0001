@@ -30,4 +30,9 @@ public interface PurchaseService {
 	public Purchase findByMap(Map<String, String> params);
 
 	public Pagination findByParams(Map<String, String> params);
+	
+	/**
+     * 过期更新
+     */
+    public void updateFlagDeletedWhenExpired();
 }
