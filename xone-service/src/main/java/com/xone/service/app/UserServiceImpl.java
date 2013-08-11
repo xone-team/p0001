@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.model.hibernate.app.UserDao;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.service.app.utils.EncryptRef;
 
 public class UserServiceImpl implements UserService {
     private static final Log log = LogFactory.getLog(UserServiceImpl.class);
@@ -26,15 +27,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Person save(Person entity) {
-        Long user = new Long(0);
         Date date = new Date();
         entity.setDateApply(date);
-        entity.setUserApply(user);
+        entity.setFlagDeleted(Person.FlagDeleted.NORMAL.getValue());
+        if(entity.getPassword() != null){
+            entity.setPassword(EncryptRef.SHA1(entity.getPassword()));
+        }
         return getUserDao().save(entity);
     }
 
     @Override
     public Person update(Person entity) {
+        if(!StringUtils.isBlank(entity.getRepassword())){
+            entity.setPassword(EncryptRef.SHA1(entity.getRepassword()));
+        }
         return getUserDao().update(entity);
     }
 

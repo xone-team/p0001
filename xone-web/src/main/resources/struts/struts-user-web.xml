@@ -7,9 +7,9 @@
 	    <global-results>
             <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
         </global-results>
-		<action name="userList" class="userWebAction" method="userList">
+<!-- 		<action name="userList" class="userWebAction" method="userList">
 			<result name="success">/WEB-INF/jsp/user-list.jsp</result>
-		</action>
+		</action> -->
 		<action name="userCreate" class="userWebAction" method="userCreate">
 			<result name="success">/WEB-INF/jsp/user-create.jsp</result>
 		</action>
@@ -20,11 +20,18 @@
 			<result name="success">/WEB-INF/jsp/user-edit.jsp</result>
 		</action>
 		<action name="userUpdate" class="userWebAction" method="userUpdate">
-			<result name="success">/WEB-INF/jsp/user-item.jsp</result>
-			<result name="list" type="chain">
+			<result name="success" type="redirectAction">
+                <param name="actionName">userItem</param>
+                <param name="namespace">/user</param>
+            </result>
+			<result name="error" type="redirectAction">
+                <param name="actionName">userItem</param>
+                <param name="namespace">/user</param>
+            </result>
+<!-- 			<result name="list" type="chain">
 			    <param name="actionName">userList</param> 
     			<param name="namespace">/user</param>
-			</result>
+			</result> -->
 		</action>
 		<action name="userItem" class="userWebAction" method="userItem">
 			<result name="success">/WEB-INF/jsp/user-item.jsp</result>

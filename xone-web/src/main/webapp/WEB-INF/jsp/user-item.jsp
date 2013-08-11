@@ -18,63 +18,22 @@
 	<div class="container">
 		<div class="row">
 			<div class="span3">
-				<jsp:include page="user-center-menu.jsp"><jsp:param value="5" name="menuindex"/></jsp:include>
+				<jsp:include page="user-center-menu.jsp"><jsp:param value="1" name="menuindex"/></jsp:include>
 			</div>
 			<div class="span9">
 				<ul class="breadcrumb">
 					<li><a href="${pageContext.request.contextPath}/admin/welcome.html">用户中心</a> <span class="divider">/</span></li>
-					<li><a href="${pageContext.request.contextPath}/user/userList.html">user列表</a> <span class="divider">/</span></li>
-					<li class="active">创建user</li>
+					<li class="active">我的资料</li>
 				</ul>
 				<table class="table table-bordered" style="width:100%">
 					<tbody>
-						<tr>
-							<td style="width:60px;">用户编号</td>
-							<td>${user.id}</td>
-						</tr>
 						<tr>
 							<td style="width:60px;">用户名</td>
 							<td>${user.username}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">密码</td>
-							<td>${user.password}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">申请人</td>
-							<td>${user.userApply}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">申请时间</td>
+							<td style="width:60px;">注册时间</td>
 							<td>${user.dateApply}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">审核人</td>
-							<td>${user.userCheck}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">审核时间</td>
-							<td>${user.dateCheck}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">删除标识</td>
-							<td>${user.flagDeleted}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">创建人</td>
-							<td>${user.userCreated}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">创建时间</td>
-							<td>${user.dateCreated}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">更新人</td>
-							<td>${user.userUpdated}</td>
-						</tr>
-						<tr>
-							<td style="width:60px;">更新时间</td>
-							<td>${user.lastUpdated}</td>
 						</tr>
 						<tr>
 							<td style="width:60px;">昵称</td>
@@ -102,11 +61,11 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">认证标识</td>
-							<td>${user.credit}</td>
+							<td>${user.creditName}</td>
 						</tr>
 						<tr>
 							<td style="width:60px;">用户级别</td>
-							<td>${user.userLevel}</td>
+							<td>${user.userLevelName}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -116,4 +75,9 @@
 	</div>
 	<jsp:include page="common-bottom.jsp"></jsp:include>
 	</body>
+    <script type="text/javascript">
+    	$(function(){
+    	    jQuery("#X_menu_li_product").addClass("active");
+    	});
+    </script>
 </html>

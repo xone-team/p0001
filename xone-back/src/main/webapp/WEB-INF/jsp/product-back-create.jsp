@@ -24,7 +24,7 @@
                     <ul class="breadcrumb" id="X_breadcrumbs_ul">
                         <li>后台 <span class="divider">/</span></li>
                         <li>产品管理 <span class="divider">/</span></li>
-                        <li class="active">创建产品</li>
+                        <li class="active">发布产品</li>
                     </ul>
                 </div>
                 <c:if test="${!empty actionErrors }">
@@ -114,7 +114,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" name="create" value="create" class="btn">提交创建</button>
+                            <button type="submit" name="create" value="create" class="btn">提交发布</button>
                         </div>
                     </div>
                 </form>
@@ -174,7 +174,7 @@
                 func : numberValidation
             }, {
                 name : 'uploadFile1',
-                text : '请至少上传一张图片'
+                text : '请上传主图片'
             } ];
 
             var pass = XONE.valid(validate, $form, "");

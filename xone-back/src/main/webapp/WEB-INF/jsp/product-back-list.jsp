@@ -178,6 +178,7 @@
                                 <th>产品产地</th>
                                 <th>产品属地</th>
                                 <th>申请时间</th>
+                                <th>审核状态</th>
                                 <th style="width: 8em;">操作</th>
                             </tr>
                         </thead>
@@ -193,6 +194,7 @@
                                     <td>${item.productAddress}</td>
                                     <td>${item.productLocation}</td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                    <td>${item.checkStatusName}</td>
                                     <td><a href="${pageContext.request.contextPath}/product/productEdit.html?product.id=${item.id}" class="btn btn-mini">
                                             <i class="icon-edit"> </i>编辑
                                         </a>

@@ -54,4 +54,6 @@
     <![endif]-->
 <!-- Fav and touch icons -->
 <!-- 		<link rel="shortcut icon" href="../assets/ico/favicon.png"> -->
-
+<script src="${STATIC_ROOT}/js/jquery-1.10.0.min.js"></script>
+<script src="${STATIC_ROOT}/js/My97DatePicker/WdatePicker.js"></script>
+<script src="${pageContext.request.contextPath}/js/base.js"></script>

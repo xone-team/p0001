@@ -450,7 +450,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         // entity.setRemark(check.getRemark());
         entity = getPurchaseDao().update(entity);
 
-        return getPurchaseDao().update(entity);
+        return entity;
     }
 
     @Override
