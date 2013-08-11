@@ -145,6 +145,8 @@ public class ProductServiceImpl implements ProductService {
             check.setProductId(entity.getId());
             check.setDateCheck(dateCheck);
             check.setFlagDeleted(ProductCheck.FlagDeleted.NORMAL.getValue());
+            check.setUserApply(entity.getUserApply());
+            check.setDateApply(entity.getDateApply());
             productCheckDao.save(check);
             
             entity.setDateCheck(dateCheck);

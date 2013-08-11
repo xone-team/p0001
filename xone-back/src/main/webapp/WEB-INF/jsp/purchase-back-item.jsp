@@ -59,10 +59,6 @@
                             <td>${purchase.purchaseDesc}</td>
                         </tr>
                         <tr>
-                            <td style="width: 60px;">申请人</td>
-                            <td>${purchase.userApply}</td>
-                        </tr>
-                        <tr>
                             <td style="width: 60px;">申请时间</td>
                             <td><fmt:formatDate value="${purchase.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
