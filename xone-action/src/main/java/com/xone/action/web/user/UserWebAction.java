@@ -41,10 +41,6 @@ public class UserWebAction extends Action {
         params.put("pageSize", String.valueOf(getPagination().getPageSize()));
         params.put("pageNo", String.valueOf(getPagination().getPageNo()));
         Pagination p = getUserService().findByParams(params);
-        // List<User> l = getUserService().findAllByMap(params);
-        // if (null != l && !l.isEmpty()) {
-        // getList().addAll(l);
-        // }
         setPagination(p);
         return SUCCESS;
     }

@@ -1,6 +1,7 @@
 package com.xone.action.web.subscribe;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
+import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Subscribe;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.SubscribeService;
@@ -17,21 +20,42 @@ import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class SubscribeWebAction extends Action {
 	
-	@Autowired
+	/**
+     * 
+     */
+    private static final long serialVersionUID = -5778479498623602431L;
+    @Autowired
 	protected SubscribeService subscribeService;
 	protected Subscribe subscribe = new Subscribe();
 	protected List<Subscribe> list = new ArrayList<Subscribe>();
 	protected Pagination pagination = new Pagination();
 	
+
+    public Enum<?>[] getCredit() {
+        return Person.Credit.values();
+    }
+    
+    public Enum<?>[] getSaleType() {
+        return Product.SaleType.values();
+    }
+    
+    public Enum<?>[] getProductType() {
+        return Product.ProductType.values();
+    }
+    
+    public Enum<?>[] getFlagDeleted() {
+        return Subscribe.FlagDeleted.values();
+    }
+	
 	public String subscribeList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
+		
+        params.put("userApply", getUserId().toString());
+        params.put("flagDeleted", Subscribe.FlagDeleted.NORMAL.getValue());
+		
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
 		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
 		Pagination p = getSubscribeService().findByParams(params);
-//		List<Subscribe> l = getSubscribeService().findAllByMap(params);
-//		if (null != l && !l.isEmpty()) {
-//			getList().addAll(l);
-//		}
 		setPagination(p);
 		return SUCCESS;
 	}
@@ -59,6 +83,10 @@ public class SubscribeWebAction extends Action {
 	}
 	
 	public String subscribeSave() throws Exception {
+	    getSubscribe().setDateApply(new Date());
+	    getSubscribe().setUserApply(getUserId());
+	    getSubscribe().setUserCreated(getUserId());
+	    getSubscribe().setUserUpdated(getUserId());
 		setSubscribe(getSubscribeService().save(getSubscribe()));
 		return SUCCESS;
 	}
@@ -87,6 +115,7 @@ public class SubscribeWebAction extends Action {
 					return (null != value);
 				}
 			});
+			getSubscribe().setUserUpdated(getUserId());
 			setSubscribe(getSubscribeService().update(entity));
 		}
 		return SUCCESS;

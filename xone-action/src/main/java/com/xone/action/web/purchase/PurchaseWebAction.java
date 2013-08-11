@@ -1,6 +1,7 @@
 package com.xone.action.web.purchase;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,19 +25,44 @@ public class PurchaseWebAction extends Action {
 	protected List<Purchase> list = new ArrayList<Purchase>();
 	protected Purchase purchase = new Purchase();
 	protected Pagination pagination = new Pagination();
-	
-	public String purchaseList() throws Exception {
+    
+    public Enum<?>[] getFlagDeleted() {
+        return Purchase.FlagDeleted.values();
+    }
+    public Enum<?>[] getCheckStatus() {
+        return Purchase.CheckStatus.values();
+    }
+    public Enum<?>[] getProductType() {
+        return Purchase.PurchaseType.values();
+    }
+    public Enum<?>[] getSaleType() {
+        return Purchase.SaleType.values();
+    }
+
+    public String purchaseList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
+		
+		params.put("userApply", getUserId().toString());
+        params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+		
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
 		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
 		Pagination p = getPurchaseService().findByParams(params);
-//		List<Purchase> l = getPurchaseService().findAllByMap(params);
-//		if (null != l && !l.isEmpty()) {
-//			getList().addAll(l);
-//		}
 		setPagination(p);
 		return SUCCESS;
 	}
+    
+    public String purchaseListAjax() throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        
+        params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+        
+        params.put("pageSize", String.valueOf(getPagination().getPageSize()));
+        params.put("pageNo", String.valueOf(getPagination().getPageNo()));
+        Pagination p = getPurchaseService().findByParams(params);
+        setPagination(p);
+        return SUCCESS;
+    }
 	
 	public String purchaseItem() throws Exception {
 		Purchase entity = getPurchaseService().findById(getPurchase().getId());
@@ -48,6 +74,7 @@ public class PurchaseWebAction extends Action {
 	}
 	
 	public String purchaseCreate() throws Exception {
+	    purchase.setPurchaseNum("0");
 		return SUCCESS;
 	}
 	
@@ -61,6 +88,14 @@ public class PurchaseWebAction extends Action {
 	}
 	
 	public String purchaseSave() throws Exception {
+        purchase.setUserCreated(getUserId());
+        purchase.setDateCreated(new Date());
+        purchase.setUserUpdated(getUserId());
+        purchase.setLastUpdated(new Date());
+
+        purchase.setUserApply(getUserId());
+        purchase.setDateApply(new Date());
+	    
 		setPurchase(getPurchaseService().save(getPurchase()));
 		return SUCCESS;
 	}
@@ -89,6 +124,9 @@ public class PurchaseWebAction extends Action {
 					return (null != value);
 				}
 			});
+			
+			entity.setUserUpdated(getUserId());
+            entity.setLastUpdated(new Date());
 			setPurchase(getPurchaseService().update(entity));
 		}
 		return SUCCESS;

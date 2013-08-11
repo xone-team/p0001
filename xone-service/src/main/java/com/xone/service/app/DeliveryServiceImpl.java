@@ -33,6 +33,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public Delivery save(Delivery delivery) {
+        delivery.setFlagPass(Delivery.FlagPass.HANDLING.getValue());
     	delivery.setFlagDeleted(Delivery.FlagDeleted.NORMAL.getValue());
         return getDeliveryDao().save(delivery);
     }

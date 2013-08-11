@@ -102,9 +102,6 @@
                 name : 'purchase.purchaseNum',
                 text : '求购产品数量必须为数字，且大于0',
     			func : numberValidation       
-            }, {
-                name : 'uploadFile1',
-                text : '请至少上传一张图片'
             } ];
 
             var pass = XONE.valid(validate, $form, "");

@@ -31,12 +31,12 @@
                         <li class="active">物流配送编辑</li>
                     </ul>
                 </div>
-                <form id="deliverysaveform${myidentify}" class="form-horizontal" method="post" action="${pageContext.request.contextPath}/delivery/deliveryUpdate.html">
+                <form id="saveForm" class="form-horizontal" method="post" action="${pageContext.request.contextPath}/delivery/deliveryUpdate.html">
                     <input type="hidden" id="id" name="delivery.id" value="${delivery.id}" maxlength="20" placeholder="编号">
                     <div class="control-group">
-                        <label class="control-label" for="id">配送编号</label>
+                        <label class="control-label" for="productId">产品编号</label>
                         <div class="controls">
-                            <input type="text" value="${delivery.id}" maxlength="20" placeholder="编号" disabled="disabled">
+                            <input type="text" id="productId" name="delivery.productId" value="${delivery.productId}" maxlength="20" placeholder="产品编号" readonly="readonly">
                         </div>
                     </div>
                     <div class="control-group">
@@ -116,101 +116,119 @@
         </div>
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
-    <script src="${STATIC_ROOT}/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="${STATIC_ROOT}/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
-    <script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="${STATIC_ROOT}/js/common.js"></script>
-    <script type="text/javascript">
-                    $(document).ready(function() {
-                        $("#X_menu_li_delivery").addClass("active");
-                        $('#flagPass').val('${delivery.flagPass}');
-                        $('#loadtime').datetimepicker({
-                            format : 'yyyy-mm-dd hh:ii',
-                            language : 'zh-CN'
-                        });
-                        $('#flagPass').selectpicker({
-                            style : 'btn-info'
-                        });
-                        $('#deliverysaveform${myidentify}').submit(function() {
-                            var $form = $('#deliverysaveform${myidentify}');
-                            var validate = [ {
-                                name : 'productId',
-                                text : '选择产品'
-                            }, {
-                                name : 'marketarea',
-                                text : '请输入市场区域'
-                            }, {
-                                name : 'determini',
-                                text : '请输入目的地'
-                            }, {
-                                name : 'loadtime',
-                                text : '请输入上货时间'
-                            }, {
-                                name : 'loadaddress',
-                                text : '请输入上货地点'
-                            }, {
-                                name : 'boxNum',
-                                text : '请输入箱数'
-                            }, {
-                                name : 'boxNum',
-                                text : '箱数必须为数字',
-                                func : numberValidation
-                            }, {
-                                name : 'unitNum',
-                                text : '请输入箱重'
-                            }, {
-                                name : 'unitNum',
-                                text : '箱重必须为数字',
-                                func : numberValidation
-                            }, {
-                                name : 'boxTotal',
-                                text : '请输入总箱重'
-                            }, {
-                                name : 'boxTotal',
-                                text : '总箱重必须为数字',
-                                func : numberValidation
-                            }, {
-                                name : 'totalWeight',
-                                text : '请输入总重'
-                            }, {
-                                name : 'totalWeight',
-                                text : '总重必须为数字',
-                                func : numberValidation
-                            } ];
-
-                            var pass = XONE.valid(validate, $form, "delivery.");
-                            
-                            return pass;
-                        });
-                    });
-                    function numberValidation(inputEl) {
-                        var result = true;
-                        var val = inputEl.val();
-                        if (val != null && val.length > 0) {
-                            var n = null;
-                            try {
-                                n = parseInt(val);
-                            } catch (e) {
-                            }
-
-                            if (n == null || isNaN(n) || n < 0) {
-                                result = false;
-                            }
-                        }
-                        return result;
-                    }
-
-                    function calculateBoxTotal() {
-                        var boxNumInt, unitNumInt;
-                        try {
-                            boxNumInt = parseInt($("#boxNum").val());
-                            unitNumInt = parseFloat($('#unitNum').val()).toFixed(2);
-                        } catch (e) {
-                        }
-                        if (boxNumInt != null && !isNaN(boxNumInt) && unitNumInt != null && !isNaN(unitNumInt)) {
-                            $("#boxTotal").val(boxNumInt * unitNumInt);
-                        }
-                    }
-                </script>
+    <jsp:include page="common-modal.jsp">
+        <jsp:param name="myidentify" value="Product" />
+        <jsp:param name="title" value="请选择产品" />
+        <jsp:param name="url" value="${pageContext.request.contextPath }/product/productListAjax.html" />
+    </jsp:include>
 </body>
+<script src="${STATIC_ROOT}/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${STATIC_ROOT}/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+<script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="${STATIC_ROOT}/js/common.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#X_menu_li_delivery").addClass("active");
+        
+        $('#flagPass').val('${delivery.flagPass}');
+        $('#loadtime').datetimepicker({
+            format : 'yyyy-mm-dd hh:ii',
+            language : 'zh-CN'
+        });
+        $('#flagPass').selectpicker({
+            style : 'btn-info'
+        });
+        
+        $('#windowTitleDialogProduct').delegate('a.productselectinfo', 'click', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            $('#productId').val($this.attr('attr-id'));
+            $this.closest('div.modal').modal('hide');
+            return false;
+        });
+        $('#productId').click(function() {
+            $('#windowTitleDialogProduct').modal('show');
+        });
+        
+        $('#saveForm').submit(function() {
+            var $form = $('#saveForm');
+            var validate = [ {
+                name : 'productId',
+                text : '选择产品'
+            }, {
+                name : 'marketarea',
+                text : '请输入市场区域'
+            }, {
+                name : 'determini',
+                text : '请输入目的地'
+            }, {
+                name : 'loadtime',
+                text : '请输入上货时间'
+            }, {
+                name : 'loadaddress',
+                text : '请输入上货地点'
+            }, {
+                name : 'boxNum',
+                text : '请输入箱数'
+            }, {
+                name : 'boxNum',
+                text : '箱数必须为数字',
+                func : numberValidation
+            }, {
+                name : 'unitNum',
+                text : '请输入箱重'
+            }, {
+                name : 'unitNum',
+                text : '箱重必须为数字',
+                func : numberValidation
+            }, {
+                name : 'boxTotal',
+                text : '请输入总箱重'
+            }, {
+                name : 'boxTotal',
+                text : '总箱重必须为数字',
+                func : numberValidation
+            }, {
+                name : 'totalWeight',
+                text : '请输入总重'
+            }, {
+                name : 'totalWeight',
+                text : '总重必须为数字',
+                func : numberValidation
+            } ];
+
+            var pass = XONE.valid(validate, $form, "delivery.");
+
+            return pass;
+        });
+    });
+    function numberValidation(inputEl) {
+        var result = true;
+        var val = inputEl.val();
+        if (val != null && val.length > 0) {
+            var n = null;
+            try {
+                n = parseInt(val);
+            } catch (e) {
+            }
+
+            if (n == null || isNaN(n) || n < 0) {
+                result = false;
+            }
+        }
+        return result;
+    }
+
+    function calculateBoxTotal() {
+        var boxNumInt, unitNumInt;
+        try {
+            boxNumInt = parseInt($("#boxNum").val());
+            unitNumInt = parseFloat($('#unitNum').val()).toFixed(2);
+        } catch (e) {
+        }
+        if (boxNumInt != null && !isNaN(boxNumInt) && unitNumInt != null && !isNaN(unitNumInt)) {
+            $("#boxTotal").val(boxNumInt * unitNumInt);
+        }
+    }
+</script>
 </html>

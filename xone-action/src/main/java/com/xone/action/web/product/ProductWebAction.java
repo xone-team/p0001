@@ -88,6 +88,33 @@ public class ProductWebAction extends LogicAction {
 	        return SUCCESS;
 	}
 	
+	public String productListAjax() throws Exception {
+	    Map<String, String> params = new HashMap<String, String>();
+	    MyBeanUtils.copyPropertiesToMap(getProduct(), params, new CopyRules() {
+	        @Override
+	        public boolean myCopyRules(Object value) {
+	            return null != value;
+	        }
+	        
+	    }, new AssignRules() {
+	        @Override
+	        public String myAssignRules(Object value) {
+	            if (null != value && value instanceof Date) {
+	                return MyDateUtils.format((Date) value, "yyyy-MM-dd");
+	            }
+	            return value.toString();
+	        }
+	    }, null);
+	    
+	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+	    
+	    params.put("pageSize", String.valueOf(getPagination().getPageSize()));
+	    params.put("pageNo", String.valueOf(getPagination().getPageNo()));
+	    Pagination p = getProductService().findByParams(params);
+	    setPagination(p);
+	    return SUCCESS;
+	}
+	
 	
 	public String productItem() throws Exception {
 		Product entity = getProductService().findById(getProduct().getId());

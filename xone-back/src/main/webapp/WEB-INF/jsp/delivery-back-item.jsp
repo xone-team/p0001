@@ -23,10 +23,11 @@
 				<div class="span10" id="X_contentContainer">
 				<div class="row-fluid">
 					<ul class="breadcrumb" id="X_breadcrumbs_ul">
-						<li>后台 <span class="divider">/</span></li><li>用户管理 <span class="divider">/</span></li>
-						<li><a href="${pageContext.request.contextPath}/delivery/deliveryList.html">物流配送列表</a> <span class="divider">/</span></li>
-						<li class="active">物流配送详细</li>
-					</ul>
+                        <li>后台 <span class="divider">/</span></li>
+                        <li>用户管理 <span class="divider">/</span></li>
+                        <li><a href="${pageContext.request.contextPath}/delivery/deliveryList.html">物流配送列表</a> <span class="divider">/</span></li>
+                        <li class="active">物流配送详细</li>
+                    </ul>
 				</div>
 				<table class="table table-bordered" style="width:100%">
 					<tbody>

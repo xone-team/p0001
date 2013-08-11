@@ -59,5 +59,8 @@
         <action name="productItem" class="productWebAction" method="productItem">
             <result name="success">/WEB-INF/jsp/product-user-item.jsp</result>
         </action>
+        <action name="productListAjax" class="productWebAction" method="productListAjax">
+            <result name="success">/WEB-INF/jsp/product-list-ajax.jsp</result>
+        </action>
     </package>
 </struts>

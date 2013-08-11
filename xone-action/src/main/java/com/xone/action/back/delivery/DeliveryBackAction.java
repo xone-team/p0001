@@ -93,7 +93,7 @@ public class DeliveryBackAction extends Action {
         delivery.setUserApply(getUserId());
         delivery.setUserCreated(getUserId());
         delivery.setUserUpdated(getUserId());
-        delivery.setFlagPass(Delivery.FlagPass.HANDLING.getValue());
+        
         setDelivery(getDeliveryService().save(getDelivery()));
         return SUCCESS;
     }
@@ -136,12 +136,6 @@ public class DeliveryBackAction extends Action {
         }
         return SUCCESS;
     }
-
-//    public String deliveryDelete() throws Exception {
-//        Delivery entity = getDeliveryService().findById(getDelivery().getId());
-//        deliveryService.delete(entity);
-//        return SUCCESS;
-//    }
 
     public DeliveryService getDeliveryService() {
         return deliveryService;

@@ -29,6 +29,7 @@ public class AdbannerServiceImpl implements AdbannerService {
 
 	@Override
 	public Adbanner save(Adbanner entity) {
+	    entity.setFlagDeleted(Adbanner.FlagDeleted.NORMAL.getValue());
 		return getAdbannerDao().save(entity);
 	}
 	

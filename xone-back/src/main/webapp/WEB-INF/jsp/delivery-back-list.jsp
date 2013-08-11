@@ -137,11 +137,11 @@
                                     <td class="table-col-number">${item.totalWeight}</td>
                                     <td>${item.flagPassName}</td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd hh:mm:ss" /></td>
-                                    <td>
-                                    <a href="${pageContext.request.contextPath}/delivery/deliveryEdit.html?delivery.id=${item.id}" class="btn btn-mini">
-                                            <i class="icon-edit"> </i>编辑</a> 
-                                    <a href="${pageContext.request.contextPath}/delivery/deliveryItem.html?delivery.id=${item.id}" class="btn btn-mini"><i class="icon-list-alt"> </i>详细</a>
-                                    </td>
+                                    <td><a href="${pageContext.request.contextPath}/delivery/deliveryEdit.html?delivery.id=${item.id}" class="btn btn-mini">
+                                            <i class="icon-edit"> </i>编辑
+                                        </a> <a href="${pageContext.request.contextPath}/delivery/deliveryItem.html?delivery.id=${item.id}" class="btn btn-mini">
+                                            <i class="icon-list-alt"> </i>详细
+                                        </a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>

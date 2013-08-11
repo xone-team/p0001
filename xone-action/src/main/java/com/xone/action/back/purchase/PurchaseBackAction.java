@@ -10,8 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
-import com.xone.model.hibernate.entity.MyModel;
-import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
@@ -65,17 +63,9 @@ public class PurchaseBackAction extends Action {
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
 		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
 		Pagination p = getPurchaseService().findByParams(params);
-//		List<Purchase> l = getPurchaseService().findAllByMap(params);
-//		if (null != l && !l.isEmpty()) {
-//			getList().addAll(l);
-//		}
 		setPagination(p);
 		return SUCCESS;
 	}
-	
-//	public String purchaseListAjax() throws Exception {
-//		return purchaseList();
-//	}
 	
 	public String purchaseItem() throws Exception {
 		Purchase entity = purchaseService.findById(getPurchase().getId());
@@ -85,12 +75,6 @@ public class PurchaseBackAction extends Action {
 		setPurchase(entity);
 		return SUCCESS;
 	}
-	
-//	protected Purchase findById(Long id) {
-//		Map<String, String> params = new HashMap<String, String>();
-//		params.put("id", String.valueOf(id));
-//		return purchaseService.findByMap(params);
-//	}
 	
 	public String purchaseCreate() throws Exception {
 	    purchase.setPurchaseNum("0");
@@ -114,7 +98,7 @@ public class PurchaseBackAction extends Action {
 
         purchase.setUserApply(getUserId());
         purchase.setDateApply(new Date());
-	    purchase.setPurchaseNum("0");
+        
 		setPurchase(getPurchaseService().save(getPurchase()));
 		return SUCCESS;
 	}
@@ -155,12 +139,6 @@ public class PurchaseBackAction extends Action {
 		}
 		return SUCCESS;
 	}
-	
-//    public String purchaseDelete() throws Exception {
-//        Purchase entity = getPurchaseService().findById(getPurchase().getId());
-//        purchaseService.delete(entity);
-//        return SUCCESS;
-//    }
 
 	public PurchaseService getPurchaseService() {
 		return purchaseService;
@@ -193,13 +171,5 @@ public class PurchaseBackAction extends Action {
 	public void setPagination(Pagination pagination) {
 		this.pagination = pagination;
 	}
-//
-//    public Map<String, Object[]> getTypes() {
-//        return types;
-//    }
-//
-//    public void setTypes(Map<String, Object[]> types) {
-//        this.types = types;
-//    }
 
 }

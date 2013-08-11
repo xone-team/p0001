@@ -28,7 +28,8 @@
             </div>
             <div class="span9">
                 <ul class="breadcrumb">
-                    <li><a href="${pageContext.request.contextPath}/admin/welcome.html">用户中心</a> <span class="divider">/</span></li>
+                    <li>用户中心<span class="divider">/</span></li>
+                    <li>我的售卖发布 <span class="divider">/</span></li>
                     <li class="active">发布产品</li>
                 </ul>
                 <form class="form-horizontal" enctype="multipart/form-data" id="productSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productSave.html">
