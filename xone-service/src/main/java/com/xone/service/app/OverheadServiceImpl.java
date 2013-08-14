@@ -49,10 +49,18 @@ public class OverheadServiceImpl implements OverheadService {
     public Overhead findByMap(Map<String, String> params) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Overhead.class);
 
-        handleCriteriaByParams(detachedCriteria, params);
+//        handleCriteriaByParams(detachedCriteria, params);
+        String refId = params.get("refId");
+        if (!StringUtils.isBlank(refId)) {
+        	detachedCriteria.add(Restrictions.eq("refId", new Long(refId)));
+        }
+        String overheadType = params.get("overheadType");
+        if (!StringUtils.isBlank(overheadType)) {
+        	detachedCriteria.add(Restrictions.eq("overheadType", overheadType));
+        }
 
         List<Overhead> l = getOverheadDao().findListByDetachedCriteria(detachedCriteria, 0, 1);
-        if (null == l) {
+        if (null == l || l.isEmpty()) {
             return new Overhead();
         }
         return l.get(0);
@@ -69,9 +77,7 @@ public class OverheadServiceImpl implements OverheadService {
 
     public Pagination findByParams(Map<String, String> params) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Overhead.class);
-        
         handleCriteriaByParams(detachedCriteria, params);
-        
         int pageSize = com.xone.model.utils.MyModelUtils.parseInt(params.get("pageSize"), 20);
         int startIndex = com.xone.model.utils.MyModelUtils.parseInt(params.get("pageNo"), 0);
         return getOverheadDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);

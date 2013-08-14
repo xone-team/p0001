@@ -96,8 +96,9 @@
 	</table>
 </li>
 <c:if test="${product.groupSaleType}">
-	<li>
-		<form action="${pageContext.request.contextPath}/product/productGroup.html" method="POST">
+	<li class="kgroups">
+		<form class="kgroupsform" action="${pageContext.request.contextPath}/product/doGroups.html?_=${myid}" method="POST">
+			<input type="hidden" name="productGroup.productId" value="${product.id}" data-clear-btn="true"/>
 			<table style="width:100%">
 				<tr>
 					<td style="width:50%;">参与组团数量:</td>
@@ -112,7 +113,7 @@
 			</script>
 		</form>
 	</li>
-	<li>
+	<li class="kgroupsopt">
 		<div>
 		<a href="#" class="productgroupbutton${myid}" data-role="button" data-theme="b" data-iconpos="right" data-icon="plus">参与组团</a>
 		<script type="text/javascript" id="scriptid${myid}">
@@ -123,7 +124,16 @@
 					return false;
 				}
 				if (confirm('确认参与组团')) {
-					
+					var $form = $('form.kgroupsform').first();
+					$.ajax({
+						type: $form.attr('method'),
+						url: $form.attr('action'),
+						data: $form.serialize(),
+						success: function(html) {
+							$('li.kgroups').remove();
+							$('li.kgroupsopt').html(html);
+						}
+					});
 				}
 			});
 			$('#scriptid${myid}').remove();
@@ -135,7 +145,7 @@
 <li data-role="list-divider">产品图片</li>
 <c:forEach var="item" items="${product.ids}">
 <li data-role="none" style="padding:0px;">
-	<div class="productimage" >
+	<div class="productimage">
 		<img src="${pageContext.request.contextPath}/assistant/image.html?id=${item}" alt="" width="100%" height="100%"/>
 	</div>
 </li>

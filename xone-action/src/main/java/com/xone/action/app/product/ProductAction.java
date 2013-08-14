@@ -2,6 +2,7 @@
 package com.xone.action.app.product;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +12,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
-import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.Overhead;
 import com.xone.model.hibernate.entity.Product;
+import com.xone.model.hibernate.entity.ProductGroup;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.model.utils.MyModelUtils;
+import com.xone.service.app.OverheadService;
+import com.xone.service.app.ProductGroupService;
 import com.xone.service.app.ProductService;
 import com.xone.service.app.SubscribeService;
 import com.xone.service.app.utils.AppConstants;
@@ -33,7 +37,15 @@ public class ProductAction extends LogicAction {
 	@Autowired
 	protected SubscribeService subscribeService;
 	
+	@Autowired
+	protected ProductGroupService productGroupService;
+	
+	@Autowired
+	protected OverheadService overheadService;
+	
 	protected Product product = new Product();
+	protected ProductGroup productGroup = new ProductGroup();
+	protected Overhead overhead = new Overhead();
 	protected String imageUploadPath;
 	protected List<Product> list = new ArrayList<Product>();
 
@@ -75,6 +87,39 @@ public class ProductAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	/**
+	 * 组团操作
+	 * @return
+	 */
+	public String doGroups() {
+		getProductGroup().setUserCreated(getUserId());
+		getProductGroup().setFlagDeleted(ProductGroup.FlagDeleted.NORMAL.getValue());
+		getProductGroup().setDateApply(new Date());
+		getProductGroupService().save(getProductGroup());
+		return SUCCESS;
+	}
+	
+	/**
+	 * 置顶申请
+	 * @return
+	 */
+	public String doTopApply() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("refId", getOverhead().getRefId().toString());
+		params.put("overheadType", getOverhead().getOverheadType());
+		Overhead overhead = getOverheadService().findByMap(params);
+		if (null != overhead && null != overhead.getId()) {
+			return SUCCESS;
+		}
+		Long userId = getUserId();
+		getOverhead().setOverheadType(Overhead.OverheadType.PRODUCT.getValue());
+		getOverhead().setUserApply(userId);
+		getOverhead().setDateApply(new Date());
+		getOverhead().setUserCreated(userId);
+		getOverheadService().save(getOverhead());
+		return SUCCESS;
+	}
+	
 	public String create() {
 		getProduct().setCheckStatus(Product.CheckStatus.WAITING.getValue());
 		getProduct().setUserCreated(getUserId());
@@ -84,7 +129,9 @@ public class ProductAction extends LogicAction {
 	}
 	
 	public String listSubscribeProduct() {
-		Map<String, String> params = getSubscribeService().updateSubscribeProductInfo(getRequestMap());
+		Map<String, String> param = getRequestMap();
+		param.put("userId", getUserIdString());
+		Map<String, String> params = getSubscribeService().updateSubscribeProductInfo(param);
 		if (null != params && !params.isEmpty()) {
 			getMapValue().putAll(params);
 		}
@@ -221,6 +268,38 @@ public class ProductAction extends LogicAction {
 
 	public void setSubscribeService(SubscribeService subscribeService) {
 		this.subscribeService = subscribeService;
+	}
+
+	public ProductGroupService getProductGroupService() {
+		return productGroupService;
+	}
+
+	public void setProductGroupService(ProductGroupService productGroupService) {
+		this.productGroupService = productGroupService;
+	}
+
+	public ProductGroup getProductGroup() {
+		return productGroup;
+	}
+
+	public OverheadService getOverheadService() {
+		return overheadService;
+	}
+
+	public void setOverheadService(OverheadService overheadService) {
+		this.overheadService = overheadService;
+	}
+
+	public void setProductGroup(ProductGroup productGroup) {
+		this.productGroup = productGroup;
+	}
+
+	public Overhead getOverhead() {
+		return overhead;
+	}
+
+	public void setOverhead(Overhead overhead) {
+		this.overhead = overhead;
 	}
 
 	public Product getProduct() {

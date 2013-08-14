@@ -117,6 +117,13 @@
 						$('#productsaveformsubmit${myid}').click();
 						return false;
 					});
+					if ($('script.imagerotate').length == 0) {
+						$('head').append('<script type="text/javascript" class="imagerotate" src="${pageContext.request.contextPath}/js/myimagerotate.js"><\/script>');
+					}
+					if ($('script.fileupload').length == 0) {
+						$('head').append('<script type="text/javascript" class="fileupload" src="${STATIC_ROOT}/js/fileupload.js"><\/script>');
+					}
+					
 // 					$('#productproductValid').scroller('destroy')
 // 					.scroller($.extend({
 // 						preset : 'date',
@@ -167,12 +174,39 @@
 								$('#' + vi.id).closest('li').before(['<li class="myerror"><div class="error ui-btn-inner">', vi.msg, '</div></li>'].join(''));
 							}
 						}
+						if ($('form.productform${myid} input[name="images"]').length == 0) {
+							$('.uploadImageProductButton').closest('li').before(['<li class="myerror"><div class="error ui-btn-inner">', '请至少选择一张产品图片', '</div></li>'].join(''));
+						}
 						if ($('form.productform${myid} li.myerror').length > 0) {
 							$('ul.productlistview${myid}').listview('refresh');
 							return false;
 						}
 					});
-					$('input.uploadImageProduct[type="file"]').bind('change', handleFileSelect);
+// 					$('input.uploadImageProduct[type="file"]').bind('change', handleFileSelect);
+					$('input.uploadImageProduct[type="file"]').fileupload({
+						filenotmatch: function() {
+							$('#uploadImageFileProduct').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
+							$('ul.productlistview${myid}').listview('refresh');
+							return true;
+						},
+						onload:function(it, e) {
+							var div = document.createElement('div');
+							var result = it.data('base64source');
+							div.className = 'productimage';
+							div.innerHTML = [
+								'<a href="#" onclick="return removeProductDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
+								'<img class="uploadproductdynamicimage" width="100%" height="100%" src="',
+								result, '" title="', escape(it.data('uploadfilename')),
+								'"/>',
+								'<input type="hidden" name="images" value="', 
+								result, '" />' ].join('');
+							var listview = $('ul.productlistview${myid}');
+							listview.append('<li style="padding:0px;"></li>');
+							listview.find('li').last().append(div);
+							$('img.uploadproductdynamicimage').myimagerotate();
+							listview.listview('refresh');
+						}
+					});
 					$('a.mybackpagebtn').click(function(e) {
 						e.preventDefault();
 						myBackPage();
@@ -188,57 +222,6 @@
 				function getExt(v) {
 					var a = v.split('.');
 					return a[a.length - 1];
-				}
-				function handleFileSelect(evt) {
-					if ($('li.fileerror').length > 0) {
-						$('li.fileerror').remove();
-						$('ul.productlistview${myid}').listview('refresh');
-					}
-					var files = evt.target.files; // FileList object
-					for (var i = 0, f; f = files[i]; i++) {
-						var m = f.name.match(/\.(png|jpeg|jpg|gif)$/i);
-						if (null == m) {
-							$('#uploadImageFileProduct').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
-							$('ul.productlistview${myid}').listview('refresh');
-							continue;
-						}
-						var reader = new FileReader();
-						reader.onload = (function(theFile) {
-							return function(e) {
-								var div = document.createElement('div');
-								div.className = 'productimage';
-								var result = e.target.result.replace(/data:base64,/, 'data:image/' + getExt(theFile.name) + ';base64,');
-								div.innerHTML = [
-										'<a href="#" onclick="return removeProductDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
-										'<img class="uploadproductdynamicimage" width="100%" height="100%" src="',
-										result, '" title="', escape(theFile.name),
-										'"/>',
-										'<input type="hidden" name="images" value="', 
-									result, '" />' ]
-										.join('');
-								var listview = $('ul.productlistview${myid}');
-								listview.append('<li></li>');
-								listview.find('li').last().append(div);
-								listview.listview('refresh');
-							};
-						})(f);
-						reader.onerror = function(evt) {
-							switch (evt.target.error.code) {
-							case evt.target.error.NOT_FOUND_ERR:
-								break;
-							case evt.target.error.NOT_READABLE_ERR:
-								break;
-							case evt.target.error.ABORT_ERR:
-								break;
-							default:
-							};
-						};
-						reader.onabort = function(e) {
-						};
-						reader.onloadstart = function(e) {
-						};
-						reader.readAsDataURL(f);
-					}
 				}
 			</script>
 		</div>

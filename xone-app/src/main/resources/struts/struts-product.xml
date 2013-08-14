@@ -28,6 +28,12 @@
 		<action name="addGroups" class="productAction" method="addGroups">
 			<result name="success">/WEB-INF/jsp/product-add-page.jsp</result>
 		</action>
+		<action name="doGroups" class="productAction" method="doGroups">
+			<result name="success">/WEB-INF/jsp/product-do-groups.jsp</result>
+		</action>
+		<action name="doTopApply" class="productAction" method="doTopApply">
+			<result name="success">/WEB-INF/jsp/product-do-top-apply.jsp</result>
+		</action>
 		<action name="create" class="productAction" method="create">
 			<result name="success">/WEB-INF/jsp/product-create-success.jsp</result>
 		</action>

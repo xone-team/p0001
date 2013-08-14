@@ -104,6 +104,9 @@
 					           'div.purchaseimage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
 					'<\/style>'];
 					$('div.purchaseaddpage').append(css.join(''));
+					if ($('script.fileupload').length == 0) {
+						$('head').append('<script type="text/javascript" class="fileupload" src="${STATIC_ROOT}/js/fileupload.js"><\/script>');
+					}
 // 					$('#purchasepurchaseValid').scroller('destroy')
 // 					.scroller($.extend({
 // 						preset : 'date',
@@ -144,6 +147,9 @@
 								$('#' + vi.id).closest('li').before(['<li class="myerror"><div class="error ui-btn-inner">', vi.msg, '</div></li>'].join(''));
 							}
 						}
+						if ($('form.purchaseform${myid} input[name="images"]').length == 0) {
+							$('.uploadImageButton').closest('li').before(['<li class="myerror"><div class="error ui-btn-inner">', '请至少选择一张产品图片', '</div></li>'].join(''));
+						}
 						if ($('form.purchaseform${myid} li.myerror').length > 0) {
 							$('ul.purchaselistview${myid}').listview('refresh');
 							return false;
@@ -163,6 +169,30 @@
 						return false;
 					});
 					$('input.uploadImage[type="file"]').bind('change', handleFileSelect);
+					$('input.uploadImageProduct[type="file"]').fileupload({
+						filenotmatch: function() {
+							$('#uploadImageFile').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
+							$('ul.purchaselistview${myid}').listview('refresh');
+							return true;
+						},
+						onload:function(it, e) {
+							var div = document.createElement('div');
+							div.className = 'purchaseaddpage';
+							var result = it.data('base64source');
+							div.innerHTML = [
+									'<a href="#" onclick="return removeDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
+									'<img class="uploaddynamicimage" width="100%" height="100%" src="',
+									result, '" title="', escape(it.data('uploadfilename')),
+									'"/>',
+									'<input type="hidden" name="images" value="', 
+								result, '" />' ]
+									.join('');
+							var listview = $('ul.purchaselistview${myid}');
+							listview.append('<li style="padding:0px;"></li>');
+							listview.find('li').last().append(div);
+							listview.listview('refresh');
+						}
+					});
 				});
 				function removeDynamicImage(e) {
 					$(e).closest('li').remove();

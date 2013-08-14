@@ -7,6 +7,9 @@
 (function($){
 	$.fn.fileupload = function (options) {
 		var defaults = {// setup default settings
+			filenotmatch: function() {
+				return true;
+			},
 			onload: function() {
 			}
 		}, s = $.extend({}, defaults, options);// This makes it so the users custom options overrides the default ones
@@ -17,6 +20,13 @@
 		function handleFileSelect(evt) {
 			var files = evt.target.files;
 			for (var i = 0, f; f = files[i]; i++) {
+				var m = f.name.match(/\.(png|jpeg|jpg|gif)$/i);
+				if (null == m) {
+					if ($.isFunction(s.filenotmatch)) {
+						s.filenotmatch();
+					}
+					continue;
+				}
 				var reader = new FileReader();
 				reader.onload = (function(theFile) {
 					return function(e) {

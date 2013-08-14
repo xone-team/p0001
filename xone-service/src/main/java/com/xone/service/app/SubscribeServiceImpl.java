@@ -67,29 +67,41 @@ public class SubscribeServiceImpl implements SubscribeService {
     	if (null == params || params.isEmpty()) {
     		return Collections.emptyMap();
     	}
+    	Map<String, String> param = new HashMap<String, String>();
+    	String userId = params.get("userId");
 		String pu = params.get("_pu");
 		String pm = params.get("_pm");
 		String pd = params.get("_pd");
-		if (StringUtils.isBlank(pu) || StringUtils.isBlank(pm) || StringUtils.isBlank(pd)) {
-			return Collections.emptyMap();
-		}
-    	Map<String, String> param = new HashMap<String, String>();
-    	param.put("id", pu);
-    	param.put("lastMacUpdated", pm);
+    	if (StringUtils.isBlank(userId)) {
+    		if (StringUtils.isBlank(pu) || StringUtils.isBlank(pm) || StringUtils.isBlank(pd)) {
+    			return Collections.emptyMap();
+    		}
+        	param.put("id", pu);
+        	param.put("lastMacUpdated", pm);
+    	} else {
+    		params.put("id", userId);
+    		pd = params.get("subscribe.id");
+    	}
     	Person p = getPersonDao().findByParams(params);
     	if (null != p && null != p.getId()) {
-    		Subscribe subscribe = getSubscribeDao().findById(MyServerUtils.parseLong(pd));
+    		Subscribe subscribe = getSubscribeDao().findUniqueByProperty("id", MyServerUtils.parseLong(pd));
+    		if (null == subscribe) {
+    			subscribe = new Subscribe();
+    			subscribe.setDateCheck(new Date());
+    		}
     		Map<String, String> pResult = new HashMap<String, String>();
     		pResult.put("saleType", subscribe.getSaleType());
     		pResult.put("productName", subscribe.getProductNameKey());
     		pResult.put("productLocation", subscribe.getMarketarea());
     		pResult.put("credit", subscribe.getCredit());
     		pResult.put("gtDateCreated", MyServerUtils.format(subscribe.getDateCheck()));
-    		if (null != subscribe && null != subscribe.getId()) {
-    			subscribe.setDateCheck(new Date());
-    			getSubscribeDao().update(subscribe);
-    			return pResult;
-    		}
+			if (StringUtils.isNotBlank(pu) && StringUtils.isNotBlank(pm)
+					&& StringUtils.isNotBlank(pd) && null != subscribe
+					&& null != subscribe.getId()) {
+				subscribe.setDateCheck(new Date());
+				getSubscribeDao().update(subscribe);
+			}
+			return pResult;
     	}
     	return Collections.emptyMap();
     }

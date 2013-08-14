@@ -127,6 +127,10 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 		return 0l;
 	}
 	
+	public final String getUserIdString() {
+		return getUserMap().get("id");
+	}
+	
 	public final String getUsername() {
 		return getUserMap().get("username");
 	}

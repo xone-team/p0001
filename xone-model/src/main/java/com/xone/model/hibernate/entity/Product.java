@@ -14,7 +14,7 @@ public class Product extends MyModel implements Serializable {
      *
      */
     public enum ProductType {
-        DONG_PIN("0", "冻品"), GAN_HUO("1", "干货"), HUO_XIAN("2", "活鲜"), SHUI_GUO("3", "水果"), TIAO_LIAO("4", "调料");
+        ALL("", "全部"), DONG_PIN("0", "冻品"), GAN_HUO("1", "干货"), HUO_XIAN("2", "活鲜"), SHUI_GUO("3", "水果"), TIAO_LIAO("4", "调料");
         protected String value;
         protected String name;
         private ProductType(String v, String n) {
@@ -34,7 +34,7 @@ public class Product extends MyModel implements Serializable {
      *
      */
     public enum SaleType {
-        NORMAL("0", "普通"), SALES("1", "促销"), GROUPS("2", "团购");
+        ALL("", "全部"), NORMAL("0", "普通"), SALES("1", "促销"), GROUPS("2", "团购");
         protected String value;
         protected String name;
         private SaleType(String v, String n) {

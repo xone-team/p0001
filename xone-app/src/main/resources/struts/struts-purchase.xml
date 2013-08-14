@@ -16,6 +16,9 @@
 		<action name="indexAdd" class="purchaseAction" method="indexAdd">
 			<result name="success">/WEB-INF/jsp/purchase-add-page.jsp</result>
 		</action>
+		<action name="doTopApply" class="purchaseAction" method="doTopApply">
+			<result name="success">/WEB-INF/jsp/purchase-do-top-apply.jsp</result>
+		</action>
 		<action name="create" class="purchaseAction" method="create">
 			<result name="success">/WEB-INF/jsp/purchase-create-success.jsp</result>
 		</action>

@@ -74,7 +74,14 @@
 			    	</table>
 			    </li>
 			    <li>
-			    	<a href="${pageContext.request.contextPath}/subscribe/edit.html?subscribe.id=${subscribe.id}">编辑订阅信息</a>
+			    	<div>
+			    		<a data-role="button" data-icon="edit" href="${pageContext.request.contextPath}/subscribe/edit.html?subscribe.id=${subscribe.id}">编辑订阅信息</a>
+			    	</div>
+			    </li>
+			    <li>
+			    	<div>
+			    		<a data-role="button" data-icon="grid" href="${pageContext.request.contextPath}/product/listProduct.html?subscribe.id=${subscribe.id}">产品订阅列表</a>
+			    	</div>
 			    </li>
 			</ul>
 			<script type="text/javascript" language="javascript">
@@ -84,6 +91,7 @@
 					});
 				});
 				$('div.subscribe-item-page').bind('pageinit', function() {
+					
 				});
 			</script>
 		</div>

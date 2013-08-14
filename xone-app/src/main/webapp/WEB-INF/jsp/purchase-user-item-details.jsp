@@ -76,12 +76,41 @@
 		</tr>
 	</table>
 </li>
-<li data-icon="edit">
-	<a href="${pageContext.request.contextPath}/purchase/updateItem.html?purchase.id=${purchase.id}" class="purchaseupdatebutton" data-role="button">更新信息</a>
+<c:if test="${login}">
+<li>
+	<div>
+	<a href="${pageContext.request.contextPath}/purchase/updateItem.html?purchase.id=${purchase.id}" class="purchaseupdatebutton" data-role="button" data-theme="b" data-iconpos="right" data-icon="edit">更新信息</a>
+	</div>
 </li>
-<li data-icon="plus">
-	<a href="#" data-role="button">申请顶置</a>
+<li>
+	<div>
+		<form class="overheadpurchaseform" action="${pageContext.request.contextPath}/purchase/doTopApply.html" method="post">
+			<input type="hidden" name="overhead.refId" value="${purchase.id}">
+			<input type="hidden" name="overhead.overheadType" value="2">
+			<a href="#" class="overheadformpurchasebutton" data-role="button" data-icon="plus" data-theme="b" data-iconpos="right">申请顶置OK</a>
+		</form>
+		<script type="text/javascript">
+			$('a.purchaseupdatebutton').buttonMarkup("refresh");
+			$('a.overheadformpurchasebutton').buttonMarkup("refresh").click(function(e) {
+				e.preventDefault();
+				if (confirm('确认申请顶置')) {
+					var $form = $('form.overheadpurchaseform').first();
+					alert($form.attr('action'));
+					$.ajax({
+						type: $form.attr('method'),
+						url: $form.attr('action'),
+						data: $form.serialize(),
+						success: function(html) {
+							$('form.overheadpurchaseform').closest('li').html(html);
+						}
+					});
+				}
+				return false;
+			});
+		</script>
+	</div>
 </li>
+</c:if>
 <li data-role="list-divider">产品图片</li>
 <c:forEach var="item" items="${purchase.ids}">
 <li data-role="none" style="padding:0px;">

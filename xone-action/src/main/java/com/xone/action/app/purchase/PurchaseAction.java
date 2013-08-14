@@ -1,6 +1,7 @@
 package com.xone.action.app.purchase;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
+import com.xone.model.hibernate.entity.Overhead;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.model.utils.MyModelUtils;
+import com.xone.service.app.OverheadService;
 import com.xone.service.app.PurchaseService;
 import com.xone.service.app.utils.AppConstants;
 import com.xone.service.app.utils.MyBeanUtils;
@@ -25,7 +28,11 @@ public class PurchaseAction extends LogicAction {
 	@Autowired
 	protected PurchaseService purchaseService;
 	
+	@Autowired
+	protected OverheadService overheadService;
+	
 	protected Purchase purchase = new Purchase();
+	protected Overhead overhead = new Overhead();
 	protected ImageUploaded imageUploaded;
 	protected List<Purchase> list = new ArrayList<Purchase>();
 	protected String imageUploadPath;
@@ -43,6 +50,27 @@ public class PurchaseAction extends LogicAction {
 	}
 	
 	public String indexAdd() {
+		return SUCCESS;
+	}
+	
+	/**
+	 * 置顶申请
+	 * @return
+	 */
+	public String doTopApply() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("refId", getOverhead().getRefId().toString());
+		params.put("overheadType", getOverhead().getOverheadType());
+		Overhead overhead = getOverheadService().findByMap(params);
+		if (null != overhead && null != overhead.getId()) {
+			return SUCCESS;
+		}
+		Long userId = getUserId();
+		getOverhead().setOverheadType(Overhead.OverheadType.PURCHASE.getValue());
+		getOverhead().setUserApply(userId);
+		getOverhead().setDateApply(new Date());
+		getOverhead().setUserCreated(userId);
+		getOverheadService().save(getOverhead());
 		return SUCCESS;
 	}
 	
@@ -183,6 +211,22 @@ public class PurchaseAction extends LogicAction {
 
 	public void setPurchase(Purchase purchase) {
 		this.purchase = purchase;
+	}
+
+	public OverheadService getOverheadService() {
+		return overheadService;
+	}
+
+	public void setOverheadService(OverheadService overheadService) {
+		this.overheadService = overheadService;
+	}
+
+	public Overhead getOverhead() {
+		return overhead;
+	}
+
+	public void setOverhead(Overhead overhead) {
+		this.overhead = overhead;
 	}
 
 	public ImageUploaded getImageUploaded() {
