@@ -9,7 +9,7 @@
 		<img src="${pageContext.request.contextPath}/assistant/image.html?id=${item.ids[0]}" style="margin-right:2px;" class="productliimage"/>
 		<div style="margin-top:10px;text-overflow:ellipsis;">${item.productName}</div>
 	    <div style="margin-top:8px;">
-		    <p>No.${item.id},类型:${item.productTypeName},状态:${item.checkStatusName},属地:${item.productLocation},发布日期<fmt:formatDate value="${item.dateCreated}" type="both" pattern="yyyy-MM-dd HH:mm:ss"/></p>
+		    <p><span style="font-weight:bold;color:<c:choose><c:when test="${'0'== item.checkStatus}">#FCD102</c:when><c:when test="${'1'== item.checkStatus}">green</c:when><c:otherwise>red</c:otherwise></c:choose>;">状态:${item.checkStatusName}</span>,类型:${item.productTypeName},属地:${item.productLocation},发布日期<fmt:formatDate value="${item.dateCreated}" type="both" pattern="yyyy-MM-dd HH:mm:ss"/></p>
 		    <p>${item.productDesc}</p>
 	    </div>
 	</a>

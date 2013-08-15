@@ -47,7 +47,8 @@
 					onDown: function() {
 						var item = $('ul.ul-product-list${myid}').find('li.productdatecreateditem');
 						return $.extend({}, {
-							'product.productName': $('div.product-list-main${myid}').find('input[data-type="search"]').val()
+							'product.productName': $('div.product-list-main${myid}').find('input[data-type="search"]').val(),
+							'exIds': exIds()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'down',
@@ -57,7 +58,8 @@
 					onUp: function() {
 						var item = $('ul.ul-product-list${myid}').find('li.productdatecreateditem');
 						return $.extend({}, {
-							'product.productName': $('div.product-list-main${myid}').find('input[data-type="search"]').val()
+							'product.productName': $('div.product-list-main${myid}').find('input[data-type="search"]').val(),
+							'exIds': exIds()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'up',
@@ -65,13 +67,23 @@
 						});
 					},
 					down: function(html) {
-						$('ul.ul-product-list${myid}').prepend(html).listview('refresh');
+						var overheadli = $('ul.ul-product-list${myid} li.productoverheaditem').last();
+						var ul = $('ul.ul-product-list${myid}');
+						if (overheadli.length == 0) {
+							ul.prepend(html);
+						} else {
+							overheadli.after(html);
+						}
+						ul.listview('refresh');
+						fixedPurchaseImage();
 					},
 					up: function(html) {
 						$('ul.ul-product-list${myid}').append(html).listview('refresh');
+						fixedPurchaseImage();
 					}
 				});
-	        	doRequest();
+				doOverheadRequest();
+// 	        	doRequest();
 				function doRequest() {
 					$.ajax({
 						type: 'GET',
@@ -83,11 +95,29 @@
 						}
 					});
 				}
+				function exIds() {
+					var a = [];
+					$('ul.ul-product-list${myid} li.productoverheaditem').each(function(i) {
+						a[i] = $(this).attr('pid');
+					});
+					return a.join(',');
+				}
+				function doOverheadRequest() {
+					$.ajax({
+						type: 'GET',
+						url: '${pageContext.request.contextPath}/product/listOverheadItems.html?product.saleType=${product.saleType}',
+						data: '_=' + new Date().getTime(),
+						success: function(html) {
+							$('ul.ul-product-list${myid}').html(html).listview('refresh');
+							fixedPurchaseImage();
+						}
+					});
+				}
 				function fixedPurchaseImage() {
 					if ($('style.product').length > 0) {
 						return;
 					}
-					var lis = $('li.productdatecreateditem:eq(0)');
+					var lis = $('ul.ul-product-list${myid} li:eq(0)');
 					if (lis.length > 0) {
 						var height = lis.height() - 3;
 						var css = ['<style type="text/css" class="product"> img.productliimage {height:', height, 'px;', 'width:', height, 'px;}</style>'];

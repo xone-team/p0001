@@ -66,13 +66,29 @@ public class OverheadServiceImpl implements OverheadService {
         return l.get(0);
     }
 
+    /**
+     * 列表置顶查询
+     */
     @Override
     public List<Overhead> findAllByMap(Map<String, String> params) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Overhead.class);
 
-        handleCriteriaByParams(detachedCriteria, params);
+//        handleCriteriaByParams(detachedCriteria, params);
 
-        return getOverheadDao().findListByDetachedCriteria(detachedCriteria, 0, 10);
+        String overheadType = params.get("overheadType");
+        if (!StringUtils.isBlank(overheadType)) {
+        	detachedCriteria.add(Restrictions.like("overheadType", overheadType));
+        }
+        String flagDeleted = params.get("flagDeleted");
+        if (!StringUtils.isBlank(flagDeleted)) {
+        	detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
+        }
+        String checkStatus = params.get("checkStatus");
+        if (!StringUtils.isBlank(checkStatus)) {
+        	detachedCriteria.add(Restrictions.eq("checkStatus", checkStatus));
+        }
+        detachedCriteria.addOrder(Order.desc("dateCreated"));
+        return getOverheadDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
     }
 
     public Pagination findByParams(Map<String, String> params) {

@@ -38,11 +38,17 @@
             <if test="id != null">
 				and p.id = #{id}
 			</if>
+            <if test="exIds != null">
+				and p.id not in 
+				<foreach item="i" index="index" collection="exIds" open="(" separator="," close=")">
+					#{i}
+				</foreach>
+			</if>
             <if test="gtDateCreated != null">
-				<![CDATA[and p.date_created < #{gtDateCreated}]]>
+				<![CDATA[and p.date_created > #{gtDateCreated}]]>
 			</if>
             <if test="ltDateCreated != null">
-                <![CDATA[and p.date_created > #{ltDateCreated}]]>
+                <![CDATA[and p.date_created < #{ltDateCreated}]]>
 			</if>
             <if test="saleType != null">
 				and p.sale_type = #{saleType}

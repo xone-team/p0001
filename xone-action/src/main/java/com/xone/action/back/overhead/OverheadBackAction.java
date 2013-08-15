@@ -88,12 +88,13 @@ public class OverheadBackAction extends Action {
             person = personService.findById(entity.getId());
         }
         if (entity.getRefId() != null) {
-            if(Overhead.OverheadType.PRODUCT.getValue().equals(entity.getOverheadType())){
-                product = productService.findById(entity.getRefId());
-                if(product != null){
-                    refName = product.getProductName();
-                }
-            }
+        	//TODO overheadtype被重构了，请修改代码
+//            if(Overhead.OverheadType.PRODUCT.getValue().equals(entity.getOverheadType())){
+//                product = productService.findById(entity.getRefId());
+//                if(product != null){
+//                    refName = product.getProductName();
+//                }
+//            }
             
             if(Overhead.OverheadType.PURCHASE.getValue().equals(entity.getOverheadType())){
                 purchase = purchaseService.findById(entity.getRefId());
@@ -114,7 +115,8 @@ public class OverheadBackAction extends Action {
     }
 
     public String overheadCreate() throws Exception {
-        overhead.setOverheadType(Overhead.OverheadType.PRODUCT.getValue());
+    	//TODO overheadtype被重构了，请修改代码
+//        overhead.setOverheadType(Overhead.OverheadType.PRODUCT.getValue());
         return SUCCESS;
     }
 
@@ -129,12 +131,13 @@ public class OverheadBackAction extends Action {
             person = personService.findById(entity.getId());
         }
         if (entity.getRefId() != null) {
-            if(Overhead.OverheadType.PRODUCT.getValue().equals(entity.getOverheadType())){
-                product = productService.findById(entity.getRefId());
-                if(product != null){
-                    refName = product.getProductName();
-                }
-            }
+        	//TODO overheadtype被重构了，请修改代码
+//            if(Overhead.OverheadType.PRODUCT.getValue().equals(entity.getOverheadType())){
+//                product = productService.findById(entity.getRefId());
+//                if(product != null){
+//                    refName = product.getProductName();
+//                }
+//            }
             
             if(Overhead.OverheadType.PURCHASE.getValue().equals(entity.getOverheadType())){
                 purchase = purchaseService.findById(entity.getRefId());
