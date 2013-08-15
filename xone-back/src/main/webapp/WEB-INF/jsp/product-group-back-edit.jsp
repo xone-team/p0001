@@ -24,34 +24,30 @@
                     <ul class="breadcrumb" id="X_breadcrumbs_ul">
                         <li>后台 <span class="divider">/</span></li>
                         <li>产品管理 <span class="divider">/</span></li>
-                        <li><a href="${pageContext.request.contextPath}/overhead/overheadList.html">置顶列表</a> <span class="divider">/</span></li>
-                        <li class="active">置顶编辑</li>
+                        <li><a href="${pageContext.request.contextPath}/productGroup/productGroupList.html">团购列表</a> <span class="divider">/</span></li>
+                        <li class="active">团购编辑</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/overhead/overheadUpdate.html">
-                    <input type="hidden" name="overhead.id" value="${overhead.id}">
+                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/productGroup/productGroupUpdate.html">
+                    <input type="hidden" name="productGroup.id" value="${productGroup.id}">
                     <div class="control-group">
-                        <label class="control-label" for="overheadType">置顶类型</label>
+                        <label class="control-label" for="productId">产品编号</label>
                         <div class="controls">
-                            <select class="selectpicker" id="overheadType" name="overhead.overheadType">
-                                <c:forEach items="${overheadType}" var="it">
-                                    <option value="${it.value}" <c:if test="${it.value == overhead.overheadType}">selected</c:if>>${it.name}</option>
-                                </c:forEach>
-                            </select>
+                            <input type="text" id="productId" name="productGroup.productId" value="${productGroup.productId }" maxlength="20" placeholder="产品编号" readonly="readonly">
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="refId">相关编号</label>
+                        <label class="control-label" for="groupNum">团购数量</label>
                         <div class="controls">
-                            <input type="text" id="refId" name="overhead.refId" value="${overhead.refId}" maxlength="20" placeholder="相关编号" readonly="readonly">
+                            <input type="text" id="groupNum" name="productGroup.groupNum" value="${productGroup.groupNum }" maxlength="20" placeholder="团购数量">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="checkStatus">审核状态</label>
                         <div class="controls">
-                            <select class="selectpicker" id="checkStatus" name="overhead.checkStatus">
+                            <select class="selectpicker" id="checkStatus" name="productGroup.checkStatus">
                                 <c:forEach items="${checkStatus}" var="it">
-                                    <option value="${it.value}" <c:if test="${it.value == overhead.checkStatus}">selected</c:if>>${it.name}</option>
+                                    <option value="${it.value}" <c:if test="${it.value == productGroup.checkStatus}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -59,7 +55,7 @@
                     <div class="control-group">
                         <label class="control-label" for="remark">备注</label>
                         <div class="controls">
-                            <input type="text" id="remark" name="overhead.remark" value="${overhead.remark}" maxlength="1023" placeholder="备注">
+                            <input type="text" id="remark" name="productGroup.remark" value="${productGroup.remark}" maxlength="1023" placeholder="备注">
                         </div>
                     </div>
                     <div class="control-group">
@@ -76,13 +72,8 @@
 
     <jsp:include page="common-modal.jsp">
         <jsp:param name="myidentify" value="Product" />
-        <jsp:param name="title" value="请选择广告对应的售卖产品" />
-        <jsp:param name="url" value="${pageContext.request.contextPath }/product/productListAjax.html" />
-    </jsp:include>
-    <jsp:include page="common-modal.jsp">
-        <jsp:param name="myidentify" value="Purchase" />
-        <jsp:param name="title" value="请选择广告对应的购买产品" />
-        <jsp:param name="url" value="${pageContext.request.contextPath }/purchase/purchaseListAjax.html" />
+        <jsp:param name="title" value="请选择团购的售卖产品" />
+        <jsp:param name="url" value="${pageContext.request.contextPath }/product/productListAjax.html?product.saleType=2" />
     </jsp:include>
 </body>
 <script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
@@ -94,14 +85,7 @@
         $('#windowTitleDialogProduct').delegate('a.productselectinfo', 'click', function(e) {
             e.preventDefault();
             var $this = $(this);
-            $('#refId').val($this.attr('attr-id'));
-            $this.closest('div.modal').modal('hide');
-            return false;
-        });
-        $('#windowTitleDialogPurchase').delegate('a.purchaseselectinfo', 'click', function(e) {
-            e.preventDefault();
-            var $this = $(this);
-            $('#refId').val($this.attr('attr-id'));
+            $('#productId').val($this.attr('attr-id'));
             $this.closest('div.modal').modal('hide');
             return false;
         });
@@ -109,28 +93,51 @@
 </script>
 <script>
     jQuery(function() {
-        jQuery("#X_menu_li_overhead").addClass("active");
-        $('#refId').click(function() {
-            if ($('#overheadType').val() == '0') {
-                $('#windowTitleDialogProduct').modal('show');
-            } else {
-                $('#windowTitleDialogPurchase').modal('show');
-            }
+        jQuery("#X_menu_li_productGroup").addClass("active");
+        $('#productId').click(function() {
+            $('#windowTitleDialogProduct').modal('show');
         });
-        $('#overheadType').bind('change', function() {
-            $('#refId').val('');
-            $('#refName').val('');
-        })
         $('#saveForm').submit(function() {
-            var $form = $('#saveForm');
+            var $form = $(this);
             var validate = [ {
-                name : 'refId',
-                text : '请选择相关产品或求购'
+                name : 'productId',
+                text : '请选择相关产品'
+            }, {
+                name : 'groupNum',
+                text : '填写团购数量'
+            }, {
+                name : 'groupNum',
+                text : '团购数量必须为数字，且大于0',
+                func : numberValidation
             } ];
 
-            var pass = XONE.valid(validate, $form, "overhead.");
+            var pass = XONE.valid(validate, $form, "productGroup.");
             return pass;
         });
     });
+
+    function numberValidation(inputEl) {
+        var result = true;
+        var val = inputEl.val();
+        if (val != null && val.length > 0) {
+            var n = null;
+            try {
+                n = parseInt(val);
+            } catch (e) {
+            }
+
+            if (n == null || isNaN(n) || n < 0) {
+                result = false;
+            }
+        }
+        return result;
+    }
 </script>
+<c:if test="${!empty fieldErrors }">
+    <script>
+                    <c:forEach items="${fieldErrors }" var="fieldError">
+                    XONE.renderFieldMessage('${fieldError.value }', "error", $('input[name="${fieldError.key}"]'));
+                    </c:forEach>
+                </script>
+</c:if>
 </html>

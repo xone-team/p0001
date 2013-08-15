@@ -26,7 +26,6 @@
                     <li class="active">创建物流配送</li>
                 </ul>
                 <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/delivery/deliverySave.html">
-                    <input type="hidden" name="delivery.id">
                     <div class="control-group">
                         <label class="control-label" for="productId">产品编号</label>
                         <div class="controls">
@@ -100,6 +99,7 @@
         <jsp:include page="common-footer.jsp"></jsp:include>
     </div>
     <jsp:include page="common-bottom.jsp"></jsp:include>
+    
     <jsp:include page="common-modal.jsp">
         <jsp:param name="myidentify" value="Product" />
         <jsp:param name="title" value="请选择产品" />

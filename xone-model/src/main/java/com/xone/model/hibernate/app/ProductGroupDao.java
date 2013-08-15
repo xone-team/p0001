@@ -6,5 +6,6 @@ import com.xone.model.hibernate.generic.HibernateDao;
 public interface ProductGroupDao extends HibernateDao<ProductGroup> {
 
 	public int deleteLogicById(Long id);
+	public int getOrderProductNum(Long productId);
 	
 }

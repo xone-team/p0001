@@ -53,6 +53,10 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public Person findById(Long id) {
+        // fix system created user bug.
+        if(id == null || id < 1){
+            return null;
+        }
         return getPersonDao().findById(id);
     }
     

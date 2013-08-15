@@ -24,6 +24,7 @@ import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.ProductCheck;
+import com.xone.model.hibernate.entity.ProductGroup;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyModelUtils;
 

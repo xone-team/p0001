@@ -1,6 +1,7 @@
 package com.xone.service.app;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -22,9 +23,30 @@ public class ProductGroupServiceImpl implements ProductGroupService {
 
 	@Autowired
 	protected ProductGroupDao productGroupDao;
+	
+	
+    /** 统计商品已被团购的数量
+     * @param entity
+     * @return
+     */
+    public int getOrderProductNum(Long productId){
+        return getProductGroupDao().getOrderProductNum(productId);
+    }
+    
+    /** 统计商品已被团购的人数
+     * @param entity
+     * @return
+     */
+    public int getOrderPersonNum(Long productId){
+        DetachedCriteria c = DetachedCriteria.forClass(ProductGroup.class);
+        c.add(Restrictions.eq("flagDeleted", ProductGroup.FlagDeleted.NORMAL.getValue()));
+        return getProductGroupDao().countByProperty(c);
+    }
 
 	@Override
 	public ProductGroup save(ProductGroup entity) {
+	    entity.setDateApply(new Date());
+	    entity.setCheckStatus(ProductGroup.CheckStatus.WAITING.getValue());
 		return getProductGroupDao().save(entity);
 	}
 	

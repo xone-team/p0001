@@ -55,6 +55,12 @@
                                         <td>数 量</td>
                                         <td>${product.productNum}</td>
                                     </tr>
+                                    <c:if test="${product.saleType  == '2'}">
+                                        <tr>
+                                            <td style="width: 60px;">团购情况</td>
+                                            <td>该产品已有 ${orderedPersonNum} 人，团购 ${orderedProductNum} 件。</td>
+                                        </tr>
+                                    </c:if>
                                     <tr>
                                         <td>有&nbsp&nbsp效&nbsp&nbsp期</td>
                                         <td>${product.productValid}</td>

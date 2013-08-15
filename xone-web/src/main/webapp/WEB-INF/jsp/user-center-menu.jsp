@@ -57,6 +57,19 @@
 	</div>
 	<div class="accordion-group">
 		<div class="accordion-heading">
+			<div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_5">我的团购</div>
+		</div>
+		<div id="${identify}_5" class="accordion-body in collapse" style="height: auto;">
+			<div class="accordion-inner">
+				<ul class="nav nav-list">
+					<li <c:if test="${param.menuindex == '21'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/productGroup/productGroupCreate.html" class="well well-small clearmarginbottom">我要团购</a></li>
+					<li <c:if test="${param.menuindex == '22'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/productGroup/productGroupList.html" class="well well-small clearmarginbottom">我的团购列表</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="accordion-group">
+		<div class="accordion-heading">
 			<div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_4">我的其它服务</div>
 		</div>
 		<div id="${identify}_4" class="accordion-body in collapse" style="height: auto;">
@@ -64,9 +77,11 @@
 				<ul class="nav nav-list">
 					<li <c:if test="${param.menuindex == '14'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/delivery/deliveryCreate.html" class="well well-small clearmarginbottom">物流配送</a></li>
 					<li <c:if test="${param.menuindex == '15'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/subscribe/subscribeCreate.html" class="well well-small clearmarginbottom">筛选订阅</a></li>
+					<li <c:if test="${param.menuindex == '20'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/overhead/overheadCreate.html" class="well well-small clearmarginbottom">申请置顶</a></li>
 					<li <c:if test="${param.menuindex == '16'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/delivery/deliveryList.html" class="well well-small clearmarginbottom">物流配送列表</a></li>
 					<li <c:if test="${param.menuindex == '17'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/adbanner/adbannerList.html" class="well well-small clearmarginbottom">我的广告列表</a></li>
 					<li <c:if test="${param.menuindex == '18'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/subscribe/subscribeList.html" class="well well-small clearmarginbottom">我的订阅列表</a></li>
+					<li <c:if test="${param.menuindex == '19'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/overhead/overheadList.html" class="well well-small clearmarginbottom">我的置顶列表</a></li>
 				</ul>
 			</div>
 		</div>

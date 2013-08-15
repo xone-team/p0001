@@ -55,6 +55,7 @@
     <include file="struts/struts-config-back.xml" />
     <include file="struts/struts-category-back.xml" />
     <include file="struts/struts-overhead-back.xml" />
+    <include file="struts/struts-productGroup-back.xml" />
 	<include file="struts/struts-adbanner-back.xml" />
 	<include file="struts/struts-delivery-back.xml" />
 	<include file="struts/struts-imageUploaded-back.xml" />

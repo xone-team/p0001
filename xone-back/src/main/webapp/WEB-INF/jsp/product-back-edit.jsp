@@ -68,6 +68,12 @@
                             <input type="text" id="productNum" name="product.productNum" value="${product.productNum}" maxlength="255" placeholder="产品数量">
                         </div>
                     </div>
+                    <c:if test="${product.saleType  == '2'}">
+                        <div class="control-group">
+                            <label class="control-label" for="productNum">团购情况</label>
+                            <div class="controls">该产品已有 ${orderedPersonNum} 人参加团购，共团购 ${orderedProductNum} 件。</div>
+                        </div>
+                    </c:if>
                     <div class="control-group">
                         <label class="control-label" for="productAddress">产品产地</label>
                         <div class="controls">
@@ -167,7 +173,7 @@
                     </div>
                     <div class="well">
                         审核历史
-                        <c:forEach items="${ product.checkList }" var="item" varStatus="status">
+                        <c:forEach items="${ product.productCheckList }" var="item" varStatus="status">
                             <div class="control-group">
                                 <label class="control-label" for="productCheckStatus">审核结果</label>
                                 <div class="controls">

@@ -15,6 +15,7 @@ import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
+import com.xone.service.app.ProductGroupService;
 import com.xone.service.app.ProductService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.AssignRules;
@@ -43,6 +44,12 @@ public class ProductWebAction extends LogicAction {
     protected String uploadFile3FileName;
 
     protected String imageUploadPath;
+    
+    
+    protected ProductGroupService productGroupService;
+    
+    protected Integer orderedProductNum;
+    protected Integer orderedPersonNum;
 	
     public Enum<?>[] getFlagDeleted() {
         return Product.FlagDeleted.values();
@@ -121,6 +128,11 @@ public class ProductWebAction extends LogicAction {
 		if (null == entity || null == entity.getId()) {
 			return ERROR;
 		}
+		
+        
+        orderedPersonNum = getProductGroupService().getOrderPersonNum(entity.getId());
+        orderedProductNum = getProductGroupService().getOrderProductNum(entity.getId());
+		
 		setProduct(entity);
 		return SUCCESS;
 	}
@@ -137,6 +149,11 @@ public class ProductWebAction extends LogicAction {
 		if (null == entity || null == entity.getId()) {
 			return ERROR;
 		}
+		
+        
+        orderedPersonNum = getProductGroupService().getOrderPersonNum(entity.getId());
+        orderedProductNum = getProductGroupService().getOrderProductNum(entity.getId());
+		
 		setProduct(entity);
 		return SUCCESS;
 	}
@@ -338,5 +355,31 @@ public class ProductWebAction extends LogicAction {
     public void setImageUploadPath(String imageUploadPath) {
         this.imageUploadPath = imageUploadPath;
     }
+
+    public ProductGroupService getProductGroupService() {
+        return productGroupService;
+    }
+
+    public void setProductGroupService(ProductGroupService productGroupService) {
+        this.productGroupService = productGroupService;
+    }
+
+    public Integer getOrderedProductNum() {
+        return orderedProductNum;
+    }
+
+    public void setOrderedProductNum(Integer orderedProductNum) {
+        this.orderedProductNum = orderedProductNum;
+    }
+
+    public Integer getOrderedPersonNum() {
+        return orderedPersonNum;
+    }
+
+    public void setOrderedPersonNum(Integer orderedPersonNum) {
+        this.orderedPersonNum = orderedPersonNum;
+    }
+    
+    
 	
 }

@@ -31,6 +31,7 @@
 				<ul class="nav nav-list" id="X_menu_ul_productManagement">
 					<li id="X_menu_li_product"><a href="${pageContext.request.contextPath}/product/productList.html">产品</a></li>
 					<li id="X_menu_li_purchase"><a href="${pageContext.request.contextPath}/purchase/purchaseList.html">求购</a></li>
+                    <li id="X_menu_li_productGroup"><a href="${pageContext.request.contextPath}/productGroup/productGroupList.html">团购</a></li>
 					<li id="X_menu_li_category"><a href="${pageContext.request.contextPath}/category/categoryList.html">分类</a></li>
 					<li id="X_menu_li_overhead"><a href="${pageContext.request.contextPath}/overhead/overheadList.html">置顶</a></li>
 					<li id="X_menu_li_adbanner"><a href="${pageContext.request.contextPath}/adbanner/adbannerList.html">广告</a></li>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="productGroup" namespace="/productGroup" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
+        </global-results>
+        <action name="productGroupList" class="productGroupBackAction" method="productGroupList">
+            <result name="success">/WEB-INF/jsp/product-group-back-list.jsp</result>
+        </action>
+        <action name="productGroupCreate" class="productGroupBackAction" method="productGroupCreate">
+            <result name="success">/WEB-INF/jsp/product-group-back-create.jsp</result>
+        </action>
+        <action name="productGroupSave" class="productGroupBackAction" method="productGroupSave">
+            <result name="success" type="redirectAction">
+                <param name="actionName">productGroupItem</param>
+                <param name="namespace">/productGroup</param>
+                <param name="productGroup.id">${productGroup.id}</param>
+            </result>
+        </action>
+        <action name="productGroupEdit" class="productGroupBackAction" method="productGroupEdit">
+            <result name="success">/WEB-INF/jsp/product-group-back-edit.jsp</result>
+        </action>
+        <action name="productGroupUpdate" class="productGroupBackAction" method="productGroupUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">productGroupItem</param>
+                <param name="namespace">/productGroup</param>
+                <param name="productGroup.id">${productGroup.id}</param>
+            </result>
+            <result name="list" type="chain">
+                <param name="actionName">productGroupList</param>
+                <param name="namespace">/productGroup</param>
+            </result>
+        </action>
+        <action name="productGroupItem" class="productGroupBackAction" method="productGroupItem">
+            <result name="success">/WEB-INF/jsp/product-group-back-item.jsp</result>
+        </action>
+
+    </package>
+</struts>
