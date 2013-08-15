@@ -13,21 +13,19 @@
 <jsp:include page="common-header.jsp"></jsp:include>
 </head>
 <body>
-    <jsp:include page="common-nav.jsp"></jsp:include>
-    <div class="container-fluid">
-        <div class="row-fluid" id="X_bodyContainer">
-            <div class="span2">
-                <jsp:include page="common-menu.jsp"></jsp:include>
+    <jsp:include page="common-nav.jsp"><jsp:param value="5" name="offset" /></jsp:include>
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <jsp:include page="user-center-menu.jsp"><jsp:param value="19" name="menuindex" /></jsp:include>
             </div>
-            <div class="span10" id="X_contentContainer">
-                <div class="row-fluid">
-                    <ul class="breadcrumb" id="X_breadcrumbs_ul">
-                        <li>后台 <span class="divider">/</span></li>
-                        <li>产品管理 <span class="divider">/</span></li>
-                        <li><a href="${pageContext.request.contextPath}/overhead/overheadList.html">置顶列表</a> <span class="divider">/</span></li>
-                        <li class="active">置顶详细</li>
-                    </ul>
-                </div>
+            <div class="span9">
+                <ul class="breadcrumb">
+                    <li>用户中心 <span class="divider">/</span></li>
+                    <li>我的其它服务 <span class="divider">/</span></li>
+                    <li><a href="${pageContext.request.contextPath}/overhead/overheadList.html">我的置顶列表</a> <span class="divider">/</span></li>
+                    <li class="active">我的置顶详细</li>
+                </ul>
                 <table class="table table-bordered" style="width: 100%">
                     <tbody>
                         <tr>
@@ -66,12 +64,8 @@
                 </table>
             </div>
         </div>
+        <jsp:include page="common-footer.jsp"></jsp:include>
     </div>
-    <jsp:include page="common-footer.jsp"></jsp:include>
+    <jsp:include page="common-bottom.jsp"></jsp:include>
 </body>
-<script>
-    jQuery(function() {
-        jQuery("#X_menu_li_overhead").addClass("active");
-    });
-</script>
 </html>

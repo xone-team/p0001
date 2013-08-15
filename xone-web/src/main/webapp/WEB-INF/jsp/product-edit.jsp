@@ -68,6 +68,12 @@
                             <input type="text" id="productNum" name="product.productNum" value="${product.productNum}" maxlength="255" placeholder="产品数量">
                         </div>
                     </div>
+                    <c:if test="${product.saleType  == '2'}">
+                        <div class="control-group">
+                            <label class="control-label" for="productNum">团购情况</label>
+                            <div class="controls">该产品已有 ${orderedPersonNum} 人参加团购，共团购 ${orderedProductNum} 件。</div>
+                        </div>
+                    </c:if>
                     <div class="control-group">
                         <label class="control-label" for="productAddress">产品产地</label>
                         <div class="controls">

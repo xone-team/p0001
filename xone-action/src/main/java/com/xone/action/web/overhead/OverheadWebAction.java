@@ -1,4 +1,4 @@
-package com.xone.action.back.overhead;
+package com.xone.action.web.overhead;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,9 +23,9 @@ import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.AssignRules;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
-public class OverheadBackAction extends Action {
+public class OverheadWebAction extends Action {
 
-    private static final long serialVersionUID = -7132163785627760581L;
+    private static final long serialVersionUID = -7879194089511849199L;
     @Autowired
     protected OverheadService overheadService;
     protected Overhead overhead = new Overhead();
@@ -65,6 +65,9 @@ public class OverheadBackAction extends Action {
                 return value.toString();
             }
         }, null);
+        
+        params.put("userApply", getUserId().toString());
+        params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
 
         params.put("pageSize", String.valueOf(getPagination().getPageSize()));
         params.put("pageNo", String.valueOf(getPagination().getPageNo()));

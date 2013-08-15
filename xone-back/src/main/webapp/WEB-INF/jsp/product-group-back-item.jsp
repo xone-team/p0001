@@ -24,27 +24,23 @@
                     <ul class="breadcrumb" id="X_breadcrumbs_ul">
                         <li>后台 <span class="divider">/</span></li>
                         <li>产品管理 <span class="divider">/</span></li>
-                        <li><a href="${pageContext.request.contextPath}/overhead/overheadList.html">置顶列表</a> <span class="divider">/</span></li>
-                        <li class="active">置顶详细</li>
+                        <li><a href="${pageContext.request.contextPath}/productGroup/productGroupList.html">团购列表</a> <span class="divider">/</span></li>
+                        <li class="active">团购详细</li>
                     </ul>
                 </div>
                 <table class="table table-bordered" style="width: 100%">
                     <tbody>
                         <tr>
-                            <td style="width: 60px;">置顶编号</td>
-                            <td>${overhead.id}</td>
+                            <td style="width: 60px;">团购编号</td>
+                            <td>${productGroup.id}</td>
                         </tr>
                         <tr>
-                            <td style="width: 60px;">置顶类型</td>
-                            <td>${overhead.overheadTypeName}</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 60px;">相关内容</td>
-                            <td>${refName}</td>
+                            <td style="width: 60px;">产品</td>
+                            <td>${product.productName}</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">备注</td>
-                            <td>${overhead.remark}</td>
+                            <td>${productGroup.remark}</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">申请人</td>
@@ -52,15 +48,15 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">申请日期</td>
-                            <td><fmt:formatDate value="${overhead.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                            <td><fmt:formatDate value="${productGroup.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核状态</td>
-                            <td>${overhead.checkStatusName}</td>
+                            <td>${productGroup.checkStatusName}</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核日期</td>
-                            <td><fmt:formatDate value="${overhead.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                            <td><fmt:formatDate value="${productGroup.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                     </tbody>
                 </table>
@@ -71,7 +67,7 @@
 </body>
 <script>
     jQuery(function() {
-        jQuery("#X_menu_li_overhead").addClass("active");
+        jQuery("#X_menu_li_productGroup").addClass("active");
     });
 </script>
 </html>

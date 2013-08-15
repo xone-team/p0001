@@ -23,6 +23,7 @@
                 <ul class="breadcrumb">
                     <li>用户中心 <span class="divider">/</span></li>
                     <li>我的其它服务 <span class="divider">/</span></li>
+                    <li><a href="${pageContext.request.contextPath}/delivery/deliveryList.html">物流配送列表</a> <span class="divider">/</span></li>
                     <li class="active">编辑物流配送</li>
                 </ul>
                 <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/delivery/deliveryUpdate.html">

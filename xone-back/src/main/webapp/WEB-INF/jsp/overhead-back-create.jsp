@@ -42,7 +42,6 @@
                         <label class="control-label" for="refId">相关编号</label>
                         <div class="controls">
                             <input type="text" id="refId" name="overhead.refId" maxlength="20" placeholder="相关编号" readonly="readonly">
-                            <input type="hidden" id="refName" name="" maxlength="20" placeholder="相关编号" readonly="readonly">
                         </div>
                     </div>
                     <div class="control-group">
@@ -71,10 +70,7 @@
         </div>
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
-    <script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
-    <script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="${STATIC_ROOT}/js/fileupload.js"></script>
+
     <jsp:include page="common-modal.jsp">
         <jsp:param name="myidentify" value="Product" />
         <jsp:param name="title" value="请选择广告对应的售卖产品" />
@@ -85,25 +81,29 @@
         <jsp:param name="title" value="请选择广告对应的购买产品" />
         <jsp:param name="url" value="${pageContext.request.contextPath }/purchase/purchaseListAjax.html" />
     </jsp:include>
-    <script type="text/javascript">
-                    $(document).ready(function() {
-                        $('#windowTitleDialogProduct').delegate('a.productselectinfo', 'click', function(e) {
-                            e.preventDefault();
-                            var $this = $(this);
-                            $('#refId').val($this.attr('attr-id'));
-                            $this.closest('div.modal').modal('hide');
-                            return false;
-                        });
-                        $('#windowTitleDialogPurchase').delegate('a.purchaseselectinfo', 'click', function(e) {
-                            e.preventDefault();
-                            var $this = $(this);
-                            $('#refId').val($this.attr('attr-id'));
-                            $this.closest('div.modal').modal('hide');
-                            return false;
-                        });
-                    });
-                </script>
 </body>
+<script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="${STATIC_ROOT}/js/fileupload.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#windowTitleDialogProduct').delegate('a.productselectinfo', 'click', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            $('#refId').val($this.attr('attr-id'));
+            $this.closest('div.modal').modal('hide');
+            return false;
+        });
+        $('#windowTitleDialogPurchase').delegate('a.purchaseselectinfo', 'click', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            $('#refId').val($this.attr('attr-id'));
+            $this.closest('div.modal').modal('hide');
+            return false;
+        });
+    });
+</script>
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_overhead").addClass("active");

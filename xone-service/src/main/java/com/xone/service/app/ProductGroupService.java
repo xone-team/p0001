@@ -22,4 +22,7 @@ public interface ProductGroupService {
 	
 	public Pagination findByParams(Map<String, String> params);
 	
+	public int getOrderProductNum(Long productId);
+	
+	public int getOrderPersonNum(Long productId);
 }

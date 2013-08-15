@@ -54,6 +54,12 @@
                             <td style="width: 60px;">产品数量</td>
                             <td>${product.productNum}</td>
                         </tr>
+                        <c:if test="${product.saleType  == '2'}">
+                            <tr>
+                                <td style="width: 60px;">团购情况</td>
+                                <td>该产品已有 ${orderedPersonNum} 人参加团购，共团购 ${orderedProductNum} 件。</td>
+                            </tr>
+                        </c:if>
                         <tr>
                             <td style="width: 60px;">产品产地</td>
                             <td>${product.productAddress}</td>

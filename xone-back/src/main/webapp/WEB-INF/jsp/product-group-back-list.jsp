@@ -22,7 +22,7 @@
                     <ul class="breadcrumb" id="X_breadcrumbs_ul">
                         <li>后台 <span class="divider">/</span></li>
                         <li>产品管理 <span class="divider">/</span></li>
-                        <li class="active">置顶列表</li>
+                        <li class="active">团购列表</li>
                     </ul>
                 </div>
                 <div class="accordion">
@@ -32,28 +32,16 @@
                         </div>
                         <div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
                             <div class="accordion-inner">
-                                <form id="myqueryform" action="${pageContext.request.contextPath}/overhead/overheadList.html" method="get">
+                                <form id="myqueryform" action="${pageContext.request.contextPath}/productGroup/productGroupList.html" method="get">
                                     <div class="row-fluid">
-                                        <div class="span5 form-horizontal">
-                                            <div class="control-group">
-                                                <label class="control-label" for="productName">置顶类型</label>
-                                                <div class="controls">
-                                                    <select class="selectpicker" id="overheadType" name="overhead.overheadType">
-                                                        <c:forEach items="${overheadType}" var="it">
-                                                            <option value="${it.value}" <c:if test="${it.value == overhead.overheadType}">selected</c:if>>${it.name}</option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="span5 form-horizontal">
                                             <div class="control-group">
                                                 <label class="control-label" for="checkStatus">审核状态</label>
                                                 <div class="controls">
-                                                    <select class="selectpicker" id="checkStatus" name="overhead.checkStatus">
+                                                    <select class="selectpicker" id="checkStatus" name="productGroup.checkStatus">
                                                         <option value="">全部</option>
                                                         <c:forEach items="${checkStatus}" var="it">
-                                                            <option value="${it.value}" <c:if test="${it.value == overhead.checkStatus}">selected</c:if>>${it.name}</option>
+                                                            <option value="${it.value}" <c:if test="${it.value == productGroup.checkStatus}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
                                                     </select>
                                                 </div>
@@ -65,7 +53,7 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="remark">备注</label>
                                                 <div class="controls">
-                                                    <input type="text" id="remark" name="overhead.remark" value="${overhead.remark}" maxlength="1023" placeholder="备注">
+                                                    <input type="text" id="remark" name="productGroup.remark" value="${productGroup.remark}" maxlength="1023" placeholder="备注">
                                                 </div>
                                             </div>
                                         </div>
@@ -73,9 +61,9 @@
                                             <div class="control-group">
                                                 <label class="control-label" for="dateApplyMin">申请日期</label>
                                                 <div class="controls">
-                                                    <input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="overhead.dateApplyMin" value="${overhead.dateApplyMin}" maxlength="19" placeholder="最小日期">
+                                                    <input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="productGroup.dateApplyMin" value="${productGroup.dateApplyMin}" maxlength="19" placeholder="最小日期">
                                                     <span class="add-on">~</span>
-                                                    <input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="overhead.dateApplyMax" value="${overhead.dateApplyMax}" maxlength="19" placeholder="最大日期">
+                                                    <input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="productGroup.dateApplyMax" value="${productGroup.dateApplyMax}" maxlength="19" placeholder="最大日期">
                                                 </div>
                                             </div>
                                         </div>
@@ -87,7 +75,7 @@
                 </div>
                 <div class="row-fluid">
                     <p class="text-right">
-                        <a class="btn btn-small" href="${pageContext.request.contextPath}/overhead/overheadCreate.html">
+                        <a class="btn btn-small" href="${pageContext.request.contextPath}/productGroup/productGroupCreate.html">
                             <i class="icon-plus"> </i>创建
                         </a>
                         <button class="btn btn-small" onclick="$('#myqueryform').submit();">
@@ -100,7 +88,8 @@
                         <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>置顶类型</th>
+                                <th>产品编号</th>
+                                <th>团购数量</th>
                                 <th>审核状态</th>
                                 <th>备注</th>
                                 <th>申请日期</th>
@@ -112,21 +101,22 @@
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
-                                    <td>${item.overheadTypeName}</td>
+                                    <td><a href="${pageContext.request.contextPath}/productGroup/productGroupItem.html?productGroup.id=${item.productId}"> ${item.productId} </a></td>
+                                    <td>${item.groupNum}</td>
                                     <td>${item.checkStatusName}</td>
                                     <td>${item.remark}</td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                    <td><a href="${pageContext.request.contextPath}/overhead/overheadEdit.html?overhead.id=${item.id}" class="btn btn-mini">
+                                    <td><a href="${pageContext.request.contextPath}/productGroup/productGroupEdit.html?productGroup.id=${item.id}" class="btn btn-mini">
                                             <i class="icon-edit"> </i>编辑
-                                        </a> <a href="${pageContext.request.contextPath}/overhead/overheadItem.html?overhead.id=${item.id}" class="btn btn-mini">
+                                        </a> <a href="${pageContext.request.contextPath}/productGroup/productGroupItem.html?productGroup.id=${item.id}" class="btn btn-mini">
                                             <i class="icon-list-alt"></i>详细
                                         </a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
                     </table>
-                    <x:page href="${pageContext.request.contextPath}/overhead/overheadList.html" pagination="${pagination}" />
+                    <x:page href="${pageContext.request.contextPath}/productGroup/productGroupList.html" pagination="${pagination}" />
                 </div>
             </div>
         </div>
@@ -138,7 +128,7 @@
 <script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
 <script>
     jQuery(function() {
-        jQuery("#X_menu_li_overhead").addClass("active");
+        jQuery("#X_menu_li_productGroup").addClass("active");
     });
 </script>
 </html>
