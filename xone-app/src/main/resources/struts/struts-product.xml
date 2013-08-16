@@ -43,6 +43,9 @@
 		<action name="listItems" class="productAction" method="listItems">
 			<result name="success">/WEB-INF/jsp/product-list-items.jsp</result>
 		</action>
+		<action name="listOverheadItems" class="productAction" method="listOverheadItems">
+			<result name="success">/WEB-INF/jsp/product-list-items-overhead.jsp</result>
+		</action>
 		<action name="item" class="productAction" method="item">
 			<result name="success">/WEB-INF/jsp/product-item-page.jsp</result>
 		</action>

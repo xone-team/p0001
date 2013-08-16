@@ -30,7 +30,9 @@ public class Overhead extends MyModel implements Serializable {
 	 * 置顶类型
 	 */
 	public enum OverheadType {
-		PRODUCT("1", "产品"), PURCHASE("2", "求购");
+		//与Product中的saleType要一致
+		PRODUCT_NORMAL("0", "普通产品"), PRODUCT_SALES("1", "促销产品"), 
+		PRODUCT_GROUPS("2", "团购产品"), PURCHASE("3", "求购产品");
         protected String value;
         protected String name;
         private OverheadType(String v, String n) {

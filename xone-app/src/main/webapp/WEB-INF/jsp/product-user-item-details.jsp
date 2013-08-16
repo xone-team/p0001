@@ -94,7 +94,7 @@
 	<div>
 		<form class="overheadform" action="${pageContext.request.contextPath}/product/doTopApply.html" method="post">
 			<input type="hidden" name="overhead.refId" value="${product.id}">
-			<input type="hidden" name="overhead.overheadType" value="1">
+			<input type="hidden" name="overhead.overheadType" value="${product.saleType}">
 			<a href="#" class="overheadformbutton" data-role="button" data-icon="plus" data-theme="b" data-iconpos="right">申请顶置</a>
 		</form>
 		<script type="text/javascript">

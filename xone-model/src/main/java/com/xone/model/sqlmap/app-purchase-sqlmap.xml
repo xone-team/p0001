@@ -37,10 +37,10 @@
 				and p.id = #{id}
 			</if>
             <if test="gtDateCreated != null">
-				<![CDATA[and p.date_created < #{gtDateCreated}]]>
+				<![CDATA[and p.date_created > #{gtDateCreated}]]>
 			</if>
             <if test="ltDateCreated != null">
-                <![CDATA[and p.date_created > #{ltDateCreated}]]>
+                <![CDATA[and p.date_created < #{ltDateCreated}]]>
 			</if>
             <if test="purchaseName != null">
 				and p.purchase_name like CONCAT('%', #{purchaseName}, '%')

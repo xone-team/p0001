@@ -86,7 +86,7 @@
 	<div>
 		<form class="overheadpurchaseform" action="${pageContext.request.contextPath}/purchase/doTopApply.html" method="post">
 			<input type="hidden" name="overhead.refId" value="${purchase.id}">
-			<input type="hidden" name="overhead.overheadType" value="2">
+			<input type="hidden" name="overhead.overheadType" value="3">
 			<a href="#" class="overheadformpurchasebutton" data-role="button" data-icon="plus" data-theme="b" data-iconpos="right">申请顶置OK</a>
 		</form>
 		<script type="text/javascript">

@@ -228,6 +228,49 @@ public class ProductServiceImpl implements ProductService {
 //        }
 //        detachedCriteria.addOrder(Order.desc("dateCreated"));
 //        List<Product> list = getProductDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
+//        if (null != list && !list.isEmpty()) {
+//            List<Long> ids = new ArrayList<Long>();
+//            for (Product p : list) {
+//                ids.add(p.getId());
+//            }
+//            Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.PRODUCT, 0, ids.size() * 3);
+//            for (int i = 0; i < ids.size(); i++) {
+//                Product ip = list.get(i);
+//                List<Long> imageIds = maps.get(ip.getId());
+//                if (null != imageIds) {
+//                    ip.setIds(maps.get(ip.getId()));
+//                }
+//                list.set(i, ip);
+//            }
+//        }
+        return getProductWithImageIdByProducts(list);
+    }
+    
+    @Override
+    public List<Product> findAllByIds(List<Long> ids, Map<String, String> params) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Product.class);
+        if (null != ids && !ids.isEmpty()) {
+            detachedCriteria.add(Restrictions.in("id", ids));
+        }
+        String checkStatus = params.get("checkStatus");
+        if (!StringUtils.isBlank(checkStatus)) {
+            detachedCriteria.add(Restrictions.eq("checkStatus", checkStatus));
+        }
+        String flagDeleted = params.get("flagDeleted");
+        if (!StringUtils.isBlank(flagDeleted)) {
+            detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
+        }
+        detachedCriteria.addOrder(Order.desc("dateCreated"));
+        List<Product> list = getProductDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
+        return getProductWithImageIdByProducts(list);
+    }
+    
+    /**
+     * 返回带图片Id的产品信息
+     * @param list
+     * @return
+     */
+    protected List<Product> getProductWithImageIdByProducts(List<Product> list) {
         if (null != list && !list.isEmpty()) {
             List<Long> ids = new ArrayList<Long>();
             for (Product p : list) {

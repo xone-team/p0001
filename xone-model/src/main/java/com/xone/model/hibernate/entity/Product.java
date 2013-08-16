@@ -34,6 +34,7 @@ public class Product extends MyModel implements Serializable {
      *
      */
     public enum SaleType {
+    	//与Overhead中的OverheadType前部分要一致
         ALL("", "全部"), NORMAL("0", "普通"), SALES("1", "促销"), GROUPS("2", "团购");
         protected String value;
         protected String name;

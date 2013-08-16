@@ -2,6 +2,7 @@
 package com.xone.action.app.product;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -112,7 +113,6 @@ public class ProductAction extends LogicAction {
 			return SUCCESS;
 		}
 		Long userId = getUserId();
-		getOverhead().setOverheadType(Overhead.OverheadType.PRODUCT.getValue());
 		getOverhead().setUserApply(userId);
 		getOverhead().setDateApply(new Date());
 		getOverhead().setUserCreated(userId);
@@ -156,11 +156,40 @@ public class ProductAction extends LogicAction {
 			if (!StringUtils.isBlank(getProduct().getProductName())) {
 				params.put("productName", getProduct().getProductName());
 			}
+			if (!StringUtils.isBlank(map.get("exIds"))) {
+				params.put("exIds", Arrays.asList(map.get("exIds").split(",")));
+			}
 			params.put("saleType", getProduct().getSaleType());
 			params.put("userLevels", getLogicUserLevel());
 			params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
 			params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
 			setList(getProductService().findAllByMap(params));
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询产品顶置列表
+	 * @return
+	 */
+	public String listOverheadItems() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("overheadType", getProduct().getSaleType());
+		params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
+		params.put("flagDeleted", Overhead.FlagDeleted.NORMAL.getValue());
+		List<Overhead> list = getOverheadService().findAllByMap(params);
+		if (null != list && !list.isEmpty()) {
+			List<Long> ids = new ArrayList<Long>();
+			for (Overhead o : list) {
+				ids.add(o.getRefId());
+			}
+			params.clear();
+			params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+			params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+			List<Product> pList = getProductService().findAllByIds(ids, params);
+			if (null != pList && !pList.isEmpty()) {
+				getList().addAll(pList);
+			}
 		}
 		return SUCCESS;
 	}
