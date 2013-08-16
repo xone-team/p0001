@@ -39,7 +39,8 @@
 					onDown: function() {
 						var item = $('li.purchasedatecreateditem');
 						return $.extend({}, {
-							'purchase.purchaseName': $('purchase-list-main${myid}').find('input[data-type="search"]').val()
+							'purchase.purchaseName': $('purchase-list-main${myid}').find('input[data-type="search"]').val(),
+							'exIds': exPurchaseIds()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'down',
@@ -57,19 +58,30 @@
 						});
 					},
 					down: function(html) {
-						$('ul.ul-purchase-list${myid}').find('li.itemtoolong').remove();
-						$('ul.ul-purchase-list${myid}').prepend(html).listview('refresh');
-	// 					fixedPurchaseImage();
+						var overheadli = $('ul.ul-purchase-list${myid} li.purchaseoverheaditem').last();
+						var ul = $('ul.ul-purchase-list${myid}');
+						if (overheadli.length == 0) {
+							ul.prepend(html);
+						} else {
+							overheadli.after(html);
+						}
+						ul.listview('refresh');
+						ul.find('li.itemtoolong').remove();
+						fixedPurchaseImage();
 					},
 					up: function(html) {
-						$('ul.ul-purchase-list${myid}').find('li.itemtoolong').remove();
-						$('ul.ul-purchase-list${myid}').append(html).listview('refresh');
+						var ul = $('ul.ul-purchase-list${myid}');
+						ul.find('li.itemtoolong').remove();
+						ul.append(html).listview('refresh');
+						fixedPurchaseImage();
 					}
 				});
-	        	doPurchaseRequest();
+// 	        	doPurchaseRequest();
+	        	doPurchaseOverheadRequest();
 				$('a.purchase-list-page-refresh').click(function(e) {
 					$('ul.ul-purchase-list${myid}').html('<li data-role="list-divider">数据加载中，请稍候...</li>').listview('refresh');
-					doPurchaseRequest();
+// 					doPurchaseRequest();
+					doPurchaseOverheadRequest();
 				});
 				$('div.purchase-main-page').data('eventbinding', true);
 				function doPurchaseRequest() {
@@ -83,6 +95,13 @@
 						}
 					});
 				}
+				function exPurchaseIds() {
+					var a = [];
+					$('ul.ul-purchase-list${myid} li.purchaseoverheaditem').each(function(i) {
+						a[i] = $(this).attr('pid');
+					});
+					return a.join(',');
+				}
 				function fixedPurchaseImage() {
 					if ($('style.purchase').length > 0) {
 						return;
@@ -93,6 +112,17 @@
 						var css = ['<style type="text/css" class="purchase"> img.purchaseliimage {height:', height, 'px;', 'width:', height, 'px;}</style>'];
 						$('div.purchase-main-page').append(css.join(''));
 					}
+				}
+				function doPurchaseOverheadRequest() {
+					$.ajax({
+						type: 'GET',
+						url: '${pageContext.request.contextPath}/purchase/listOverheadItems.html',
+						data: '_=' + new Date().getTime(),
+						success: function(html) {
+							$('ul.ul-purchase-list${myid}').html(html).listview('refresh');
+							fixedPurchaseImage();
+						}
+					});
 				}
 				$('ul.ul-purchase-list${myid}').listview({
 					filterCallback: function() {
@@ -113,7 +143,8 @@
 			                $ul.listview( "refresh" );
 			            });
 			        } else if (value.length <= 0) {
-			        	doPurchaseRequest();
+// 			        	doPurchaseRequest();
+			        	doPurchaseOverheadRequest();
 			        }
 			    });
 			});

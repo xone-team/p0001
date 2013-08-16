@@ -144,7 +144,8 @@
 // 			                $ul.trigger("updatelayout");
 			            });
 			        } else if (value.length <= 0) {
-			        	doRequest();
+// 			        	doRequest();
+			        	doOverheadRequest();
 			        }
 			    });
 			});

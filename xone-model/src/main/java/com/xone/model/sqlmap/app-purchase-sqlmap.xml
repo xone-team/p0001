@@ -24,7 +24,7 @@
         select p.*
         from t_purchase p left join t_user u on p.user_created = u.id 
        	<include refid="findPurchaseWhere"/>
-       	order by p.date_created
+       	order by p.date_created desc
 	</select>
 	<select id="findPurchaseCountWithUser" parameterType="java.util.Map" resultType="int">
         select count(*)
@@ -35,6 +35,12 @@
         <where>
             <if test="id != null">
 				and p.id = #{id}
+			</if>
+            <if test="exIds != null">
+				and p.id not in 
+				<foreach item="i" index="index" collection="exIds" open="(" separator="," close=")">
+					#{i}
+				</foreach>
 			</if>
             <if test="gtDateCreated != null">
 				<![CDATA[and p.date_created > #{gtDateCreated}]]>

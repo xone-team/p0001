@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Overhead;
+import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.model.utils.MyModelUtils;
@@ -79,6 +80,32 @@ public class PurchaseAction extends LogicAction {
 		getPurchase().setCheckStatus(Purchase.CheckStatus.WAITING.getValue());
 		List<ImageUploaded> images = super.createImageByParams(getImageUploadPath(), ImageUploaded.RefType.PURCHASE);
 		setPurchase(getPurchaseService().save(getPurchase(), images));
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询产品顶置列表
+	 * @return
+	 */
+	public String listOverheadItems() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("overheadType", Overhead.OverheadType.PURCHASE.getValue());
+		params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
+		params.put("flagDeleted", Overhead.FlagDeleted.NORMAL.getValue());
+		List<Overhead> list = getOverheadService().findAllByMap(params);
+		if (null != list && !list.isEmpty()) {
+			List<Long> ids = new ArrayList<Long>();
+			for (Overhead o : list) {
+				ids.add(o.getRefId());
+			}
+			params.clear();
+			params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+			params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+			List<Purchase> pList = getPurchaseService().findAllByIds(ids, params);
+			if (null != pList && !pList.isEmpty()) {
+				getList().addAll(pList);
+			}
+		}
 		return SUCCESS;
 	}
 	

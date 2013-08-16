@@ -23,6 +23,7 @@ import com.xone.model.hibernate.app.PurchaseCheckDao;
 import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.entity.PurchaseCheck;
 import com.xone.model.hibernate.support.Pagination;
@@ -164,6 +165,50 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public List<Purchase> findAllByMap(Map<String, Object> params) {
         List<Purchase> list = getPurchaseDao().findAllPurchaseByUserRef(params);
+        return getPurchaseWithImageIdByPurchase(list);
+//        if (null != list && !list.isEmpty()) {
+//            List<Long> ids = new ArrayList<Long>();
+//            for (Purchase p : list) {
+//                ids.add(p.getId());
+//            }
+//            Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.PURCHASE, 0, ids.size() * 3);
+//            for (int i = 0; i < ids.size(); i++) {
+//                Purchase ip = list.get(i);
+//                List<Long> imageIds = maps.get(ip.getId());
+//                if (null != imageIds) {
+//                    ip.setIds(maps.get(ip.getId()));
+//                }
+//                list.set(i, ip);
+//            }
+//        }
+//        return list;
+    }
+
+	@Override
+	public List<Purchase> findAllByIds(List<Long> ids, Map<String, String> params) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Purchase.class);
+        if (null != ids && !ids.isEmpty()) {
+            detachedCriteria.add(Restrictions.in("id", ids));
+        }
+        String checkStatus = params.get("checkStatus");
+        if (!StringUtils.isBlank(checkStatus)) {
+            detachedCriteria.add(Restrictions.eq("checkStatus", checkStatus));
+        }
+        String flagDeleted = params.get("flagDeleted");
+        if (!StringUtils.isBlank(flagDeleted)) {
+            detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
+        }
+        detachedCriteria.addOrder(Order.desc("dateCreated"));
+        List<Purchase> list = getPurchaseDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
+        return getPurchaseWithImageIdByPurchase(list);
+	}
+	
+    /**
+     * 返回带图片Id的产品信息
+     * @param list
+     * @return
+     */
+    protected List<Purchase> getPurchaseWithImageIdByPurchase(List<Purchase> list) {
         if (null != list && !list.isEmpty()) {
             List<Long> ids = new ArrayList<Long>();
             for (Purchase p : list) {
@@ -231,22 +276,23 @@ public class PurchaseServiceImpl implements PurchaseService {
         }
         detachedCriteria.addOrder(Order.desc("dateCreated"));
         List<Purchase> list = getPurchaseDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
-        if (null != list && !list.isEmpty()) {
-            List<Long> ids = new ArrayList<Long>();
-            for (Purchase p : list) {
-                ids.add(p.getId());
-            }
-            Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.PURCHASE, 0, ids.size() * 3);
-            for (int i = 0; i < ids.size(); i++) {
-                Purchase ip = list.get(i);
-                List<Long> imageIds = maps.get(ip.getId());
-                if (null != imageIds) {
-                    ip.setIds(maps.get(ip.getId()));
-                }
-                list.set(i, ip);
-            }
-        }
-        return list;
+//        if (null != list && !list.isEmpty()) {
+//            List<Long> ids = new ArrayList<Long>();
+//            for (Purchase p : list) {
+//                ids.add(p.getId());
+//            }
+//            Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.PURCHASE, 0, ids.size() * 3);
+//            for (int i = 0; i < ids.size(); i++) {
+//                Purchase ip = list.get(i);
+//                List<Long> imageIds = maps.get(ip.getId());
+//                if (null != imageIds) {
+//                    ip.setIds(maps.get(ip.getId()));
+//                }
+//                list.set(i, ip);
+//            }
+//        }
+//        return list;
+        return getPurchaseWithImageIdByPurchase(list);
     }
 
     @Override
