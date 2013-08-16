@@ -153,8 +153,7 @@
                 </div>
                 <div class="row-fluid">
                     <p class="text-right">
-                        <a class="btn btn-small" href="${pageContext.request.contextPath}/person/personCreate.html">
-                            <i class="icon-plus"> </i>创建
+                        <a class="btn btn-small" href="${pageContext.request.contextPath}/person/personCreate.html"> <i class="icon-plus"> </i>创建
                         </a>
                         <button class="btn btn-small" onclick="$('#myqueryform').submit();">
                             <span class="icon-search"></span>查询
@@ -183,7 +182,7 @@
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
-                                    <td>${item.username} </td>
+                                    <td>${item.username}</td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td>${item.nickName}</td>
                                     <td class="table-col-number">${item.cellphone}</td>
@@ -193,12 +192,9 @@
                                     <td>${item.address}</td>
                                     <td>${item.creditName}</td>
                                     <td>${item.userLevelName}</td>
-                                    <td><a href="${pageContext.request.contextPath}/person/personEdit.html?person.id=${item.id}" class="btn btn-mini">
-                                            <i class="icon-edit"> </i>编辑
-                                        </a>
-                                        <a href="${pageContext.request.contextPath}/person/personItem.html?person.id=${item.id}" class="btn btn-mini">
-                                            <i class="icon-list-alt"> </i>详细
-                                        </a></td>
+                                    <td><a href="${pageContext.request.contextPath}/person/personEdit.html?person.id=${item.id}" class="btn btn-mini"> <i class="icon-edit"> </i>编辑
+                                    </a> <a href="${pageContext.request.contextPath}/person/personItem.html?person.id=${item.id}" class="btn btn-mini"> <i class="icon-list-alt"> </i>详细
+                                    </a></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
@@ -210,61 +206,28 @@
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
 
-    <!-- modal to select role -->
-    <script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
-    <script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="${STATIC_ROOT}/js/fileupload.js"></script>
     <jsp:include page="common-modal.jsp">
         <jsp:param name="myidentify" value="rolesinfo" />
-        <jsp:param name="title" value="请选择一个用户" />
+        <jsp:param name="title" value="请选择一个角色" />
         <jsp:param name="url" value="${pageContext.request.contextPath }/roles/rolesListAjax.html" />
     </jsp:include>
-    <script type="text/javascript">
-                    $(document).ready(function() {
-                        $('#windowTitleDialogrolesinfo').delegate('a.rolesinfoselect', 'click', function(e) {
-                            e.preventDefault();
-                            var $this = $(this);
-                            $('#rolesId').val($this.attr('attr-id'));
-                            $this.closest('div.modal').modal('hide');
-                            return false;
-                        });
-                    });
-                </script>
-    <!-- /modal to select role -->
 
-    <!--  modal confirm to delete -->
-    <div id="X_model_confirm2delete" class="modal hide fade">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>删除确认</h3>
-        </div>
-        <div class="modal-body">
-            <p>确定要删除该记录吗？</p>
-        </div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal">取消</button>
-            <button class="btn btn-primary" onclick="endModalDelete()">确定</button>
-        </div>
-    </div>
-    <script type="text/javascript">
-                    function showModalDelete(targetParams) {
-                        XONE.CURRENT_MODEL = {};
-                        XONE.CURRENT_MODEL.target = targetParams;
-                        XONE.CURRENT_MODEL.modal = jQuery("#X_model_confirm2delete");
-                        XONE.CURRENT_MODEL.deleteUrl = "${pageContext.request.contextPath}/person/personDelete.html";
-                        XONE.CURRENT_MODEL.modal.modal("show");
-                    }
-                    function endModalDelete() {
-                        var modalCurrent = XONE.CURRENT_MODEL.modal;
-                        var targetParams = XONE.CURRENT_MODEL.target;
-                        var deleteUrl = XONE.CURRENT_MODEL.deleteUrl + "?" + targetParams;
-                        modalCurrent.modal('hide');
-                        location.href = deleteUrl;
-                    }
-                </script>
-    <!--  /modal confirm to delete -->
 </body>
+<script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="${STATIC_ROOT}/js/fileupload.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#windowTitleDialogrolesinfo').delegate('a.rolesinfoselect', 'click', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            $('#rolesId').val($this.attr('attr-id'));
+            $this.closest('div.modal').modal('hide');
+            return false;
+        });
+    });
+</script>
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_person").addClass("active");

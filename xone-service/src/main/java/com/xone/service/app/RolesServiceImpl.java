@@ -70,7 +70,7 @@ public class RolesServiceImpl implements RolesService {
         
         handleCriteriaByParams(detachedCriteria, params);
         
-        return getRolesDao().findListByDetachedCriteria(detachedCriteria, 0, 10);
+        return getRolesDao().findByDetachedCriteria(detachedCriteria);
     }
 
     public Pagination findByParams(Map<String, String> params) {
@@ -153,7 +153,7 @@ public class RolesServiceImpl implements RolesService {
         }
         String enable = params.get("enable");
         if (!StringUtils.isBlank(enable)) {
-            criteria.add(Restrictions.like("enable", "%" + enable + "%"));
+            criteria.add(Restrictions.eq("enable", enable));
         }
         String userCreated = params.get("userCreated");
         if (!StringUtils.isBlank(userCreated)) {

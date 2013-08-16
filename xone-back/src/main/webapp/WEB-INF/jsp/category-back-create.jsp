@@ -76,8 +76,7 @@
         } ];
 
         var pass = XONE.valid(validate, $form, "categroy.");
-        if (pass)
-            $form.submit();
+        return false;
     }
     function numberValidation(inputEl){
         var result = true;

@@ -63,13 +63,11 @@
                         <div class="controls">
                             <div id="roleIdsSelectResult" class="inline">
                                 <c:forEach items="${rolesList}" var="role">
-                                    <div class="X-select-result inline">
-                                        <input type="hidden" class="X-select-hidden-value" value="${role.id}" name="roleIds">
-                                        <span class="label label-default">${role.name}</span>
-                                    </div>
+                                    <input type="hidden" class="X-select-hidden-value" value="${role.id}" name="roleIds">
+                                    <span class="label label-default">${role.name}</span>
                                 </c:forEach>
                             </div>
-                            <button type="button" class="btn" onclick="showModalRolesSelect($('#roleIdsSelectResult'), 'roleIds');">
+                            <button type="button" class="btn inline" onclick="$('#windowTitleDialogrolescheck').modal('show');">
                                 <i class="icon-filter"></i>选择
                             </button>
                         </div>
@@ -85,107 +83,40 @@
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
 
-
-    <!-- modal to select role -->
-    <div id="X_model_rolesSelect" class="modal hide fade">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h3>选择角色</h3>
-        </div>
-        <div class="modal-body">
-            <!-- query conditions -->
-            <form id="modalRolesQueryForm">
-                <div class="row-fluid">
-                    <div class="span5 form-horizontal">
-                        <div class="control-group">
-                            <label class="control-label" for="modalInputName">名称</label>
-                            <div class="controls">
-                                <input type="text" name="roles.name" id="modalInputName" placeholder="名称">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <!-- /query conditions -->
-            <div class="row-fluid">
-                <p class="text-right">
-                    <button class="btn btn-small" onclick="queryModalRoles();">
-                        <i class="icon-search"></i>查询
-                    </button>
-                </p>
-            </div>
-            <!-- query result -->
-            <div class="row-fluid">
-                <table class="table table-hover table-bordered table-condensed">
-                    <thead>
-                        <tr>
-                            <th>名称</th>
-                            <th>备注</th>
-                            <th>选择</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbodyListModalRoles">
-                    </tbody>
-                </table>
-            </div>
-            <!-- /query result -->
-        </div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal">取消</button>
-            <button class="btn btn-primary" onclick="endModalRolesSelect();">完成</button>
-        </div>
-    </div>
-    <script type="text/javascript">
-                    function showModalRolesSelect(targetObj, targetName) {
-                        XONE.CURRENT_MODEL = {};
-                        XONE.CURRENT_MODEL.target = targetObj;
-                        XONE.CURRENT_MODEL.modal = jQuery("#X_model_rolesSelect");
-                        XONE.CURRENT_MODEL.listBody = jQuery("#tbodyListModalRoles");
-                        XONE.CURRENT_MODEL.container = jQuery("#modalRolesQueryForm");
-                        XONE.CURRENT_MODEL.queryUrl = "${pageContext.request.contextPath}/roles/rolesSelect.html";
-                        XONE.CURRENT_MODEL.targetName = targetName;
-
-                        XONE.CURRENT_MODEL.modal.modal("show");
-                        queryModalRoles();
-                    }
-                    function endModalRolesSelect() {
-                        var listBody = XONE.CURRENT_MODEL.listBody;
-                        var container = XONE.CURRENT_MODEL.container;
-                        var modalCurrent = XONE.CURRENT_MODEL.modal;
-                        var targetObj = XONE.CURRENT_MODEL.target;
-                        var targetName = XONE.CURRENT_MODEL.targetName;
-
-                        var selectedResult = jQuery("input[type=checkbox]:checked", listBody).siblings(".X-select-result");
-                        if (selectedResult != null) {
-                            modalCurrent.modal('hide');
-                            var h = selectedResult.clone();
-                            h.removeClass("hide").addClass("inline");
-                            jQuery(".X-select-hidden-value", h).attr("name", targetName);
-                            targetObj.html(h);
-                        }
-                    }
-
-                    function queryModalRoles() {
-                        var listBody = XONE.CURRENT_MODEL.listBody;
-                        var container = XONE.CURRENT_MODEL.container;
-                        var queryUrl = XONE.CURRENT_MODEL.queryUrl;
-
-                        var d = container.serializeObject();
-                        jQuery.ajax({
-                            url : queryUrl,
-                            type : "POST",
-                            dataType : "html",
-                            data : d,
-                            success : function(html, textStatus, jqXHR) {
-                                listBody.html(html);
-                            }
-                        });
-                    }
-                </script>
-    <!-- /modal to select role -->
-
+    <jsp:include page="common-modal.jsp">
+        <jsp:param name="myidentify" value="rolescheck" />
+        <jsp:param name="title" value="请选择角色" />
+        <jsp:param name="url" value="${pageContext.request.contextPath }/roles/rolesCheck.html" />
+    </jsp:include>
 
 </body>
+<script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
+<script src="${STATIC_ROOT}/js/fileupload.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#windowTitleDialogrolescheck').delegate('button.rolescheckselectbutton', 'click', function(e) {
+            e.preventDefault();
+            var $this = $(this);
+            var checkedRows = $("#windowTitleDialogrolescheck input.rolescheck:checked");
+            if (checkedRows.size() < 1) {
+                return alert("请至少选择一个角色。");
+            }
+            var h = "";
+            checkedRows.each(function() {
+                var r = $(this);
+                h += '<input type="hidden" class="X-select-hidden-value" value="' + r.attr('attr-id') + '" name="roleIds">';
+                h += '<span class="label label-default">' + r.attr('attr-name') + '</span>';
+            })
+
+            $("#roleIdsSelectResult").html(h);
+            $this.closest('div.modal').modal('hide');
+            return false;
+        });
+    });
+</script>
+
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_resources").addClass("active");
@@ -214,8 +145,7 @@
             } ];
 
             var pass = XONE.valid(validate, $form, "resources.");
-            if (pass)
-                $form.submit();
+            return pass;
         });
     });
     function numberValidation(inputEl) {

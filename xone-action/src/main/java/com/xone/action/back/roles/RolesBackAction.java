@@ -121,7 +121,7 @@ public class RolesBackAction extends Action {
 		return SUCCESS;
 	}
 
-    public String rolesSelect() throws Exception {
+    public String rolesCheck() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
         MyBeanUtils.copyPropertiesToMap(getRoles(), params, new CopyRules() {
             @Override

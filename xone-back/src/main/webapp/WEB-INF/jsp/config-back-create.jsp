@@ -74,8 +74,7 @@
         } ];
 
         var pass = XONE.valid(validate, $form, "config.");
-        if (pass)
-            $form.submit();
+        return false;
     }
 </script>
 </html>
