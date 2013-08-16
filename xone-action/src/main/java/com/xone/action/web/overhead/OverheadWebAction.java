@@ -86,8 +86,8 @@ public class OverheadWebAction extends Action {
         if (entity.getUserApply() != null) {
             person = personService.findById(entity.getUserApply());
         }
-        if (entity.getRefId() != null) {
-            if(Overhead.OverheadType.PRODUCT.getValue().equals(entity.getOverheadType())){
+        if (entity.getRefId() != null && entity.getOverheadType() != null) {
+            if(!Overhead.OverheadType.PURCHASE.getValue().equals(entity.getOverheadType())){
                 product = productService.findById(entity.getRefId());
                 if(product != null){
                     refName = product.getProductName();
@@ -113,7 +113,7 @@ public class OverheadWebAction extends Action {
     }
 
     public String overheadCreate() throws Exception {
-        overhead.setOverheadType(Overhead.OverheadType.PRODUCT.getValue());
+        overhead.setOverheadType(Overhead.OverheadType.PRODUCT_NORMAL.getValue());
         return SUCCESS;
     }
 
@@ -128,7 +128,7 @@ public class OverheadWebAction extends Action {
             person = personService.findById(entity.getUserApply());
         }
         if (entity.getRefId() != null) {
-            if(Overhead.OverheadType.PRODUCT.getValue().equals(entity.getOverheadType())){
+            if(Overhead.OverheadType.PRODUCT_NORMAL.getValue().equals(entity.getOverheadType())){
                 product = productService.findById(entity.getRefId());
                 if(product != null){
                     refName = product.getProductName();
