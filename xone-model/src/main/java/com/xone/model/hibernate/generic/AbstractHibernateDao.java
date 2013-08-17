@@ -179,6 +179,9 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	public T deleteById(Serializable id) {
 		Assert.notNull(id);
 		T entity = load(id);
+		if (null == entity) {
+			return null;
+		}
 		getHibernateTemplate().delete(entity);
 		return entity;
 	}
@@ -191,7 +194,10 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	 */
 	public T findById(Serializable id) {
 		Assert.notNull(id);
-		return load(id);
+		try {
+			return load(id);
+		} catch (Exception e) {}
+		return null;
 	}
 	
 	

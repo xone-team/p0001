@@ -9,7 +9,7 @@ public class ResourceGenerator {
 				"jdbc:mysql://mysqllocal.com:4306/sample?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true",
 				"root", "admin");
 		List<String> tables = databaseTableInfo.getTables(new String[] {
-				"t_product_group"
+				"t_company_info"
 		});//databaseTableInfo.getTables();
 		DaoGenerator daoGenerator = new DaoGenerator();
 		EntityGenerator entityGenerator = new EntityGenerator();
@@ -38,20 +38,20 @@ public class ResourceGenerator {
 			serviceGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
 			serviceGenerator.generateServiceImpl();
 			serviceGenerator.generateServiceXml();
-//			actionGenerator.setTableName(table);
-//			actionGenerator.generateAction();
-//			actionGenerator.generateActionXml();
-//			actionGenerator.generateStrutsXml();
-//			jspGenerator.setTableName(table);
-//			jspGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
-//			jspGenerator.generatePages();
-//			backActionGenerator.setTableName(table);
-//			backActionGenerator.generateAction();
-//			backActionGenerator.generateActionXml();
-//			backActionGenerator.generateStrutsXml();
-//			backJspGenerator.setTableName(table);
-//			backJspGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
-//			backJspGenerator.generatePages();
+			actionGenerator.setTableName(table);
+			actionGenerator.generateAction();
+			actionGenerator.generateActionXml();
+			actionGenerator.generateStrutsXml();
+			jspGenerator.setTableName(table);
+			jspGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
+			jspGenerator.generatePages();
+			backActionGenerator.setTableName(table);
+			backActionGenerator.generateAction();
+			backActionGenerator.generateActionXml();
+			backActionGenerator.generateStrutsXml();
+			backJspGenerator.setTableName(table);
+			backJspGenerator.setTableProperties(databaseTableInfo.getTableProperties(table));
+			backJspGenerator.generatePages();
 		    
 		}
 		databaseTableInfo.close();

@@ -12,7 +12,7 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body><c:set var="myid" value="${identify}" />
-	<div data-role="page" class="product-main-page">
+	<div data-role="page" class="product-main-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>
@@ -108,8 +108,14 @@
 						url: '${pageContext.request.contextPath}/product/listOverheadItems.html?product.saleType=${product.saleType}',
 						data: '_=' + new Date().getTime(),
 						success: function(html) {
-							$('ul.ul-product-list${myid}').html(html).listview('refresh');
-							fixedPurchaseImage();
+							var ul = $('ul.ul-product-list${myid}');
+							ul.html(html);
+							if (ul.find('li.productoverheaditem').length == 0) {
+								doRequest();
+							} else {
+								ul.listview('refresh');
+								fixedPurchaseImage();
+							}
 						}
 					});
 				}
@@ -129,7 +135,7 @@
 					}
 				}).on("listviewbeforefilter", function (e, data) {
 					var $ul = $(this), $input = $(data.input), value = $.trim($input.val()), html = "";
-			        if (value && value.length > 2) {
+			        if (value && value.length >= 2) {
 			            $ul.html( "<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>" );
 			            $ul.listview("refresh");
 			            $.ajax({

@@ -27,15 +27,21 @@ public class ImageUploaded implements Serializable {
 	 * 相关类型
 	 */
 	public enum RefType {
-		PRODUCT("0"), PURCHASE("1"), ABBANNER("2");
+		PRODUCT("0", "产品图片"), PURCHASE("1", "求购图片"), ABBANNER("2", "广告图片"), COMPANY("2", "公司图片");
 		protected String value = null;
+		protected String name = null;
 		
-		private RefType(String v) {
+		private RefType(String v, String n) {
 			this.value = v;
+			this.name = n;
 		}
 		
 		public String getValue() {
 			return this.value;
+		}
+		
+		public String getName() {
+			return this.name;
 		}
 	}
 	

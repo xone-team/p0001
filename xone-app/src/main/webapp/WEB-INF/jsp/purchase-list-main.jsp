@@ -10,7 +10,7 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body><c:set var="myid" value="${identify}" />
-	<div data-role="page" class="purchase-main-page">
+	<div data-role="page" class="purchase-main-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<h1>求购列表</h1>
 			<a href="#" class="purchase-list-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
@@ -39,7 +39,7 @@
 					onDown: function() {
 						var item = $('li.purchasedatecreateditem');
 						return $.extend({}, {
-							'purchase.purchaseName': $('purchase-list-main${myid}').find('input[data-type="search"]').val(),
+							'purchase.purchaseName': $('div.purchase-list-main${myid}').find('input[data-type="search"]').val(),
 							'exIds': exPurchaseIds()
 						}, {
 							'itemcount': item.length,
@@ -50,7 +50,7 @@
 					onUp: function() {
 						var item = $('li.purchasedatecreateditem');
 						return $.extend({}, {
-							'purchase.purchaseName': $('purchase-list-main${myid}').find('input[data-type="search"]').val()
+							'purchase.purchaseName': $('div.purchase-list-main${myid}').find('input[data-type="search"]').val()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'up',
@@ -119,8 +119,14 @@
 						url: '${pageContext.request.contextPath}/purchase/listOverheadItems.html',
 						data: '_=' + new Date().getTime(),
 						success: function(html) {
-							$('ul.ul-purchase-list${myid}').html(html).listview('refresh');
-							fixedPurchaseImage();
+							var ul = $('ul.ul-purchase-list${myid}');
+							ul.html(html);
+							if (ul.find('li.purchaseoverheaditem').length == 0) {
+								doPurchaseRequest();
+							} else {
+								ul.listview('refresh');
+								fixedPurchaseImage();
+							}
 						}
 					});
 				}
@@ -129,7 +135,7 @@
 					}
 				}).on("listviewbeforefilter", function (e, data) {
 					var $ul = $(this), $input = $(data.input), value = $.trim($input.val()), html = "";
-			        if (value && value.length > 2) {
+			        if (value && value.length >= 2) {
 			            $ul.html( "<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>" );
 			            $ul.listview("refresh");
 			            $.ajax({

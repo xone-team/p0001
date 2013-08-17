@@ -20,5 +20,8 @@
 		<action name="subscribe" class="assistantAction" method="subscribe">
 		    <result name="success">/WEB-INF/jsp/subscribe-info.jsp</result>
 		</action>
+		<action name="companyInfo" class="assistantAction" method="companyInfo">
+		    <result name="success">/WEB-INF/jsp/company-info-item-page.jsp</result>
+		</action>
 	</package>
 </struts>

@@ -15,7 +15,7 @@
 		</style>
 	</head>
 	<body><c:set var="myid" value="${identify}" />
-	<div data-role="page" class="product-sales-page" data-dom-cache="true">
+	<div data-role="page" class="product-sales-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>
@@ -90,7 +90,8 @@
 					onDown: function() {
 						var item = $('ul.product-sales-listview${myid}').find('li.productdatecreateditem');
 						return $.extend({}, {
-							'product.productName': $('product-sales-list${myid}').find('input[data-type="search"]').val()
+							'product.productName': $('div.product-sales-list${myid}').find('input[data-type="search"]').val(),
+							'exIds': exSaleIds()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'down',
@@ -100,7 +101,8 @@
 					onUp: function() {
 						var item = $('ul.product-sales-listview${myid}').find('li.productdatecreateditem');
 						return $.extend({}, {
-							'product.productName': $('product-sales-list${myid}').find('input[data-type="search"]').val()
+							'product.productName': $('div.product-sales-list${myid}').find('input[data-type="search"]').val(),
+							'exIds': exSaleIds()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'up',
@@ -108,13 +110,23 @@
 						});
 					},
 					down: function(html) {
-						$('ul.product-sales-listview${myid}').prepend(html).listview('refresh');
+						var overheadli = $('ul.product-sales-listview${myid} li.productoverheaditem').last();
+						var ul = $('ul.product-sales-listview${myid}');
+						if (overheadli.length == 0) {
+							ul.prepend(html);
+						} else {
+							overheadli.after(html);
+						}
+						ul.listview('refresh');
+						fixedProductSaleImage();
 					},
 					up: function(html) {
 						$('ul.product-sales-listview${myid}').append(html).listview('refresh');
+						fixedProductSaleImage();
 					}
 				});
-	        	doSaleRequest();
+				doOverheadSaleRequest();
+// 	        	doSaleRequest();
 				function doSaleRequest() {
 					$.ajax({
 						type: 'GET',
@@ -123,6 +135,30 @@
 						success: function(html) {
 							$('ul.product-sales-listview${myid}').html(html).listview('refresh');
 							fixedProductSaleImage();
+						}
+					});
+				}
+				function exSaleIds() {
+					var a = [];
+					$('ul.product-sales-listview${myid} li.productoverheaditem').each(function(i) {
+						a[i] = $(this).attr('pid');
+					});
+					return a.join(',');
+				}
+				function doOverheadSaleRequest() {
+					$.ajax({
+						type: 'GET',
+						url: '${pageContext.request.contextPath}/product/listOverheadItems.html?product.saleType=${product.saleType}',
+						data: '_=' + new Date().getTime(),
+						success: function(html) {
+							var ul = $('ul.product-sales-listview${myid}');
+							ul.html(html);
+							if (ul.find('li.productoverheaditem').length == 0) {
+								doSaleRequest();
+							} else {
+								ul.listview('refresh');
+								fixedProductSaleImage();
+							}
 						}
 					});
 				}
@@ -142,7 +178,7 @@
 					}
 				}).on("listviewbeforefilter", function (e, data) {
 					var $ul = $(this), $input = $(data.input), value = $.trim($input.val()), html = "";
-			        if (value && value.length > 2) {
+			        if (value && value.length >= 2) {
 			            $ul.html( "<li><div class='ui-loader'><span class='ui-icon ui-icon-loading'></span></div></li>" );
 			            $ul.listview("refresh");
 			            $.ajax({
@@ -156,7 +192,8 @@
 			                $ul.listview( "refresh" );
 			            });
 			        } else if (value.length <= 0) {
-			        	doSaleRequest();
+// 			        	doSaleRequest();
+			        	doOverheadSaleRequest();
 			        }
 			    });
 			});

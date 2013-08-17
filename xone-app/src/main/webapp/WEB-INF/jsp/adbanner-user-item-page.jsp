@@ -48,8 +48,25 @@
 							<td>${adbanner.adTypeName}</td>
 						</tr>
 						<tr>
-							<td class="mylabel">产品编号:</td>
+							<td class="mylabel">类型编号:</td>
 							<td>${adbanner.refId}</td>
+						</tr>
+						<tr>
+							<td class="mylabel">广告地址:</td>
+							<td><c:set var="href" value="#" />
+								<c:choose>
+									<c:when test="${adbanner.adType == '0'}">
+										<c:set var="href" value="${pageContext.request.contextPath}/purchase/item.html?purchase.id=${adbanner.refId}" />
+									</c:when>
+									<c:when test="${adbanner.adType == '1'}">
+										<c:set var="href" value="${pageContext.request.contextPath}/product/item.html?product.id=${adbanner.refId}" />
+									</c:when>
+									<c:when test="${adbanner.adType == '2'}">
+										<c:set var="href" value="${pageContext.request.contextPath}/assisant/companyInfo.html?companyInfo.id=${adbanner.refId}" />
+									</c:when>
+								</c:choose>
+								<a href="${href}" data-role="button">查看广告详情</a>
+							</td>
 						</tr>
 						<tr>
 							<td class="mylabel" rowspan="2">有&nbsp;&nbsp;效&nbsp;&nbsp;期:</td>

@@ -11,7 +11,7 @@ public class Adbanner extends MyModel implements Serializable {
 	 * 广告类型
 	 */
 	public enum AdType {
-		PRODUCT("0", "售卖产品"), PURCHASE("1", "购买产品");
+		PRODUCT("0", "售卖产品"), PURCHASE("1", "购买产品"), COMPANY("2", "公司广告");
         protected String value;
         protected String name;
         private AdType(String v, String n) {
@@ -28,8 +28,14 @@ public class Adbanner extends MyModel implements Serializable {
 
 	
 	protected Long id;
+	/**
+	 * 广告对应的广告实体标识
+	 */
 	protected Long refId;
 	protected String adType;
+	/**
+	 * 广告图片标识
+	 */
 	protected Long adRefId;
 	protected Date adStart;
 	protected Date adEnd;
@@ -85,9 +91,15 @@ public class Adbanner extends MyModel implements Serializable {
 	public void setAdType(String adType) {
 		this.adType = adType;
 	}
+	/**
+	 * 广告图片标识
+	 */
 	public Long getAdRefId() {
 		return adRefId;
 	}
+	/**
+	 * 广告图片标识
+	 */
 	public void setAdRefId(Long adRefId) {
 		this.adRefId = adRefId;
 	}

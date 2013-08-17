@@ -36,6 +36,7 @@
 					<li id="X_menu_li_overhead"><a href="${pageContext.request.contextPath}/overhead/overheadList.html">置顶</a></li>
 					<li id="X_menu_li_adbanner"><a href="${pageContext.request.contextPath}/adbanner/adbannerList.html">广告</a></li>
 					<li id="X_menu_li_delivery"><a href="${pageContext.request.contextPath}/delivery/deliveryList.html">物流</a></li>
+					<li id="X_menu_li_companyInfo"><a href="${pageContext.request.contextPath}/companyInfo/companyInfoList.html">公司</a></li>
 				</ul>
 			</div>
 		</div>

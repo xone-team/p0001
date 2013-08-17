@@ -7,8 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
+import com.xone.model.hibernate.entity.CompanyInfo;
 import com.xone.model.hibernate.entity.Subscribe;
 import com.xone.model.utils.MyDateUtils;
+import com.xone.service.app.CompanyInfoService;
 import com.xone.service.app.ImageUploadedService;
 import com.xone.service.app.SubscribeService;
 
@@ -22,8 +24,12 @@ public class AssistantAction extends LogicAction {
 	@Autowired
 	protected SubscribeService subscribeService;
 	
+	@Autowired
+	protected CompanyInfoService companyInfoService;
+	
 	protected List<Subscribe> list = new ArrayList<Subscribe>();
 	protected String imageUploadPath;
+	protected CompanyInfo companyInfo = new CompanyInfo();
 	
 	protected String redirect;
 	protected Long id;
@@ -33,6 +39,15 @@ public class AssistantAction extends LogicAction {
 			setRedirect("assistant/index.html");
 			return "redirect";
 		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 公司详细信息
+	 * @return
+	 */
+	public String companyInfo() {
+		setCompanyInfo(getCompanyInfoService().findById(getCompanyInfo().getId()));
 		return SUCCESS;
 	}
 	
@@ -96,6 +111,22 @@ public class AssistantAction extends LogicAction {
 
 	public void setSubscribeService(SubscribeService subscribeService) {
 		this.subscribeService = subscribeService;
+	}
+
+	public CompanyInfo getCompanyInfo() {
+		return companyInfo;
+	}
+
+	public void setCompanyInfo(CompanyInfo companyInfo) {
+		this.companyInfo = companyInfo;
+	}
+
+	public CompanyInfoService getCompanyInfoService() {
+		return companyInfoService;
+	}
+
+	public void setCompanyInfoService(CompanyInfoService companyInfoService) {
+		this.companyInfoService = companyInfoService;
 	}
 	
 }
