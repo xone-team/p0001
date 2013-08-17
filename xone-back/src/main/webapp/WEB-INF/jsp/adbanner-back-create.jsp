@@ -107,6 +107,11 @@
 			<jsp:param name="title" value="请选择广告对应的购买产品"/>
 			<jsp:param name="url" value="${pageContext.request.contextPath }/purchase/purchaseListAjax.html"/>
 		</jsp:include>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="CompanyInfo"/>
+			<jsp:param name="title" value="请选择广告对应的购买产品"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/companyInfo/companyInfoListAjax.html"/>
+		</jsp:include>
 		<script type="text/javascript">
 		$(document).ready(function() {
 			$('#windowTitleDialoguserinfo').delegate('a.userinfoselect', 'click', function(e) {
@@ -124,6 +129,13 @@
 				return false;
 			});
 			$('#windowTitleDialogPurchase').delegate('a.purchaseselectinfo', 'click', function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				$('#refId').val($this.attr('attr-id'));
+				$this.closest('div.modal').modal('hide');
+				return false;
+			});
+			$('#windowTitleDialogCompanyInfo').delegate('a.companyInfoeselectinfo', 'click', function(e) {
 				e.preventDefault();
 				var $this = $(this);
 				$('#refId').val($this.attr('attr-id'));

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="companyinfo" namespace="/companyinfo" extends="default">
+	    <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+        </global-results>
+		<action name="companyInfoList" class="companyInfoWebAction" method="companyInfoList">
+			<result name="success">/WEB-INF/jsp/company-info-list.jsp</result>
+		</action>
+		<action name="companyInfoCreate" class="companyInfoWebAction" method="companyInfoCreate">
+			<result name="success">/WEB-INF/jsp/company-info-create.jsp</result>
+		</action>
+		<action name="companyInfoSave" class="companyInfoWebAction" method="companyInfoSave">
+			<result name="success">/WEB-INF/jsp/company-info-item.jsp</result>
+		</action>
+		<action name="companyInfoEdit" class="companyInfoWebAction" method="companyInfoEdit">
+			<result name="success">/WEB-INF/jsp/company-info-edit.jsp</result>
+		</action>
+		<action name="companyInfoUpdate" class="companyInfoWebAction" method="companyInfoUpdate">
+			<result name="success">/WEB-INF/jsp/company-info-item.jsp</result>
+			<result name="list" type="chain">
+			    <param name="actionName">companyInfoList</param> 
+    			<param name="namespace">/companyinfo</param>
+			</result>
+		</action>
+		<action name="companyInfoItem" class="companyInfoWebAction" method="companyInfoItem">
+			<result name="success">/WEB-INF/jsp/company-info-item.jsp</result>
+		</action>
+	</package>
+</struts>
