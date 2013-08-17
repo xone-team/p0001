@@ -29,5 +29,9 @@
 		<action name="companyInfoItem" class="companyInfoBackAction" method="companyInfoItem">
 			<result name="success">/WEB-INF/jsp/company-info-back-item.jsp</result>
 		</action>
+		
+        <action name="companyInfoListAjax" class="companyInfoBackAction" method="companyInfoList">
+            <result name="success">/WEB-INF/jsp/companyInfo-back-list-ajax.jsp</result>
+        </action>
 	</package>
 </struts>
