@@ -72,7 +72,7 @@ public class SubscribeServiceImpl implements SubscribeService {
 		String pu = params.get("_pu");
 		String pm = params.get("_pm");
 		String pd = params.get("_pd");
-    	if (StringUtils.isBlank(userId)) {
+    	if (StringUtils.isBlank(userId) || StringUtils.isBlank(params.get("subscribe.id"))) {
     		if (StringUtils.isBlank(pu) || StringUtils.isBlank(pm) || StringUtils.isBlank(pd)) {
     			return Collections.emptyMap();
     		}
@@ -90,14 +90,24 @@ public class SubscribeServiceImpl implements SubscribeService {
     			subscribe.setDateCheck(new Date());
     		}
     		Map<String, String> pResult = new HashMap<String, String>();
-    		pResult.put("saleType", subscribe.getSaleType());
-    		pResult.put("productName", subscribe.getProductNameKey());
-    		pResult.put("productLocation", subscribe.getMarketarea());
-    		pResult.put("credit", subscribe.getCredit());
-    		pResult.put("gtDateCreated", MyServerUtils.format(subscribe.getDateCheck()));
+    		if (StringUtils.isNotBlank(subscribe.getSaleType())) {
+        		pResult.put("product.saleType", subscribe.getSaleType());
+    		}
+    		if (StringUtils.isNotBlank(subscribe.getProductNameKey())) {
+        		pResult.put("product.productName", subscribe.getProductNameKey());
+    		}
+    		if (StringUtils.isNotBlank(subscribe.getMarketarea())) {
+        		pResult.put("product.productLocation", subscribe.getMarketarea());
+    		}
+    		if (StringUtils.isNotBlank(subscribe.getCredit())) {
+        		pResult.put("product.credit", subscribe.getCredit());
+    		}
 			if (StringUtils.isNotBlank(pu) && StringUtils.isNotBlank(pm)
 					&& StringUtils.isNotBlank(pd) && null != subscribe
 					&& null != subscribe.getId()) {
+	    		if (null != subscribe.getDateCheck()) {
+	        		pResult.put("product.gtDateCreated", MyServerUtils.format(subscribe.getDateCheck()));
+	    		}
 				subscribe.setDateCheck(new Date());
 				getSubscribeDao().update(subscribe);
 			}
@@ -135,24 +145,6 @@ public class SubscribeServiceImpl implements SubscribeService {
         }
         List<Subscribe> mySubscribe = new ArrayList<Subscribe>();
         for (Subscribe subscribe : subscribeList) {
-//        	DetachedCriteria productCriteria = DetachedCriteria.forClass(Product.class);
-//        	if (!StringUtils.isBlank(subscribe.getSaleType())) {
-//        		productCriteria.add(Restrictions.eq("saleType", subscribe.getSaleType()));
-//        	}
-//        	if (!StringUtils.isBlank(subscribe.getProductNameKey())) {
-//        		productCriteria.add(Restrictions.like("productName", "%" + subscribe.getProductNameKey() + "%"));
-//        	}
-//        	if (!StringUtils.isBlank(subscribe.getMarketarea())) {
-//        		productCriteria.add(Restrictions.like("productLocation", "%" + subscribe.getMarketarea() + "%"));
-//        	}
-//        	if (!StringUtils.isBlank(subscribe.getProductNameKey())) {//公司信誉
-//    		productCriteria.add(Restrictions.like("productName", "%" + subscribe.getProductNameKey() + "%"));
-//    	}
-//        	Date dateCheck = subscribe.getDateCheck();
-//        	if (null != dateCheck) {
-//        		productCriteria.add(Restrictions.ge("dateCreated", dateCheck));
-//        	}
-//        	int i = getProductDao().countByProperty(productCriteria);
         	Map<String, Object> param = new HashMap<String, Object>();
         	if (!StringUtils.isBlank(subscribe.getSaleType())) {
             	param.put("saleType", subscribe.getSaleType());

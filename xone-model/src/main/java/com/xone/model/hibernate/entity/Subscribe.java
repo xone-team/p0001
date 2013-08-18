@@ -24,20 +24,20 @@ public class Subscribe extends MyModel implements Serializable {
 	protected Date lastUpdated;
 
 	public String getSaleTypeName() {
-		if ("0".equals(saleType)) {
-			return "普通";
-		} else if ("1".equals(saleType)) {
-			return "促销";
-		} else if ("2".equals(saleType)) {
-			return "组团";
+		if (Product.SaleType.NORMAL.getValue().equals(saleType)) {
+			return Product.SaleType.NORMAL.getName();
+		} else if (Product.SaleType.SALES.getValue().equals(saleType)) {
+			return Product.SaleType.SALES.getName();
+		} else if (Product.SaleType.GROUPS.getValue().equals(saleType)) {
+			return Product.SaleType.GROUPS.getName();
 		}
 		return "全部";
 	}
 	
 	public String getCreditName() {
-		if ("1".equals(credit)) {
+		if (Person.Credit.YES.getValue().equals(credit)) {
 			return "信誉好";
-		} else if ("2".equals(credit)) {
+		} else if (Person.Credit.NO.getValue().equals(credit)) {
 			return "信誉一般";
 		}
 		return "全部";

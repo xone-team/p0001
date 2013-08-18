@@ -14,7 +14,7 @@
 	<body>
 	<div data-role="page" class="subscribe-add-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${myid}" data-icon="check">返回</a>
+			<a href="#" data-icon="check" data-rel="back">返回</a>
 			<h1>筛选订阅</h1>
 			<a href="#" rel="external" data-icon="check" data-role="button" class="subscribe-save-button ui-btn-right">发布</a>
 		</div>
@@ -57,9 +57,9 @@
 				    			<td class="mylabel">公司信誉:</td>
 				    			<td>
 				    				<select name="subscribe.credit" placeholder="公司信誉" data-mini="true">
-				    					<option value="0">全部</option>
-				    					<option value="1">信誉好</option>
-				    					<option value="2">信誉一般</option>
+				    					<option value="">全部</option>
+				    					<option value="0">信誉好</option>
+				    					<option value="1">信誉一般</option>
 				    				</select>
 				    			</td>
 				    		</tr>
@@ -88,9 +88,6 @@
 							$('ul.mylistview${myid}').listview('refresh');
 						}
 						var v = [{
-							id: 'subscribemarketarea${myid}',
-							msg: '请输入市场区域'
-						},{
 							id: 'subscribeproductNameKey${myid}',
 							msg: '请输入产品名称'
 						}];

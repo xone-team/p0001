@@ -12,7 +12,7 @@
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="subscribe-product-list-page${myid}">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<a href="${pageContext.request.contextPath}/login/index.html?_=${myid}" data-icon="check">返回</a>
+			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>产品订阅列表</h1>
 			<a href="#" class="subscribe-product-list-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
 		</div>
@@ -35,7 +35,7 @@
 				var data = {
 				<c:if test="${!(empty mapValue)}">
 					<c:forEach items="${mapValue}" var="entry">  
-						'product.${entry.key}':'${entry.value}',
+						'${entry.key}':'${entry.value}',
 					</c:forEach>
 				</c:if>
 				'_': new Date().getTime()
