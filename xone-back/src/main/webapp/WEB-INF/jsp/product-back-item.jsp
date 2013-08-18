@@ -88,7 +88,7 @@
                             <td style="width: 60px;">产品图片</td>
                             <td><c:forEach items="${product.ids}" var="it" varStatus="status">
                                     <div class="span4">
-                                        <div class="control-group uploadimagesdiv${status.index + 1}" style="margin-bottom: 0px;">
+                                        <div class="control-group row-fluid uploadimagesdiv${status.index + 1}" style="margin-bottom: 0px;">
                                             <div class="well well-small" style="margin-bottom: 0px;">图片预览</div>
                                             <div class="well well-small">
                                                 <img class="uploadproductdynamicimage" src="${pageContext.request.contextPath}/image.html?id=${it}" />

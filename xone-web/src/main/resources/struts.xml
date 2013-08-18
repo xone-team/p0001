@@ -62,4 +62,5 @@
 	<include file="struts/struts-userRoles-web.xml" />
 	<include file="struts/struts-overhead-web.xml" />
 	<include file="struts/struts-productGroup-web.xml" />
+	<include file="struts/struts-companyInfo-web.xml" />
 </struts>

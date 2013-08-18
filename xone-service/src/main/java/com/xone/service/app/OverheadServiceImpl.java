@@ -44,6 +44,25 @@ public class OverheadServiceImpl implements OverheadService {
     public Overhead findById(Long id) {
         return getOverheadDao().findById(id);
     }
+    
+    /**
+     * 查询是否已存在相关置顶
+     * @param refId
+     * @param overheadType
+     * @return
+     */
+    @Override
+    public int countByRefIdAndType(Long refId, String overheadType, Long currentId){
+      DetachedCriteria c = DetachedCriteria.forClass(Overhead.class);
+      c.add(Restrictions.eq("refId", refId));
+      c.add(Restrictions.eq("overheadType", overheadType));
+      c.add(Restrictions.eq("flagDeleted", "0"));
+      c.add(Restrictions.eq("checkStatus", "0"));
+      if(currentId != null){
+        c.add(Restrictions.ne("id", currentId));
+      }
+      return overheadDao.countByProperty(c);
+    }
 
     @Override
     public Overhead findByMap(Map<String, String> params) {

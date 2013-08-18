@@ -103,8 +103,7 @@
                 func : numberValidation
             } ];
 
-            var pass = XONE.valid(validate, $form, "");
-            return pass;
+            return true;
         });
     });
 

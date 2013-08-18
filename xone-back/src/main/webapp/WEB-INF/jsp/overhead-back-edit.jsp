@@ -133,4 +133,11 @@
         });
     });
 </script>
+<c:if test="${!empty fieldErrors }">
+    <script>
+                    <c:forEach items="${fieldErrors }" var="fieldError">
+                    XONE.renderFieldMessage('${fieldError.value }', "error", $('input[name="${fieldError.key}"]'));
+                    </c:forEach>
+                </script>
+</c:if>
 </html>

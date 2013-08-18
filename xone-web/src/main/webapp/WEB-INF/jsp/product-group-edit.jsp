@@ -109,8 +109,7 @@
                 func : numberValidation
             } ];
 
-            var pass = XONE.valid(validate, $form, "productGroup.");
-            return pass;
+            return true;
         });
     });
 
@@ -133,8 +132,16 @@
 </script>
 <c:if test="${!empty fieldErrors }">
     <script>
+                    function renderFieldMessage(fieldText, status, inputEl) {
+                        var controlEl = inputEl.parent();
+                        var controlGroupEl = controlEl.parent();
+                        controlGroupEl.removeClass("warning error info success")
+                        controlGroupEl.addClass(status);
+                        controlEl.children().remove(".X-field-message");
+                        controlEl.append('<span class="X-field-message help-inline">' + fieldText + '</span>');
+                    }
                     <c:forEach items="${fieldErrors }" var="fieldError">
-                    XONE.renderFieldMessage('${fieldError.value }', "error", $('input[name="${fieldError.key}"]'));
+                    renderFieldMessage('${fieldError.value }', "error", $('input[name="${fieldError.key}"]'));
                     </c:forEach>
                 </script>
 </c:if>

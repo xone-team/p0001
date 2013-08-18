@@ -47,7 +47,6 @@
                                                 <label class="control-label" for="checkStatus">审核状态</label>
                                                 <div class="controls">
                                                     <select class="selectpicker" id="checkStatus" name="product.checkStatus">
-                                                        <option value="">全部</option>
                                                         <c:forEach items="${checkStatus}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == product.checkStatus}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
@@ -62,7 +61,6 @@
                                                 <label class="control-label" for="productType">产品类型</label>
                                                 <div class="controls">
                                                     <select class="selectpicker" id="productType" name="product.productType">
-                                                        <option value="">全部</option>
                                                         <c:forEach items="${productType}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == product.productType}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
@@ -75,7 +73,6 @@
                                                 <label class="control-label" for="saleType">销售类型</label>
                                                 <div class="controls">
                                                     <select class="selectpicker" id="saleType" name="product.saleType">
-                                                        <option value="">全部</option>
                                                         <c:forEach items="${saleType}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == product.saleType}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>

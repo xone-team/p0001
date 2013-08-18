@@ -17,67 +17,75 @@
     <div class="container">
         <div class="row">
             <div class="span3">
-                <jsp:include page="user-center-menu.jsp"><jsp:param value="23" name="menuindex" /></jsp:include>
+                <jsp:include page="user-center-menu.jsp"><jsp:param value="6" name="menuindex" />
+                </jsp:include>
             </div>
             <div class="span9">
                 <ul class="breadcrumb">
-                    <li>用户中心 <span class="divider">/</span></li>
-                    <li>我的其它服务 <span class="divider">/</span></li>
-                    <li class="active">创建公司信息</li>
+                    <li>用户中心<span class="divider">/</span></li>
+                    <li>我的售卖发布 <span class="divider">/</span></li>
+                    <li class="active">发布产品</li>
                 </ul>
-                <c:if test="${!empty actionErrors }">
-                    <div class="alert">
-                        <a class="close" data-dismiss="alert">×</a>
-                        <c:forEach items="${actionsErrors }" var="error">
-                            <p>${error }</p>
-                        </c:forEach>
-                    </div>
-                </c:if>
-                <form class="form-horizontal" enctype="multipart/form-data" id="companyInfoSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/companyInfo/companyInfoSave.html">
+                <form class="form-horizontal" enctype="multipart/form-data" id="productSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productSave.html">
                     <div class="control-group">
-                        <label class="control-label" for="name">公司名称</label>
+                        <label class="control-label" for="productName">产品名称</label>
                         <div class="controls">
-                            <input type="text" id="name" name="companyInfo.name" maxlength="255" placeholder="公司名称">
+                            <input type="text" id="productName" name="product.productName" maxlength="255" placeholder="产品名称">
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="address">公司地址</label>
+                        <label class="control-label" for="productType">产品类型</label>
                         <div class="controls">
-                            <input type="text" id="address" name="companyInfo.address" maxlength="255" placeholder="公司地址">
+                            <select class="selectpicker" id="productType" name="product.productType">
+                                <c:forEach items="${productType}" var="it">
+                                    <option value="${it.value}" <c:if test="${it.value == product.productType}">selected</c:if>>${it.name}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <input type="hidden" name="product.saleType" value="0">
+                    <div class="control-group">
+                        <label class="control-label" for="saleType">销售类型</label>
+                        <div class="controls">
+                            <select class="selectpicker" id="saleType" name="product.saleType" disabled="disabled">
+                                <c:forEach items="${saleType}" var="it">
+                                    <option value="${it.value}" <c:if test="${it.value == '0'}">selected</c:if>>${it.name}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="tel">公司电话</label>
+                        <label class="control-label" for="productPrice">产品价格</label>
                         <div class="controls">
-                            <input type="text" id="tel" name="companyInfo.tel" maxlength="25" placeholder="公司电话">
+                            <input type="text" id="productPrice" name="product.productPrice" value="${product.productPrice }" maxlength="200" placeholder="产品价格">
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="mobile">移动电话</label>
+                        <label class="control-label" for="productNum">产品数量</label>
                         <div class="controls">
-                            <input type="text" id="mobile" name="companyInfo.mobile" maxlength="15" placeholder="移动电话">
+                            <input type="text" id="productNum" name="product.productNum" value="${product.productNum}" maxlength="255" placeholder="产品数量">
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="contact">联系人</label>
+                        <label class="control-label" for="productAddress">产品产地</label>
                         <div class="controls">
-                            <input type="text" id="contact" name="companyInfo.contact" maxlength="15" placeholder="联系人">
+                            <input type="text" id="productAddress" name="product.productAddress" maxlength="255" placeholder="产品产地">
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="fax">公司传真</label>
+                        <label class="control-label" for="productLocation">产品属地</label>
                         <div class="controls">
-                            <input type="text" id="fax" name="companyInfo.fax" maxlength="25" placeholder="公司传真">
+                            <input type="text" id="productLocation" name="product.productLocation" maxlength="255" placeholder="产品属地">
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="intro">公司简介</label>
+                        <label class="control-label" for="productDesc">产品描述</label>
                         <div class="controls">
-                            <input type="text" id="intro" name="companyInfo.intro" maxlength="25" placeholder="公司简介">
+                            <input type="text" id="productDesc" name="product.productDesc" maxlength="255" placeholder="产品描述">
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="productDesc">公司图片</label>
+                        <label class="control-label" for="productDesc">产品图片</label>
                         <div class="controls row-fluid">
                             <div class="span4">
                                 <div class="control-group uploadimagesdiv1" style="margin-bottom: 0px;"></div>
@@ -98,7 +106,7 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" class="btn">提交创建</button>
+                            <button type="submit" name="create" value="create" class="btn">提交发布</button>
                         </div>
                     </div>
                 </form>
@@ -108,15 +116,15 @@
     </div>
     <jsp:include page="common-bottom.jsp"></jsp:include>
 </body>
+
 <script src="${STATIC_ROOT}/js/fileupload.js"></script>
 <script>
     jQuery(function() {
-        jQuery("#X_menu_li_companyInfo").addClass("active");
         $('#uploadImageFile1[type="file"]').fileupload({
             onload : function(it, e) {
                 var div = document.createElement('div');
                 var result = it.data('base64source');
-                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeCompanyInfoDynamicImage1();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage1();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
                 $('div.uploadimagesdiv1').html('').append(div);
             }
         });
@@ -124,7 +132,7 @@
             onload : function(it, e) {
                 var div = document.createElement('div');
                 var result = it.data('base64source');
-                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeCompanyInfoDynamicImage2();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage2();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
                 $('div.uploadimagesdiv2').html('').append(div);
             }
         });
@@ -132,29 +140,69 @@
             onload : function(it, e) {
                 var div = document.createElement('div');
                 var result = it.data('base64source');
-                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeCompanyInfoDynamicImage3();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage3();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
                 $('div.uploadimagesdiv3').html('').append(div);
             }
         });
 
-        $('#companyInfoSaveForm${myidentify}').submit(function() {
+        $('#productSaveForm${myidentify}').submit(function() {
+            var $form = $('#productSaveForm${myidentify}');
+            var validate = [ {
+                name : 'product.productName',
+                text : '请输入产品名'
+            }, {
+                name : 'product.productPrice',
+                text : '请输入产品价格'
+            }, {
+                name : 'product.productPrice',
+                text : '产品价格必须为数字，且大于0',
+                func : numberValidation
+            }, {
+                name : 'product.productNum',
+                text : '请输入产品数量'
+            }, {
+                name : 'product.productNum',
+                text : '产品数量必须为数字，且大于0',
+                func : numberValidation
+            }, {
+                name : 'uploadFile1',
+                text : '请上传主图片'
+            } ];
+
             return true;
         });
     });
-    function removeCompanyInfoDynamicImage1() {
+    function removeProductDynamicImage1() {
         $('div.uploadimagesdiv').html('');
         $('#uploadImageFile').val('');
         return false;
     }
-    function removeCompanyInfoDynamicImage2() {
+    function removeProductDynamicImage2() {
         $('div.uploadimagesdiv2').html('');
         $('#uploadImageFile2').val('');
         return false;
     }
-    function removeCompanyInfoDynamicImage3() {
+    function removeProductDynamicImage3() {
         $('div.uploadimagesdiv3').html('');
         $('#uploadImageFile3').val('');
         return false;
+    }
+
+    function numberValidation(inputEl) {
+        var result = true;
+        var val = inputEl.val();
+        if (val != null && val.length > 0) {
+            var n = null;
+            try {
+                n = parseInt(val);
+            } catch (e) {
+            }
+
+            if (n == null || isNaN(n) || n < 0) {
+                result = false;
+            }
+        }
+        return result;
     }
 </script>
 <c:if test="${!empty fieldErrors }">
