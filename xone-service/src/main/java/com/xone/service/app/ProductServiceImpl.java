@@ -128,6 +128,7 @@ public class ProductServiceImpl implements ProductService {
         return entity;
     }
 
+    @Override
     public Product update(Product entity, List<ImageUploaded> imageUploadeds, List<Long> imageIds) {
         for (ImageUploaded imageUploaded : imageUploadeds) {
             imageUploaded.setRefId(entity.getId());

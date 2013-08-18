@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
-import com.xone.model.hibernate.entity.MyModel;
-import com.xone.model.hibernate.entity.ProductCheck;
 import com.xone.model.hibernate.entity.Product;
-import com.xone.model.hibernate.entity.ProductGroup;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.ProductGroupService;
@@ -185,6 +182,10 @@ public class ProductBackAction extends LogicAction {
             if (null == entity || null == entity.getId()) {
                 return ERROR;
             }
+            
+            List<Long> oldIds = entity.getIds();
+            List<Long> newIds = product.getIds();
+            
             MyBeanUtils.copyProperties(getProduct(), entity, Product.class, null, new CopyRules() {
                 @Override
                 public boolean myCopyRules(Object value) {
@@ -199,7 +200,8 @@ public class ProductBackAction extends LogicAction {
                 entity.getProductCheck().setUserCheck(getUserId());
             }
             try{
-                setProduct(getProductService().update(entity, getImageList(), product.getIds()));
+                entity.setIds(oldIds);
+                setProduct(getProductService().update(entity, getImageList(), newIds));
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
                 addActionError(e.getMessage());

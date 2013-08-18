@@ -197,8 +197,7 @@
                                     <td>${item.checkStatusName}</td>
                                     <td><a href="${pageContext.request.contextPath}/product/productEdit.html?product.id=${item.id}" class="btn btn-mini">
                                             <i class="icon-edit"> </i>编辑
-                                        </a>
-                                        <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}" class="btn btn-mini">
+                                        </a> <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}" class="btn btn-mini">
                                             <i class="icon-list-alt"> </i>详细
                                         </a></td>
                                 </tr>
@@ -212,17 +211,16 @@
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
 
-    <script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
-    <script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
     <jsp:include page="common-modal.jsp">
         <jsp:param name="myidentify" value="userinfo" />
         <jsp:param name="title" value="请选择一个用户" />
         <jsp:param name="url" value="${pageContext.request.contextPath }/user/userListAjax.html" />
     </jsp:include>
 
-
 </body>
+<script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_product").addClass("active");
