@@ -29,7 +29,7 @@ table.mycompanyInfolisttable td {
 }
 -->
 </style>
-<form id="myqueryform${myidentify}" action="${pageContext.request.contextPath}/companyInfo/companyInfoListAjax.html" method="get">
+<form id="myqueryform${myidentify}" action="${pageContext.request.contextPath}/companyinfo/companyInfoListAjax.html" method="get">
 	<table class="table table-bordered myqueryform">
 		<tr>
 			<td class="mytext">公司编号</td><td><input type="text" name="companyInfo.id"  value="${companyInfo.id}"  maxlength="19" placeholder="产品编号"></td>
@@ -65,8 +65,8 @@ table.mycompanyInfolisttable td {
 		<tbody>
 		<c:forEach var="item" items="${pagination.list}">
 		<tr>
-			<td title="${item.id}"><a href="${pageContext.request.contextPath}/companyInfo/companyInfoItem.html?companyInfo.id=${item.id}" target="_blank">${item.id}</a></td>
-			<td title="${item.companyInfoName}">${item.companyInfoName}</td>
+			<td title="${item.id}"><a href="${pageContext.request.contextPath}/companyinfo/companyInfoItem.html?companyInfo.id=${item.id}" target="_blank">${item.id}</a></td>
+			<td title="${item.name}">${item.name}</td>
 			<td title="${item.tel}">${item.tel}</td>
 			<td title="${item.mobile}">${item.mobile}</td>
 			<td title="${item.contact}">${item.contact}</td>
@@ -78,7 +78,7 @@ table.mycompanyInfolisttable td {
 		</c:forEach>
 		</tbody>
 	</table>
-	<x:page href="${pageContext.request.contextPath}/companyInfo/companyInfoListAjax.html" pagination="${pagination}"/>
+	<x:page href="${pageContext.request.contextPath}/companyinfo/companyInfoListAjax.html" pagination="${pagination}"/>
 </div>
 <script type="text/javascript">
 $(document).ready(function() {

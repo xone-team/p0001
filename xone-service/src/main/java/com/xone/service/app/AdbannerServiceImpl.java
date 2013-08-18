@@ -40,7 +40,6 @@ public class AdbannerServiceImpl implements AdbannerService {
 		imageUploaded.setRefType(ImageUploaded.RefType.ABBANNER.getValue());
 		imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
 		imageUploaded = getImageUploadedDao().save(imageUploaded);
-		entity.setRefId(imageUploaded.getId());
 		return entity;
 	}
 	

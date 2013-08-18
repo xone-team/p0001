@@ -17,7 +17,7 @@
 		</style>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-tap-toggle="false" data-position="fixed">
 			<h1>公司详情</h1>
-			<a href="${pageContext.request.contextPath}/assistant/companyInfo.html" class="companyinfo-item-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
+			<a href="${pageContext.request.contextPath}/assistant/companyInfo.html?companyInfo.id=${companyInfo.id}" class="companyinfo-item-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
 		</div>
 		<div data-role="content" data-dom-cache="false">
 			<ul class="companyinfo-item-page-view" data-role="listview" data-inset="true" data-mini="true">

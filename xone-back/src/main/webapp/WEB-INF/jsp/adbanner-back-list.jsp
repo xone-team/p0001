@@ -118,6 +118,9 @@
                                             <c:when test="${item.adType == '1'}">
                                                 <a href="${pageContext.request.contextPath}/purchase/purchaseItem.html?purchase.id=${item.refId}" target="_blank">${item.refId}</a>
                                             </c:when>
+                                            <c:when test="${item.adType == '2'}">
+                                                <a href="${pageContext.request.contextPath}/companyinfo/companyInfoItem.html?companyInfo.id=${item.refId}" target="_blank">${item.refId}</a>
+                                            </c:when>
                                             <c:otherwise>${item.refId}</c:otherwise>
                                         </c:choose></td>
                                     <td>${item.adTypeName}</td>

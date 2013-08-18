@@ -39,13 +39,14 @@
 								<select class="selectpicker" id="adType" name="adbanner.adType" maxlength="2" placeholder="广告类型">
 									<option value="0">售卖产品</option>
 									<option value="1">购买产品</option>
+									<option value="2">公司广告</option>
 								</select>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="refId">选择产品</label>
+							<label class="control-label" for="refId">广告对象</label>
 							<div class="controls">
-								<input type="text" id="refId" name="adbanner.refId" value="${adbanner.refId}" maxlength="20" placeholder="产品编号"  readonly="readonly">
+								<input type="text" id="refId" name="adbanner.refId" value="${adbanner.refId}" maxlength="20" placeholder="广告对象编号"  readonly="readonly">
 								<input type="hidden" id="refName" name="" maxlength="20" placeholder="相关编号" readonly="readonly">
 							</div>
 						</div>
@@ -112,6 +113,11 @@
 			<jsp:param name="title" value="请选择广告对应的购买产品"/>
 			<jsp:param name="url" value="${pageContext.request.contextPath }/purchase/purchaseListAjax.html"/>
 		</jsp:include>
+		<jsp:include page="common-modal.jsp">
+			<jsp:param name="myidentify" value="CompanyInfo"/>
+			<jsp:param name="title" value="请选择广告对应的公司信息"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/companyinfo/companyInfoListAjax.html"/>
+		</jsp:include>
 		<script type="text/javascript">
 		$(document).ready(function() {
 			$('#windowTitleDialoguserinfo').delegate('a.userinfoselect', 'click', function(e) {
@@ -129,6 +135,13 @@
 				return false;
 			});
 			$('#windowTitleDialogPurchase').delegate('a.purchaseselectinfo', 'click', function(e) {
+				e.preventDefault();
+				var $this = $(this);
+				$('#refId').val($this.attr('attr-id'));
+				$this.closest('div.modal').modal('hide');
+				return false;
+			});
+			$('#windowTitleDialogCompanyInfo').delegate('a.companyInfoselectinfo', 'click', function(e) {
 				e.preventDefault();
 				var $this = $(this);
 				$('#refId').val($this.attr('attr-id'));
@@ -159,7 +172,7 @@
 					name: '请选择用户'
 				},{
 					id: 'refId',
-					name: '请选择产品'
+					name: '请选择广告对象'
 				},{
 					id: 'adStart',
 					name: '请选择开始时间'
@@ -186,8 +199,10 @@
 			$('#refId').click(function() {
 				if ($('#adType').val() == '0') {
 					$('#windowTitleDialogProduct').modal('show');
-				} else {
+				} else if ($('#adType').val() == '1') {
 					$('#windowTitleDialogPurchase').modal('show');
+				} else if ($('#adType').val() == '2') {
+					$('#windowTitleDialogCompanyInfo').modal('show');
 				}
 			});
 			$('#adType').val('${adbanner.adType}').bind('change', function() {
