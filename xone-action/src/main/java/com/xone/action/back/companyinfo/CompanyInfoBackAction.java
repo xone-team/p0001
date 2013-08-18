@@ -101,7 +101,7 @@ public class CompanyInfoBackAction extends LogicAction {
     companyInfo.setDateCreated(new Date());
     companyInfo.setUserUpdated(getUserId());
     companyInfo.setLastUpdated(new Date());
-
+    companyInfo.setUserId(getUserId());
     try {
       setCompanyInfo(getCompanyInfoService().save(companyInfo, getImageList()));
     } catch (Exception e) {

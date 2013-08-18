@@ -19,6 +19,7 @@
                 <param name="namespace">/overhead</param>
                 <param name="overhead.id">${overhead.id}</param>
             </result>
+            <result name="input">/WEB-INF/jsp/overhead-back-create.jsp</result>
         </action>
         <action name="overheadEdit" class="overheadBackAction" method="overheadEdit">
             <result name="success">/WEB-INF/jsp/overhead-back-edit.jsp</result>
@@ -33,6 +34,7 @@
                 <param name="actionName">overheadList</param>
                 <param name="namespace">/overhead</param>
             </result>
+            <result name="input">/WEB-INF/jsp/overhead-back-edit.jsp</result>
         </action>
         <action name="overheadItem" class="overheadBackAction" method="overheadItem">
             <result name="success">/WEB-INF/jsp/overhead-back-item.jsp</result>

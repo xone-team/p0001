@@ -27,12 +27,6 @@
                 </ul>
                 <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/delivery/deliverySave.html">
                     <div class="control-group">
-                        <label class="control-label" for="productId">产品编号</label>
-                        <div class="controls">
-                            <input type="text" id="productId" name="delivery.productId" value="${delivery.productId }" maxlength="20" placeholder="产品编号" readonly="readonly">
-                        </div>
-                    </div>
-                    <div class="control-group">
                         <label class="control-label" for="marketarea">市场区域</label>
                         <div class="controls">
                             <input type="text" id="marketarea" name="delivery.marketarea" value="${delivery.marketarea }" maxlength="255" placeholder="市场区域">
@@ -129,9 +123,6 @@
         $('#saveForm').submit(function() {
             var $form = $('#saveForm');
             var validate = [ {
-                name : 'productId',
-                text : '选择产品'
-            }, {
                 name : 'marketarea',
                 text : '请输入市场区域'
             }, {
@@ -173,8 +164,7 @@
                 func : numberValidation
             } ];
 
-            var pass = XONE.valid(validate, $form, "delivery.");
-            return pass;
+            return true;
         });
     });
     function numberValidation(inputEl) {

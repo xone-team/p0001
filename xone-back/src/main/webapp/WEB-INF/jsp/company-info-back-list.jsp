@@ -129,7 +129,7 @@
                         <tbody>
                             <c:forEach var="item" items="${pagination.list}">
                                 <tr>
-                                    <td>${item.id}</td>
+                                    <td class="table-col-index">${status.index + 1}</td>
                                     <td>${item.name}</td>
                                     <td>${item.address}</td>
                                     <td>${item.tel}</td>

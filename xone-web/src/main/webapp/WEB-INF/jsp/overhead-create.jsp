@@ -123,9 +123,23 @@
                 text : '请选择相关产品或求购'
             } ];
 
-            var pass = XONE.valid(validate, $form, "overhead.");
-            return pass;
+            return true;
         });
     });
 </script>
+<c:if test="${!empty fieldErrors }">
+    <script>
+                    function renderFieldMessage(fieldText, status, inputEl) {
+                        var controlEl = inputEl.parent();
+                        var controlGroupEl = controlEl.parent();
+                        controlGroupEl.removeClass("warning error info success")
+                        controlGroupEl.addClass(status);
+                        controlEl.children().remove(".X-field-message");
+                        controlEl.append('<span class="X-field-message help-inline">' + fieldText + '</span>');
+                    }
+                    <c:forEach items="${fieldErrors }" var="fieldError">
+                    renderFieldMessage('${fieldError.value }', "error", $('input[name="${fieldError.key}"]'));
+                    </c:forEach>
+                </script>
+</c:if>
 </html>
