@@ -28,7 +28,7 @@
                         <li class="active">求购编辑</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/purchase/purchaseUpdate.html">
+                <form class="form-horizontal" id="saveForm" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/purchase/purchaseUpdate.html">
                     <input type="hidden" name="purchase.id" value="${purchase.id}">
                     <div class="control-group">
                         <label class="control-label" for="purchaseName">产品名称</label>
@@ -40,7 +40,7 @@
                         <label class="control-label" for="purchaseType">求购类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="purchaseType" name="purchase.purchaseType">
-                                <c:forEach items="${productType}" var="it">
+                                <c:forEach items="${purchaseType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == purchase.purchaseType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -70,6 +70,69 @@
                             <input type="text" id="purchaseDesc" name="purchase.purchaseDesc" value="${purchase.purchaseDesc}" maxlength="255" placeholder="求购描述">
                         </div>
                     </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="purchaseDesc">求购图片</label>
+                        <div class="controls">
+                            <div class="span4">
+                                <div class="control-group uploadimagesdiv1" style="margin-bottom: 0px;">
+                                    <c:forEach items="${purchase.ids}" var="it" varStatus="status">
+                                        <c:if test="${ status.index == 0 }">
+                                            <div class="well well-small" style="margin-bottom: 0px;">
+                                                图片预览
+                                                <button class="close pull-right" onclick="removePurchaseDynamicImage1('${it}');" value="删除图片">&times;</button>
+                                            </div>
+                                            <div class="well well-small">
+                                                <img class="uploadpurchasedynamicimage" src="${pageContext.request.contextPath}/image.html?id=${it}" />
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
+                                </div>
+                                <button type="button" class="btn" onclick="$('#uploadImageFile1').click();">上传图片</button>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group uploadimagesdiv2" style="margin-bottom: 0px;">
+                                    <c:forEach items="${purchase.ids}" var="it" varStatus="status">
+                                        <c:if test="${ status.index == 1 }">
+                                            <div class="well well-small" style="margin-bottom: 0px;">
+                                                图片预览
+                                                <button class="close pull-right" onclick="removePurchaseDynamicImage2('${it}');" value="删除图片">&times;</button>
+                                            </div>
+                                            <div class="well well-small">
+                                                <img class="uploadpurchasedynamicimage" src="${pageContext.request.contextPath}/image.html?id=${it}" />
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
+                                </div>
+                                <button type="button" class="btn" onclick="$('#uploadImageFile2').click();">上传图片</button>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group uploadimagesdiv3" style="margin-bottom: 0px;">
+                                    <c:forEach items="${purchase.ids}" var="it" varStatus="status">
+                                        <c:if test="${ status.index == 2 }">
+                                            <div class="well well-small" style="margin-bottom: 0px;">
+                                                图片预览
+                                                <button class="close pull-right" onclick="removePurchaseDynamicImage3('${it}');" value="删除图片">&times;</button>
+                                            </div>
+                                            <div class="well well-small">
+                                                <img class="uploadpurchasedynamicimage" src="${pageContext.request.contextPath}/image.html?id=${it}" />
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
+                                </div>
+                                <button type="button" class="btn" onclick="$('#uploadImageFile3').click();">上传图片</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group fileupload" style="display: none;">
+                        <input type="file" id="uploadImageFile1" name="uploadFile1" value="">
+                        <input type="file" id="uploadImageFile2" name="uploadFile2" value="">
+                        <input type="file" id="uploadImageFile3" name="uploadFile3" value="">
+                        <c:forEach items="${purchase.ids}" var="it">
+                            <input type="hidden" name="purchase.ids" value="${it}">
+                        </c:forEach>
+                    </div>
+
                     <div class="control-group">
                         <label class="control-label" for="purchaseCheckStatus">审核结果</label>
                         <div class="controls">
@@ -93,9 +156,7 @@
                         <c:forEach items="${ purchase.purchaseCheckList }" var="item" varStatus="status">
                             <div class="control-group">
                                 <label class="control-label">审核结果</label>
-                                <div class="controls">
-                                    ${item.checkStatusName }
-                                </div>
+                                <div class="controls">${item.checkStatusName }</div>
                             </div>
 
                             <div class="control-group">
@@ -117,9 +178,36 @@
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
 </body>
+<script src="${STATIC_ROOT}/js/fileupload.js"></script>
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_purchase").addClass("active");
+
+        $('#uploadImageFile1[type="file"]').fileupload({
+            onload : function(it, e) {
+                var div = document.createElement('div');
+                var result = it.data('base64source');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removePurchaseDynamicImage1();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadpurchasedynamicimage" src="', result, '"/></div>' ].join('');
+                $('div.uploadimagesdiv1').html('').append(div);
+            }
+        });
+        $('#uploadImageFile2[type="file"]').fileupload({
+            onload : function(it, e) {
+                var div = document.createElement('div');
+                var result = it.data('base64source');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removePurchaseDynamicImage2();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadpurchasedynamicimage" src="', result, '"/></div>' ].join('');
+                $('div.uploadimagesdiv2').html('').append(div);
+            }
+        });
+        $('#uploadImageFile3[type="file"]').fileupload({
+            onload : function(it, e) {
+                var div = document.createElement('div');
+                var result = it.data('base64source');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removePurchaseDynamicImage3();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadpurchasedynamicimage" src="', result, '"/></div>' ].join('');
+                $('div.uploadimagesdiv3').html('').append(div);
+            }
+        });
+
         $('#saveForm').submit(function() {
             var $form = $('#saveForm');
             var validate = [ {
@@ -142,9 +230,31 @@
             } ];
 
             var pass = XONE.valid(validate, $form, "");
-    		return pass;
+            return pass;
         });
     });
+
+    function removePurchaseDynamicImage1(id) {
+        $('div.uploadimagesdiv1').html('');
+        $('#uploadImageFile1').val('');
+        if (id != null)
+            $('input[name="purchase.ids"][value="' + id + '"]').remove();
+        return false;
+    }
+    function removePurchaseDynamicImage2(id) {
+        $('div.uploadimagesdiv2').html('');
+        $('#uploadImageFile2').val('');
+        if (id != null)
+            $('input[name="purchase.ids"][value="' + id + '"]').remove();
+        return false;
+    }
+    function removePurchaseDynamicImage3(id) {
+        $('div.uploadimagesdiv3').html('');
+        $('#uploadImageFile3').val('');
+        if (id != null)
+            $('input[name="purchase.ids"][value="' + id + '"]').remove();
+        return false;
+    }
 
     function numberValidation(inputEl) {
         var result = true;
@@ -163,4 +273,11 @@
         return result;
     }
 </script>
+<c:if test="${!empty fieldErrors }">
+    <script>
+                    <c:forEach items="${fieldErrors }" var="fieldError">
+                    XONE.renderFieldMessage('${fieldError.value }', "error", $('input[name="${fieldError.key}"]'));
+                    </c:forEach>
+                </script>
+</c:if>
 </html>

@@ -14,11 +14,19 @@
             <result name="success">/WEB-INF/jsp/purchase-back-create.jsp</result>
         </action>
         <action name="purchaseSave" class="purchaseBackAction" method="purchaseSave">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">1097152</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success" type="redirectAction">
                 <param name="actionName">purchaseItem</param>
                 <param name="namespace">/purchase</param>
                 <param name="purchase.id">${purchase.id}</param>
             </result>
+            <result name="input">/WEB-INF/jsp/purchase-back-create.jsp</result>
         </action>
         <action name="purchaseEdit" class="purchaseBackAction" method="purchaseEdit">
             <result name="success">/WEB-INF/jsp/purchase-back-edit.jsp</result>
@@ -33,6 +41,7 @@
                 <param name="actionName">purchaseList</param>
                 <param name="namespace">/purchase</param>
             </result>
+            <result name="input">/WEB-INF/jsp/purchase-back-edit.jsp</result>
         </action>
         <action name="purchaseItem" class="purchaseBackAction" method="purchaseItem">
             <result name="success">/WEB-INF/jsp/purchase-back-item.jsp</result>

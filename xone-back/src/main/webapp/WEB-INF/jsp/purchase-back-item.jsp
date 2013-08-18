@@ -59,6 +59,19 @@
                             <td>${purchase.purchaseDesc}</td>
                         </tr>
                         <tr>
+                            <td style="width: 60px;">求购图片</td>
+                            <td><c:forEach items="${purchase.ids}" var="it" varStatus="status">
+                                    <div class="span4">
+                                        <div class="control-group row-fluid uploadimagesdiv${status.index + 1}" style="margin-bottom: 0px;">
+                                            <div class="well well-small" style="margin-bottom: 0px;">图片预览</div>
+                                            <div class="well well-small">
+                                                <img class="uploadpurchasedynamicimage" src="${pageContext.request.contextPath}/image.html?id=${it}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </c:forEach></td>
+                        </tr>
+                        <tr>
                             <td style="width: 60px;">申请时间</td>
                             <td><fmt:formatDate value="${purchase.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
@@ -74,9 +87,7 @@
                                 <td colspan="2"><div class="well">
                                         <div class="control-group">
                                             <span>审核结果</span>
-                                            <div class="inline">
-                                                ${item.checkStatusName }
-                                            </div>
+                                            <div class="inline">${item.checkStatusName }</div>
                                         </div>
 
                                         <div class="control-group">

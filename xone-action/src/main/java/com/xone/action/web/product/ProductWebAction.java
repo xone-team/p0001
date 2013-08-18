@@ -143,6 +143,30 @@ public class ProductWebAction extends LogicAction {
 
     return SUCCESS;
   }
+  
+  public String productCreateNormal() throws Exception {
+	  product.setSaleType(Product.SaleType.NORMAL.getValue());
+	  product.setProductNum("0");
+	  product.setProductPrice("0");
+	  
+	  return SUCCESS;
+  }
+  
+  public String productCreateSales() throws Exception {
+	  product.setSaleType(Product.SaleType.SALES.getValue());
+	  product.setProductNum("0");
+	  product.setProductPrice("0");
+	  
+	  return SUCCESS;
+  }
+  
+  public String productCreateGroups() throws Exception {
+	  product.setSaleType(Product.SaleType.GROUPS.getValue());
+	  product.setProductNum("0");
+	  product.setProductPrice("0");
+	  
+	  return SUCCESS;
+  }
 
   public String productEdit() throws Exception {
     Product entity = getProductService().findById(getProduct().getId());
