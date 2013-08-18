@@ -120,10 +120,10 @@
 			$('a.productgroupbutton${myid}').buttonMarkup("refresh").click(function() {
 				var v = $('input.textinput${myid}').val();
 				if ('' == $.trim(v)) {
-					alert('请输入参与组团的数量!');
+					$.myAlert('请输入参与组团的数量!');
 					return false;
 				}
-				if (confirm('确认参与组团')) {
+				$.myConfirm('确认参与组团', function() {
 					var $form = $('form.kgroupsform').first();
 					$.ajax({
 						type: $form.attr('method'),
@@ -134,7 +134,19 @@
 							$('li.kgroupsopt').html(html);
 						}
 					});
-				}
+				});
+// 				if (confirm('确认参与组团')) {
+// 					var $form = $('form.kgroupsform').first();
+// 					$.ajax({
+// 						type: $form.attr('method'),
+// 						url: $form.attr('action'),
+// 						data: $form.serialize(),
+// 						success: function(html) {
+// 							$('li.kgroups').remove();
+// 							$('li.kgroupsopt').html(html);
+// 						}
+// 					});
+// 				}
 			});
 			$('#scriptid${myid}').remove();
 		</script>

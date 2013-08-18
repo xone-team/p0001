@@ -81,7 +81,7 @@
 				<li data-role="list-divider">公司产品图片</li>
 				<c:forEach var="item" items="${companyInfo.ids}">
 				<li data-role="none" style="padding:0px;">
-					<div class="companyinfoimage">
+					<div>
 						<img src="${pageContext.request.contextPath}/assistant/image.html?id=${item}" alt="" width="100%" height="100%" class="companyinfoimage"/>
 					</div>
 				</li>
@@ -93,9 +93,8 @@
 					if ($('script.companyinfoimagescript').length > 0) {
 						return;
 					}
-					var width = $.mobile.activePage.width() - 3;
+					var width = $.mobile.activePage.width() - 10;
 					var css = ['<style type="text/css" class="companyinfoimagescript">.companyinfoimage {height:', width, 'px;', 'width:', width, 'px;}</style>'];
-					alert(css.join(''));
 					$('div.companyinfoitempage').append(css.join(''));
 				})(jQuery);
 			});

@@ -29,7 +29,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品名称:</td>
-				    			<td><input type="text" id="purchasepurchaseName${myid}" name="purchase.purchaseName" placeholder="产品名称" data-mini="true" value="产品名称" autocomplete="off"/></td>
+				    			<td><input type="text" id="purchasepurchaseName${myid}" name="purchase.purchaseName" placeholder="产品名称" data-mini="true" value="" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -53,7 +53,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品产地:</td>
-				    			<td><input type="text" id="purchasepurchaseAddress${myid}" name="purchase.purchaseAddress" placeholder="产品产地" data-mini="true" value="产品产地" autocomplete="off"/></td>
+				    			<td><input type="text" id="purchasepurchaseAddress${myid}" name="purchase.purchaseAddress" placeholder="产品产地" data-mini="true" value="" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -61,7 +61,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品属地:</td>
-				    			<td><input type="text" id="purchasepurchaseLocation${myid}" name="purchase.purchaseLocation" placeholder="产品属地" data-mini="true" value="产品属地" autocomplete="off"/></td>
+				    			<td><input type="text" id="purchasepurchaseLocation${myid}" name="purchase.purchaseLocation" placeholder="产品属地" data-mini="true" value="" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -77,12 +77,12 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">描　　述:</td>
-				    			<td><input type="text" name="purchase.purchaseDesc" placeholder="描述" data-mini="true" value="描述描述描述描述描述描述描述描述描述描述描述" autocomplete="off"/></td>
+				    			<td><input type="text" name="purchase.purchaseDesc" placeholder="描述" data-mini="true" value="" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
 					<li>
-					 	<input type="file" data-role="none" name="file" id="uploadImageFile" accept="image/*" capture="camera" value="" class="uploadImage ui-hidden-accessible"/>
+					 	<input type="file" data-role="none" name="file" id="uploadImageFile" accept="image/*" capture="camera" value="" class="uploadImagePurchase ui-hidden-accessible"/>
 					 	<input type="button" data-icon="plus" class="uploadImageButton" value="选择图片"/>
 					</li>
 					<li class="publishformbutton">
@@ -91,7 +91,6 @@
 				</ul>
 				<div class="imagelistdiv" style="padding:5px;"></div>
 			</form>
-			<div class="debug">&nbsp;</div>
 			<script type="text/javascript" language="javascript">
 				$(document).on("pageinit", function() {
 					$('div.purchaseaddpage').css({
@@ -100,8 +99,8 @@
 				});
 				$('div.purchaseaddpage').bind('pageinit', function() {
 					var width = $('div.purchaseaddpage').width() - 11;
-					var css = ['<style type="text/css">div.purchaseimage {text-align:center;height:', width, 'px;width:', width, 'px;}',
-					           'div.purchaseimage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
+					var css = ['<style type="text/css">div.purchaseaddpageimage {text-align:center;height:', width, 'px;width:', width, 'px;}',
+					           'div.purchaseaddpageimage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
 					'<\/style>'];
 					$('div.purchaseaddpage').append(css.join(''));
 					if ($('script.fileupload').length == 0) {
@@ -165,27 +164,23 @@
 							return false;
 						}
 						$('ul.purchaselistview${myid}').listview('refresh');
-						$('input.uploadImage[type="file"]').click();
+						$('input.uploadImagePurchase[type="file"]').click();
 						return false;
 					});
-					$('input.uploadImage[type="file"]').bind('change', handleFileSelect);
-					$('input.uploadImageProduct[type="file"]').fileupload({
+					$('input.uploadImagePurchase[type="file"]').myImageUploded({
 						filenotmatch: function() {
 							$('#uploadImageFile').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
 							$('ul.purchaselistview${myid}').listview('refresh');
 							return true;
 						},
-						onload:function(it, e) {
+						load:function(base64, imgType) {
 							var div = document.createElement('div');
-							div.className = 'purchaseaddpage';
-							var result = it.data('base64source');
+							div.className = 'purchaseaddpageimage';
 							div.innerHTML = [
-									'<a href="#" onclick="return removeDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
+									'<a href="#" onclick="return removeDynamicImagePurchase(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
 									'<img class="uploaddynamicimage" width="100%" height="100%" src="',
-									result, '" title="', escape(it.data('uploadfilename')),
-									'"/>',
-									'<input type="hidden" name="images" value="', 
-								result, '" />' ]
+									base64, '" title="', 'upload images.', '"/>',
+									'<input type="hidden" name="images" value="', base64, '" />' ]
 									.join('');
 							var listview = $('ul.purchaselistview${myid}');
 							listview.append('<li style="padding:0px;"></li>');
@@ -194,74 +189,11 @@
 						}
 					});
 				});
-				function removeDynamicImage(e) {
+				function removeDynamicImagePurchase(e) {
 					$(e).closest('li').remove();
 					$('ul.purchaselistview${myid}').listview('refresh');
 					$('#uploadImageFile').val('');
 					return false;
-				}
-				function debug(i) {
-					$('div.debug').append('<div>' + i + '</div>');
-				}
-				function getExt(v) {
-					var a = v.split('.');
-					return a[a.length - 1];
-				}
-				function handleFileSelect(evt) {
-					if ($('li.fileerror').length > 0) {
-						$('li.fileerror').remove();
-						$('ul.purchaselistview${myid}').listview('refresh');
-					}
-					var files = evt.target.files; // FileList object
-					for (var i = 0, f; f = files[i]; i++) {
-						var m = f.name.match(/\.(png|jpeg|jpg|gif)$/i);
-						if (null == m) {
-							$('#uploadImageFile').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
-							$('ul.purchaselistview${myid}').listview('refresh');
-							continue;
-						}
-						var reader = new FileReader();
-						reader.onload = (function(theFile) {
-							return function(e) {
-								var div = document.createElement('div');
-								div.className = 'purchaseaddpage';
-								var result = e.target.result.replace(/data:base64,/, 'data:image/' + getExt(theFile.name) + ';base64,');
-								div.innerHTML = [
-										'<a href="#" onclick="return removeDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
-										'<img class="uploaddynamicimage" width="100%" height="100%" src="',
-										result, '" title="', escape(theFile.name),
-										'"/>',
-										'<input type="hidden" name="images" value="', 
-									result, '" />' ]
-										.join('');
-								var listview = $('ul.purchaselistview${myid}');
-								listview.append('<li></li>');
-								listview.find('li').last().append(div);
-								listview.listview('refresh');
-							};
-						})(f);
-						reader.onerror = function(evt) {
-							switch (evt.target.error.code) {
-							case evt.target.error.NOT_FOUND_ERR:
-								alert('File Not Found!');
-								break;
-							case evt.target.error.NOT_READABLE_ERR:
-								alert('File is not readable');
-								break;
-							case evt.target.error.ABORT_ERR:
-								break; // noop
-							default:
-								alert('An error occurred reading this file.');
-							}
-							;
-						};
-						reader.onabort = function(e) {
-						};
-						reader.onloadstart = function(e) {
-	
-						};
-						reader.readAsDataURL(f);
-					}
 				}
 			</script>
 		</div>
