@@ -73,18 +73,6 @@
                             <td>${product.productDesc}</td>
                         </tr>
                         <tr>
-                            <td style="width: 60px;">申请人</td>
-                            <td>${product.userApply}</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 60px;">申请时间</td>
-                            <td><fmt:formatDate value="${product.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                        </tr>
-                        <tr>
-                            <td style="width: 60px;">审核时间</td>
-                            <td><fmt:formatDate value="${product.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                        </tr>
-                        <tr>
                             <td style="width: 60px;">产品图片</td>
                             <td><c:forEach items="${product.ids}" var="it" varStatus="status">
                                     <div class="span4">
@@ -96,6 +84,18 @@
                                         </div>
                                     </div>
                                 </c:forEach></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 60px;">申请人</td>
+                            <td>${product.userApply}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 60px;">申请时间</td>
+                            <td><fmt:formatDate value="${product.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 60px;">审核时间</td>
+                            <td><fmt:formatDate value="${product.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核结果</td>

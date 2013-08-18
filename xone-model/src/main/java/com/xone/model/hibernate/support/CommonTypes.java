@@ -114,11 +114,6 @@ public class CommonTypes implements Serializable {
      */
     private List<NameValuePairs> productTypeList;
     
-    //TODO 认证标识
-    
-    //TODO  资源类型 ACTION 静态文件
-    
-    
     
     public static String getYNTypeName(String value){
         return value2name(value, getInstance().getYnList());

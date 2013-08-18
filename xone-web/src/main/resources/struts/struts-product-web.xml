@@ -19,14 +19,14 @@
         <action name="productCreate" class="productWebAction" method="productCreate">
             <result name="success">/WEB-INF/jsp/product-create.jsp</result>
         </action>
-        <action name="productCreateNormal" class="productWebAction" method="productCreate">
-            <result name="success">/WEB-INF/jsp/product-create-normal.jsp</result>
+        <action name="productCreateNormal" class="productWebAction" method="productCreateNormal">
+            <result name="success">/WEB-INF/jsp/product-create.jsp</result>
         </action>
-        <action name="productCreateSales" class="productWebAction" method="productCreate">
-            <result name="success">/WEB-INF/jsp/product-create-sales.jsp</result>
+        <action name="productCreateSales" class="productWebAction" method="productCreateSales">
+            <result name="success">/WEB-INF/jsp/product-create.jsp</result>
         </action>
-        <action name="productCreateGroup" class="productWebAction" method="productCreate">
-            <result name="success">/WEB-INF/jsp/product-create-group.jsp</result>
+        <action name="productCreateGroup" class="productWebAction" method="productCreateGroups">
+            <result name="success">/WEB-INF/jsp/product-create.jsp</result>
         </action>
         <action name="productSave" class="productWebAction" method="productSave">
             <interceptor-ref name="fileUpload">

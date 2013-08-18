@@ -157,7 +157,7 @@
                     <div class="control-group">
                         <label class="control-label" for="productCheckStatus">审核结果</label>
                         <div class="controls">
-                            <select class="selectpicker" id="productCheckStatus" name="product.check.checkStatus">
+                            <select class="selectpicker" id="productCheckStatus" name="product.productCheck.checkStatus">
                                 <c:forEach items="${checkStatus}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.checkStatus}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
@@ -168,7 +168,7 @@
                     <div class="control-group">
                         <label class="control-label" for="productCheckRemark">审核意见</label>
                         <div class="controls">
-                            <input type="text" id="productCheckRemark" name="product.check.remark" maxlength="255" placeholder="审核意见">
+                            <input type="text" id="productCheckRemark" name="product.productCheck.remark" maxlength="255" placeholder="审核意见">
                         </div>
                     </div>
                     <div class="well">
@@ -262,21 +262,21 @@
             return pass;
         });
     });
-    function removeProductDynamicImage1() {
-        $('div.uploadimagesdiv').html('');
-        $('#uploadImageFile').val('');
+    function removeProductDynamicImage1(id) {
+        $('div.uploadimagesdiv1').html('');
+        $('#uploadImageFile1').val('');
         if(id != null)
         	$('input[name="product.ids"][value="'+id+'"]').remove();
         return false;
     }
-    function removeProductDynamicImage2() {
+    function removeProductDynamicImage2(id) {
         $('div.uploadimagesdiv2').html('');
         $('#uploadImageFile2').val('');
         if(id != null)
         	$('input[name="product.ids"][value="'+id+'"]').remove();
         return false;
     }
-    function removeProductDynamicImage3() {
+    function removeProductDynamicImage3(id) {
         $('div.uploadimagesdiv3').html('');
         $('#uploadImageFile3').val('');
         if(id != null)

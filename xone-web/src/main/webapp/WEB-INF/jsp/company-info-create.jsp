@@ -142,8 +142,8 @@
         });
     });
     function removeCompanyInfoDynamicImage1() {
-        $('div.uploadimagesdiv').html('');
-        $('#uploadImageFile').val('');
+        $('div.uploadimagesdiv1').html('');
+        $('#uploadImageFile1').val('');
         return false;
     }
     function removeCompanyInfoDynamicImage2() {

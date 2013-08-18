@@ -67,6 +67,26 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <label class="control-label" for="purchaseDesc">求购图片</label>
+                        <div class="controls">
+                            <div class="span4">
+                                <div class="control-group uploadimagesdiv1" style="margin-bottom: 0px;"></div>
+                                <button type="button" class="btn" onclick="$('#uploadImageFile1').click();">上传图片</button>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group uploadimagesdiv2" style="margin-bottom: 0px;"></div>
+                                <button type="button" class="btn" onclick="$('#uploadImageFile2').click();">上传图片</button>
+                            </div>
+                            <div class="span4">
+                                <div class="control-group uploadimagesdiv3" style="margin-bottom: 0px;"></div>
+                                <button type="button" class="btn" onclick="$('#uploadImageFile3').click();">上传图片</button>
+                            </div>
+                            <input type="file" class="hide" id="uploadImageFile1" name="uploadFile1" value="">
+                            <input type="file" class="hide" id="uploadImageFile2" name="uploadFile2" value="">
+                            <input type="file" class="hide" id="uploadImageFile3" name="uploadFile3" value="">
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <div class="controls">
                             <button type="submit" name="create" value="create" class="btn">提交创建</button>
                         </div>
@@ -78,8 +98,34 @@
     </div>
     <jsp:include page="common-bottom.jsp"></jsp:include>
 </body>
+<script src="${STATIC_ROOT}/js/fileupload.js"></script>
 <script>
     jQuery(function() {
+        $('#uploadImageFile1[type="file"]').fileupload({
+            onload : function(it, e) {
+                var div = document.createElement('div');
+                var result = it.data('base64source');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removePurchaseDynamicImage1();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadpurchasedynamicimage" src="', result, '"/></div>' ].join('');
+                $('div.uploadimagesdiv1').html('').append(div);
+            }
+        });
+        $('#uploadImageFile2[type="file"]').fileupload({
+            onload : function(it, e) {
+                var div = document.createElement('div');
+                var result = it.data('base64source');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removePurchaseDynamicImage2();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadpurchasedynamicimage" src="', result, '"/></div>' ].join('');
+                $('div.uploadimagesdiv2').html('').append(div);
+            }
+        });
+        $('#uploadImageFile3[type="file"]').fileupload({
+            onload : function(it, e) {
+                var div = document.createElement('div');
+                var result = it.data('base64source');
+                div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removePurchaseDynamicImage3();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadpurchasedynamicimage" src="', result, '"/></div>' ].join('');
+                $('div.uploadimagesdiv3').html('').append(div);
+            }
+        });
+
         $('#saveForm').submit(function() {
             var $form = $('#saveForm');
             var validate = [ {
@@ -104,6 +150,22 @@
             return true;
         });
     });
+    
+    function removePurchaseDynamicImage1() {
+        $('div.uploadimagesdiv1').html('');
+        $('#uploadImageFile1').val('');
+        return false;
+    }
+    function removePurchaseDynamicImage2() {
+        $('div.uploadimagesdiv2').html('');
+        $('#uploadImageFile2').val('');
+        return false;
+    }
+    function removePurchaseDynamicImage3() {
+        $('div.uploadimagesdiv3').html('');
+        $('#uploadImageFile3').val('');
+        return false;
+    }
 
     function numberValidation(inputEl) {
         var result = true;

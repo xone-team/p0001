@@ -102,7 +102,7 @@
                                         <c:if test="${ status.index == 0 }">
                                             <div class="well well-small" style="margin-bottom: 0px;">
                                                 图片预览
-                                                <button class="close pull-right" onclick="removeProductDynamicImage1();" value="删除图片">&times;</button>
+                                                <button class="close pull-right" onclick="removeProductDynamicImage1('${it}');" value="删除图片">&times;</button>
                                             </div>
                                             <div class="well well-small">
                                                 <img class="uploadproductdynamicimage" src="${pageContext.request.contextPath}/image.html?id=${it}" />
@@ -118,7 +118,7 @@
                                         <c:if test="${ status.index == 1 }">
                                             <div class="well well-small" style="margin-bottom: 0px;">
                                                 图片预览
-                                                <button class="close pull-right" onclick="removeProductDynamicImage2();" value="删除图片">&times;</button>
+                                                <button class="close pull-right" onclick="removeProductDynamicImage2('${it}');" value="删除图片">&times;</button>
                                             </div>
                                             <div class="well well-small">
                                                 <img class="uploadproductdynamicimage" src="${pageContext.request.contextPath}/image.html?id=${it}" />
@@ -134,7 +134,7 @@
                                         <c:if test="${ status.index == 2 }">
                                             <div class="well well-small" style="margin-bottom: 0px;">
                                                 图片预览
-                                                <button class="close pull-right" onclick="removeProductDynamicImage3();" value="删除图片">&times;</button>
+                                                <button class="close pull-right" onclick="removeProductDynamicImage3('${it}');" value="删除图片">&times;</button>
                                             </div>
                                             <div class="well well-small">
                                                 <img class="uploadproductdynamicimage" src="${pageContext.request.contextPath}/image.html?id=${it}" />
@@ -225,19 +225,25 @@
             return true;
         });
     });
-    function removeProductDynamicImage1() {
-        $('div.uploadimagesdiv').html('');
-        $('#uploadImageFile').val('');
+    function removeProductDynamicImage1(id) {
+        $('div.uploadimagesdiv1').html('');
+        $('#uploadImageFile1').val('');
+        if(id != null)
+        	$('input[name="product.ids"][value="'+id+'"]').remove();
         return false;
     }
-    function removeProductDynamicImage2() {
+    function removeProductDynamicImage2(id) {
         $('div.uploadimagesdiv2').html('');
         $('#uploadImageFile2').val('');
+        if(id != null)
+        	$('input[name="product.ids"][value="'+id+'"]').remove();
         return false;
     }
-    function removeProductDynamicImage3() {
+    function removeProductDynamicImage3(id) {
         $('div.uploadimagesdiv3').html('');
         $('#uploadImageFile3').val('');
+        if(id != null)
+        	$('input[name="product.ids"][value="'+id+'"]').remove();
         return false;
     }
 

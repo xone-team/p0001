@@ -49,10 +49,11 @@
                             </select>
                         </div>
                     </div>
+                    <input type="hidden" name="product.saleType" value="${product.saleType}">
                     <div class="control-group">
                         <label class="control-label" for="saleType">销售类型</label>
                         <div class="controls">
-                            <select class="selectpicker" id="saleType" name="product.saleType">
+                            <select class="selectpicker" id="saleType" name="product.saleType" disabled="disabled">
                                 <c:forEach items="${saleType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.saleType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
@@ -178,8 +179,8 @@
         });
     });
     function removeProductDynamicImage1() {
-        $('div.uploadimagesdiv').html('');
-        $('#uploadImageFile').val('');
+        $('div.uploadimagesdiv1').html('');
+        $('#uploadImageFile1').val('');
         return false;
     }
     function removeProductDynamicImage2() {

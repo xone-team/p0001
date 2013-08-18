@@ -23,7 +23,6 @@ import com.xone.model.hibernate.app.PurchaseCheckDao;
 import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
-import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.entity.PurchaseCheck;
 import com.xone.model.hibernate.support.Pagination;
@@ -70,7 +69,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
     
     /* (non-Javadoc)
-     * @see com.xone.service.app.ProductService#updateFlagDeletedWhenExpired()
+     * @see com.xone.service.app.PurchaseService#updateFlagDeletedWhenExpired()
      */
     @Override
     public void updateFlagDeletedWhenExpired() {
@@ -136,7 +135,6 @@ public class PurchaseServiceImpl implements PurchaseService {
     }
 
     public Purchase update(Purchase entity, List<ImageUploaded> imageUploadeds, List<Long> imageIds) {
-        entity = getPurchaseDao().update(entity);
         for (ImageUploaded imageUploaded : imageUploadeds) {
             imageUploaded.setRefId(entity.getId());
             imageUploaded.setRefType(ImageUploaded.RefType.PURCHASE.getValue());
@@ -159,6 +157,26 @@ public class PurchaseServiceImpl implements PurchaseService {
             ids.add(imageUploaded.getId());
         }
         entity.setIds(ids);
+        
+        
+        // 审核信息处理
+        Date dateCheck = new Date();
+        
+        PurchaseCheck check = entity.getPurchaseCheck();
+        if (Purchase.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) || Purchase.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
+            check.setPurchaseId(entity.getId());
+            check.setDateCheck(dateCheck);
+            check.setFlagDeleted(PurchaseCheck.FlagDeleted.NORMAL.getValue());
+            check.setUserApply(entity.getUserApply());
+            check.setDateApply(entity.getDateApply());
+            purchaseCheckDao.save(check);
+            
+            entity.setDateCheck(dateCheck);
+            entity.setCheckStatus(check.getCheckStatus());
+        }
+        
+        entity = getPurchaseDao().update(entity);
+        
         return entity;
     }
 
@@ -166,22 +184,6 @@ public class PurchaseServiceImpl implements PurchaseService {
     public List<Purchase> findAllByMap(Map<String, Object> params) {
         List<Purchase> list = getPurchaseDao().findAllPurchaseByUserRef(params);
         return getPurchaseWithImageIdByPurchase(list);
-//        if (null != list && !list.isEmpty()) {
-//            List<Long> ids = new ArrayList<Long>();
-//            for (Purchase p : list) {
-//                ids.add(p.getId());
-//            }
-//            Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.PURCHASE, 0, ids.size() * 3);
-//            for (int i = 0; i < ids.size(); i++) {
-//                Purchase ip = list.get(i);
-//                List<Long> imageIds = maps.get(ip.getId());
-//                if (null != imageIds) {
-//                    ip.setIds(maps.get(ip.getId()));
-//                }
-//                list.set(i, ip);
-//            }
-//        }
-//        return list;
     }
 
 	@Override
@@ -522,6 +524,9 @@ public class PurchaseServiceImpl implements PurchaseService {
     public Purchase findById(Long id) {
         Purchase purchase = getPurchaseDao().findById(id);
         if (purchase != null) {
+            List<Long> ids = getImageUploadedDao().findAllIdsByRefId(purchase.getId(), ImageUploaded.RefType.PURCHASE);
+            purchase.setIds(ids);
+        	
             List<PurchaseCheck> l = purchaseCheckDao.findByPurchaseId(purchase.getId());
             purchase.setPurchaseCheckList(l);
         }
