@@ -51,7 +51,6 @@
                                                 <label class="control-label" for="checkStatus">审核状态</label>
                                                 <div class="controls">
                                                     <select class="selectpicker" id="checkStatus" name="overhead.checkStatus">
-                                                        <option value="">全部</option>
                                                         <c:forEach items="${checkStatus}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == overhead.checkStatus}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
