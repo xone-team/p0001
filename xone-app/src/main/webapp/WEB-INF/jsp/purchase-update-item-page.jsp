@@ -82,8 +82,8 @@
 				    	</table>
 				    </li>
 					<li>
-					 	<input type="file" data-role="none" name="file" id="uploadUpdateItemImageFile" accept="image/*" capture="camera" value="" class="uploadImage ui-hidden-accessible"/>
-					 	<input type="button" data-icon="plus" class="uploadImageButtonUpdateItem" value="选择图片"/>
+					 	<input type="file" data-role="none" name="file" id="uploadUpdateItemImageFile${myid}" accept="image/*" capture="camera" value="" class="uploadImage ui-hidden-accessible"/>
+					 	<input type="button" data-icon="plus" class="uploadImageButtonUpdateItem${myid}" value="选择图片"/>
 					</li>
 					<li class="publishupdateitemformbutton">
 					 	<input type="submit" value="确认更新" id="purchasesaveformsubmit${myid}" class="submit"/>
@@ -91,7 +91,7 @@
 					<c:forEach var="item" items="${purchase.ids}" varStatus="i">
 					<li data-role="none" style="padding:0px;">
 						<div class="purchaseupdatepage">
-							<a href="#" onclick="return removeUpdateItemDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>
+							<a href="#" onclick="return removeUpdatePurchaseItemDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>
 							<img class="uploadupdateitemdynamicimage" width="100%" height="100%" src="${pageContext.request.contextPath}/assistant/image.html?id=${item}"/>
 							<input type="hidden" name="purchase.ids[${i.index}]" value="${item}" />
 						</div>
@@ -111,6 +111,12 @@
 					           'div.purchaseupdatepage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
 					'<\/style>'];
 					$('div.purchaseupdateitempage').append(css.join(''));
+					if ($('script.imagerotate').length == 0) {
+						$('head').append('<script type="text/javascript" class="imagerotate" src="${pageContext.request.contextPath}/js/myimagerotate.js"><\/script>');
+					}
+					if ($('script.fileupload').length == 0) {
+						$('head').append('<script type="text/javascript" class="fileupload" src="${STATIC_ROOT}/js/fileupload.js"><\/script>');
+					}
 					var purchaseType = $('select[name="purchase.purchaseType"] option[value="${purchase.purchaseType}"]').attr('selected', 'selected');
 					$('select[name="purchase.purchaseType"]').siblings('span.ui-btn-inner').find('span.ui-btn-text span').text(purchaseType.text());
 					$('a.purchaseupdateclick').click(function(e) {
@@ -158,7 +164,7 @@
 // 						display : 'modal',
 // 						lang : 'zh'
 // 					}));
-					$('input.uploadImageButtonUpdateItem').click(function(e) {
+					$('input.uploadImageButtonUpdateItem${myid}').click(function(e) {
 						e.preventDefault();
 						$('form li.errorli').remove();
 						if ($('img.uploadupdateitemdynamicimage').length >= 3) {
@@ -167,80 +173,41 @@
 							return false;
 						}
 						$('ul.purchaseupdateitemlistview${myid}').listview('refresh');
-						$('input.uploadImage[type="file"]').click();
+						$('#uploadUpdateItemImageFile${myid}').click();
 						return false;
 					});
-					$('input.uploadImage[type="file"]').bind('change', handleFileSelect);
+					$('#uploadUpdateItemImageFile${myid}').myImageUploded({
+						complete: function() {
+							if ($('li.fileerror').length > 0) {
+								$('li.fileerror').remove();
+								$('ul.purchaseupdateitemlistview${myid}').listview('refresh');
+							}
+						},
+						filenotmatch: function() {
+							$('#uploadUpdateItemImageFile').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
+							$('ul.purchaseupdateitemlistview${myid}').listview('refresh');
+							return true;
+						},
+						load: function(base64, imgType) {
+							var div = document.createElement('div');
+							div.className = 'purchaseupdatepage';
+							div.innerHTML = [
+									'<a href="#" onclick="return removeUpdatePurchaseItemDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
+									'<img class="uploadupdateitemdynamicimage" width="100%" height="100%" src="',
+									base64, '" title="', 'upload image', '"/>',
+									'<input type="hidden" name="images" value="', base64, '" />'].join('');
+							var listview = $('ul.purchaseupdateitemlistview${myid}');
+							listview.append('<li data-role="none" style="padding:0px;"></li>');
+							listview.find('li').last().append(div);
+							listview.listview('refresh');
+						}
+					});
 				});
-				function removeUpdateItemDynamicImage(e) {
+				function removeUpdatePurchaseItemDynamicImage(e) {
 					$(e).closest('li').remove();
 					$('ul.purchaseupdateitemlistview${myid}').listview('refresh');
 					$('#uploadUpdateItemImageFile').val('');
 					return false;
-				}
-				function getExt(v) {
-					var a = v.split('.');
-					return a[a.length - 1];
-				}
-				function handleFileSelect(evt) {
-					if ($('li.fileerror').length > 0) {
-						$('li.fileerror').remove();
-						$('ul.purchaseupdateitemlistview${myid}').listview('refresh');
-					}
-					var files = evt.target.files; // FileList object
-					// Loop through the FileList and render image files as thumbnails.
-					for (var i = 0, f; f = files[i]; i++) {
-						var m = f.name.match(/\.(png|jpeg|jpg|gif)$/i);
-						if (null == m) {
-							$('#uploadUpdateItemImageFile').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
-							$('ul.purchaseupdateitemlistview${myid}').listview('refresh');
-							continue;
-						}
-						var reader = new FileReader();
-						// Closure to capture the file information.
-						reader.onload = (function(theFile) {
-							return function(e) {
-								var div = document.createElement('div');
-								div.className = 'purchaseupdatepage';
-								var result = e.target.result.replace(/data:base64,/, 'data:image/' + getExt(theFile.name) + ';base64,');
-								div.innerHTML = [
-										'<a href="#" onclick="return removeDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
-										'<img class="uploadupdateitemdynamicimage" width="100%" height="100%" src="',
-										result, '" title="', escape(theFile.name),
-										'"/>',
-										'<input type="hidden" name="images" value="', 
-									result, '" />' ]
-										.join('');
-								var listview = $('ul.purchaseupdateitemlistview${myid}');
-								listview.append('<li data-role="none" style="padding:0px;"></li>');
-								listview.find('li').last().append(div);
-								listview.listview('refresh');
-							};
-						})(f);
-						reader.onerror = function(evt) {
-							switch (evt.target.error.code) {
-							case evt.target.error.NOT_FOUND_ERR:
-								alert('File Not Found!');
-								break;
-							case evt.target.error.NOT_READABLE_ERR:
-								alert('File is not readable');
-								break;
-							case evt.target.error.ABORT_ERR:
-								break; // noop
-							default:
-								alert('An error occurred reading this file.');
-							}
-							;
-						};
-						reader.onabort = function(e) {
-							alert('File read cancelled');
-						};
-						reader.onloadstart = function(e) {
-	
-						};
-						// Read in the image file as a data URL.
-						reader.readAsDataURL(f);
-					}
 				}
 			</script>
 		</div>

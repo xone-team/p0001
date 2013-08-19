@@ -26,21 +26,25 @@
 	});
 	$.fn.myImageUploded = function(options) {
 		var defaults = {
+			complete: function() {},
 			filenotmatch: function() {return false},
 			load: function() {}
 		};
 		defaults.selector = $(this).selector;
 		var opt = $.extend({}, defaults, options);
 		return this.each(function() {
+			var $this = $(this);
 			if (isIphone()) {//iPhone部分功能
-				var $this = $(this);
 				$this.bind('imagecomplete', function() {
+					if ($.isFunction(opt.complete)) {
+						opt.complete();
+					}
 					var base64 = $(opt.selector).data('base64');
 					var imgType = $this.data('imageType');
 					var m = imgType.match(/(png|jpeg|jpg|gif)$/i);
 					if (null == m) {
 						if ($.isFunction(opt.filenotmatch)) {
-							s.filenotmatch();
+							opt.filenotmatch();
 						}
 						return;
 					}
@@ -50,7 +54,12 @@
 				return;
 			}
 			//android部分功能
-			$(this).fileupload({
+			$this.fileupload({
+				complete: function() {
+					if ($.isFunction(opt.complete)) {
+						opt.complete();
+					}
+				},
 				filenotmatch: function() {
 					opt.filenotmatch();
 				},

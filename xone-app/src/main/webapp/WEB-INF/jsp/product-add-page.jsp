@@ -183,6 +183,12 @@
 						}
 					});
 					$('input.uploadImageProduct[type="file"]').myImageUploded({
+						complete: function() {
+							if ($('li.fileerror').length > 0) {
+								$('li.fileerror').remove();
+								$('ul.productlistview${myid}').listview('refresh');
+							}
+						},
 						filenotmatch: function() {
 							$('#uploadImageFileProduct').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
 							$('ul.productlistview${myid}').listview('refresh');

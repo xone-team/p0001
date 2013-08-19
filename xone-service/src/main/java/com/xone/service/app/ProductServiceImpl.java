@@ -135,10 +135,15 @@ public class ProductServiceImpl implements ProductService {
             imageUploaded.setRefType(ImageUploaded.RefType.PRODUCT.getValue());
             imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
         }
-        imageUploadeds = getImageUploadedDao().save(imageUploadeds);
+        if (!imageUploadeds.isEmpty()) {
+            imageUploadeds = getImageUploadedDao().save(imageUploadeds);
+        }
         Map<Long, Boolean> imageIdMap = new HashMap<Long, Boolean>();
         List<Long> ids = new ArrayList<Long>();
         for (Long id : imageIds) {
+        	if (null == id) {
+        		continue;
+        	}
             imageIdMap.put(id, true);
         }
         for (Long id : entity.getIds()) {

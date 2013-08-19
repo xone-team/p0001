@@ -7,6 +7,7 @@
 (function($){
 	$.fn.fileupload = function (options) {
 		var defaults = {// setup default settings
+			complete: function() {},
 			filenotmatch: function() {
 				return true;
 			},
@@ -18,6 +19,9 @@
 			return a[a.length - 1];
 		}
 		function handleFileSelect(evt) {
+			if ($.isFunction(s.complete)) {
+				s.complete();
+			}
 			var files = evt.target.files;
 			for (var i = 0, f; f = files[i]; i++) {
 				var m = f.name.match(/\.(png|jpeg|jpg|gif)$/i);

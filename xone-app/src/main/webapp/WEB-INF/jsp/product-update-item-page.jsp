@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE HTML><c:set var="myid" value="${identify}" />
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta name="apple-mobile-web-app-capable" content="yes">
@@ -10,7 +10,7 @@
 		<jsp:include page="commons.jsp"></jsp:include>
 	</head>
 	<body>
-	<div data-role="page" class="productupdateitempage" data-dom-cache="false">
+	<div data-role="page" class="productupdateitempage" data-dom-cache="false"><c:set var="myid" value="${identify}" />
 <%-- 		<link rel="stylesheet" href="${STATIC_ROOT}/mobiscroll/css/mobiscroll.core-2.6.2.css" /> --%>
 <%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2.js"></script> --%>
 <%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.datetime-2.6.2.js"></script> --%>
@@ -89,8 +89,8 @@
 				    	</table>
 				    </li>
 					<li>
-					 	<input type="file" data-role="none" name="file" id="uploadUpdateItemImageFile${myid}" accept="image/*" capture="camera" value="" class="uploadImage ui-hidden-accessible"/>
-					 	<input type="button" data-icon="plus" class="uploadImageButtonUpdateItem" value="选择图片"/>
+					 	<input type="file" data-role="none" name="file" id="uploadUpdateItemImageFile${myid}" accept="image/*" capture="camera" value="" class="uploadUpdateItemImageFile ui-hidden-accessible"/>
+					 	<input type="button" data-icon="plus" class="uploadUpdateItemImageFileButtonUpdateItem${myid}" value="选择图片"/>
 					</li>
 					<li class="publishupdateitemformbutton">
 					 	<input type="submit" value="确认更新" id="productupdatesubmit${myid}" class="submit"/>
@@ -125,6 +125,12 @@
 						$('#productupdatesubmit${myid}').click();
 						return false;
 					});
+					if ($('script.imagerotate').length == 0) {
+						$('head').append('<script type="text/javascript" class="imagerotate" src="${pageContext.request.contextPath}/js/myimagerotate.js"><\/script>');
+					}
+					if ($('script.fileupload').length == 0) {
+						$('head').append('<script type="text/javascript" class="fileupload" src="${STATIC_ROOT}/js/fileupload.js"><\/script>');
+					}
 					$('form.productupdateitemform${myid}').submit(function() {
 						if ($('form.productupdateitemform${myid} li.myerror').length > 0) {
 							$('li.myerror').remove();
@@ -168,7 +174,7 @@
 // 						display : 'modal',
 // 						lang : 'zh'
 // 					}));
-					$('input.uploadImageButtonUpdateItem').click(function(e) {
+					$('input.uploadUpdateItemImageFileButtonUpdateItem${myid}').click(function(e) {
 						e.preventDefault();
 						$('form li.errorli').remove();
 						if ($('img.uploadupdateitemdynamicimage').length >= 3) {
@@ -177,75 +183,42 @@
 							return false;
 						}
 						$('ul.productupdateitemlistview${myid}').listview('refresh');
-						$('input.uploadImage[type="file"]').click();
+						$('#uploadUpdateItemImageFile${myid}').click();
 						return false;
 					});
-					$('input.uploadImage[type="file"]').bind('change', handleFileSelect);
+					$('#uploadUpdateItemImageFile${myid}').myImageUploded({
+						complete: function() {
+							if ($('li.fileerror').length > 0) {
+								$('li.fileerror').remove();
+								$('ul.productupdateitemlistview${myid}').listview('refresh');
+							}
+						},
+						filenotmatch: function() {
+							$('#uploadUpdateItemImageFile${myid}').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
+							$('ul.productupdateitemlistview${myid}').listview('refresh');
+							return true;
+						},
+						load: function(base64, imgType) {
+							var div = document.createElement('div');
+							div.className = 'productupdatepage';
+							div.innerHTML = [
+									'<a href="#" onclick="return removeUpdateItemDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
+									'<img class="uploadupdateitemdynamicimage" width="100%" height="100%" src="',
+									base64, '" title="', 'upload image', '"/>',
+									'<input type="hidden" name="images" value="', base64, '" />' ]
+									.join('');
+							var listview = $('ul.productupdateitemlistview${myid}');
+							listview.append('<li data-role="none" style="padding:0px;"></li>');
+							listview.find('li').last().append(div);
+							listview.listview('refresh');
+						}
+					});
 				});
 				function removeUpdateItemDynamicImage(e) {
 					$(e).closest('li').remove();
 					$('ul.productupdateitemlistview${myid}').listview('refresh');
 					$('#uploadUpdateItemImageFile${myid}').val('');
 					return false;
-				}
-				function getExt(v) {
-					var a = v.split('.');
-					return a[a.length - 1];
-				}
-				function handleFileSelect(evt) {
-					if ($('li.fileerror').length > 0) {
-						$('li.fileerror').remove();
-						$('ul.productupdateitemlistview${myid}').listview('refresh');
-					}
-					var files = evt.target.files; // FileList object
-					// Loop through the FileList and render image files as thumbnails.
-					for (var i = 0, f; f = files[i]; i++) {
-						var m = f.name.match(/\.(png|jpeg|jpg|gif)$/i);
-						if (null == m) {
-							$('#uploadUpdateItemImageFile${myid}').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
-							$('ul.productupdateitemlistview${myid}').listview('refresh');
-							continue;
-						}
-						var reader = new FileReader();
-						// Closure to capture the file information.
-						reader.onload = (function(theFile) {
-							return function(e) {
-								var div = document.createElement('div');
-								div.className = 'productupdatepage';
-								var result = e.target.result.replace(/data:base64,/, 'data:image/' + getExt(theFile.name) + ';base64,');
-								div.innerHTML = [
-										'<a href="#" onclick="return removeDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
-										'<img class="uploadupdateitemdynamicimage" width="100%" height="100%" src="',
-										result, '" title="', escape(theFile.name),
-										'"/>',
-										'<input type="hidden" name="images" value="', 
-									result, '" />' ]
-										.join('');
-								var listview = $('ul.productupdateitemlistview${myid}');
-								listview.append('<li data-role="none" style="padding:0px;"></li>');
-								listview.find('li').last().append(div);
-								listview.listview('refresh');
-							};
-						})(f);
-						reader.onerror = function(evt) {
-							switch (evt.target.error.code) {
-							case evt.target.error.NOT_FOUND_ERR:
-								break;
-							case evt.target.error.NOT_READABLE_ERR:
-								break;
-							case evt.target.error.ABORT_ERR:
-								break; // noop
-							default:
-							}
-							;
-						};
-						reader.onabort = function(e) {
-						};
-						reader.onloadstart = function(e) {
-	
-						};
-						reader.readAsDataURL(f);
-					}
 				}
 			</script>
 		</div>
