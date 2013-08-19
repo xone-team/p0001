@@ -19,14 +19,6 @@
 		<div class="container">
 			<div class="row">
 				<div class="span9 bs-docs-sidebar">
-					<form class="form-search">
-						<div class="span6 input-prepend" style="text-align: right;">
-							<span class="add-on">搜索产品</span> <input type="text" class="span4" />
-						</div>
-						<div class="input-append">
-							<button type="submit" class="btn">搜索</button>
-						</div>
-					</form>
 					<div class="row-fluid">
 					    <div class="span12">
 							<ul class="listview image" style="width:100%">
