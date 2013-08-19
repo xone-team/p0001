@@ -182,28 +182,25 @@
 							return false;
 						}
 					});
-// 					$('input.uploadImageProduct[type="file"]').bind('change', handleFileSelect);
-					$('input.uploadImageProduct[type="file"]').fileupload({
+					$('input.uploadImageProduct[type="file"]').myImageUploded({
 						filenotmatch: function() {
 							$('#uploadImageFileProduct').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
 							$('ul.productlistview${myid}').listview('refresh');
 							return true;
 						},
-						onload:function(it, e) {
+						load: function(base64, imgType) {
 							var div = document.createElement('div');
-							var result = it.data('base64source');
 							div.className = 'productimage';
 							div.innerHTML = [
 								'<a href="#" onclick="return removeProductDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
 								'<img class="uploadproductdynamicimage" width="100%" height="100%" src="',
-								result, '" title="', escape(it.data('uploadfilename')),
-								'"/>',
+								base64, '" title="', 'upload image', '"/>',
 								'<input type="hidden" name="images" value="', 
-								result, '" />' ].join('');
+								base64, '" />' ].join('');
 							var listview = $('ul.productlistview${myid}');
 							listview.append('<li style="padding:0px;"></li>');
 							listview.find('li').last().append(div);
-							$('img.uploadproductdynamicimage').myimagerotate();
+							//$('img.uploadproductdynamicimage').myimagerotate();
 							listview.listview('refresh');
 						}
 					});
@@ -218,10 +215,6 @@
 					$('ul.productlistview').listview('refresh');
 					$('#uploadImageFileProduct').val('');
 					return false;
-				}
-				function getExt(v) {
-					var a = v.split('.');
-					return a[a.length - 1];
 				}
 			</script>
 		</div>

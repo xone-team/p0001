@@ -99,6 +99,7 @@ function globalBannerSwitch() {
 </script>
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery.mobile-1.3.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/myadbanner.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/mydiffandroidiphone.js"></script>
 <script type="text/javascript">
 <!--
 	$(document).delegate($.mobile.activePage, 'pageshow', function() {

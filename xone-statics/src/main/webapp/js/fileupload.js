@@ -35,6 +35,7 @@
 						var $it = $(evt.target);
 						$it.data('uploadfilename', escape(theFile.name));
 						$it.data('base64source', result);
+						$it.data('imageType', name);
 						//alert($it.data('uploadfilename'));
 						s.onload($it, e);
 					};
