@@ -1,60 +1,114 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<div class="navbar navbar-fixed-top mynavheaderbar">
-	<div class="navbar-inner">
-		<div class="container mynavheaderbar">
-			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-				<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-			</button>
-<!-- 				<a class="brand" href="#">恒鑫软件</a> -->
-			<div class="nav-collapse collapse navbar">
-				<ul class="nav">
-					<li class="<c:if test="${param.offset == '1'}">active</c:if> mynav"><a href="${pageContext.request.contextPath}/index.html">首页</a></li>
-					<li class="<c:if test="${param.offset == '2'}">active</c:if> mynav"><a href="${pageContext.request.contextPath}/product/list.html">售卖</a></li>
-					<li class="<c:if test="${param.offset == '3'}">active</c:if> mynav"><a href="${pageContext.request.contextPath}/purchase/list.html">购买</a></li>
-					<li class="<c:if test="${param.offset == '4'}">active</c:if> mynav"><a href="${pageContext.request.contextPath}/about.html">关于</a></li>
-					<c:choose>
-					<c:when test="${not empty userMap}">
-						<li class="<c:if test="${param.offset == '5'}">active</c:if> dropdown mynav">
-							<a href="${pageContext.request.contextPath}/admin/welcome.html" class="dropdown-toggle" data-toggle="dropdown">用户中心 <b class="caret"></b></a>
-							<ul class="dropdown-menu" style="text-align:left;">
-								<li><a href="">Action</a></li>
-								<li><a href="#">Another action</a></li>
-								<li><a href="#">Something else here</a></li>
-								<li class="divider"></li>
-								<li class="nav-header">Nav header</li>
-								<li><a href="${pageContext.request.contextPath}/admin/welcome.html">用户中心</a></li>
-								<li><a href="#">用户名：${username}</a></li>
-								<li><a href="<c:url value="/j_spring_security_logout"/>" style="margin-left:5px;">退出登录</a></li>
-							</ul>
-						</li>
-					</c:when>
-					<c:otherwise>
-					<li class="dropdown mynav">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">用户登录 <b class="caret"></b></a>
-						<ul class="dropdown-menu" style="text-align:left;">
-							<li class="nav-header">
-								<form class="navbar-form form-horizontal navloginform" method="post" action="${pageContext.request.contextPath}/j_spring_security_check">
-									<div class="span2">
-										<input class="span2" type="text" value="15800000000" name="username" placeholder="用户名">
-									</div>
-									<div class="span2"">
-										<input class="span2" type="password" value="hunny@admin" name="password" placeholder="密码">
-									</div>
-									<div class="span2" style="text-align:right;">
-										<button type="submit" class="btn">登录</button>
-									</div>
-								</form>
-							</li>
-						</ul>
-					</li>
-					</c:otherwise>
-					</c:choose>
-				</ul>
-			</div>
-		</div>
-	</div>
+<div class="topbar box-shadow blue-gradiant gradient">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span4">
+                <div class="logo box-shadow">
+                    <div id="inner-logo">
+                        <center>
+                            <a href="#">
+                                <h1 style='font-family: "Microsoft YaHei";'>恒&nbsp;&nbsp;鑫&nbsp;&nbsp;科&nbsp;&nbsp;技</h1>
+                            </a>
+                        </center>
+                    </div>
+                    <div class="logo-right"></div>
+                </div>
+            </div>
+            <div class="span3">
+                <h3 style="margin-top: 50px !important; color: #ffffff;">水产品交易平台</h3>
+            </div>
+            <div class="span5">
+                <div class="login-area">
+                    <c:choose>
+                        <c:when test="${not empty userMap}">
+                            <p class="logined-message">
+                                欢迎您 ${username} ! <a href="${pageContext.request.contextPath}/admin/welcome.html">用户中心</a><a href="<c:url value="/j_spring_security_logout"/>">退出登录</a>
+                            </p>
+                        </c:when>
+                        <c:otherwise>
+                            <form class="form-inline inline" type="post" action="${pageContext.request.contextPath}/j_spring_security_check">
+                                <input type="text" class="input-small" value="15800000000" placeholder="用户名"> <input type="password" class="input-small" value="hunny@admin" placeholder="密码"> <label class="checkbox"> </label>
+                                <button type="submit" class="btn btn-warning inline">登录</button>
+                                <button type="submit" class="btn btn-warning inline">注册</button>
+                            </form>
+                        </c:otherwise>
+                    </c:choose>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6 text-right">
+                        <span class="label label-success">手机客户端下载</span>
+                    </div>
+                    <div class="span6 down-area">
+                        <div class="down-to-drop">
+                            <a href="javascript:void(0)" class="banner-down-android" id="downBtnAndroid" title="Android下载"></a> <a href="javascript:void(0)" class="banner-down-ios" id="downBtnIphone" title="iOS下载"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="container">
+
+    <div class="navbar-locale row-fluid no-bottom">
+        <div class="pull-right">
+            <br>
+        </div>
+    </div>
+    <div class="navbar-contentpage">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <ul class="nav">
+                        <li><a href="${pageContext.request.contextPath}/index.html">首页</a></li>
+                        <li class="divider-vertical"></li>
+                        <li><a href="${pageContext.request.contextPath}/product/list.html">售卖</a></li>
+                        <li class="divider-vertical"></li>
+                        <li><a href="${pageContext.request.contextPath}/purchase/list.html">购买</a></li>
+                        <li class="divider-vertical"></li>
+                        <li><a href="${pageContext.request.contextPath}/about.html">关于</a></li>
+                    </ul>
+                    <div class="pull-right">
+                        <form method="post" action="#" enctype="application/x-www-form-urlencoded">
+                            <div class="input-append">
+                                <input type="text" class="span4" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false" placeholder="请输入搜索关键字"> <a href="#" rel="tooltip" title="" class="btn btn-custom-blue" data-original-title="搜索售卖信息"> <i class="icon-search"></i>售卖
+                                </a> <a href="#" class="btn btn-custom-blue" rel="tooltip" title="" data-original-title="搜索求购信息"> <i class="icon-search"></i>求购
+                                </a>
+                            </div>
+                            <input type="submit" name="search" value="" style="display: none;">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="navbar-floatingpage" style="display: none;">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner blue-gradiant gradient">
+                <div class="container">
+                    <ul class="nav">
+                        <li><a href="#">首页</a></li>
+                        <li><a href="#">售卖</a></li>
+                        <li><a href="#">求购</a></li>
+                        <li><a href="#">关于</a></li>
+                    </ul>
+                    <form method="post" action="#" class="navbar-search pull-right" enctype="application/x-www-form-urlencoded">
+                        <input type="hidden">
+                        <div class="input-append">
+                            <input type="text" class="span4" aria-disabled="false" aria-readonly="false" aria-multiline="false" placeholder="请输入搜索关键字"> <a href="#" rel="tooltip" title="" class="btn btn-custom-blue" data-original-title="搜索售卖信息"> <i class="icon-search"></i>售卖
+                            </a> <a href="#" class="btn btn-custom-blue" rel="tooltip" title="" data-original-title="搜索求购信息"> <i class="icon-search"></i>求购
+                            </a>
+                        </div>
+                        <input type="submit" value="" style="display: none;">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

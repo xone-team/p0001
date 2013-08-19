@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -7,55 +6,79 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="${STATIC_ROOT}/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${STATIC_ROOT}/bootstrap/css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="${STATIC_ROOT}/css/docs.css" />
+<link rel="stylesheet" href="${STATIC_ROOT}/css/listview.css" />
+<link rel="stylesheet" href="${STATIC_ROOT}/css/all.css" />
 <style type="text/css">
-	body {
-		padding-top: 60px;
-		padding-bottom: 40px;
-	}
-	.mynavheaderbar {
-		min-width:680px;
-	}
-	.navbar .nav {
-	  margin: 0;
-	  display: table;
- 	  width: 100%;
-	}
-	.navbar .nav li.mynav {
-	  display:inline;
-	  float: none;
-	  display: table-cell;
-	  border:1px solid #beceeb; 
-	  text-align:center; 
-	  vertical-align:middle;
-	}
-	.navbar .nav li.mynav a {
-	  font-weight: bold;
-	  text-align: center;
-	  border-left: 1px solid rgba(255,255,255,.75);
-	  border-right: 1px solid rgba(0,0,0,.1);
-	}
-	.navbar .nav li.mynav:first-child a {
-		border-left: 0;
-		border-radius: 3px 0 0 3px;
-	}
-	.navbar .nav li.mynav:last-child a {
-		border-right: 0;
-		border-radius: 0 3px 3px 0;
-	}
-	.mymiddleimage {
-		width:90px;
-		height:90px;
-	}
-	.mybigimage {
-		width:200px;
-		height:200px;
-	}
+* {
+    font-family: "Microsoft YaHei", "SimHei"
+}
+
+li {
+    display: list-item;
+    list-style-type: none;
+}
+
+.list_gq .gq {
+    color: #FFF;
+    background: #FF6C00;
+    line-height: 25px;
+}
+
+.txt_date {
+    color: #999;
+    float: right;
+}
+
+.accordion .accordion-group,table {
+    background-color: #fcfcfc;
+}
+
+*.inline {
+    display: inline !important;
+}
+
+.logined-message {
+    color: #ffffff;
+}
+
+.logined-message a {
+    color: #f89406;
+}
+
+.banner-down-btn {
+    width: 239px;
+    height: 78px;
+    display: block;
+    background: url("${STATIC_ROOT}/image/banner-icons.png") no-repeat;
+}
+
+.down-to-drop a {
+    float: left;
+    width: 26px;
+    height: 28px;
+    margin-left: 20px;
+}
+
+.banner-down-android,.banner-down-ios,.banner-down-win {
+    background: url("${STATIC_ROOT}/image/banner-icons.png") no-repeat;
+}
+
+.banner-down-android {
+    background-position: -239px -125px;
+}
+
+.banner-down-android:hover {
+    background-position: -239px -158px;
+}
+
+.banner-down-ios {
+    background-position: -265px -125px;
+}
+
+.banner-down-ios:hover {
+    background-position: -265px -158px;
+}
+
 </style>
-<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-<!--[if lt IE 9]>
-      <script src="${STATIC_ROOT}/js/html5shiv.js"></script>
-    <![endif]-->
-<!-- Fav and touch icons -->
-<!-- 		<link rel="shortcut icon" href="../assets/ico/favicon.png"> -->
-<script src="${STATIC_ROOT}/js/jquery-1.10.0.min.js"></script>
 <script src="${STATIC_ROOT}/js/My97DatePicker/WdatePicker.js"></script>
