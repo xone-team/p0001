@@ -20,14 +20,6 @@
             <div class="span9 bs-docs-sidebar">
                 <div class="row-fluid">
                     <div class="span12">
-                        <div class="row-fluid">
-                            <ul class="breadcrumb" id="X_breadcrumbs_ul">
-                                <li>用户中心<span class="divider">/</span></li>
-                                <li>我的售卖发布 <span class="divider">/</span></li>
-                                <li><a href="${pageContext.request.contextPath}/product/productList.html">产品列表</a> <span class="divider">/</span></li>
-                                <li class="active">产品详细</li>
-                            </ul>
-                        </div>
                         <c:choose>
                             <c:when test="${not empty product && not empty product.id}">
                                 <table class="table table-bordered" style="width: 100%">
@@ -61,10 +53,6 @@
                                             <td>该产品已有 ${orderedPersonNum} 人，团购 ${orderedProductNum} 件。</td>
                                         </tr>
                                     </c:if>
-                                    <tr>
-                                        <td>有&nbsp&nbsp效&nbsp&nbsp期</td>
-                                        <td>${product.productValid}</td>
-                                    </tr>
                                     <tr>
                                         <td>描 述</td>
                                         <td>${product.productDesc}</td>

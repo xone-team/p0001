@@ -45,10 +45,6 @@
 											<td>${purchase.purchaseNum}</td>
 										</tr>
 										<tr>
-											<td>有&nbsp&nbsp效&nbsp&nbsp期</td>
-											<td>${purchase.purchaseValid}</td>
-										</tr>
-										<tr>
 											<td>描　　述</td>
 											<td>${purchase.purchaseDesc}</td>
 										</tr>
