@@ -41,6 +41,9 @@ public class PurchaseWebAction extends LogicAction {
 	protected String uploadFile3FileName;
 
 	protected String imageUploadPath;
+	
+	protected String searchType = "2";
+	protected String searchKey;
     
     public Enum<?>[] getFlagDeleted() {
         return Purchase.FlagDeleted.values();
@@ -185,6 +188,12 @@ public class PurchaseWebAction extends LogicAction {
 	
 	public String list() throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
+		
+		// nav search
+		if("2".equals(searchType) && !StringUtils.isBlank(searchKey)){
+			params.put("purchaseName", searchKey);
+		}
+		
 		List<Purchase> l = getPurchaseService().findAllByMap(params);
 		if (null != l && !l.isEmpty()) {
 			getList().addAll(l);
@@ -289,6 +298,18 @@ public class PurchaseWebAction extends LogicAction {
 	}
 	public void setImageUploadPath(String imageUploadPath) {
 		this.imageUploadPath = imageUploadPath;
+	}
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
 	}
 
 }
