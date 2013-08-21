@@ -11,10 +11,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
+import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
+import com.xone.service.app.AdbannerService;
 import com.xone.service.app.ProductGroupService;
 import com.xone.service.app.ProductService;
 import com.xone.service.app.utils.MyBeanUtils;
@@ -53,6 +55,10 @@ public class ProductWebAction extends LogicAction {
 	protected String searchType = "1";
 	protected String searchKey;
 
+	@Autowired
+	protected AdbannerService adbannerService;
+	protected List<Adbanner> adList = new ArrayList<Adbanner>();
+
 	public Enum<?>[] getFlagDeleted() {
 		return Product.FlagDeleted.values();
 	}
@@ -86,7 +92,7 @@ public class ProductWebAction extends LogicAction {
 				return value.toString();
 			}
 		}, null);
-		
+
 		params.put("userApply", getUserId().toString());
 		params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
 
@@ -269,14 +275,19 @@ public class ProductWebAction extends LogicAction {
 	public String list() {
 		Map<String, Object> params = new HashMap<String, Object>();
 		// nav search
-		if("1".equals(searchType) && !StringUtils.isBlank(searchKey)){
+		if ("1".equals(searchType) && !StringUtils.isBlank(searchKey)) {
 			params.put("productName", searchKey);
 		}
-		
+
 		List<Product> l = getProductService().findAllByMap(params);
 		if (null != l && !l.isEmpty()) {
 			list.addAll(l);
 		}
+
+		// get ad
+		setAdList(getAdbannerService().findItemsByMap(
+				new HashMap<String, String>()));
+
 		return SUCCESS;
 	}
 
@@ -284,6 +295,10 @@ public class ProductWebAction extends LogicAction {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("id", String.valueOf(getProduct().getId()));
 		setProduct(getProductService().findByMap(params));
+
+		// get ad
+		setAdList(getAdbannerService().findItemsByMap(
+				new HashMap<String, String>()));
 		return SUCCESS;
 	}
 
@@ -437,6 +452,22 @@ public class ProductWebAction extends LogicAction {
 
 	public void setSearchKey(String searchKey) {
 		this.searchKey = searchKey;
+	}
+
+	public AdbannerService getAdbannerService() {
+		return adbannerService;
+	}
+
+	public void setAdbannerService(AdbannerService adbannerService) {
+		this.adbannerService = adbannerService;
+	}
+
+	public List<Adbanner> getAdList() {
+		return adList;
+	}
+
+	public void setAdList(List<Adbanner> adList) {
+		this.adList = adList;
 	}
 
 }

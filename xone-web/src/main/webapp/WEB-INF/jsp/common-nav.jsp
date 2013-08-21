@@ -79,7 +79,7 @@
                         <li<c:if test="${ param.offset == 4 }"> class="active"</c:if>><a href="${pageContext.request.contextPath}/about.html">关于</a></li>
                     </ul>
                     <div class="pull-right">
-                        <form method="get" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
+                        <form method="post" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
                             <div class="input-append">
                                 <input type="hidden" name="searchType" value="${searchType}" />
                                 <input type="text" name="searchKey" value="${searchKey}" class="span4" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false" placeholder="请输入搜索关键字">
@@ -118,7 +118,7 @@
                         <li><a href="${pageContext.request.contextPath}/purchase/list.html">购买</a></li>
                         <li><a href="${pageContext.request.contextPath}/about.html">关于</a></li>
                     </ul>
-                    <form method="get" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
+                    <form method="post" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
                         <div class="input-append pull-right">
                             <input type="hidden" name="searchType" value="${searchType}" />
                             <input type="text" name="searchKey" value="${searchKey}" class="span4" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false" placeholder="请输入搜索关键字">
