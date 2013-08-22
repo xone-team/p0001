@@ -3,6 +3,7 @@ package com.xone.service.security;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -71,6 +72,7 @@ public class MySecurityMetadataSource implements
 	@Override
 	public Collection<ConfigAttribute> getAttributes(Object object)
 			throws IllegalArgumentException {
+		Collection<ConfigAttribute> result = new ArrayList<ConfigAttribute>();
 		String requestUrl = ((FilterInvocation) object).getRequestUrl();
 		System.out.println("requestUrl is " + requestUrl);
 		if (null == resourceMap) {
@@ -79,11 +81,31 @@ public class MySecurityMetadataSource implements
 		Set<String> urls = resourceMap.keySet();
 		for (String url : urls) {
 			if (requestUrl.matches(url)) {
-				return resourceMap.get(url);
+				// 找到所有MATCH的PATTERN的角色
+				combineRoles(result, resourceMap.get(url));
+				//return resourceMap.get(url);
 			}
 		}
-		return null;
+		return result;
 	}
+	
+	private void combineRoles(Collection<ConfigAttribute> root, Collection<ConfigAttribute> roles){
+		for (ConfigAttribute roleAttribute : roles) {
+			String roleName = roleAttribute.getAttribute();
+			boolean inRoot = false;
+			for (ConfigAttribute rootAttribute : root) {
+				String rootRoleName = rootAttribute.getAttribute();
+				if(roleName.equals(rootRoleName)){
+					inRoot = true;
+					break;
+				}
+			}
+			if(!inRoot){
+				root.add(new SecurityConfig(roleName));
+			}
+		}
+	}
+	
 
 	@Override
 	public Collection<ConfigAttribute> getAllConfigAttributes() {
