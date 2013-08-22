@@ -1,8 +1,8 @@
 //
 //  AppDelegate.h
-//  iphone
+//  viewFirst
 //
-//  Created by 杨 国旗 on 13-8-18.
+//  Created by 杨 国旗 on 13-8-8.
 //  Copyright (c) 2013年 cpic.wondertek.cpic. All rights reserved.
 //
 
@@ -10,10 +10,20 @@
 
 @class ViewController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>{
+     NSMutableDictionary *cacheFileURLDictionary;
+}
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) ViewController *viewController;
+@property (nonatomic, retain) NSMutableDictionary *cacheFileURLDictionary;
+#pragma mark -
+#pragma mark common method
++(AppDelegate *)appDelegate;
++(void)addCommonAnimation:(UIView*)view;
+
+- (void)cancelLocalNotification;
+- (void)createLocalNotificationInfo;
 
 @end

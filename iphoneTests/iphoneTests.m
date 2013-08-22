@@ -7,6 +7,7 @@
 //
 
 #import "iphoneTests.h"
+#import "GDataXMLNode.h"
 
 @implementation iphoneTests
 
@@ -14,7 +15,7 @@
 {
     [super setUp];
     
-    // Set-up code here.
+    NSLog(@" I am yangguoqi ");
 }
 
 - (void)tearDown
@@ -24,9 +25,11 @@
     [super tearDown];
 }
 
-- (void)testExample
+- (void)testFindData
 {
-    STFail(@"Unit tests are not implemented yet in iphoneTests");
+
+
 }
+
 
 @end

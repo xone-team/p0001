@@ -1,0 +1,267 @@
+//
+//  WDURLCache.m
+//  iphoneE_CPIC
+//
+//  Created by sundanlong on 11-3-1.
+//  Copyright 2011 上海网达软件有限公司. All rights reserved.
+//
+
+#import "WDURLCache.h"
+#import "ASIHTTPRequest.h"
+#import <Foundation/NSURLRequest.h>
+#import "EInsuranceIphoneAppDelegate.h"
+@implementation WDURLCache
+
+#pragma mark NSURLCache
+- (id)initWithMemoryCapacity:(NSUInteger)memoryCapacity diskCapacity:(NSUInteger)diskCapacity diskPath:(NSString *)path {
+	self = [super initWithMemoryCapacity:memoryCapacity diskCapacity:diskCapacity diskPath:path];
+	//	found = 0;
+	//	missed = 0;
+	//dbOp=[[WDDB alloc] init];
+	return self;
+}
+
+-(void)dealloc {
+	//[dbOp release];
+	[super dealloc];
+}
+
+
+-(NSCachedURLResponse *)cachedResponseForRequest:(NSURLRequest *)request {
+	//	WDLog( @"====XXXX===%@", [request URL] );
+	NSCachedURLResponse* cacheResponse  = [super cachedResponseForRequest: request];
+    
+    NSURL* url = request.URL;
+    NSString *surl = [NSString stringWithFormat:@"%@", url];
+    if ([surl rangeOfString:@"security"].location != NSNotFound) {
+        NSString *tempUlr = [NSString stringWithFormat:@"https%@", [surl substringFromIndex:4]];
+        NSLog(@"---------%@", tempUlr);
+        NSURL* tmpURL = [NSURL URLWithString:tempUlr];// [NSURL URLWithString:@"%@", tempUlr];
+        ASIHTTPRequest *asirequest = [ASIHTTPRequest requestWithURL:tmpURL];
+		[asirequest setDelegate:self];
+		[asirequest startAsynchronous];
+        return nil;
+    }
+	if( nil != cacheResponse ) {
+		//WDLog(@"[cachedResponseForRequest] nil != cacheResponse");
+		return cacheResponse;
+	}
+	if( [self shouldBlockFileCache:request] ) {
+		return nil;
+	}
+	cacheResponse = [self loadCacheFromFile:request];
+	return cacheResponse;
+}
+#pragma mark -
+#pragma mark disk cache afx
+
+-(NSString*) cacheFilePath:(NSURLRequest*) request {
+	NSURL* url = request.URL;
+	NSString* host = url.host;
+    NSString *path = [[NSString stringWithFormat:@"%@",[[url.path componentsSeparatedByString:@"."] objectAtIndex:0]] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *documentsDirectory = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+	NSString* storagePath = [NSString stringWithFormat:@"%@/cacheFile/%@/%@", documentsDirectory, host, path];
+	return storagePath;	
+}
+
+
+/**
+ *1.判断缓存文件dataPath是否存在,若不存在，写入缓存文件
+ *2.若缓存文件存在，判断记录文件最后修改时间的文件updateTime是否存在，若updateTime不存在，写入缓存文件
+ *3.若updateTime文件存在，判断该文件是否有写入信息，若无信息，写入缓存文件
+ *4.若updateTime有信息，比较旧时间（updateTime中的文件最后修改时间）与新时间（版本检查时服务器端返回的各html.js.css.png.jpg的文件最后修改时间，存放在cacheFileURLDictionary中）
+ *5.若新时间!=旧时间，更新缓存文件，否则，读取缓存文件
+ */
+
+-(NSCachedURLResponse*) loadCacheFromFile:(NSURLRequest*) request {
+	NSCachedURLResponse* cacheResponse = nil;
+	NSString* storagePath = [self cacheFilePath:request];
+	if( nil == storagePath ) {
+		return cacheResponse;
+	}
+	
+	NSString* dataPath = [storagePath stringByAppendingString:@"/data"];
+	NSString* mimePath = [storagePath stringByAppendingString:@"/mime"];
+	NSString* encodingPath = [storagePath stringByAppendingFormat:@"/encoding"];
+	NSString* updateTimePath = [storagePath stringByAppendingFormat:@"/updateTime"];//已存在的缓存再更新
+    
+	NSURL *url = request.URL;
+	NSString *urlRemoveParam = [NSString stringWithFormat:@"%@", url];
+	urlRemoveParam = [[NSString stringWithFormat:@"%@",[[urlRemoveParam componentsSeparatedByString:@"?"] objectAtIndex:0]] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];	
+//    if ([urlRemoveParam hasSuffix:@".html"]) {
+//        WDLog(@"==%@", urlRemoveParam);
+//    }
+	if ([[NSFileManager defaultManager] fileExistsAtPath:dataPath] && [[NSFileManager defaultManager] fileExistsAtPath:updateTimePath]) {
+        if ([[EInsuranceIphoneAppDelegate AppDelegate].cacheFileURLDictionary objectForKey:urlRemoveParam]) {
+            NSData* updateTimeData = [NSData dataWithContentsOfFile:updateTimePath];
+            if( nil != updateTimeData ) {
+                NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                [dateFormat setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+                [dateFormat setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:3600*8]];
+                NSString *updateTimeFromFile = [[NSString alloc] initWithData:updateTimeData encoding:NSUTF8StringEncoding];
+                NSDate *oldTime = [dateFormat dateFromString:updateTimeFromFile];
+                [updateTimeFromFile release];
+                NSString *updateTimeFromDic = [NSString stringWithFormat:@"%@",[[EInsuranceIphoneAppDelegate AppDelegate].cacheFileURLDictionary objectForKey:urlRemoveParam]];
+                NSDate *newTime = [dateFormat dateFromString:updateTimeFromDic];
+                [dateFormat release];
+//                WDLog(@"oldTime = %@\tnewTime = %@", oldTime, newTime);
+                
+                if ([newTime compare: oldTime] != NSOrderedSame) {//时间不一致即进行更新
+                    [[NSFileManager defaultManager] removeItemAtPath:storagePath error:nil];
+                    ASIHTTPRequest *asirequest = [ASIHTTPRequest requestWithURL:url];
+                    asirequest.userInfo=[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:request,urlRemoveParam,nil] forKeys:[NSArray arrayWithObjects:@"storepath",@"URL",nil]];
+                    [asirequest setDelegate:self];
+                    [asirequest startAsynchronous];
+                    return nil;
+                }
+            } else {//时间文件内容为空
+                [[NSFileManager defaultManager] removeItemAtPath:storagePath error:nil];
+                ASIHTTPRequest *asirequest = [ASIHTTPRequest requestWithURL:url];
+                asirequest.userInfo=[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:request,urlRemoveParam,nil] forKeys:[NSArray arrayWithObjects:@"storepath",@"URL",nil]];
+                [asirequest setDelegate:self];
+                [asirequest startAsynchronous];
+                //update local file
+                //WDLog(@"update local file:%@",url.absoluteString);
+                return nil;
+            }
+        } else {//请求的URL不在内存中
+            [[NSFileManager defaultManager] removeItemAtPath:storagePath error:nil];
+            //trick here : if no cache, populate it asynchronously and return nil
+            // [NSThread detachNewThreadSelector:@selector(populateCacheFor:) toTarget:self withObject:request];
+            ASIHTTPRequest *asirequest = [ASIHTTPRequest requestWithURL:url];
+            //asirequest.argObj = request;
+            asirequest.userInfo=[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:request,urlRemoveParam,nil] forKeys:[NSArray arrayWithObjects:@"storepath",@"URL",nil]];
+            [asirequest setDelegate:self];
+            [asirequest startAsynchronous];
+        }
+		
+		//WDLog(@"[loadCacheFromFile]文件:%@没更新，读取缓存文件",request.URL.relativePath);
+		NSData* content = [NSData dataWithContentsOfFile:dataPath];
+		NSData* mimeData = [NSData dataWithContentsOfFile:mimePath];
+		NSData* encodingData = [NSData dataWithContentsOfFile:encodingPath];
+		
+		NSString* mime = nil;
+		if( nil != mimeData ) {
+			mime = [[NSString alloc] initWithData:mimeData encoding:NSUTF8StringEncoding];
+		} else {
+			mime = @"";
+		}
+		NSString* encoding = nil;
+		if( nil != encodingData ) {
+			encoding = [[NSString alloc] initWithData:encodingData encoding:NSUTF8StringEncoding];
+		}
+		
+		NSURLResponse* response = [[NSURLResponse alloc] initWithURL:request.URL MIMEType:mime expectedContentLength:[content length] textEncodingName:encoding];
+		if (mime!=nil) {
+			[mime release];
+		}
+		if (encoding!=nil) {
+			[encoding release];
+		}
+		
+		cacheResponse = [[NSCachedURLResponse alloc] initWithResponse:response data:content];
+		[response release];
+	} else {//缓存文件或时间文件不存在
+        [[NSFileManager defaultManager] removeItemAtPath:storagePath error:nil];
+		// [NSThread detachNewThreadSelector:@selector(populateCacheFor:) toTarget:self withObject:request];
+		//NSURL *url = request.URL;
+		ASIHTTPRequest *asirequest = [ASIHTTPRequest requestWithURL:url];
+		//asirequest.argObj = request;
+		asirequest.userInfo=[NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:request,urlRemoveParam,nil] forKeys:[NSArray arrayWithObjects:@"storepath",@"URL",nil]];
+		[asirequest setDelegate:self];
+		[asirequest startAsynchronous];
+	}
+	return [cacheResponse autorelease];	
+}
+
+-(BOOL) shouldBlockFileCache:(NSURLRequest*) request {
+	NSURL* url = request.URL;
+	if( nil == url.host || 0 == url.host.length ) {
+		return YES;
+	}
+	if( nil != url.user || nil != url.password ) {
+		return YES;
+	}
+	// check the file type
+	NSString* ressourceName = url.absoluteString;
+    if (
+		[ressourceName rangeOfString:@".html"].location!=NSNotFound ||	
+		[ressourceName hasSuffix:@".jpg"] ||
+    	[ressourceName hasSuffix:@".png"] ||
+		[ressourceName hasSuffix:@".css"] ||
+        [ressourceName hasSuffix:@".js"]
+		) {
+		return NO;
+	}
+	return YES;
+}
+#pragma mark -
+#pragma mark ASIHTTPRequestDelegate
+- (void)requestFinished:(ASIHTTPRequest *)request {
+//   if ([[request.userInfo objectForKey:@"URL"] hasSuffix:@".html"]) {
+//        WDLog(@"[URL]==%@", [request.userInfo objectForKey:@"URL"]);
+//    }
+	//NSString* storagePath = [self cacheFilePath: request.argObj];
+	NSString* storagePath = [self cacheFilePath: [request.userInfo objectForKey:@"storepath"]];
+	NSData* content = [request responseData];
+	NSString* contentType = [[request responseHeaders] objectForKey:@"Content-Type"];
+	//WDLog(@"%@",contentType);
+	NSString* mime = nil;
+	NSString* encoding = nil;
+	// split contentType
+	NSRange sepRange = [contentType rangeOfString:@"; "];
+	if( sepRange.location != NSNotFound ) {
+		// sep the content type
+		mime = [contentType substringToIndex: sepRange.location];
+		// get text encoding
+		encoding = [contentType substringFromIndex: (sepRange.location + sepRange.length)];
+	} else {
+		mime = contentType;
+	}
+	
+	NSError* error = nil;
+	//the store is invoked automatically.
+	[[NSFileManager defaultManager] createDirectoryAtPath:storagePath withIntermediateDirectories:YES attributes:nil error:&error];
+	BOOL ok;// = [[NSFileManager defaultManager] createDirectoryAtPath:absolutePath withIntermediateDirectories:YES attributes:nil error:&error];
+	NSString *updateTime=[NSString stringWithFormat:@"%@",[[EInsuranceIphoneAppDelegate AppDelegate].cacheFileURLDictionary objectForKey:[request.userInfo objectForKey:@"URL"]]];
+	//WDLog(@"[requestFinished] updateTime=%@,url=%@",updateTime,[request.userInfo objectForKey:@"URL"]);
+	
+	BOOL shouldCash = YES;
+	NSString *requestUrl = [NSString stringWithFormat:@"%@",[request url]];
+	if (request.responseStatusCode!=200||[requestUrl rangeOfString:@"error"].location!=NSNotFound) {
+		shouldCash = NO;
+	}
+	
+	NSString* dataPath = [storagePath stringByAppendingString:@"/data"];
+	if (shouldCash) {
+		ok = [content writeToFile:dataPath atomically:YES];
+	}
+	else {
+		ok = NO;
+	}
+	
+	if( ok ) {
+		//save mime and encoding
+		if( nil != mime ) {
+			error = nil;
+			NSString* mimePath = [storagePath stringByAppendingString:@"/mime"];
+			[mime writeToFile:mimePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+		}
+		if( nil != encoding ) {
+			error = nil;
+			NSString* encodingPath = [storagePath stringByAppendingFormat:@"/encoding"];
+			[encoding writeToFile:encodingPath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+		}
+		if( (nil != updateTime) && (![updateTime isEqual:@"(null)"]) ) {
+			//WDLog(@"updateTime!=nil %@,%@",updateTime,storagePath);
+			error = nil;
+			NSString* updateTimePath = [storagePath stringByAppendingFormat:@"/updateTime"];
+			[updateTime writeToFile:updateTimePath atomically:YES encoding:NSUTF8StringEncoding error:&error];
+		}
+		//[dbOp insertCacheFileTime:[NSDate date] urlHash:storagePath];		
+	}    
+}
+#pragma mark -
+
+
+@end

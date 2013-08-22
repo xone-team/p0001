@@ -1,0 +1,113 @@
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest
+END
+ASIHTTPRequest.m
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIHTTPRequest.m
+END
+ASINetworkQueue.h
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASINetworkQueue.h
+END
+ASICacheDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASICacheDelegate.h
+END
+ASIAuthenticationDialog.h
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIAuthenticationDialog.h
+END
+ASIProgressDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIProgressDelegate.h
+END
+ASIDownloadCache.m
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIDownloadCache.m
+END
+ASINetworkQueue.m
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASINetworkQueue.m
+END
+Reachability.h
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/Reachability.h
+END
+ASIAuthenticationDialog.m
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIAuthenticationDialog.m
+END
+ASIFormDataRequest.h
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIFormDataRequest.h
+END
+Reachability.m
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/Reachability.m
+END
+ASIInputStream.h
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIInputStream.h
+END
+ASIFormDataRequest.m
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIFormDataRequest.m
+END
+ASIHTTPRequestConfig.h
+K 25
+svn:wc:ra_dav:version-url
+V 116
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIHTTPRequestConfig.h
+END
+ASIInputStream.m
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIInputStream.m
+END
+ASIHTTPRequestDelegate.h
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIHTTPRequestDelegate.h
+END
+ASIHTTPRequest.h
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIHTTPRequest.h
+END
+ASIDownloadCache.h
+K 25
+svn:wc:ra_dav:version-url
+V 112
+/svn/outer/!svn/ver/8697/PJ-322/code/trunk/A2_MOBILE_IOS/IPHONE/Classes/core/core-httpRequest/ASIDownloadCache.h
+END
