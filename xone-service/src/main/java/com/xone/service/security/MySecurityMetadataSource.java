@@ -33,7 +33,7 @@ public class MySecurityMetadataSource implements
 	@Autowired
 	private ResourcesService resourcesService;
 
-	private String resourceType = Resources.ResourceType.BACK.getValue();
+	private String resourceType;
 
 	// 由spring调用
 	public MySecurityMetadataSource(ResourcesService resourcesService) {
@@ -46,7 +46,9 @@ public class MySecurityMetadataSource implements
 		if (resourceMap == null) {
 			resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
 			Map<String, String> params = new HashMap<String, String>();
-			params.put("resourceType", resourceType);
+			// 只读取当前应用的RESOURCES数据
+			if(resourceType != null)
+				params.put("resourceType", resourceType);
 			params.put("enable", Resources.Enable.YES.getValue());
 			Map<Resources, List<Roles>> mapResourcesRoles = getResourcesService()
 					.findMapByParams(params);

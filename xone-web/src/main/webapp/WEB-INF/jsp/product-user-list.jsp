@@ -33,30 +33,31 @@
                     <li>我的售卖发布 <span class="divider">/</span></li>
                     <li class="active">我的产品列表</li>
                 </ul>
-                <div class="accordion">
+                <div class="accordion" style="display: none;">
                     <div class="accordion-group">
                         <div class="accordion-heading">
                             <div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#queryConditions">查询条件</div>
                         </div>
                         <div id="queryConditions" class="accordion-body in collapse" style="height: auto;">
                             <div class="accordion-inner">
-                                <form id="myqueryform" action="${pageContext.request.contextPath}/product/productList.html" method="get">
-                                    <div class="row-fluid">
-                                        <div class="span5 form-horizontal">
-                                            <div class="control-group">
-                                                <label class="control-label" for="saleType">销售类型</label>
-                                                <div class="controls">
-                                                    <select class="selectpicker" id="saleType" name="product.saleType">
-                                                        <option value="">全部</option>
-                                                        <c:forEach items="${saleType}" var="it">
-                                                            <option value="${it.value}" <c:if test="${it.value == product.saleType}">selected</c:if>>${it.name}</option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                <c:choose>
+                                    <c:when test="${product.saleType == '1' }">
+                                        <form id="myqueryform" action="${pageContext.request.contextPath}/product/productSalesList.html" method="POST">
+                                            <input name="product.saleType" value="1">
+                                        </form>
+                                    </c:when>
+                                    <c:when test="${product.saleType == '2' }">
+                                        <form id="myqueryform" action="${pageContext.request.contextPath}/product/productGroupsList.html" method="POST">
+                                            <input name="product.saleType" value="2">
+                                        </form>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <form id="myqueryform" action="${pageContext.request.contextPath}/product/productNormalList.html" method="POST">
+                                            <input name="product.saleType" value="0">
+                                        </form>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </div>
                         </div>
                     </div>
@@ -95,9 +96,24 @@
                                 <td>${item.productLocation}</td>
                                 <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                 <td>${item.checkStatusName}</td>
-                                <td><a href="${pageContext.request.contextPath}/product/productEdit.html?product.id=${item.id}" class="btn btn-mini">
-                                        <i class="icon-edit"> </i>编辑
-                                    </a> <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}" class="btn btn-mini">
+                                <td><c:choose>
+                                        <c:when test="${product.saleType == '1' }">
+                                            <a href="${pageContext.request.contextPath}/product/productSalesEdit.html?product.id=${item.id}" class="btn btn-mini">
+                                                <i class="icon-edit"> </i>编辑
+                                            </a>
+                                        </c:when>
+                                        <c:when test="${product.saleType == '2' }">
+                                            <a href="${pageContext.request.contextPath}/product/productGroupsEdit.html?product.id=${item.id}" class="btn btn-mini">
+                                                <i class="icon-edit"> </i>编辑
+                                            </a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="${pageContext.request.contextPath}/product/productNormalEdit.html?product.id=${item.id}" class="btn btn-mini">
+                                                <i class="icon-edit"> </i>编辑
+                                            </a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}" class="btn btn-mini">
                                         <i class="icon-list-alt"> </i>详细
                                     </a></td>
                             </tr>

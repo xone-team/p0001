@@ -32,12 +32,12 @@
 		<div id="${identify}_2" class="accordion-body in collapse" style="height: auto;">
 			<div class="accordion-inner">
 				<ul class="nav nav-list">
-					<li <c:if test="${param.menuindex == '6'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productCreateNormal.html" class="well well-small clearmarginbottom">产品发布</a></li>
-					<li <c:if test="${param.menuindex == '7'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productCreateSales.html" class="well well-small clearmarginbottom">促销发布</a></li>
-					<li <c:if test="${param.menuindex == '8'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productCreateGroup.html" class="well well-small clearmarginbottom">组团发布</a></li>
-					<li <c:if test="${param.menuindex == '9'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productList.html" class="well well-small clearmarginbottom">产品发布列表</a></li>
-					<li <c:if test="${param.menuindex == '10'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productList.html?product.saleType=1" class="well well-small clearmarginbottom">促销发布列表</a></li>
-					<li <c:if test="${param.menuindex == '11'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productList.html?product.saleType=2" class="well well-small clearmarginbottom">组团发布列表</a></li>
+					<li <c:if test="${param.menuindex == '6'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productNormalCreate.html" class="well well-small clearmarginbottom">产品发布</a></li>
+					<li <c:if test="${param.menuindex == '7'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productSalesCreate.html" class="well well-small clearmarginbottom">促销发布</a></li>
+					<li <c:if test="${param.menuindex == '8'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productGroupsCreate.html" class="well well-small clearmarginbottom">组团发布</a></li>
+					<li <c:if test="${param.menuindex == '9'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productNormalList.html" class="well well-small clearmarginbottom">产品发布列表</a></li>
+					<li <c:if test="${param.menuindex == '10'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productSalesList.html" class="well well-small clearmarginbottom">促销发布列表</a></li>
+					<li <c:if test="${param.menuindex == '11'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productGroupsList.html" class="well well-small clearmarginbottom">组团发布列表</a></li>
 				</ul>
 			</div>
 		</div>

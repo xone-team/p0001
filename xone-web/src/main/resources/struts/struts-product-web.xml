@@ -13,19 +13,28 @@
         <action name="item" class="productWebAction" method="item">
             <result name="success">/WEB-INF/jsp/product-item.jsp</result>
         </action>
-        <action name="productList" class="productWebAction" method="productList">
+<!--         <action name="productList" class="productWebAction" method="productList">
+            <result name="success">/WEB-INF/jsp/product-user-list.jsp</result>
+        </action> -->
+        <action name="productNormalList" class="productWebAction" method="productNormalList">
+            <result name="success">/WEB-INF/jsp/product-user-list.jsp</result>
+        </action>
+        <action name="productSalesList" class="productWebAction" method="productSalesList">
+            <result name="success">/WEB-INF/jsp/product-user-list.jsp</result>
+        </action>
+        <action name="productGroupsList" class="productWebAction" method="productGroupsList">
             <result name="success">/WEB-INF/jsp/product-user-list.jsp</result>
         </action>
         <action name="productCreate" class="productWebAction" method="productCreate">
             <result name="success">/WEB-INF/jsp/product-create.jsp</result>
         </action>
-        <action name="productCreateNormal" class="productWebAction" method="productCreateNormal">
+        <action name="productNormalCreate" class="productWebAction" method="productNormalCreate">
             <result name="success">/WEB-INF/jsp/product-create.jsp</result>
         </action>
-        <action name="productCreateSales" class="productWebAction" method="productCreateSales">
+        <action name="productSalesCreate" class="productWebAction" method="productSalesCreate">
             <result name="success">/WEB-INF/jsp/product-create.jsp</result>
         </action>
-        <action name="productCreateGroup" class="productWebAction" method="productCreateGroups">
+        <action name="productGroupsCreate" class="productWebAction" method="productGroupsCreate">
             <result name="success">/WEB-INF/jsp/product-create.jsp</result>
         </action>
         <action name="productSave" class="productWebAction" method="productSave">
@@ -43,7 +52,16 @@
             </result>
             <result name="input">/WEB-INF/jsp/product-create.jsp</result>
         </action>
-        <action name="productEdit" class="productWebAction" method="productEdit">
+<!--         <action name="productEdit" class="productWebAction" method="productEdit">
+            <result name="success">/WEB-INF/jsp/product-edit.jsp</result>
+        </action> -->
+        <action name="productNormalEdit" class="productWebAction" method="productEdit">
+            <result name="success">/WEB-INF/jsp/product-edit.jsp</result>
+        </action>
+        <action name="productSalesEdit" class="productWebAction" method="productEdit">
+            <result name="success">/WEB-INF/jsp/product-edit.jsp</result>
+        </action>
+        <action name="productGroupsEdit" class="productWebAction" method="productEdit">
             <result name="success">/WEB-INF/jsp/product-edit.jsp</result>
         </action>
         <action name="productUpdate" class="productWebAction" method="productUpdate">

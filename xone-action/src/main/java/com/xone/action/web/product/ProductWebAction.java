@@ -103,6 +103,24 @@ public class ProductWebAction extends LogicAction {
 		return SUCCESS;
 	}
 
+	public String productNormalList() throws Exception {
+		product.setSaleType(Product.SaleType.NORMAL.getValue());
+
+		return productList();
+	}
+	
+	public String productSalesList() throws Exception {
+		product.setSaleType(Product.SaleType.SALES.getValue());
+		
+		return productList();
+	}
+	
+	public String productGroupsList() throws Exception {
+		product.setSaleType(Product.SaleType.GROUPS.getValue());
+		
+		return productList();
+	}
+
 	public String productListAjax() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
 		MyBeanUtils.copyPropertiesToMap(getProduct(), params, new CopyRules() {
@@ -151,16 +169,16 @@ public class ProductWebAction extends LogicAction {
 
 		return SUCCESS;
 	}
-
-	public String productCreateNormal() throws Exception {
+	
+	public String productNormalCreate() throws Exception {
 		product.setSaleType(Product.SaleType.NORMAL.getValue());
 		product.setProductNum("0");
 		product.setProductPrice("0");
-
+		
 		return SUCCESS;
 	}
 
-	public String productCreateSales() throws Exception {
+	public String productSalesCreate() throws Exception {
 		product.setSaleType(Product.SaleType.SALES.getValue());
 		product.setProductNum("0");
 		product.setProductPrice("0");
@@ -168,7 +186,7 @@ public class ProductWebAction extends LogicAction {
 		return SUCCESS;
 	}
 
-	public String productCreateGroups() throws Exception {
+	public String productGroupsCreate() throws Exception {
 		product.setSaleType(Product.SaleType.GROUPS.getValue());
 		product.setProductNum("0");
 		product.setProductPrice("0");
