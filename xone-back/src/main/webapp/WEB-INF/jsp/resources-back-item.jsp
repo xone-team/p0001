@@ -40,7 +40,7 @@
 						</tr>
 						<tr>
 							<td style="width:60px;">资源类型</td>
-							<td>${resources.resourceType}</td>
+							<td>${resources.resourceTypeName}</td>
 						</tr>
 						<tr>
 							<td style="width:60px;">优先级</td>

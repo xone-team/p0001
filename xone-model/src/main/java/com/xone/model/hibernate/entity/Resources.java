@@ -19,12 +19,12 @@ public class Resources extends MyModel implements Serializable {
 	protected Long userUpdated;
 	protected Date lastUpdated;
 	
-	public enum Enable {
-        YES("1", "可用"), NO("0", "不可用");
+	public enum ResourceType {
+        BACK("1", "后台"), WEB("2", "网站"), APP("3", "移动");
         protected String value;
         protected String name;
 
-        private Enable(String v, String n) {
+        private ResourceType(String v, String n) {
             this.value = v;
             this.name = n;
         }
@@ -38,15 +38,45 @@ public class Resources extends MyModel implements Serializable {
         }
     }
     
-    public String getEnableName(){
+    public String getResourceTypeName(){
         String result = null;
-        for (Enable e : Enable.values()) {
-            if(e.getValue().equals(this.enable)){
+        for (ResourceType e : ResourceType.values()) {
+            if(e.getValue().equals(this.resourceType)){
                 result = e.getName();
                 break;
             }
         }
         return result == null ? UNKNOWN_STATUS_NAME : result;
+    }
+    
+    public enum Enable {
+      YES("1", "可用"), NO("0", "不可用");
+      protected String value;
+      protected String name;
+      
+      private Enable(String v, String n) {
+        this.value = v;
+        this.name = n;
+      }
+      
+      public String getValue() {
+        return this.value;
+      }
+      
+      public String getName() {
+        return this.name;
+      }
+    }
+    
+    public String getEnableName(){
+      String result = null;
+      for (Enable e : Enable.values()) {
+        if(e.getValue().equals(this.enable)){
+          result = e.getName();
+          break;
+        }
+      }
+      return result == null ? UNKNOWN_STATUS_NAME : result;
     }
 	
     // business logic
