@@ -16,6 +16,11 @@
     <jsp:include page="common-nav.jsp"></jsp:include>
     <div class="container-fluid">
         <div class="row-fluid" id="X_bodyContainer">
+            <c:if test="${errorType == 1 }">
+            <div class="alert alert-fail">
+                <center>您没有权限访问该资源</center>
+            </div>
+            </c:if>
             <div class="hero-unit">
                 <form class="form-horizontal" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
                     <div class="control-group">

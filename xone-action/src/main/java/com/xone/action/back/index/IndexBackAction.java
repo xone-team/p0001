@@ -27,6 +27,7 @@ public class IndexBackAction extends Action {
     protected String lastname;
     protected String message;
     protected String name;
+    protected String errorType;
     protected List<Person> list = new ArrayList<Person>();
     
     
@@ -157,5 +158,13 @@ public class IndexBackAction extends Action {
     public void setPersonService(PersonService personService) {
         this.personService = personService;
     }
+
+	public String getErrorType() {
+		return errorType;
+	}
+
+	public void setErrorType(String errorType) {
+		this.errorType = errorType;
+	}
 
 }

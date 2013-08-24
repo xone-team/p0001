@@ -149,8 +149,8 @@
                         <input type="file" id="uploadImageFile1" name="uploadFile1" value="">
                         <input type="file" id="uploadImageFile2" name="uploadFile2" value="">
                         <input type="file" id="uploadImageFile3" name="uploadFile3" value="">
-                        <c:forEach items="${product.ids}" var="it">
-                            <input type="hidden" name="product.ids" value="${it}">
+                        <c:forEach items="${product.ids}" var="it" varStatus="status">
+                            <input type="hidden" id="imageId${status.index + 1}" name="product.ids" value="${it}">
                         </c:forEach>
                     </div>
 
@@ -212,6 +212,7 @@
                 var result = it.data('base64source');
                 div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage1();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
                 $('div.uploadimagesdiv1').html('').append(div);
+                $('#imageId1').remove();
             }
         });
         $('#uploadImageFile2[type="file"]').fileupload({
@@ -220,6 +221,7 @@
                 var result = it.data('base64source');
                 div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage2();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
                 $('div.uploadimagesdiv2').html('').append(div);
+                $('#imageId2').remove();
             }
         });
         $('#uploadImageFile3[type="file"]').fileupload({
@@ -228,6 +230,7 @@
                 var result = it.data('base64source');
                 div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeProductDynamicImage3();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadproductdynamicimage" src="', result, '"/></div>' ].join('');
                 $('div.uploadimagesdiv3').html('').append(div);
+                $('#imageId3').remove();
             }
         });
 
