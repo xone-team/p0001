@@ -14,8 +14,13 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.xone.model.hibernate.app.RolesDao;
 import com.xone.model.hibernate.app.UserDao;
+import com.xone.model.hibernate.app.UserRolesDao;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.Roles;
+import com.xone.model.hibernate.entity.RolesResources;
+import com.xone.model.hibernate.entity.UserRoles;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.utils.EncryptRef;
 
@@ -24,6 +29,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     protected UserDao userDao;
+    
+    @Autowired
+    protected RolesDao rolesDao;
+    
+    @Autowired
+    protected UserRolesDao userRolesDao;
 
     @Override
     public Person save(Person entity) {
@@ -34,6 +45,28 @@ public class UserServiceImpl implements UserService {
             entity.setPassword(EncryptRef.SHA1(entity.getPassword()));
         }
         return getUserDao().save(entity);
+    }
+    
+    @Override
+    public Person saveMember(Person entity) {
+    	Date date = new Date();
+    	entity.setDateApply(date);
+    	entity.setFlagDeleted(Person.FlagDeleted.NORMAL.getValue());
+    	if(entity.getPassword() != null){
+    		entity.setPassword(EncryptRef.SHA1(entity.getPassword()));
+    	}
+    	
+    	getUserDao().save(entity);
+    	
+    	// add member role
+    	Roles memberRole = rolesDao.findUniqueByProperty("name", "MEMBER");
+    	UserRoles userRoles = new UserRoles();
+    	userRoles.setUserId(entity.getId());
+    	userRoles.setRoleId(memberRole.getId());
+    	userRoles.setEnable(UserRoles.Enable.YES.getValue());
+    	userRolesDao.save(userRoles);
+    	
+    	return entity;
     }
 
     @Override
@@ -80,7 +113,7 @@ public class UserServiceImpl implements UserService {
         }
         String username = params.get("username");
         if (!StringUtils.isBlank(username)) {
-            criteria.add(Restrictions.like("username", "%" + username + "%"));
+            criteria.add(Restrictions.eq("username", username));
         }
         String password = params.get("password");
         if (!StringUtils.isBlank(password)) {
@@ -214,4 +247,21 @@ public class UserServiceImpl implements UserService {
         this.userDao = userDao;
     }
 
+	public RolesDao getRolesDao() {
+		return rolesDao;
+	}
+
+	public void setRolesDao(RolesDao rolesDao) {
+		this.rolesDao = rolesDao;
+	}
+
+	public UserRolesDao getUserRolesDao() {
+		return userRolesDao;
+	}
+
+	public void setUserRolesDao(UserRolesDao userRolesDao) {
+		this.userRolesDao = userRolesDao;
+	}
+
+    
 }

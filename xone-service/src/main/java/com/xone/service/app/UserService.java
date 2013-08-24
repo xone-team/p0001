@@ -19,5 +19,7 @@ public interface UserService {
 	public List<Person> findAllByMap(Map<String, String> params);
 	
 	public Pagination findByParams(Map<String, String> params);
+
+	public Person saveMember(Person entity);
 	
 }

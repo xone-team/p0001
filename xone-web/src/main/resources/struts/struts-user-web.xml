@@ -3,38 +3,43 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="user" namespace="/user" extends="default">
-	    <global-results>
-            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+    <package name="user" namespace="/user" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
         </global-results>
-<!-- 		<action name="userList" class="userWebAction" method="userList">
-			<result name="success">/WEB-INF/jsp/user-list.jsp</result>
-		</action> -->
-		<action name="userCreate" class="userWebAction" method="userCreate">
-			<result name="success">/WEB-INF/jsp/user-create.jsp</result>
-		</action>
-		<action name="userSave" class="userWebAction" method="userSave">
-			<result name="success">/WEB-INF/jsp/user-item.jsp</result>
-		</action>
-		<action name="userEdit" class="userWebAction" method="userEdit">
-			<result name="success">/WEB-INF/jsp/user-edit.jsp</result>
-		</action>
-		<action name="userUpdate" class="userWebAction" method="userUpdate">
-			<result name="success" type="redirectAction">
+        <!-- <action name="userList" class="userWebAction" method="userList"> <result name="success">/WEB-INF/jsp/user-list.jsp</result> </action> -->
+        <action name="userCreate" class="userWebAction" method="userCreate">
+            <result name="success">/WEB-INF/jsp/user-create.jsp</result>
+        </action>
+        <action name="userSave" class="userWebAction" method="userSave">
+            <result name="success">/WEB-INF/jsp/user-item.jsp</result>
+        </action>
+        <action name="userEdit" class="userWebAction" method="userEdit">
+            <result name="success">/WEB-INF/jsp/user-edit.jsp</result>
+        </action>
+        <action name="userUpdate" class="userWebAction" method="userUpdate">
+            <result name="success" type="redirectAction">
                 <param name="actionName">userItem</param>
                 <param name="namespace">/user</param>
             </result>
-			<result name="error" type="redirectAction">
+            <result name="error" type="redirectAction">
                 <param name="actionName">userItem</param>
                 <param name="namespace">/user</param>
             </result>
-<!-- 			<result name="list" type="chain">
-			    <param name="actionName">userList</param> 
-    			<param name="namespace">/user</param>
-			</result> -->
-		</action>
-		<action name="userItem" class="userWebAction" method="userItem">
-			<result name="success">/WEB-INF/jsp/user-item.jsp</result>
-		</action>
-	</package>
+            <!-- <result name="list" type="chain"> <param name="actionName">userList</param> <param name="namespace">/user</param> </result> -->
+        </action>
+        <action name="userItem" class="userWebAction" method="userItem">
+            <result name="success">/WEB-INF/jsp/user-item.jsp</result>
+        </action>
+        <action name="register" class="userWebAction" method="register">
+            <result name="success">/WEB-INF/jsp/register.jsp</result>
+        </action>
+        <action name="registerSave" class="userWebAction" method="userSave">
+            <result name="input">/WEB-INF/jsp/register.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">login.html</param>
+                <param name="namespace">/admin</param>
+            </result>
+        </action>
+    </package>
 </struts>

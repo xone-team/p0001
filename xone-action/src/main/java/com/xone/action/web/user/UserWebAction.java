@@ -12,17 +12,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.Action;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.service.app.RolesService;
 import com.xone.service.app.UserService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 
 public class UserWebAction extends Action {
 
-    @Autowired
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -881027609944260400L;
+	@Autowired
     protected UserService userService;
     protected Person user = new Person();
     protected List<Person> list = new ArrayList<Person>();
     protected Pagination pagination = new Pagination();
+    
+    protected RolesService rolesService;
 
     public Enum<?>[] getFlagDeleted() {
         return Person.FlagDeleted.values();
@@ -36,6 +43,11 @@ public class UserWebAction extends Action {
         return Person.UserLevel.values();
     }
 
+	
+	public String register() throws Exception {
+		return SUCCESS;
+	}
+    
     public String userList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
         params.put("pageSize", String.valueOf(getPagination().getPageSize()));
@@ -78,6 +90,26 @@ public class UserWebAction extends Action {
     }
 
     public String userSave() throws Exception {
+        if (!"POST".equalsIgnoreCase(getRequest().getMethod())) {
+            return INPUT;
+        }
+        
+        if(getUser().getUsername() == null || getUser().getUsername().trim().length() > 20 || getUser().getUsername().trim().length() < 6 ){
+        	addFieldError("user.username", "请输入用户名，长度在6－20位之间");
+        	return INPUT;
+        }
+        if(getUser().getPassword() == null || getUser().getPassword().trim().length() > 20 || getUser().getPassword().trim().length() < 6 ){
+        	addFieldError("user.password", "请输入密码，长度在6－20位之间");
+        	return INPUT;
+        }
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("username", getUser().getUsername().trim());
+        List<Person> l = userService.findAllByMap(params);
+        if(l.size() > 0){
+        	addFieldError("user.username", "用户名［"+getUser().getUsername().trim()+"］已存在，请换一个用户名");
+        	return INPUT;
+        }
+    	
         getUser().setCredit(Person.Credit.NO.getValue());
         getUser().setUserLevel(Person.UserLevel.C.getValue());
 
@@ -87,7 +119,8 @@ public class UserWebAction extends Action {
         getUser().setUserApply(getUserId());
         getUser().setDateApply(new Date());
 
-        setUser(getUserService().save(getUser()));
+        setUser(getUserService().saveMember(getUser()));
+        
         return SUCCESS;
     }
 
@@ -160,4 +193,14 @@ public class UserWebAction extends Action {
     public void setPagination(Pagination pagination) {
         this.pagination = pagination;
     }
+
+	public RolesService getRolesService() {
+		return rolesService;
+	}
+
+	public void setRolesService(RolesService rolesService) {
+		this.rolesService = rolesService;
+	}
+    
+    
 }

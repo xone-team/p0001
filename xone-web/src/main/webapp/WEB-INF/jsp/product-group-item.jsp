@@ -17,7 +17,7 @@
     <div class="container">
         <div class="row">
             <div class="span3">
-                <jsp:include page="user-center-menu.jsp"><jsp:param value="19" name="menuindex" /></jsp:include>
+                <jsp:include page="user-center-menu.jsp"><jsp:param value="22" name="menuindex" /></jsp:include>
             </div>
             <div class="span9">
                 <ul class="breadcrumb">

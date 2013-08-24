@@ -32,7 +32,6 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <input type="button" value="注册用户" class="btn" />
                             <button type="submit" class="btn">确认登录</button>
                         </div>
                     </div>

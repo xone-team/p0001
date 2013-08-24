@@ -3,7 +3,9 @@ package com.xone.model.hibernate.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class UserRoles implements Serializable {
+import com.xone.model.hibernate.entity.Roles.Enable;
+
+public class UserRoles extends MyModel implements Serializable {
 	
 	private static final long serialVersionUID = 5404438783440930138L;
 	
@@ -22,7 +24,37 @@ public class UserRoles implements Serializable {
     protected String lastUpdatedMin;
     protected String lastUpdatedMax;
 	
-	
+    public enum Enable {
+        YES("1", "可用"), NO("0", "不可用");
+        protected String value;
+        protected String name;
+
+        private Enable(String v, String n) {
+            this.value = v;
+            this.name = n;
+        }
+
+        public String getValue() {
+            return this.value;
+        }
+
+        public String getName() {
+            return this.name;
+        }
+    }
+
+    public String getEnableName() {
+        String result = null;
+        for (Enable e : Enable.values()) {
+            if (e.getValue().equals(this.enable)) {
+                result = e.getName();
+                break;
+            }
+        }
+        return result == null ? UNKNOWN_STATUS_NAME : result;
+    }
+    
+    
 	public Long getId() {
 		return id;
 	}

@@ -12,13 +12,16 @@
     <http pattern="/css/**" security="none"></http>
     <http pattern="/images/**" security="none"></http>
     <http pattern="/admin/login.html**" security="none"></http>
-    <http pattern="/*.html" security="none"></http>
+    <http pattern="/user/register**" security="none"></http>
+    <http pattern="/*.html**" security="none"></http>
+    <http pattern="/*.jsp**" security="none"></http>
     <http pattern="/product/list.html**" security="none"></http>
     <http pattern="/product/item.html**" security="none"></http>
     <http pattern="/purchase/list.html**" security="none"></http>
     <http pattern="/purchase/item.html**" security="none"></http>
     <http pattern="/assistant/image.html**" security="none"></http>
     <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint">
+        <access-denied-handler error-page="/" />
         <logout />
         <!-- 实现免登陆验证 -->
         <!-- <remember-me /> -->
