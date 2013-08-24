@@ -8,7 +8,10 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.SecurityMetadataSource;
 import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.access.intercept.InterceptorStatusToken;
@@ -31,7 +34,15 @@ public class MySecurityFilter extends AbstractSecurityInterceptor implements
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		FilterInvocation fi = new FilterInvocation(request, response, chain);
-		invoke(fi);
+		try {
+			invoke(fi);
+		} catch (AccessDeniedException e) {
+			HttpServletResponse r = (HttpServletResponse) response;
+//			r.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			HttpServletRequest req = (HttpServletRequest) request;
+			r.sendRedirect(req.getContextPath() + "/console/login.html");
+		}
+
 	}
 
 	private void invoke(FilterInvocation fi) throws IOException,
@@ -44,8 +55,9 @@ public class MySecurityFilter extends AbstractSecurityInterceptor implements
 		// 2.是否拥有权限
 		// this.accessDecisionManager.decide(authenticated, object, attributes);
 		InterceptorStatusToken token = super.beforeInvocation(fi);
-//		核心的InterceptorStatusToken token = super.beforeInvocation(fi);
-//		会调用我们定义的accessDecisionManager:decide(Object object)和securityMetadataSource:getAttributes(Object object)方法。
+		// 核心的InterceptorStatusToken token = super.beforeInvocation(fi);
+		// 会调用我们定义的accessDecisionManager:decide(Object
+		// object)和securityMetadataSource:getAttributes(Object object)方法。
 		try {
 			fi.getChain().doFilter(fi.getRequest(), fi.getResponse());
 		} finally {
@@ -60,8 +72,8 @@ public class MySecurityFilter extends AbstractSecurityInterceptor implements
 
 	@Override
 	public Class<?> getSecureObjectClass() {
-		//下面的MyAccessDecisionManager的supports方面必须放回true,否则会提醒类型错误  
-        return FilterInvocation.class;
+		// 下面的MyAccessDecisionManager的supports方面必须放回true,否则会提醒类型错误
+		return FilterInvocation.class;
 	}
 
 	@Override

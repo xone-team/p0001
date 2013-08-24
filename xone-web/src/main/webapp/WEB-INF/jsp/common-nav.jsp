@@ -31,12 +31,11 @@
                             </p>
                         </c:when>
                         <c:otherwise>
-                            <form class="form-inline inline" type="post" action="${pageContext.request.contextPath}/j_spring_security_check">
-                                <input type="text" class="input-small" value="15800000000" placeholder="用户名">
-                                <input type="password" class="input-small" value="hunny@admin" placeholder="密码">
-                                <label class="checkbox"> </label>
+                            <form class="form-inline inline" method="post" action="${pageContext.request.contextPath}/j_spring_security_check">
+                                <input type="text" name="username" class="input-small" value="15800000000" placeholder="用户名">
+                                <input type="password" name="password" class="input-small" value="hunny@admin" placeholder="密码">
                                 <button type="submit" class="btn btn-warning inline">登录</button>
-                                <button type="submit" class="btn btn-warning inline">注册</button>
+                                <a href="${pageContext.request.contextPath}/user/register.html" class="btn btn-warning inline">注册</a>
                             </form>
                         </c:otherwise>
                     </c:choose>

@@ -32,7 +32,7 @@
 				</div>
 				<div class="control-group">
 					<div class="controls">
-						<input type="button" value="注册用户" class="btn"/>
+						<a href="${pageContext.request.contextPath}/user/register.html" class="btn">注册用户</a>
 						<button type="submit" class="btn">确认登录</button>
 					</div>
 				</div>

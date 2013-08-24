@@ -13,6 +13,8 @@ import com.xone.model.hibernate.generic.AbstractHibernateDao;
 import com.xone.model.utils.MyModelUtils;
 
 public class PersonDaoImpl extends AbstractHibernateDao<Person> implements PersonDao {
+	
+	
 
 	@Override
 	public List<Person> findAllByName(String username, int fetchSize, int maxResults) {

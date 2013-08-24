@@ -20,9 +20,9 @@
 
                 </p>
                 <ul class="nav">
-                    <li><a href="#">首页</a></li>
+                    <li><a href="/xone-web">首页</a></li>
                     <li class="active"><a href="<c:url value="/console/index.html"/>">后台</a></li>
-                    <li><a href="#about">关于</a></li>
+                    <li><a href="/xone-web/about.html">关于</a></li>
                     <li><a href="#contact">联系</a></li>
                 </ul>
             </div>

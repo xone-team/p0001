@@ -3,6 +3,7 @@ package com.xone.service.app;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.PersonDao;
+import com.xone.model.hibernate.app.RolesDao;
+import com.xone.model.hibernate.app.UserRolesDao;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.Roles;
+import com.xone.model.hibernate.entity.UserRoles;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.utils.EncryptRef;
 
@@ -25,17 +30,76 @@ public class PersonServiceImpl implements PersonService {
 
     @Autowired
     protected PersonDao personDao;
+    
+    @Autowired
+    protected RolesDao rolesDao;
+    
+    @Autowired
+    protected UserRolesDao userRolesDao;
 
     @Override
     public Person save(Person entity) {
-        Date date = new Date();
-        entity.setDateApply(date);
-        
-        entity.setFlagDeleted(Person.FlagDeleted.NORMAL.getValue());
-        if(entity.getPassword() != null){
-            entity.setPassword(EncryptRef.SHA1(entity.getPassword()));
-        }
-        return getPersonDao().save(entity);
+    	Date date = new Date();
+    	entity.setDateApply(date);
+    	entity.setFlagDeleted(Person.FlagDeleted.NORMAL.getValue());
+    	if(entity.getPassword() != null){
+    		entity.setPassword(EncryptRef.SHA1(entity.getPassword()));
+    	}
+    	
+    	personDao.save(entity);
+    	
+    	handleRoles(entity);
+    	
+    	return entity;
+    }
+    
+    private void handleRoles(Person entity){
+       	addRole(entity.getId(), "MEMBER");
+    	if(Person.Credit.YES.getValue().equals(entity.getCredit())){
+    		addRole(entity.getId(), "MEMBER-CREDIT");
+    	}
+    	deleteRole(entity.getId(), "MEMBER-C");
+    	deleteRole(entity.getId(), "MEMBER-B");
+    	deleteRole(entity.getId(), "MEMBER-A");
+    	if(Person.UserLevel.A.getValue().equals(entity.getCredit())){
+    		addRole(entity.getId(), "MEMBER-A");
+    	}
+    	if(Person.UserLevel.B.getValue().equals(entity.getCredit())){
+    		addRole(entity.getId(), "MEMBER-B");
+    	}
+    	if(Person.UserLevel.C.getValue().equals(entity.getCredit())){
+    		addRole(entity.getId(), "MEMBER-C");
+    	}
+    }
+    
+    private void addRole(Long userId, String roleName){
+    	Roles roleToAdd = rolesDao.findUniqueByProperty("name", roleName);
+    	DetachedCriteria c = DetachedCriteria.forClass(UserRoles.class);
+    	c.add(Restrictions.eq("userId", userId));
+    	c.add(Restrictions.eq("roleId", roleToAdd.getId()));
+    	List<UserRoles> memberUserRoles = userRolesDao.findListByDetachedCriteria(c, -1, -1);
+    	if(memberUserRoles.size() < 1){
+        	UserRoles userRoles = new UserRoles();
+        	userRoles.setUserId(userId);
+        	userRoles.setRoleId(roleToAdd.getId());
+        	userRoles.setEnable(UserRoles.Enable.YES.getValue());
+        	userRolesDao.save(userRoles);
+    	}
+    }
+    
+    private void deleteRole(Long userId, String roleName){
+    	Roles roleToDelete = rolesDao.findUniqueByProperty("name", roleName);
+    	DetachedCriteria c = DetachedCriteria.forClass(UserRoles.class);
+    	c.add(Restrictions.eq("userId", userId));
+    	c.add(Restrictions.eq("roleId", roleToDelete.getId()));
+    	List<UserRoles> memberUserRoles = userRolesDao.findListByDetachedCriteria(c, -1, -1);
+    	if(memberUserRoles.size() > 0){
+    		for (Iterator iterator = memberUserRoles.iterator(); iterator
+					.hasNext();) {
+				UserRoles userRoles = (UserRoles) iterator.next();
+				userRolesDao.delete(userRoles);
+			}
+    	}
     }
 
     @Override
@@ -43,7 +107,9 @@ public class PersonServiceImpl implements PersonService {
         if(entity.getRepassword() != null){
             entity.setPassword(EncryptRef.SHA1(entity.getRepassword()));
         }
-        return getPersonDao().update(entity);
+        getPersonDao().update(entity);
+        handleRoles(entity);
+        return entity;
     }
 
     @Override
@@ -285,4 +351,20 @@ public class PersonServiceImpl implements PersonService {
         this.personDao = personDao;
     }
 
+	public RolesDao getRolesDao() {
+		return rolesDao;
+	}
+
+	public void setRolesDao(RolesDao rolesDao) {
+		this.rolesDao = rolesDao;
+	}
+
+	public UserRolesDao getUserRolesDao() {
+		return userRolesDao;
+	}
+
+	public void setUserRolesDao(UserRolesDao userRolesDao) {
+		this.userRolesDao = userRolesDao;
+	}
+    
 }
