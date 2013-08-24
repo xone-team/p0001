@@ -31,6 +31,10 @@
 					}
 					continue;
 				}
+//				if (f.size > 1024 * 1024) {
+//					$.myAlert('图片尺寸太大，图片大小应该小于1M.');
+//					continue;
+//				}
 				var reader = new FileReader();
 				reader.onload = (function(theFile) {
 					return function(e) {

@@ -97,9 +97,11 @@
 					</li>
 					<c:forEach var="item" items="${product.ids}" varStatus="i">
 					<li data-role="none" style="padding:0px;">
-						<div class="productupdatepage">
-							<a href="#" onclick="return removeUpdateItemDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>
-							<img class="uploadupdateitemdynamicimage" width="100%" height="100%" src="${pageContext.request.contextPath}/assistant/image.html?id=${item}"/>
+						<div class="mybuttonarea" data-role="controlgroup" data-type="horizontal" data-mini="true" align="right">
+							<a href="#" onclick="return removeUpdateItemDynamicImage(this);" data-role="button" data-theme="b" data-icon="delete" title="删除图片">删除图片</a>
+						</div>
+						<div class="uploadupdateitemdynamicimagediv">
+							<img class="uploadupdateitemdynamicimageserver" width="100%" height="100%" src="${pageContext.request.contextPath}/assistant/image.html?id=${item}"/>
 							<input type="hidden" name="product.ids[${i.index}]" value="${item}" />
 						</div>
 					</li>
@@ -114,9 +116,7 @@
 				});
 				$('div.productupdateitempage').bind('pageinit', function() {
 					var width = $('div.productupdateitempage').width() - 11;
-					var css = ['<style type="text/css">div.productupdatepage {text-align:center;height:', width, 'px;width:', width, 'px;}',
-					           'div.productupdatepage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
-					'<\/style>'];
+					var css = ['<style type="text/css">div.uploadupdateitemdynamicimagediv {text-align:center;height:', width, 'px;width:', width, 'px;}', '<\/style>'];
 					$('div.productupdateitempage').append(css.join(''));
 					var productType = $('select[name="product.productType"] option[value="${product.productType}"]').attr('selected', 'selected');
 					$('select[name="product.productType"]').siblings('span.ui-btn-inner').find('span.ui-btn-text span').text(productType.text());
@@ -177,7 +177,7 @@
 					$('input.uploadUpdateItemImageFileButtonUpdateItem${myid}').click(function(e) {
 						e.preventDefault();
 						$('form li.errorli').remove();
-						if ($('img.uploadupdateitemdynamicimage').length >= 3) {
+						if ($('div.uploadupdateitemdynamicimagediv').length >= 3) {
 							$('<li class="errorli"><div class="error ui-btn-inner">一个产品最多只能发布3张图片.</div></li>').insertBefore('li.publishupdateitemformbutton');
 							$('ul.productupdateitemlistview${myid}').listview('refresh');
 							return false;
@@ -199,17 +199,40 @@
 							return true;
 						},
 						load: function(base64, imgType) {
-							var div = document.createElement('div');
-							div.className = 'productupdatepage';
-							div.innerHTML = [
-									'<a href="#" onclick="return removeUpdateItemDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
-									'<img class="uploadupdateitemdynamicimage" width="100%" height="100%" src="',
-									base64, '" title="', 'upload image', '"/>',
-									'<input type="hidden" name="images" value="', base64, '" />' ]
-									.join('');
 							var listview = $('ul.productupdateitemlistview${myid}');
-							listview.append('<li data-role="none" style="padding:0px;"></li>');
-							listview.find('li').last().append(div);
+							listview.append('<li style="padding:0px;"></li>');
+							listview.find('li').last().append($.myImagePart({
+								imgClassName: 'uploadupdateitemdynamicimage',
+								base64: base64,
+								removeImage: function(e) {
+									e.preventDefault();
+									$(e.target).closest('li').remove();
+									$('ul.productupdateitemlistview${myid}').listview('refresh');
+									$('#uploadUpdateItemImageFile${myid}').val('');
+									return false;
+								}
+							})).trigger('create');
+							$('img.uploadupdateitemdynamicimage').myxoneimage({
+								init: true,
+								maxHeight: width,
+								maxWidth: width,
+								canvascomplete: function(event, image, canvas) {
+									var $this = $(image);
+									var imageType = $.getImageTypeByHtmlImage(image);
+									var base64 = canvas.toDataURL(imageType);
+									var imgid = $this.data('imageid');
+									img = document.getElementById(imgid);
+									if (null == img) {
+										img = $this.data('image');
+										img.setAttribute('width', '100%');
+										img.setAttribute('height', '100%');
+										image.parentNode.appendChild(img);
+										$this.hide();
+									}
+									$this.closest('li').find('input[name="images"]').val(base64);
+									img.src = base64;
+								}
+							});
 							listview.listview('refresh');
 						}
 					});

@@ -1,100 +1,100 @@
 (function($) {
+	//插件的默认值
+	var defaults = {
+		init: false,
+		maxHeight: 100,
+		maxWidth: 100,
+		canvascomplete: function(event, image, canvas) {
+			var $this = $(image);
+			var imageType = $.getImageTypeByHtmlImage(image);
+			var base64 = canvas.toDataURL(imageType);
+			var imgid = $this.data('imageid');
+			img = document.getElementById(imgid);
+			if (null == img) {
+				img = $this.data('image');
+				var div = document.createElement('div');
+				div.style.border = '1px solid green';
+				div.style.width = '100%';
+				img.setAttribute('width', 100);
+				img.setAttribute('height', 100);
+				div.appendChild(img);
+				image.parentNode.appendChild(div);
+				$this.hide();
+			}
+			img.src = base64;
+		},
+		initimage: function(id) {
+			var img = document.getElementById(id);
+			if (null == img) {
+				img = document.createElement('img');
+				img.setAttribute('id', id);
+			}
+			return img;
+		}
+	};
 	//定义插件
-	$.fn.myimagerotate = function(options) {
-		var opts = $.extend({}, $.fn.myimagerotate.defaults, options);
+	$.fn.myxoneimage = function(options) {
+		var opts = $.extend({}, defaults, options);
 		return this.each(function() {
 			var tagName = this.tagName.toLowerCase();
 			if ('img' != tagName) {
 				return;
 			}
 			var $this = $(this);
-			if ($this.data('canvas')) {//已经执行过，不需要再执行
-				return;
-			}
+			$this.parent().append('<span class="mypicloading">图片加载中，请稍候...</span>');
 			preImage(this,  function() {
-				var width = $this.width();
-				if ($(window).width() < width) {
-					width = $(window).width();
+				if (!$this.data('initcompleted')) {
+					if ($.isFunction(opts.canvascomplete)) {
+						$this.bind('canvascomplete', function(event, image, canvas) {
+							opts.canvascomplete(event, image, canvas);
+						});
+					}
+					$this.bind('imagerotate', function(event) {
+						myrotate($this.get(0));
+					});
+					init(this, opts);
+					$this.data('initcompleted', true);
+					if (opts.init) {
+						$this.trigger('imagerotate');
+					}
+					$this.parent().find('span.mypicloading').remove();
 				}
-				var height = $this.height();
-				if ($(window).height() < height) {
-					height = width;
-				}
-				$this.attr('width', width);
-				$this.attr('height', height);
-				//var elements = initElements(this);
-				//$this.data('button',  elements.button);
-				//$this.data('canvas',  elements.canvas);
 			});
 		});
 	};
-	//插件的默认值
-	$.fn.myimagerotate.defaults = {
-	};
-	function initElements(image) {
-		var identify = new Date().getTime();
-		var button = initButton({
-			id: 'button' + identify, name: 'rotate', value: 'Rotate', 
-			clickevent: function() {
-				myrotate(image);
-			}
-		});
-		var div = initDivElement();
-		div.appendChild(button);
-		button = initButton({
-			id: 'toDataURL' + identify, name: 'toDataURL', value: 'toDataURL', 
-			clickevent: function() {
-				var canvas = $(image).data('canvas');
-				alert(canvas.toDataURL("image/png").replace("image/png", "image/octet-stream"));
-			}
-		});
-		div.appendChild(button);
-		image.parentNode.appendChild(div);
-		var canvasId = 'canvas' +  identify;
-		var canvas = document.getElementById(canvasId); 
-		if (canvas == null) { 
-			image.style.visibility = 'hidden'; 
-			image.style.position = 'absolute'; 
-			canvas = document.createElement('canvas'); 
-			canvas.setAttribute("id", canvasId); 
-			div = initDivElement();
-			div.appendChild(canvas);
-			image.parentNode.appendChild(div);
+	function preImage(image, callback) {
+		image.src = image.src;
+		//如果图片已经存在于浏览器缓存，直接调用回调函数 
+		if (image.complete) {
+			callback.call(image);
+			return;//直接返回，不用再处理onload事件
 		}
-		initImage(canvas, image);
-		return {
-			button: button,
-			canvas : canvas
+		 //图片下载完毕时异步调用callback函数。  
+		image.onload = function() {
+			callback.call(image);//将回调函数的this替换为Image对象  
 		};
 	}
-	function initButton(param) {
-		var d = new Date().getTime();
-		var opt = $.extend({}, {
-			id : d, name: d, value: d, clickevent: null
-		}, param);
-		var button = document.createElement('input');
-		button.setAttribute('type', 'button');
-		button.setAttribute('id', 'button' + opt.id);
-		button.name = opt.name;
-		button.value = opt.value;
-		if (null != opt.clickevent) {
-			button.addEventListener('click', opt.clickevent);
+	function init(image, opts) {
+		$this = $(image);
+		var identify = new Date().getTime();
+		$this.attr('width', $this.width());
+		$this.attr('height', $this.height());
+		$this.data('width', $this.width());
+		$this.data('height', $this.height());
+		$this.data('maxWidth', opts.maxWidth);
+		$this.data('maxHeight', opts.maxHeight);
+		$this.data('imageid', 'image_' + identify);
+		$this.data('canvasid', 'canvas_' + identify);
+		$this.data('image', opts.initimage($this.data('imageid')));
+		$this.data('canvas', initCanvasElements($this.data('canvasid')));
+	}
+	function initCanvasElements(id) {
+		var canvas = document.getElementById(id);
+		if (canvas == null) {
+			canvas = document.createElement('canvas'); 
+			canvas.setAttribute("id", id);
 		}
-		return button;
-	}
-	function initDivElement() {
-		var div = document.createElement('div');
-		div.style.border = '1px solid green';
-		div.style.width = '100%';
-		return div;
-	}
-	function initImage(canvas, image) {
-		var canvasContext = canvas.getContext('2d');
-		canvas.setAttribute('width', image.width); 
-		canvas.setAttribute('height', image.height); 
-		canvasContext.rotate(0 * Math.PI / 180); 
-		canvasContext.drawImage(image, 0, 0);
-		canvasContext.save();
+		return canvas;
 	}
 	function rotateImage(image, angle) {
 		var param = {
@@ -111,7 +111,8 @@
 				x: 0,
 				y: -1
 			});
-		} else if (180 == angle) {
+		} 
+		else if (180 == angle) {
 			param = $.extend({}, param, {
 				x: -1,
 				y: -1
@@ -122,34 +123,84 @@
 				y: 0
 			});
 		}
-		var c = $(image).data('canvas');
-		var canvasContext = c.getContext('2d');
-		c.setAttribute('width', image.width); 
-		c.setAttribute('height', image.height); 
-		canvasContext.rotate(angle * Math.PI / 180); 
-		canvasContext.drawImage(image, image.width * param.x, image.height * param.y);
-		canvasContext.save();
-	}
-	function myrotate(image) {
+		var $image = $(image);
+		var canvas = $image.data('canvas');
+		var context = canvas.getContext('2d');
+		var maxWidth = $image.data('maxWidth');
+		var maxHeight = $image.data('maxHeight');
+		var width = image.width;
+		var height = image.height;
+		var scaleX = 1;
+		if (width > maxWidth)  {
+			scaleX = (maxWidth / width);
+			width = maxWidth;
+		} 
+		var scaleY = 1;
+		if (height > maxHeight) { 
+			scaleY = (maxHeight / height);
+			height = maxHeight;
+		}
 		var n = image.getAttribute('step');
 		if (null == n) {
 			n = 0;
 		}
-		(n == 3) ? n = 0 : n ++;
-		image.setAttribute('step', n);
-		rotateImage(image, n * 90);
-	}
-	function preImage(image, callback) {
-		image.src = image.src;
-		//如果图片已经存在于浏览器缓存，直接调用回调函数 
-		if (image.complete) {
-			callback.call(image);
-			return;//直接返回，不用再处理onload事件
+		if (n % 2 == 0) {
+			canvas.setAttribute('width', width); 
+			canvas.setAttribute('height', height); 
+			context.scale(scaleX, scaleY);
+		} else {
+			canvas.setAttribute('width', height); 
+			canvas.setAttribute('height', width); 
+			context.scale(scaleY, scaleX);
 		}
-		 //图片下载完毕时异步调用callback函数。  
-		image.onload = function() {
-			callback.call(image);//将回调函数的this替换为Image对象  
-		};
+		context.rotate(angle * Math.PI / 180); 
+		context.drawImage(image, image.width * param.x, image.height * param.y);
+		context.save();
+		$image.trigger('canvascomplete', [image, canvas]);
 	}
+	function myrotate(image) {
+		var n = image.getAttribute('step');
+		if (null == n || n > 3) {
+			n = 0;
+		}
+		rotateImage(image, n * 90);
+		n++;
+		image.setAttribute('step', n);
+	}
+	$.extend({
+		getImageTypeByHtmlImage: function(img) {
+			var src = img.src;
+			if (/^data:image\/(\w*);base64,.*/.test(src)) {
+				src = src.substring(0, 40);
+				var m = src.match(/^data:image\/(\w*);base64,.*/);
+				return 'image/' + m[1].toLowerCase();
+			}
+			if (/.*\.(\w*)$/.test(src)) {
+				var m = src.match(/.*\.(\w*)$/);
+				return 'image/' + m[1].toLowerCase();
+			}
+			return 'image/png';
+		},
+		myImagePart: function(opt) {
+			var div = document.createElement('div');
+			div.innerHTML = [
+			    '<div class="mybuttonarea" data-role="controlgroup" data-mini="true" data-type="horizontal" align="right">',
+				'<a href="#" class="rotateImage" data-role="button" data-theme="b" data-icon="forward" title="旋转图片">旋转图片</a>',
+				'<a href="#" class="removeImage" data-role="button" data-theme="b" data-icon="delete" title="删除图片">删除图片</a>',
+				'</div><div class="', opt.imgClassName, 'div">',
+				'<img class="', opt.imgClassName, '" src="', opt.base64, '" title="', 'upload image', '"/>',
+				'<input type="hidden" name="images" value="', opt.base64, '" /></div>' ].join('');
+			var $div = $(div);
+			$div.find('a.rotateImage').bind('click', function(e) {
+				e.preventDefault();
+				$(e.target).closest('li').find('img.' + opt.imgClassName).trigger('imagerotate');
+				return false;
+			});
+			$div.find('a.removeImage').bind('click', function(e) {
+				opt.removeImage(e);
+			});
+			return $div;
+		}
+	});
 	//闭包结束
 })(jQuery);
