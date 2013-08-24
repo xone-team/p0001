@@ -11,9 +11,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
+import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.service.app.AdbannerService;
 import com.xone.service.app.PurchaseService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
@@ -41,6 +43,13 @@ public class PurchaseWebAction extends LogicAction {
 	protected String uploadFile3FileName;
 
 	protected String imageUploadPath;
+	
+	protected String searchType = "2";
+	protected String searchKey;
+	
+	@Autowired
+	protected AdbannerService adbannerService;
+	protected List<Adbanner> adList = new ArrayList<Adbanner>();
     
     public Enum<?>[] getFlagDeleted() {
         return Purchase.FlagDeleted.values();
@@ -185,10 +194,20 @@ public class PurchaseWebAction extends LogicAction {
 	
 	public String list() throws Exception {
 		Map<String, Object> params = new HashMap<String, Object>();
+		
+		// nav search
+		if("2".equals(searchType) && !StringUtils.isBlank(searchKey)){
+			params.put("purchaseName", searchKey);
+		}
+		
 		List<Purchase> l = getPurchaseService().findAllByMap(params);
 		if (null != l && !l.isEmpty()) {
 			getList().addAll(l);
 		}
+		
+		// get ad
+		setAdList(getAdbannerService().findItemsByMap(
+				new HashMap<String, String>()));
 		return SUCCESS;
 	}
 	
@@ -196,6 +215,10 @@ public class PurchaseWebAction extends LogicAction {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("id", String.valueOf(getPurchase().getId()));
 		setPurchase(getPurchaseService().findByMap(params));
+		
+		// get ad
+		setAdList(getAdbannerService().findItemsByMap(
+				new HashMap<String, String>()));
 		return SUCCESS;
 	}
 
@@ -289,6 +312,30 @@ public class PurchaseWebAction extends LogicAction {
 	}
 	public void setImageUploadPath(String imageUploadPath) {
 		this.imageUploadPath = imageUploadPath;
+	}
+	public String getSearchType() {
+		return searchType;
+	}
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
+	}
+	public AdbannerService getAdbannerService() {
+		return adbannerService;
+	}
+	public void setAdbannerService(AdbannerService adbannerService) {
+		this.adbannerService = adbannerService;
+	}
+	public List<Adbanner> getAdList() {
+		return adList;
+	}
+	public void setAdList(List<Adbanner> adList) {
+		this.adList = adList;
 	}
 
 }

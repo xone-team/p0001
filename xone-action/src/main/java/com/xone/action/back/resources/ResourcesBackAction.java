@@ -42,6 +42,9 @@ public class ResourcesBackAction extends Action {
     public Enum<?>[] getEnable() {
         return Resources.Enable.values();
     }
+    public Enum<?>[] getResourceType() {
+      return Resources.ResourceType.values();
+    }
 //    @Override
 //    public void prepare() throws Exception {
 //        types.put("enable", Roles.Enable.values());

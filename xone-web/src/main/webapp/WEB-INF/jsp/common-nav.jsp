@@ -25,12 +25,16 @@
                     <c:choose>
                         <c:when test="${not empty userMap}">
                             <p class="logined-message">
-                                欢迎您 ${username} ! <a href="${pageContext.request.contextPath}/admin/welcome.html">用户中心</a><a href="<c:url value="/j_spring_security_logout"/>">退出登录</a>
+                                欢迎您 ${username} !
+                                <a href="${pageContext.request.contextPath}/admin/welcome.html">用户中心</a>
+                                <a href="<c:url value="/j_spring_security_logout"/>">退出登录</a>
                             </p>
                         </c:when>
                         <c:otherwise>
                             <form class="form-inline inline" type="post" action="${pageContext.request.contextPath}/j_spring_security_check">
-                                <input type="text" class="input-small" value="15800000000" placeholder="用户名"> <input type="password" class="input-small" value="hunny@admin" placeholder="密码"> <label class="checkbox"> </label>
+                                <input type="text" class="input-small" value="15800000000" placeholder="用户名">
+                                <input type="password" class="input-small" value="hunny@admin" placeholder="密码">
+                                <label class="checkbox"> </label>
                                 <button type="submit" class="btn btn-warning inline">登录</button>
                                 <button type="submit" class="btn btn-warning inline">注册</button>
                             </form>
@@ -43,7 +47,8 @@
                     </div>
                     <div class="span6 down-area">
                         <div class="down-to-drop">
-                            <a href="javascript:void(0)" class="banner-down-android" id="downBtnAndroid" title="Android下载"></a> <a href="javascript:void(0)" class="banner-down-ios" id="downBtnIphone" title="iOS下载"></a>
+                            <a href="javascript:void(0)" class="banner-down-android" id="downBtnAndroid" title="Android下载"></a>
+                            <a href="javascript:void(0)" class="banner-down-ios" id="downBtnIphone" title="iOS下载"></a>
                         </div>
                     </div>
                 </div>
@@ -65,19 +70,24 @@
             <div class="navbar-inner">
                 <div class="container">
                     <ul class="nav">
-                        <li><a href="${pageContext.request.contextPath}/index.html">首页</a></li>
+                        <li<c:if test="${ param.offset == 1 }"> class="active"</c:if>><a href="${pageContext.request.contextPath}/index.html">首页</a></li>
                         <li class="divider-vertical"></li>
-                        <li><a href="${pageContext.request.contextPath}/product/list.html">售卖</a></li>
+                        <li<c:if test="${ param.offset == 2 }"> class="active"</c:if>><a href="${pageContext.request.contextPath}/product/list.html">售卖</a></li>
                         <li class="divider-vertical"></li>
-                        <li><a href="${pageContext.request.contextPath}/purchase/list.html">购买</a></li>
+                        <li<c:if test="${ param.offset == 3 }"> class="active"</c:if>><a href="${pageContext.request.contextPath}/purchase/list.html">购买</a></li>
                         <li class="divider-vertical"></li>
-                        <li><a href="${pageContext.request.contextPath}/about.html">关于</a></li>
+                        <li<c:if test="${ param.offset == 4 }"> class="active"</c:if>><a href="${pageContext.request.contextPath}/about.html">关于</a></li>
                     </ul>
                     <div class="pull-right">
-                        <form method="post" action="#" enctype="application/x-www-form-urlencoded">
+                        <form method="post" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
                             <div class="input-append">
-                                <input type="text" class="span4" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false" placeholder="请输入搜索关键字"> <a href="#" rel="tooltip" title="" class="btn btn-custom-blue" data-original-title="搜索售卖信息"> <i class="icon-search"></i>售卖
-                                </a> <a href="#" class="btn btn-custom-blue" rel="tooltip" title="" data-original-title="搜索求购信息"> <i class="icon-search"></i>求购
+                                <input type="hidden" name="searchType" value="${searchType}" />
+                                <input type="text" name="searchKey" value="${searchKey}" class="span4" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false" placeholder="请输入搜索关键字">
+                                <a href="javascript:void(0);" onclick="navSearch(1, this);" rel="tooltip" title="" class="btn btn-custom-blue" data-original-title="搜索售卖信息">
+                                    <i class="icon-search"></i>售卖
+                                </a>
+                                <a href="javascript:void(0);" onclick="navSearch(2, this);" class="btn btn-custom-blue" rel="tooltip" title="" data-original-title="搜索求购信息">
+                                    <i class="icon-search"></i>求购
                                 </a>
                             </div>
                             <input type="submit" name="search" value="" style="display: none;">
@@ -87,25 +97,39 @@
             </div>
         </div>
     </div>
+    <script>
+                    function navSearch(type, eventSrc) {
+                        $form = $(eventSrc).closest("form");
+                        $("input[name='searchType']", $form).val(type);
+                        if ("2" == type) {
+                            $form.attr("action", "${pageContext.request.contextPath}/purchase/list.html");
+                        }
+                        $form.submit();
+                    }
+                </script>
 
     <div class="navbar-floatingpage" style="display: none;">
         <div class="navbar navbar-fixed-top">
             <div class="navbar-inner blue-gradiant gradient">
                 <div class="container">
                     <ul class="nav">
-                        <li><a href="#">首页</a></li>
-                        <li><a href="#">售卖</a></li>
-                        <li><a href="#">求购</a></li>
-                        <li><a href="#">关于</a></li>
+                        <li><a href="${pageContext.request.contextPath}/index.html">首页</a></li>
+                        <li><a href="${pageContext.request.contextPath}/product/list.html">售卖</a></li>
+                        <li><a href="${pageContext.request.contextPath}/purchase/list.html">购买</a></li>
+                        <li><a href="${pageContext.request.contextPath}/about.html">关于</a></li>
                     </ul>
-                    <form method="post" action="#" class="navbar-search pull-right" enctype="application/x-www-form-urlencoded">
-                        <input type="hidden">
-                        <div class="input-append">
-                            <input type="text" class="span4" aria-disabled="false" aria-readonly="false" aria-multiline="false" placeholder="请输入搜索关键字"> <a href="#" rel="tooltip" title="" class="btn btn-custom-blue" data-original-title="搜索售卖信息"> <i class="icon-search"></i>售卖
-                            </a> <a href="#" class="btn btn-custom-blue" rel="tooltip" title="" data-original-title="搜索求购信息"> <i class="icon-search"></i>求购
+                    <form method="post" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
+                        <div class="input-append pull-right">
+                            <input type="hidden" name="searchType" value="${searchType}" />
+                            <input type="text" name="searchKey" value="${searchKey}" class="span4" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false" placeholder="请输入搜索关键字">
+                            <a href="javascript:void(0);" onclick="navSearch(1, this);" rel="tooltip" title="" class="btn btn-custom-blue" data-original-title="搜索售卖信息">
+                                <i class="icon-search"></i>售卖
+                            </a>
+                            <a href="javascript:void(0);" onclick="navSearch(2, this);" class="btn btn-custom-blue" rel="tooltip" title="" data-original-title="搜索求购信息">
+                                <i class="icon-search"></i>求购
                             </a>
                         </div>
-                        <input type="submit" value="" style="display: none;">
+                        <input type="submit" name="search" value="" style="display: none;">
                     </form>
                 </div>
             </div>

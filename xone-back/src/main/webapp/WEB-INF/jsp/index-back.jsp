@@ -68,7 +68,7 @@
 <script>
     jQuery(function() {
         var x = <%=com.xone.model.utils.Constants.BACK_INDEX_REFRESH_TIME%>;
-        setInterval(getnums, 1000 * 60 * x);
+        setInterval(getNums, 1000 * 60 * x);
         getNums();
     });
     function getNums(){

@@ -37,46 +37,49 @@
                     <div class="control-group">
                         <label class="control-label" for="resourceType">资源类型</label>
                         <div class="controls">
-                            <input type="text" id="resourceType" name="resources.resourceType" maxlength="11" placeholder="资源类型" value="1">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="priority">优先级</label>
-                        <div class="controls">
-                            <input type="text" id="priority" name="resources.priority" maxlength="11" placeholder="优先级" value="0">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="resourceUrl">资源地址</label>
-                        <div class="controls">
-                            <input type="text" id="resourceUrl" name="resources.resourceUrl" maxlength="255" placeholder="资源地址">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="remark">备注</label>
-                        <div class="controls">
-                            <input type="text" id="remark" name="resources.remark" maxlength="1024" placeholder="备注">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="roleIds">角色</label>
-                        <div class="controls">
-                            <div id="roleIdsSelectResult" class="inline">
-                                <c:forEach items="${rolesList}" var="role">
-                                    <input type="hidden" class="X-select-hidden-value" value="${role.id}" name="roleIds">
-                                    <span class="label label-default">${role.name}</span>
+                            <select class="selectpicker" id="resourceType" name="resources.resourceType">
+                                <c:forEach items="${resourceType}" var="it">
+                                    <option value="${it.value}" <c:if test="${it.value == resources.resourceType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="priority">优先级</label>
+                            <div class="controls">
+                                <input type="text" id="priority" name="resources.priority" maxlength="11" placeholder="优先级" value="0">
                             </div>
-                            <button type="button" class="btn inline" onclick="$('#windowTitleDialogrolescheck').modal('show');">
-                                <i class="icon-filter"></i>选择
-                            </button>
                         </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <button type="submit" class="btn">提交创建</button>
+                        <div class="control-group">
+                            <label class="control-label" for="resourceUrl">资源地址</label>
+                            <div class="controls">
+                                <input type="text" id="resourceUrl" name="resources.resourceUrl" maxlength="255" placeholder="资源地址">
+                            </div>
                         </div>
-                    </div>
+                        <div class="control-group">
+                            <label class="control-label" for="remark">备注</label>
+                            <div class="controls">
+                                <input type="text" id="remark" name="resources.remark" maxlength="1024" placeholder="备注">
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <label class="control-label" for="roleIds">角色</label>
+                            <div class="controls">
+                                <div id="roleIdsSelectResult" class="inline">
+                                    <c:forEach items="${rolesList}" var="role">
+                                        <input type="hidden" class="X-select-hidden-value" value="${role.id}" name="roleIds">
+                                        <span class="label label-default">${role.name}</span>
+                                    </c:forEach>
+                                </div>
+                                <button type="button" class="btn inline" onclick="$('#windowTitleDialogrolescheck').modal('show');">
+                                    <i class="icon-filter"></i>选择
+                                </button>
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            <div class="controls">
+                                <button type="submit" class="btn">提交创建</button>
+                            </div>
+                        </div>
                 </form>
             </div>
         </div>

@@ -20,14 +20,6 @@
             <div class="span9 bs-docs-sidebar">
                 <div class="row-fluid">
                     <div class="span12">
-                        <div class="row-fluid">
-                            <ul class="breadcrumb" id="X_breadcrumbs_ul">
-                                <li>用户中心<span class="divider">/</span></li>
-                                <li>我的售卖发布 <span class="divider">/</span></li>
-                                <li><a href="${pageContext.request.contextPath}/product/productList.html">产品列表</a> <span class="divider">/</span></li>
-                                <li class="active">产品详细</li>
-                            </ul>
-                        </div>
                         <c:choose>
                             <c:when test="${not empty product && not empty product.id}">
                                 <table class="table table-bordered" style="width: 100%">
@@ -62,10 +54,6 @@
                                         </tr>
                                     </c:if>
                                     <tr>
-                                        <td>有&nbsp&nbsp效&nbsp&nbsp期</td>
-                                        <td>${product.productValid}</td>
-                                    </tr>
-                                    <tr>
                                         <td>描 述</td>
                                         <td>${product.productDesc}</td>
                                     </tr>
@@ -84,15 +72,40 @@
                     </div>
                 </div>
             </div>
-            <div class="span3" style="margin-left: 13px;">
-                <ul class="nav nav-list bs-docs-sidenav" style="margin-top: 0px;">
-                    <li><a href="#global" style="padding: 15px 15px;">
-                            <img class="img-rounded mybigimage" src="${STATIC_ROOT}/image/apple.png" style="width: 258px;">
-                        </a></li>
-                    <li><a href="#gridSystem" style="padding: 15px 15px;">
-                            <img class="img-rounded mybigimage" src="${STATIC_ROOT}/image/angry.jpg" style="width: 258px;">
-                        </a></li>
-                </ul>
+
+            <div class="span3 box-shadow rounded">
+
+                <div class="right-content">
+
+                    <div class="row-fluid">
+
+                        <ul class="thumbnails">
+                            <c:forEach var="item" items="${adList}">
+                                <li class="span12" timestamp="${item.dateCreated}">
+                                    <div class="thumbnail">
+                                        <div class="image-wrapper">
+                                            <c:choose>
+                                                <c:when test="${item.adType=='0' }">
+                                                    <c:set var="adrequest" value="/product/item.html?product.id=${item.refId}"></c:set>
+                                                </c:when>
+                                                <c:when test="${item.adType=='1' }">
+                                                    <c:set var="adrequest" value="/purchase/item.html?purchase.id=${item.refId}"></c:set>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:set var="adrequest" value="/product/list.html"></c:set>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            <a href="${pageContext.request.contextPath}${adrequest}">
+                                                <img src="${pageContext.request.contextPath}/assistant/image.html?id=${item.adRefId}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
         </div>
         <jsp:include page="common-footer.jsp"></jsp:include>

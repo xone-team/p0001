@@ -40,14 +40,14 @@ public class MyUserDetailServiceImpl implements UserDetailsService {
         boolean credentialsNonExpired = true;  
         boolean accountNonLocked = true;
         Collection<GrantedAuthority> grantedAuths = new ArrayList<GrantedAuthority>();//obtionGrantedAuthorities(person);
-		//超级用户
-        if("admin".equals(username)){
-            grantedAuths.add(new SimpleGrantedAuthority("CONSOLE_ADMIN"));
-		    User userdetail = new User("admin", EncryptRef.SHA1(String.valueOf("admin")),
-	                enables, accountNonExpired, credentialsNonExpired,
-	                accountNonLocked, grantedAuths);
-		    return userdetail;
-		}
+//		//超级用户
+//        if("admin".equals(username)){
+//            grantedAuths.add(new SimpleGrantedAuthority("CONSOLE_ADMIN"));
+//		    User userdetail = new User("admin", EncryptRef.SHA1(String.valueOf("admin")),
+//	                enables, accountNonExpired, credentialsNonExpired,
+//	                accountNonLocked, grantedAuths);
+//		    return userdetail;
+//		}
         
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("username", username);

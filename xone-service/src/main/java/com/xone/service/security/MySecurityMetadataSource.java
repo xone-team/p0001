@@ -3,6 +3,7 @@ package com.xone.service.security;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,9 +29,11 @@ public class MySecurityMetadataSource implements
 	 * TODO 该部分可改进到放入在Ehcache中，后期进行。
 	 */
 	private static Map<String, Collection<ConfigAttribute>> resourceMap = null;
-	
+
 	@Autowired
 	private ResourcesService resourcesService;
+
+	private String resourceType;
 
 	// 由spring调用
 	public MySecurityMetadataSource(ResourcesService resourcesService) {
@@ -43,9 +46,14 @@ public class MySecurityMetadataSource implements
 		if (resourceMap == null) {
 			resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
 			Map<String, String> params = new HashMap<String, String>();
-			Map<Resources, List<Roles>> mapResourcesRoles = getResourcesService().findMapByParams(
-					params);
-			for (Map.Entry<Resources, List<Roles>> m : mapResourcesRoles.entrySet()) {
+			// 只读取当前应用的RESOURCES数据
+			if(resourceType != null)
+				params.put("resourceType", resourceType);
+			params.put("enable", Resources.Enable.YES.getValue());
+			Map<Resources, List<Roles>> mapResourcesRoles = getResourcesService()
+					.findMapByParams(params);
+			for (Map.Entry<Resources, List<Roles>> m : mapResourcesRoles
+					.entrySet()) {
 				Collection<ConfigAttribute> configAttributes = new ArrayList<ConfigAttribute>();
 				List<Roles> rolesList = m.getValue();
 				for (Roles roles : rolesList) {
@@ -58,10 +66,12 @@ public class MySecurityMetadataSource implements
 			}
 		}
 
-//		Set<Entry<String, Collection<ConfigAttribute>>> resourceSet = resourceMap
-//				.entrySet();
-//		Iterator<Entry<String, Collection<ConfigAttribute>>> iterator = resourceSet
-//				.iterator();
+		// Set<Entry<String, Collection<ConfigAttribute>>> resourceSet =
+		// resourceMap
+		// .entrySet();
+		// Iterator<Entry<String, Collection<ConfigAttribute>>> iterator =
+		// resourceSet
+		// .iterator();
 
 	}
 
@@ -71,6 +81,7 @@ public class MySecurityMetadataSource implements
 	@Override
 	public Collection<ConfigAttribute> getAttributes(Object object)
 			throws IllegalArgumentException {
+		Collection<ConfigAttribute> result = new ArrayList<ConfigAttribute>();
 		String requestUrl = ((FilterInvocation) object).getRequestUrl();
 		System.out.println("requestUrl is " + requestUrl);
 		if (null == resourceMap) {
@@ -79,10 +90,30 @@ public class MySecurityMetadataSource implements
 		Set<String> urls = resourceMap.keySet();
 		for (String url : urls) {
 			if (requestUrl.matches(url)) {
-				return resourceMap.get(url);
+				// 找到所有MATCH的PATTERN的角色
+				combineRoles(result, resourceMap.get(url));
+				// return resourceMap.get(url);
 			}
 		}
-		return null;
+		return result;
+	}
+
+	private void combineRoles(Collection<ConfigAttribute> root,
+			Collection<ConfigAttribute> roles) {
+		for (ConfigAttribute roleAttribute : roles) {
+			String roleName = roleAttribute.getAttribute();
+			boolean inRoot = false;
+			for (ConfigAttribute rootAttribute : root) {
+				String rootRoleName = rootAttribute.getAttribute();
+				if (roleName.equals(rootRoleName)) {
+					inRoot = true;
+					break;
+				}
+			}
+			if (!inRoot) {
+				root.add(new SecurityConfig(roleName));
+			}
+		}
 	}
 
 	@Override
@@ -101,6 +132,14 @@ public class MySecurityMetadataSource implements
 
 	public void setResourcesService(ResourcesService resourcesService) {
 		this.resourcesService = resourcesService;
+	}
+
+	public String getResourceType() {
+		return resourceType;
+	}
+
+	public void setResourceType(String resourceType) {
+		this.resourceType = resourceType;
 	}
 
 }

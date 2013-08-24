@@ -63,7 +63,9 @@
     </authentication-manager>
     <beans:bean id="myAccessDecisionManager" class="com.xone.service.security.MyAccessDecisionManager"></beans:bean>  
     <beans:bean id="mySecurityMetadataSource" class="com.xone.service.security.MySecurityMetadataSource">  
-        <beans:constructor-arg name="resourcesService" ref="resourcesService"></beans:constructor-arg>  
+        <beans:constructor-arg name="resourcesService" ref="resourcesService"></beans:constructor-arg>
+        <!-- 只读取后台的RESOURCES数据 -->
+        <beans:property name="resourceType" value="1"></beans:property> 
     </beans:bean>
     <beans:bean id="myUserDetailServiceImpl" class="com.xone.service.security.MyUserDetailServiceImpl">  
         <beans:property name="personService" ref="personService"></beans:property>

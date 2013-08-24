@@ -18,11 +18,11 @@ public class MyAccessDecisionManager implements AccessDecisionManager {
 	public void decide(Authentication authentication, Object object,
 			Collection<ConfigAttribute> configAttributes)
 			throws AccessDeniedException, InsufficientAuthenticationException {
-	    // 超级管理员
-	    Object ud =  authentication.getDetails();
-	    if(ud != null && ud instanceof UserDetails && "admin".equals(((UserDetails)ud).getUsername())){
-	        return;
-	    }
+//	    // 超级管理员
+//	    Object ud =  authentication.getDetails();
+//	    if(ud != null && ud instanceof UserDetails && "admin".equals(((UserDetails)ud).getUsername())){
+//	        return;
+//	    }
 	    
 		if (configAttributes == null) {
 			return;

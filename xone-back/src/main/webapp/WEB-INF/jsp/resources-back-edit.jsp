@@ -39,7 +39,11 @@
                     <div class="control-group">
                         <label class="control-label" for="resourceType">资源类型</label>
                         <div class="controls">
-                            <input type="text" id="resourceType" name="resources.resourceType" value="${resources.resourceType}" maxlength="11" placeholder="资源类型">
+                            <select class="selectpicker" id="resourceType" name="resources.resourceType">
+                                <c:forEach items="${resourceType}" var="it">
+                                    <option value="${it.value}" <c:if test="${it.value == resources.resourceType}">selected</c:if>>${it.name}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                     </div>
                     <div class="control-group">
@@ -101,7 +105,7 @@
         <jsp:param name="title" value="请选择角色" />
         <jsp:param name="url" value="${pageContext.request.contextPath }/roles/rolesCheck.html" />
     </jsp:include>
-    
+
 </body>
 <script src="${STATIC_ROOT}/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 <script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
