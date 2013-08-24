@@ -101,7 +101,7 @@
 			$('a.productupdatebutton').buttonMarkup("refresh");
 			$('a.overheadformbutton').buttonMarkup("refresh").click(function(e) {
 				e.preventDefault();
-				if (confirm('确认申请顶置')) {
+				$.myConfirm('确认申请顶置', function() {
 					var $form = $('form.overheadform').first();
 					$.ajax({
 						type: $form.attr('method'),
@@ -111,7 +111,18 @@
 							$('form.overheadform').closest('li').html(html);
 						}
 					});
-				}
+				});
+// 				if (confirm('确认申请顶置')) {
+// 					var $form = $('form.overheadform').first();
+// 					$.ajax({
+// 						type: $form.attr('method'),
+// 						url: $form.attr('action'),
+// 						data: $form.serialize(),
+// 						success: function(html) {
+// 							$('form.overheadform').closest('li').html(html);
+// 						}
+// 					});
+// 				}
 				return false;
 			});
 		</script>

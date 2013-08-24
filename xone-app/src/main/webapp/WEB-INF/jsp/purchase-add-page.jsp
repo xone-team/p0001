@@ -20,7 +20,7 @@
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${myid}" data-icon="check" class="btn-banner">返回</a>
 			<h1>求购发布</h1>
-			<a href="#" rel="external" data-icon="check" data-role="button" class="purchasesave ui-btn-right">发布</a>
+			<a href="#" rel="external" data-icon="check" data-role="button" class="purchasesave${myid} ui-btn-right">发布</a>
 		</div>
 		<div class="purchaseaddcontent" data-role="content" data-dom-cache="false">
 			<form class="purchaseform${myid}" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/purchase/create.html?_=${myid}" autocomplete="off">
@@ -99,10 +99,16 @@
 				});
 				$('div.purchaseaddpage').bind('pageinit', function() {
 					var width = $('div.purchaseaddpage').width() - 11;
-					var css = ['<style type="text/css">div.purchaseaddpageimage {text-align:center;height:', width, 'px;width:', width, 'px;}',
-					           'div.purchaseaddpageimage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
-					'<\/style>'];
+					var css = ['<style type="text/css">div.uploadpurchasedynamicimagediv {text-align:center;height:', width, 'px;width:', width, 'px;}', '<\/style>'];
 					$('div.purchaseaddpage').append(css.join(''));
+					$('a.purchasesave').click(function(e) {
+						e.preventDefault();
+						$('#purchasesavesubmit${myid}').click();
+						return false;
+					});
+					if ($('script.imagerotate').length == 0) {
+						$('head').append('<script type="text/javascript" class="imagerotate" src="${pageContext.request.contextPath}/js/myimagerotate.js"><\/script>');
+					}
 					if ($('script.fileupload').length == 0) {
 						$('head').append('<script type="text/javascript" class="fileupload" src="${STATIC_ROOT}/js/fileupload.js"><\/script>');
 					}
@@ -117,11 +123,6 @@
 // 						display : 'modal',
 // 						lang : 'zh'
 // 					}));
-					$('a.purchasesave').click(function(e) {
-						e.preventDefault();
-						$('#purchasesavesubmit${myid}').click();
-						return false;
-					});
 					$('form.purchaseform${myid}').submit(function() {
 						if ($('form.purchaseform${myid} li.myerror').length > 0) {
 							$('li.myerror').remove();
@@ -129,10 +130,10 @@
 						}
 						var v = [{
 							id: 'purchasepurchaseName${myid}',
-							msg: '请输入产品名称'
+							msg: '请输入求购的产品名称'
 						},{
 							id: 'purchasepurchaseAddress${myid}',
-							msg: '请输入产品产地'
+							msg: '请输入求购的产品产地'
 						},{
 							id: 'purchasepurchaseLocation${myid}',
 							msg: '请输入产品属地'
@@ -158,7 +159,7 @@
 					$('input.uploadImageButton').click(function(e) {
 						e.preventDefault();
 						$('form li.errorli').remove();
-						if ($('img.uploaddynamicimage').length >= 3) {
+						if ($('div.uploadpurchasedynamicimage').length >= 3) {
 							$('<li class="errorli"><div class="error ui-btn-inner">一个产品最多只能发布3张图片.</div></li>').insertBefore('li.publishformbutton');
 							$('ul.purchaselistview${myid}').listview('refresh');
 							return false;
@@ -168,33 +169,56 @@
 						return false;
 					});
 					$('input.uploadImagePurchase[type="file"]').myImageUploded({
+						complete: function() {
+							if ($('li.fileerror').length > 0) {
+								$('li.fileerror').remove();
+								$('ul.productlistview${myid}').listview('refresh');
+							}
+						},
 						filenotmatch: function() {
 							$('#uploadImageFile').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
 							$('ul.purchaselistview${myid}').listview('refresh');
 							return true;
 						},
 						load:function(base64, imgType) {
-							var div = document.createElement('div');
-							div.className = 'purchaseaddpageimage';
-							div.innerHTML = [
-									'<a href="#" onclick="return removeDynamicImagePurchase(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
-									'<img class="uploaddynamicimage" width="100%" height="100%" src="',
-									base64, '" title="', 'upload images.', '"/>',
-									'<input type="hidden" name="images" value="', base64, '" />' ]
-									.join('');
 							var listview = $('ul.purchaselistview${myid}');
 							listview.append('<li style="padding:0px;"></li>');
-							listview.find('li').last().append(div);
+							listview.find('li').last().append($.myImagePart({
+								imgClassName: 'uploadpurchasedynamicimage',
+								base64: base64,
+								removeImage: function(e) {
+									e.preventDefault();
+									$(e.target).closest('li').remove();
+									$('ul.purchaselistview${myid}').listview('refresh');
+									$('#uploadImageFile').val('');
+									return false;
+								}
+							})).trigger('create');
+							$('img.uploadpurchasedynamicimage').myxoneimage({
+								init: true,
+								maxHeight: width,
+								maxWidth: width,
+								canvascomplete: function(event, image, canvas) {
+									var $this = $(image);
+									var imageType = $.getImageTypeByHtmlImage(image);
+									var base64 = canvas.toDataURL(imageType);
+									var imgid = $this.data('imageid');
+									img = document.getElementById(imgid);
+									if (null == img) {
+										img = $this.data('image');
+										img.setAttribute('width', '100%');
+										img.setAttribute('height', '100%');
+										image.parentNode.appendChild(img);
+										$this.hide();
+									}
+									$this.closest('li').find('input[name="images"]').val(base64);
+									img.src = base64;
+								}
+							});
 							listview.listview('refresh');
 						}
 					});
 				});
-				function removeDynamicImagePurchase(e) {
-					$(e).closest('li').remove();
-					$('ul.purchaselistview${myid}').listview('refresh');
-					$('#uploadImageFile').val('');
-					return false;
-				}
 			</script>
 		</div>
 		<jsp:include page="footer.jsp">

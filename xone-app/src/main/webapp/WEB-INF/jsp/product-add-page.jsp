@@ -108,9 +108,7 @@
 				});
 				$('div.productaddpage').bind('pageinit', function() {
 					var width = $('div.productaddpage').width() - 11;
-					var css = ['<style type="text/css">div.productimage {text-align:center;height:', width, 'px;width:', width, 'px;}',
-					           'div.productimage img {width:', width,'px;height:', width, 'px;max-height:' + width + 'px;}',
-					'<\/style>'];
+					var css = ['<style type="text/css">div.uploadproductdynamicimagediv {text-align:center;height:', width, 'px;width:', width, 'px;}', '<\/style>'];
 					$('div.productaddpage').append(css.join(''));
 					$('a.productsave${myid}').click(function(e) {
 						e.preventDefault();
@@ -123,7 +121,6 @@
 					if ($('script.fileupload').length == 0) {
 						$('head').append('<script type="text/javascript" class="fileupload" src="${STATIC_ROOT}/js/fileupload.js"><\/script>');
 					}
-					
 // 					$('#productproductValid').scroller('destroy')
 // 					.scroller($.extend({
 // 						preset : 'date',
@@ -138,7 +135,7 @@
 					$('input.uploadImageProductButton').click(function(e) {
 						e.preventDefault();
 						$('form li.errorli').remove();
-						if ($('img.uploadproductdynamicimage').length >= 3) {
+						if ($('div.uploadproductdynamicimagediv').length >= 3) {
 							$('<li class="errorli"><div class="error ui-btn-inner">一个产品最多只能发布3张图片.</div></li>').insertBefore('li.productpublishformbutton');
 							$('ul.productlistview').listview('refresh');
 							return false;
@@ -183,24 +180,52 @@
 						}
 					});
 					$('input.uploadImageProduct[type="file"]').myImageUploded({
+						complete: function() {
+							if ($('li.fileerror').length > 0) {
+								$('li.fileerror').remove();
+								$('ul.productlistview${myid}').listview('refresh');
+							}
+						},
 						filenotmatch: function() {
 							$('#uploadImageFileProduct').closest('li').before('<li class="fileerror"><div class="error ui-btn-inner">请选择图片(png或jpeg或jpg或gif)</div></li>');
 							$('ul.productlistview${myid}').listview('refresh');
 							return true;
 						},
 						load: function(base64, imgType) {
-							var div = document.createElement('div');
-							div.className = 'productimage';
-							div.innerHTML = [
-								'<a href="#" onclick="return removeProductDynamicImage(this);" class="ui-icon ui-icon-delete image-delete-buttom" style="position:relative;float:right;" title="删除图片">&nbsp;</a>',
-								'<img class="uploadproductdynamicimage" width="100%" height="100%" src="',
-								base64, '" title="', 'upload image', '"/>',
-								'<input type="hidden" name="images" value="', 
-								base64, '" />' ].join('');
 							var listview = $('ul.productlistview${myid}');
 							listview.append('<li style="padding:0px;"></li>');
-							listview.find('li').last().append(div);
-							//$('img.uploadproductdynamicimage').myimagerotate();
+							listview.find('li').last().append($.myImagePart({
+								imgClassName: 'uploadproductdynamicimage',
+								base64: base64,
+								removeImage: function(e) {
+									e.preventDefault();
+									$(e.target).closest('li').remove();
+									$('ul.productlistview${myid}').listview('refresh');
+									$('#uploadImageFileProduct').val('');
+									return false;
+								}
+							})).trigger('create');
+							$('img.uploadproductdynamicimage').myxoneimage({
+								init: true,
+								maxHeight: width,
+								maxWidth: width,
+								canvascomplete: function(event, image, canvas) {
+									var $this = $(image);
+									var imageType = $.getImageTypeByHtmlImage(image);
+									var base64 = canvas.toDataURL(imageType);
+									var imgid = $this.data('imageid');
+									img = document.getElementById(imgid);
+									if (null == img) {
+										img = $this.data('image');
+										img.setAttribute('width', '100%');
+										img.setAttribute('height', '100%');
+										image.parentNode.appendChild(img);
+										$this.hide();
+									}
+									$this.closest('li').find('input[name="images"]').val(base64);
+									img.src = base64;
+								}
+							});
 							listview.listview('refresh');
 						}
 					});
@@ -210,12 +235,6 @@
 						return false;
 					});
 				});
-				function removeProductDynamicImage(e) {
-					$(e).closest('li').remove();
-					$('ul.productlistview').listview('refresh');
-					$('#uploadImageFileProduct').val('');
-					return false;
-				}
 			</script>
 		</div>
 		<jsp:include page="footer.jsp"><jsp:param value="3" name="offset"/></jsp:include>

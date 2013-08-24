@@ -189,7 +189,9 @@ public class PurchaseAction extends LogicAction {
 			getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
 			return ERROR;
 		}
-		MyBeanUtils.copyProperties(pu, entity, Purchase.class, null, new CopyRules() {
+		MyBeanUtils.copyProperties(pu, entity, Purchase.class, new String[] {
+			"ids"
+		}, new CopyRules() {
 			@Override
 			public boolean myCopyRules(Object value) {
 				return (null != value);

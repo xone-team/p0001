@@ -76,12 +76,13 @@
 		    <script type="text/javascript">
 		    $('div.loginmainpage${myid}').bind('pageinit', function(e, ui) {
 		    	try {
-			    	window.main.rockRoll('${userMap.id}');
+			    	$.rockRoll('${userMap.id}');
 		    	} catch (e) {
+		    		$.myAlert('异常：' + e.message);
 		    	}
 		    	$('a.login-logout${myid}').click(function(e) {
 			    	try {
-				    	window.main.rockRoll('');
+			    		$.rockRoll('');
 			    	} catch (e) {
 			    	}
 			    	return true;

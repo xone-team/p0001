@@ -59,12 +59,12 @@ $(document).bind("mobileinit", function() {
 		hashListeningEnabled: false
 	});
 });
-function console(i) {
+function debug(i) {
 	var activePage = $.mobile.activePage;
-	var c = activePage.find('div.console');
+	var c = activePage.find('div.debug');
 	if (c.length == 0) {
-		activePage.append('<div class="console">&nbsp;</div>');
-		c = activePage.find('div.console');
+		activePage.append('<div class="debug">&nbsp;</div>');
+		c = activePage.find('div.debug');
 	}
 	c.append('<div>' + i + '</div>');
 }

@@ -22,25 +22,52 @@
 					callback();
 				}
 			}
+		},
+		rockRoll: function (params) {
+			if (isIphone()) {
+				window.location.href= "http://callClient/rockRoll?id=" + params;
+			} else {
+				try {
+			    	window.main.rockRoll(params);
+		    	} catch (e) {}
+			}
+		},
+		mloginValue: function(callback) {
+			if (isIphone()) {
+				$('body').unbind('mloginiphone');
+				$('body').bind('mloginiphone', function(e, v) {
+					callback(v);
+					$('body').unbind('mloginiphone');
+				});
+				window.location.href= "http://callClient/mloginValue";
+			} else {
+				try {
+					callback(window.main.mloginValue());
+		    	} catch (e) {}
+			}
 		}
 	});
 	$.fn.myImageUploded = function(options) {
 		var defaults = {
+			complete: function() {},
 			filenotmatch: function() {return false},
 			load: function() {}
 		};
 		defaults.selector = $(this).selector;
 		var opt = $.extend({}, defaults, options);
 		return this.each(function() {
+			var $this = $(this);
 			if (isIphone()) {//iPhone部分功能
-				var $this = $(this);
 				$this.bind('imagecomplete', function() {
+					if ($.isFunction(opt.complete)) {
+						opt.complete();
+					}
 					var base64 = $(opt.selector).data('base64');
 					var imgType = $this.data('imageType');
 					var m = imgType.match(/(png|jpeg|jpg|gif)$/i);
 					if (null == m) {
 						if ($.isFunction(opt.filenotmatch)) {
-							s.filenotmatch();
+							opt.filenotmatch();
 						}
 						return;
 					}
@@ -50,7 +77,12 @@
 				return;
 			}
 			//android部分功能
-			$(this).fileupload({
+			$this.fileupload({
+				complete: function() {
+					if ($.isFunction(opt.complete)) {
+						opt.complete();
+					}
+				},
 				filenotmatch: function() {
 					opt.filenotmatch();
 				},
@@ -78,15 +110,14 @@
 	 *	jsCode: 弹出框弹出后回调函数
 	 **/
 	function callClientAlertView(message, popType, title, jsCode){
-		window.location.href = "http://callClient/showAlert?popType="+popType+"&title="+title+"&message="+message+"&jsCode="+jsCode;
-	}
-	function rockRoll(params) {
-		if (isIphone()) {
-			window.location.href= "http://callClient/rockRoll?id=" + params;
-		} else {
-			try {
-		    	window.main.rockRoll(params);
-	    	} catch (e) {}
-		}
+		$('body').unbind('iphoneconfirm');
+		$('body').bind('iphoneconfirm', function(e, type) {
+			if (type == '1' && $.isFunction(jsCode)) {
+				jsCode();
+				return;
+			}
+			$('body').unbind('iphoneconfirm');
+		});
+		window.location.href = "http://callClient/showAlert?popType="+popType+"&title="+title+"&message="+message;
 	}
 })(jQuery);

@@ -87,15 +87,14 @@
 		<form class="overheadpurchaseform" action="${pageContext.request.contextPath}/purchase/doTopApply.html" method="post">
 			<input type="hidden" name="overhead.refId" value="${purchase.id}">
 			<input type="hidden" name="overhead.overheadType" value="3">
-			<a href="#" class="overheadformpurchasebutton" data-role="button" data-icon="plus" data-theme="b" data-iconpos="right">申请顶置OK</a>
+			<a href="#" class="overheadformpurchasebutton" data-role="button" data-icon="plus" data-theme="b" data-iconpos="right">申请顶置</a>
 		</form>
 		<script type="text/javascript">
 			$('a.purchaseupdatebutton').buttonMarkup("refresh");
 			$('a.overheadformpurchasebutton').buttonMarkup("refresh").click(function(e) {
 				e.preventDefault();
-				if (confirm('确认申请顶置')) {
+				$.myConfirm('确认申请顶置', function() {
 					var $form = $('form.overheadpurchaseform').first();
-					alert($form.attr('action'));
 					$.ajax({
 						type: $form.attr('method'),
 						url: $form.attr('action'),
@@ -104,7 +103,18 @@
 							$('form.overheadpurchaseform').closest('li').html(html);
 						}
 					});
-				}
+				});
+// 				if (confirm('确认申请顶置')) {
+// 					var $form = $('form.overheadpurchaseform').first();
+// 					$.ajax({
+// 						type: $form.attr('method'),
+// 						url: $form.attr('action'),
+// 						data: $form.serialize(),
+// 						success: function(html) {
+// 							$('form.overheadpurchaseform').closest('li').html(html);
+// 						}
+// 					});
+// 				}
 				return false;
 			});
 		</script>

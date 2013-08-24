@@ -144,6 +144,9 @@ public class PurchaseServiceImpl implements PurchaseService {
         Map<Long, Boolean> imageIdMap = new HashMap<Long, Boolean>();
         List<Long> ids = new ArrayList<Long>();
         for (Long id : imageIds) {
+        	if (null == id) {
+        		continue;
+        	}
             imageIdMap.put(id, true);
         }
         for (Long id : entity.getIds()) {
@@ -157,8 +160,6 @@ public class PurchaseServiceImpl implements PurchaseService {
             ids.add(imageUploaded.getId());
         }
         entity.setIds(ids);
-        
-        
         // 审核信息处理
         Date dateCheck = new Date();
         
@@ -170,13 +171,10 @@ public class PurchaseServiceImpl implements PurchaseService {
             check.setUserApply(entity.getUserApply());
             check.setDateApply(entity.getDateApply());
             purchaseCheckDao.save(check);
-            
             entity.setDateCheck(dateCheck);
             entity.setCheckStatus(check.getCheckStatus());
         }
-        
         entity = getPurchaseDao().update(entity);
-        
         return entity;
     }
 

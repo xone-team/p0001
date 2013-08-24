@@ -7,6 +7,7 @@
 (function($){
 	$.fn.fileupload = function (options) {
 		var defaults = {// setup default settings
+			complete: function() {},
 			filenotmatch: function() {
 				return true;
 			},
@@ -18,6 +19,9 @@
 			return a[a.length - 1];
 		}
 		function handleFileSelect(evt) {
+			if ($.isFunction(s.complete)) {
+				s.complete();
+			}
 			var files = evt.target.files;
 			for (var i = 0, f; f = files[i]; i++) {
 				var m = f.name.match(/\.(png|jpeg|jpg|gif)$/i);
@@ -27,6 +31,10 @@
 					}
 					continue;
 				}
+//				if (f.size > 1024 * 1024) {
+//					$.myAlert('图片尺寸太大，图片大小应该小于1M.');
+//					continue;
+//				}
 				var reader = new FileReader();
 				reader.onload = (function(theFile) {
 					return function(e) {

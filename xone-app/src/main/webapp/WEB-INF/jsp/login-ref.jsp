@@ -64,10 +64,14 @@
 					$('div.login-ref-popup-page').css({
 						width: ($('div.login-ref-page').width() - 30) + 'px'
 					}).popup('open');
+					try {
+						$.mloginValue(function(v) {
+							$('#_m${myid}').val(v);
+						});
+					} catch (e) {
+						$.myAlert('异常：'+ e.message);
+					}
 					$('form.loginform${myid}').submit(function() {
-						try {
-							$('#_m${myid}').val(window.main.mloginValue());
-						} catch (e) {}
 						return true;
 					});
 					$('div[data-role="page"]:not(.login-ref-page)').remove();
