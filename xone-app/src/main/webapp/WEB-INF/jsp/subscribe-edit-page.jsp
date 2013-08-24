@@ -44,9 +44,9 @@
 				    			<td class="mylabel">销售方式:</td>
 				    			<td>
 				    				<select name="subscribe.saleType" placeholder="销售方式" data-mini="true">
-				    					<option value="0">普通</option>
-				    					<option value="1">促销</option>
-				    					<option value="2">组团</option>
+					    				<c:forEach items="${saleType}" var="it">
+		                                    <option value="${it.value}">${it.name}</option>
+		                                </c:forEach>
 				    				</select>
 				    			</td>
 				    		</tr>
@@ -58,9 +58,9 @@
 				    			<td class="mylabel">公司信誉:</td>
 				    			<td>
 				    				<select name="subscribe.credit" placeholder="公司信誉" data-mini="true">
-				    					<option value="0">全部</option>
+				    					<option value="">全部</option>
 				    					<option value="1">信誉好</option>
-				    					<option value="2">信誉一般</option>
+				    					<option value="0">信誉一般</option>
 				    				</select>
 				    			</td>
 				    		</tr>
@@ -84,19 +84,22 @@
 						$('#mysubscribesubmit${myid}').click();
 						return false;
 					});
-					var saleType = $('select[name="subscribe.saleType"] option[value="${subscribe.saleType}"]').attr('selected', 'selected');
-					$('select[name="subscribe.saleType"]').siblings('span.ui-btn-inner').find('span.ui-btn-text span').text(saleType.text());
-					var credit = $('select[name="subscribe.credit"] option[value="${subscribe.credit}"]').attr('selected', 'selected');
-					$('select[name="subscribe.credit"]').siblings('span.ui-btn-inner').find('span.ui-btn-text span').text(credit.text());
+					var saleType = $('select[name="subscribe.saleType"]');
+					saleType.val('${subscribe.saleType}').attr('selected', true).siblings('option').removeAttr('selected');
+					saleType.selectmenu("refresh", true);
+					var credit = $('select[name="subscribe.credit"]');
+					credit.val('${subscribe.credit}').attr('selected', true).siblings('option').removeAttr('selected');
+					credit.selectmenu("refresh", true);
+// 					var saleType = $('select[name="subscribe.saleType"] option[value="${subscribe.saleType}"]').attr('selected', 'selected');
+// 					$('select[name="subscribe.saleType"]').siblings('span.ui-btn-inner').find('span.ui-btn-text span').text(saleType.text());
+// 					var credit = $('select[name="subscribe.credit"] option[value="${subscribe.credit}"]').attr('selected', 'selected');
+// 					$('select[name="subscribe.credit"]').siblings('span.ui-btn-inner').find('span.ui-btn-text span').text(credit.text());
 					$('form.subscribe-add-form${myid}').submit(function() {
 						if ($('form.subscribe-add-form${myid} li.myerror').length > 0) {
 							$('li.myerror').remove();
 							$('ul.mylistview${myid}').listview('refresh');
 						}
 						var v = [{
-							id: 'subscribemarketarea${myid}',
-							msg: '请输入市场区域'
-						},{
 							id: 'subscribeproductNameKey${myid}',
 							msg: '请输入产品名称'
 						}];

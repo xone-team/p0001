@@ -109,7 +109,8 @@ public class SubscribeServiceImpl implements SubscribeService {
 	        		pResult.put("product.gtDateCreated", MyServerUtils.format(subscribe.getDateCheck()));
 	    		}
 				subscribe.setDateCheck(new Date());
-				getSubscribeDao().update(subscribe);
+				// TODO 为了测试的方便，现在把最后一次订阅的更新时间暂时注释掉
+//				getSubscribeDao().update(subscribe);
 			}
 			return pResult;
     	}

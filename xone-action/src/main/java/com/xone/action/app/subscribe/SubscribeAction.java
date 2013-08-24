@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.Action;
+import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Subscribe;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.SubscribeService;
@@ -43,6 +44,10 @@ public class SubscribeAction extends Action {
 	public String item() {
 		setSubscribe(getSubscribeService().findById(getSubscribe().getId()));
 		return SUCCESS;
+	}
+	
+	public Enum<?>[] getSaleType() {
+		return Product.SaleType.values();
 	}
 	
 	public String items() {

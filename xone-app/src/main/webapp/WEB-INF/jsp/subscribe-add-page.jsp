@@ -43,9 +43,9 @@
 				    			<td class="mylabel">销售方式:</td>
 				    			<td>
 				    				<select name="subscribe.saleType" placeholder="销售方式" data-mini="true">
-				    					<option value="0">普通</option>
-				    					<option value="1">促销</option>
-				    					<option value="2">组团</option>
+					    				<c:forEach items="${saleType}" var="it">
+		                                    <option value="${it.value}">${it.name}</option>
+		                                </c:forEach>
 				    				</select>
 				    			</td>
 				    		</tr>
@@ -58,8 +58,8 @@
 				    			<td>
 				    				<select name="subscribe.credit" placeholder="公司信誉" data-mini="true">
 				    					<option value="">全部</option>
-				    					<option value="0">信誉好</option>
-				    					<option value="1">信誉一般</option>
+				    					<option value="1">信誉好</option>
+				    					<option value="0">信誉一般</option>
 				    				</select>
 				    			</td>
 				    		</tr>
