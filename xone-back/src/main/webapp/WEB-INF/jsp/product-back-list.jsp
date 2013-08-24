@@ -184,7 +184,7 @@
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
                                     <td>${item.productName}</td>
-                                    <td>${product.productTypeName }</td>
+                                    <td>${item.productTypeName}</td>
                                     <td>${item.saleTypeName }</td>
                                     <td class="table-col-number">${item.productPrice}</td>
                                     <td class="table-col-number">${item.productNum}</td>
