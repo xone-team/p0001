@@ -566,7 +566,7 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 		}
 		List items = criteria.setFirstResult((startIndex - 1) * pageSize)
 				.setMaxResults(pageSize).list();
-		Pagination ps = new Pagination(startIndex / pageSize + 1, pageSize,
+		Pagination ps = new Pagination(startIndex, pageSize,
 				totalCount, items);
 		return ps;
 	}

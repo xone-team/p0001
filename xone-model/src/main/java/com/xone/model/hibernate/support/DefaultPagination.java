@@ -19,7 +19,7 @@ public class DefaultPagination implements Paginable {
 	}
 
 	public DefaultPagination(int pageNo, int pageSize, int totalCount) {
-		pageSize = pageSize <= 0 ? 20 : pageSize;
+		pageSize = pageSize <= 0 ? DEF_COUNT : pageSize;
 		if (totalCount <= 0) {
 			this.totalCount = 0;
 		} else {
@@ -118,10 +118,6 @@ public class DefaultPagination implements Paginable {
 		this.pageNo = pageNo;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see net.everelegance.common.page.Paginable#getList()
-	 */
 	public List<?> getList() {
 		return new ArrayList<Object>(1);
 	}

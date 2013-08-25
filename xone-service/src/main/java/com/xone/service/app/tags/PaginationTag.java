@@ -14,6 +14,8 @@ public class PaginationTag extends TagSupport {
 
 	private static final long serialVersionUID = 2037407896755085349L;
 	
+	protected static final int I_NUM = 4;
+	
 	protected Object pagination;
 	protected String href;
 	protected String name;
@@ -120,14 +122,15 @@ public class PaginationTag extends TagSupport {
 			buffer.append(params);
 			buffer.append("\">上一页</a></li>");
 			int pageNo = p.getPageNo();
-			for (int i = pageNo; i <= totalPage; i ++) {
+			int start = (pageNo > I_NUM) ? (pageNo - I_NUM) : 1;
+			for (int i = start; i <= totalPage; i ++) {
 				buffer.append("<li><a href=\"");
 				buffer.append(page(p, i));
 				buffer.append(params);
 				buffer.append("\">");
 				buffer.append(i);
 				buffer.append("</a></li>");
-				if (i > pageNo + 5) {
+				if (i > start + 2 * I_NUM) {
 					buffer.append("<li><a href=\"#");
 					buffer.append("\">...</a></li>");
 					break;
