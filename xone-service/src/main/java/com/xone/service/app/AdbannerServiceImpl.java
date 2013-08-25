@@ -56,7 +56,7 @@ public class AdbannerServiceImpl implements AdbannerService {
 			imageUploaded.setRefType(ImageUploaded.RefType.ABBANNER.getValue());
 			imageUploaded.setFlagDeleted(ImageUploaded.FlagDeleted.NORMAL.getValue());
 			imageUploaded = getImageUploadedDao().save(imageUploaded);
-			if (null == imageId) {
+			if (null != imageId) {
 				getImageUploadedDao().deleteLogicById(imageId);
 			}
 			entity.setAdRefId(imageUploaded.getId());
@@ -90,8 +90,8 @@ public class AdbannerServiceImpl implements AdbannerService {
 				Date dateToday = DateUtils.parseDate(today, new String[] {
 						"yyyy-MM-dd HH:mm:ss"
 				});
-				detachedCriteria.add(Restrictions.ge("adStart", dateToday));
-				detachedCriteria.add(Restrictions.lt("adEnd", dateToday));
+				detachedCriteria.add(Restrictions.le("adStart", dateToday));
+				detachedCriteria.add(Restrictions.gt("adEnd", dateToday));
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
@@ -103,7 +103,7 @@ public class AdbannerServiceImpl implements AdbannerService {
 			for (Adbanner a : list) {
 				ids.add(a.getId());
 			}
-			Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.ABBANNER, 0, ids.size());
+			Map<Long, List<Long>> maps = getImageUploadedDao().findAllIdsByRefIds(ids, ImageUploaded.RefType.ABBANNER, 0, ids.size() * 10);
 			for (int i = 0; i < ids.size(); i++) {
 				Adbanner ad = list.get(i);
 				List<Long> imageIds = maps.get(ad.getId());

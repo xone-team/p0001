@@ -116,7 +116,7 @@
 		<jsp:include page="common-modal.jsp">
 			<jsp:param name="myidentify" value="CompanyInfo"/>
 			<jsp:param name="title" value="请选择广告对应的公司信息"/>
-			<jsp:param name="url" value="${pageContext.request.contextPath }/companyinfo/companyInfoListAjax.html"/>
+			<jsp:param name="url" value="${pageContext.request.contextPath }/companyInfo/companyInfoListAjax.html"/>
 		</jsp:include>
 		<script type="text/javascript">
 		$(document).ready(function() {

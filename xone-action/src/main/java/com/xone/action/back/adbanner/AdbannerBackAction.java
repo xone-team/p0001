@@ -125,10 +125,12 @@ public class AdbannerBackAction extends LogicAction {
 				}
 			});
 			ImageUploaded imageUploaded = null;
+			getAdbanner().setAdRefId(null);
 			if (null != getUploadFile()) {
 				imageUploaded = createUploadImageByFile(imageUploadPath,
 						ImageUploaded.RefType.ABBANNER, getUploadFile(),
 						getUploadFileContentType(), getUploadFileFileName());
+				getAdbanner().setAdRefId(entity.getAdRefId());
 			}
 	        adbanner.setUserUpdated(getUserId());
 	        adbanner.setLastUpdated(new Date());

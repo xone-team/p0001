@@ -1,6 +1,7 @@
 package com.xone.action.app.adbanner;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ public class AdBannerAction extends Action {
 
 	public String index() {
 		Map<String, String> params = getRequestMap();
+		params.put("today", String.format("%1$tY-%1tm-%1$td %1$tH:%1$tM:%1$tS", new Date()));
 		List<Adbanner> l = adbannerService.findAllByMap(params);
 		if (null != l && !l.isEmpty()) {
 			getList().addAll(l);

@@ -48,7 +48,7 @@
         </action>
 
         <action name="companyInfoListAjax" class="companyInfoBackAction" method="companyInfoList">
-            <result name="success">/WEB-INF/jsp/company－info-back-list-ajax.jsp</result>
+            <result name="success">/WEB-INF/jsp/company-info-back-list-ajax.jsp</result>
         </action>
     </package>
 </struts>
