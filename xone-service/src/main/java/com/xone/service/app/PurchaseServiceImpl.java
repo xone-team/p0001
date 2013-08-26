@@ -314,6 +314,11 @@ public class PurchaseServiceImpl implements PurchaseService {
                 p.setPerson(person);
             }
         }
+		if (StringUtils.isNotBlank(params.get("checklist"))
+				&& "purchaseCheckList".equalsIgnoreCase(params.get("checklist"))) {
+			p.setPurchaseCheckList(getPurchaseCheckDao().findByPurchaseId(
+					p.getId()));
+		}
         return p;
     }
 

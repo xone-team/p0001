@@ -197,6 +197,7 @@ public class ProductAction extends LogicAction {
 	public String itemDetails() {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("id", String.valueOf(getProduct().getId()));
+		params.put("checklist", "productCheckList");
 		setProduct(getProductService().findByMap(params));
 		return SUCCESS;
 	}

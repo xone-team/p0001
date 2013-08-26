@@ -214,6 +214,7 @@ public class PurchaseAction extends LogicAction {
 	public String itemDetails() {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("id", String.valueOf(getPurchase().getId()));
+		params.put("checklist", "purchaseCheckList");
 		setPurchase(getPurchaseService().findByMap(params));
 		return SUCCESS;
 	}

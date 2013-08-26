@@ -29,7 +29,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品名称:</td>
-				    			<td><input type="text" id="purchasepurchaseName${myid}" name="purchase.purchaseName" placeholder="产品名称" data-mini="true" value="" autocomplete="off"/></td>
+				    			<td><input type="text" id="purchasepurchaseName${myid}" name="purchase.purchaseName" placeholder="产品名称" data-mini="true" value="" autocomplete="off" maxlength="20"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -53,7 +53,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品产地:</td>
-				    			<td><input type="text" id="purchasepurchaseAddress${myid}" name="purchase.purchaseAddress" placeholder="产品产地" data-mini="true" value="" autocomplete="off"/></td>
+				    			<td><input type="text" id="purchasepurchaseAddress${myid}" name="purchase.purchaseAddress" placeholder="产品产地" data-mini="true" value="" autocomplete="off" maxlength="20"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -61,7 +61,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品属地:</td>
-				    			<td><input type="text" id="purchasepurchaseLocation${myid}" name="purchase.purchaseLocation" placeholder="产品属地" data-mini="true" value="" autocomplete="off"/></td>
+				    			<td><input type="text" id="purchasepurchaseLocation${myid}" name="purchase.purchaseLocation" placeholder="产品属地" data-mini="true" value="" autocomplete="off" maxlength="20"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -69,7 +69,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">数　　量:</td>
-				    			<td><input type="text" id="purchasepurchaseNum${myid}" name="purchase.purchaseNum" placeholder="数量" data-mini="true" value="2" autocomplete="off"/></td>
+				    			<td><input type="text" id="purchasepurchaseNum${myid}" name="purchase.purchaseNum" placeholder="数量" data-mini="true" value="" autocomplete="off" maxlength="10"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -77,7 +77,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">描　　述:</td>
-				    			<td><input type="text" name="purchase.purchaseDesc" placeholder="描述" data-mini="true" value="" autocomplete="off"/></td>
+				    			<td><input type="text" name="purchase.purchaseDesc" placeholder="描述" data-mini="true" value="" autocomplete="off" maxlength="100"/></td>
 				    		</tr>
 				    	</table>
 				    </li>

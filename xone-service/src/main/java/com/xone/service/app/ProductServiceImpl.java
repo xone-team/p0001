@@ -385,6 +385,11 @@ public class ProductServiceImpl implements ProductService {
                 p.setPerson(person);
             }
         }
+		if (StringUtils.isNotBlank(params.get("checklist"))
+				&& "productCheckList".equalsIgnoreCase(params.get("checklist"))) {
+			p.setProductCheckList(getProductCheckDao().findByProductId(
+					p.getId()));
+		}
         return p;
     }
 

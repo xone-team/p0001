@@ -71,11 +71,32 @@
 <li>
 	<table style="width:100%">
 		<tr>
-			<td class="mylabel">审核状态:</td>
+			<td class="mylabel">当前状态:</td>
 			<td>${purchase.checkStatusName}</td>
 		</tr>
 	</table>
 </li>
+<c:if test="${not empty purchase.purchaseCheckList}">
+	<li data-role="list-divider">审核历史</li>
+	<c:forEach var="item" items="${purchase.purchaseCheckList}">
+	<li>
+		<table style="width:100%">
+			<tr>
+				<td class="mylabel">审核时间:</td>
+				<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+			</tr>
+			<tr>
+				<td class="mylabel">审核状态:</td>
+				<td>${item.checkStatusName}</td>
+			</tr>
+			<tr>
+				<td class="mylabel">审核备注:</td>
+				<td>${item.remark}</td>
+			</tr>
+		</table>
+	</li>
+	</c:forEach>
+</c:if>
 <c:if test="${login}">
 <li>
 	<div>
