@@ -1,6 +1,8 @@
 package com.xone.action.back.index;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -34,6 +37,10 @@ public class IndexBackAction extends Action {
     Integer productCount = new Integer(0);
     Integer deliveryCount = new Integer(0);
     Integer purchaseCount = new Integer(0);
+    Integer adbannerCount = new Integer(0);
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    
+    String adbannerAlertDate;
     
     IndexService indexService;
     
@@ -96,6 +103,13 @@ public class IndexBackAction extends Action {
         productCount = indexService.getTodoProductCount();
         deliveryCount = indexService.getTodoDeliveryCount();
         purchaseCount = indexService.getTodoPurchaseCount();
+        
+    	Calendar ca = Calendar.getInstance();
+    	// 提前5天提醒
+    	ca.add(Calendar.DATE, 5);
+    	setAdbannerAlertDate(dateFormat.format(ca.getTime()));
+    	
+        adbannerCount = indexService.getAlertAdbanner(ca.getTime());
 	    return SUCCESS;
 	}
     public Integer getProductCount() {
@@ -167,4 +181,21 @@ public class IndexBackAction extends Action {
 		this.errorType = errorType;
 	}
 
+	public Integer getAdbannerCount() {
+		return adbannerCount;
+	}
+
+	public void setAdbannerCount(Integer adbannerCount) {
+		this.adbannerCount = adbannerCount;
+	}
+
+	public String getAdbannerAlertDate() {
+		return adbannerAlertDate;
+	}
+
+	public void setAdbannerAlertDate(String adbannerAlertDate) {
+		this.adbannerAlertDate = adbannerAlertDate;
+	}
+
+	
 }

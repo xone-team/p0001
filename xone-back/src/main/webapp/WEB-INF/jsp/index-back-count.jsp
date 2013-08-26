@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
+<div class="row－fluid">
 <div class="span4">
     <div class="thumbnail">
         <div class="caption">
@@ -33,4 +34,17 @@
             </p>
         </div>
     </div>
+</div>
+</div>
+<div class="row－fluid">
+<div class="span4">
+    <div class="thumbnail">
+        <div class="caption">
+            <h3>广告到期</h3>
+            <p>
+                有 ${adbannerCount } 个广告即将到期，需要处理，<a href="${pageContext.request.contextPath}/adbanner/adbannerList.html?adbanner.ltAdEnd=${adbannerAlertDate}">点击进入</a>
+            </p>
+        </div>
+    </div>
+</div>
 </div>

@@ -1,1 +1,1 @@
-<% response.sendRedirect(request.getContextPath() + "/person/personList.html"); %>
+<% response.sendRedirect(request.getContextPath() + "/console/index.html"); %>

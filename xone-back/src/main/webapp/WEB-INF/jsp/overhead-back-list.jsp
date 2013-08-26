@@ -99,6 +99,7 @@
                         <thead>
                             <tr>
                                 <th>序号</th>
+                                <th>关联产品</th>
                                 <th>置顶类型</th>
                                 <th>审核状态</th>
                                 <th>备注</th>
@@ -111,6 +112,14 @@
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
                                     <td class="table-col-index">${status.index + 1}</td>
+                                    <td><c:choose>
+                                            <c:when test="${item.overheadType == '3' }">
+                                                <a href="${pageContext.request.contextPath}/purchase/purchaseItem.html?product.id=${item.id}"> ${item.purchase.purchaseName} </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}"> ${item.product.productName} </a>
+                                            </c:otherwise>
+                                        </c:choose></td>
                                     <td>${item.overheadTypeName}</td>
                                     <td>${item.checkStatusName}</td>
                                     <td>${item.remark}</td>

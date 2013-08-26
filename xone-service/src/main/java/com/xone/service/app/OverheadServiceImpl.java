@@ -1,6 +1,7 @@
 package com.xone.service.app;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.OverheadDao;
+import com.xone.model.hibernate.app.ProductDao;
+import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.Overhead;
+import com.xone.model.hibernate.entity.Product;
+import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
 
 public class OverheadServiceImpl implements OverheadService {
@@ -22,6 +27,10 @@ public class OverheadServiceImpl implements OverheadService {
 
     @Autowired
     protected OverheadDao overheadDao;
+    @Autowired
+    protected ProductDao productDao;
+    @Autowired
+    protected PurchaseDao purchaseDao;
 
     @Override
     public Overhead save(Overhead entity) {
@@ -115,7 +124,62 @@ public class OverheadServiceImpl implements OverheadService {
         handleCriteriaByParams(detachedCriteria, params);
         int pageSize = com.xone.model.utils.MyModelUtils.parseInt(params.get("pageSize"), 20);
         int startIndex = com.xone.model.utils.MyModelUtils.parseInt(params.get("pageNo"), 0);
-        return getOverheadDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+        Pagination result = getOverheadDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+        
+        // add product and purchase
+        @SuppressWarnings("unchecked")
+		List<Overhead> overheadList = result.getList();
+        List<Long> productIds = new ArrayList<Long>();
+        List<Long> purchaseIds = new ArrayList<Long>();
+        for(Overhead overhead : overheadList){
+        	if(Overhead.OverheadType.PURCHASE.getValue().equals(overhead.getOverheadType())){
+        		purchaseIds.add(overhead.getRefId());
+        	}else{
+        		productIds.add(overhead.getRefId());
+        	}
+        }
+        
+        List<Product> productList = null;
+        List<Purchase> purchaseList = null;
+        if(productIds.size() > 0){
+        	detachedCriteria = DetachedCriteria.forClass(Product.class);
+        	detachedCriteria.add(Restrictions.in("id", productIds));
+        	productList = productDao.findListByDetachedCriteria(detachedCriteria, -1, -1);
+        }
+        
+        if(purchaseIds.size() > 0){
+        	detachedCriteria = DetachedCriteria.forClass(Purchase.class);
+        	detachedCriteria.add(Restrictions.in("id", purchaseIds));
+        	purchaseList = purchaseDao.findListByDetachedCriteria(detachedCriteria, -1, -1);
+        }	
+        
+        List<Overhead> newOverheadList = new ArrayList<Overhead>();
+        
+        for(Overhead overhead : overheadList){
+        	if(Overhead.OverheadType.PURCHASE.getValue().equals(overhead.getOverheadType())){
+        		if(purchaseList != null){
+        			for(Purchase purchase : purchaseList){
+        				if(purchase.getId().equals(overhead.getRefId())){
+        					overhead.setPurchase(purchase);
+        					break;
+        				}
+        			}
+        		}
+        	}else{
+        		if(productList != null){
+        			for(Product product : productList){
+        				if(product.getId().equals(overhead.getRefId())){
+        					overhead.setProduct(product);
+        					break;
+        				}
+        			}
+        		}
+        	}
+        	newOverheadList.add(overhead);
+        }
+        result.setList(newOverheadList);
+        
+        return result;
     }
 
     protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params) {
@@ -282,5 +346,21 @@ public class OverheadServiceImpl implements OverheadService {
     public void setOverheadDao(OverheadDao overheadDao) {
         this.overheadDao = overheadDao;
     }
+
+	public ProductDao getProductDao() {
+		return productDao;
+	}
+
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
+	}
+
+	public PurchaseDao getPurchaseDao() {
+		return purchaseDao;
+	}
+
+	public void setPurchaseDao(PurchaseDao purchaseDao) {
+		this.purchaseDao = purchaseDao;
+	}
 
 }

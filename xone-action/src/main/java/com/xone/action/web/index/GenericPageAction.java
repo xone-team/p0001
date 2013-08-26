@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.Adbanner;
+import com.xone.model.hibernate.entity.Overhead;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.AdbannerService;
 import com.xone.service.app.ImageUploadedService;
+import com.xone.service.app.OverheadService;
 import com.xone.service.app.ProductService;
 import com.xone.service.app.PurchaseService;
 
@@ -37,24 +39,31 @@ public class GenericPageAction extends LogicAction {
 	@Autowired
 	protected AdbannerService adbannerService;
 	protected List<Adbanner> adList = new ArrayList<Adbanner>();
+	@Autowired
+	protected OverheadService overheadService;
+	protected Pagination overheadPage = new Pagination();
 
 	public String index() throws Exception {
 		
-		// get products
-	    Map<String, String> params = new HashMap<String, String>();
-	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
-	    params.put("pageSize", "20");
-	    params.put("pageNo", "0");
-	    Pagination p = getProductService().findByParams(params);
-	    setProductPage(p);
+//		// get products
+//	    Map<String, String> params = new HashMap<String, String>();
+//	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+//	    params.put("pageSize", "20");
+//	    params.put("pageNo", "0");
+//	    Pagination p = getProductService().findByParams(params);
+//	    setProductPage(p);
+//	    
+//	    // get purchases
+//	    params = new HashMap<String, String>();
+//	    params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+//	    params.put("pageSize", "20");
+//	    params.put("pageNo", "0");
+//	    p = getPurchaseService().findByParams(params);
+//	    setPurchasePage(p);
 	    
-	    // get purchases
-	    params = new HashMap<String, String>();
-	    params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
-	    params.put("pageSize", "20");
-	    params.put("pageNo", "0");
-	    p = getPurchaseService().findByParams(params);
-	    setPurchasePage(p);
+	    Map<String, String> params = new HashMap<String, String>();
+	    params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
+	    overheadPage = overheadService.findByParams(params);
 	    
 	    // get ad
 		params = new HashMap<String, String>();
@@ -142,5 +151,21 @@ public class GenericPageAction extends LogicAction {
 	public void setAdList(List<Adbanner> adList) {
 		this.adList = adList;
 	}
-	
+
+	public OverheadService getOverheadService() {
+		return overheadService;
+	}
+
+	public void setOverheadService(OverheadService overheadService) {
+		this.overheadService = overheadService;
+	}
+
+	public Pagination getOverheadPage() {
+		return overheadPage;
+	}
+
+	public void setOverheadPage(Pagination overheadPage) {
+		this.overheadPage = overheadPage;
+	}
+
 }

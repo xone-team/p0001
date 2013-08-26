@@ -26,8 +26,8 @@
                         <li class="active">首页</li>
                     </ul>
                 </div>
-
-                <div class="row－fluid" id="X_count_container">
+                <div id="X_count_container">
+                <div class="row－fluid">
                     <div class="span4">
                         <div class="thumbnail">
                             <div class="caption">
@@ -58,6 +58,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 </div>
 
             </div>

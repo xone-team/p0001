@@ -70,9 +70,11 @@
                     <div class="inner-content">
                         <div class="list_gq">
                             <ul>
-                                <c:forEach var="item" items="${productPage.list}">
-                                    <li><span class="txt_date">[<fmt:formatDate value="${item.dateApply}" pattern="MM-dd" />]
-                                    </span><span class="gq">供</span> <a href="${pageContext.request.contextPath}/product/item.html?product.id=${item.id}"> ${item.productName}</a></li>
+                                <c:forEach var="item" items="${overheadPage.list}">
+                                    <c:if test="${item.overheadType != '3' }">
+                                    <li><span class="txt_date">[<fmt:formatDate value="${item.product.dateApply}" pattern="MM-dd" />]
+                                    </span><span class="gq">供</span> <a href="${pageContext.request.contextPath}/product/item.html?product.id=${item.product.id}"> ${item.product.productName}</a></li>
+                                    </c:if>
                                 </c:forEach>
                             </ul>
                         </div>
@@ -94,9 +96,11 @@
                         <div class="list_gq">
                             <ul>
 
-                                <c:forEach var="item" items="${purchasePage.list}">
-                                    <li><span class="txt_date">[<fmt:formatDate value="${item.dateApply}" pattern="MM-dd" />]
-                                    </span><span class="gq">供</span> <a href="${pageContext.request.contextPath}/purchase/item.html?purchase.id=${item.id}"> ${item.purchaseName}</a></li>
+                                <c:forEach var="item" items="${overheadPage.list}">
+                                <c:if test="${item.overheadType == '3' }">
+                                    <li><span class="txt_date">[<fmt:formatDate value="${item.purchase.dateApply}" pattern="MM-dd" />]
+                                    </span><span class="gq">供</span> <a href="${pageContext.request.contextPath}/purchase/item.html?purchase.id=${item.purchase.id}"> ${item.purchase.purchaseName}</a></li>
+                                </c:if>
                                 </c:forEach>
 
                             </ul>

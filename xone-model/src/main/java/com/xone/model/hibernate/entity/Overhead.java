@@ -26,6 +26,10 @@ public class Overhead extends MyModel implements Serializable {
 	protected Long userUpdated;
 	protected Date lastUpdated;
 	
+	// 列表显示
+	protected Product product = new Product();
+	protected Purchase purchase = new Purchase();
+	
 	/**
 	 * 置顶类型
 	 */
@@ -389,5 +393,21 @@ public class Overhead extends MyModel implements Serializable {
     public void setLastUpdatedMax(String lastUpdatedMax) {
         this.lastUpdatedMax = lastUpdatedMax;
     }
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+
+	public Purchase getPurchase() {
+		return purchase;
+	}
+
+	public void setPurchase(Purchase purchase) {
+		this.purchase = purchase;
+	}
 	
 }

@@ -177,9 +177,7 @@
                             <div class="control-group">
                                 <label class="control-label" for="productCheckStatus">审核结果</label>
                                 <div class="controls">
-                                    <c:forEach items="${checkStatus}" var="it">
-                                        <c:if test="${it.value == item.checkStatus}">${ it.name }</c:if>
-                                    </c:forEach>
+                                    ${item.checkStatusName }
                                 </div>
                             </div>
 
