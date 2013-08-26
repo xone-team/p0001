@@ -79,11 +79,32 @@
 <li>
 	<table style="width:100%">
 		<tr>
-			<td class="mylabel">审核状态:</td>
+			<td class="mylabel">当前状态:</td>
 			<td>${product.checkStatusName}</td>
 		</tr>
 	</table>
 </li>
+<c:if test="${not empty product.productCheckList}">
+	<li data-role="list-divider">审核历史</li>
+	<c:forEach var="item" items="${product.productCheckList}">
+	<li>
+		<table style="width:100%">
+			<tr>
+				<td class="mylabel">审核时间:</td>
+				<td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+			</tr>
+			<tr>
+				<td class="mylabel">审核状态:</td>
+				<td>${item.checkStatusName}</td>
+			</tr>
+			<tr>
+				<td class="mylabel">审核备注:</td>
+				<td>${item.remark}</td>
+			</tr>
+		</table>
+	</li>
+	</c:forEach>
+</c:if>
 <c:if test="${login}">
 <li>
 	<div>
@@ -112,17 +133,6 @@
 						}
 					});
 				});
-// 				if (confirm('确认申请顶置')) {
-// 					var $form = $('form.overheadform').first();
-// 					$.ajax({
-// 						type: $form.attr('method'),
-// 						url: $form.attr('action'),
-// 						data: $form.serialize(),
-// 						success: function(html) {
-// 							$('form.overheadform').closest('li').html(html);
-// 						}
-// 					});
-// 				}
 				return false;
 			});
 		</script>

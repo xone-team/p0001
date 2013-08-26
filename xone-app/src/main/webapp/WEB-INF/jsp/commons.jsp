@@ -38,6 +38,12 @@
 	top:0px;
 	margin:0px;
 }
+
+span.required {
+	color:red;
+	font-size:20px;
+	font-weight: bold;
+}
 </style>
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery-1.10.0.min.js"></script>
 <c:if test="${param.bootstrap == true}">
