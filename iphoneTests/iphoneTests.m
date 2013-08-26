@@ -7,7 +7,6 @@
 //
 
 #import "iphoneTests.h"
-#import "GDataXMLNode.h"
 
 @implementation iphoneTests
 
@@ -25,10 +24,9 @@
     [super tearDown];
 }
 
-- (void)testFindData
+- (void)testSample
 {
-
-
+    NSLog(@"hello world !!!");
 }
 
 

@@ -11,14 +11,25 @@
 }
 
 
-
+http://rs.fengzhangyu.com:8080/xone-app/product/listProduct.html?_pu=1&_pm=FDFEFSDFDSFsd&_pd=12212&_=232323231
 
 https://appleid.apple.com/cgi-bin/WebObjects/MyAppleId.woa/wa/directToSignIn?localang=zh_CN
+
+http://rs.fengzhangyu.com:8080/xone-app/assistant/subscribe.html?id=1&_m=1E8283A655F8E349D49EF2B287621AF1
 
 webcpic@gmail.com Cpic1234
 
 
-alexhuang0906@hotmail.com  Alexhuang0906@.apple.com
+alexhuang0906@hotmail.com  Alexhuang0906@.apple.com1
+
+Alexhuang0906@hotmail.com hxx!@#$%^
+
+
+
+/**
+	 * 订阅成功的列表地址
+	 */
+public final static String SUBSCRIBE_RESULT_ADDR_KEY = "/productstProduct.html";
 
 
 com.wonddertek.cpic

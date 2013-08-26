@@ -8,8 +8,56 @@
 
 #import "StringUtil.h"
 #import "ValidateUtil.h"
+#import <CommonCrypto/CommonDigest.h> // Need to import for CC_MD5 access
 
 @implementation StringUtil
+
++ (NSDate *) getNsDateByHour:(int) hour
+{
+    NSDateFormatter *formatter =[[NSDateFormatter alloc] init];
+    NSDate *date = [NSDate date];
+    [formatter setTimeStyle:NSDateFormatterMediumStyle];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    
+    NSDateComponents *comps = [[NSDateComponents alloc] init];
+    NSInteger unitFlags = NSYearCalendarUnit |
+    NSMonthCalendarUnit |
+    NSDayCalendarUnit |
+    NSHourCalendarUnit |
+    NSMinuteCalendarUnit |
+    NSSecondCalendarUnit;
+    
+    comps = [calendar components:unitFlags fromDate:date];
+    
+    comps.hour=hour;
+    comps.minute=0;
+    comps.second=0;
+    
+    return [comps date];
+}
+
++ (NSString *)md5:(NSString *)str
+{
+    const char *cStr = [str UTF8String];
+    
+    unsigned char result[16];
+    
+    CC_MD5(cStr, strlen(cStr), result); // This is the md5 call
+    
+    return [NSString stringWithFormat:
+            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+            
+            result[0], result[1], result[2], result[3],
+            
+            result[4], result[5], result[6], result[7],
+            
+            result[8], result[9], result[10], result[11],
+            
+            result[12], result[13], result[14], result[15]
+            
+            ]; 
+    
+}
 
 /**
  *     功能：在请求的URL后拼接参数

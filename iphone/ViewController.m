@@ -62,17 +62,18 @@
 
 
 - (IBAction)doEditFieldDone:(id)sender {
-    //取消目前是第一回应者（键盘消失）
+    // 取消目前是第一回应者（键盘消失）
     [sender resignFirstResponder];
 }
 
-//点击背景
+// 点击背景
 - (IBAction)onBackgroungHit:(id)sender {
     //取消目前是第一回应者（键盘消失）
     //[_txtUserName resignFirstResponder];
     NSLog(@"backGroundHit=====");
     [[UIApplication sharedApplication].keyWindow endEditing:YES];
 }
+
 - (void)UtilTimer:(id) sender
 {
     NSTimer *myTimer = [NSTimer  timerWithTimeInterval:3.0 target:self selector:@selector(timerFired:) userInfo:nil repeats:NO];

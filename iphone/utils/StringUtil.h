@@ -13,7 +13,8 @@
 
 }
 
-
++ (NSDate *) getNsDateByHour:(int) hour;
++ (NSString *)md5:(NSString *)str;
 + (NSString *) appendParam2RequestURLString:(NSString *) requestURLString param:(NSString *) param;
 + (NSString *) removeParam2RequestURLString:(NSString *) requestURLString param:(NSString *) param;
 + (NSString *) bytes2CapacitySize:(unsigned long long) byteSize;

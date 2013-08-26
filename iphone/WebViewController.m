@@ -11,6 +11,10 @@
 #import "StringUtil.h"
 #import "UrlParamUtil.h"
 #import "NSData+Base64.h"
+#import "ASIHTTPRequest.h"
+#import "GDataXMLNode.h"
+#import "NotificationDAO.h"
+
 @interface WebViewController ()
 
 @end
@@ -32,16 +36,27 @@
     [activityIndicatorView setCenter: self.webView.center] ;
     [activityIndicatorView setActivityIndicatorViewStyle: UIActivityIndicatorViewStyleGray] ;
     [self.webView addSubview : activityIndicatorView] ;
-    
-    
-    
-    
+  
+        
 //    NSString *string = [NSString stringWithFormat:@"%@", path];
 //    string = [string stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *url =[NSURL URLWithString:ACCP_MAIN_PAGE];
-    NSURLRequest *request =[NSURLRequest requestWithURL:url];
+//    NSURL *url =[NSURL URLWithString:ACCP_MAIN_PAGE];
+//    NSURLRequest *request =[NSURLRequest requestWithURL:url];
+//    
+//    [self.webView loadRequest:request];
     
-    [self.webView loadRequest:request];
+    NSUserDefaults *shareMap=[NSUserDefaults standardUserDefaults];
+    NSString *inputPath=[shareMap valueForKey:ACCP_MAIN_PAGE_INPUT];
+//    if(inputPath != Nil && [inputPath length] >0 )
+//    {
+//        NSURL *url =[NSURL URLWithString:ACCP_MAIN_PAGE];
+//        NSURLRequest *request =[NSURLRequest requestWithURL:url];
+//        [self.webView loadRequest:request];
+//    }else{
+        self.webView.delegate=self;
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath: path]]];
+    //}
     
     [_btnLogin addTarget:self  action:@selector(btnLoginEvent:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -54,17 +69,74 @@
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *requestURLString = [NSString stringWithFormat:@"%@",request.URL];
+    NSDictionary *params = [UrlParamUtil getParamsFromUrl:request.URL];
+    // 同步用户信息
+    NSUserDefaults *shareMap=[NSUserDefaults standardUserDefaults];
     
-	NSLog(@"shouldStartLoadWithRequest:*********\n%@",requestURLString);
+	NSLog(@"startRequest:*********  %@",requestURLString);
 	NSString *requestQueryString = [[request URL] query];
-    if ([requestURLString rangeOfString:@"http://callClient/showAlert"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/showAlert"].location != NSNotFound) {
+    if ([requestURLString rangeOfString:@"http://callClient/loadRequestWebview"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/loadRequestWebview"].location != NSNotFound) {
+        NSUserDefaults *shareMap=[NSUserDefaults standardUserDefaults];
+        NSString *fromPage = [params objectForKey:@"fromPage"];
+        NSString *string = [[shareMap valueForKey:ACCP_MAIN_PAGE_INPUT] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        if([fromPage isEqualToString:@"1"]){
+            string=[string stringByAppendingFormat:@"/product/index.html"];
+        }else if([fromPage isEqualToString:@"2"]){
+            string=[string stringByAppendingFormat:@"/purchase/index.html"];
+        }else if([fromPage isEqualToString:@"3"]){
+            string=[string stringByAppendingFormat:@"/assistant/index.html"];
+        }else if([fromPage isEqualToString:@"4"]){
+            string=[string stringByAppendingFormat:@"/login/index.html"];
+        }
+        
+        NSURL *url =[NSURL URLWithString:string];
+        NSURLRequest *request =[NSURLRequest requestWithURL:url];
+        
+		[self.webView loadRequest:request];
+        return NO;
+	}else if ([requestURLString rangeOfString:@"http://callClient/showAlert"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/showAlert"].location != NSNotFound) {
 		[self popDialog:requestQueryString];
+        return NO;
+	}else if([requestURLString rangeOfString:@"http://callClient/showInputAlert"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/showInputAlert"].location != NSNotFound) {
+		
+        //UIAlertView *alert=[[[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入URL地址" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                            
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入URL地址" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                            
+        alert.alertViewStyle=UIAlertViewStylePlainTextInput;
+ 
+		[alert setTag:101];
+		[alert show];
+        
+        return NO;
+	}else if ([requestURLString rangeOfString:@"http://callClient/rockRoll"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/rockRoll"].location != NSNotFound) {
+        NSString *id = [params objectForKey:@"id"];
+        [shareMap setValue:id forKey:USER_LOGIN_ID];
+        [shareMap synchronize];
+        
+        NotificationDAO *notificationDao=[NotificationDAO new];
+        [notificationDao getLocalNotificationInfo];
+   
+        return NO;
+	}else if ([requestURLString rangeOfString:@"http://callClient/mloginValue"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/mloginValue"].location != NSNotFound) {
+  
+        NSString *deviceId=[StringUtil md5:[[UIDevice currentDevice] uniqueIdentifier]];
+        deviceId=[deviceId uppercaseString];
+       
+        [shareMap setValue:deviceId forKey:DEVICE_ID];
+        [shareMap synchronize];
+
+        NSString *deviceEvent = [NSString stringWithFormat:@"$('body').trigger('mloginiphone', ['%@']);", deviceId];
+        
+        NSLog(@"登录请求URLdeviceEvent===  %@",deviceEvent);
+        
+        [self.webView stringByEvaluatingJavaScriptFromString:deviceEvent];
+        
         return NO;
 	}else if ([requestURLString rangeOfString:@"http://callClient/selectImageFromPhotoLibrary"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/selectImageFromPhotoLibrary"].location != NSNotFound){//web页面通知选择照片
   
         imageName = nil;
-        
-        NSDictionary *params = [UrlParamUtil getParamsFromUrl:request.URL];
+       
         NSString *fromType = [params objectForKey:@"fromType"];
         selector=              [params objectForKey:@"selector"];
         NSString *callBack = [params objectForKey:@"callback"];
@@ -101,6 +173,37 @@
     return YES;
 }
 
+/*
+ASIHTTPRequest *loginRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:request_url]];
+[loginRequest setDidFailSelector:@selector(loginRequestDidFailedSelector:)];
+[loginRequest setDidStartSelector:@selector(loginRequestDidStartSelector:)];
+[loginRequest setDidFinishSelector:@selector(loginRequestDidFinishSelector:)];
+[loginRequest setDelegate:self];
+[loginRequest startAsynchronous];
+
+- (void)loginRequestDidFailedSelector:(ASIHTTPRequest *)loginRequest
+{
+    NSLog(@"loginRequestDidFailedSelector=================");
+}
+
+- (void)loginRequestDidStartSelector:(ASIHTTPRequest *)loginRequest
+{
+    NSLog(@"loginRequestDidStartSelector===============");
+}
+
+- (void) loginRequestDidFinishSelector:(ASIHTTPRequest *)loginRequest
+{
+    NSLog(@"loginRequestDidFinishSelector=============");
+    NSUserDefaults *shareNotifications = [NSUserDefaults standardUserDefaults];
+    NSDictionary *params = [UrlParamUtil getParamsFromUrl:loginRequest.url];
+    NSString *id = [params objectForKey:@"id"];
+    //获取设备的udid
+    NSString *uuid = [[UIDevice currentDevice] uniqueIdentifier];
+    [shareNotifications setValue:id forKey:USER_LOGIN_ID];
+    [shareNotifications setValue:uuid forKey:DEVICE_ID];
+    [shareNotifications synchronize];
+}
+*/
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
@@ -129,12 +232,8 @@
         //NSString jsString=[NSString stringWithFormat:@"$('%@').data('base64',%@);"];
         //NSLog(@"photo Update ===%@",(NSString *)jsString)
         
+        [self.webView stringByEvaluatingJavaScriptFromString:(NSString *)jsString];
         
-        //[self.webView stringByEvaluatingJavaScriptFromString:(NSString *)jsString];
-        
-        //[self runJS:[NSString stringWithFormat:@"document.getElementById('clientVersion').innerHTML = 'V %@';", DISTRIBUTION_VERSION]];
-        
-        //[self runJS:[NSString stringWithFormat:@"selectImageFromPhotoLibrary('%@', 'jpg', %i, '%@')", [imageData base64EncodedString], selectImageFromType, filePath]];
     }
     
     if (IS_IOS6 >5.1f) {
@@ -216,27 +315,30 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if ([alertView numberOfButtons]==1) {
-        [self runJS:JSCallBackFunction];
-    }
-    if ([alertView numberOfButtons]==2) {
-        if (buttonIndex == 1) {
-            NSRange range =[JSCallBackFunction rangeOfString:@"function"];
-            // 不包含
-            if (range.location == NSNotFound)
-            {
-                JSCallBackFunction =[JSCallBackFunction stringByReplacingOccurrencesOfString:@"\"" withString:@"'"];
-                JSCallBackFunction =[JSCallBackFunction stringByReplacingOccurrencesOfString:@"\"" withString:@"&#34"];
-                NSString *funStr=[NSString stringWithFormat:@"eval(\"(%@)()\")",JSCallBackFunction];
-                [self runJS:funStr];
-            }else  //包含
-            {
-                [self runJS:JSCallBackFunction];
-                
-            }          
-        }else if (buttonIndex == 100) {
+        if (alertView.tag == 101) {
+            UITextField *textField = [alertView textFieldAtIndex:0];
+            NSUserDefaults *shareMap=[NSUserDefaults standardUserDefaults];
+            [shareMap setValue:[NSString stringWithFormat:@"http://%@/xone-app",textField.text] forKey:ACCP_MAIN_PAGE_INPUT];
+
+            //textField.keyboardType = UIKeyboardTypeDefault;
+        }else{
             [self runJS:JSCallBackFunction];
         }
-        else {
+    }
+   
+    if ([alertView numberOfButtons]==2) {
+        // confirm 事件确定按钮
+        if (alertView.tag == 100 && buttonIndex == 1) {
+            [self.webView stringByEvaluatingJavaScriptFromString:@"$('body').trigger('iphoneconfirm', [1]);"];
+        }
+         // confirm 事件取消按钮
+        if (alertView.tag == 100 && buttonIndex == 0) {
+            [self.webView stringByEvaluatingJavaScriptFromString:@"$('body').trigger('iphoneconfirm', [0]);"];
+        }
+        // 图片上传事件
+        if (buttonIndex == 1) {
+            [self runJS:JSCallBackFunction];
+        } else {
             [self runJS:@"clickConfirmCancelButton()"];
         }
     }
@@ -270,10 +372,12 @@
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-    //UIAlertView *alterview = [[UIAlertView alloc] initWithTitle:@"" message:[error localizedDescription]  delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
-    //[alterview show];
+//    UIAlertView *alterview = [[UIAlertView alloc] initWithTitle:@"" message:[error localizedDescription]  delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil];
+//    [alterview show];
+    NSLog(@"didFailLoadWithError error %@",[error localizedDescription]);
 }
 
+#pragma mark 内存警告时触发
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -299,7 +403,7 @@
     [sender resignFirstResponder];
 }
 
-//点击背景
+// 点击背景
 - (IBAction)onBackgroungHit:(id)sender {
     //取消目前是第一回应者（键盘消失）
     //[_txtUserName resignFirstResponder];

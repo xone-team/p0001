@@ -12,15 +12,20 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>{
      NSMutableDictionary *cacheFileURLDictionary;
+     UIBackgroundTaskIdentifier _bgTask;
 }
 
 @property (strong, nonatomic) UIWindow *window;
 
 @property (strong, nonatomic) ViewController *viewController;
+
 @property (nonatomic, retain) NSMutableDictionary *cacheFileURLDictionary;
+@property (nonatomic, retain) NSTimer *nstimer60s;
+
 #pragma mark -
 #pragma mark common method
 +(AppDelegate *)appDelegate;
+
 +(void)addCommonAnimation:(UIView*)view;
 
 - (void)cancelLocalNotification;

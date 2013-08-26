@@ -15,6 +15,10 @@
 #import "ConnectedToNetwork.h"
 #import "ASIHTTPRequest.h"
 #import "GDataXMLNode.h"
+#import <AVFoundation/AVAudioSession.h>
+#import "NotificationDAO.h"
+
+
 
 @implementation AppDelegate
 
@@ -25,6 +29,7 @@
     //获取设备的udid
     NSString *uuid = [[UIDevice currentDevice] uniqueIdentifier];
     NSLog(@"uuid=====%@",uuid);
+    NSLog(@"timeIntervalSince1970 ==%d",(int)[[NSDate date] timeIntervalSince1970]);
     
 }
 
@@ -65,6 +70,8 @@
         NSLog(@"item name is:%@",name);
     } 
 }
+
+
 
 - (void)test
 {
@@ -133,56 +140,96 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // 应用启动时取消所有通知
-    //[self cancelLocalNotification];
-    [self testXml];
-    [self getDeviceAndOtherInfo];
     NSLog(@"AppDelegate start.....");
+    [application cancelAllLocalNotifications];
 
     application.applicationIconBadgeNumber = 0;
     //开启iphone网络开关
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-    
-    // 登录用户信息 user_id 和设备号
-    NSUserDefaults *shareNotifications = [NSUserDefaults standardUserDefaults];
-    [shareNotifications setValue:@"2" forKey:USER_LOGIN_ID];
-    [shareNotifications setValue:@"B99FD091ACED234EB4FA35CDA17FD448" forKey:DEVICE_ID];
-    [shareNotifications synchronize];
 
-       
+    NSError *setCategoryErr = nil;
+    NSError *activationErr  = nil;
+    [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error: &setCategoryErr];
+    [[AVAudioSession sharedInstance] setActive: YES error: &activationErr];
+
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    // 本地通知接收
+    if (launchOptions != nil) {
+        NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
+        
+        if (userInfo != nil) {
+            NSLog(@"local notification==================:%@",userInfo);
+        }
+    }
+    
+    [self fullLocalNotificationRecords];
+    
     //self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+
     self.viewController = [[WebViewController alloc] initWithNibName:@"LoadRemoteHtml" bundle:nil];
+    
+    [[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^{
+        //执行你想要执行的任务，同时可以配合第一种任务，以增加某些同步方法的执行时间，比如说下载数据等
+        NSLog(@"循环执行事件===========");
+        NotificationDAO *notificationDao=[NotificationDAO new];
+        [notificationDao getLocalNotificationInfo];
+        [self notificationTimer];
+    }];
   
     self.window.rootViewController = self.viewController;
    
     [self.window makeKeyAndVisible];
     
-   
     
     // 测试时 没小时执行一次 项目实际每天执行一次
     //[NSTimer scheduledTimerWithTimeInterval:TIME_INTERVAL target:self selector:@selector(createLocalNotificationInfo) userInfo:nil repeats:YES];
     
     // 模拟数据库数据 没小时增加2条记录
-    [NSTimer scheduledTimerWithTimeInterval:TIME_INTERVAL_HALF target:self selector:@selector(fullLocalNotificationRecords) userInfo:nil repeats:YES];
-
+    //self.nstimer60s=[NSTimer scheduledTimerWithTimeInterval:TIME_INTERVAL_HALF target:self selector:@selector(notificationTimer) userInfo:nil repeats:YES];
+    
     return YES;
 }
 
+#pragma mark 通知定时器
 - (void)notificationTimer
 {
-    //判断网络是否联通
-    if([[NSString stringWithFormat:@"%i",[[ConnectedToNetwork new] connectedToNetwork]] isEqualToString:@"1"])
+     NSUserDefaults *shareUserMap = [NSUserDefaults standardUserDefaults];
+     int lastTimeInterval=[shareUserMap integerForKey:TIME_INTERVAL_VALUE];
+    
+    int currentTimeInterval= (int)[[NSDate date] timeIntervalSince1970];
+    bool isTrue=((currentTimeInterval-lastTimeInterval-(TIME_INTERVAL)) >= 0);
+    
+    NSLog(@"lastTimeInterval: %d,currentTimeInterval:%d 差：%d",(lastTimeInterval+(TIME_INTERVAL)),currentTimeInterval,(currentTimeInterval-lastTimeInterval-(TIME_INTERVAL)));
+    
+    bool isConnect= [[NSString stringWithFormat:@"%i",[[ConnectedToNetwork new] connectedToNetwork]] isEqualToString:@"1"];
+    NSLog(@"isTrue: %d,isConnect:%d",isTrue,isConnect);
+    
+    // 判断网络是否联通
+    if(isConnect && isTrue)
     {
         NSLog(@"网络连接良好");
-        
-        
-    }else{
-        NSLog(@"网络无法连接");
-    }
 
-    
+        // 创建本地通知
+        [self createLocalNotificationInfo];
+        
+        // 存放本次通知时间
+        NSDateFormatter *dateFormatter=[NSDateFormatter new];
+        // 24小时时间
+        [dateFormatter setDateFormat:DATEFORMAT24];
+        // 获取当前时间
+        NSString *currentDateStr=[StringUtil date2DateString:[NSDate date] dateFormat:dateFormatter];
+        [shareUserMap setObject:currentDateStr forKey:TIME_INTERVAL_NAME];
+        // 设置自1970年来的毫秒数
+        [shareUserMap setInteger:(int)[[NSDate date] timeIntervalSince1970] forKey:TIME_INTERVAL_VALUE];
+
+        [shareUserMap synchronize];
+        
+        
+        // 设置每天执行一次的长定时器 
+        [NSTimer scheduledTimerWithTimeInterval:TIME_INTERVAL target:self selector:@selector(notificationTimer) userInfo:nil repeats:NO];
+ 
+    }
 }
 
 # pragma mark -
@@ -191,51 +238,36 @@
 {
     NSUserDefaults *shareNotifications = [NSUserDefaults standardUserDefaults];
     //从内存中取出记录
-    
+    [shareNotifications removeObjectForKey:SHARE_NOTIFICATIONS];
     // 初始化可变数组 相当于java众ArrayList对象
     //NSMutableArray *arr=[NSMutableArray new];
     NSString *id=[NSString stringWithFormat:@"100%zi",(arc4random() % 10000)];
     NSDictionary *dictionary =[NSDictionary dictionaryWithObjectsAndKeys:
-                               id,@"id"
-                               ,@"杨国旗",@"userName"
-                               ,@"这是我的通知信息body，请点击，会自动跳转到页面",@"context"
-                               ,@"usernotifi",@"notificationType"
+                               @"001",@"identify"
+                               ,@"水果",@"key"
+                               ,@"罗汉果",@"name"
+                               ,@"全部",@"credit"
+                                ,@"2013-08-25 00:38:06",@"time"
+                                ,@"全部",@"saleType"
                                ,nil];
     
-//    [dictionary setValue:id forKey:@"id"];// 设置信息主键
-//    [dictionary setValue:@"杨国旗" forKey:@"userName"];
-//    [dictionary setValue:@"这是我的通知信息body，请点击，会自动跳转到页面" forKey:@"context"];
-//    [dictionary setValue:@"usernotifi" forKey:@"notificationType"];//通知类型为用户自定义
-       
-//    dictionary =[NSMutableDictionary new];
-//    id=[NSString stringWithFormat:@"100%zi",(arc4random() % 10000)];
-//    [dictionary setValue:id forKey:@"id"];// 设置信息主键
-//    [dictionary setValue:@"胡总" forKey:@"userName"];
-//    [dictionary setValue:@"这是我的通知信息body2，请点击，会自动跳转到页面" forKey:@"context"];
-//    [dictionary setValue:@"usernotifi" forKey:@"notificationType"];//通知类型为用户自定义
     
     id=[NSString stringWithFormat:@"100%zi",(arc4random() % 10000)];
     NSDictionary *dictionary2 =[NSDictionary dictionaryWithObjectsAndKeys:
-                 id,@"id"
-                 ,@"胡总",@"userName"
-                 ,@"这是我的通知信息body222，请点击，会自动跳转到页面",@"context"
-                 ,@"usernotifi",@"notificationType"
+                                @"002",@"identify"
+                                ,@"水果",@"key"
+                                ,@"龙虾",@"name"
+                                ,@"全部",@"credit"
+                                ,@"2013-08-24 00:38:06",@"time"
+                                ,@"全部分类",@"saleType"
                  ,nil];
     
-    NSArray *shareArr= [NSArray arrayWithObjects:dictionary,dictionary2, nil];
+   NSMutableArray *shareArr= [NSMutableArray arrayWithObjects:dictionary,dictionary2, nil];
     
     //添加新记录到老记录中
     [shareNotifications setObject:shareArr forKey:SHARE_NOTIFICATIONS];
     NSLog(@"full records==== count=%zi",[shareArr count]);
     [shareNotifications synchronize];
-    
-//    NSString *val=nil;
-//    
-//    for(NSObject *obj in arr)
-//    {
-//        val=[obj valueForKey:@"userName"];
-//        NSLog(@"%@",val);
-//    }
 }
 
 
@@ -244,30 +276,20 @@
     NSLog(@"开始调用createLocalNotificationInfo函数");
     // 创建一个本地推送
     UILocalNotification *notification = nil;
-    //设置10秒之后
-    NSDate *pushDate = [NSDate dateWithTimeIntervalSinceNow:10];
-    
+
+    // 设置每天9点 并延迟10秒执行推送
+    NSDate *pushDate = [[StringUtil getNsDateByHour:TIME_INTERVAL_HOUR] dateByAddingTimeInterval:10];
+
     NSUserDefaults *shareUserMap = [NSUserDefaults standardUserDefaults];
-    NSArray *mutableArr=[shareUserMap valueForKey:SHARE_NOTIFICATIONS];
+    NSMutableArray *mutableArr=[shareUserMap valueForKey:SHARE_NOTIFICATIONS];
+    
+    NSLog(@"notification count===%d",[mutableArr count]);
+    
     for(NSDictionary *objUserInfo in mutableArr)
     {
         notification = [UILocalNotification new];
         [self setOneRecordNotifiction:notification pushDate:pushDate userInfo:objUserInfo];
     }
-    //记录本次推送的时间
-  
-    NSDateFormatter *dateFormatter=[NSDateFormatter new];
-    // 24小时时间
-    [dateFormatter setDateFormat:DATEFORMAT24];
-    //获取当前时间
-    NSDate *dateNow = [NSDate date];
-    NSString *currentDateStr=[StringUtil date2DateString:dateNow dateFormat:dateFormatter];
-    [shareUserMap setObject:currentDateStr forKey:TIME_INTERVAL_NAME];
-    [shareUserMap synchronize];
-    
-    NSString *strDate=[shareUserMap valueForKey:TIME_INTERVAL_NAME];
-    NSLog(@"%@",strDate);
-    
 }
 
 # pragma mark 创建本地通知 设置一条记录
@@ -283,8 +305,9 @@
         // 推送声音
         notification.soundName = UILocalNotificationDefaultSoundName;
 
+        NSString *body=[NSString stringWithFormat:@"%@\n%@",[userInfo valueForKey:@"name"],[userInfo valueForKey:@"saleType"]];
         // 推送内容
-        notification.alertBody = [userInfo valueForKey:@"context"];
+        notification.alertBody = body;
         
         //[NSString stringWithFormat:@"推送内容  %i", (arc4random() % 100)];
         
@@ -295,7 +318,7 @@
         //notification.applicationIconBadgeNumber += 1;
         
         //设置userinfo 方便在之后需要撤销的时候使用
-        NSDictionary *info = [NSDictionary dictionaryWithObject:@"1002" forKey:@"usernotification"];
+        //NSDictionary *info = [NSDictionary dictionaryWithObject:@"1002" forKey:@"usernotification"];
         notification.userInfo = userInfo;
         //添加推送到UIApplication
         UIApplication *app = [UIApplication sharedApplication];
@@ -336,21 +359,42 @@
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification*)localNotification{
      NSLog(@"usernotification  didReceiveLocalNotification start");
     
+    localNotification=nil;
+    
+    // 判断应用程序是在后台才执行推送到
     if(localNotification != nil && application.applicationState == UIApplicationStateActive){
         NSDictionary  *dict = localNotification.userInfo;
         if (dict) {
-            NSString *inValue = [dict objectForKey:@"notificationType"];
-            if(inValue != nil && [inValue isEqualToString:@"usernotifi"]){
-                NSLog(@"usernotification  didReceiveLocalNotification method");
-                application.applicationIconBadgeNumber -= 1;
-                localNotification = nil;
-                WebViewController *webViewController = self.viewController;
+            NSString *inValue = [dict objectForKey:@"identify"];
+            if(inValue != nil){
+                // 取消该通知
+                [application cancelLocalNotification:localNotification];
                 
-                NSURL *url =[NSURL URLWithString:@"http://www.baidu.com"];
+                NSLog(@"didReceiveLocalNotification method");
+                
+                NSUserDefaults *shareMap=[NSUserDefaults standardUserDefaults];
+                NSMutableArray *mutableArr=[shareMap valueForKey:SHARE_NOTIFICATIONS];
+                [mutableArr removeObject:dict];
+            
+                application.applicationIconBadgeNumber -= 1;
+                
+                localNotification = nil;
+                
+                WebViewController *webViewController = self.viewController;
+                NSString *params=[NSString stringWithFormat:@"?_pu=%@&_pm=%@&_pd=%@&_=%d",[shareMap valueForKey:USER_LOGIN_ID],[shareMap valueForKey:DEVICE_ID],[dict valueForKey:@"identify"],(int)[[NSDate date] timeIntervalSince1970]];
+                
+                NSString *reqeustUrl=[NSString stringWithFormat:@"%@%@%@",ACCP_MAIN_PAGE,NOTIFICATION_PAGE,params];
+                
+                //NSURL *url =[NSURL URLWithString:@"http://www.baidu.com"];
+                NSURL *url =[NSURL URLWithString:reqeustUrl];
+                
+                
                 NSURLRequest *request =[NSURLRequest requestWithURL:url];
                 [webViewController.webView loadRequest:request];
             }
+            
         }
+       
 
     }
 }
@@ -367,6 +411,25 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+    UIApplication*   app = [UIApplication sharedApplication];
+    __block UIBackgroundTaskIdentifier bgTask;
+    bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (bgTask != UIBackgroundTaskInvalid)
+            {
+                bgTask = UIBackgroundTaskInvalid;
+            }
+        });
+    }];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (bgTask != UIBackgroundTaskInvalid)
+            {
+                bgTask = UIBackgroundTaskInvalid;
+            }
+        });
+    });
+
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
