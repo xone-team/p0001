@@ -42,6 +42,19 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="span5 form-horizontal">
+                                            <div class="control-group">
+                                                <label class="control-label" for="checkStatus">审核状态</label>
+                                                <div class="controls">
+                                                    <select class="selectpicker" id="checkStatus" name="purchase.checkStatus">
+                                                        <option value="">全部</option>
+                                                        <c:forEach items="${checkStatus}" var="it">
+                                                            <option value="${it.value}" <c:if test="${it.value == purchase.checkStatus}">selected</c:if>>${it.name}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row-fluid">
                                         <div class="span5 form-horizontal">
@@ -49,6 +62,7 @@
                                                 <label class="control-label" for="purchaseType">求购类型</label>
                                                 <div class="controls">
                                                     <select class="selectpicker" id="purchaseType" name="purchase.purchaseType">
+                                                        <option value="">全部</option>
                                                         <c:forEach items="${purchaseType}" var="it">
                                                             <option value="${it.value}" <c:if test="${it.value == purchase.purchaseType}">selected</c:if>>${it.name}</option>
                                                         </c:forEach>
@@ -156,8 +170,7 @@
                                     <td>${item.checkStatusName}</td>
                                     <td><a href="${pageContext.request.contextPath}/purchase/purchaseEdit.html?purchase.id=${item.id}" class="btn btn-mini">
                                             <i class="icon-edit"> </i>编辑
-                                        </a>
-                                        <a href="${pageContext.request.contextPath}/purchase/purchaseItem.html?purchase.id=${item.id}" class="btn btn-mini">
+                                        </a> <a href="${pageContext.request.contextPath}/purchase/purchaseItem.html?purchase.id=${item.id}" class="btn btn-mini">
                                             <i class="icon-list-alt"> </i>详细
                                         </a></td>
                                 </tr>

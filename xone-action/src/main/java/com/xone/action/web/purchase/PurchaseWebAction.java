@@ -23,7 +23,7 @@ import com.xone.service.app.utils.MyBeanUtils.CopyRules;
 public class PurchaseWebAction extends LogicAction {
 
 	private static final long serialVersionUID = -4877998730097178103L;
-	
+
 	@Autowired
 	protected PurchaseService purchaseService;
 	protected List<Purchase> list = new ArrayList<Purchase>();
@@ -43,52 +43,55 @@ public class PurchaseWebAction extends LogicAction {
 	protected String uploadFile3FileName;
 
 	protected String imageUploadPath;
-	
+
 	protected String searchType = "2";
 	protected String searchKey;
-	
+
 	@Autowired
 	protected AdbannerService adbannerService;
 	protected List<Adbanner> adList = new ArrayList<Adbanner>();
-    
-    public Enum<?>[] getFlagDeleted() {
-        return Purchase.FlagDeleted.values();
-    }
-    public Enum<?>[] getCheckStatus() {
-        return Purchase.CheckStatus.values();
-    }
+
+	public Enum<?>[] getFlagDeleted() {
+		return Purchase.FlagDeleted.values();
+	}
+
+	public Enum<?>[] getCheckStatus() {
+		return Purchase.CheckStatus.values();
+	}
+
 	public Enum<?>[] getPurchaseType() {
 		return Purchase.PurchaseType.values();
 	}
-    public Enum<?>[] getSaleType() {
-        return Purchase.SaleType.values();
-    }
 
-    public String purchaseList() throws Exception {
+	public Enum<?>[] getSaleType() {
+		return Purchase.SaleType.values();
+	}
+
+	public String purchaseList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
-		
+
 		params.put("userApply", getUserId().toString());
-        params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
-		
+		params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
 		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
 		Pagination p = getPurchaseService().findByParams(params);
 		setPagination(p);
 		return SUCCESS;
 	}
-    
-    public String purchaseListAjax() throws Exception {
-        Map<String, String> params = new HashMap<String, String>();
-        
-        params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
-        
-        params.put("pageSize", String.valueOf(getPagination().getPageSize()));
-        params.put("pageNo", String.valueOf(getPagination().getPageNo()));
-        Pagination p = getPurchaseService().findByParams(params);
-        setPagination(p);
-        return SUCCESS;
-    }
-	
+
+	public String purchaseListAjax() throws Exception {
+		Map<String, String> params = new HashMap<String, String>();
+
+		params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+
+		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
+		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
+		Pagination p = getPurchaseService().findByParams(params);
+		setPagination(p);
+		return SUCCESS;
+	}
+
 	public String purchaseItem() throws Exception {
 		Purchase entity = getPurchaseService().findById(getPurchase().getId());
 		if (null == entity || null == entity.getId()) {
@@ -97,12 +100,12 @@ public class PurchaseWebAction extends LogicAction {
 		setPurchase(entity);
 		return SUCCESS;
 	}
-	
+
 	public String purchaseCreate() throws Exception {
-	    purchase.setPurchaseNum("0");
+		purchase.setPurchaseNum("0");
 		return SUCCESS;
 	}
-	
+
 	public String purchaseEdit() throws Exception {
 		Purchase entity = getPurchaseService().findById(getPurchase().getId());
 		if (null == entity || null == entity.getId()) {
@@ -111,20 +114,19 @@ public class PurchaseWebAction extends LogicAction {
 		setPurchase(entity);
 		return SUCCESS;
 	}
-	
-	public String purchaseSave() throws Exception {
-        purchase.setUserCreated(getUserId());
-        purchase.setDateCreated(new Date());
-        purchase.setUserUpdated(getUserId());
-        purchase.setLastUpdated(new Date());
 
-        purchase.setUserApply(getUserId());
-        purchase.setDateApply(new Date());
-	    
+	public String purchaseSave() throws Exception {
+		purchase.setUserCreated(getUserId());
+		purchase.setDateCreated(new Date());
+		purchase.setUserUpdated(getUserId());
+		purchase.setLastUpdated(new Date());
+
+		purchase.setUserApply(getUserId());
+		purchase.setDateApply(new Date());
+
 		setPurchase(getPurchaseService().save(getPurchase(), getImageList()));
 		return SUCCESS;
 	}
-	
 
 	private List<ImageUploaded> getImageList() {
 		List<ImageUploaded> images = new ArrayList<ImageUploaded>();
@@ -152,14 +154,16 @@ public class PurchaseWebAction extends LogicAction {
 
 		return images;
 	}
-	
+
 	public String purchaseUpdate() throws Exception {
 		if (!"POST".equalsIgnoreCase(getRequest().getMethod())) {
 			return ERROR;
 		}
-		String opt = null == getRequestMap().get("delete") ? getRequestMap().get("update") : getRequestMap().get("delete");
+		String opt = null == getRequestMap().get("delete") ? getRequestMap()
+				.get("update") : getRequestMap().get("delete");
 		if (!StringUtils.isBlank(opt) && "delete".equals(opt)) {
-			Purchase entity = getPurchaseService().findById(getPurchase().getId());
+			Purchase entity = getPurchaseService().findById(
+					getPurchase().getId());
 			if (null == entity || null == entity.getId()) {
 				return ERROR;
 			}
@@ -167,7 +171,8 @@ public class PurchaseWebAction extends LogicAction {
 			return "list";
 		}
 		if (!StringUtils.isBlank(opt) && "update".equals(opt)) {
-			Purchase entity = getPurchaseService().findById(getPurchase().getId());
+			Purchase entity = getPurchaseService().findById(
+					getPurchase().getId());
 			if (null == entity || null == entity.getId()) {
 				return ERROR;
 			}
@@ -191,31 +196,34 @@ public class PurchaseWebAction extends LogicAction {
 		}
 		return SUCCESS;
 	}
-	
+
 	public String list() throws Exception {
-		Map<String, Object> params = new HashMap<String, Object>();
-		
+		Map<String, String> params = new HashMap<String, String>();
+
 		// nav search
-		if("2".equals(searchType) && !StringUtils.isBlank(searchKey)){
+		if ("2".equals(searchType) && !StringUtils.isBlank(searchKey)) {
 			params.put("purchaseName", searchKey);
 		}
-		
-		List<Purchase> l = getPurchaseService().findAllByMap(params);
-		if (null != l && !l.isEmpty()) {
-			getList().addAll(l);
-		}
-		
+
+		params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+		params.put("checkStatus", Purchase.CheckStatus.PASSED.getValue());
+
+		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
+		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
+		Pagination p = getPurchaseService().findByParams(params);
+		setPagination(p);
+
 		// get ad
 		setAdList(getAdbannerService().findItemsByMap(
 				new HashMap<String, String>()));
 		return SUCCESS;
 	}
-	
+
 	public String item() {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("id", String.valueOf(getPurchase().getId()));
 		setPurchase(getPurchaseService().findByMap(params));
-		
+
 		// get ad
 		setAdList(getAdbannerService().findItemsByMap(
 				new HashMap<String, String>()));
@@ -253,87 +261,115 @@ public class PurchaseWebAction extends LogicAction {
 	public void setPagination(Pagination pagination) {
 		this.pagination = pagination;
 	}
+
 	public File getUploadFile1() {
 		return uploadFile1;
 	}
+
 	public void setUploadFile1(File uploadFile1) {
 		this.uploadFile1 = uploadFile1;
 	}
+
 	public String getUploadFile1ContentType() {
 		return uploadFile1ContentType;
 	}
+
 	public void setUploadFile1ContentType(String uploadFile1ContentType) {
 		this.uploadFile1ContentType = uploadFile1ContentType;
 	}
+
 	public String getUploadFile1FileName() {
 		return uploadFile1FileName;
 	}
+
 	public void setUploadFile1FileName(String uploadFile1FileName) {
 		this.uploadFile1FileName = uploadFile1FileName;
 	}
+
 	public File getUploadFile2() {
 		return uploadFile2;
 	}
+
 	public void setUploadFile2(File uploadFile2) {
 		this.uploadFile2 = uploadFile2;
 	}
+
 	public String getUploadFile2ContentType() {
 		return uploadFile2ContentType;
 	}
+
 	public void setUploadFile2ContentType(String uploadFile2ContentType) {
 		this.uploadFile2ContentType = uploadFile2ContentType;
 	}
+
 	public String getUploadFile2FileName() {
 		return uploadFile2FileName;
 	}
+
 	public void setUploadFile2FileName(String uploadFile2FileName) {
 		this.uploadFile2FileName = uploadFile2FileName;
 	}
+
 	public File getUploadFile3() {
 		return uploadFile3;
 	}
+
 	public void setUploadFile3(File uploadFile3) {
 		this.uploadFile3 = uploadFile3;
 	}
+
 	public String getUploadFile3ContentType() {
 		return uploadFile3ContentType;
 	}
+
 	public void setUploadFile3ContentType(String uploadFile3ContentType) {
 		this.uploadFile3ContentType = uploadFile3ContentType;
 	}
+
 	public String getUploadFile3FileName() {
 		return uploadFile3FileName;
 	}
+
 	public void setUploadFile3FileName(String uploadFile3FileName) {
 		this.uploadFile3FileName = uploadFile3FileName;
 	}
+
 	public String getImageUploadPath() {
 		return imageUploadPath;
 	}
+
 	public void setImageUploadPath(String imageUploadPath) {
 		this.imageUploadPath = imageUploadPath;
 	}
+
 	public String getSearchType() {
 		return searchType;
 	}
+
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
 	}
+
 	public String getSearchKey() {
 		return searchKey;
 	}
+
 	public void setSearchKey(String searchKey) {
 		this.searchKey = searchKey;
 	}
+
 	public AdbannerService getAdbannerService() {
 		return adbannerService;
 	}
+
 	public void setAdbannerService(AdbannerService adbannerService) {
 		this.adbannerService = adbannerService;
 	}
+
 	public List<Adbanner> getAdList() {
 		return adList;
 	}
+
 	public void setAdList(List<Adbanner> adList) {
 		this.adList = adList;
 	}

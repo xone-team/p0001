@@ -291,21 +291,38 @@ public class ProductWebAction extends LogicAction {
 	}
 
 	public String list() {
-		Map<String, Object> params = new HashMap<String, Object>();
+		Map<String, String> params = new HashMap<String, String>();
+		MyBeanUtils.copyPropertiesToMap(getProduct(), params, new CopyRules() {
+			@Override
+			public boolean myCopyRules(Object value) {
+				return null != value;
+			}
+
+		}, new AssignRules() {
+			@Override
+			public String myAssignRules(Object value) {
+				if (null != value && value instanceof Date) {
+					return MyDateUtils.format((Date) value, "yyyy-MM-dd");
+				}
+				return value.toString();
+			}
+		}, null);
+		
 		// nav search
 		if ("1".equals(searchType) && !StringUtils.isBlank(searchKey)) {
 			params.put("productName", searchKey);
 		}
+		params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+		params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
 
-		List<Product> l = getProductService().findAllByMap(params);
-		if (null != l && !l.isEmpty()) {
-			list.addAll(l);
-		}
-
+		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
+		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
+		Pagination p = getProductService().findByParams(params);
+		setPagination(p);
+		
 		// get ad
 		setAdList(getAdbannerService().findItemsByMap(
 				new HashMap<String, String>()));
-
 		return SUCCESS;
 	}
 

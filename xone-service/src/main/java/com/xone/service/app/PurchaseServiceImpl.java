@@ -491,6 +491,11 @@ public class PurchaseServiceImpl implements PurchaseService {
                 log.error("[lastUpdatedMax] parsed exception :", e);
             }
         }
+        
+        String checkStatus = params.get("checkStatus");
+        if (!StringUtils.isBlank(checkStatus)) {
+        	criteria.add(Restrictions.eq("checkStatus", checkStatus));
+        }
 
         criteria.addOrder(Order.desc("dateCreated"));
     }
@@ -539,6 +544,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Pagination findByParams(Map<String, String> params) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Purchase.class);
+        handleCriteriaByParams(detachedCriteria, params);
         int pageSize = MyServerUtils.parseInteger(params.get("pageSize"), 20);
         int startIndex = MyServerUtils.parseInteger(params.get("pageNo"), 0);
         return getPurchaseDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);

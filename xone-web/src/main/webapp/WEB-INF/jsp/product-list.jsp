@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="x" uri="/mytaglib"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +22,7 @@
                 <div class="row-fluid">
                     <div class="span12">
                         <ul class="listview image" style="width: 100%">
-                            <c:forEach var="item" items="${list}">
+                            <c:forEach var="item" items="${pagination.list}">
                                 <li>
                                     <div class="icon">
                                         <img src="${pageContext.request.contextPath}/image.html?id=${item.ids[0]}">
@@ -37,17 +38,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="pagination pagination-centered">
-                    <ul>
-                        <li><a href="#" class="disabled">上一页</a></li>
-                        <li><a href="#" class="active">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">下一页</a></li>
-                    </ul>
-                </div>
+                <x:page href="${pageContext.request.contextPath}/product/list.html" pagination="${pagination}" />
             </div>
 
             <div class="span3 box-shadow rounded">
