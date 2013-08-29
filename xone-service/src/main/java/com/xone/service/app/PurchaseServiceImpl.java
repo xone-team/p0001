@@ -547,7 +547,9 @@ public class PurchaseServiceImpl implements PurchaseService {
         handleCriteriaByParams(detachedCriteria, params);
         int pageSize = MyServerUtils.parseInteger(params.get("pageSize"), 20);
         int startIndex = MyServerUtils.parseInteger(params.get("pageNo"), 0);
-        return getPurchaseDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+        Pagination p = getPurchaseDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+        p.setList(getPurchaseWithImageIdByPurchase(p.getList()));
+        return p;
     }
 
     public PurchaseCheckDao getPurchaseCheckDao() {

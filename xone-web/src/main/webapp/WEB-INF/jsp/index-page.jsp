@@ -9,48 +9,50 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="${STATIC_ROOT}/css/docs.css" />
+<link rel="stylesheet" href="${STATIC_ROOT}/css/listview.css" />
 <jsp:include page="common-header.jsp"></jsp:include>
 </head>
 <body>
     <jsp:include page="common-nav.jsp"><jsp:param value="1" name="offset" /></jsp:include>
     <div class="container">
-        <div class="hero-unit box-shadow">
+        <div class="box-shadow">
             <div class="row-fluid">
                 <div id="myCarousel" class="carousel slide">
                     <div class="carousel-inner">
                         <div class="item">
                             <center>
-                                <img style="height: 350px;" src="${STATIC_ROOT}/image/banner1.jpg" alt="">
+                                <img style="height: 370px;" src="${STATIC_ROOT}/image/banner1.png" alt="">
                             </center>
                             <div class="carousel-caption">
-                                <h4>广东中山罗氏沼虾苗价350元/万尾</h4>
-                                <p>从广东省中山市港口、横栏、西区等罗氏沼虾主养镇区获悉，今春罗氏沼虾市场供应正常，苗量充裕，苗价卖到350元/万尾，目前棚虾已投苗90%。业内人士称，苗价不会出现去年高达500元/万尾</p>
+                                <h4></h4>
+                                <p></p>
                             </div>
                         </div>
                         <div class="item active">
                             <center>
-                                <img style="height: 350px;" src="${STATIC_ROOT}/image/banner2.jpg" alt="">
+                                <img style="height: 350px;" src="${STATIC_ROOT}/image/banner2.png" alt="">
                             </center>
                             <div class="carousel-caption">
-                                <h4>罗氏沼虾苗</h4>
-                                <p>笔者来到西区沙朗，走访长年经销罗氏沼虾苗的梁忠善。“一切不像市面上传说的那样，说浙江、湛江苗种场受水质、空气污染，病毒多，产量低，苗种紧缺，供应紧张</p>
+                                <h4></h4>
+                                <p></p>
                             </div>
                         </div>
                         <div class="item">
                             <center>
-                                <img style="height: 350px;" src="${STATIC_ROOT}/image/banner4.jpg" alt="">
+                                <img style="height: 350px;" src="${STATIC_ROOT}/image/banner3.png" alt="">
                             </center>
                             <div class="carousel-caption">
-                                <h4>港口、沙朗等地的虾农就开始购苗养棚虾</h4>
-                                <p>今投苗已达九成；剩下的白水虾塘清明前后才放苗，未投苗虾塘面积仅剩1/3。棚虾等开塘后适当补补苗即可</p>
+                                <h4></h4>
+                                <p></p>
                             </div>
                         </div>
                     </div>
                     <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
                     <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
                     <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1" class=""></li>
+                        <li data-target="#myCarousel" data-slide-to="0" class=""></li>
+                        <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
                         <li data-target="#myCarousel" data-slide-to="2" class=""></li>
                     </ol>
                 </div>
@@ -69,11 +71,20 @@
                 <div class="row-fluid">
                     <div class="inner-content">
                         <div class="list_gq">
-                            <ul>
+                            <ul class="listview image">
                                 <c:forEach var="item" items="${overheadPage.list}">
                                     <c:if test="${item.overheadType != '3' }">
-                                    <li><span class="txt_date">[<fmt:formatDate value="${item.product.dateApply}" pattern="MM-dd" />]
-                                    </span><span class="gq">供</span> <a href="${pageContext.request.contextPath}/product/item.html?product.id=${item.product.id}"> ${item.product.productName}</a></li>
+                                        <li>
+                                            <div class="icon">
+                                                <img src="${pageContext.request.contextPath}/image.html?id=${item.product.ids[0]}">
+                                            </div>
+                                            <div class="data">
+                                                <h4>${item.product.productName}</h4>
+                                                <p>发布日期:${item.product.dateCreated},更新日期:${item.product.lastUpdated}</p>
+                                                <p>产品地址:${item.product.productAddress},产品属地:${item.product.productLocation},产品类型:${item.product.productType},产品描述:${item.product.productDesc}</p>
+                                                <a href="${pageContext.request.contextPath}/product/item.html?product.id=${item.id}" target="_blank">查看详情</a>
+                                            </div>
+                                        </li>
                                     </c:if>
                                 </c:forEach>
                             </ul>
@@ -94,13 +105,22 @@
                 <div class="row-fluid">
                     <div class="inner-content">
                         <div class="list_gq">
-                            <ul>
+                            <ul class="listview image">
 
                                 <c:forEach var="item" items="${overheadPage.list}">
-                                <c:if test="${item.overheadType == '3' }">
-                                    <li><span class="txt_date">[<fmt:formatDate value="${item.purchase.dateApply}" pattern="MM-dd" />]
-                                    </span><span class="gq">供</span> <a href="${pageContext.request.contextPath}/purchase/item.html?purchase.id=${item.purchase.id}"> ${item.purchase.purchaseName}</a></li>
-                                </c:if>
+                                    <c:if test="${item.overheadType == '3' }">
+                                        <li>
+                                            <div class="icon">
+                                                <img src="${pageContext.request.contextPath}/image.html?id=${item.purchase.ids[0]}">
+                                            </div>
+                                            <div class="data">
+                                                <h4>${item.purchase.purchaseName}</h4>
+                                                <p>发布日期:${item.purchase.dateCreated},更新日期:${item.purchase.lastUpdated}</p>
+                                                <p>产品地址:${item.purchase.purchaseAddress},产品属地:${item.purchase.purchaseLocation},产品类型:${item.purchase.purchaseType},产品描述:${item.purchase.purchaseDesc}</p>
+                                                <a href="${pageContext.request.contextPath}/purchase/item.html?purchase.id=${item.purchase.id}" target="_blank">查看详情</a>
+                                            </div>
+                                        </li>
+                                    </c:if>
                                 </c:forEach>
 
                             </ul>
@@ -148,13 +168,13 @@
 
                 </div>
             </div>
-            
-            
+
+
         </div>
 
         <div class="alert alert-success">
             <center>
-                恒鑫水产品交易平台欢迎您 <strong><a href="#" class="alert-success-link">点击参与</a> </strong>
+                掌畅水产品交易平台欢迎您 <strong><a href="#" class="alert-success-link">点击参与</a> </strong>
             </center>
         </div>
 

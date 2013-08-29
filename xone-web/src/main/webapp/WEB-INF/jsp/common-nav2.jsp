@@ -9,7 +9,7 @@
 			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 				<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 			</button>
-<!-- 				<a class="brand" href="#">恒鑫软件</a> -->
+<!-- 				<a class="brand" href="#">掌畅软件</a> -->
 			<div class="nav-collapse collapse navbar">
 				<ul class="nav">
 					<li class="<c:if test="${param.offset == '1'}">active</c:if> mynav"><a href="${pageContext.request.contextPath}/index.html">首页</a></li>

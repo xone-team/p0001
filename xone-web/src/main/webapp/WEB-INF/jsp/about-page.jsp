@@ -16,7 +16,7 @@
 	<jsp:include page="common-nav.jsp"><jsp:param value="4" name="offset"/></jsp:include>
 	<div class="container">
 		<div class="hero-unit" style="padding-top:10px;padding-bottom:10px;">
-			<h1>恒鑫水产品交易平台</h1>
+			<h1>掌畅水产品交易平台</h1>
 			<p>这里是关于网站，公司及公司产品的大概介绍.本网站总共分为三个大频道，售卖产品、购买产品和用户中心，
 			售卖产品，是用户有产品出售，发布到交易平台上展示，让希望买到对应的产品的商家很容易购买到自己希望的产品和规格;
 			购买产品，是用户希望购买到相关产品，可以查看商家发布的求购产品及详细情况。

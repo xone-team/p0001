@@ -10,7 +10,7 @@
                     <div id="inner-logo">
                         <center>
                             <a href="#">
-                                <h1 style='font-family: "Microsoft YaHei";'>恒&nbsp;&nbsp;鑫&nbsp;&nbsp;科&nbsp;&nbsp;技</h1>
+                                <h1 style='font-family: "Microsoft YaHei";'>掌&nbsp;&nbsp;畅&nbsp;&nbsp;科&nbsp;&nbsp;技</h1>
                             </a>
                         </center>
                     </div>

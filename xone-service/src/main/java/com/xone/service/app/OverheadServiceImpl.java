@@ -27,10 +27,14 @@ public class OverheadServiceImpl implements OverheadService {
 
     @Autowired
     protected OverheadDao overheadDao;
+//    @Autowired
+//    protected ProductDao productDao;
+//    @Autowired
+//    protected PurchaseDao purchaseDao;
     @Autowired
-    protected ProductDao productDao;
+    protected ProductService productService;
     @Autowired
-    protected PurchaseDao purchaseDao;
+    protected PurchaseService purchaseService;
 
     @Override
     public Overhead save(Overhead entity) {
@@ -129,54 +133,58 @@ public class OverheadServiceImpl implements OverheadService {
         // add product and purchase
         @SuppressWarnings("unchecked")
 		List<Overhead> overheadList = result.getList();
-        List<Long> productIds = new ArrayList<Long>();
-        List<Long> purchaseIds = new ArrayList<Long>();
-        for(Overhead overhead : overheadList){
-        	if(Overhead.OverheadType.PURCHASE.getValue().equals(overhead.getOverheadType())){
-        		purchaseIds.add(overhead.getRefId());
-        	}else{
-        		productIds.add(overhead.getRefId());
-        	}
-        }
-        
-        List<Product> productList = null;
-        List<Purchase> purchaseList = null;
-        if(productIds.size() > 0){
-        	detachedCriteria = DetachedCriteria.forClass(Product.class);
-        	detachedCriteria.add(Restrictions.in("id", productIds));
-        	productList = productDao.findListByDetachedCriteria(detachedCriteria, -1, -1);
-        }
-        
-        if(purchaseIds.size() > 0){
-        	detachedCriteria = DetachedCriteria.forClass(Purchase.class);
-        	detachedCriteria.add(Restrictions.in("id", purchaseIds));
-        	purchaseList = purchaseDao.findListByDetachedCriteria(detachedCriteria, -1, -1);
-        }	
-        
+//        List<Long> productIds = new ArrayList<Long>();
+//        List<Long> purchaseIds = new ArrayList<Long>();
         List<Overhead> newOverheadList = new ArrayList<Overhead>();
-        
         for(Overhead overhead : overheadList){
-        	if(Overhead.OverheadType.PURCHASE.getValue().equals(overhead.getOverheadType())){
-        		if(purchaseList != null){
-        			for(Purchase purchase : purchaseList){
-        				if(purchase.getId().equals(overhead.getRefId())){
-        					overhead.setPurchase(purchase);
-        					break;
-        				}
-        			}
-        		}
-        	}else{
-        		if(productList != null){
-        			for(Product product : productList){
-        				if(product.getId().equals(overhead.getRefId())){
-        					overhead.setProduct(product);
-        					break;
-        				}
-        			}
+        	if(overhead.getRefId() != null){
+        		if(Overhead.OverheadType.PURCHASE.getValue().equals(overhead.getOverheadType())){
+        			overhead.setPurchase(purchaseService.findById(overhead.getRefId()));
+        		}else{
+        			overhead.setProduct(productService.findById(overhead.getRefId()));
         		}
         	}
         	newOverheadList.add(overhead);
         }
+        
+//        List<Product> productList = null;
+//        List<Purchase> purchaseList = null;
+//        if(productIds.size() > 0){
+//        	detachedCriteria = DetachedCriteria.forClass(Product.class);
+//        	detachedCriteria.add(Restrictions.in("id", productIds));
+//        	productList = productDao.findListByDetachedCriteria(detachedCriteria, -1, -1);
+//        }
+//        
+//        if(purchaseIds.size() > 0){
+//        	detachedCriteria = DetachedCriteria.forClass(Purchase.class);
+//        	detachedCriteria.add(Restrictions.in("id", purchaseIds));
+//        	purchaseList = purchaseDao.findListByDetachedCriteria(detachedCriteria, -1, -1);
+//        }	
+//        
+//        List<Overhead> newOverheadList = new ArrayList<Overhead>();
+//        
+//        for(Overhead overhead : overheadList){
+//        	if(Overhead.OverheadType.PURCHASE.getValue().equals(overhead.getOverheadType())){
+//        		if(purchaseList != null){
+//        			for(Purchase purchase : purchaseList){
+//        				if(purchase.getId().equals(overhead.getRefId())){
+//        					overhead.setPurchase(purchase);
+//        					break;
+//        				}
+//        			}
+//        		}
+//        	}else{
+//        		if(productList != null){
+//        			for(Product product : productList){
+//        				if(product.getId().equals(overhead.getRefId())){
+//        					overhead.setProduct(product);
+//        					break;
+//        				}
+//        			}
+//        		}
+//        	}
+//        	newOverheadList.add(overhead);
+//        }
         result.setList(newOverheadList);
         
         return result;
@@ -347,20 +355,36 @@ public class OverheadServiceImpl implements OverheadService {
         this.overheadDao = overheadDao;
     }
 
-	public ProductDao getProductDao() {
-		return productDao;
+//	public ProductDao getProductDao() {
+//		return productDao;
+//	}
+//
+//	public void setProductDao(ProductDao productDao) {
+//		this.productDao = productDao;
+//	}
+//
+//	public PurchaseDao getPurchaseDao() {
+//		return purchaseDao;
+//	}
+//
+//	public void setPurchaseDao(PurchaseDao purchaseDao) {
+//		this.purchaseDao = purchaseDao;
+//	}
+
+	public ProductService getProductService() {
+		return productService;
 	}
 
-	public void setProductDao(ProductDao productDao) {
-		this.productDao = productDao;
+	public void setProductService(ProductService productService) {
+		this.productService = productService;
 	}
 
-	public PurchaseDao getPurchaseDao() {
-		return purchaseDao;
+	public PurchaseService getPurchaseService() {
+		return purchaseService;
 	}
 
-	public void setPurchaseDao(PurchaseDao purchaseDao) {
-		this.purchaseDao = purchaseDao;
+	public void setPurchaseService(PurchaseService purchaseService) {
+		this.purchaseService = purchaseService;
 	}
 
 }

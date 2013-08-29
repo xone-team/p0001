@@ -400,7 +400,9 @@ public class ProductServiceImpl implements ProductService {
 
         int pageSize = MyModelUtils.parseInt(params.get("pageSize"), 20);
         int startIndex = MyModelUtils.parseInt(params.get("pageNo"), 0);
-        return getProductDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+        Pagination p = getProductDao().findByDetachedCriteria(detachedCriteria, pageSize, startIndex);
+        p.setList(getProductWithImageIdByProducts(p.getList()));
+        return p;
     }
     
     protected void handleCriteriaByParams(DetachedCriteria criteria, Map<String, String> params){

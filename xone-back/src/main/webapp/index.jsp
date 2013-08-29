@@ -1,1 +1,1 @@
-<% response.sendRedirect(request.getContextPath() + "/console/index.html"); %>
+<% response.sendRedirect(request.getContextPath() + "/console/login.html"); %>
