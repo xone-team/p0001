@@ -40,20 +40,20 @@
 									<option value="0">售卖产品</option>
 									<option value="1">购买产品</option>
 									<option value="2">公司广告</option>
-								</select>
+								</select><code>*</code>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="refId">广告对象</label>
 							<div class="controls">
-								<input type="text" id="refId" name="adbanner.refId" value="${adbanner.refId}" maxlength="20" placeholder="广告对象编号"  readonly="readonly">
+								<input type="text" id="refId" name="adbanner.refId" value="${adbanner.refId}" maxlength="20" placeholder="广告对象编号"  readonly="readonly"><code>*</code>
 								<input type="hidden" id="refName" name="" maxlength="20" placeholder="相关编号" readonly="readonly">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="userId">选择用户</label>
 							<div class="controls">
-								<input type="text" id="userId" name="adbanner.userId" value="${adbanner.userId}" maxlength="20" placeholder="用户编号"  readonly="readonly">
+								<input type="text" id="userId" name="adbanner.userId" value="${adbanner.userId}" maxlength="20" placeholder="用户编号"  readonly="readonly"><code>*</code>
 								<input type="hidden" id="userName" name="" maxlength="20" placeholder="用户名称" readonly="readonly">
 							</div>
 						</div>
@@ -61,7 +61,7 @@
 							<label class="control-label" for="adStart">开始时间</label>
 							<div class="controls">
 								<div class="input-append date datepicker adbanneradstart" data-date-format="yyyy-mm-dd">
-									<input type="text" id="adStart" name="adbanner.adStart" value="<fmt:formatDate value="${adbanner.adStart}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" placeholder="开始时间" readonly>
+									<input type="text" id="adStart" name="adbanner.adStart" value="<fmt:formatDate value="${adbanner.adStart}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" placeholder="开始时间" readonly><code>*</code>
 									<span class="add-on"><i class="icon-th"></i></span>
 								</div>
 							</div>
@@ -70,7 +70,7 @@
 							<label class="control-label" for="adEnd">结束时间</label>
 							<div class="controls">
 								<div class="input-append date datepicker adbanneradend" data-date-format="yyyy-mm-dd">
-									<input type="text" id="adEnd" name="adbanner.adEnd" value="<fmt:formatDate value="${adbanner.adEnd}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" placeholder="结束时间" readonly>
+									<input type="text" id="adEnd" name="adbanner.adEnd" value="<fmt:formatDate value="${adbanner.adEnd}" pattern="yyyy-MM-dd HH:mm:ss"/>" maxlength="19" placeholder="结束时间" readonly><code>*</code>
 									<span class="add-on"><i class="icon-th"></i></span>
 								</div>
 							</div>

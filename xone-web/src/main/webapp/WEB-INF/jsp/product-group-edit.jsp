@@ -31,13 +31,13 @@
                     <div class="control-group">
                         <label class="control-label" for="productId">产品编号</label>
                         <div class="controls">
-                            <input type="text" id="productId" name="productGroup.productId" value="${productGroup.productId }" maxlength="20" placeholder="产品编号" readonly="readonly">
+                            <input type="text" id="productId" name="productGroup.productId" value="${productGroup.productId }" maxlength="20" placeholder="产品编号" readonly="readonly"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="groupNum">团购数量</label>
                         <div class="controls">
-                            <input type="text" id="groupNum" name="productGroup.groupNum" value="${productGroup.groupNum }" maxlength="20" placeholder="团购数量">
+                            <input type="text" id="groupNum" name="productGroup.groupNum" value="${productGroup.groupNum }" maxlength="20" placeholder="团购数量"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -78,6 +78,7 @@
 <script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
 <script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
 <script src="${STATIC_ROOT}/js/fileupload.js"></script>
+<script src="${pageContext.request.contextPath}/js/base.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#windowTitleDialogProduct').delegate('a.productselectinfo', 'click', function(e) {
@@ -109,7 +110,8 @@
                 func : numberValidation
             } ];
 
-            return true;
+            var pass = XONE.valid(validate, $form, "productGroup.");
+            return pass;
         });
     });
 
@@ -123,7 +125,7 @@
             } catch (e) {
             }
 
-            if (n == null || isNaN(n) || n < 0) {
+            if (n == null || isNaN(n) || n < 1) {
                 result = false;
             }
         }

@@ -28,12 +28,12 @@
                         <li class="active">编辑产品</li>
                     </ul>
                 </div>
-                <form class="form-horizontal" enctype="multipart/form-data" id="productSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productUpdate.html">
+                <form class="form-horizontal" enctype="multipart/form-data" id="productEditForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productUpdate.html">
                     <input type="hidden" name="product.id" value="${product.id}">
                     <div class="control-group">
                         <label class="control-label" for="productName">产品名称</label>
                         <div class="controls">
-                            <input type="text" id="productName" name="product.productName" value="${product.productName}" maxlength="255" placeholder="产品名称">
+                            <input type="text" id="productName" name="product.productName" value="${product.productName}" maxlength="255" placeholder="产品名称"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -43,7 +43,7 @@
                                 <c:forEach items="${productType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.productType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
-                            </select>
+                            </select><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -53,19 +53,19 @@
                                 <c:forEach items="${saleType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.saleType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
-                            </select>
+                            </select><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productPrice">产品价格</label>
                         <div class="controls">
-                            <input type="text" id="productPrice" name="product.productPrice" value="${product.productPrice}" maxlength="200" placeholder="产品价格">
+                            <input type="text" id="productPrice" name="product.productPrice" value="${product.productPrice}" maxlength="20" placeholder="产品价格"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productNum">产品数量</label>
                         <div class="controls">
-                            <input type="text" id="productNum" name="product.productNum" value="${product.productNum}" maxlength="255" placeholder="产品数量">
+                            <input type="text" id="productNum" name="product.productNum" value="${product.productNum}" maxlength="20" placeholder="产品数量"><code>*</code>
                         </div>
                     </div>
                     <c:if test="${product.saleType  == '2'}">
@@ -77,19 +77,19 @@
                     <div class="control-group">
                         <label class="control-label" for="productAddress">产品产地</label>
                         <div class="controls">
-                            <input type="text" id="productAddress" name="product.productAddress" value="${product.productAddress}" maxlength="255" placeholder="产品产地">
+                            <input type="text" id="productAddress" name="product.productAddress" value="${product.productAddress}" maxlength="255" placeholder="产品产地"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productLocation">产品属地</label>
                         <div class="controls">
-                            <input type="text" id="productLocation" name="product.productLocation" value="${product.productLocation}" maxlength="255" placeholder="产品属地">
+                            <input type="text" id="productLocation" name="product.productLocation" value="${product.productLocation}" maxlength="255" placeholder="产品属地"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productDesc">产品描述</label>
                         <div class="controls">
-                            <input type="text" id="productDesc" name="product.productDesc" value="${product.productDesc}" maxlength="255" placeholder="产品描述">
+                            <input type="text" id="productDesc" name="product.productDesc" value="${product.productDesc}" maxlength="255" placeholder="产品描述"><code>*</code>
                         </div>
                     </div>
 
@@ -167,6 +167,7 @@
     <jsp:include page="common-bottom.jsp"></jsp:include>
 </body>
 <script src="${STATIC_ROOT}/js/fileupload.js"></script>
+<script src="${pageContext.request.contextPath}/js/base.js"></script>
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_product").addClass("active");
@@ -199,10 +200,7 @@
         });
 
         $('#productEditForm${myidentify}').submit(function() {
-            var $form = $('#productEditForm${myidentify}');
-            $form.submit();
-            return;
-
+            var $form = $(this);
             var validate = [ {
                 name : 'product.productName',
                 text : '请输入产品名'
@@ -221,11 +219,20 @@
                 text : '产品数量必须为数字，且大于0',
                 func : numberValidation
             }, {
+                name : 'product.productAddress',
+                text : '请输入产品产地'
+            }, {
+                name : 'product.productLocation',
+                text : '请输入产品属地'
+            }, {
+                name : 'product.productDesc',
+                text : '请输入产品描述'
+            }, {
                 name : 'uploadFile1',
                 text : '请上传主图片'
             } ];
-
-            return true;
+            var pass = XONE.valid(validate, $form, "");
+            return false;
         });
     });
     function removeProductDynamicImage1(id) {
@@ -260,7 +267,7 @@
             } catch (e) {
             }
 
-            if (n == null || isNaN(n) || n < 0) {
+            if (n == null || isNaN(n) || n < 1) {
                 result = false;
             }
         }

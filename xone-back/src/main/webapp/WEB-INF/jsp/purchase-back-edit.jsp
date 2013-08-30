@@ -33,7 +33,7 @@
                     <div class="control-group">
                         <label class="control-label" for="purchaseName">产品名称</label>
                         <div class="controls">
-                            <input type="text" id="purchaseName" name="purchase.purchaseName" value="${purchase.purchaseName}" maxlength="255" placeholder="产品名称">
+                            <input type="text" id="purchaseName" name="purchase.purchaseName" value="${purchase.purchaseName}" maxlength="255" placeholder="产品名称"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -43,31 +43,31 @@
                                 <c:forEach items="${purchaseType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == purchase.purchaseType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
-                            </select>
+                            </select><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseNum">求购数量</label>
                         <div class="controls">
-                            <input type="text" id="purchaseNum" name="purchase.purchaseNum" value="${purchase.purchaseNum}" maxlength="255" placeholder="求购数量">
+                            <input type="text" id="purchaseNum" name="purchase.purchaseNum" value="${purchase.purchaseNum}" maxlength="255" placeholder="求购数量"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseAddress">产品产地</label>
                         <div class="controls">
-                            <input type="text" id="purchaseAddress" name="purchase.purchaseAddress" value="${purchase.purchaseAddress}" maxlength="255" placeholder="产品产地">
+                            <input type="text" id="purchaseAddress" name="purchase.purchaseAddress" value="${purchase.purchaseAddress}" maxlength="255" placeholder="产品产地"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseLocation">产品属地</label>
                         <div class="controls">
-                            <input type="text" id="purchaseLocation" name="purchase.purchaseLocation" value="${purchase.purchaseLocation}" maxlength="255" placeholder="产品属地">
+                            <input type="text" id="purchaseLocation" name="purchase.purchaseLocation" value="${purchase.purchaseLocation}" maxlength="255" placeholder="产品属地"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseDesc">求购描述</label>
                         <div class="controls">
-                            <input type="text" id="purchaseDesc" name="purchase.purchaseDesc" value="${purchase.purchaseDesc}" maxlength="255" placeholder="求购描述">
+                            <input type="text" id="purchaseDesc" name="purchase.purchaseDesc" value="${purchase.purchaseDesc}" maxlength="255" placeholder="求购描述"><code>*</code>
                         </div>
                     </div>
 
@@ -212,28 +212,39 @@
         });
 
         $('#saveForm').submit(function() {
-            var $form = $('#saveForm');
+            var $form = $(this);
             var validate = [ {
                 name : 'purchase.purchaseName',
-                text : '请输入求购产品名'
+                text : '请输入产品名'
             }, {
                 name : 'purchase.purchasePrice',
-                text : '请输入求购产品价格'
+                text : '请输入产品价格'
             }, {
                 name : 'purchase.purchasePrice',
-                text : '求购产品价格必须为数字，且大于0',
+                text : '产品价格必须为数字，且大于0',
                 func : numberValidation
             }, {
                 name : 'purchase.purchaseNum',
-                text : '请输入求购产品数量'
+                text : '请输入产品数量'
             }, {
                 name : 'purchase.purchaseNum',
-                text : '求购产品数量必须为数字，且大于0',
+                text : '产品数量必须为数字，且大于0',
                 func : numberValidation
+            }, {
+                name : 'purchase.purchaseAddress',
+                text : '请输入产品产地'
+            }, {
+                name : 'purchase.purchaseLocation',
+                text : '请输入产品属地'
+            }, {
+                name : 'purchase.purchaseDesc',
+                text : '请输入产品描述'
+            }, {
+                name : 'uploadFile1',
+                text : '请上传主图片'
             } ];
-
             var pass = XONE.valid(validate, $form, "");
-            return pass;
+            return false;
         });
     });
 

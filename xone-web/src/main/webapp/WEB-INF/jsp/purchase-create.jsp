@@ -29,7 +29,7 @@
                     <div class="control-group">
                         <label class="control-label" for="purchaseName">产品名称</label>
                         <div class="controls">
-                            <input type="text" id="purchaseName" name="purchase.purchaseName" maxlength="255" placeholder="产品名称">
+                            <input type="text" id="purchaseName" name="purchase.purchaseName" maxlength="255" placeholder="产品名称"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -39,31 +39,31 @@
                                 <c:forEach items="${productType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == purchase.purchaseType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
-                            </select>
+                            </select><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseNum">求购数量</label>
                         <div class="controls">
-                            <input type="text" id="purchaseNum" name="purchase.purchaseNum" value="${purchase.purchaseNum }" maxlength="255" placeholder="求购数量">
+                            <input type="text" id="purchaseNum" name="purchase.purchaseNum" value="${purchase.purchaseNum }" maxlength="255" placeholder="求购数量"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseAddress">产品产地</label>
                         <div class="controls">
-                            <input type="text" id="purchaseAddress" name="purchase.purchaseAddress" maxlength="255" placeholder="产品产地">
+                            <input type="text" id="purchaseAddress" name="purchase.purchaseAddress" maxlength="255" placeholder="产品产地"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseLocation">产品属地</label>
                         <div class="controls">
-                            <input type="text" id="purchaseLocation" name="purchase.purchaseLocation" maxlength="255" placeholder="产品属地">
+                            <input type="text" id="purchaseLocation" name="purchase.purchaseLocation" maxlength="255" placeholder="产品属地"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseDesc">求购描述</label>
                         <div class="controls">
-                            <input type="text" id="purchaseDesc" name="purchase.purchaseDesc" maxlength="255" placeholder="求购描述">
+                            <input type="text" id="purchaseDesc" name="purchase.purchaseDesc" maxlength="255" placeholder="求购描述"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -99,6 +99,7 @@
     <jsp:include page="common-bottom.jsp"></jsp:include>
 </body>
 <script src="${STATIC_ROOT}/js/fileupload.js"></script>
+<script src="${pageContext.request.contextPath}/js/base.js"></script>
 <script>
     jQuery(function() {
         $('#uploadImageFile1[type="file"]').fileupload({
@@ -127,27 +128,39 @@
         });
 
         $('#saveForm').submit(function() {
-            var $form = $('#saveForm');
+            var $form = $(this);
             var validate = [ {
                 name : 'purchase.purchaseName',
-                text : '请输入求购产品名'
+                text : '请输入产品名'
             }, {
                 name : 'purchase.purchasePrice',
-                text : '请输入求购产品价格'
+                text : '请输入产品价格'
             }, {
                 name : 'purchase.purchasePrice',
-                text : '求购产品价格必须为数字，且大于0',
+                text : '产品价格必须为数字，且大于0',
                 func : numberValidation
             }, {
                 name : 'purchase.purchaseNum',
-                text : '请输入求购产品数量'
+                text : '请输入产品数量'
             }, {
                 name : 'purchase.purchaseNum',
-                text : '求购产品数量必须为数字，且大于0',
+                text : '产品数量必须为数字，且大于0',
                 func : numberValidation
+            }, {
+                name : 'purchase.purchaseAddress',
+                text : '请输入产品产地'
+            }, {
+                name : 'purchase.purchaseLocation',
+                text : '请输入产品属地'
+            }, {
+                name : 'purchase.purchaseDesc',
+                text : '请输入产品描述'
+            }, {
+                name : 'uploadFile1',
+                text : '请上传主图片'
             } ];
-
-            return true;
+            var pass = XONE.valid(validate, $form, "");
+            return false;
         });
     });
     
@@ -177,11 +190,26 @@
             } catch (e) {
             }
 
-            if (n == null || isNaN(n) || n < 0) {
+            if (n == null || isNaN(n) || n < 1) {
                 result = false;
             }
         }
         return result;
     }
 </script>
+<c:if test="${!empty fieldErrors }">
+    <script>
+                    function renderFieldMessage(fieldText, status, inputEl) {
+                        var controlEl = inputEl.parent();
+                        var controlGroupEl = controlEl.parent();
+                        controlGroupEl.removeClass("warning error info success")
+                        controlGroupEl.addClass(status);
+                        controlEl.children().remove(".X-field-message");
+                        controlEl.append('<span class="X-field-message help-inline">' + fieldText + '</span>');
+                    }
+                    <c:forEach items="${fieldErrors }" var="fieldError">
+                    renderFieldMessage('${fieldError.value }', "error", $('input[name="${fieldError.key}"]'));
+                    </c:forEach>
+                </script>
+</c:if>
 </html>

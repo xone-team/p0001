@@ -35,13 +35,13 @@
                                 <c:forEach items="${overheadType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == overhead.overheadType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
-                            </select>
+                            </select><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="refId">相关编号</label>
                         <div class="controls">
-                            <input type="text" id="refId" name="overhead.refId" maxlength="20" placeholder="相关编号" readonly="readonly">
+                            <input type="text" id="refId" name="overhead.refId" maxlength="20" placeholder="相关编号" readonly="readonly"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">

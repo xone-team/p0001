@@ -39,13 +39,13 @@
                     <div class="control-group">
                         <label class="control-label" for="name">公司名称</label>
                         <div class="controls">
-                            <input type="text" id="name" name="companyInfo.name" value="${companyInfo.name}" maxlength="255" placeholder="公司名称">
+                            <input type="text" id="name" name="companyInfo.name" value="${companyInfo.name}" maxlength="255" placeholder="公司名称"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="address">公司地址</label>
                         <div class="controls">
-                            <input type="text" id="address" name="companyInfo.address" value="${companyInfo.address}" maxlength="255" placeholder="公司地址">
+                            <input type="text" id="address" name="companyInfo.address" value="${companyInfo.address}" maxlength="255" placeholder="公司地址"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -57,13 +57,13 @@
                     <div class="control-group">
                         <label class="control-label" for="mobile">移动电话</label>
                         <div class="controls">
-                            <input type="text" id="mobile" name="companyInfo.mobile" value="${companyInfo.mobile}" maxlength="15" placeholder="移动电话">
+                            <input type="text" id="mobile" name="companyInfo.mobile" value="${companyInfo.mobile}" maxlength="15" placeholder="移动电话"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="contact">联系人</label>
                         <div class="controls">
-                            <input type="text" id="contact" name="companyInfo.contact" value="${companyInfo.contact}" maxlength="15" placeholder="联系人">
+                            <input type="text" id="contact" name="companyInfo.contact" value="${companyInfo.contact}" maxlength="15" placeholder="联系人"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -164,6 +164,7 @@
     </jsp:include>
 </body>
 <script src="${STATIC_ROOT}/js/fileupload.js"></script>
+<script src="${pageContext.request.contextPath}/js/base.js"></script>
 <script>
     jQuery(function() {
         jQuery("#X_menu_li_companyInfo").addClass("active");
@@ -193,7 +194,23 @@
         });
 
         $('#companyInfoEditForm${myidentify}').submit(function() {
-            return true;
+            var $form = $(this);
+            var validate = [ {
+                name : 'name',
+                text : '请输入公司名称'
+            }, {
+                name : 'address',
+                text : '请输入公司地址'
+            }, {
+                name : 'mobile',
+                text : '请输入移动电话'
+            }, {
+                name : 'contact',
+                text : '请输入联系人'
+            } ];
+
+            var pass = XONE.valid(validate, $form, "companyInfo.");
+            return false;
         });
     });
     function removeCompanyInfoDynamicImage1(id) {

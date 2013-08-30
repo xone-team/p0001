@@ -35,13 +35,13 @@
                                 <c:forEach items="${overheadType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == overhead.overheadType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
-                            </select>
+                            </select><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="refId">相关编号</label>
                         <div class="controls">
-                            <input type="text" id="refId" name="overhead.refId" value="${overhead.refId}" maxlength="20" placeholder="相关编号" readonly="readonly">
+                            <input type="text" id="refId" name="overhead.refId" value="${overhead.refId}" maxlength="20" placeholder="相关编号" readonly="readonly"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -87,6 +87,7 @@
 <script src="${STATIC_ROOT}/bootstrap-datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
 <script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
 <script src="${STATIC_ROOT}/js/fileupload.js"></script>
+<script src="${pageContext.request.contextPath}/js/base.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         $('#windowTitleDialogProduct').delegate('a.productselectinfo', 'click', function(e) {
@@ -125,7 +126,8 @@
                 text : '请选择相关产品或求购'
             } ];
 
-            return true;
+            var pass = XONE.valid(validate, $form, "overhead.");
+            return pass;
         });
     });
 </script>

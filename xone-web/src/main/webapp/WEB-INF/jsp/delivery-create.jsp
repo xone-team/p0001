@@ -29,27 +29,27 @@
                     <div class="control-group">
                         <label class="control-label" for="marketarea">市场区域</label>
                         <div class="controls">
-                            <input type="text" id="marketarea" name="delivery.marketarea" value="${delivery.marketarea }" maxlength="255" placeholder="市场区域">
+                            <input type="text" id="marketarea" name="delivery.marketarea" value="${delivery.marketarea }" maxlength="255" placeholder="市场区域"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="determini">目的地点</label>
                         <div class="controls">
-                            <input type="text" id="determini" name="delivery.determini" value="${delivery.determini }" maxlength="255" placeholder="目的地点">
+                            <input type="text" id="determini" name="delivery.determini" value="${delivery.determini }" maxlength="255" placeholder="目的地点"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="loadtime">上货时间</label>
                         <div class="controls">
                             <div class="input-append date" data-date-format="yyyy-mm-dd hh:ii">
-                                <input type="text" id="loadtime" class="Wdate" value="${delivery.loadtime }" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'});" name="delivery.loadtime" maxlength="19" placeholder="上货时间" readonly="readonly">
+                                <input type="text" id="loadtime" class="Wdate" value="${delivery.loadtime }" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'});" name="delivery.loadtime" maxlength="19" placeholder="上货时间" readonly="readonly"><code>*</code>
                             </div>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="loadaddress">上货地点</label>
                         <div class="controls">
-                            <input type="text" id="loadaddress" name="delivery.loadaddress" value="${delivery.loadaddress }" maxlength="255" placeholder="上货地点">
+                            <input type="text" id="loadaddress" name="delivery.loadaddress" value="${delivery.loadaddress }" maxlength="255" placeholder="上货地点"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -104,6 +104,7 @@
 <script src="${STATIC_ROOT}/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
 <script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
 <script src="${STATIC_ROOT}/js/common.js"></script>
+<script src="${pageContext.request.contextPath}/js/base.js"></script>
 <script>
     jQuery(function() {
         $('.selectpicker').selectpicker({
@@ -164,7 +165,8 @@
                 func : numberValidation
             } ];
 
-            return true;
+            var pass = XONE.valid(validate, $form, "delivery.");
+            return false;
         });
     });
     function numberValidation(inputEl) {
@@ -196,4 +198,19 @@
         }
     }
 </script>
+<c:if test="${!empty fieldErrors }">
+    <script>
+                    function renderFieldMessage(fieldText, status, inputEl) {
+                        var controlEl = inputEl.parent();
+                        var controlGroupEl = controlEl.parent();
+                        controlGroupEl.removeClass("warning error info success")
+                        controlGroupEl.addClass(status);
+                        controlEl.children().remove(".X-field-message");
+                        controlEl.append('<span class="X-field-message help-inline">' + fieldText + '</span>');
+                    }
+                    <c:forEach items="${fieldErrors }" var="fieldError">
+                    renderFieldMessage('${fieldError.value }', "error", $('input[name="${fieldError.key}"]'));
+                    </c:forEach>
+                </script>
+</c:if>
 </html>

@@ -31,25 +31,25 @@
                     <div class="control-group">
                         <label class="control-label" for="username">用户名</label>
                         <div class="controls">
-                            <input type="text" id="username" name="person.username" maxlength="255" placeholder="用户名">
+                            <input type="text" id="username" name="person.username" maxlength="20" placeholder="用户名"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="password">密码</label>
                         <div class="controls">
-                            <input type="password" id="password" name="person.password" maxlength="255" placeholder="密码">
+                            <input type="password" id="password" name="person.password" maxlength="20" placeholder="密码"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="nickName">昵称</label>
                         <div class="controls">
-                            <input type="text" id="nickName" name="person.nickName" maxlength="255" placeholder="昵称">
+                            <input type="text" id="nickName" name="person.nickName" maxlength="20" placeholder="昵称"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="cellphone">手机号码</label>
                         <div class="controls">
-                            <input type="text" id="cellphone" name="person.cellphone" maxlength="255" placeholder="手机号码">
+                            <input type="text" id="cellphone" name="person.cellphone" maxlength="11" placeholder="手机号码">
                         </div>
                     </div>
                     <div class="control-group">
@@ -61,7 +61,7 @@
                     <div class="control-group">
                         <label class="control-label" for="qq">腾讯号码</label>
                         <div class="controls">
-                            <input type="text" id="qq" name="person.qq" maxlength="255" placeholder="腾讯号码">
+                            <input type="text" id="qq" name="person.qq" maxlength="20" placeholder="腾讯号码">
                         </div>
                     </div>
                     <div class="control-group">
@@ -160,32 +160,72 @@
     jQuery(function() {
         jQuery("#X_menu_li_person").addClass("active");
         $('#saveForm').submit(function(){
-    		var $form = $('#saveForm');
-    		var validate = [{
-    			name: 'username',
-    			text: '请输入用戶名'
-    		}, {
-    			name: 'username',
-    			text: '用户名在 6 － 20 个字之间',
-    			func: lengthValidation
-    		}, {
-    			name: 'password',
-    			text: '请输入密碼'
-    		}, {
-    			name: 'password',
-    			text: '密碼在 6 － 20 个字之间',
-    			func: lengthValidation
-    		}, {
-    			name: 'nickName',
-    			text: '请输入昵称'
-    		}];
-    		
-    		var pass = XONE.valid(validate, $form, "person.");
-    		
-    		return pass;
+            var $form = $(this);
+
+            var validate = [ {
+                name : 'userName',
+                text : '请输入用户名'
+            }, {
+                name : 'password',
+                text : '请输入密码'
+            }, {
+                name : 'nickName',
+                text : '请输入呢称'
+            }, {
+                name : 'password',
+                text : '密碼在 6 － 20 个字之间',
+                func : lengthValidation
+            }, {
+                name : 'cellphone',
+                text : '请输入正确的手机号',
+                func : isCellphone
+            }, {
+                name : 'qq',
+                text : '请输入正确的QQ号',
+                func : isQQ
+            }, {
+                name : 'email',
+                text : '请输入正确的邮箱',
+                func : isEmail
+            } ];
+
+            var pass = XONE.valid(validate, $form, "person.");
+            return pass;
+        });
+		
+        $("#username").bind("blur", function(){
+            $nickName = $("#nickName");
+            if($nickName.val() == null || $nickName.val().length < 1)
+                $nickName.val($(this).val());
         });
     });
 
+    function isEmail(){
+        var result = true;
+        var v = $("#email").val();
+        if(v != null && v.length > 0){
+            result = v.match(/[^@]+@[^@]/g);
+        }
+        return result;
+    }
+    
+    function isQQ(){
+        var result = true;
+        var v = $("#qq").val();
+        if(v != null && v.length > 0){
+            result = v.match(/\d{5,11}/g);
+        }
+        return result;
+    }
+    
+    function isCellphone(){
+        var result = true;
+        var v = $("#cellphone").val();
+        if(v != null && v.length > 0){
+            result = v.match(/1\d{10}/g);
+        }
+        return result;
+    }
     
     function lengthValidation(inputEl){
         var result = true;
@@ -198,7 +238,38 @@
 	    }
 	    return result;
     }
+    
+    function numberValidation(inputEl) {
+        var result = true;
+        var val = inputEl.val();
+        if (val != null && val.length > 0) {
+            var n = null;
+            try {
+                n = parseInt(val);
+            } catch (e) {
+            }
 
+            if (n == null || isNaN(n) || n < 0) {
+                result = false;
+            }
+        }
+        return result;
+    }
 </script>
+<c:if test="${!empty fieldErrors }">
+    <script>
+                    function renderFieldMessage(fieldText, status, inputEl) {
+                        var controlEl = inputEl.parent();
+                        var controlGroupEl = controlEl.parent();
+                        controlGroupEl.removeClass("warning error info success")
+                        controlGroupEl.addClass(status);
+                        controlEl.children().remove(".X-field-message");
+                        controlEl.append('<span class="X-field-message help-inline">' + fieldText + '</span>');
+                    }
+                    <c:forEach items="${fieldErrors }" var="fieldError">
+                    renderFieldMessage('${fieldError.value }', "error", $('input[name="${fieldError.key}"]'));
+                    </c:forEach>
+                </script>
+</c:if>
 </html>
 

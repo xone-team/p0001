@@ -29,7 +29,7 @@
             </div>
         </div>
     </sec:authorize>
-    <sec:authorize access="hasAnyRole('MEMBER-CREDIT')">
+    <sec:authorize access="hasAnyRole('ADMINISTRATOR', 'MEMBER-CREDIT')">
         <sec:authorize access="hasAnyRole('ADMINISTRATOR', 'MEMBER-B', 'MEMBER-A')">
             <div class="accordion-group">
                 <div class="accordion-heading">

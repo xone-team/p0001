@@ -36,33 +36,33 @@
                     <div class="control-group">
                         <label class="control-label" for="productId">产品编号</label>
                         <div class="controls">
-                            <input type="text" id="productId" name="delivery.productId" value="${delivery.productId}" maxlength="20" placeholder="产品编号" readonly="readonly">
+                            <input type="text" id="productId" name="delivery.productId" value="${delivery.productId}" maxlength="20" placeholder="产品编号" readonly="readonly"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="marketarea">市场区域</label>
                         <div class="controls">
-                            <input type="text" id="marketarea" name="delivery.marketarea" value="${delivery.marketarea}" maxlength="255" placeholder="市场区域">
+                            <input type="text" id="marketarea" name="delivery.marketarea" value="${delivery.marketarea}" maxlength="255" placeholder="市场区域"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="determini">目的地点</label>
                         <div class="controls">
-                            <input type="text" id="determini" name="delivery.determini" value="${delivery.determini}" maxlength="255" placeholder="目的地点">
+                            <input type="text" id="determini" name="delivery.determini" value="${delivery.determini}" maxlength="255" placeholder="目的地点"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="loadtime">上货时间</label>
                         <div class="controls">
                             <div class="input-append date" data-date-format="yyyy-mm-dd hh:ii">
-                                <input type="text" id="loadtime" name="delivery.loadtime" value="<fmt:formatDate value="${delivery.loadtime}" pattern="yyyy-MM-dd hh:mm"/>" maxlength="19" placeholder="上货时间" readonly="readonly">
+                                <input type="text" id="loadtime" name="delivery.loadtime" value="<fmt:formatDate value="${delivery.loadtime}" pattern="yyyy-MM-dd hh:mm"/>" maxlength="19" placeholder="上货时间" readonly="readonly"><code>*</code>
                             </div>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="loadaddress">上货地点</label>
                         <div class="controls">
-                            <input type="text" id="loadaddress" name="delivery.loadaddress" value="${delivery.loadaddress}" maxlength="255" placeholder="上货地点">
+                            <input type="text" id="loadaddress" name="delivery.loadaddress" value="${delivery.loadaddress}" maxlength="255" placeholder="上货地点"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -198,7 +198,6 @@
             } ];
 
             var pass = XONE.valid(validate, $form, "delivery.");
-
             return pass;
         });
     });
@@ -231,4 +230,19 @@
         }
     }
 </script>
+<c:if test="${!empty fieldErrors }">
+    <script>
+                    function renderFieldMessage(fieldText, status, inputEl) {
+                        var controlEl = inputEl.parent();
+                        var controlGroupEl = controlEl.parent();
+                        controlGroupEl.removeClass("warning error info success")
+                        controlGroupEl.addClass(status);
+                        controlEl.children().remove(".X-field-message");
+                        controlEl.append('<span class="X-field-message help-inline">' + fieldText + '</span>');
+                    }
+                    <c:forEach items="${fieldErrors }" var="fieldError">
+                    renderFieldMessage('${fieldError.value }', "error", $('input[name="${fieldError.key}"]'));
+                    </c:forEach>
+                </script>
+</c:if>
 </html>
