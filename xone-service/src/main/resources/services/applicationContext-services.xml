@@ -16,8 +16,6 @@
  <bean id="purchaseService" class="com.xone.service.app.PurchaseServiceImpl" />
  <bean id="imageUploadedService" class="com.xone.service.app.ImageUploadedServiceImpl" />
  <bean id="adbannerService" class="com.xone.service.app.AdbannerServiceImpl" />
- <bean id="categoryService" class="com.xone.service.app.CategoryServiceImpl" />
- <bean id="configService" class="com.xone.service.app.ConfigServiceImpl" />
  <bean id="overheadService" class="com.xone.service.app.OverheadServiceImpl" />
  <bean id="productService" class="com.xone.service.app.ProductServiceImpl" />
  <bean id="subscribeService" class="com.xone.service.app.SubscribeServiceImpl" />
