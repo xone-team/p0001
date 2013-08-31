@@ -55,6 +55,10 @@ public class ProductAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	public Enum<?>[] getProductType() {
+		return Product.ProductType.values();
+	}
+	
 	/**
 	 * 手机上滑动更多
 	 * @return

@@ -26,46 +26,40 @@
 			</div>
 		</div>
 		<div data-role="content" style="padding-top:2px;">
-			<div class="searchconditionssales" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
-			    <h4>选择附加搜索条件</h4>
-				<div data-role="navbar" data-mini="true" data-theme="e">
-				    <ul>
-				        <li><a href="#searchtype" class="navbartabs ui-btn-active">类型</a></li>
-				        <li><a href="#searcharea" class="navbartabs">地区</a></li>
-				        <li><a href="#searchcredit" class="navbartabs">信誉</a></li>
-				    </ul>
+			<form name="querychoiseform" action="#">
+				<div class="searchconditionssales" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+					    <h4>选择附加搜索条件</h4>
+						<div data-role="navbar" data-mini="true" data-theme="e">
+						    <ul>
+						        <li><a href="#searchtype" class="navbartabs ui-btn-active">类型</a></li>
+						        <li><a href="#searcharea" class="navbartabs">地区</a></li>
+						        <li><a href="#searchcredit" class="navbartabs">信誉</a></li>
+						    </ul>
+						</div>
+						<div data-id="#searchtype" data-role="controlgroup" data-mini="true" class="salesearchclass">
+							<c:forEach items="${productType}" var="it">
+						    <input type="checkbox" name="checkbox-type" value="${it.value}" id="checkbox-${it.value}a${myid}" checked="">
+						    <label for="checkbox-${it.value}a${myid}">${it.name}</label>
+                            </c:forEach>
+						</div>
+						<div data-id="#searcharea" data-role="controlgroup" data-mini="true" class="salesearchclass" style="display:none;">
+						    <input type="checkbox" name="checkbox-1a" id="checkbox-0b${myid}" value="" checked="">
+						    <label for="checkbox-0b${myid}">全部</label>
+						    <input type="checkbox" name="checkbox-1a" id="checkbox-1b${myid}" value="上海">
+						    <label for="checkbox-1b${myid}">上海</label>
+						    <input type="checkbox" name="checkbox-1a" id="checkbox-2b${myid}" value="天津">
+						    <label for="checkbox-2b${myid}">天津</label>
+						</div>
+						<div data-id="#searchcredit" data-role="controlgroup" data-mini="true" class="salesearchclass" style="display:none;">
+						    <input type="checkbox" name="checkbox-2a" id="checkbox-0c${myid}" value="" checked="">
+						    <label for="checkbox-0c${myid}">全部</label>
+						    <input type="checkbox" name="checkbox-2a" id="checkbox-1c${myid}" value="1">
+						    <label for="checkbox-1c${myid}">信誉好</label>
+						    <input type="checkbox" name="checkbox-2a" id="checkbox-2c${myid}" value="0">
+						    <label for="checkbox-2c${myid}">信誉一般</label>
+						</div>
 				</div>
-				<div data-id="#searchtype" data-role="controlgroup" data-mini="true" class="salesearchclass">
-				    <input type="checkbox" name="checkbox-a" id="checkbox-0a${myid}" checked="">
-				    <label for="checkbox-0a">全部</label>
-				    <input type="checkbox" name="checkbox-a" id="checkbox-1a${myid}">
-				    <label for="checkbox-1a">冻品</label>
-				    <input type="checkbox" name="checkbox-a" id="checkbox-2a${myid}">
-				    <label for="checkbox-2a">干货</label>
-				    <input type="checkbox" name="checkbox-a" id="checkbox-3a${myid}">
-				    <label for="checkbox-3a">活鲜</label>
-				    <input type="checkbox" name="checkbox-a" id="checkbox-4a${myid}">
-				    <label for="checkbox-4a">水果</label>
-				    <input type="checkbox" name="checkbox-a" id="checkbox-5a${myid}">
-				    <label for="checkbox-5a">调料</label>
-				</div>
-				<div data-id="#searcharea" data-role="controlgroup" data-mini="true" class="salesearchclass" style="display:none;">
-				    <input type="checkbox" name="checkbox-1a" id="checkbox-0b${myid}" checked="">
-				    <label for="checkbox-0b">全部</label>
-				    <input type="checkbox" name="checkbox-1a" id="checkbox-1b${myid}">
-				    <label for="checkbox-1b">上海</label>
-				    <input type="checkbox" name="checkbox-2a" id="checkbox-2b${myid}">
-				    <label for="checkbox-2b">天津</label>
-				</div>
-				<div data-id="#searchcredit" data-role="controlgroup" data-mini="true" class="salesearchclass" style="display:none;">
-				    <input type="checkbox" name="checkbox-1a" id="checkbox-0c" checked="">
-				    <label for="checkbox-0c">全部</label>
-				    <input type="checkbox" name="checkbox-1a" id="checkbox-1c">
-				    <label for="checkbox-1c">信誉好</label>
-				    <input type="checkbox" name="checkbox-2a" id="checkbox-2c">
-				    <label for="checkbox-2c">信誉一般</label>
-				</div>
-			</div>
+			</form>
 			<div style="width:100%;padding-top:10px;" class="product-sales-list${myid}" data-iscroll>
 				<div class="iscroll-pulldown">
 			        <span class="iscroll-pull-icon"></span>
