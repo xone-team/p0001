@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="config" namespace="/config" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
+        </global-results>
+        <action name="configList" class="configBackAction" method="configList">
+            <result name="success">/WEB-INF/jsp/config-back-list.jsp</result>
+        </action>
+        <action name="configCreate" class="configBackAction" method="configCreate">
+            <result name="success">/WEB-INF/jsp/config-back-create.jsp</result>
+        </action>
+        <action name="configSave" class="configBackAction" method="configSave">
+            <result name="success" type="redirectAction">
+                <param name="actionName">configItem</param>
+                <param name="namespace">/config</param>
+                <param name="config.id">${config.id}</param>
+            </result>
+        </action>
+        <action name="configEdit" class="configBackAction" method="configEdit">
+            <result name="success">/WEB-INF/jsp/config-back-edit.jsp</result>
+        </action>
+        <action name="configUpdate" class="configBackAction" method="configUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">configItem</param>
+                <param name="namespace">/config</param>
+                <param name="config.id">${config.id}</param>
+            </result>
+            <result name="list" type="chain">
+                <param name="actionName">configList</param>
+                <param name="namespace">/config</param>
+            </result>
+        </action>
+        <action name="configItem" class="configBackAction" method="configItem">
+            <result name="success">/WEB-INF/jsp/config-back-item.jsp</result>
+        </action>
+ <!--        <action name="configDelete" class="configBackAction" method="configDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">configList</param>
+                <param name="namespace">/config</param>
+            </result>
+        </action> -->
+    </package>
+</struts>

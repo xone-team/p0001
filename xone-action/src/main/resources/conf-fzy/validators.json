@@ -1,0 +1,31 @@
+{
+	"validators" : 
+	[
+		{
+			"name" : "notNull",
+			"className" : "com.xone.action.base.validators.NotNull",
+			"customized" : false,
+			"singleton" : true
+		},
+		{
+			"name" : "length",
+			"className" : "com.xone.action.base.validators.Length",
+			"customized" : false,
+			"singleton" : true
+		},
+		{
+			"name" : "maxLength",
+			"className" : "com.xone.action.base.validators.MaxLength",
+			"customized" : false,
+			"singleton" : true
+		},
+		{
+			"name" : "minLength",
+			"className" : "com.xone.action.base.validators.MinLength",
+			"customized" : false,
+			"singleton" : true
+		}
+	]
+}
+
+

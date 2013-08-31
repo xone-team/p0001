@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>  <!DOCTYPE mapper   PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"  "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.xone.webtools.mybatis.ProductMapper">
+	<resultMap id="productResultMap" type="com.xone.webtools.mybatis.Product">
+		<result property="id" column="ID"/>
+		<result property="productName" column="PRODUCT_NAME"/>
+		<result property="productType" column="PRODUCT_TYPE"/>
+		<result property="checkStatus" column="CHECK_STATUS"/>
+		<result property="saleType" column="SALE_TYPE"/>
+		<result property="productPrice" column="PRODUCT_PRICE"/>
+		<result property="productNum" column="PRODUCT_NUM"/>
+		<result property="productValid" column="PRODUCT_VALID"/>
+		<result property="productAddress" column="PRODUCT_ADDRESS"/>
+		<result property="productLocation" column="PRODUCT_LOCATION"/>
+		<result property="productDesc" column="PRODUCT_DESC"/>
+		<result property="flagDeleted" column="FLAG_DELETED"/>
+		<result property="userApply" column="USER_APPLY"/>
+		<result property="dateApply" column="DATE_APPLY"/>
+		<result property="userCheck" column="USER_CHECK"/>
+		<result property="dateCheck" column="DATE_CHECK"/>
+		<result property="userCreated" column="USER_CREATED"/>
+		<result property="dateCreated" column="DATE_CREATED"/>
+		<result property="userUpdated" column="USER_UPDATED"/>
+		<result property="lastUpdated" column="LAST_UPDATED"/>
+	</resultMap>
+	<select id="findProductListWithUser" parameterType="java.util.Map" resultMap="productResultMap">
+        select p.*
+        from t_product p left join t_user u on p.user_created = u.id 
+       	<include refid="findProductWhere"/>
+       	order by p.date_created
+	</select>
+	<select id="findProductCountWithUser" parameterType="java.util.Map" resultType="int">
+        select count(*)
+        from t_product p left join t_user u on p.user_created = u.id 
+       	<include refid="findProductWhere"/>
+	</select>
+	<sql id="findProductWhere">
+        <where>
+            <if test="id != null">
+				and p.id = #{id}
+			</if>
+            <if test="gtDateCreated != null">
+				<![CDATA[and p.date_created < #{gtDateCreated}]]>
+			</if>
+            <if test="ltDateCreated != null">
+                <![CDATA[and p.date_created > #{ltDateCreated}]]>
+			</if>
+            <if test="saleType != null">
+				and p.sale_type = #{saleType}
+			</if>
+            <if test="productName != null">
+				and p.product_name like CONCAT('%', #{productName}, '%')
+			</if>
+            <if test="productType != null">
+				and p.product_type like CONCAT('%', #{productType}, '%')
+			</if>
+            <if test="productAddress != null">
+				and p.product_address like CONCAT('%', #{productAddress}, '%')
+			</if>
+            <if test="productLocation != null">
+				and p.product_location like CONCAT('%', #{productLocation}, '%')
+			</if>
+            <if test="checkStatus != null">
+				and p.check_status = #{checkStatus}
+			</if>
+            <if test="flagDeleted != null">
+				and p.flag_deleted = #{flagDeleted}
+			</if>
+            <if test="userCreated != null">
+				and p.user_created = #{userCreated}
+			</if>
+            <if test="userLevels != null">
+				and 
+				<foreach item="item" index="index" collection="userLevels" open="(" separator="or" close=")">
+					u.user_level = #{item}
+				</foreach>
+			</if>
+            <if test="credit != null">
+				and u.credit = #{credit}
+			</if>
+        </where>
+	</sql>
+</mapper>

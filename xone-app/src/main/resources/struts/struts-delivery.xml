@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="delivery" namespace="/delivery" extends="default">
+		<action name="index" class="deliveryAction" method="index">
+			<result name="success">/WEB-INF/jsp/delivery-index.jsp</result>
+		</action>
+		<action name="edit" class="deliveryAction" method="itemDetails">
+			<result name="success">/WEB-INF/jsp/delivery-edit.jsp</result>
+		</action>
+		<action name="update" class="deliveryAction" method="update">
+			<result name="success" type="redirectAction">
+			    <param name="actionName">itemPage</param> 
+    			<param name="namespace">/delivery</param> 
+				<param name="delivery.id">${delivery.id}</param>
+			</result>
+			<result name="error" type="redirectAction">
+			    <param name="actionName">itemPage</param> 
+    			<param name="namespace">/delivery</param> 
+				<param name="delivery.id">${delivery.id}</param>
+			</result>
+			<result name="list" type="redirectAction">
+			    <param name="actionName">listIndex</param>
+    			<param name="namespace">/delivery</param>
+			</result>
+		</action>
+		<action name="create" class="deliveryAction" method="create">
+			<result name="success">/WEB-INF/jsp/delivery-success.jsp</result>
+		</action>
+		<action name="listIndex" class="deliveryAction" method="listIndex">
+			<result name="success">/WEB-INF/jsp/delivery-list-index.jsp</result>
+		</action>
+		<action name="listItems" class="deliveryAction" method="listItems">
+			<result name="success">/WEB-INF/jsp/delivery-list-items.jsp</result>
+		</action>
+		<action name="itemDetails" class="deliveryAction" method="itemDetails">
+			<result name="success">/WEB-INF/jsp/delivery-item-details.jsp</result>
+		</action>
+		<action name="itemPage" class="deliveryAction" method="itemPage">
+			<result name="success">/WEB-INF/jsp/delivery-item-page.jsp</result>
+		</action>
+	</package>
+</struts>

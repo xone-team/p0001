@@ -1,0 +1,84 @@
+{
+	"menus" :
+	[
+		{
+			"code" : "userManagement",
+			"name" : "用户管理",
+			"sort" : 1
+		},
+		{
+			"code" : "user",
+			"name" : "用户",
+			"link" : "user-list.html",
+			"sort" : 1,
+			"parent" : "userManagement"
+		},
+		{
+			"code" : "role",
+			"name" : "角色",
+			"link" : "role-list.html",
+			"sort" : 2,
+			"parent" : "userManagement"
+		},
+		{
+			"code" : "resource",
+			"name" : "资源",
+			"link" : "resource-list.html",
+			"sort" : 3,
+			"parent" : "userManagement"
+		},
+		{
+			"code" : "productManagement",
+			"name" : "产品管理",
+			"sort" : 2
+		},
+		{
+			"code" : "product",
+			"name" : "产品",
+			"link" : "product-list.html",
+			"sort" : 1,
+			"parent" : "productManagement"
+		},
+		{
+			"code" : "want",
+			"name" : "求购",
+			"link" : "want-list.html",
+			"sort" : 2,
+			"parent" : "productManagement"
+		},
+		{
+			"code" : "category",
+			"name" : "分类",
+			"link" : "category-list.html",
+			"sort" : 3,
+			"parent" : "productManagement"
+		},
+		{
+			"code" : "top",
+			"name" : "置顶",
+			"link" : "top-list.html",
+			"sort" : 4,
+			"parent" : "productManagement"
+		},
+		{
+			"code" : "bill",
+			"name" : "广告",
+			"link" : "bill-list.html",
+			"sort" : 5,
+			"parent" : "productManagement"
+		},
+		{
+			"code" : "delivery",
+			"name" : "物流",
+			"link" : "delivery-list.html",
+			"sort" : 6,
+			"parent" : "productManagement"
+		},
+		{
+			"code" : "config",
+			"name" : "系统设置",
+			"link" : "config-list.html",
+			"sort" : 3
+		}
+	]
+}

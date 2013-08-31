@@ -1,0 +1,40 @@
+{
+	"validators" :
+	[
+		{
+			"name" : "notNull",
+			"textPattern" : "[${fieldText}] 是必填项."
+		},
+		{
+			"name" : "length",
+			"paramTypes" : 
+			[
+				{
+					"min" : "int",
+					"max" : "int"
+				}
+			],
+			"textPattern" : "[${fieldText}] 的长度必须在 ${params.min} 和 ${params.max} 字节之间,一个汉字算3个字节."
+		},
+		{
+			"name" : "maxLength",
+			"paramTypes" : 
+			[
+				{
+					"max" : "int"
+				}
+			],
+			"textPattern" : "[${fieldText}] 的长度最大为 ${params.max} 字节,一个汉字算3个字节."
+		},
+		{
+			"name" : "minLength",
+			"paramTypes" : 
+			[
+				{
+					"min" : "int"
+				}
+			],
+			"textPattern" : "[${fieldText}] 的长度最小为 ${params.min} 字节,一个汉字算3个字节."
+		}
+	]
+}

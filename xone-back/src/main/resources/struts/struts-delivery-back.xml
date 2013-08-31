@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="delivery" namespace="/delivery" extends="default">
+	    <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+        </global-results>
+		<action name="deliveryList" class="deliveryBackAction" method="deliveryList">
+			<result name="success">/WEB-INF/jsp/delivery-back-list.jsp</result>
+		</action>
+		<action name="deliveryCreate" class="deliveryBackAction" method="deliveryCreate">
+			<result name="success">/WEB-INF/jsp/delivery-back-create.jsp</result>
+		</action>
+		<action name="deliverySave" class="deliveryBackAction" method="deliverySave">
+			<result name="success" type="redirectAction">
+			    <param name="actionName">deliveryItem</param> 
+    			<param name="namespace">/delivery</param> 
+				<param name="delivery.id">${delivery.id}</param>
+			</result>
+		</action>
+		<action name="deliveryEdit" class="deliveryBackAction" method="deliveryEdit">
+			<result name="success">/WEB-INF/jsp/delivery-back-edit.jsp</result>
+		</action>
+		<action name="deliveryUpdate" class="deliveryBackAction" method="deliveryUpdate">
+			<result name="success" type="redirectAction">
+			    <param name="actionName">deliveryItem</param> 
+    			<param name="namespace">/delivery</param> 
+				<param name="delivery.id">${delivery.id}</param>
+			</result>
+			<result name="list" type="redirectAction">
+			    <param name="actionName">deliveryList</param> 
+    			<param name="namespace">/delivery</param>
+			</result>
+		</action>
+		<action name="deliveryItem" class="deliveryBackAction" method="deliveryItem">
+			<result name="success">/WEB-INF/jsp/delivery-back-item.jsp</result>
+		</action>
+<!--         <action name="deliveryDelete" class="deliveryBackAction" method="deliveryDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">deliveryList</param>
+                <param name="namespace">/delivery</param>
+            </result>
+        </action> -->
+	</package>
+</struts>

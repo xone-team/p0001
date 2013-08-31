@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx" xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+			http://www.springframework.org/schema/context   
+			http://www.springframework.org/schema/context/spring-context-2.5.xsd" default-lazy-init="true" default-autowire="byName">
+<!-- 	<bean id="personDao" class="com.xone.model.persistence.sqldb.dao.app.PersonDaoImpl" scope="singleton" /> -->
+	<bean id="personDao" class="com.xone.model.hibernate.app.PersonDaoImpl" parent="abstractHibernateDao"/>
+	<bean id="deliveryDao" class="com.xone.model.hibernate.app.DeliveryDaoImpl" parent="abstractHibernateDao"/>
+	<bean id="purchaseDao" class="com.xone.model.hibernate.app.PurchaseDaoImpl" parent="abstractHibernateDao"/>
+	<bean id="imageUploadedDao" class="com.xone.model.hibernate.app.ImageUploadedDaoImpl" parent="abstractHibernateDao" />
+	<bean id="adbannerDao" class="com.xone.model.hibernate.app.AdbannerDaoImpl" parent="abstractHibernateDao" />
+	<bean id="productDao" class="com.xone.model.hibernate.app.ProductDaoImpl" parent="abstractHibernateDao" />
+	<bean id="subscribeDao" class="com.xone.model.hibernate.app.SubscribeDaoImpl" parent="abstractHibernateDao" />
+	<bean id="userRolesDao" class="com.xone.model.hibernate.app.UserRolesDaoImpl" parent="abstractHibernateDao" />
+	<bean id="resourcesDao" class="com.xone.model.hibernate.app.ResourcesDaoImpl" parent="abstractHibernateDao" />
+	<bean id="rolesDao" class="com.xone.model.hibernate.app.RolesDaoImpl" parent="abstractHibernateDao" />
+	<bean id="rolesResourcesDao" class="com.xone.model.hibernate.app.RolesResourcesDaoImpl" parent="abstractHibernateDao" />
+</beans>

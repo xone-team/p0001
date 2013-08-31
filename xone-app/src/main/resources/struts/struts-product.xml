@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="product" namespace="/product" extends="default">
+		<action name="index" class="productAction" method="listAll">
+			<result name="success">/WEB-INF/jsp/product-list-main.jsp</result>
+		</action>
+		<action name="listMobileMore" class="productAction" method="listMobileMore">
+			<result name="success">/WEB-INF/jsp/product-list-mobile-more.jsp</result>
+		</action>
+		<action name="listSales" class="productAction" method="listSales">
+			<result name="success">/WEB-INF/jsp/product-list-sales.jsp</result>
+		</action>
+		<action name="listGroups" class="productAction" method="listGroups">
+			<result name="success">/WEB-INF/jsp/product-list-groups.jsp</result>
+		</action>
+		<action name="listProduct" class="productAction" method="listSubscribeProduct">
+			<result name="success">/WEB-INF/jsp/subscribe-product-list-page.jsp</result>
+		</action>
+		<action name="add" class="productAction" method="add">
+			<result name="success">/WEB-INF/jsp/product-add-page.jsp</result>
+		</action>
+		<action name="addSales" class="productAction" method="addSales">
+			<result name="success">/WEB-INF/jsp/product-add-page.jsp</result>
+		</action>
+		<action name="addGroups" class="productAction" method="addGroups">
+			<result name="success">/WEB-INF/jsp/product-add-page.jsp</result>
+		</action>
+		<action name="doGroups" class="productAction" method="doGroups">
+			<result name="success">/WEB-INF/jsp/product-do-groups.jsp</result>
+		</action>
+		<action name="doTopApply" class="productAction" method="doTopApply">
+			<result name="success">/WEB-INF/jsp/product-do-top-apply.jsp</result>
+		</action>
+		<action name="create" class="productAction" method="create">
+			<result name="success">/WEB-INF/jsp/product-create-success.jsp</result>
+		</action>
+		<action name="itemDetails" class="productAction" method="itemDetails">
+			<result name="success">/WEB-INF/jsp/product-item-details.jsp</result>
+		</action>
+		<action name="listItems" class="productAction" method="listItems">
+			<result name="success">/WEB-INF/jsp/product-list-items.jsp</result>
+		</action>
+		<action name="listOverheadItems" class="productAction" method="listOverheadItems">
+			<result name="success">/WEB-INF/jsp/product-list-items-overhead.jsp</result>
+		</action>
+		<action name="item" class="productAction" method="item">
+			<result name="success">/WEB-INF/jsp/product-item-page.jsp</result>
+		</action>
+		<action name="listAllForUser" class="productAction" method="listAllForUser">
+			<result name="success">/WEB-INF/jsp/product-user-list-main.jsp</result>
+		</action>
+		<action name="listItemsForUser" class="productAction" method="listItemsForUser">
+			<result name="success">/WEB-INF/jsp/product-user-list-items.jsp</result>
+		</action>
+		<action name="itemDetailsForUser" class="productAction" method="itemDetails">
+			<result name="success">/WEB-INF/jsp/product-user-item-details.jsp</result>
+		</action>
+		<action name="itemForUser" class="productAction" method="itemForUser">
+			<result name="success">/WEB-INF/jsp/product-user-item-page.jsp</result>
+		</action>
+		<action name="updateItem" class="productAction" method="updateItem">
+			<result name="error">/WEB-INF/jsp/product-user-item-page.jsp</result>
+			<result name="success">/WEB-INF/jsp/product-update-item-page.jsp</result>
+		</action>
+		<action name="update" class="productAction" method="update">
+			<result name="success">/WEB-INF/jsp/product-user-item-page.jsp?_=${myid}</result>
+			<result name="error">/WEB-INF/jsp/product-update-item-page.jsp?_=${myid}</result>
+		</action>
+	</package>
+</struts>

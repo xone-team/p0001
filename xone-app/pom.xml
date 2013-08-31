@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>com.xone.web</groupId>
+		<artifactId>xone-web</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>xone-app</artifactId>
+	<packaging>pom</packaging>
+	<name>xone-app</name>
+	<url>http://maven.apache.org</url>
+	<modules>
+		<module>../xone-action</module>
+		<module>../xone-service</module>
+		<module>../xone-model</module>
+	</modules>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+	</dependencies>
+	<build>
+		<finalName>xone-app</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<source>1.6</source>  <!-- 源代码编写时候的版本 -->
+					<target>1.6</target>  <!-- 编译运行的目标JVM的版本，一般都设置1.6 -->
+					<encoding>UTF-8</encoding> <!-- 源文件的格式 -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

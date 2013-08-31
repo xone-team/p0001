@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="overhead" namespace="/overhead" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
+        </global-results>
+        <action name="overheadList" class="overheadWebAction" method="overheadList">
+            <result name="success">/WEB-INF/jsp/overhead-list.jsp</result>
+        </action>
+        <action name="overheadCreate" class="overheadWebAction" method="overheadCreate">
+            <result name="success">/WEB-INF/jsp/overhead-create.jsp</result>
+        </action>
+        <action name="overheadSave" class="overheadWebAction" method="overheadSave">
+            <result name="input">/WEB-INF/jsp/overhead-create.jsp</result>
+            <result name="success" type="redirectAction">
+                <param name="actionName">overheadItem</param>
+                <param name="namespace">/overhead</param>
+                <param name="overhead.id">${overhead.id}</param>
+            </result>
+        </action>
+        <action name="overheadEdit" class="overheadWebAction" method="overheadEdit">
+            <result name="success">/WEB-INF/jsp/overhead-edit.jsp</result>
+        </action>
+        <action name="overheadUpdate" class="overheadWebAction" method="overheadUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">overheadItem</param>
+                <param name="namespace">/overhead</param>
+                <param name="overhead.id">${overhead.id}</param>
+            </result>
+            <result name="list" type="redirectAction">
+                <param name="actionName">overheadList</param>
+                <param name="namespace">/overhead</param>
+            </result>
+            <result name="input">/WEB-INF/jsp/overhead-edit.jsp</result>
+        </action>
+        <action name="overheadItem" class="overheadWebAction" method="overheadItem">
+            <result name="success">/WEB-INF/jsp/overhead-item.jsp</result>
+        </action>
+    </package>
+</struts>

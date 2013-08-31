@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="companyinfo" namespace="/companyInfo" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
+        </global-results>
+        <action name="companyInfoList" class="companyInfoBackAction" method="companyInfoList">
+            <result name="success">/WEB-INF/jsp/company-info-back-list.jsp</result>
+        </action>
+        <action name="companyInfoCreate" class="companyInfoBackAction" method="companyInfoCreate">
+            <result name="success">/WEB-INF/jsp/company-info-back-create.jsp</result>
+        </action>
+        <action name="companyInfoSave" class="companyInfoBackAction" method="companyInfoSave">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">1097152</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success" type="redirectAction">
+                <param name="actionName">companyInfoItem</param>
+                <param name="namespace">/companyInfo</param>
+                <param name="companyInfo.id">${companyInfo.id}</param>
+            </result>
+            <result name="input">/WEB-INF/jsp/company-info-back-create.jsp</result>
+        </action>
+        <action name="companyInfoEdit" class="companyInfoBackAction" method="companyInfoEdit">
+            <result name="success">/WEB-INF/jsp/company-info-back-edit.jsp</result>
+        </action>
+        <action name="companyInfoUpdate" class="companyInfoBackAction" method="companyInfoUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">companyInfoItem</param>
+                <param name="namespace">/companyInfo</param>
+                <param name="companyInfo.id">${companyInfo.id}</param>
+            </result>
+            <result name="list" type="chain">
+                <param name="actionName">companyInfoList</param>
+                <param name="namespace">/companyInfo</param>
+            </result>
+            <result name="input">/WEB-INF/jsp/company-info-back-edit.jsp</result>
+        </action>
+        <action name="companyInfoItem" class="companyInfoBackAction" method="companyInfoItem">
+            <result name="success">/WEB-INF/jsp/company-info-back-item.jsp</result>
+        </action>
+
+        <action name="companyInfoListAjax" class="companyInfoBackAction" method="companyInfoList">
+            <result name="success">/WEB-INF/jsp/company-info-back-list-ajax.jsp</result>
+        </action>
+    </package>
+</struts>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="subscribe" namespace="/subscribe" extends="default">
+		<action name="add" class="subscribeAction" method="add">
+			<result name="success">/WEB-INF/jsp/subscribe-add-page.jsp</result>
+		</action>
+		<action name="create" class="subscribeAction" method="create">
+			<result name="error">/WEB-INF/jsp/subscribe-add-page.jsp</result>
+			<result name="success">/WEB-INF/jsp/subscribe-item-page.jsp</result>
+		</action>
+		<action name="list" class="subscribeAction" method="list">
+			<result name="success">/WEB-INF/jsp/subscribe-list-page.jsp</result>
+		</action>
+		<action name="items" class="subscribeAction" method="items">
+			<result name="success">/WEB-INF/jsp/subscribe-items-page.jsp</result>
+		</action>
+		<action name="item" class="subscribeAction" method="item">
+			<result name="success">/WEB-INF/jsp/subscribe-item-page.jsp</result>
+		</action>
+		<action name="edit" class="subscribeAction" method="item">
+			<result name="success">/WEB-INF/jsp/subscribe-edit-page.jsp</result>
+		</action>
+		<action name="update" class="subscribeAction" method="update">
+			<result name="success" type="redirectAction">
+			    <param name="actionName">item</param> 
+    			<param name="namespace">/subscribe</param> 
+				<param name="subscribe.id">${subscribe.id}</param>
+			</result>
+			<result name="error" type="redirectAction">
+			    <param name="actionName">item</param> 
+    			<param name="namespace">/subscribe</param> 
+				<param name="subscribe.id">${subscribe.id}</param>
+			</result>
+			<result name="list" type="redirectAction">
+			    <param name="actionName">list</param>
+    			<param name="namespace">/subscribe</param>
+			</result>
+		</action>
+	</package>
+</struts>

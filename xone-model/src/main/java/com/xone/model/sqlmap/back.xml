@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="back">
+
+    <sql id="roleRelUserCondition">
+        <dynamic>
+            <isPropertyAvailable property="userId">
+                <isNotEmpty prepend="and" property="userId">
+                    rel.user_id = $userId$
+                </isNotEmpty>
+            </isPropertyAvailable>
+        </dynamic>
+    </sql>
+    <select id="roleRelUser" parameterClass="java.util.HashMap" resultClass="com.xone.model.hibernate.entity.Roles">
+        select r.*
+        from t_user_roles rel, t_roles r
+        where rel.role_id = r.id
+        <include refid="roleRelUserCondition" />
+        order by r.date_created
+    </select>
+
+    <sql id="roleRelResCondition">
+        <dynamic>
+            <isPropertyAvailable property="userId">
+                <isNotEmpty prepend="and" property="userId">
+                    rel.user_id = $userId$
+                </isNotEmpty>
+            </isPropertyAvailable>
+        </dynamic>
+    </sql>
+    <select id="roleRelRes" parameterClass="java.util.HashMap" resultClass="com.xone.model.hibernate.entity.Roles">
+        select r.*
+        from t_roles_resources rel, t_roles r
+        where rel.role_id = r.id
+        <include refid="roleRelResCondition" />
+        order by r.date_created
+    </select>
+
+    <sql id="overheadCondition">
+        <dynamic prepend="where">
+            <isPropertyAvailable property="applyUserName">
+                <isNotEmpty prepend="and" property="applyUserName">
+                    u.username like '%$applyUserName$%'
+                </isNotEmpty>
+            </isPropertyAvailable>
+            <isPropertyAvailable property="productName">
+                <isNotEmpty prepend="and" property="productName">
+                    p.product_name like '%$productName$%'
+                </isNotEmpty>
+            </isPropertyAvailable>
+            <isPropertyAvailable property="checkStatus">
+                <isNotEmpty prepend="and" property="checkStatus">
+                    t.check_status = #checkStatus#
+                </isNotEmpty>
+            </isPropertyAvailable>
+            <isPropertyAvailable property="remark">
+                <isNotEmpty prepend="and" property="remark">
+                    t.remark like '%$remark$%'
+                </isNotEmpty>
+            </isPropertyAvailable>
+            <isPropertyAvailable property="dateApplyMin">
+                <isNotEmpty prepend="and" property="dateApplyMin">
+                    t.date_apply >= #dateApplyMin#
+                </isNotEmpty>
+            </isPropertyAvailable>
+            <isPropertyAvailable property="dateApplyMax">
+                <isNotEmpty prepend="and" property="dateApplyMax">
+                    <![CDATA[
+                    t.date_apply <= '$dateApplyMax$ 23:59:59'
+                    ]]>
+                </isNotEmpty>
+            </isPropertyAvailable>
+        </dynamic>
+    </sql>
+    <select id="overhead" parameterClass="java.util.HashMap" resultClass="com.xone.model.hibernate.entity.Overhead">
+        select
+        t.id,
+        p.id productId,
+        t.check_status checkStatus,
+        t.remark,
+        t.user_apply userApply,
+        t.date_apply dateApply,
+        t.date_check dateCheck,
+        p.product_name productName,
+        u.username applyUsername
+        from
+        t_overhead t
+        left join
+        t_user u ON t.user_apply = u.id
+        left join
+        t_product p ON t.product_id = p.id
+        <include refid="overheadCondition" />
+        order by t.date_created
+        <isPropertyAvailable property="limitStart">
+            <isPropertyAvailable property="limitNum">
+                <isGreaterEqual compareValue="0" property="limitStart">
+                    limit $limitStart$ , $limitNum$
+                </isGreaterEqual>
+            </isPropertyAvailable>
+        </isPropertyAvailable>
+    </select>
+    <select id="overheadTotalCount" parameterClass="java.util.HashMap" resultClass="java.lang.Integer">
+        select count(1) n
+        from t_overhead t
+        left join t_user u on t.user_apply = u.id
+        left join t_product p on t.product_id = p.id
+        <include refid="overheadCondition" />
+    </select>
+    <select id="todoProductCount" resultClass="java.lang.Integer">
+        select count(1) n
+        from t_product
+        where check_status = '0'
+    </select>
+    <select id="todoPurchaseCount" resultClass="java.lang.Integer">
+        select count(1) n
+        from t_purchase
+        where check_status = '0'
+    </select>
+    <select id="todoDeliveryCount" resultClass="java.lang.Integer">
+        select count(1) n
+        from t_delivery
+        where flag_pass = '0'
+    </select>
+
+</sqlMap>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"  
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.objectFactory" value="spring" />
+	
+<!-- 	struts.devMode属性，配置启用调试，将有更多的错误信息输出，便于排错。 -->
+	<constant name="struts.devMode" value="true" />
+<!-- 	struts.convention.default.parent.package属性，指定使用注解标注的控制器的默认包。可以在这个默认包中配置全局信息。 -->
+	<constant name="struts.convention.default.parent.package" value="default-package" />
+	
+<!-- 	com.mycompany.action.user，都会被struts2扫描。里面有继承至Action的类，或类名以Action结尾的类，都会做为Action处理。 -->
+    <constant name="struts.convention.package.locators" value="action" />
+	<package name="default" extends="json-default">
+	    <interceptors>
+			<interceptor-stack name="commonStack">
+				<interceptor-ref name="defaultStack">
+				    <param name="exception.logEnabled">true</param>  
+                    <param name="exception.logLevel">error</param> 
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="commonStack" /> 
+		<global-results>
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping exception="org.apache.struts2.json.JSONException" result="JSONException"></exception-mapping>
+			<exception-mapping exception="java.sql.SQLException" result="SQLException"></exception-mapping>
+			<exception-mapping exception="java.lang.Exception" result="Exception"></exception-mapping>
+		</global-exception-mappings>
+	</package>
+	
+	<package name="default-package" extends="default">  
+<!-- 	    指定了默认action，如果指定的action不存在则访问该action。 -->
+        <default-action-ref name="index" />
+        <action name="index">
+            <result>/index.jsp</result>  
+        </action>   
+    </package>
+	<package name="struts2" namespace="/" extends="default">
+        <global-results>
+            <result name="index">/index.jsp</result>
+        </global-results>
+    </package>
+	<include file="struts/struts-login-ref.xml" />
+	<include file="struts/struts-product.xml" />
+	<include file="struts/struts-purchase.xml" />
+	<include file="struts/struts-assistant.xml" />
+	<include file="struts/struts-delivery.xml" />
+	<include file="struts/struts-adbanner.xml" />
+	<include file="struts/struts-subscribe.xml" />
+</struts>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="adbanner" namespace="/adbanner" extends="default">
+		<action name="index" class="adBannerAction" method="index">
+			<result name="success">/WEB-INF/jsp/adbanner-list-index.jsp</result>
+		</action>
+		<action name="list" class="adBannerAction" method="list">
+			<result name="success">/WEB-INF/jsp/adbanner-user-list-page.jsp</result>
+		</action>
+		<action name="items" class="adBannerAction" method="items">
+			<result name="success">/WEB-INF/jsp/adbanner-user-items-page.jsp</result>
+		</action>
+		<action name="item" class="adBannerAction" method="item">
+			<result name="success">/WEB-INF/jsp/adbanner-user-item-page.jsp</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="purchase" namespace="/purchase" extends="default">
+		<action name="index" class="purchaseAction" method="listAll">
+			<result name="success">/WEB-INF/jsp/purchase-list-main.jsp</result>
+		</action>
+		<action name="listSales" class="purchaseAction" method="listSales">
+			<result name="success">/WEB-INF/jsp/purchase-list-sales.jsp</result>
+		</action>
+		<action name="listGroups" class="purchaseAction" method="listGroups">
+			<result name="success">/WEB-INF/jsp/purchase-list-groups.jsp</result>
+		</action>
+		<action name="indexAdd" class="purchaseAction" method="indexAdd">
+			<result name="success">/WEB-INF/jsp/purchase-add-page.jsp</result>
+		</action>
+		<action name="doTopApply" class="purchaseAction" method="doTopApply">
+			<result name="success">/WEB-INF/jsp/purchase-do-top-apply.jsp</result>
+		</action>
+		<action name="listOverheadItems" class="purchaseAction" method="listOverheadItems">
+			<result name="success">/WEB-INF/jsp/purchase-list-items-overhead.jsp</result>
+		</action>
+		<action name="create" class="purchaseAction" method="create">
+			<result name="success">/WEB-INF/jsp/purchase-create-success.jsp</result>
+		</action>
+		<action name="listItems" class="purchaseAction" method="listItems">
+			<result name="success">/WEB-INF/jsp/purchase-list-items.jsp</result>
+		</action>
+		<action name="item" class="purchaseAction" method="item">
+			<result name="success">/WEB-INF/jsp/purchase-item-page.jsp</result>
+		</action>
+		<action name="itemDetails" class="purchaseAction" method="itemDetails">
+			<result name="success">/WEB-INF/jsp/purchase-item-details.jsp</result>
+		</action>
+		<action name="listAllForUser" class="purchaseAction" method="listAllForUser">
+			<result name="success">/WEB-INF/jsp/purchase-user-list-main.jsp</result>
+		</action>
+		<action name="listItemsForUser" class="purchaseAction" method="listItemsForUser">
+			<result name="success">/WEB-INF/jsp/purchase-user-list-items.jsp</result>
+		</action>
+		<action name="itemDetailsForUser" class="purchaseAction" method="itemDetails">
+			<result name="success">/WEB-INF/jsp/purchase-user-item-details.jsp</result>
+		</action>
+		<action name="itemForUser" class="purchaseAction" method="itemForUser">
+			<result name="success">/WEB-INF/jsp/purchase-user-item-page.jsp</result>
+		</action>
+		<action name="updateItem" class="purchaseAction" method="updateItem">
+			<result name="error">/WEB-INF/jsp/purchase-user-item-page.jsp</result>
+			<result name="success">/WEB-INF/jsp/purchase-update-item-page.jsp</result>
+		</action>
+		<action name="update" class="purchaseAction" method="update">
+			<result name="success">/WEB-INF/jsp/purchase-user-item-page.jsp</result>
+			<result name="error">/WEB-INF/jsp/purchase-update-item-page.jsp</result>
+		</action>
+	</package>
+</struts>

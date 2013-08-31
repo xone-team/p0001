@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="overhead" namespace="/overhead" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
+        </global-results>
+        <action name="overheadList" class="overheadBackAction" method="overheadList">
+            <result name="success">/WEB-INF/jsp/overhead-back-list.jsp</result>
+        </action>
+        <action name="overheadCreate" class="overheadBackAction" method="overheadCreate">
+            <result name="success">/WEB-INF/jsp/overhead-back-create.jsp</result>
+        </action>
+        <action name="overheadSave" class="overheadBackAction" method="overheadSave">
+            <result name="success" type="redirectAction">
+                <param name="actionName">overheadItem</param>
+                <param name="namespace">/overhead</param>
+                <param name="overhead.id">${overhead.id}</param>
+            </result>
+            <result name="input">/WEB-INF/jsp/overhead-back-create.jsp</result>
+        </action>
+        <action name="overheadEdit" class="overheadBackAction" method="overheadEdit">
+            <result name="success">/WEB-INF/jsp/overhead-back-edit.jsp</result>
+        </action>
+        <action name="overheadUpdate" class="overheadBackAction" method="overheadUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">overheadItem</param>
+                <param name="namespace">/overhead</param>
+                <param name="overhead.id">${overhead.id}</param>
+            </result>
+            <result name="list" type="chain">
+                <param name="actionName">overheadList</param>
+                <param name="namespace">/overhead</param>
+            </result>
+            <result name="input">/WEB-INF/jsp/overhead-back-edit.jsp</result>
+        </action>
+        <action name="overheadItem" class="overheadBackAction" method="overheadItem">
+            <result name="success">/WEB-INF/jsp/overhead-back-item.jsp</result>
+        </action>
+ <!--        <action name="overheadDelete" class="overheadBackAction" method="overheadDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">overheadList</param>
+                <param name="namespace">/overhead</param>
+            </result>
+        </action> -->
+
+    </package>
+</struts>

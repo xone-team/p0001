@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="category" namespace="/category" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
+        </global-results>
+        <action name="categoryList" class="categoryBackAction" method="categoryList">
+            <result name="success">/WEB-INF/jsp/category-back-list.jsp</result>
+        </action>
+        <action name="categoryCreate" class="categoryBackAction" method="categoryCreate">
+            <result name="success">/WEB-INF/jsp/category-back-create.jsp</result>
+        </action>
+        <action name="categorySave" class="categoryBackAction" method="categorySave">
+            <result name="success" type="redirectAction">
+                <param name="actionName">categoryItem</param>
+                <param name="namespace">/category</param>
+                <param name="category.id">${category.id}</param>
+            </result>
+        </action>
+        <action name="categoryEdit" class="categoryBackAction" method="categoryEdit">
+            <result name="success">/WEB-INF/jsp/category-back-edit.jsp</result>
+        </action>
+        <action name="categoryUpdate" class="categoryBackAction" method="categoryUpdate">
+            <result name="success" type="redirectAction">
+                <param name="actionName">categoryItem</param>
+                <param name="namespace">/category</param>
+                <param name="category.id">${category.id}</param>
+            </result>
+            <result name="list" type="chain">
+                <param name="actionName">categoryList</param>
+                <param name="namespace">/category</param>
+            </result>
+        </action>
+        <action name="categoryItem" class="categoryBackAction" method="categoryItem">
+            <result name="success">/WEB-INF/jsp/category-back-item.jsp</result>
+        </action>
+<!--         <action name="categoryDelete" class="categoryBackAction" method="categoryDelete">
+            <result name="success" type="redirectAction">
+                <param name="actionName">categoryList</param>
+                <param name="namespace">/category</param>
+            </result>
+        </action> -->
+    </package>
+</struts>

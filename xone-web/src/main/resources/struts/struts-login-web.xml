@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="admin" namespace="/admin" extends="default">
+	    <global-results>  
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+        </global-results>
+		<action name="login" class="loginWebAction" method="login">
+			<result name="input">/WEB-INF/jsp/login-index.jsp</result>
+			<result name="success" type="redirectAction"> 
+				<param name="actionName">welcome</param>
+				<param name="namespace">/admin</param>
+			</result>
+		</action>
+		<action name="loginfailed" class="loginWebAction" method="loginFailed">
+			<result name="success">login-index.jsp?error=true</result>
+		</action>
+		<action name="welcome" class="loginWebAction" method="welcome">
+			<result name="success">/WEB-INF/jsp/login-main.jsp</result>
+		</action>
+<!-- 		<action name="userList" class="loginWebAction" method="userList"> -->
+<!-- 			<result>/WEB-INF/jsp/user-list.jsp</result> -->
+<!-- 		</action> -->
+	</package>
+</struts>

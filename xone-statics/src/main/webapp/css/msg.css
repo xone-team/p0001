@@ -1,0 +1,35 @@
+.info,.success,.warning,.error,.validation {
+	clear:both;
+	border: 1px solid;
+	margin: 3px 1px;
+	padding: 8px;
+	padding-left:34px;
+	background-repeat: no-repeat;
+	background-position: 2px center;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+}
+
+.info {
+	color: #00529B;
+	background-color: #BDE5F8;
+	background-image: url('images/info.png');
+}
+
+.success {
+	color: #4F8A10;
+	background-color: #DFF2BF;
+	background-image: url('images/success.png');
+}
+
+.warning {
+	color: #9F6000;
+	background-color: #FEEFB3;
+	background-image: url('images/warning.png');
+}
+
+.error {
+	color: #D8000C;
+	background-color: #FFBABA;
+	background-image: url('images/error.png');
+}

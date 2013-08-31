@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>后台</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="../css/base.css" rel="stylesheet">
+<style type="text/css">
+</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row-fluid" id="X_bodyContainer">
+			<div class="span10" id="X_contentContainer">
+				<!-- content -->
+				<div>
+					<!-- query conditions -->
+					<div class="accordion">
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<div class="accordion-toggle nav-header" data-toggle="collapse"
+									data-target="#queryConditions">查询条件</div>
+							</div>
+							<div id="queryConditions" class="accordion-body collapse">
+								<div class="accordion-inner">
+									<div class="row-fluid">
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="inputNickName">名称</label>
+												<div class="controls">
+													<input type="text" name="nickName" id="inputNickName"
+														placeholder="名称">
+												</div>
+											</div>
+										</div>
+										<div class="span5 form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="inputNickName">父级名称</label>
+												<div class="controls">
+													<input type="text" name="nickName" id="inputNickName"
+														placeholder="父级名称">
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row-fluid">
+										<div class="form-horizontal">
+											<div class="control-group">
+												<label class="control-label" for="inputUsername">描述</label>
+												<div class="controls">
+													<input type="text" name="username" id="inputUsername"
+														placeholder="描述">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /query conditions -->
+					<div class="row-fluid">
+						<p class="text-right">
+							<a class="btn btn-small" href="want-input.html"> <i
+								class="icon-plus"></i>创建
+							</a>
+							<button class="btn btn-small">
+								<i class="icon-search"></i>查询
+							</button>
+						</p>
+					</div>
+					<!-- query result -->
+					<div class="row-fluid">
+						<table class="table table-hover table-bordered table-condensed">
+							<thead>
+								<tr>
+									<th>序号</th>
+									<th>名称</th>
+									<th>描述</th>
+									<th>父级名称</th>
+									<th style="width: 9em">操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="table-col-index">1</td>
+									<td>运动/健身/球迷用品</td>
+									<td>-</td>
+									<td>-</td>
+									<td class="table-col-operation"><a class="btn btn-mini"
+										href="category-input.html"> <i class="icon-pencil"></i>编辑
+									</a>
+										<button class="btn btn-mini btn-danger" data-toggle="modal"
+											data-target="#X_model_confirm2delete">
+											<i class="icon-trash icon-white"></i>删除
+										</button></td>
+								</tr>
+
+								<tr>
+									<td class="table-col-index">2</td>
+									<td>自行车</td>
+									<td>-</td>
+									<td>运动/健身/球迷用品</td>
+									<td class="table-col-operation"><a class="btn btn-mini"
+										href="category-input.html"> <i class="icon-pencil"></i>编辑
+									</a>
+										<button class="btn btn-mini btn-danger" data-toggle="modal"
+											data-target="#X_model_confirm2delete">
+											<i class="icon-trash icon-white"></i>删除
+										</button></td>
+								</tr>
+								<tr>
+									<td class="table-col-index">3</td>
+									<td>山地自行车</td>
+									<td>-</td>
+									<td>自行车</td>
+									<td class="table-col-operation"><a class="btn btn-mini"
+										href="category-input.html"> <i class="icon-pencil"></i>编辑
+									</a>
+										<button class="btn btn-mini btn-danger" data-toggle="modal"
+											data-target="#X_model_confirm2delete">
+											<i class="icon-trash icon-white"></i>删除
+										</button></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="pagination text-right">
+							<ul>
+								<li class="disabled"><a href="#">&laquo;</a></li>
+								<li class="active"><a href="#">1</a></li>
+								<li><a href="#">2</a></li>
+								<li><a href="#">3</a></li>
+								<li><a href="#">4</a></li>
+								<li><a href="#">&raquo;</a></li>
+							</ul>
+						</div>
+					</div>
+					<!-- /query result -->
+				</div>
+				<!-- /content -->
+			</div>
+		</div>
+	</div>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../bootstrap/js/bootstrap.js"></script>
+	<script src="../js/My97DatePicker/WdatePicker.js"></script>
+	<script src="../js/base.js"></script>
+	<script type="text/javascript">
+		jQuery(function() {
+			XONE.initConsoleMenu("category");
+			XONE.initModal("confirm2delete");
+		});
+	</script>
+</body>
+</html>

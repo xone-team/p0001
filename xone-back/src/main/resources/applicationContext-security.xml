@@ -1,0 +1,79 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security" xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans  
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+      http://www.springframework.org/schema/security  
+      http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+    <global-method-security pre-post-annotations="enabled">
+        <!-- AspectJ pointcut expression that locates our "post" method and applies -->
+        <!-- security that way <protect-pointcut expression="execution(* bigbank.*Service.post*(..))" -->
+        <!-- access="ROLE_TELLER"/> -->
+    </global-method-security>
+    <!--这是spring 提供的http/https信道安全的这个是重要的！你的请求信道是安全的！ -->
+    <http pattern="/js/**" security="none"></http>
+    <http pattern="/css/**" security="none"></http>
+    <http pattern="/images/**" security="none"></http>
+    <http pattern="/console/login.html**" security="none"></http>
+    <http pattern="/index.jsp**" security="none"></http>
+    <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint">
+        <logout />
+        <!-- 实现免登陆验证 -->
+        <!-- <remember-me /> -->
+        <session-management session-fixation-protection="none" invalid-session-url="/console/login.html">
+            <concurrency-control max-sessions="2" error-if-maximum-exceeded="true" />
+        </session-management>
+        <!-- FILTER_SECURITY_INTERCEPTOR是Spring Security默认的Filter，我们自定义的Filter必须在它之前，过滤客服请求。 -->
+        <custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER" />
+        <custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+    </http>
+
+    <!-- 登录验证器 -->
+    <beans:bean id="loginFilter" class="com.xone.service.security.MyUsernamePasswordAuthenticationFilter">
+        <!-- 处理登录的action -->
+        <beans:property name="filterProcessesUrl" value="/j_spring_security_check"></beans:property>
+        <!-- 验证成功后的处理 -->
+        <beans:property name="authenticationSuccessHandler" ref="loginLogAuthenticationSuccessHandler"></beans:property>
+        <!-- 验证失败后的处理 -->
+        <beans:property name="authenticationFailureHandler" ref="simpleUrlAuthenticationFailureHandler"></beans:property>
+        <beans:property name="authenticationManager" ref="myAuthenticationManager"></beans:property>
+    </beans:bean>
+    <beans:bean id="loginLogAuthenticationSuccessHandler" class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+        <beans:property name="defaultTargetUrl" value="/console/index.html"></beans:property>
+    </beans:bean>
+    <beans:bean id="simpleUrlAuthenticationFailureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <!-- 可以配置相应的跳转方式。属性forwardToDestination为true采用forward false为sendRedirect -->
+        <beans:property name="defaultFailureUrl" value="/console/login.html"></beans:property>
+    </beans:bean>
+    <!-- 配置过滤器 -->
+    <beans:bean id="securityFilter" class="com.xone.service.security.MySecurityFilter">
+        <!-- 用户拥有的权限 -->
+        <beans:property name="authenticationManager" ref="myAuthenticationManager" />
+        <!-- 用户是否拥有所请求资源的权限 -->
+        <beans:property name="accessDecisionManager" ref="myAccessDecisionManager" />
+        <!-- 资源与权限对应关系 -->
+        <beans:property name="securityMetadataSource" ref="mySecurityMetadataSource" />
+    </beans:bean>
+    <!-- 实现了UserDetailsService的Bean -->
+    <authentication-manager alias="myAuthenticationManager">
+        <!-- <authentication-provider ref="daoAuthenticationProvider" /> -->
+        <authentication-provider user-service-ref="myUserDetailServiceImpl">
+            <password-encoder ref="myPasswordEncoder" />
+        </authentication-provider>
+    </authentication-manager>
+    <beans:bean id="myAccessDecisionManager" class="com.xone.service.security.MyAccessDecisionManager">
+
+    </beans:bean>
+    <beans:bean id="mySecurityMetadataSource" class="com.xone.service.security.MySecurityMetadataSource">
+        <beans:constructor-arg name="resourcesService" ref="resourcesService"></beans:constructor-arg>
+        <!-- 只读取后台的RESOURCES数据 -->
+        <beans:property name="resourceType" value="1"></beans:property>
+    </beans:bean>
+    <beans:bean id="myUserDetailServiceImpl" class="com.xone.service.security.MyUserDetailServiceImpl">
+        <beans:property name="personService" ref="personService"></beans:property>
+        <beans:property name="rolesService" ref="rolesService"></beans:property>
+    </beans:bean>
+    <beans:bean id="myPasswordEncoder" class="com.xone.service.security.MyPasswordEncoder">
+    </beans:bean>
+    <!-- 未登录的切入点 -->
+    <beans:bean id="authenticationProcessingFilterEntryPoint" class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+        <beans:property name="loginFormUrl" value="/console/login.html"></beans:property>
+    </beans:bean>
+</beans:beans> 

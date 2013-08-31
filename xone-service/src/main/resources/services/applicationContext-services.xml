@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+ xmlns:tx="http://www.springframework.org/schema/tx"
+ xsi:schemaLocation="
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+			http://www.springframework.org/schema/context   
+			http://www.springframework.org/schema/context/spring-context-2.5.xsd"
+ default-lazy-init="true" default-autowire="byName">
+ <bean id="indexService" class="com.xone.service.app.IndexServiceImpl" />
+ <bean id="personService" class="com.xone.service.app.PersonServiceImpl" />
+ <bean id="deliveryService" class="com.xone.service.app.DeliveryServiceImpl" />
+ <bean id="purchaseService" class="com.xone.service.app.PurchaseServiceImpl" />
+ <bean id="imageUploadedService" class="com.xone.service.app.ImageUploadedServiceImpl" />
+ <bean id="adbannerService" class="com.xone.service.app.AdbannerServiceImpl" />
+ <bean id="overheadService" class="com.xone.service.app.OverheadServiceImpl" />
+ <bean id="productService" class="com.xone.service.app.ProductServiceImpl" />
+ <bean id="subscribeService" class="com.xone.service.app.SubscribeServiceImpl" />
+ <bean id="userRolesService" class="com.xone.service.app.UserRolesServiceImpl" />
+ <bean id="resourcesService" class="com.xone.service.app.ResourcesServiceImpl" />
+ <bean id="rolesService" class="com.xone.service.app.RolesServiceImpl" />
+ <bean id="rolesResourcesService" class="com.xone.service.app.RolesResourcesServiceImpl" />
+ <bean id="productCheckService" class="com.xone.service.app.ProductCheckServiceImpl" />
+ <bean id="purchaseCheckService" class="com.xone.service.app.PurchaseCheckServiceImpl" />
+</beans>

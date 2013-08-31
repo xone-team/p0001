@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="product" namespace="/product" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
+        </global-results>
+        <action name="list" class="productWebAction" method="list">
+            <result name="success">/WEB-INF/jsp/product-list.jsp</result>
+        </action>
+        <action name="item" class="productWebAction" method="item">
+            <result name="success">/WEB-INF/jsp/product-item.jsp</result>
+        </action>
+<!--         <action name="productList" class="productWebAction" method="productList">
+            <result name="success">/WEB-INF/jsp/product-user-list.jsp</result>
+        </action> -->
+        <action name="productNormalList" class="productWebAction" method="productNormalList">
+            <result name="success">/WEB-INF/jsp/product-user-list.jsp</result>
+        </action>
+        <action name="productSalesList" class="productWebAction" method="productSalesList">
+            <result name="success">/WEB-INF/jsp/product-user-list.jsp</result>
+        </action>
+        <action name="productGroupsList" class="productWebAction" method="productGroupsList">
+            <result name="success">/WEB-INF/jsp/product-user-list.jsp</result>
+        </action>
+        <action name="productCreate" class="productWebAction" method="productCreate">
+            <result name="success">/WEB-INF/jsp/product-create.jsp</result>
+        </action>
+        <action name="productNormalCreate" class="productWebAction" method="productNormalCreate">
+            <result name="success">/WEB-INF/jsp/product-create.jsp</result>
+        </action>
+        <action name="productSalesCreate" class="productWebAction" method="productSalesCreate">
+            <result name="success">/WEB-INF/jsp/product-create.jsp</result>
+        </action>
+        <action name="productGroupsCreate" class="productWebAction" method="productGroupsCreate">
+            <result name="success">/WEB-INF/jsp/product-create.jsp</result>
+        </action>
+        <action name="productSave" class="productWebAction" method="productSave">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">2097152</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success" type="redirectAction">
+                <param name="actionName">productItem</param>
+                <param name="namespace">/product</param>
+                <param name="product.id">${product.id}</param>
+            </result>
+            <result name="input">/WEB-INF/jsp/product-create.jsp</result>
+        </action>
+<!--         <action name="productEdit" class="productWebAction" method="productEdit">
+            <result name="success">/WEB-INF/jsp/product-edit.jsp</result>
+        </action> -->
+        <action name="productNormalEdit" class="productWebAction" method="productEdit">
+            <result name="success">/WEB-INF/jsp/product-edit.jsp</result>
+        </action>
+        <action name="productSalesEdit" class="productWebAction" method="productEdit">
+            <result name="success">/WEB-INF/jsp/product-edit.jsp</result>
+        </action>
+        <action name="productGroupsEdit" class="productWebAction" method="productEdit">
+            <result name="success">/WEB-INF/jsp/product-edit.jsp</result>
+        </action>
+        <action name="productUpdate" class="productWebAction" method="productUpdate">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">2097152</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
+            <result name="success" type="redirectAction">
+                <param name="actionName">productItem</param>
+                <param name="namespace">/product</param>
+                <param name="product.id">${product.id}</param>
+            </result>
+            <result name="list" type="chain">
+                <param name="actionName">productList</param>
+                <param name="namespace">/product</param>
+            </result>
+            <result name="input">/WEB-INF/jsp/product-edit.jsp</result>
+        </action>
+        <action name="productItem" class="productWebAction" method="productItem">
+            <result name="success">/WEB-INF/jsp/product-user-item.jsp</result>
+        </action>
+        <action name="productListAjax" class="productWebAction" method="productListAjax">
+            <result name="success">/WEB-INF/jsp/product-list-ajax.jsp</result>
+        </action>
+    </package>
+</struts>

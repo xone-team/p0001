@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>后台</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="../bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="../css/base.css" rel="stylesheet">
+<style type="text/css">
+</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row-fluid" id="X_bodyContainer">
+			<div class="span10"  id="X_contentContainer">
+				<!-- content -->
+				<div>
+					<strong>录入表单</strong>
+					<div class="row-fluid form-horizontal">
+						<div class="control-group">
+							<label class="control-label" for="inputUsername">名称</label>
+							<div class="controls">
+								<input type="text" name="username" id="inputUsername"
+									placeholder="用户名">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="inputUsername">编码</label>
+							<div class="controls">
+								<input type="password" name="username" id="inputUsername"
+									placeholder="密码">
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<p class="text-center">
+							<button class="btn btn-small">
+								<i class="icon-hdd"></i>保存
+							</button>
+						</p>
+					</div>
+				</div>
+				<!-- /content -->
+			</div>
+		</div>
+	</div>
+	<script src="../js/jquery.min.js"></script>
+	<script src="../bootstrap/js/bootstrap.js"></script>
+	<script src="../js/My97DatePicker/WdatePicker.js"></script>
+	<script src="../js/base.js"></script>
+	<script type="text/javascript">
+		jQuery(function() {
+			XONE.initConsoleMenu("role");
+		});
+	</script>
+</body>
+</html>
