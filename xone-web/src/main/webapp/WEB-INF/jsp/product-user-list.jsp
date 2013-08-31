@@ -71,7 +71,7 @@
                 </div>
                 <table class="table table-bordered" style="width: 100%">
                     <thead>
-                        <th>序号</th>
+                        <th>编号</th>
                         <th>产品名称</th>
                         <th>产品类型</th>
                         <th>销售类型</th>
@@ -86,7 +86,7 @@
                     <tbody>
                         <c:forEach var="item" items="${pagination.list}">
                             <tr>
-                                <td class="table-col-index">${status.index + 1}</td>
+                                <td class="table-col-index"><th>编号</th></td>
                                 <td>${item.productName}</td>
                                 <td>${product.productTypeName }</td>
                                 <td>${item.saleTypeName }</td>

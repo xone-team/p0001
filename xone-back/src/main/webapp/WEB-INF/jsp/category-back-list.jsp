@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -92,7 +93,7 @@
                     <table class="table table-bordered" style="width: 100%">
                         <thead>
                             <tr>
-                                <th>序号</th>
+                                <th>编号</th>
                                 <th>名称</th>
                                 <th>描述</th>
                                 <th>顺序</th>
@@ -103,7 +104,7 @@
                         <tbody>
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
-                                    <td class="table-col-index">${status.index + 1}</td>
+                                    <td class="table-col-index">${item.id}</td>
                                     <td>${item.name}</td>
                                     <td>${item.detail}</td>
                                     <td>${item.sort}</td>

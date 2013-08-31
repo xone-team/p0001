@@ -113,7 +113,7 @@
       <table class="table table-hover table-bordered table-condensed">
        <thead>
         <tr>
-         <th>序号</th>
+         <th>编号</th>
          <th>用户名</th>
          <th>密码</th>
          <th>呢称</th>

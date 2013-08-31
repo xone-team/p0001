@@ -29,7 +29,7 @@
                 <table class="table table-bordered" style="width: 100%">
                     <thead>
                         <tr>
-                            <th>序号</th>
+                            <th>编号</th>
                             <th>置顶类型</th>
                             <th>审核状态</th>
                             <th>备注</th>
@@ -41,7 +41,7 @@
                     <tbody>
                         <c:forEach var="item" items="${pagination.list}" varStatus="status">
                             <tr>
-                                <td class="table-col-index">${status.index + 1}</td>
+                                <td class="table-col-index"><th>编号</th></td>
                                 <td>${item.overheadTypeName}</td>
                                 <td>${item.checkStatusName}</td>
                                 <td>${item.remark}</td>

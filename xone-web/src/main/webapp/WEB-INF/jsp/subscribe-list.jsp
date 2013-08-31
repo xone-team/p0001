@@ -28,7 +28,7 @@
                 </ul>
                 <table class="table table-bordered" style="width: 100%">
                     <thead>
-                        <th>序号</th>
+                        <th>编号</th>
                         <th>市场区域</th>
                         <th>产品名称</th>
                         <th>销售类型</th>
