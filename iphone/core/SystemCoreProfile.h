@@ -10,9 +10,9 @@
 #define viewFirst_SystemCoreProfile_h
 
 //新项目测试
-#define ACCP_MAIN_PAGE @"http://rs.fengzhangyu.com:8080/xone-app/"
+//#define ACCP_MAIN_PAGE @"http://rs.fengzhangyu.com:8080/xone-app/"
 
-//#define ACCP_MAIN_PAGE @"http://192.168.1.37:8080/xone-app/"
+#define ACCP_MAIN_PAGE @"http://192.168.1.72:8080/xone-app/"
 
 //#define ACCP_MAIN_PAGE @"http://116.228.131.213/cpicmobile_ft/pages/iphone/v3/carNewChange.html"
 
@@ -47,7 +47,7 @@
 // 设置每天早晨9点推送消息
 #define TIME_INTERVAL_HOUR 9
 
-#define TIME_INTERVAL 10*60      //设置定时器的执行间隔为1天
+#define TIME_INTERVAL 10      //设置定时器的执行间隔为1天
 
 #define TIME_INTERVAL_HALF 5*60       //模拟数据使用 设置半小时增加2条记录
 

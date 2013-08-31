@@ -12,7 +12,7 @@
 @interface StringUtil : NSObject {
 
 }
-
++ (NSString *) nsDictionaryToString:(NSDictionary *) dict;
 + (NSDate *) getNsDateByHour:(int) hour;
 + (NSString *)md5:(NSString *)str;
 + (NSString *) appendParam2RequestURLString:(NSString *) requestURLString param:(NSString *) param;

@@ -141,12 +141,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     NSLog(@"AppDelegate start.....");
-    [application cancelAllLocalNotifications];
+    NSUserDefaults *shareUserMap = [NSUserDefaults standardUserDefaults];
+    [shareUserMap setObject:ACCP_MAIN_PAGE forKey:ACCP_MAIN_PAGE_INPUT];
+    [shareUserMap synchronize];
 
     application.applicationIconBadgeNumber = 0;
-    //开启iphone网络开关
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
-
+    // 开启iphone网络开关 打开或者关闭可以指示页面是否正在加载
+    //[UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+ 
     NSError *setCategoryErr = nil;
     NSError *activationErr  = nil;
     [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error: &setCategoryErr];
@@ -157,13 +159,10 @@
     // 本地通知接收
     if (launchOptions != nil) {
         NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsLocalNotificationKey];
-        
         if (userInfo != nil) {
             NSLog(@"local notification==================:%@",userInfo);
         }
     }
-    
-    [self fullLocalNotificationRecords];
     
     //self.viewController = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
 
@@ -172,8 +171,6 @@
     [[UIApplication sharedApplication] setKeepAliveTimeout:600 handler:^{
         //执行你想要执行的任务，同时可以配合第一种任务，以增加某些同步方法的执行时间，比如说下载数据等
         NSLog(@"循环执行事件===========");
-        NotificationDAO *notificationDao=[NotificationDAO new];
-        [notificationDao getLocalNotificationInfo];
         [self notificationTimer];
     }];
   
@@ -209,7 +206,15 @@
     if(isConnect && isTrue)
     {
         NSLog(@"网络连接良好");
-
+        
+        // 获取通知数据
+        NotificationDAO *notificationDao=[NotificationDAO new];
+        [notificationDao getLocalNotificationInfo];
+        
+        NSInteger count=[[shareUserMap objectForKey:SHARE_NOTIFICATIONS] count];
+        if(count==0)
+            return;
+        
         // 创建本地通知
         [self createLocalNotificationInfo];
         
@@ -276,8 +281,8 @@
     // 创建一个本地推送
     UILocalNotification *notification = nil;
 
-    // 设置每天9点 并延迟10秒执行推送
-    NSDate *pushDate = [[StringUtil getNsDateByHour:TIME_INTERVAL_HOUR] dateByAddingTimeInterval:10];
+    // 延迟10秒执行推送
+    NSDate *pushDate = [NSDate dateWithTimeIntervalSinceNow:10]; 
 
     NSUserDefaults *shareUserMap = [NSUserDefaults standardUserDefaults];
     NSMutableArray *mutableArr=[shareUserMap valueForKey:SHARE_NOTIFICATIONS];
@@ -304,7 +309,7 @@
         // 推送声音
         notification.soundName = UILocalNotificationDefaultSoundName;
 
-        NSString *body=[NSString stringWithFormat:@"%@\n%@",[userInfo valueForKey:@"name"],[userInfo valueForKey:@"saleType"]];
+        NSString *body=[NSString stringWithFormat:@"%@有新的订阅消息\n类型:%@,信誉:%@",[userInfo valueForKey:@"key"],[userInfo valueForKey:@"saleType"],[userInfo valueForKey:@"credit"]];
         // 推送内容
         notification.alertBody = body;
         
@@ -372,9 +377,12 @@
                 
                 NSLog(@"didReceiveLocalNotification method");
                 
+                //从本地存储对象中移除当前通知信息
                 NSUserDefaults *shareMap=[NSUserDefaults standardUserDefaults];
-                NSMutableArray *mutableArr=[shareMap valueForKey:SHARE_NOTIFICATIONS];
+                NSMutableArray *mutableArr=[[shareMap valueForKey:SHARE_NOTIFICATIONS] mutableCopy];
                 [mutableArr removeObject:dict];
+                [shareMap setObject:mutableArr forKey:SHARE_NOTIFICATIONS];
+                [shareMap synchronize];
             
                 application.applicationIconBadgeNumber -= 1;
                 
@@ -383,20 +391,18 @@
                 WebViewController *webViewController = self.viewController;
                 NSString *params=[NSString stringWithFormat:@"?_pu=%@&_pm=%@&_pd=%@&_=%d",[shareMap valueForKey:USER_LOGIN_ID],[shareMap valueForKey:DEVICE_ID],[dict valueForKey:@"identify"],(int)[[NSDate date] timeIntervalSince1970]];
                 
-                NSString *reqeustUrl=[NSString stringWithFormat:@"%@%@%@",ACCP_MAIN_PAGE,NOTIFICATION_PAGE,params];
+                NSString *reqeustUrl=[NSString stringWithFormat:@"%@%@%@",[shareMap objectForKey:ACCP_MAIN_PAGE_INPUT],NOTIFICATION_PAGE,params];
                 
                 NSLog(@"requestUrl:%@",reqeustUrl);
                 
-                NSURL *url =[NSURL URLWithString:@"http://www.baidu.com"];
-                //NSURL *url =[NSURL URLWithString:reqeustUrl];
-                
+                //NSURL *url =[NSURL URLWithString:@"http://www.baidu.com"];
+                NSURL *url =[NSURL URLWithString:reqeustUrl];
                 
                 NSURLRequest *request =[NSURLRequest requestWithURL:url];
                 [webViewController.webView loadRequest:request];
             }
             
         }
-       
 
     }
 }

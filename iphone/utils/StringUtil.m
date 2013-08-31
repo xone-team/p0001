@@ -12,6 +12,16 @@
 
 @implementation StringUtil
 
++ (NSString *) nsDictionaryToString:(NSDictionary *) dict
+{
+    NSMutableString *muStr=[NSMutableString new];
+    NSArray * arrKeys=[dict allKeys];
+    for (int i=0; i<[arrKeys count]; i++) {
+        [muStr appendFormat:@"%@=%@ ",[arrKeys objectAtIndex:i],(NSString *)[dict valueForKey:[arrKeys objectAtIndex:i]]];
+    }
+    return (NSString *)muStr;
+}
+
 + (NSDate *) getNsDateByHour:(int) hour
 {
     NSDateFormatter *formatter =[[NSDateFormatter alloc] init];

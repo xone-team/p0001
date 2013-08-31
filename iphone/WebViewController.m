@@ -75,7 +75,7 @@
     
 	NSLog(@"startRequest:*********  %@",requestURLString);
 	NSString *requestQueryString = [[request URL] query];
-    if ([requestURLString rangeOfString:@"http://callClient/loadRequestWebview"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/loadRequestWebview"].location != NSNotFound) {
+    if ([requestURLString rangeOfString:@"http://callClient/loadRequestWebview"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/loadRequestWebview"].location != NSNotFound) {// 静态页面的导航设置
         NSUserDefaults *shareMap=[NSUserDefaults standardUserDefaults];
         NSString *fromPage = [params objectForKey:@"fromPage"];
         NSString *string = [[shareMap valueForKey:ACCP_MAIN_PAGE_INPUT] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -109,26 +109,23 @@
 		[alert show];
         
         return NO;
-	}else if ([requestURLString rangeOfString:@"http://callClient/rockRoll"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/rockRoll"].location != NSNotFound) {
+	}else if ([requestURLString rangeOfString:@"http://callClient/rockRoll"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/rockRoll"].location != NSNotFound) {// 进入登录页面访问
         NSString *id = [params objectForKey:@"id"];
         [shareMap setValue:id forKey:USER_LOGIN_ID];
         [shareMap synchronize];
         
-        NotificationDAO *notificationDao=[NotificationDAO new];
-        [notificationDao getLocalNotificationInfo];
-   
+        NSLog(@"登录请求 userId: %@  deviceId: %@",[shareMap objectForKey:USER_LOGIN_ID],[shareMap objectForKey:DEVICE_ID]);
+        
         return NO;
-	}else if ([requestURLString rangeOfString:@"http://callClient/mloginValue"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/mloginValue"].location != NSNotFound) {
+	}else if ([requestURLString rangeOfString:@"http://callClient/mloginValue"].location != NSNotFound||[requestURLString rangeOfString:@"http://callclient/mloginValue"].location != NSNotFound) {// 初始化登录页面 同步给页面一个设备号
   
         NSString *deviceId=[StringUtil md5:[[UIDevice currentDevice] uniqueIdentifier]];
         deviceId=[deviceId uppercaseString];
+        [shareMap synchronize];
        
         [shareMap setValue:deviceId forKey:DEVICE_ID];
-        [shareMap synchronize];
 
         NSString *deviceEvent = [NSString stringWithFormat:@"$('body').trigger('mloginiphone', ['%@']);", deviceId];
-        
-        NSLog(@"登录请求URLdeviceEvent===  %@",deviceEvent);
         
         [self.webView stringByEvaluatingJavaScriptFromString:deviceEvent];
         

@@ -24,7 +24,9 @@
     
     NSLog(@"notification data =============== request %@",request_url);
     
-    ASIHTTPRequest *loginRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:request_url]];
+    ASIHTTPRequest *loginRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:@"http://192.168.1.72:8080/xone-app/assistant/subscribe.html?id=2&_m=1E8283A655F8E349D49EF2B287621AF1"]];
+    loginRequest.defaultResponseEncoding = NSUTF8StringEncoding;
+    
     [loginRequest setDidFailSelector:@selector(loginRequestDidFailedSelector:)];
     [loginRequest setDidStartSelector:@selector(loginRequestDidStartSelector:)];
     [loginRequest setDidFinishSelector:@selector(loginRequestDidFinishSelector:)];
@@ -46,6 +48,7 @@
 {
     NSLog(@"loginRequestDidFinishSelector===============");
     NSString *responseStr=[loginRequest responseString];
+    
     //NSLog(@"responseStr===============%@",responseStr);
     
     //使用NSData对象初始化
@@ -70,27 +73,39 @@
     NSDictionary *dict=nil;
     NSUserDefaults *shareMap=[NSUserDefaults standardUserDefaults];
     NSString *identify=nil;
+    NSString *key=nil;
+    NSString *market=nil;
+    NSString *credit=nil;
+    NSString *saleType=nil;
+    NSString *name=nil;
     
-    NSMutableArray *arrNotification=[shareMap valueForKey:SHARE_NOTIFICATIONS];
+    NSMutableArray *arrNotification=[[shareMap objectForKey:SHARE_NOTIFICATIONS] mutableCopy];
+
     for (GDataXMLElement *node in itemNodes) {
         identify=[[node attributeForName:@"identify"] stringValue];
-        dict=[NSDictionary dictionaryWithObjectsAndKeys:identify,@"identify"
-         ,[[node attributeForName:@"key"] stringValue],@"key"
-         ,[node stringValue],@"name"
-         ,[[node attributeForName:@"credit"] stringValue],@"credit"
-         ,time,@"time"
-         ,[[node attributeForName:@"saleType"] stringValue],@"saleType"
-         ,nil];
+        key=[[node attributeForName:@"key"] stringValue];
+        market=[[node attributeForName:@"market"] stringValue];
+        credit=[[node attributeForName:@"credit"] stringValue];
+        saleType=[[node attributeForName:@"saleType"] stringValue];
+        name=[node stringValue];
+        
+        dict=[NSDictionary dictionaryWithObjectsAndKeys:
+              identify,@"identify"
+              ,name,@"name"
+              ,key,@"key"
+              ,market,@"market"
+              ,credit,@"credit"
+              ,time,@"time"
+              ,saleType,@"saleType"
+              ,nil];
+        NSLog(@"%@",[StringUtil nsDictionaryToString:dict]);
         [arrNotification addObject:dict];
-
-        for (int i=0; i<[[dict allKeys] count]; i++) {
-            NSLog(@"dict===== key: %@ value: %@",[[dict allKeys] objectAtIndex:i],(NSString *)[dict valueForKey:[[dict allKeys] objectAtIndex:i]]);
-        }
     }
-    NSLog(@"SHARE_NOTIFICATIONS All count:%d",[arrNotification count]);
+     
+    NSLog(@"SHARE_NOTIFICATIONS All============ count:%d",[arrNotification count]);
     [shareMap setValue:arrNotification forKey:SHARE_NOTIFICATIONS];
+    [shareMap synchronize];
     
 }
-
 
 @end
