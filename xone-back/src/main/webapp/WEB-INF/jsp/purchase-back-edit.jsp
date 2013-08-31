@@ -33,7 +33,8 @@
                     <div class="control-group">
                         <label class="control-label" for="purchaseName">产品名称</label>
                         <div class="controls">
-                            <input type="text" id="purchaseName" name="purchase.purchaseName" value="${purchase.purchaseName}" maxlength="255" placeholder="产品名称"><code>*</code>
+                            <input type="text" id="purchaseName" name="purchase.purchaseName" value="${purchase.purchaseName}" maxlength="255" placeholder="产品名称">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -43,31 +44,36 @@
                                 <c:forEach items="${purchaseType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == purchase.purchaseType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
-                            </select><code>*</code>
+                            </select>
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseNum">求购数量</label>
                         <div class="controls">
-                            <input type="text" id="purchaseNum" name="purchase.purchaseNum" value="${purchase.purchaseNum}" maxlength="255" placeholder="求购数量"><code>*</code>
+                            <input type="text" id="purchaseNum" name="purchase.purchaseNum" value="${purchase.purchaseNum}" maxlength="255" placeholder="求购数量">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseAddress">产品产地</label>
                         <div class="controls">
-                            <input type="text" id="purchaseAddress" name="purchase.purchaseAddress" value="${purchase.purchaseAddress}" maxlength="255" placeholder="产品产地"><code>*</code>
+                            <input type="text" id="purchaseAddress" name="purchase.purchaseAddress" value="${purchase.purchaseAddress}" maxlength="255" placeholder="产品产地">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseLocation">产品属地</label>
                         <div class="controls">
-                            <input type="text" id="purchaseLocation" name="purchase.purchaseLocation" value="${purchase.purchaseLocation}" maxlength="255" placeholder="产品属地"><code>*</code>
+                            <input type="text" id="purchaseLocation" name="purchase.purchaseLocation" value="${purchase.purchaseLocation}" maxlength="255" placeholder="产品属地">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseDesc">求购描述</label>
                         <div class="controls">
-                            <input type="text" id="purchaseDesc" name="purchase.purchaseDesc" value="${purchase.purchaseDesc}" maxlength="255" placeholder="求购描述"><code>*</code>
+                            <input type="text" id="purchaseDesc" name="purchase.purchaseDesc" value="${purchase.purchaseDesc}" maxlength="255" placeholder="求购描述">
+                            <code>*</code>
                         </div>
                     </div>
 
@@ -122,12 +128,12 @@
                                 </div>
                                 <button type="button" class="btn" onclick="$('#uploadImageFile3').click();">上传图片</button>
                             </div>
+                            <input type="file" style="display: none;" id="uploadImageFile1" name="uploadFile1" value="">
+                            <input type="file" style="display: none;" id="uploadImageFile2" name="uploadFile2" value="">
+                            <input type="file" style="display: none;" id="uploadImageFile3" name="uploadFile3" value="">
                         </div>
                     </div>
                     <div class="control-group fileupload" style="display: none;">
-                        <input type="file" id="uploadImageFile1" name="uploadFile1" value="">
-                        <input type="file" id="uploadImageFile2" name="uploadFile2" value="">
-                        <input type="file" id="uploadImageFile3" name="uploadFile3" value="">
                         <c:forEach items="${purchase.ids}" var="it" varStatus="status">
                             <input type="hidden" id="imageId${status.index + 1}" name="purchase.ids" value="${it}">
                         </c:forEach>
@@ -241,12 +247,22 @@
                 text : '请输入产品描述'
             }, {
                 name : 'uploadFile1',
-                text : '请上传主图片'
+                text : '请上传主图片',
+                func : imageRequired
             } ];
             var pass = XONE.valid(validate, $form, "");
-            return false;
+            return pass;
         });
     });
+    function imageRequired() {
+        var result = true;
+        try {
+            result = !($("input[name='purchase.ids']").size() < 1 && $("#uploadImageFile1").val().length < 1 && $("#uploadImageFile2").val().length < 1 && $("#uploadImageFile3").val().length < 1)
+        } catch (e) {
+            alert(e)
+        }
+        return result;
+    }
 
     function removePurchaseDynamicImage1(id) {
         $('div.uploadimagesdiv1').html('');

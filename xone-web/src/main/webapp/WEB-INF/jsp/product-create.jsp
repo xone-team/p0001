@@ -185,7 +185,7 @@
                 text : '请上传主图片'
             } ];
             var pass = XONE.valid(validate, $form, "");
-            return false;
+            return pass;
         });
     });
     function removeProductDynamicImage1() {

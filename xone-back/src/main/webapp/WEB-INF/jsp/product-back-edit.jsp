@@ -33,7 +33,8 @@
                     <div class="control-group">
                         <label class="control-label" for="productName">产品名称</label>
                         <div class="controls">
-                            <input type="text" id="productName" name="product.productName" value="${product.productName}" maxlength="255" placeholder="产品名称"><code>*</code>
+                            <input type="text" id="productName" name="product.productName" value="${product.productName}" maxlength="255" placeholder="产品名称">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -43,7 +44,8 @@
                                 <c:forEach items="${productType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.productType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
-                            </select><code>*</code>
+                            </select>
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -53,19 +55,22 @@
                                 <c:forEach items="${saleType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.saleType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
-                            </select><code>*</code>
+                            </select>
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productPrice">产品价格</label>
                         <div class="controls">
-                            <input type="text" id="productPrice" name="product.productPrice" value="${product.productPrice}" maxlength="200" placeholder="产品价格"><code>*</code>
+                            <input type="text" id="productPrice" name="product.productPrice" value="${product.productPrice}" maxlength="200" placeholder="产品价格">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productNum">产品数量</label>
                         <div class="controls">
-                            <input type="text" id="productNum" name="product.productNum" value="${product.productNum}" maxlength="255" placeholder="产品数量"><code>*</code>
+                            <input type="text" id="productNum" name="product.productNum" value="${product.productNum}" maxlength="255" placeholder="产品数量">
+                            <code>*</code>
                         </div>
                     </div>
                     <c:if test="${product.saleType  == '2'}">
@@ -77,19 +82,22 @@
                     <div class="control-group">
                         <label class="control-label" for="productAddress">产品产地</label>
                         <div class="controls">
-                            <input type="text" id="productAddress" name="product.productAddress" value="${product.productAddress}" maxlength="255" placeholder="产品产地"><code>*</code>
+                            <input type="text" id="productAddress" name="product.productAddress" value="${product.productAddress}" maxlength="255" placeholder="产品产地">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productLocation">产品属地</label>
                         <div class="controls">
-                            <input type="text" id="productLocation" name="product.productLocation" value="${product.productLocation}" maxlength="255" placeholder="产品属地"><code>*</code>
+                            <input type="text" id="productLocation" name="product.productLocation" value="${product.productLocation}" maxlength="255" placeholder="产品属地">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productDesc">产品描述</label>
                         <div class="controls">
-                            <input type="text" id="productDesc" name="product.productDesc" value="${product.productDesc}" maxlength="255" placeholder="产品描述"><code>*</code>
+                            <input type="text" id="productDesc" name="product.productDesc" value="${product.productDesc}" maxlength="255" placeholder="产品描述">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -143,12 +151,12 @@
                                 </div>
                                 <button type="button" class="btn" onclick="$('#uploadImageFile3').click();">上传图片</button>
                             </div>
+                            <input type="file" class="hidden" id="uploadImageFile1" name="uploadFile1" value="">
+                            <input type="file" class="hidden" id="uploadImageFile2" name="uploadFile2" value="">
+                            <input type="file" class="hidden" id="uploadImageFile3" name="uploadFile3" value="">
                         </div>
                     </div>
                     <div class="control-group fileupload" style="display: none;">
-                        <input type="file" id="uploadImageFile1" name="uploadFile1" value="">
-                        <input type="file" id="uploadImageFile2" name="uploadFile2" value="">
-                        <input type="file" id="uploadImageFile3" name="uploadFile3" value="">
                         <c:forEach items="${product.ids}" var="it" varStatus="status">
                             <input type="hidden" id="imageId${status.index + 1}" name="product.ids" value="${it}">
                         </c:forEach>
@@ -176,9 +184,7 @@
                         <c:forEach items="${ product.productCheckList }" var="item" varStatus="status">
                             <div class="control-group">
                                 <label class="control-label" for="productCheckStatus">审核结果</label>
-                                <div class="controls">
-                                    ${item.checkStatusName }
-                                </div>
+                                <div class="controls">${item.checkStatusName }</div>
                             </div>
 
                             <div class="control-group">
@@ -262,31 +268,41 @@
                 text : '请输入产品描述'
             }, {
                 name : 'uploadFile1',
-                text : '请上传主图片'
+                text : '请上传主图片',
+                func : imageRequired
             } ];
             var pass = XONE.valid(validate, $form, "");
-            return false;
+            return pass;
         });
     });
+    function imageRequired() {
+        var result = true;
+        try {
+            result = !($("input[name='product.ids']").size() < 1 && $("#uploadImageFile1").val().length < 1 && $("#uploadImageFile2").val().length < 1 && $("#uploadImageFile3").val().length < 1)
+        } catch (e) {
+            alert(e)
+        }
+        return result;
+    }
     function removeProductDynamicImage1(id) {
         $('div.uploadimagesdiv1').html('');
         $('#uploadImageFile1').val('');
-        if(id != null)
-        	$('input[name="product.ids"][value="'+id+'"]').remove();
+        if (id != null)
+            $('input[name="product.ids"][value="' + id + '"]').remove();
         return false;
     }
     function removeProductDynamicImage2(id) {
         $('div.uploadimagesdiv2').html('');
         $('#uploadImageFile2').val('');
-        if(id != null)
-        	$('input[name="product.ids"][value="'+id+'"]').remove();
+        if (id != null)
+            $('input[name="product.ids"][value="' + id + '"]').remove();
         return false;
     }
     function removeProductDynamicImage3(id) {
         $('div.uploadimagesdiv3').html('');
         $('#uploadImageFile3').val('');
-        if(id != null)
-        	$('input[name="product.ids"][value="'+id+'"]').remove();
+        if (id != null)
+            $('input[name="product.ids"][value="' + id + '"]').remove();
         return false;
     }
 

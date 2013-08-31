@@ -166,7 +166,7 @@
             } ];
 
             var pass = XONE.valid(validate, $form, "delivery.");
-            return false;
+            return pass;
         });
     });
     function numberValidation(inputEl) {

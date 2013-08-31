@@ -155,7 +155,7 @@
             } ];
 
             var pass = XONE.valid(validate, $form, "companyInfo.");
-            return false;
+            return pass;
         });
     });
     function removeCompanyInfoDynamicImage1() {
