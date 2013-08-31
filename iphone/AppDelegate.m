@@ -94,7 +94,7 @@
     
     NSURL *url = [NSURL URLWithString:urlPath];
     
-    __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+     __block ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
     
     //使用OC中新增的bolck语法（块语法），可以实现并行编程
     //以下方法是在请求完成后会被调用的块
@@ -224,8 +224,7 @@
         [shareUserMap setInteger:(int)[[NSDate date] timeIntervalSince1970] forKey:TIME_INTERVAL_VALUE];
 
         [shareUserMap synchronize];
-        
-        
+
         // 设置每天执行一次的长定时器 
         [NSTimer scheduledTimerWithTimeInterval:TIME_INTERVAL target:self selector:@selector(notificationTimer) userInfo:nil repeats:NO];
  
@@ -359,12 +358,13 @@
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification*)localNotification{
      NSLog(@"usernotification  didReceiveLocalNotification start");
     
-    localNotification=nil;
-    
     // 判断应用程序是在后台才执行推送到
     if(localNotification != nil && application.applicationState == UIApplicationStateActive){
+        
         NSDictionary  *dict = localNotification.userInfo;
         if (dict) {
+            NSLog(@"dict identify 主键：%@",[dict objectForKey:@"identify"]);
+           
             NSString *inValue = [dict objectForKey:@"identify"];
             if(inValue != nil){
                 // 取消该通知
@@ -385,8 +385,10 @@
                 
                 NSString *reqeustUrl=[NSString stringWithFormat:@"%@%@%@",ACCP_MAIN_PAGE,NOTIFICATION_PAGE,params];
                 
-                //NSURL *url =[NSURL URLWithString:@"http://www.baidu.com"];
-                NSURL *url =[NSURL URLWithString:reqeustUrl];
+                NSLog(@"requestUrl:%@",reqeustUrl);
+                
+                NSURL *url =[NSURL URLWithString:@"http://www.baidu.com"];
+                //NSURL *url =[NSURL URLWithString:reqeustUrl];
                 
                 
                 NSURLRequest *request =[NSURLRequest requestWithURL:url];
