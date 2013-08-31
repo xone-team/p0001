@@ -125,8 +125,8 @@
 								doPurchaseRequest();
 							} else {
 								ul.listview('refresh');
-								fixedPurchaseImage();
 							}
+							fixedPurchaseImage();
 						}
 					});
 				}

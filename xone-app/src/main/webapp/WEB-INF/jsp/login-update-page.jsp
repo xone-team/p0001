@@ -60,6 +60,14 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
+				    			<td class="mylabel">昵　称:</td>
+				    			<td><input type="text" name="person.nickName" placeholder="昵称" data-mini="true" value="${person.nickName}" autocomplete="off"/></td>
+				    		</tr>
+				    	</table>
+				    </li>
+				    <li>
+				    	<table style="width:100%">
+				    		<tr>
 				    			<td class="mylabel">联系人:</td>
 				    			<td><input type="text" name="person.contactor" placeholder="联系人称呼" data-mini="true" value="${person.contactor}" autocomplete="off"/></td>
 				    		</tr>

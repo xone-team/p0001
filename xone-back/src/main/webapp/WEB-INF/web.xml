@@ -7,10 +7,10 @@
 	
 	<display-name>Struts 2 - Maven Archetype - Starter</display-name>
     
-    <context-param>
-        <param-name>webAppRootKey</param-name>
-        <param-value>xone-back.root</param-value>
-    </context-param>
+<!--     <context-param> -->
+<!--         <param-name>webAppRootKey</param-name> -->
+<!--         <param-value>xone-back.root</param-value> -->
+<!--     </context-param> -->
 
     <context-param>
         <param-name>log4jConfigLocation</param-name>

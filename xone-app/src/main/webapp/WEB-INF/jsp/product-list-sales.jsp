@@ -19,9 +19,9 @@
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>
-			        <li><a href="${pageContext.request.contextPath}/product/index.html?_=${identify}">所有产品</a></li>
+			        <li><a href="${pageContext.request.contextPath}/product/index.html?_=${myid}">所有产品</a></li>
 			        <li><a href="#" class="ui-btn-active">促销产品</a></li>
-			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html?_=${identify}">组团产品</a></li>
+			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html?_=${myid}">组团产品</a></li>
 			    </ul>
 			</div>
 		</div>
@@ -36,25 +36,31 @@
 				    </ul>
 				</div>
 				<div data-id="#searchtype" data-role="controlgroup" data-mini="true" class="salesearchclass">
-				    <input type="checkbox" name="checkbox-1a" id="checkbox-1a" checked="">
+				    <input type="checkbox" name="checkbox-a" id="checkbox-0a${myid}" checked="">
+				    <label for="checkbox-0a">全部</label>
+				    <input type="checkbox" name="checkbox-a" id="checkbox-1a${myid}">
 				    <label for="checkbox-1a">冻品</label>
-				    <input type="checkbox" name="checkbox-2a" id="checkbox-2a">
+				    <input type="checkbox" name="checkbox-a" id="checkbox-2a${myid}">
 				    <label for="checkbox-2a">干货</label>
-				    <input type="checkbox" name="checkbox-3a" id="checkbox-3a">
+				    <input type="checkbox" name="checkbox-a" id="checkbox-3a${myid}">
 				    <label for="checkbox-3a">活鲜</label>
-				    <input type="checkbox" name="checkbox-4a" id="checkbox-4a">
+				    <input type="checkbox" name="checkbox-a" id="checkbox-4a${myid}">
 				    <label for="checkbox-4a">水果</label>
-				    <input type="checkbox" name="checkbox-5a" id="checkbox-5a">
+				    <input type="checkbox" name="checkbox-a" id="checkbox-5a${myid}">
 				    <label for="checkbox-5a">调料</label>
 				</div>
 				<div data-id="#searcharea" data-role="controlgroup" data-mini="true" class="salesearchclass" style="display:none;">
-				    <input type="checkbox" name="checkbox-1a" id="checkbox-1b" checked="">
+				    <input type="checkbox" name="checkbox-1a" id="checkbox-0b${myid}" checked="">
+				    <label for="checkbox-0b">全部</label>
+				    <input type="checkbox" name="checkbox-1a" id="checkbox-1b${myid}">
 				    <label for="checkbox-1b">上海</label>
-				    <input type="checkbox" name="checkbox-2a" id="checkbox-2b">
+				    <input type="checkbox" name="checkbox-2a" id="checkbox-2b${myid}">
 				    <label for="checkbox-2b">天津</label>
 				</div>
 				<div data-id="#searchcredit" data-role="controlgroup" data-mini="true" class="salesearchclass" style="display:none;">
-				    <input type="checkbox" name="checkbox-1a" id="checkbox-1c" checked="">
+				    <input type="checkbox" name="checkbox-1a" id="checkbox-0c" checked="">
+				    <label for="checkbox-0c">全部</label>
+				    <input type="checkbox" name="checkbox-1a" id="checkbox-1c">
 				    <label for="checkbox-1c">信誉好</label>
 				    <input type="checkbox" name="checkbox-2a" id="checkbox-2c">
 				    <label for="checkbox-2c">信誉一般</label>
@@ -66,7 +72,6 @@
 			        <span class="iscroll-pull-label"></span>
 				</div>
 		        <ul class="product-sales-listview${myid}" data-role="listview" data-filter="true" data-filter-placeholder="促销关键字搜索..." data-inset="true">
-<!-- 			        <li data-role="list-divider">数据加载中，请稍候...</li> -->
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>
@@ -74,7 +79,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${identify}"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${myid}"></script>
 		<script type="text/javascript">
 			$('div.product-sales-page').bind('pageinit', function(event) {
 				$('a.navbartabs').click(function(e) {

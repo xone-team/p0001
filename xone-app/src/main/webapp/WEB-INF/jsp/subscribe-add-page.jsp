@@ -25,7 +25,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">市场区域:</td>
-				    			<td><input type="text" id="subscribemarketarea${myid}" name="subscribe.marketarea" placeholder="市场区域" data-mini="true" value="市场区域" autocomplete="off"/></td>
+				    			<td><input type="text" id="subscribemarketarea${myid}" name="subscribe.marketarea" placeholder="市场区域" data-mini="true" value="" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -33,7 +33,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">产品名称:</td>
-				    			<td><input type="text" id="subscribeproductNameKey${myid}" name="subscribe.productNameKey" placeholder="产品名称" data-mini="true" value="产品名称" autocomplete="off"/></td>
+				    			<td><input type="text" id="subscribeproductNameKey${myid}" name="subscribe.productNameKey" placeholder="产品名称" data-mini="true" value="" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
