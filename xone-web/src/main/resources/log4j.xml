@@ -10,7 +10,7 @@
         <filter class="org.apache.log4j.varia.LevelRangeFilter">  
             <param name="levelMin" value="debug" />  
             <param name="levelMax" value="fatal" />  
-            <param name="AcceptOnMatch" value="true" />  
+            <param name="AcceptOnMatch" value="true" />
         </filter>
 	</appender>
 	<appender name="RollingFileAppender" class="org.apache.log4j.RollingFileAppender">
