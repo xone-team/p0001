@@ -166,13 +166,8 @@
                             <tr>
                                 <th>编号</th>
                                 <th>用户名</th>
-                                <th>创建时间</th>
-                                <th>昵称</th>
                                 <th>手机号码</th>
                                 <th>联系人</th>
-                                <th>腾讯号码</th>
-                                <th>电子邮箱</th>
-                                <th>联系地址</th>
                                 <th>认证标识</th>
                                 <th>用户级别</th>
                                 <th style="width: 8em;">操作</th>
@@ -183,13 +178,8 @@
                                 <tr>
                                     <td class="table-col-index">${item.id}</td>
                                     <td>${item.username}</td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                    <td>${item.nickName}</td>
                                     <td class="table-col-number">${item.cellphone}</td>
                                     <td>${item.contactor}</td>
-                                    <td class="table-col-number">${item.qq}</td>
-                                    <td>${item.email}</td>
-                                    <td>${item.address}</td>
                                     <td>${item.creditName}</td>
                                     <td>${item.userLevelName}</td>
                                     <td><a href="${pageContext.request.contextPath}/person/personEdit.html?person.id=${item.id}" class="btn btn-mini"> <i class="icon-edit"> </i>编辑

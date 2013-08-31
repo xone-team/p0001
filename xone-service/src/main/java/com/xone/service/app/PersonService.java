@@ -29,6 +29,8 @@ public interface PersonService {
     public Person save(Person entity);
     
     public Person update(Person entity);
+    
+    public Person update(Person entity, List<Long> roleIds);
 
     public Person findById(Long id);
     
@@ -42,6 +44,8 @@ public interface PersonService {
     
     public List<Person> findAllByPerson(Person person);
 
-    List<Person> findAll();
+    public List<Person> findAll();
+
+    public Person save(Person entity, List<Long> roleIds);
 	
 }
