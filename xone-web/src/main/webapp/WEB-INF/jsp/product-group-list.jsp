@@ -29,7 +29,7 @@
                 <table class="table table-bordered" style="width: 100%">
                     <thead>
                         <tr>
-                            <th>序号</th>
+                            <th>编号</th>
                             <th>产品编号</th>
                             <th>团购数量</th>
                             <th>审核状态</th>
@@ -42,7 +42,7 @@
                     <tbody>
                         <c:forEach var="item" items="${pagination.list}" varStatus="status">
                             <tr>
-                                <td class="table-col-index">${status.index + 1}</td>
+                                <td class="table-col-index"><th>编号</th></td>
                                 <td><a href="${pageContext.request.contextPath}/productGroup/productGroupItem.html?productGroup.id=${item.productId}"> ${item.productId} </a></td>
                                 <td>${item.groupNum}</td>
                                 <td>${item.checkStatusName}</td>

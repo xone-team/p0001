@@ -164,7 +164,7 @@
                     <table class="table table-bordered" style="width: 100%">
                         <thead>
                             <tr>
-                                <th>序号</th>
+                                <th>编号</th>
                                 <th>用户名</th>
                                 <th>创建时间</th>
                                 <th>昵称</th>
@@ -181,7 +181,7 @@
                         <tbody>
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
-                                    <td class="table-col-index">${status.index + 1}</td>
+                                    <td class="table-col-index">${item.id}</td>
                                     <td>${item.username}</td>
                                     <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td>${item.nickName}</td>

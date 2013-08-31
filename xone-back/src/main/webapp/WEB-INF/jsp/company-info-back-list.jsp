@@ -115,7 +115,7 @@
                 <div class="row-fluid">
                     <table class="table table-bordered" style="width: 100%">
                         <thead>
-                            <th>序号</th>
+                            <th>编号</th>
                             <th>公司名称</th>
                             <th>公司地址</th>
                             <th>公司电话</th>
@@ -129,7 +129,7 @@
                         <tbody>
                             <c:forEach var="item" items="${pagination.list}">
                                 <tr>
-                                    <td class="table-col-index">${status.index + 1}</td>
+                                    <td class="table-col-index">${item.id}</td>
                                     <td>${item.name}</td>
                                     <td>${item.address}</td>
                                     <td>${item.tel}</td>

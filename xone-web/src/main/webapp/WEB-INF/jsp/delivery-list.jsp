@@ -29,7 +29,7 @@
                 <table class="table table-bordered" style="width: 100%">
                     <thead>
                         <tr>
-                            <th>序号</th>
+                            <th>编号</th>
                             <th>市场区域</th>
                             <th>目的地点</th>
                             <th>上货时间</th>

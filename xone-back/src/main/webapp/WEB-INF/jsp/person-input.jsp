@@ -139,7 +139,7 @@
     <table class="table table-hover table-bordered table-condensed">
      <thead>
       <tr>
-       <th>序号</th>
+       <th>编号</th>
        <th>名称</th>
        <th>编码</th>
        <th><label class="checkbox"> <input type="checkbox">
