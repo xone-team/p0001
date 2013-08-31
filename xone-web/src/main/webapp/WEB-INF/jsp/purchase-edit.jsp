@@ -120,12 +120,12 @@
                                 </div>
                                 <button type="button" class="btn" onclick="$('#uploadImageFile3').click();">上传图片</button>
                             </div>
+                            <input type="file" style="display: none;" id="uploadImageFile1" name="uploadFile1" value="">
+                            <input type="file" style="display: none;" id="uploadImageFile2" name="uploadFile2" value="">
+                            <input type="file" style="display: none;" id="uploadImageFile3" name="uploadFile3" value="">
                         </div>
                     </div>
                     <div class="control-group fileupload" style="display: none;">
-                        <input type="file" id="uploadImageFile1" name="uploadFile1" value="">
-                        <input type="file" id="uploadImageFile2" name="uploadFile2" value="">
-                        <input type="file" id="uploadImageFile3" name="uploadFile3" value="">
                         <c:forEach items="${purchase.ids}" var="it" varStatus="status">
                             <input type="hidden" id="imageId${status.index + 1}" name="purchase.ids" value="${it}">
                         </c:forEach>
@@ -208,12 +208,22 @@
                 text : '请输入产品描述'
             }, {
                 name : 'uploadFile1',
-                text : '请上传主图片'
+                text : '请上传主图片',
+                func : imageRequired
             } ];
             var pass = XONE.valid(validate, $form, "");
-            return false;
+            return pass;
         });
     });
+    function imageRequired() {
+        var result = true;
+        try {
+            result = !($("input[name='purchase.ids']").size() < 1 && $("#uploadImageFile1").val().length < 1 && $("#uploadImageFile2").val().length < 1 && $("#uploadImageFile3").val().length < 1)
+        } catch (e) {
+            alert(e)
+        }
+        return result;
+    }
 
     function removePurchaseDynamicImage1(id) {
         $('div.uploadimagesdiv1').html('');
