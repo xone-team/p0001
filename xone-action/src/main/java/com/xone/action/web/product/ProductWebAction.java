@@ -164,32 +164,32 @@ public class ProductWebAction extends LogicAction {
 	}
 
 	public String productCreate() throws Exception {
-		product.setProductNum("0");
-		product.setProductPrice("0");
+//		product.setProductNum("0");
+//		product.setProductPrice("0");
 
 		return SUCCESS;
 	}
 	
 	public String productNormalCreate() throws Exception {
 		product.setSaleType(Product.SaleType.NORMAL.getValue());
-		product.setProductNum("0");
-		product.setProductPrice("0");
+//		product.setProductNum("0");
+//		product.setProductPrice("0");
 		
 		return SUCCESS;
 	}
 
 	public String productSalesCreate() throws Exception {
 		product.setSaleType(Product.SaleType.SALES.getValue());
-		product.setProductNum("0");
-		product.setProductPrice("0");
+//		product.setProductNum("0");
+//		product.setProductPrice("0");
 
 		return SUCCESS;
 	}
 
 	public String productGroupsCreate() throws Exception {
 		product.setSaleType(Product.SaleType.GROUPS.getValue());
-		product.setProductNum("0");
-		product.setProductPrice("0");
+//		product.setProductNum("0");
+//		product.setProductPrice("0");
 
 		return SUCCESS;
 	}

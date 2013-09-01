@@ -162,7 +162,7 @@ public class ProductServiceImpl implements ProductService {
         Date dateCheck = new Date();
         
         ProductCheck check = entity.getProductCheck();
-        if (Product.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) || Product.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
+//        if (Product.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) || Product.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
             check.setProductId(entity.getId());
             check.setDateCheck(dateCheck);
             check.setFlagDeleted(ProductCheck.FlagDeleted.NORMAL.getValue());
@@ -172,7 +172,7 @@ public class ProductServiceImpl implements ProductService {
             
             entity.setDateCheck(dateCheck);
             entity.setCheckStatus(check.getCheckStatus());
-        }
+//        }
 
         entity = getProductDao().update(entity);
         

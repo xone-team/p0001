@@ -49,20 +49,8 @@
                             <td>${delivery.loadaddress}</td>
                         </tr>
                         <tr>
-                            <td style="width: 60px;">箱数</td>
-                            <td>${delivery.boxNum}</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 60px;">单位重量</td>
-                            <td>${delivery.unitNum}</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 60px;">总箱数</td>
-                            <td>${delivery.boxTotal}</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 60px;">总重</td>
-                            <td>${delivery.totalWeight}</td>
+                            <td style="width: 60px;">货量:</td>
+                            <td><p>箱数 ${delivery.boxNum} X ${delivery.unitNum} kg/箱 = 总共 ${delivery.boxTotal} kg</p> 或者&nbsp;总重 ${delivery.totalWeight} kg</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核状态</td>

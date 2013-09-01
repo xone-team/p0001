@@ -213,19 +213,19 @@
                 name : 'product.productName',
                 text : '请输入产品名'
             }, {
+                name : 'product.productType',
+                text : '请选择产品类型',
+                find : findSelectEl
+            }, {
+                name : 'product.saleType',
+                text : '请选择销售类型',
+                find : findSelectEl
+            }, {
                 name : 'product.productPrice',
                 text : '请输入产品价格'
             }, {
-                name : 'product.productPrice',
-                text : '产品价格必须为数字，且大于0',
-                func : numberValidation
-            }, {
                 name : 'product.productNum',
                 text : '请输入产品数量'
-            }, {
-                name : 'product.productNum',
-                text : '产品数量必须为数字，且大于0',
-                func : numberValidation
             }, {
                 name : 'product.productAddress',
                 text : '请输入产品产地'
@@ -237,13 +237,16 @@
                 text : '请输入产品描述'
             }, {
                 name : 'uploadFile1',
-                text : '请上传主图片',
-                func : imageRequired
+                text : '请上传主图片'
             } ];
             var pass = XONE.valid(validate, $form, "");
             return pass;
         });
     });
+    
+    function findSelectEl(name, container){
+        return jQuery('select[name="'+name+'"]', container);
+    }
     function imageRequired() {
         var result = true;
         try {

@@ -109,8 +109,8 @@ public class ProductBackAction extends LogicAction {
 	}
 
 	public String productCreate() throws Exception {
-		product.setProductNum("0");
-		product.setProductPrice("0");
+//		product.setProductNum("0");
+//		product.setProductPrice("0");
 
 		return SUCCESS;
 	}
@@ -208,14 +208,14 @@ public class ProductBackAction extends LogicAction {
 					});
 			entity.setUserUpdated(getUserId());
 			entity.setLastUpdated(new Date());
-			if (Product.CheckStatus.DENIED.getValue().equals(
-					product.getProductCheck().getCheckStatus())
-					|| Product.CheckStatus.PASSED.getValue().equals(
-							product.getProductCheck().getCheckStatus())) {
+//			if (Product.CheckStatus.DENIED.getValue().equals(
+//					product.getProductCheck().getCheckStatus())
+//					|| Product.CheckStatus.PASSED.getValue().equals(
+//							product.getProductCheck().getCheckStatus())) {
 				entity.setUserCheck(getUserId());
 				entity.setDateCheck(new Date());
 				entity.getProductCheck().setUserCheck(getUserId());
-			}
+//			}
 			try {
 				entity.setIds(oldIds);
 				setProduct(getProductService().update(entity, getImageList(),

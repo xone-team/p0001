@@ -29,20 +29,10 @@ public class PersonBackAction extends Action {
     protected Person person = new Person();
     protected List<Person> list = new ArrayList<Person>();
     protected Pagination pagination = new Pagination();
-//    protected CommonTypes commonTypes = CommonTypes.getInstance();
-//    protected Map<String, Object[]> types = new HashMap<String, Object[]>();
     protected List<Long> roleIds = new ArrayList<Long>();
     protected UserRolesService userRolesService;
     protected List<Roles> rolesList = new ArrayList<Roles>();
 
-//    @Override
-//    public void prepare() throws Exception {
-//        types.put("yn", Person.YN.values());
-//        types.put("credit", Person.Credit.values());
-//        types.put("userLevel", Person.UserLevel.values());
-//        super.prepare();
-//    }
-    
     public Enum<?>[] getFlagDeleted() {
         return Person.FlagDeleted.values();
     }
@@ -70,32 +60,10 @@ public class PersonBackAction extends Action {
         params.put("pageSize", String.valueOf(getPagination().getPageSize()));
         params.put("pageNo", String.valueOf(getPagination().getPageNo()));
         Pagination p = getPersonService().findByParams(params);
-        // List<Person> l = getPersonService().findAllByMap(params);
-        // if (null != l && !l.isEmpty()) {
-        // getList().addAll(l);
-        // }
         setPagination(p);
         return SUCCESS;
     }
 
-//    public String personSelect() throws Exception {
-//        Map<String, String> params = new HashMap<String, String>();
-//        MyBeanUtils.copyPropertiesToMap(getPerson(), params, new CopyRules() {
-//            @Override
-//            public boolean myCopyRules(Object value) {
-//                return null != value;
-//            }
-//
-//        }, new AssignRules() {
-//            @Override
-//            public String myAssignRules(Object value) {
-//                return value.toString();
-//            }
-//        }, null);
-//        List<Person> list = getPersonService().findAllByMap(params);
-//        setList(list);
-//        return SUCCESS;
-//    }
 
     public String personItem() throws Exception {
         Person entity = getPersonService().findById(getPerson().getId());
@@ -146,8 +114,8 @@ public class PersonBackAction extends Action {
         person.setUserApply(getUserId());
         person.setDateApply(new Date());
         
-        setPerson(getPersonService().save(getPerson()));
-        userRolesService.updateUserRoles(person.getId(), roleIds);
+        setPerson(getPersonService().save(getPerson(), roleIds));
+//        userRolesService.updateUserRoles(person.getId(), roleIds);
         return SUCCESS;
     }
 
@@ -184,18 +152,12 @@ public class PersonBackAction extends Action {
                 person.setDateCheck(new Date());
             }
             
-            setPerson(getPersonService().update(entity));
+            setPerson(getPersonService().update(entity, roleIds));
             
-            userRolesService.updateUserRoles(entity.getId(), roleIds);
+//            userRolesService.updateUserRoles(entity.getId(), roleIds);
         }
         return SUCCESS;
     }
-//    
-//    public String personDelete() throws Exception {
-//        Person entity = getPersonService().findById(getPerson().getId());
-//        personService.delete(entity);
-//        return SUCCESS;
-//    }
 
     public PersonService getPersonService() {
         return personService;

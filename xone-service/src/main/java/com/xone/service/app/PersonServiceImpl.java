@@ -36,6 +36,9 @@ public class PersonServiceImpl implements PersonService {
     
     @Autowired
     protected UserRolesDao userRolesDao;
+    
+    @Autowired
+    protected UserRolesService userRolesService;
 
     @Override
     public Person save(Person entity) {
@@ -47,6 +50,24 @@ public class PersonServiceImpl implements PersonService {
     	}
     	
     	personDao.save(entity);
+    	
+    	handleRoles(entity);
+    	
+    	return entity;
+    }
+    
+    @Override
+    public Person save(Person entity, List<Long> roleIds) {
+    	Date date = new Date();
+    	entity.setDateApply(date);
+    	entity.setFlagDeleted(Person.FlagDeleted.NORMAL.getValue());
+    	if(entity.getPassword() != null){
+    		entity.setPassword(EncryptRef.SHA1(entity.getPassword()));
+    	}
+    	
+    	personDao.save(entity);
+    	
+    	userRolesService.updateUserRoles(entity.getId(), roleIds);
     	
     	handleRoles(entity);
     	
@@ -103,13 +124,26 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person update(Person entity) {
+    public Person update(Person entity, List<Long> roleIds) {
         if(entity.getRepassword() != null){
             entity.setPassword(EncryptRef.SHA1(entity.getRepassword()));
         }
         getPersonDao().update(entity);
+        
+        userRolesService.updateUserRoles(entity.getId(), roleIds);
+        
         handleRoles(entity);
         return entity;
+    }
+    
+    @Override
+    public Person update(Person entity) {
+    	if(entity.getRepassword() != null){
+    		entity.setPassword(EncryptRef.SHA1(entity.getRepassword()));
+    	}
+    	getPersonDao().update(entity);
+    	handleRoles(entity);
+    	return entity;
     }
 
     @Override
@@ -365,6 +399,12 @@ public class PersonServiceImpl implements PersonService {
 
 	public void setUserRolesDao(UserRolesDao userRolesDao) {
 		this.userRolesDao = userRolesDao;
+	}
+	public UserRolesService getUserRolesService() {
+		return userRolesService;
+	}
+	public void setUserRolesService(UserRolesService userRolesService) {
+		this.userRolesService = userRolesService;
 	}
     
 }

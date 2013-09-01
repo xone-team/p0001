@@ -39,10 +39,10 @@
 							<li class="nav-header">
 								<form class="navbar-form form-horizontal navloginform" method="post" action="${pageContext.request.contextPath}/j_spring_security_check">
 									<div class="span2">
-										<input class="span2" type="text" value="15800000000" name="username" placeholder="用户名">
+										<input class="span2" type="text" value="" name="username" placeholder="用户名">
 									</div>
 									<div class="span2"">
-										<input class="span2" type="password" value="hunny@admin" name="password" placeholder="密码">
+										<input class="span2" type="password" value="h" name="password" placeholder="密码">
 									</div>
 									<div class="span2" style="text-align:right;">
 										<button type="submit" class="btn">登录</button>

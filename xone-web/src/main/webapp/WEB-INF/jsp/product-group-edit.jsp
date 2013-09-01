@@ -104,10 +104,6 @@
             }, {
                 name : 'groupNum',
                 text : '填写团购数量'
-            }, {
-                name : 'groupNum',
-                text : '团购数量必须为数字，且大于0',
-                func : numberValidation
             } ];
 
             var pass = XONE.valid(validate, $form, "productGroup.");

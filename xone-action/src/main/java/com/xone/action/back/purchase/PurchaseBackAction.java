@@ -96,7 +96,7 @@ public class PurchaseBackAction extends LogicAction {
 	}
 
 	public String purchaseCreate() throws Exception {
-		purchase.setPurchaseNum("0");
+//		purchase.setPurchaseNum("0");
 		return SUCCESS;
 	}
 
@@ -183,14 +183,14 @@ public class PurchaseBackAction extends LogicAction {
 					});
 			entity.setUserUpdated(getUserId());
 			entity.setLastUpdated(new Date());
-			if (Purchase.CheckStatus.DENIED.getValue().equals(
-					purchase.getPurchaseCheck().getCheckStatus())
-					|| Purchase.CheckStatus.PASSED.getValue().equals(
-							purchase.getPurchaseCheck().getCheckStatus())) {
+//			if (Purchase.CheckStatus.DENIED.getValue().equals(
+//					purchase.getPurchaseCheck().getCheckStatus())
+//					|| Purchase.CheckStatus.PASSED.getValue().equals(
+//							purchase.getPurchaseCheck().getCheckStatus())) {
 				entity.setUserCheck(getUserId());
 				entity.setDateCheck(new Date());
 				entity.getPurchaseCheck().setUserCheck(getUserId());
-			}
+//			}
 
 			entity.setIds(oldIds);
 			setPurchase(getPurchaseService().update(entity, getImageList(),
