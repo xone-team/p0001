@@ -68,13 +68,13 @@
                     <div class="control-group">
                         <label class="control-label" for="boxNum">箱数</label>
                         <div class="controls">
-                            <input type="text" id="boxNum" onblur="calculateBoxTotal();" name="delivery.boxNum" value="${delivery.boxNum}" maxlength="20" placeholder="箱数">
+                            <input type="text" id="boxNum" name="delivery.boxNum" value="${delivery.boxNum}" maxlength="20" placeholder="箱数">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="unitNum">单位重量</label>
                         <div class="controls">
-                            <input type="text" id="unitNum" onblur="calculateBoxTotal();" name="delivery.unitNum" value="${delivery.unitNum}" maxlength="20" placeholder="单位重量">
+                            <input type="text" id="unitNum" name="delivery.unitNum" value="${delivery.unitNum}" maxlength="20" placeholder="单位重量">
                         </div>
                     </div>
                     <div class="control-group">
@@ -168,33 +168,8 @@
                 name : 'loadaddress',
                 text : '请输入上货地点'
             }, {
-                name : 'boxNum',
-                text : '请输入箱数'
-            }, {
-                name : 'boxNum',
-                text : '箱数必须为数字',
-                func : numberValidation
-            }, {
-                name : 'unitNum',
-                text : '请输入箱重'
-            }, {
-                name : 'unitNum',
-                text : '箱重必须为数字',
-                func : numberValidation
-            }, {
-                name : 'boxTotal',
-                text : '请输入总箱重'
-            }, {
-                name : 'boxTotal',
-                text : '总箱重必须为数字',
-                func : numberValidation
-            }, {
                 name : 'totalWeight',
                 text : '请输入总重'
-            }, {
-                name : 'totalWeight',
-                text : '总重必须为数字',
-                func : numberValidation
             } ];
 
             var pass = XONE.valid(validate, $form, "delivery.");

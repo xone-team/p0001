@@ -31,51 +31,56 @@
                     <div class="control-group">
                         <label class="control-label" for="productId">产品编号</label>
                         <div class="controls">
-                            <input type="text" id="productId" name="delivery.productId" maxlength="20" placeholder="产品编号" readonly="readonly"><code>*</code>
+                            <input type="text" id="productId" name="delivery.productId" maxlength="20" placeholder="产品编号" readonly="readonly">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="marketarea">市场区域</label>
                         <div class="controls">
-                            <input type="text" id="marketarea" name="delivery.marketarea" maxlength="255" placeholder="市场区域"><code>*</code>
+                            <input type="text" id="marketarea" name="delivery.marketarea" maxlength="255" placeholder="市场区域">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="determini">目的地点</label>
                         <div class="controls">
-                            <input type="text" id="determini" name="delivery.determini" maxlength="255" placeholder="目的地点"><code>*</code>
+                            <input type="text" id="determini" name="delivery.determini" maxlength="255" placeholder="目的地点">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="loadtime">上货时间</label>
                         <div class="controls">
                             <div class="input-append date" data-date-format="yyyy-mm-dd hh:ii">
-                                <input type="text" id="loadtime" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'});" name="delivery.loadtime" maxlength="19" placeholder="上货时间" readonly="readonly"><code>*</code>
+                                <input type="text" id="loadtime" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'});" name="delivery.loadtime" maxlength="19" placeholder="上货时间" readonly="readonly">
+                                <code>*</code>
                             </div>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="loadaddress">上货地点</label>
                         <div class="controls">
-                            <input type="text" id="loadaddress" name="delivery.loadaddress" maxlength="255" placeholder="上货地点"><code>*</code>
+                            <input type="text" id="loadaddress" name="delivery.loadaddress" maxlength="255" placeholder="上货地点">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="boxNum">箱数</label>
                         <div class="controls">
-                            <input type="text" id="boxNum" onblur="calculateBoxTotal();" name="delivery.boxNum" maxlength="20" placeholder="箱数" value="0">
+                            <input type="text" id="boxNum" name="delivery.boxNum" maxlength="20" placeholder="箱数" value="0">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="unitNum">单位重量</label>
                         <div class="controls">
-                            <input type="text" id="unitNum" onblur="calculateBoxTotal();" name="delivery.unitNum" maxlength="20" placeholder="单位重量" value="0">
+                            <input type="text" id="unitNum" name="delivery.unitNum" maxlength="20" placeholder="单位重量" value="0">
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="boxTotal">总箱重</label>
                         <div class="controls">
-                            <input type="text" id="boxTotal" name="delivery.boxTotal" maxlength="20" placeholder="总箱重" value="0">
+                            <input type="text" id="boxTotal" name="delivery.boxTotal" maxlength="20" placeholder="总箱重">
                         </div>
                     </div>
                     <div class="control-group">
@@ -156,33 +161,8 @@
                 name : 'loadaddress',
                 text : '请输入上货地点'
             }, {
-                name : 'boxNum',
-                text : '请输入箱数'
-            }, {
-                name : 'boxNum',
-                text : '箱数必须为数字',
-                func : numberValidation
-            }, {
-                name : 'unitNum',
-                text : '请输入箱重'
-            }, {
-                name : 'unitNum',
-                text : '箱重必须为数字',
-                func : numberValidation
-            }, {
-                name : 'boxTotal',
-                text : '请输入总箱重'
-            }, {
-                name : 'boxTotal',
-                text : '总箱重必须为数字',
-                func : numberValidation
-            }, {
                 name : 'totalWeight',
                 text : '请输入总重'
-            }, {
-                name : 'totalWeight',
-                text : '总重必须为数字',
-                func : numberValidation
             } ];
 
             var pass = XONE.valid(validate, $form, "delivery.");

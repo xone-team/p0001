@@ -60,7 +60,7 @@
 							<td>${delivery.unitNum}</td>
 						</tr>
 						<tr>
-							<td style="width:60px;">总箱数</td>
+							<td style="width:60px;">总箱重</td>
 							<td>${delivery.boxTotal}</td>
 						</tr>
 						<tr>

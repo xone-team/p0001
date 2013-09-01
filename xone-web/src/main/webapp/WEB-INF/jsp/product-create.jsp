@@ -161,16 +161,8 @@
                 name : 'product.productPrice',
                 text : '请输入产品价格'
             }, {
-                name : 'product.productPrice',
-                text : '产品价格必须为数字，且大于0',
-                func : numberValidation
-            }, {
                 name : 'product.productNum',
                 text : '请输入产品数量'
-            }, {
-                name : 'product.productNum',
-                text : '产品数量必须为数字，且大于0',
-                func : numberValidation
             }, {
                 name : 'product.productAddress',
                 text : '请输入产品产地'
