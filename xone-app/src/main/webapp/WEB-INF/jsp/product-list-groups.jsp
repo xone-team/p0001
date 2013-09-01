@@ -21,7 +21,7 @@
 		</div>
 		<div data-role="content">
 			<div class="searchconditionsgroup" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d" style="margin-bottom:15px;">
-			    <h2>选择产品类型</h2>
+			    <h2>高级搜索</h2>
 				<div data-role="controlgroup" data-mini="true" style="margin-bottom:15px;">
 				    <input type="checkbox" name="checkbox-1a" id="checkbox-1a" checked="">
 				    <label for="checkbox-1a">冻品</label>

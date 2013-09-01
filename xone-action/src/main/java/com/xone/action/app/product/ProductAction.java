@@ -55,6 +55,10 @@ public class ProductAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	public Enum<?>[] getProductType() {
+		return Product.ProductType.values();
+	}
+	
 	/**
 	 * 手机上滑动更多
 	 * @return
@@ -158,6 +162,9 @@ public class ProductAction extends LogicAction {
 			}
 			if (!StringUtils.isBlank(map.get("exIds"))) {
 				params.put("exIds", Arrays.asList(map.get("exIds").split(",")));
+			}
+			if (!StringUtils.isBlank(map.get("productTypes"))) {
+				params.put("productTypes", Arrays.asList(map.get("productTypes").split(",")));
 			}
 			params.put("saleType", getProduct().getSaleType());
 			params.put("userLevels", getLogicUserLevel());

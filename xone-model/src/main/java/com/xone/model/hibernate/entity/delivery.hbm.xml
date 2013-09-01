@@ -7,9 +7,9 @@
 			<column name="ID" length="20" not-null="true"/>
 			<generator class="increment" />
 		</id>
-		<property name="productId" type="java.lang.Long">
-			<column name="PRODUCT_ID" length="20"/>
-		</property>
+<!-- 		<property name="productId" type="java.lang.Long"> -->
+<!-- 			<column name="PRODUCT_ID" length="20"/> -->
+<!-- 		</property> -->
 		<property name="marketarea" type="java.lang.String">
 			<column name="MARKETAREA" length="255"/>
 		</property>
