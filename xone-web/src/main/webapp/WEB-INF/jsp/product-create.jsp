@@ -158,6 +158,14 @@
                 name : 'product.productName',
                 text : '请输入产品名'
             }, {
+                name : 'product.productType',
+                text : '请选择产品类型',
+                find : findSelectEl
+            }, {
+                name : 'product.saleType',
+                text : '请选择销售类型',
+                find : findSelectEl
+            }, {
                 name : 'product.productPrice',
                 text : '请输入产品价格'
             }, {
@@ -180,6 +188,10 @@
             return pass;
         });
     });
+    
+    function findSelectEl(name, container){
+        return jQuery('select[name="'+name+'"]', container);
+    }
     function removeProductDynamicImage1() {
         $('div.uploadimagesdiv1').html('');
         $('#uploadImageFile1').val('');

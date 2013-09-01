@@ -127,11 +127,11 @@ public class DeliveryBackAction extends Action {
                 }
             });
             entity.setUserUpdated(getUserId());
-            if(Delivery.FlagPass.CANCELED.getValue().equals(entity.getFlagPass())
-                    || Delivery.FlagPass.TRADED.getValue().equals(entity.getFlagPass())){
+//            if(Delivery.FlagPass.CANCELED.getValue().equals(entity.getFlagPass())
+//                    || Delivery.FlagPass.TRADED.getValue().equals(entity.getFlagPass())){
                 entity.setUserCheck(getUserId());
                 entity.setDateCheck(new Date());
-            }
+//            }
             setDelivery(getDeliveryService().update(entity));
         }
         return SUCCESS;

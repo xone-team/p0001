@@ -93,7 +93,7 @@ public class ProductGroupWebAction extends Action {
     }
 
     public String productGroupCreate() throws Exception {
-        productGroup.setGroupNum(0L);
+//        productGroup.setGroupNum(0L);
         return SUCCESS;
     }
 

@@ -213,6 +213,14 @@
                 name : 'product.productName',
                 text : '请输入产品名'
             }, {
+                name : 'product.productType',
+                text : '请选择产品类型',
+                find : findSelectEl
+            }, {
+                name : 'product.saleType',
+                text : '请选择销售类型',
+                find : findSelectEl
+            }, {
                 name : 'product.productPrice',
                 text : '请输入产品价格'
             }, {
@@ -229,13 +237,16 @@
                 text : '请输入产品描述'
             }, {
                 name : 'uploadFile1',
-                text : '请上传主图片',
-                func : imageRequired
+                text : '请上传主图片'
             } ];
             var pass = XONE.valid(validate, $form, "");
             return pass;
         });
     });
+    
+    function findSelectEl(name, container){
+        return jQuery('select[name="'+name+'"]', container);
+    }
     function imageRequired() {
         var result = true;
         try {

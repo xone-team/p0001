@@ -90,7 +90,7 @@ public class ProductGroupBackAction extends Action {
     }
 
     public String productGroupCreate() throws Exception {
-        productGroup.setGroupNum(0L);
+//        productGroup.setGroupNum(0L);
         return SUCCESS;
     }
 
@@ -175,11 +175,11 @@ public class ProductGroupBackAction extends Action {
                 return ERROR;
             }
             
-            if(ProductGroup.CheckStatus.DENIED.equals(entity.getCheckStatus())
-                    || ProductGroup.CheckStatus.PASSED.equals(entity.getCheckStatus())){
+//            if(ProductGroup.CheckStatus.DENIED.equals(entity.getCheckStatus())
+//                    || ProductGroup.CheckStatus.PASSED.equals(entity.getCheckStatus())){
                 entity.setUserCheck(new Long(0));
                 entity.setDateCheck(new Date());
-            }
+//            }
             
             setProductGroup(getProductGroupService().update(entity));
         }

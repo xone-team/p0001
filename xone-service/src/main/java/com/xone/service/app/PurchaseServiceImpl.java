@@ -164,7 +164,7 @@ public class PurchaseServiceImpl implements PurchaseService {
         Date dateCheck = new Date();
         
         PurchaseCheck check = entity.getPurchaseCheck();
-        if (Purchase.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) || Purchase.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
+//        if (Purchase.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) || Purchase.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
             check.setPurchaseId(entity.getId());
             check.setDateCheck(dateCheck);
             check.setFlagDeleted(PurchaseCheck.FlagDeleted.NORMAL.getValue());
@@ -173,7 +173,7 @@ public class PurchaseServiceImpl implements PurchaseService {
             purchaseCheckDao.save(check);
             entity.setDateCheck(dateCheck);
             entity.setCheckStatus(check.getCheckStatus());
-        }
+//        }
         entity = getPurchaseDao().update(entity);
         return entity;
     }
