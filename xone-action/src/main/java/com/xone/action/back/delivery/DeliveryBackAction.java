@@ -72,10 +72,10 @@ public class DeliveryBackAction extends Action {
     }
 
     public String deliveryCreate() throws Exception {
-        delivery.setBoxNum("0");
-        delivery.setBoxTotal("0");
-        delivery.setTotalWeight("0");
-        delivery.setUnitNum("0");
+//        delivery.setBoxNum("0");
+//        delivery.setBoxTotal("0");
+//        delivery.setTotalWeight("0");
+//        delivery.setUnitNum("0");
         return SUCCESS;
     }
 

@@ -96,7 +96,7 @@ public class PurchaseBackAction extends LogicAction {
 	}
 
 	public String purchaseCreate() throws Exception {
-		purchase.setPurchaseNum("0");
+//		purchase.setPurchaseNum("0");
 		return SUCCESS;
 	}
 

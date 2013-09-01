@@ -57,27 +57,20 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="boxNum">箱数</label>
+                        <label class="control-label" for="totalWeight">货量:</label>
                         <div class="controls">
-                            <input type="text" id="boxNum" value="${delivery.boxNum }" name="delivery.boxNum" maxlength="20" placeholder="箱数" value="0">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="unitNum">单位重量</label>
-                        <div class="controls">
-                            <input type="text" id="unitNum" value="${delivery.unitNum }" name="delivery.unitNum" maxlength="20" placeholder="单位重量" value="0">
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="boxTotal">总箱重</label>
-                        <div class="controls">
-                            <input type="text" id="boxTotal" name="delivery.boxTotal" value="${delivery.boxTotal}" maxlength="20" placeholder="总箱重">
-                        </div>
-                    </div>
-
-                        <label class="control-label" for="totalWeight">总重</label>
-                        <div class="controls">
-                            <input type="text" id="totalWeight" name="delivery.totalWeight" value="${delivery.totalWeight }" maxlength="20" placeholder="总重" value="0">
+                            <p>
+                                箱数
+                                <input class="span1" type="text" id="boxNum" value="${delivery.boxNum }" name="delivery.boxNum" maxlength="20" placeholder="箱数">
+                                X
+                                <input class="span1" type="text" id="unitNum" value="${delivery.unitNum }" name="delivery.unitNum" maxlength="20" placeholder="单位重量">
+                                kg/箱 = 总共
+                                <input class="span1" type="text" id="boxTotal" name="delivery.boxTotal" value="${delivery.boxTotal}" maxlength="20" placeholder="总箱重">
+                                kg
+                            </p>
+                            或者&nbsp;总重
+                            <input type="text" id="totalWeight" name="delivery.totalWeight" value="${delivery.totalWeight }" maxlength="20" placeholder="总重">
+                            kg
                         </div>
                     </div>
                     <div class="control-group">
@@ -141,13 +134,24 @@
                 text : '请输入上货地点'
             }, {
                 name : 'totalWeight',
-                text : '请输入总重'
+                text : '请输入总重或箱重的任一种',
+                func : weightValidation
             } ];
 
             var pass = XONE.valid(validate, $form, "delivery.");
             return pass;
         });
     });
+
+    function weightValidation() {
+        var result = (notBlank($('#totalWeight').val()) || (notBlank($('#boxNum').val()) && notBlank($('#unitNum').val()) && notBlank($('#boxTotal').val())))
+        return result;
+    }
+
+    function notBlank(v) {
+        return v != null && $.trim(v).length > 0;
+    }
+
     function numberValidation(inputEl) {
         var result = true;
         var val = inputEl.val();

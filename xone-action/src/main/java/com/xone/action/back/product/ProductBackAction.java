@@ -109,8 +109,8 @@ public class ProductBackAction extends LogicAction {
 	}
 
 	public String productCreate() throws Exception {
-		product.setProductNum("0");
-		product.setProductPrice("0");
+//		product.setProductNum("0");
+//		product.setProductPrice("0");
 
 		return SUCCESS;
 	}
