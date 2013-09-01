@@ -59,6 +59,12 @@
             <if test="productType != null">
 				and p.product_type like CONCAT('%', #{productType}, '%')
 			</if>
+            <if test="productTypes != null">
+				and 
+				<foreach item="item" index="index" collection="productTypes" open="(" separator="or" close=")">
+					p.product_type = #{item}
+				</foreach>
+			</if>
             <if test="productAddress != null">
 				and p.product_address like CONCAT('%', #{productAddress}, '%')
 			</if>

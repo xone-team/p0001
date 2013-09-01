@@ -28,7 +28,7 @@
 		<div data-role="content" style="padding-top:2px;">
 			<form name="querychoiseform" action="#">
 				<div class="searchconditionssales" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
-					    <h4>选择附加搜索条件</h4>
+					    <h4>高级搜索</h4>
 						<div data-role="navbar" data-mini="true" data-theme="e">
 						    <ul>
 						        <li><a href="#searchtype" class="navbartabs ui-btn-active">类型</a></li>
@@ -90,7 +90,8 @@
 						var item = $('ul.product-sales-listview${myid}').find('li.productdatecreateditem');
 						return $.extend({}, {
 							'product.productName': $('div.product-sales-list${myid}').find('input[data-type="search"]').val(),
-							'exIds': exSaleIds()
+							'exIds': exSaleIds(),
+							'productTypes': checkType()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'down',
@@ -101,7 +102,8 @@
 						var item = $('ul.product-sales-listview${myid}').find('li.productdatecreateditem');
 						return $.extend({}, {
 							'product.productName': $('div.product-sales-list${myid}').find('input[data-type="search"]').val(),
-							'exIds': exSaleIds()
+							'exIds': exSaleIds(),
+							'productTypes': checkType()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'up',
@@ -124,6 +126,19 @@
 						fixedProductSaleImage();
 					}
 				});
+				function checkType() {
+					var v = '';
+					$('div.product-sales-page  input:checked[name="checkbox-type"]').each(function() {
+						if (this.value != '') {
+							v += ',' + this.value;
+						}
+					});
+					if (v == '') {
+						return v;
+					}
+					v = v.replace(/^,/ig, '');
+					return v;
+				}
 				doOverheadSaleRequest();
 // 	        	doSaleRequest();
 				function doSaleRequest() {
@@ -195,6 +210,27 @@
 			        	doOverheadSaleRequest();
 			        }
 			    });
+				$('div.searchconditionssales input[type="checkbox"]').bind('click', function() {
+		            var $this = $(this);
+		            $this.attr("checked", !$this.attr('checked'));
+		            var $input = $('div.product-sales-page  input[data-type="search"]').first();
+					var q = $.extend({}, {
+						'productTypes': checkType()
+					}, {
+						'product.productName': $input.val(),
+						'_': new Date().getTime()
+					});
+		            $.ajax({
+		            	type: 'GET',
+		                url: "${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}",
+		                data: q,
+		                success: function(html) {
+		                	var ul = $('ul.product-sales-listview${myid}');
+		                	ul.html(html);
+		                	ul.listview( "refresh" );
+		                }
+		            });
+				});
 			});
 		</script>
 		<jsp:include page="footer.jsp">

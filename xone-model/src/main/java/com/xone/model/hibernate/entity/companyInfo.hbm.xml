@@ -26,7 +26,7 @@
 		<column name="FAX" length="25"/>
 	</property>
 	<property name="intro" type="java.lang.String">
-		<column name="INTRO" length="25"/>
+		<column name="INTRO" length="255"/>
 	</property>
 	<property name="userId" type="java.lang.Long">
 		<column name="USER_ID" length="20"/>

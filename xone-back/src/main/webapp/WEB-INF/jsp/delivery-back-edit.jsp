@@ -34,12 +34,6 @@
                 <form id="saveForm" class="form-horizontal" method="post" action="${pageContext.request.contextPath}/delivery/deliveryUpdate.html">
                     <input type="hidden" id="id" name="delivery.id" value="${delivery.id}" maxlength="20" placeholder="编号">
                     <div class="control-group">
-                        <label class="control-label" for="productId">产品编号</label>
-                        <div class="controls">
-                            <input type="text" id="productId" name="delivery.productId" value="${delivery.productId}" maxlength="20" placeholder="产品编号" readonly="readonly"><code>*</code>
-                        </div>
-                    </div>
-                    <div class="control-group">
                         <label class="control-label" for="marketarea">市场区域</label>
                         <div class="controls">
                             <input type="text" id="marketarea" name="delivery.marketarea" value="${delivery.marketarea}" maxlength="255" placeholder="市场区域"><code>*</code>
@@ -152,10 +146,7 @@
         
         $('#saveForm').submit(function() {
             var $form = $('#saveForm');
-            var validate = [ {
-                name : 'productId',
-                text : '选择产品'
-            }, {
+            var validate = [{
                 name : 'marketarea',
                 text : '请输入市场区域'
             }, {
