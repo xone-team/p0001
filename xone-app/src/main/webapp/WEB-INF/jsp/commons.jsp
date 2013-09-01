@@ -117,6 +117,7 @@ function checkboxValue(selector) {
 }
 function loadScript(src, callback, className) {
 	var script = document.createElement("script");
+	script.setAttribute('type', 'text/javascript');
 	script.className = className;
 	if (script.addEventListener) {
 		script.addEventListener("load", callback, false);

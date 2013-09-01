@@ -115,6 +115,8 @@
 						loadScript('${pageContext.request.contextPath}/js/myallcheckbox.js?_=${myid}', function() {
 							$('div.product-groups-page input[type="checkbox"]').myallcheckbox();
 						}, 'checkboxref');
+					} else {
+						$('div.product-groups-page input[type="checkbox"]').myallcheckbox();
 					}
 				}
 				function checkTypeForGroups() {

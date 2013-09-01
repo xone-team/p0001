@@ -193,6 +193,8 @@
 						loadScript('${pageContext.request.contextPath}/js/myallcheckbox.js?_=${myid}', function() {
 							$('div.product-sales-page input[type="checkbox"]').myallcheckbox();
 						}, 'checkboxref');
+					} else {
+						$('div.product-sales-page input[type="checkbox"]').myallcheckbox();
 					}
 				}
 				$('ul.product-sales-listview${myid}').listview({
