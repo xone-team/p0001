@@ -8,13 +8,13 @@
 		<title>Hello World</title>
 		<jsp:include page="commons.jsp"></jsp:include>
 	</head>
-	<body><c:set var="myid" value="${identify}" />
+	<body><c:set var="myid" value="${myid}" />
 	<div data-role="page" class="product-groups-page" data-dom-cache="true">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>
-			        <li><a href="${pageContext.request.contextPath}/product/index.html?_=${identify}">所有产品</a></li>
-			        <li><a href="${pageContext.request.contextPath}/product/listSales.html?_=${identify}">促销产品</a></li>
+			        <li><a href="${pageContext.request.contextPath}/product/index.html?_=${myid}">所有产品</a></li>
+			        <li><a href="${pageContext.request.contextPath}/product/listSales.html?_=${myid}">促销产品</a></li>
 			        <li><a href="#" class="ui-btn-active">组团产品</a></li>
 			    </ul>
 			</div>
@@ -23,16 +23,10 @@
 			<div class="searchconditionsgroup" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d" style="margin-bottom:15px;">
 			    <h2>高级搜索</h2>
 				<div data-role="controlgroup" data-mini="true" style="margin-bottom:15px;">
-				    <input type="checkbox" name="checkbox-1a" id="checkbox-1a" checked="">
-				    <label for="checkbox-1a">冻品</label>
-				    <input type="checkbox" name="checkbox-2a" id="checkbox-2a">
-				    <label for="checkbox-2a">干货</label>
-				    <input type="checkbox" name="checkbox-3a" id="checkbox-3a">
-				    <label for="checkbox-3a">活鲜</label>
-				    <input type="checkbox" name="checkbox-4a" id="checkbox-4a">
-				    <label for="checkbox-4a">水果</label>
-				    <input type="checkbox" name="checkbox-5a" id="checkbox-5a">
-				    <label for="checkbox-5a">调料</label>
+					<c:forEach items="${productType}" var="it">
+				    <input type="checkbox" name="group-checkbox-type" value="${it.value}" id="group-checkbox-${it.value}a${myid}">
+				    <label for="group-checkbox-${it.value}a${myid}">${it.name}</label>
+                    </c:forEach>
 				</div>
 			</div>
 			<div class="product-groups-list${myid}" style="width:100%;padding-top:10px;" data-iscroll>
@@ -49,7 +43,7 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${identify}"></script>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${myid}"></script>
 		<script type="text/javascript">
 			$('div.product-groups-page').bind('pageinit', function(event) {
 				$('a.navbartabs').click(function(e) {
@@ -60,13 +54,15 @@
 					$('div[data-id="' + t.attr('href') + '"]').show();
 					t.addClass('ui-btn-active');
 				});
+				loadcheckboxjsforgroups();
 				$('div.product-groups-list${myid}').mypullupdown({
 					url:'${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}',
 					onDown: function() {
 						var item = $('ul.product-groups-listview${myid}').find('li.productdatecreateditem');
 						return $.extend({}, {
 							'product.productName': $('ul.product-groups-list${myid}').find('input[data-type="search"]').val(),
-							'exIds': exGroupIds()
+							'exIds': exGroupIds(),
+							'productTypes': checkTypeForGroups()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'down',
@@ -77,7 +73,8 @@
 						var item = $('ul.product-groups-listview${myid}').find('li.productdatecreateditem');
 						return $.extend({}, {
 							'product.productName': $('ul.product-groups-list${myid}').find('input[data-type="search"]').val(),
-							'exIds': exGroupIds()
+							'exIds': exGroupIds(),
+							'productTypes': checkTypeForGroups()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'up',
@@ -112,6 +109,16 @@
 							fixedProductGroupsImage();
 						}
 					});
+				}
+				function loadcheckboxjsforgroups() {
+					if ($('head').find('script.checkboxref').length == 0) {
+						loadScript('${pageContext.request.contextPath}/js/myallcheckbox.js?_=${myid}', function() {
+							$('div.product-groups-page input[type="checkbox"]').myallcheckbox();
+						}, 'checkboxref');
+					}
+				}
+				function checkTypeForGroups() {
+					return checkboxValue('div.product-groups-page input:checked[name="group-checkbox-type"]');
 				}
 				function exGroupIds() {
 					var a = [];
@@ -171,6 +178,27 @@
 						doOverheadGroupRequest();
 			        }
 			    });
+				$('div.product-groups-page input[type="checkbox"]').bind('click', function() {
+		            var $this = $(this);
+		            var $input = $('div.product-groups-page  input[data-type="search"]').first();
+					var q = $.extend({}, {
+						'productTypes': checkTypeForGroups()
+					}, {
+						'product.productName': $input.val(),
+						'_': new Date().getTime()
+					});
+		            $.ajax({
+		            	type: 'GET',
+		                url: "${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}",
+		                data: q,
+		                success: function(html) {
+		                	var ul = $('ul.product-groups-listview${myid}');
+		                	ul.html(html);
+		                	ul.listview( "refresh" );
+		                	fixedProductGroupsImage();
+		                }
+		            });
+				});
 			});
 		</script>
 		<jsp:include page="footer.jsp"><jsp:param value="1" name="offset"/></jsp:include>

@@ -163,13 +163,19 @@ public class ProductAction extends LogicAction {
 			if (!StringUtils.isBlank(map.get("exIds"))) {
 				params.put("exIds", Arrays.asList(map.get("exIds").split(",")));
 			}
-			if (!StringUtils.isBlank(map.get("productTypes"))) {
-				params.put("productTypes", Arrays.asList(map.get("productTypes").split(",")));
-			}
 			params.put("saleType", getProduct().getSaleType());
 			params.put("userLevels", getLogicUserLevel());
 			params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
 			params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+			if (!StringUtils.isBlank(map.get("productTypes"))) {
+				params.put("productTypes", Arrays.asList(map.get("productTypes").split(",")));
+			}
+			if (!StringUtils.isBlank(map.get("productLocations"))) {
+				params.put("productLocations", Arrays.asList(map.get("productLocations").split(",")));
+			}
+			if (!StringUtils.isBlank(map.get("credits"))) {
+				params.put("credits", Arrays.asList(map.get("credits").split(",")));
+			}
 			setList(getProductService().findAllByMap(params));
 		}
 		return SUCCESS;

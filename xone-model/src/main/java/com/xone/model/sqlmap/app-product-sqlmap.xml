@@ -53,24 +53,6 @@
             <if test="saleType != null">
 				and p.sale_type = #{saleType}
 			</if>
-            <if test="productName != null">
-				and p.product_name like CONCAT('%', #{productName}, '%')
-			</if>
-            <if test="productType != null">
-				and p.product_type like CONCAT('%', #{productType}, '%')
-			</if>
-            <if test="productTypes != null">
-				and 
-				<foreach item="item" index="index" collection="productTypes" open="(" separator="or" close=")">
-					p.product_type = #{item}
-				</foreach>
-			</if>
-            <if test="productAddress != null">
-				and p.product_address like CONCAT('%', #{productAddress}, '%')
-			</if>
-            <if test="productLocation != null">
-				and p.product_location like CONCAT('%', #{productLocation}, '%')
-			</if>
             <if test="checkStatus != null">
 				and p.check_status = #{checkStatus}
 			</if>
@@ -88,6 +70,36 @@
 			</if>
             <if test="credit != null">
 				and u.credit = #{credit}
+			</if>
+            <if test="productName != null">
+				and p.product_name like CONCAT('%', #{productName}, '%')
+			</if>
+            <if test="productType != null">
+				and p.product_type like CONCAT('%', #{productType}, '%')
+			</if>
+            <if test="productTypes != null">
+				and 
+				<foreach item="item" index="index" collection="productTypes" open="(" separator="or" close=")">
+					p.product_type = #{item}
+				</foreach>
+			</if>
+            <if test="productLocations != null">
+				and 
+				<foreach item="item" index="index" collection="productLocations" open="(" separator="or" close=")">
+					p.product_location like CONCAT('%', #{item}, '%')
+				</foreach>
+			</if>
+            <if test="credits != null">
+				and 
+				<foreach item="item" index="index" collection="credits" open="(" separator="or" close=")">
+					u.credit = #{item}
+				</foreach>
+			</if>
+            <if test="productAddress != null">
+				and p.product_address like CONCAT('%', #{productAddress}, '%')
+			</if>
+            <if test="productLocation != null">
+				and p.product_location like CONCAT('%', #{productLocation}, '%')
 			</if>
         </where>
 	</sql>

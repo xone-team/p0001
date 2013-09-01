@@ -102,6 +102,38 @@ function globalBannerSwitch() {
 	li.hide();
 	next.show('slow');
 }
+function checkboxValue(selector) {
+	var v = '';
+	$(selector).each(function() {
+		if (this.value != '') {
+			v += ',' + this.value;
+		}
+	});
+	if (v == '') {
+		return v;
+	}
+	v = v.replace(/^,/ig, '');
+	return v;
+}
+function loadScript(src, callback, className) {
+	var script = document.createElement("script");
+	script.className = className;
+	if (script.addEventListener) {
+		script.addEventListener("load", callback, false);
+	} else if (script.attachEvent) {
+		script.attachEvent("onreadystatechange", function() {
+			loadScript.callbackIE(callback);
+		});
+	}
+	script.src = src;
+	document.getElementsByTagName("head")[0].appendChild(script);
+}
+loadScript.callbackIE = function(callback) {
+	var target = window.event.srcElement;
+	if (target.readyState == "loaded") {
+		callback.call(target);
+	}
+};
 </script>
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery.mobile-1.3.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/myadbanner.js"></script>
