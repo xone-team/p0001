@@ -39,16 +39,6 @@
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="checkStatus">审核状态</label>
-                        <div class="controls">
-                            <select class="selectpicker" id="checkStatus" name="productGroup.checkStatus">
-                                <c:forEach items="${checkStatus}" var="it">
-                                    <option value="${it.value}" <c:if test="${it.value == productGroup.checkStatus}">selected</c:if>>${it.name}</option>
-                                </c:forEach>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="control-group">
                         <label class="control-label" for="remark">备注</label>
                         <div class="controls">
                             <input type="text" id="remark" name="productGroup.remark" value="${productGroup.remark}" maxlength="1023" placeholder="备注">

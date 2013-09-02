@@ -15,7 +15,7 @@
         </action>
         <action name="companyInfoSave" class="companyInfoWebAction" method="companyInfoSave">
             <interceptor-ref name="fileUpload">
-                <param name="maximumSize">1097152</param>
+                <param name="maximumSize">2097152</param>
                 <param name="allowedTypes">
                     image/png,image/gif,image/jpeg,image/pjpeg
                 </param>

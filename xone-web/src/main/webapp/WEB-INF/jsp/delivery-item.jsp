@@ -50,7 +50,9 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">货量:</td>
-                            <td><p>箱数 ${delivery.boxNum} X ${delivery.unitNum} kg/箱 = 总共 ${delivery.boxTotal} kg</p> 或者&nbsp;总重 ${delivery.totalWeight} kg</td>
+                            <td><p>
+                                    箱数 <span class="label label-default"> ${delivery.boxNum} </span> X <span class="label label-default"> ${delivery.unitNum}</span> kg/箱 = 总共 <span class="label label-default"> ${delivery.boxTotal}</span> kg
+                                </p> 或者&nbsp;总重 <span class="label label-default"> ${delivery.totalWeight}</span> kg</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核状态</td>

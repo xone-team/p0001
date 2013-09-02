@@ -51,9 +51,13 @@
                                 <td>${item.purchaseLocation}</td>
                                 <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                 <td>${item.checkStatusName}</td>
-                                <td><a href="${pageContext.request.contextPath}/purchase/purchaseEdit.html?purchase.id=${item.id}" class="btn btn-mini">
+                                <td>
+                                    <c:if test="${item.checkStatus != '1'}">
+                                    <a href="${pageContext.request.contextPath}/purchase/purchaseEdit.html?purchase.id=${item.id}" class="btn btn-mini">
                                         <i class="icon-edit"> </i>编辑
-                                    </a> <a href="${pageContext.request.contextPath}/purchase/purchaseItem.html?purchase.id=${item.id}" class="btn btn-mini">
+                                    </a>
+                                    </c:if>
+                                     <a href="${pageContext.request.contextPath}/purchase/purchaseItem.html?purchase.id=${item.id}" class="btn btn-mini">
                                         <i class="icon-list-alt"> </i>详细
                                     </a></td>
                             </tr>

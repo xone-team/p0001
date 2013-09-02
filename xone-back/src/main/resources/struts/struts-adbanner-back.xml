@@ -19,6 +19,7 @@
     			<param name="namespace">/adbanner</param> 
 				<param name="adbanner.id">${adbanner.id}</param>
 			</result>
+            <result name="input">/WEB-INF/jsp/adbanner-back-create.jsp</result>
 		</action>
 		<action name="adbannerEdit" class="adbannerBackAction" method="adbannerEdit">
 			<result name="success">/WEB-INF/jsp/adbanner-back-edit.jsp</result>
@@ -33,6 +34,7 @@
 			    <param name="actionName">adbannerList</param> 
     			<param name="namespace">/adbanner</param>
 			</result>
+            <result name="input">/WEB-INF/jsp/adbanner-back-edit.jsp</result>
 		</action>
 		<action name="adbannerItem" class="adbannerBackAction" method="adbannerItem">
 			<result name="success">/WEB-INF/jsp/adbanner-back-item.jsp</result>

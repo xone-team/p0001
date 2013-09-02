@@ -33,7 +33,7 @@
                         </c:forEach>
                     </div>
                 </c:if>
-                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/purchase/purchaseSave.html">
+                <form class="form-horizontal" enctype="multipart/form-data" id="saveForm" method="post" action="${pageContext.request.contextPath}/purchase/purchaseSave.html">
                     <div class="control-group">
                         <label class="control-label" for="purchaseName">产品名称</label>
                         <div class="controls">
@@ -45,7 +45,7 @@
                         <label class="control-label" for="purchaseType">求购类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="purchaseType" name="purchase.purchaseType">
-                                <c:forEach items="${productType}" var="it">
+                                <c:forEach items="${purchaseType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == purchase.purchaseType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
                             </select>
@@ -81,7 +81,7 @@
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="purchaseDesc">求购图片</label>
-                        <div class="controls">
+                        <div class="controls row-fluid">
                             <div class="span4">
                                 <div class="control-group uploadimagesdiv1" style="margin-bottom: 0px;"></div>
                                 <button type="button" class="btn" onclick="$('#uploadImageFile1').click();">上传图片</button>

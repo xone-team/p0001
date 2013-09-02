@@ -30,7 +30,7 @@
                 <c:if test="${!empty actionErrors }">
                     <div class="alert">
                         <a class="close" data-dismiss="alert">×</a>
-                        <c:forEach items="${actionsErrors }" var="error">
+                        <c:forEach items="${actionErrors }" var="error">
                             <p>${error }</p>
                         </c:forEach>
                     </div>
@@ -39,7 +39,7 @@
                     <div class="control-group">
                         <label class="control-label" for="name">公司名称</label>
                         <div class="controls">
-                            <input type="text" id="name" name="companyInfo.name" maxlength="255" placeholder="公司名称">
+                            <input type="text" id="name" name="companyInfo.name" maxlength="255" placeholder="公司名称"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -139,7 +139,14 @@
         });
 
         $('#companyInfoSaveForm${myidentify}').submit(function() {
-            return true;
+            var $form = $(this);
+            var validate = [ {
+                name : 'name',
+                text : '请输入公司名称'
+            } ];
+
+            var pass = XONE.valid(validate, $form, "companyInfo.");
+            return pass;
         });
     });
     function removeCompanyInfoDynamicImage1() {

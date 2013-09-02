@@ -34,7 +34,7 @@
                         </c:forEach>
                     </div>
                 </c:if>
-                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/purchase/purchaseUpdate.html">
+                <form class="form-horizontal" enctype="multipart/form-data" id="saveForm" method="post" action="${pageContext.request.contextPath}/purchase/purchaseUpdate.html">
                     <input type="hidden" name="purchase.id" value="${purchase.id}">
                     <div class="control-group">
                         <label class="control-label" for="purchaseName">产品名称</label>
@@ -84,7 +84,7 @@
 
                     <div class="control-group">
                         <label class="control-label" for="purchaseDesc">求购图片</label>
-                        <div class="controls">
+                        <div class="controls row-fluid">
                             <div class="span4">
                                 <div class="control-group uploadimagesdiv1" style="margin-bottom: 0px;">
                                     <c:forEach items="${purchase.ids}" var="it" varStatus="status">

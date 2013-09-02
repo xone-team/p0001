@@ -29,7 +29,7 @@
                 <c:if test="${!empty actionErrors }">
                     <div class="alert">
                         <a class="close" data-dismiss="alert">×</a>
-                        <c:forEach items="${actionsErrors }" var="error">
+                        <c:forEach items="${actionErrors }" var="error">
                             <p>${error }</p>
                         </c:forEach>
                     </div>
@@ -39,13 +39,15 @@
                     <div class="control-group">
                         <label class="control-label" for="name">公司名称</label>
                         <div class="controls">
-                            <input type="text" id="name" name="companyInfo.name" value="${companyInfo.name}" maxlength="255" placeholder="公司名称"><code>*</code>
+                            <input type="text" id="name" name="companyInfo.name" value="${companyInfo.name}" maxlength="255" placeholder="公司名称">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="address">公司地址</label>
                         <div class="controls">
-                            <input type="text" id="address" name="companyInfo.address" value="${companyInfo.address}" maxlength="255" placeholder="公司地址"><code>*</code>
+                            <input type="text" id="address" name="companyInfo.address" value="${companyInfo.address}" maxlength="255" placeholder="公司地址">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -57,13 +59,15 @@
                     <div class="control-group">
                         <label class="control-label" for="mobile">移动电话</label>
                         <div class="controls">
-                            <input type="text" id="mobile" name="companyInfo.mobile" value="${companyInfo.mobile}" maxlength="15" placeholder="移动电话"><code>*</code>
+                            <input type="text" id="mobile" name="companyInfo.mobile" value="${companyInfo.mobile}" maxlength="15" placeholder="移动电话">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="contact">联系人</label>
                         <div class="controls">
-                            <input type="text" id="contact" name="companyInfo.contact" value="${companyInfo.contact}" maxlength="15" placeholder="联系人"><code>*</code>
+                            <input type="text" id="contact" name="companyInfo.contact" value="${companyInfo.contact}" maxlength="15" placeholder="联系人">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -135,8 +139,8 @@
                         <input type="file" id="uploadImageFile1" name="uploadFile1" value="">
                         <input type="file" id="uploadImageFile2" name="uploadFile2" value="">
                         <input type="file" id="uploadImageFile3" name="uploadFile3" value="">
-                        <c:forEach items="${companyInfo.ids}" var="it">
-                            <input type="hidden" name="companyInfo.ids" value="${it}">
+                        <c:forEach items="${companyInfo.ids}" var="it" varStatus="status">
+                            <input type="hidden" id="imageId${status.index + 1}" name="companyInfo.ids" value="${it}">
                         </c:forEach>
                     </div>
                     <div class="control-group">
@@ -174,6 +178,7 @@
                 var result = it.data('base64source');
                 div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeCompanyInfoDynamicImage1();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadcompanyInfodynamicimage" src="', result, '"/></div>' ].join('');
                 $('div.uploadimagesdiv1').html('').append(div);
+                $('#imageId1').remove();
             }
         });
         $('#uploadImageFile2[type="file"]').fileupload({
@@ -182,6 +187,7 @@
                 var result = it.data('base64source');
                 div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeCompanyInfoDynamicImage2();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadcompanyInfodynamicimage" src="', result, '"/></div>' ].join('');
                 $('div.uploadimagesdiv2').html('').append(div);
+                $('#imageId2').remove();
             }
         });
         $('#uploadImageFile3[type="file"]').fileupload({
@@ -190,6 +196,7 @@
                 var result = it.data('base64source');
                 div.innerHTML = [ '<div class="well well-small" style="margin-bottom:0px;">图片预览<button class="close pull-right" onclick="removeCompanyInfoDynamicImage3();" value="删除图片">&times;</button></div>', '<div class="well well-small"><img class="uploadcompanyInfodynamicimage" src="', result, '"/></div>' ].join('');
                 $('div.uploadimagesdiv3').html('').append(div);
+                $('#imageId3').remove();
             }
         });
 
@@ -216,22 +223,23 @@
     function removeCompanyInfoDynamicImage1(id) {
         $('div.uploadimagesdiv1').html('');
         $('#uploadImageFile1').val('');
-        if(id != null)
-        	$('input[name="companyInfo.ids"][value="'+id+'"]').remove();;
+        if (id != null)
+            $('input[name="companyInfo.ids"][value="' + id + '"]').remove();
+        ;
         return false;
     }
     function removeCompanyInfoDynamicImage2(id) {
         $('div.uploadimagesdiv2').html('');
         $('#uploadImageFile2').val('');
-        if(id != null)
-        	$('input[name="companyInfo.ids"][value="'+id+'"]').remove();
+        if (id != null)
+            $('input[name="companyInfo.ids"][value="' + id + '"]').remove();
         return false;
     }
     function removeCompanyInfoDynamicImage3(id) {
         $('div.uploadimagesdiv3').html('');
         $('#uploadImageFile3').val('');
-        if(id != null)
-        	$('input[name="companyInfo.ids"][value="'+id+'"]').remove();
+        if (id != null)
+            $('input[name="companyInfo.ids"][value="' + id + '"]').remove();
         return false;
     }
 </script>
