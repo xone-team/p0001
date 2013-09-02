@@ -14,7 +14,9 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.xone.model.hibernate.app.ProductDao;
 import com.xone.model.hibernate.app.ProductGroupDao;
+import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.ProductGroup;
 import com.xone.model.hibernate.support.Pagination;
 
@@ -24,11 +26,37 @@ public class ProductGroupServiceImpl implements ProductGroupService {
 	@Autowired
 	protected ProductGroupDao productGroupDao;
 	
+	@Autowired
+	protected ProductDao productDao;
+	
+	
+	/** 统计商品剩余可团购的数量
+     * @param entity
+     * @return
+     */
+	@Override
+	public int getProductLeftNum(Long productId){
+		Product product = productDao.findById(productId);
+        int productNum = 0;
+        if(product != null && product.getProductNum() != null){
+            try {
+				productNum = Integer.valueOf(product.getProductNum());
+			} catch (NumberFormatException e) {
+				log.error(e.getMessage(), e);
+			}
+        }
+        
+        int productGroupNum = getProductGroupDao().getOrderProductNum(productId);
+        
+		return productNum - productGroupNum;
+	}
+	
 	
     /** 统计商品已被团购的数量
      * @param entity
      * @return
      */
+	@Override
     public int getOrderProductNum(Long productId){
         return getProductGroupDao().getOrderProductNum(productId);
     }
@@ -37,6 +65,7 @@ public class ProductGroupServiceImpl implements ProductGroupService {
      * @param entity
      * @return
      */
+    @Override
     public int getOrderPersonNum(Long productId){
         DetachedCriteria c = DetachedCriteria.forClass(ProductGroup.class);
         c.add(Restrictions.eq("flagDeleted", ProductGroup.FlagDeleted.NORMAL.getValue()));
@@ -272,5 +301,15 @@ public class ProductGroupServiceImpl implements ProductGroupService {
 	public void setProductGroupDao(ProductGroupDao productGroupDao) {
 		this.productGroupDao = productGroupDao;
 	}
-	
+
+
+	public ProductDao getProductDao() {
+		return productDao;
+	}
+
+
+	public void setProductDao(ProductDao productDao) {
+		this.productDao = productDao;
+	}
+
 }

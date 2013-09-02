@@ -19,6 +19,7 @@
                 <param name="namespace">/productGroup</param>
                 <param name="productGroup.id">${productGroup.id}</param>
             </result>
+            <result name="error">/WEB-INF/jsp/product-group-create.jsp</result>
         </action>
         <action name="productGroupEdit" class="productGroupWebAction" method="productGroupEdit">
             <result name="success">/WEB-INF/jsp/product-group-edit.jsp</result>
@@ -33,6 +34,7 @@
                 <param name="actionName">productGroupList</param>
                 <param name="namespace">/productGroup</param>
             </result>
+            <result name="error">/WEB-INF/jsp/product-group-edit.jsp</result>
         </action>
         <action name="productGroupItem" class="productGroupWebAction" method="productGroupItem">
             <result name="success">/WEB-INF/jsp/product-group-item.jsp</result>

@@ -28,6 +28,14 @@
                         <li class="active">求购编辑</li>
                     </ul>
                 </div>
+                <c:if test="${!empty actionErrors }">
+                    <div class="alert">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <c:forEach items="${actionErrors }" var="error">
+                            <p>${error }</p>
+                        </c:forEach>
+                    </div>
+                </c:if>
                 <form class="form-horizontal" id="saveForm" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/purchase/purchaseUpdate.html">
                     <input type="hidden" name="purchase.id" value="${purchase.id}">
                     <div class="control-group">
@@ -73,10 +81,8 @@
                         <label class="control-label" for="purchaseDesc">求购描述</label>
                         <div class="controls">
                             <input type="text" id="purchaseDesc" name="purchase.purchaseDesc" value="${purchase.purchaseDesc}" maxlength="255" placeholder="求购描述">
-                            <code>*</code>
                         </div>
                     </div>
-
                     <div class="control-group">
                         <label class="control-label" for="purchaseDesc">求购图片</label>
                         <div class="controls">
@@ -221,22 +227,19 @@
             var $form = $(this);
             var validate = [ {
                 name : 'purchase.purchaseName',
-                text : '请输入产品名'
+                text : '请输入求购产品名'
             }, {
                 name : 'purchase.purchasePrice',
-                text : '请输入产品价格'
+                text : '请输入求购产品价格'
             }, {
                 name : 'purchase.purchaseNum',
-                text : '请输入产品数量'
+                text : '请输入求购产品数量'
             }, {
                 name : 'purchase.purchaseAddress',
-                text : '请输入产品产地'
+                text : '请输入求购产品产地'
             }, {
                 name : 'purchase.purchaseLocation',
-                text : '请输入产品属地'
-            }, {
-                name : 'purchase.purchaseDesc',
-                text : '请输入产品描述'
+                text : '请输入求购产品属地'
             }, {
                 name : 'uploadFile1',
                 text : '请上传主图片',

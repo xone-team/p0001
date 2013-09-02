@@ -30,7 +30,7 @@
                 <c:if test="${!empty actionErrors }">
                     <div class="alert">
                         <a class="close" data-dismiss="alert">×</a>
-                        <c:forEach items="${actionsErrors }" var="error">
+                        <c:forEach items="${actionErrors }" var="error">
                             <p>${error }</p>
                         </c:forEach>
                     </div>
@@ -39,7 +39,7 @@
                     <div class="control-group">
                         <label class="control-label" for="productName">产品名称</label>
                         <div class="controls">
-                            <input type="text" id="productName" name="product.productName" maxlength="255" placeholder="产品名称"><code>*</code>
+                            <input type="text" id="productName" name="product.productName" value="${product.productName}" maxlength="255" placeholder="产品名称"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -77,19 +77,19 @@
                     <div class="control-group">
                         <label class="control-label" for="productAddress">产品产地</label>
                         <div class="controls">
-                            <input type="text" id="productAddress" name="product.productAddress" maxlength="255" placeholder="产品产地"><code>*</code>
+                            <input type="text" id="productAddress" name="product.productAddress" value="${product.productAddress}" maxlength="255" placeholder="产品产地"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productLocation">产品属地</label>
                         <div class="controls">
-                            <input type="text" id="productLocation" name="product.productLocation" maxlength="255" placeholder="产品属地"><code>*</code>
+                            <input type="text" id="productLocation" name="product.productLocation" value="${product.productLocation}" maxlength="255" placeholder="产品属地"><code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productDesc">产品描述</label>
                         <div class="controls">
-                            <input type="text" id="productDesc" name="product.productDesc" maxlength="255" placeholder="产品描述"><code>*</code>
+                            <input type="text" id="productDesc" name="product.productDesc" value="${product.productDesc}" maxlength="255" placeholder="产品描述">
                         </div>
                     </div>
                     <div class="control-group">
@@ -177,9 +177,6 @@
             }, {
                 name : 'product.productLocation',
                 text : '请输入产品属地'
-            }, {
-                name : 'product.productDesc',
-                text : '请输入产品描述'
             }, {
                 name : 'uploadFile1',
                 text : '请上传主图片'

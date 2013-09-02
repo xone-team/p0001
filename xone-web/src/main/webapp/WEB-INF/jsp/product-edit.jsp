@@ -28,6 +28,14 @@
                         <li class="active">编辑产品</li>
                     </ul>
                 </div>
+                <c:if test="${!empty actionErrors }">
+                    <div class="alert">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <c:forEach items="${actionErrors }" var="error">
+                            <p>${error }</p>
+                        </c:forEach>
+                    </div>
+                </c:if>
                 <form class="form-horizontal" enctype="multipart/form-data" id="productEditForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productUpdate.html">
                     <input type="hidden" name="product.id" value="${product.id}">
                     <div class="control-group">
@@ -97,7 +105,6 @@
                         <label class="control-label" for="productDesc">产品描述</label>
                         <div class="controls">
                             <input type="text" id="productDesc" name="product.productDesc" value="${product.productDesc}" maxlength="255" placeholder="产品描述">
-                            <code>*</code>
                         </div>
                     </div>
 
@@ -233,19 +240,17 @@
                 name : 'product.productLocation',
                 text : '请输入产品属地'
             }, {
-                name : 'product.productDesc',
-                text : '请输入产品描述'
-            }, {
                 name : 'uploadFile1',
-                text : '请上传主图片'
+                text : '请上传主图片',
+                func : imageRequired
             } ];
             var pass = XONE.valid(validate, $form, "");
             return pass;
         });
     });
-    
-    function findSelectEl(name, container){
-        return jQuery('select[name="'+name+'"]', container);
+
+    function findSelectEl(name, container) {
+        return jQuery('select[name="' + name + '"]', container);
     }
     function imageRequired() {
         var result = true;

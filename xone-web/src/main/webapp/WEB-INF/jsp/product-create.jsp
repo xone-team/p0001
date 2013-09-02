@@ -32,11 +32,20 @@
                     <li>我的售卖发布 <span class="divider">/</span></li>
                     <li class="active">发布产品</li>
                 </ul>
+                <c:if test="${!empty actionErrors }">
+                    <div class="alert">
+                        <a class="close" data-dismiss="alert">×</a>
+                        <c:forEach items="${actionErrors }" var="error">
+                            <p>${error }</p>
+                        </c:forEach>
+                    </div>
+                </c:if>
                 <form class="form-horizontal" enctype="multipart/form-data" id="productSaveForm${myidentify}" method="post" action="${pageContext.request.contextPath}/product/productSave.html">
                     <div class="control-group">
                         <label class="control-label" for="productName">产品名称</label>
                         <div class="controls">
-                            <input type="text" id="productName" name="product.productName" maxlength="255" placeholder="产品名称"><code>*</code>
+                            <input type="text" id="productName" name="product.productName" value="${product.productName}" maxlength="255" placeholder="产品名称">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -46,7 +55,8 @@
                                 <c:forEach items="${productType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.productType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
-                            </select><code>*</code>
+                            </select>
+                            <code>*</code>
                         </div>
                     </div>
                     <input type="hidden" name="product.saleType" value="${product.saleType}">
@@ -57,37 +67,42 @@
                                 <c:forEach items="${saleType}" var="it">
                                     <option value="${it.value}" <c:if test="${it.value == product.saleType}">selected</c:if>>${it.name}</option>
                                 </c:forEach>
-                            </select><code>*</code>
+                            </select>
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productPrice">产品价格</label>
                         <div class="controls">
-                            <input type="text" id="productPrice" name="product.productPrice" value="${product.productPrice }" maxlength="200" placeholder="产品价格"><code>*</code>
+                            <input type="text" id="productPrice" name="product.productPrice" value="${product.productPrice }" maxlength="200" placeholder="产品价格">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productNum">产品数量</label>
                         <div class="controls">
-                            <input type="text" id="productNum" name="product.productNum" value="${product.productNum}" maxlength="255" placeholder="产品数量"><code>*</code>
+                            <input type="text" id="productNum" name="product.productNum" value="${product.productNum}" maxlength="255" placeholder="产品数量">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productAddress">产品产地</label>
                         <div class="controls">
-                            <input type="text" id="productAddress" name="product.productAddress" maxlength="255" placeholder="产品产地"><code>*</code>
+                            <input type="text" id="productAddress" name="product.productAddress" value="${product.productAddress}" maxlength="255" placeholder="产品产地">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productLocation">产品属地</label>
                         <div class="controls">
-                            <input type="text" id="productLocation" name="product.productLocation" maxlength="255" placeholder="产品属地"><code>*</code>
+                            <input type="text" id="productLocation" name="product.productLocation" value="${product.productLocation}" maxlength="255" placeholder="产品属地">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="productDesc">产品描述</label>
                         <div class="controls">
-                            <input type="text" id="productDesc" name="product.productDesc" maxlength="255" placeholder="产品描述"><code>*</code>
+                            <input type="text" id="productDesc" name="product.productDesc" value="${product.productDesc}" maxlength="255" placeholder="产品描述">
                         </div>
                     </div>
                     <div class="control-group">
@@ -178,9 +193,6 @@
                 name : 'product.productLocation',
                 text : '请输入产品属地'
             }, {
-                name : 'product.productDesc',
-                text : '请输入产品描述'
-            }, {
                 name : 'uploadFile1',
                 text : '请上传主图片'
             } ];
@@ -188,9 +200,9 @@
             return pass;
         });
     });
-    
-    function findSelectEl(name, container){
-        return jQuery('select[name="'+name+'"]', container);
+
+    function findSelectEl(name, container) {
+        return jQuery('select[name="' + name + '"]', container);
     }
     function removeProductDynamicImage1() {
         $('div.uploadimagesdiv1').html('');

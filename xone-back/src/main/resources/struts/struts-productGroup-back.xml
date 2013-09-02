@@ -19,9 +19,11 @@
                 <param name="namespace">/productGroup</param>
                 <param name="productGroup.id">${productGroup.id}</param>
             </result>
+            <result name="error">/WEB-INF/jsp/product-group-back-create.jsp</result>
         </action>
         <action name="productGroupEdit" class="productGroupBackAction" method="productGroupEdit">
             <result name="success">/WEB-INF/jsp/product-group-back-edit.jsp</result>
+            <result name="error">/WEB-INF/jsp/product-group-back-edit.jsp</result>
         </action>
         <action name="productGroupUpdate" class="productGroupBackAction" method="productGroupUpdate">
             <result name="success" type="redirectAction">

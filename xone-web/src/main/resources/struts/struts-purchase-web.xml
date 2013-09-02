@@ -20,6 +20,13 @@
             <result name="success">/WEB-INF/jsp/purchase-create.jsp</result>
         </action>
         <action name="purchaseSave" class="purchaseWebAction" method="purchaseSave">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">2097152</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success" type="redirectAction">
                 <param name="actionName">purchaseItem</param>
                 <param name="namespace">/purchase</param>
@@ -30,6 +37,13 @@
             <result name="success">/WEB-INF/jsp/purchase-edit.jsp</result>
         </action>
         <action name="purchaseUpdate" class="purchaseWebAction" method="purchaseUpdate">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">2097152</param>
+                <param name="allowedTypes">
+                    image/png,image/gif,image/jpeg,image/pjpeg
+                </param>
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"></interceptor-ref>
             <result name="success" type="redirectAction">
                 <param name="actionName">purchaseItem</param>
                 <param name="namespace">/purchase</param>

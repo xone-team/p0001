@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -221,7 +222,9 @@ public class ProductWebAction extends LogicAction {
 			setProduct(getProductService().save(getProduct(), getImageList()));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			addActionError(e.getMessage());
+			if( e instanceof FileUploadException){
+				addFieldError("uploadFile1", "请上传小于2M的png,jpg,gif图片");
+			}
 			return INPUT;
 		}
 
@@ -284,8 +287,16 @@ public class ProductWebAction extends LogicAction {
 					});
 			entity.setUserUpdated(getUserId());
 			entity.setLastUpdated(new Date());
-			setProduct(getProductService().update(entity, getImageList(),
-					product.getIds()));
+			try {
+				setProduct(getProductService().update(entity, getImageList(),
+						product.getIds()));
+			} catch (Exception e) {
+				log.error(e.getMessage(), e);
+				if( e instanceof FileUploadException){
+					addFieldError("uploadFile1", "请上传小于2M的png,jpg,gif图片");
+				}
+				return INPUT;
+			}
 		}
 		return SUCCESS;
 	}

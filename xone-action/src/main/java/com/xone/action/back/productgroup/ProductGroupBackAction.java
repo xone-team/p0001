@@ -132,14 +132,10 @@ public class ProductGroupBackAction extends Action {
     public boolean compareProductGroupNum(){
         boolean result = true;
         // compare product num
-        Long productNum = 0L;
-        product = productService.findById(productGroup.getProductId());
-        if(product != null && product.getProductNum() != null){
-            productNum = Long.valueOf(product.getProductNum());
-        }
+        int productNum = productGroupService.getProductLeftNum(productGroup.getProductId());
         Long productGroupNum = productGroup.getGroupNum();
-        if(productNum < 1L || productNum < productGroupNum){
-            addFieldError("product.groupNum", "团购数量不足");
+        if(productNum < productGroupNum){
+            addFieldError("productGroup.groupNum", "团购数量不足");
             result = false;
         }
         return result;
@@ -171,9 +167,11 @@ public class ProductGroupBackAction extends Action {
                 }
             });
             
-            if(!compareProductGroupNum()){
-                return ERROR;
-            }
+          //TODO  error:Connection is read-only. Queries leading to data modification are not allowed
+//            if(!compareProductGroupNum()){
+//                return ERROR;
+//            }
+            
             
 //            if(ProductGroup.CheckStatus.DENIED.equals(entity.getCheckStatus())
 //                    || ProductGroup.CheckStatus.PASSED.equals(entity.getCheckStatus())){

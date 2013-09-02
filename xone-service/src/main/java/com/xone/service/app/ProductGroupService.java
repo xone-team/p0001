@@ -25,4 +25,6 @@ public interface ProductGroupService {
 	public int getOrderProductNum(Long productId);
 	
 	public int getOrderPersonNum(Long productId);
+
+	public int getProductLeftNum(Long productId);
 }

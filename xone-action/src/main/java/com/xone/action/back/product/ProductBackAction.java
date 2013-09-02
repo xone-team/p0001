@@ -51,6 +51,7 @@ public class ProductBackAction extends LogicAction {
 
 	protected Integer orderedProductNum;
 	protected Integer orderedPersonNum;
+	protected Integer productLeftNum;
 
 	public Enum<?>[] getFlagDeleted() {
 		return Product.FlagDeleted.values();
@@ -103,14 +104,16 @@ public class ProductBackAction extends LogicAction {
 				entity.getId());
 		orderedProductNum = getProductGroupService().getOrderProductNum(
 				entity.getId());
+		productLeftNum = getProductGroupService().getProductLeftNum(
+				entity.getId());
 
 		setProduct(entity);
 		return SUCCESS;
 	}
 
 	public String productCreate() throws Exception {
-//		product.setProductNum("0");
-//		product.setProductPrice("0");
+		// product.setProductNum("0");
+		// product.setProductPrice("0");
 
 		return SUCCESS;
 	}
@@ -124,6 +127,8 @@ public class ProductBackAction extends LogicAction {
 		orderedPersonNum = getProductGroupService().getOrderPersonNum(
 				entity.getId());
 		orderedProductNum = getProductGroupService().getOrderProductNum(
+				entity.getId());
+		productLeftNum = getProductGroupService().getProductLeftNum(
 				entity.getId());
 
 		setProduct(entity);
@@ -208,14 +213,14 @@ public class ProductBackAction extends LogicAction {
 					});
 			entity.setUserUpdated(getUserId());
 			entity.setLastUpdated(new Date());
-//			if (Product.CheckStatus.DENIED.getValue().equals(
-//					product.getProductCheck().getCheckStatus())
-//					|| Product.CheckStatus.PASSED.getValue().equals(
-//							product.getProductCheck().getCheckStatus())) {
-				entity.setUserCheck(getUserId());
-				entity.setDateCheck(new Date());
-				entity.getProductCheck().setUserCheck(getUserId());
-//			}
+			// if (Product.CheckStatus.DENIED.getValue().equals(
+			// product.getProductCheck().getCheckStatus())
+			// || Product.CheckStatus.PASSED.getValue().equals(
+			// product.getProductCheck().getCheckStatus())) {
+			entity.setUserCheck(getUserId());
+			entity.setDateCheck(new Date());
+			entity.getProductCheck().setUserCheck(getUserId());
+			// }
 			try {
 				entity.setIds(oldIds);
 				setProduct(getProductService().update(entity, getImageList(),
@@ -364,5 +369,14 @@ public class ProductBackAction extends LogicAction {
 	public void setOrderedPersonNum(Integer orderedPersonNum) {
 		this.orderedPersonNum = orderedPersonNum;
 	}
+
+	public Integer getProductLeftNum() {
+		return productLeftNum;
+	}
+
+	public void setProductLeftNum(Integer productLeftNum) {
+		this.productLeftNum = productLeftNum;
+	}
+	
 
 }

@@ -39,6 +39,10 @@
                             <td>${product.productName}</td>
                         </tr>
                         <tr>
+                            <td style="width: 60px;">团购数量</td>
+                            <td>${productGroup.groupNum}</td>
+                        </tr>
+                        <tr>
                             <td style="width: 60px;">备注</td>
                             <td>${productGroup.remark}</td>
                         </tr>
