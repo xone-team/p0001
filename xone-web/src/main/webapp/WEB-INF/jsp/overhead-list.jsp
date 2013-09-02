@@ -41,15 +41,17 @@
                     <tbody>
                         <c:forEach var="item" items="${pagination.list}" varStatus="status">
                             <tr>
-                                <td class="table-col-index"><th>编号</th></td>
+                                <td class="table-col-index">${item.id}</td>
                                 <td>${item.overheadTypeName}</td>
                                 <td>${item.checkStatusName}</td>
                                 <td>${item.remark}</td>
                                 <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                 <td class="table-col-number"><fmt:formatDate value="${item.dateCheck}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-                                <td><a href="${pageContext.request.contextPath}/overhead/overheadEdit.html?overhead.id=${item.id}" class="btn btn-mini">
-                                        <i class="icon-edit"> </i>编辑
-                                    </a> <a href="${pageContext.request.contextPath}/overhead/overheadItem.html?overhead.id=${item.id}" class="btn btn-mini">
+                                <td><c:if test="${item.checkStatus != '1'}">
+                                        <a href="${pageContext.request.contextPath}/overhead/overheadEdit.html?overhead.id=${item.id}" class="btn btn-mini">
+                                            <i class="icon-edit"> </i>编辑
+                                        </a>
+                                    </c:if> <a href="${pageContext.request.contextPath}/overhead/overheadItem.html?overhead.id=${item.id}" class="btn btn-mini">
                                         <i class="icon-list-alt"></i>详细
                                     </a></td>
                             </tr>

@@ -23,6 +23,7 @@ import com.xone.model.hibernate.app.PurchaseCheckDao;
 import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.entity.PurchaseCheck;
 import com.xone.model.hibernate.support.Pagination;
@@ -170,6 +171,13 @@ public class PurchaseServiceImpl implements PurchaseService {
             check.setFlagDeleted(PurchaseCheck.FlagDeleted.NORMAL.getValue());
             check.setUserApply(entity.getUserApply());
             check.setDateApply(entity.getDateApply());
+            
+            if (Purchase.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) 
+            		|| Purchase.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
+            } else{
+            	check.setCheckStatus(Purchase.CheckStatus.WAITING.getValue());
+            }
+            
             purchaseCheckDao.save(check);
             entity.setDateCheck(dateCheck);
             entity.setCheckStatus(check.getCheckStatus());

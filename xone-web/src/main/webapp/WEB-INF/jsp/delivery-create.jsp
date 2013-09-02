@@ -43,10 +43,8 @@
                     <div class="control-group">
                         <label class="control-label" for="loadtime">上货时间</label>
                         <div class="controls">
-                            <div class="input-append date" data-date-format="yyyy-mm-dd hh:ii">
-                                <input type="text" id="loadtime" class="Wdate" value="${delivery.loadtime }" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'});" name="delivery.loadtime" maxlength="19" placeholder="上货时间" readonly="readonly">
-                                <code>*</code>
-                            </div>
+                            <input type="text" id="loadtime" class="Wdate" value="${delivery.loadtime }" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'});" name="delivery.loadtime" maxlength="19" placeholder="上货时间" readonly="readonly">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">

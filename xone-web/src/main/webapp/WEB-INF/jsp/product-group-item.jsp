@@ -34,7 +34,7 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">产品</td>
-                            <td>${product.productName}</td>
+                            <td><a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${productGroup.productId}"> ${product.productName} </a></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">团购数量</td>

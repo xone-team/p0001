@@ -17,7 +17,14 @@
     <div class="container">
         <div class="row">
             <div class="span3">
-                <jsp:include page="user-center-menu.jsp"><jsp:param value="9" name="menuindex" /></jsp:include>
+                <c:choose>
+                    <c:when test="${product.saleType == '1' }"><jsp:include page="user-center-menu.jsp"><jsp:param value="10" name="menuindex" />
+                        </jsp:include></c:when>
+                    <c:when test="${product.saleType == '2' }"><jsp:include page="user-center-menu.jsp"><jsp:param value="11" name="menuindex" />
+                        </jsp:include></c:when>
+                    <c:otherwise><jsp:include page="user-center-menu.jsp"><jsp:param value="9" name="menuindex" />
+                        </jsp:include></c:otherwise>
+                </c:choose>
             </div>
             <div class="span9">
                 <ul class="breadcrumb">

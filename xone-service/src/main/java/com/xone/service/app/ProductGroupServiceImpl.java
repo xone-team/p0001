@@ -76,6 +76,7 @@ public class ProductGroupServiceImpl implements ProductGroupService {
 	public ProductGroup save(ProductGroup entity) {
 	    entity.setDateApply(new Date());
 	    entity.setCheckStatus(ProductGroup.CheckStatus.WAITING.getValue());
+	    entity.setFlagDeleted(ProductGroup.FlagDeleted.NORMAL.getValue());
 		return getProductGroupDao().save(entity);
 	}
 	
