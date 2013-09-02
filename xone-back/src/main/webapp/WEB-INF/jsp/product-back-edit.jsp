@@ -263,13 +263,7 @@
             }, {
                 name : 'product.productLocation',
                 text : '请输入产品属地'
-            }, {
-                name : 'product.productDesc',
-                text : '请输入产品描述'
-            }, {
-                name : 'uploadFile1',
-                text : '请上传主图片'
-            } ];
+            }];
             var pass = XONE.valid(validate, $form, "");
             return pass;
         });

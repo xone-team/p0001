@@ -234,13 +234,6 @@
             }, {
                 name : 'purchase.purchaseLocation',
                 text : '请输入产品属地'
-            }, {
-                name : 'purchase.purchaseDesc',
-                text : '请输入产品描述'
-            }, {
-                name : 'uploadFile1',
-                text : '请上传主图片',
-                func : imageRequired
             } ];
             var pass = XONE.valid(validate, $form, "");
             return pass;
