@@ -27,7 +27,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">产品名称:</td>
+				    			<td class="mylabel"><span class="required">*</span>产品名称:</td>
 				    			<td><input type="text" id="productproductName${myid}" name="product.productName" placeholder="产品名称" data-mini="true" value="${product.productName}" autocomplete="off" maxlength="20"/></td>
 				    		</tr>
 				    	</table>
@@ -35,7 +35,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">产品类型:</td>
+				    			<td class="mylabel"><span class="required">*</span>产品类型:</td>
 				    			<td>
 				    				<select name="product.productType" placeholder="产品类型" data-mini="true">
 				    					<option value="0">冻品</option>
@@ -51,7 +51,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">产品产地:</td>
+				    			<td class="mylabel"><span class="required">*</span>产品产地:</td>
 				    			<td><input type="text" id="productproductAddress${myid}" name="product.productAddress" placeholder="产品产地" data-mini="true" value="${product.productAddress}" autocomplete="off" maxlength="20"/></td>
 				    		</tr>
 				    	</table>
@@ -59,7 +59,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">产品属地:</td>
+				    			<td class="mylabel"><span class="required">*</span>产品属地:</td>
 				    			<td><input type="text" id="productproductLocation${myid}" name="product.productLocation" placeholder="产品属地" data-mini="true" value="${product.productLocation}" autocomplete="off" maxlength="20"/></td>
 				    		</tr>
 				    	</table>
@@ -67,7 +67,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">产品价格:</td>
+				    			<td class="mylabel"><span class="required">*</span>产品价格:</td>
 				    			<td><input type="text" id="productproductPrice${myid}" name="product.productPrice" placeholder="产品价格" data-mini="true" value="${product.productPrice}" autocomplete="off" maxlength="10"/></td>
 				    		</tr>
 				    	</table>
@@ -75,7 +75,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">数　　量:</td>
+				    			<td class="mylabel"><span class="required">*</span>数　　量:</td>
 				    			<td><input type="text" id="productproductNum${myid}" name="product.productNum" placeholder="数量" data-mini="true" value="${product.productNum}" autocomplete="off" maxlength="10"/></td>
 				    		</tr>
 				    	</table>

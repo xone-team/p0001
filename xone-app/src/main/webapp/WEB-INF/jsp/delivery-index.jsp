@@ -34,7 +34,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">市场区域:</td>
+				    			<td class="mylabel"><span class="required">*</span>市场区域:</td>
 				    			<td><input type="text" id="deliverymarketarea${myid}" name="delivery.marketarea" data-mini="true" value="" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
@@ -42,7 +42,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">目&nbsp;&nbsp;的&nbsp;&nbsp;地:</td>
+				    			<td class="mylabel"><span class="required">*</span>目&nbsp;&nbsp;的&nbsp;&nbsp;地:</td>
 				    			<td><input type="text" id="deliverydetermini${myid}" name="delivery.determini" data-mini="true" value="" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
@@ -50,7 +50,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">上货时间:</td>
+				    			<td class="mylabel"><span class="required">*</span>上货时间:</td>
 				    			<td><input type="text" id="deliveryloadtime${myid}" name="delivery.loadtime" data-mini="true" value="" autocomplete="off" readonly="readonly"/></td>
 				    		</tr>
 				    	</table>
@@ -58,7 +58,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">上货地点:</td>
+				    			<td class="mylabel"><span class="required">*</span>上货地点:</td>
 				    			<td><input type="text" id="deliveryloadaddress${myid}" name="delivery.loadaddress" data-mini="true" value="" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
@@ -66,7 +66,7 @@
 				    <li style="padding-right:0px;">
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td rowspan="3" style="border-right:1px solid gray;">货量:</td>
+				    			<td rowspan="3" style="border-right:1px solid gray;"><span class="required">*</span><br/>货量:</td>
 			    				<td style="width:40px;text-align:right;">箱数</td>
 				    			<td>
 				    				<input type="text" id="deliveryboxNum${myid}" name="delivery.boxNum" value="" autocomplete="off"/>
