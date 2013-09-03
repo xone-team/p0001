@@ -1,6 +1,7 @@
 package com.xone.action.app.purchase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -126,6 +127,9 @@ public class PurchaseAction extends LogicAction {
 			}
 			if (!StringUtils.isBlank(getPurchase().getPurchaseName())) {
 				params.put("purchaseName", getPurchase().getPurchaseName());
+			}
+			if (!StringUtils.isBlank(map.get("exIds"))) {
+				params.put("exIds", Arrays.asList(map.get("exIds").split(",")));
 			}
 			params.put("userLevels", getLogicUserLevel());
 			params.put("checkStatus", Purchase.CheckStatus.PASSED.getValue());

@@ -50,7 +50,8 @@
 					onUp: function() {
 						var item = $('li.purchasedatecreateditem');
 						return $.extend({}, {
-							'purchase.purchaseName': $('div.purchase-list-main${myid}').find('input[data-type="search"]').val()
+							'purchase.purchaseName': $('div.purchase-list-main${myid}').find('input[data-type="search"]').val(),
+							'exIds': exPurchaseIds()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'up',
