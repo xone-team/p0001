@@ -19,7 +19,7 @@
             <div class="span2">
                 <jsp:include page="common-menu.jsp"></jsp:include>
             </div>
-            <div class="span10" id="X_contentContainer">
+            <div class="span10" id="X_contentContainer"><td><a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}"> ${product.productName} </a></td>
                 <div class="row-fluid">
                     <ul class="breadcrumb" id="X_breadcrumbs_ul">
                         <li>后台 <span class="divider">/</span></li>
@@ -36,7 +36,7 @@
                         </tr>
                         <tr>
                             <td style="width: 60px;">产品</td>
-                            <td>${product.productName}</td>
+                            <td><a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${productGroup.productId}"> ${product.productName} </a></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">团购数量</td>

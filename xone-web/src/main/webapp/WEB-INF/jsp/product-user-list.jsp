@@ -86,9 +86,9 @@
                     <tbody>
                         <c:forEach var="item" items="${pagination.list}">
                             <tr>
-                                <td class="table-col-index"><th>编号</th></td>
+                                <td class="table-col-index">${item.id}</td>
                                 <td>${item.productName}</td>
-                                <td>${product.productTypeName }</td>
+                                <td>${item.productTypeName }</td>
                                 <td>${item.saleTypeName }</td>
                                 <td class="table-col-number">${item.productPrice}</td>
                                 <td class="table-col-number">${item.productNum}</td>

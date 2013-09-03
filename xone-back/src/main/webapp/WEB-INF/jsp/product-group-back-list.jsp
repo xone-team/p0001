@@ -100,7 +100,7 @@
                             <c:forEach var="item" items="${pagination.list}" varStatus="status">
                                 <tr>
                                     <td class="table-col-index">${item.id}</td>
-                                    <td><a href="${pageContext.request.contextPath}/productGroup/productGroupItem.html?productGroup.id=${item.productId}"> ${item.productId} </a></td>
+                                    <td><a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.productId}"> ${item.productId} </a></td>
                                     <td>${item.groupNum}</td>
                                     <td>${item.checkStatusName}</td>
                                     <td>${item.remark}</td>

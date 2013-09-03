@@ -44,7 +44,7 @@
                     <tbody>
                         <c:forEach var="item" items="${pagination.list}" varStatus="status">
                             <tr>
-                                <td class="table-col-index"><th>编号</th></td>
+                                <td class="table-col-index">${item.id}</td>
                                 <td>${item.name}</td>
                                 <td>${item.address}</td>
                                 <td>${item.tel}</td>

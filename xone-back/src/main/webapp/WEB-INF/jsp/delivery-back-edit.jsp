@@ -50,10 +50,8 @@
                     <div class="control-group">
                         <label class="control-label" for="loadtime">上货时间</label>
                         <div class="controls">
-                            <div class="input-append date" data-date-format="yyyy-mm-dd hh:ii">
-                                <input type="text" id="loadtime" name="delivery.loadtime" value="<fmt:formatDate value="${delivery.loadtime}" pattern="yyyy-MM-dd hh:mm"/>" maxlength="19" placeholder="上货时间" readonly="readonly">
-                                <code>*</code>
-                            </div>
+                            <input type="text" id="loadtime" name="delivery.loadtime" value="<fmt:formatDate value="${delivery.loadtime}" pattern="yyyy-MM-dd hh:mm"/>" maxlength="19" placeholder="上货时间" readonly="readonly">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">

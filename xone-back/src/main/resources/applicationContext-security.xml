@@ -13,6 +13,7 @@
     <http pattern="/images/**" security="none"></http>
     <http pattern="/console/login.html**" security="none"></http>
     <http pattern="/index.jsp**" security="none"></http>
+    <http pattern="/image.html**" security="none"></http>
     <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint">
         <logout />
         <!-- 实现免登陆验证 -->

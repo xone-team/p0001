@@ -168,6 +168,12 @@ public class ProductServiceImpl implements ProductService {
             check.setFlagDeleted(ProductCheck.FlagDeleted.NORMAL.getValue());
             check.setUserApply(entity.getUserApply());
             check.setDateApply(entity.getDateApply());
+            if (Product.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) 
+            		|| Product.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
+            } else{
+            	check.setCheckStatus(Product.CheckStatus.WAITING.getValue());
+            }
+            
             productCheckDao.save(check);
             
             entity.setDateCheck(dateCheck);
