@@ -29,3 +29,15 @@
         </div>
     </div>
 </div>
+<c:if test="${!supportBrowser}">
+<div class="well well-sm">
+	<div class="well well-sm" style="color:red;font-weight: bold;">您正在使用的浏览器不符合业界标准规范，继续使用可能会给本系统带来不可预料的系统错误，建议你使用以下浏览器(任选一种)</div>
+	<div class="well well-sm">
+		<span style="padding-right:10px;">|<a href="http://www.google.com/chrome/eula.html?hl=zh-CN" target="_blank">谷歌(Chrome)浏览器在线安装</a>|</span>
+		<span style="padding-right:10px;">|<a href="http://www.google.com/chrome/eula.html?hl=zh-CN&standalone=1" target="_blank">谷歌(Chrome)离线安装包(仅 Windows可用)</a>|</span>
+		<span style="padding-right:10px;">|<a href="http://www.mozilla.org/en-US/firefox/all/" target="_blank">火狐(Firefox)浏览器下载安装</a>|</span>
+		<span style="padding-right:10px;">|<a href="http://safari.softonic.cn/" target="_blank">Safari浏览器(Windows)下载安装</a>|</span>
+		<span style="padding-right:10px;">|<a href="http://www.opera.com/zh-cn" target="_blank">Opera浏览器下载安装</a>|</span>
+	</div>
+</div>
+</c:if>

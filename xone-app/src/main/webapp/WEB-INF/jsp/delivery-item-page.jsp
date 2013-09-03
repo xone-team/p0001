@@ -29,7 +29,6 @@
 						doRequest();
 					});
 					function doRequest() {
-						$.mobile.loading('show');
 						$('ul.delivery-item-page-view').html('<li data-icon="none" class="deliverypageitemloading"><a href="#">详细信息加载中...</a></li>').listview('refresh');
 						$.ajax({
 							type: 'GET',
@@ -37,10 +36,8 @@
 							data: '_=' + new Date().getTime() + '&id=' + '${delivery.id}',
 							success: function(html) {
 								$('ul.delivery-item-page-view').html(html).listview('refresh');
-								$.mobile.loading('hide');
 							},
 							error: function() {
-								$.mobile.loading('hide');
 							}
 						});
 					}

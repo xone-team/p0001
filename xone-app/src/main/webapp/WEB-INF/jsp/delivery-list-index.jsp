@@ -59,13 +59,13 @@
 						$('ul.delivery-list-view').append(html).listview('refresh');
 					}
 				});
-	        	doRequest();
+	        	doDeliveryListRequest();
 				$('a.delivery-list-page-refresh').click(function(e) {
 					$('ul.delivery-list-view').html('<li data-role="list-divider">数据加载中，请稍候...</li>').listview('refresh');
-					doRequest();
+					doDeliveryListRequest();
 				});
 				$('div.delivery-list-index-page').data('eventbinding', true);
-				function doRequest() {
+				function doDeliveryListRequest() {
 					$.ajax({
 						type: 'GET',
 						url: '${pageContext.request.contextPath}/delivery/listItems.html',

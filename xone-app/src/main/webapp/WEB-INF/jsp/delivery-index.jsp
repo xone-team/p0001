@@ -17,6 +17,11 @@
 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2.js"></script>
 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.datetime-2.6.2.js"></script>
 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2-zh.js"></script>
+		<style type="text/css">
+			td.mylabel {
+				width:80px;
+			}
+		</style>
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${myid}" data-icon="check" class="btn-banner">返回</a>
 			<h1>物流配送</h1>
@@ -74,7 +79,7 @@
 				    		<tr>
 			    				<td  style="text-align:right;">总共</td>
 			    				<td colspan="2">
-				    				<input type="text" id="deliveryboxTotal${myid}" name="delivery.boxTotal" value="" autocomplete="off"/>
+				    				<input type="text" id="deliveryboxTotal${myid}" name="delivery.boxTotal" value="" readonly autocomplete="off"/>
 				    			</td>
 			    				<td>kg</td>
 				    		</tr>
@@ -94,10 +99,11 @@
 			</form>
 		</div>
 		<script type="text/javascript" language="javascript">
-			$(document).on("pageinit", function() {
+			$('div.deliverypage${myid}').bind("pageinit", function() {
 				$('div.deliverycontent').css({
 					paddingTop: '0px'
 				});
+				loadnumbercheckfordelivery('deliveryboxNum${myid}', 'deliveryunitNum${myid}', 'deliveryboxTotal${myid}', 'deliverytotalWeight${myid}');
 				$('#deliveryloadtime${myid}').val('').scroller('destroy')
 					.scroller($.extend({
 						preset : 'datetime',
@@ -109,7 +115,9 @@
 						mode : 'scroller',
 						display : 'modal',
 						lang : 'zh'
-					}));
+					})).bind('click', function() {
+						$(this).focus()
+					});
 				$('a.deliverysave${myid}').click(function(e) {
 					e.preventDefault();
 					$('#mydeliverysubmit${myid}').click();
@@ -136,7 +144,19 @@
 					for (var i = 0; i < v.length; i++) {
 						var vi = v[i];
 						if ('' == $.trim($('#' + vi.id).val())) {
-							$('#' + vi.id).closest('li').before(['<li class="myerror error"><div class="error ui-btn-inner">', vi.msg, '</div></li>'].join(''));
+							$('#' + vi.id).closest('li').before(['<li class="myerror"><div class="error ui-btn-inner">', vi.msg, '</div></li>'].join(''));
+						}
+					}
+					if (!inputABCDCheck('deliveryboxNum${myid}', 'deliveryunitNum${myid}', 'deliverytotalWeight${myid}')) {
+						v = [{
+							id: 'deliveryboxNum${myid}',
+							msg: '货量或者输入箱数单位数或者输入总重'
+						}];
+						for (var i = 0; i < v.length; i++) {
+							var vi = v[i];
+							if ('' == $.trim($('#' + vi.id).val())) {
+								$('#' + vi.id).closest('li').before(['<li class="myerror"><div class="error ui-btn-inner">', vi.msg, '</div></li>'].join(''));
+							}
 						}
 					}
 					if ($('form.deliveryform${myid} li.myerror').length > 0) {
@@ -145,6 +165,25 @@
 					}
 					return true;
 				});
+				function loadnumbercheckfordelivery(A, B, C, D) {
+					$('#' + A + ', #' + B + '').keyup(function() {
+						$('#' + A).val($('#' + A).val().replace(/\D/ig, ''));
+						$('#' + B).val($('#' + B).val().replace(/\D/ig, ''));
+						var vala = $('#' + A).val();
+						var valb = $('#' + B).val();
+						if (vala != '' && valb != '' && !isNaN(vala) && !isNaN(valb)) {
+							$('#' + C).val(parseInt(vala) * parseInt(valb));
+						} else {
+							$('#' + C).val('');
+						}
+					});
+					$('#' + D).keyup(function() {
+						$('#' + D).val($('#' + D).val().replace(/\D/ig, ''));
+					});
+				}
+				function inputABCDCheck(A, B, D) {
+					return (($.trim($('#' + A).val()) != '' && $.trim($('#' + B).val()) != '') || $.trim($('#' + D).val()) != '');
+				}
 			});
 		</script>
 		<jsp:include page="footer.jsp">

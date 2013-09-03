@@ -212,4 +212,55 @@ public class Action extends ActionSupport implements Preparable, ServletRequestA
 		return System.currentTimeMillis();
 	}
 	
+	/**
+	 * 是不是推荐支持的浏览器
+	 * @return
+	 */
+	public final boolean isSupportBrowser() {
+		Map<String, String> binfo = getBrowserInfo();
+		if ("Chrome".equalsIgnoreCase(binfo.get("name"))
+				|| "Firefox".equalsIgnoreCase(binfo.get("name"))
+				|| "Opera".equalsIgnoreCase(binfo.get("name"))
+				|| "Safari".equalsIgnoreCase(binfo.get("name"))) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 取得浏览器访问的类型与版本
+	 * @return
+	 */
+	public final Map<String, String> getBrowserInfo() {
+		String browserInfo = request.getHeader("User-Agent");
+		String browserName = "";
+		String browserVersion = "";
+		String info[] = null;
+		if (browserInfo.contains("MSIE")) {
+			String substring = browserInfo.substring(browserInfo.indexOf("MSIE"));
+			info = (substring.split(";")[0]).split(" ");
+		} else if (browserInfo.contains("Firefox")) {
+			String substring = browserInfo.substring(browserInfo.indexOf("Firefox"));
+			info = (substring.split(" ")[0]).split("/");
+		} else if (browserInfo.contains("Chrome")) {
+			String substring = browserInfo.substring(browserInfo.indexOf("Chrome"));
+			info = (substring.split(" ")[0]).split("/");
+		} else if (browserInfo.contains("Opera")) {
+			String substring = browserInfo.substring(browserInfo.indexOf("Opera"));
+			info = (substring.split(" ")[0]).split("/");
+		} else if (browserInfo.contains("Safari")) {
+			String substring = browserInfo.substring(browserInfo.indexOf("Safari"));
+			info = (substring.split(" ")[0]).split("/");
+		}
+		Map<String, String> map = new HashMap<String, String>();
+		if (null != info && info.length >= 2) {
+			browserName = info[0];
+			browserVersion = info[1];
+			map.put("name", browserName);
+			map.put("version", browserVersion);
+		}
+		map.put("info", browserInfo);
+		return map;
+	}
+	
 }
