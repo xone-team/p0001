@@ -86,8 +86,12 @@
                                 </c:forEach></td>
                         </tr>
                         <tr>
-                            <td style="width: 60px;">申请人</td>
-                            <td>${product.userApply}</td>
+                            <td style="width: 60px;">手机号码:</td>
+                            <td>${product.person.cellphone}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 60px;">联&nbsp;&nbsp;系&nbsp;&nbsp;人:</td>
+                            <td>${product.person.contactor}</td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">申请时间</td>
