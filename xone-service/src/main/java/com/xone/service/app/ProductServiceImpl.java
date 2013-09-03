@@ -80,6 +80,13 @@ public class ProductServiceImpl implements ProductService {
             
             List<ProductCheck> checks = getProductCheckDao().findByProductId(product.getId());
             product.setProductCheckList(checks);
+            
+            if (null != product.getUserCreated()) {
+                Person person = getPersonDao().findById(product.getUserCreated());
+                if (null != person) {
+                	product.setPerson(person);
+                }
+            }
         }
         return product;
     }

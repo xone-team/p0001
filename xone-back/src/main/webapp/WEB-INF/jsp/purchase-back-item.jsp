@@ -72,6 +72,14 @@
                                 </c:forEach></td>
                         </tr>
                         <tr>
+                            <td style="width: 60px;">手机号码:</td>
+                            <td>${purchase.person.cellphone}</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 60px;">联&nbsp;&nbsp;系&nbsp;&nbsp;人:</td>
+                            <td>${purchase.person.contactor}</td>
+                        </tr>
+                        <tr>
                             <td style="width: 60px;">申请时间</td>
                             <td><fmt:formatDate value="${purchase.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>

@@ -545,6 +545,14 @@ public class PurchaseServiceImpl implements PurchaseService {
         	
             List<PurchaseCheck> l = purchaseCheckDao.findByPurchaseId(purchase.getId());
             purchase.setPurchaseCheckList(l);
+            
+            if (null != purchase.getUserCreated()) {
+                Person person = getPersonDao().findById(purchase.getUserCreated());
+                if (null != person) {
+                	purchase.setPerson(person);
+                }
+            }
+            
         }
         return purchase;
     }
