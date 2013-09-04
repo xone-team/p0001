@@ -15,8 +15,9 @@
 				width:80px;
 			}
 		</style><c:set var="myid" value="${identify}" />
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${myid}" data-icon="check" class="btn-banner">返回</a>
+		<div data-id="myheader" data-role="header" data-position="fixed">
+<%-- 			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${myid}" data-icon="check" class="btn-banner">返回</a> --%>
+			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>物流配送</h1>
 			<a href="#" class="delivery-success-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
 		</div>

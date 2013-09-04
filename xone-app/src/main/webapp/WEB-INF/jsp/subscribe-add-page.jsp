@@ -13,8 +13,9 @@
 	</head>
 	<body>
 	<div data-role="page" class="subscribe-add-page" data-dom-cache="false">
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<a href="#" data-icon="check" data-rel="back">返回</a>
+		<div data-id="myheader" data-role="header" data-position="fixed">
+<!-- 			<a href="#" data-icon="check" data-rel="back">返回</a> -->
+			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>筛选订阅</h1>
 			<a href="#" rel="external" data-icon="check" data-role="button" class="subscribe-save-button ui-btn-right">发布</a>
 		</div>

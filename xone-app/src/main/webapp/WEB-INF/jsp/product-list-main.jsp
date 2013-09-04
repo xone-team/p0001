@@ -5,7 +5,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Hello World</title>
+		<title>产品列表</title>
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<jsp:include page="commons.jsp"></jsp:include>
@@ -75,11 +75,11 @@
 							overheadli.after(html);
 						}
 						ul.listview('refresh');
-						fixedPurchaseImage();
+						fixedProductImage();
 					},
 					up: function(html) {
 						$('ul.ul-product-list${myid}').append(html).listview('refresh');
-						fixedPurchaseImage();
+						fixedProductImage();
 					}
 				});
 				doOverheadRequest();
@@ -91,7 +91,7 @@
 						data: '_=' + new Date().getTime(),
 						success: function(html) {
 							$('ul.ul-product-list${myid}').html(html).listview('refresh');
-							fixedPurchaseImage();
+							fixedProductImage();
 						}
 					});
 				}
@@ -114,12 +114,12 @@
 								doRequest();
 							} else {
 								ul.listview('refresh');
-								fixedPurchaseImage();
+								fixedProductImage();
 							}
 						}
 					});
 				}
-				function fixedPurchaseImage() {
+				function fixedProductImage() {
 					if ($('style.product').length > 0) {
 						return;
 					}

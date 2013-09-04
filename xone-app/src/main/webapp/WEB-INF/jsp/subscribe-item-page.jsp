@@ -18,8 +18,9 @@
 				width:80px;
 			}
 		</style>
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<a href="${pageContext.request.contextPath}<c:choose><c:when test="${param.form == 'items'}">/subscribe/list.html?_=</c:when><c:otherwise>/assistant/index.html?_=</c:otherwise></c:choose>${identify}" data-icon="check">返回</a>
+		<div data-id="myheader" data-role="header" data-position="fixed">
+<%-- 			<a href="${pageContext.request.contextPath}<c:choose><c:when test="${param.form == 'items'}">/subscribe/list.html?_=</c:when><c:otherwise>/assistant/index.html?_=</c:otherwise></c:choose>${identify}" data-icon="check">返回</a> --%>
+			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>订阅详情</h1>
 			<a href="${pageContext.request.contextPath}/subscribe/item.html?subscribe.id=${subscribe.id}&_=${identify}" data-icon="check" data-role="button" class="ui-btn-right">刷新</a>
 		</div>

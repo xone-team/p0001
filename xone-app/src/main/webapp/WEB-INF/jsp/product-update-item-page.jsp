@@ -15,8 +15,9 @@
 <%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2.js"></script> --%>
 <%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.datetime-2.6.2.js"></script> --%>
 <%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2-zh.js"></script> --%>
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
-			<a href="${pageContext.request.contextPath}/product/itemForUser.html?_=${myid}&product.id=${product.id}" data-icon="check" class="btn-banner">返回</a>
+		<div data-id="myheader" data-role="header" data-position="fixed">
+<%-- 			<a href="${pageContext.request.contextPath}/product/itemForUser.html?_=${myid}&product.id=${product.id}" data-icon="check" class="btn-banner">返回</a> --%>
+			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>更新产品发布</h1>
 			<a href="#" data-icon="check" data-role="button" class="productupdateclick ui-btn-right">更新</a>
 		</div>

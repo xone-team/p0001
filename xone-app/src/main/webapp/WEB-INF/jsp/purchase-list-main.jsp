@@ -5,13 +5,14 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Hello World</title>
+		<title>购买列表</title>
 		<jsp:include page="commons.jsp"></jsp:include>
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body><c:set var="myid" value="${identify}" />
-	<div data-role="page" class="purchase-main-page" data-dom-cache="false">
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
+	<div data-role="page" class="purchase-main-page" data-dom-cache="true">
+		<div data-id="myheader" data-role="header" data-position="fixed">
+			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>求购列表</h1>
 			<a href="#" class="purchase-list-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
 		</div>
@@ -107,7 +108,7 @@
 					if ($('style.purchase').length > 0) {
 						return;
 					}
-					var lis = $('li.purchasedatecreateditem:eq(0)');
+					var lis = $('ul.ul-purchase-list${myid} li:eq(0)');
 					if (lis.length > 0) {
 						var height = lis.height() - 3;
 						var css = ['<style type="text/css" class="purchase"> img.purchaseliimage {height:', height, 'px;', 'width:', height, 'px;}</style>'];
@@ -126,8 +127,8 @@
 								doPurchaseRequest();
 							} else {
 								ul.listview('refresh');
+								fixedPurchaseImage();
 							}
-							fixedPurchaseImage();
 						}
 					});
 				}

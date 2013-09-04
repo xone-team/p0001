@@ -55,14 +55,10 @@ $(document).bind("mobileinit", function() {
 	$.extend($.mobile, {
 		defaultPageTransition:'slide',
 		defaultDialogTransition:'slideup',
-		linkBindingEnabled: true,
 		pageLoadErrorMessage: '哇～～网络不给力呀！',
-		transitionFallbacks: 'slidedown',
-		pushStateEnabled: false,
 		loadingMessageTheme: 'e',
 		loadingMessage: '系统正在加载请求的数据，请稍候...',
-		loadingMessageTextVisible: true,
-		hashListeningEnabled: false
+		loadingMessageTextVisible: true
 	});
 });
 function debug(i) {

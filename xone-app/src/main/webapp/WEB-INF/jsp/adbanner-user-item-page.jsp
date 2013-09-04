@@ -31,8 +31,9 @@
 			font-weight: bold;
 		}
 		</style>
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-tap-toggle="false" data-position="fixed">
-			<a href="${pageContext.request.contextPath}/adbanner/list.html?_=${identify}" data-icon="check">返回</a>
+		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-position="fixed">
+<%-- 			<a href="${pageContext.request.contextPath}/adbanner/list.html?_=${identify}" data-icon="check">返回</a> --%>
+			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>我的广告详情</h1>
 			<a href="${pageContext.request.contextPath}/adbanner/item.html?adbanner.id=${adbanner.id}" class="ui-btn-right" data-icon="refresh">刷新</a>
 		</div>
