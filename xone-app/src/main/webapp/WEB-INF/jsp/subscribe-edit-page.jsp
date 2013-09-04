@@ -33,7 +33,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">产品名称:</td>
+				    			<td class="mylabel"><span class="required">*</span>产品名称:</td>
 				    			<td><input type="text" id="subscribeproductNameKey${myid}" name="subscribe.productNameKey" placeholder="产品名称" data-mini="true" value="" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>

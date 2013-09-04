@@ -28,7 +28,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">产品名称:</td>
+				    			<td class="mylabel"><span class="required">*</span>产品名称:</td>
 				    			<td><input type="text" id="purchasepurchaseName${myid}" name="purchase.purchaseName" placeholder="产品名称" data-mini="true" value="" autocomplete="off" maxlength="20"/></td>
 				    		</tr>
 				    	</table>
@@ -36,7 +36,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">产品类型:</td>
+				    			<td class="mylabel"><span class="required">*</span>产品类型:</td>
 				    			<td>
 				    				<select name="purchase.purchaseType" placeholder="产品类型" data-mini="true">
 				    					<option value="0">冻品</option>
@@ -52,7 +52,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">产品产地:</td>
+				    			<td class="mylabel"><span class="required">*</span>产品产地:</td>
 				    			<td><input type="text" id="purchasepurchaseAddress${myid}" name="purchase.purchaseAddress" placeholder="产品产地" data-mini="true" value="" autocomplete="off" maxlength="20"/></td>
 				    		</tr>
 				    	</table>
@@ -60,7 +60,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">产品属地:</td>
+				    			<td class="mylabel"><span class="required">*</span>产品属地:</td>
 				    			<td><input type="text" id="purchasepurchaseLocation${myid}" name="purchase.purchaseLocation" placeholder="产品属地" data-mini="true" value="" autocomplete="off" maxlength="20"/></td>
 				    		</tr>
 				    	</table>
@@ -68,7 +68,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td class="mylabel">数　　量:</td>
+				    			<td class="mylabel"><span class="required">*</span>数　　量:</td>
 				    			<td><input type="text" id="purchasepurchaseNum${myid}" name="purchase.purchaseNum" placeholder="数量" data-mini="true" value="" autocomplete="off" maxlength="10"/></td>
 				    		</tr>
 				    	</table>
