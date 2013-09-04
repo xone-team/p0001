@@ -94,8 +94,8 @@
                             <td>${product.person.contactor}</td>
                         </tr>
                         <tr>
-                            <td style="width: 60px;">申请时间</td>
-                            <td><fmt:formatDate value="${product.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                            <td style="width: 60px;">创建时间</td>
+                            <td><fmt:formatDate value="${product.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核时间</td>

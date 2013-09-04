@@ -88,6 +88,16 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="span5 form-horizontal">
+                                            <div class="control-group">
+                                                <label class="control-label" for="dateCreatedMin">创建时间</label>
+                                                <div class="controls">
+                                                    <input type="text" id="dateCreatedMin" class="span5 Wdate" onclick="WdatePicker()" name="purchase.dateCreatedMin" value="${purchase.dateCreatedMin}" maxlength="19" placeholder="最小日期">
+                                                    <span class="add-on">~</span>
+                                                    <input type="text" id="dateCreatedMax" class="span5 Wdate" onclick="WdatePicker()" name="purchase.dateCreatedMax" value="${purchase.dateCreatedMax}" maxlength="19" placeholder="最大日期">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row-fluid">
                                         <div class="span5 form-horizontal">
@@ -103,26 +113,6 @@
                                                 <label class="control-label" for="purchaseDesc">求购描述</label>
                                                 <div class="controls">
                                                     <input type="text" id="purchaseDesc" name="purchase.purchaseDesc" value="${purchase.purchaseDesc}" maxlength="255" placeholder="求购描述">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row-fluid">
-                                        <div class="span5 form-horizontal">
-                                            <div class="control-group">
-                                                <label class="control-label" for="userApply">申请人</label>
-                                                <div class="controls">
-                                                    <input type="text" id="userId" onclick="$('#windowTitleDialoguserinfo').modal('show');" name="purchase.person.id" maxlength="20" value="${purchase.person.id}" placeholder="用户编号">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="span5 form-horizontal">
-                                            <div class="control-group">
-                                                <label class="control-label" for="dateApplyMin">申请时间</label>
-                                                <div class="controls">
-                                                    <input type="text" id="dateApplyMin" class="span5 Wdate" onclick="WdatePicker()" name="purchase.dateApplyMin" value="${purchase.dateApplyMin}" maxlength="19" placeholder="最小日期">
-                                                    <span class="add-on">~</span>
-                                                    <input type="text" id="dateApplyMax" class="span5 Wdate" onclick="WdatePicker()" name="purchase.dateApplyMax" value="${purchase.dateApplyMax}" maxlength="19" placeholder="最大日期">
                                                 </div>
                                             </div>
                                         </div>
@@ -166,7 +156,7 @@
                                     <td class="table-col-number">${item.purchaseNum}</td>
                                     <td>${item.purchaseAddress}</td>
                                     <td>${item.purchaseLocation}</td>
-                                    <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                    <td class="table-col-number"><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                     <td>${item.checkStatusName}</td>
                                     <td><a href="${pageContext.request.contextPath}/purchase/purchaseEdit.html?purchase.id=${item.id}" class="btn btn-mini">
                                             <i class="icon-edit"> </i>编辑

@@ -80,8 +80,8 @@
                             <td>${purchase.person.contactor}</td>
                         </tr>
                         <tr>
-                            <td style="width: 60px;">申请时间</td>
-                            <td><fmt:formatDate value="${purchase.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                            <td style="width: 60px;">创建时间</td>
+                            <td><fmt:formatDate value="${purchase.dateCreated}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                         </tr>
                         <tr>
                             <td style="width: 60px;">审核结果</td>

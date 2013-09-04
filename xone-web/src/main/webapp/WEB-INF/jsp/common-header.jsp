@@ -11,9 +11,10 @@
 <link rel="stylesheet" href="${STATIC_ROOT}/css/all.css" />
 <style type="text/css">
 * {
-    font-family: "Microsoft YaHei", "SimHei"
+    font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif
 }
 
+;
 li {
     display: list-item;
     list-style-type: none;
@@ -79,6 +80,5 @@ li {
 .banner-down-ios:hover {
     background-position: -265px -158px;
 }
-
 </style>
 <script src="${STATIC_ROOT}/js/My97DatePicker/WdatePicker.js"></script>
