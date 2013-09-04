@@ -10,7 +10,7 @@
 	</head>
 	<body><c:set var="myid" value="${myid}" />
 	<div data-role="page" class="product-groups-page" data-dom-cache="true">
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>
 			        <li><a href="${pageContext.request.contextPath}/product/index.html?_=${myid}">所有产品</a></li>
@@ -34,7 +34,7 @@
 			        <span class="iscroll-pull-icon"></span>
 			        <span class="iscroll-pull-label"></span>
 				</div>
-		        <ul class="product-groups-listview${myid}" data-role="listview" data-filter="true" data-filter-placeholder="促销关键字搜索..." data-inset="true">
+		        <ul class="product-groups-listview${myid}" data-role="listview" data-filter="true" data-filter-placeholder="组团关键字搜索..." data-inset="true">
 			        <li data-role="list-divider">数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
