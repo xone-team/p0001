@@ -97,9 +97,11 @@ public class ProductAction extends LogicAction {
 	 * @return
 	 */
 	public String doGroups() {
-		getProductGroup().setUserCreated(getUserId());
+		Long userId = getUserId();
+		getProductGroup().setUserCreated(userId);
 		getProductGroup().setFlagDeleted(ProductGroup.FlagDeleted.NORMAL.getValue());
 		getProductGroup().setDateApply(new Date());
+		getProductGroup().setUserApply(userId);
 		getProductGroupService().save(getProductGroup());
 		return SUCCESS;
 	}
