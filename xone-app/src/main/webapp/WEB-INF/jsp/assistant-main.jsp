@@ -12,7 +12,9 @@
 	<body>
 	<div data-role="page" class="assistant-main-page" data-dom-cache="true">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
+			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h2>功能助手</h2>
+			<a href="#" class="assistant-service${myid} ui-btn-right" data-icon="grid">客服</a>
 		</div>
 		<div class="assistantcontent" data-role="content">
 			<c:set var="A_L" value="${alevelUser}"/>
@@ -45,7 +47,7 @@
 				    <li><a href="${pageContext.request.contextPath}/delivery/index.html?_=${myid}">物流配送</a></li>
 				    </c:if>
 				    <li><a href="${pageContext.request.contextPath}/subscribe/add.html?_=${myid}">筛选订阅</a></li>
-				    <li><a href="#" onclick="window.main.makeCall('13761560145');return false;">联系客服</a></li>
+				    <li><a href="#" class="contact-service" onclick="$.makeCall('15221210651');return false;">联系客服</a></li>
 				</ul>
 		    </div>
 		</div>
@@ -60,6 +62,11 @@
 				$('a.assistantpopuplink').click(function(e) {
 					e.preventDefault();
 					$('div.assistantpopuplogin').open();
+					return false;
+				});
+				$('a.assistant-service${myid}').click(function(e) {
+					e.preventDefault();
+					$.makeCall('15221210651');
 					return false;
 				});
 			});

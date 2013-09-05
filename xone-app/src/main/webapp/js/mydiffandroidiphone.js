@@ -45,6 +45,15 @@
 					callback(window.main.mloginValue());
 		    	} catch (e) {}
 			}
+		},
+		makeCall: function(params) {
+			if (isIphone()) {
+				window.location.href= "http://callClient/makeCall?id=" + params;
+			} else {
+				try {
+			    	window.main.makeCall(params);
+		    	} catch (e) {}
+			}
 		}
 	});
 	$.fn.myImageUploded = function(options) {

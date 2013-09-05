@@ -32,6 +32,14 @@
 	    <!-- Include this if you are using Hibernate -->
 	    
 	<filter>
+		<filter-name>prepareHandlerFilter</filter-name>
+		<filter-class>com.xone.action.filters.PrepareHandlerFilter</filter-class>
+		<init-param>
+			<param-name>agent</param-name>
+			<param-value>false</param-value>
+		</init-param>
+    </filter> 
+	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
 		<init-param>
@@ -65,6 +73,10 @@
             <param-value>AUTO</param-value>  
         </init-param>  
     </filter>
+    <filter-mapping>  
+        <filter-name>prepareHandlerFilter</filter-name>  
+        <url-pattern>*.html</url-pattern>  
+    </filter-mapping>  
     <filter-mapping>  
         <filter-name>openSessionInViewFilter</filter-name>  
         <url-pattern>/*</url-pattern>  
