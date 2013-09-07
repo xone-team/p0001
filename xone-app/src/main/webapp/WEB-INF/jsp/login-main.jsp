@@ -69,8 +69,12 @@
 					<c:if test="${A_L || B_L}">
 				    <li><a href="${pageContext.request.contextPath}/delivery/listIndex.html?_=${myid}">查看物流配送列表</a></li>
 				    <li><a href="${pageContext.request.contextPath}/adbanner/list.html?_=${myid}">查看我的广告列表</a></li>
+				    <li><a href="${pageContext.request.contextPath}/product/listOverheadForUser.html?_=${myid}">查看顶置申请列表</a></li>
 				    </c:if>
 				    <li><a href="${pageContext.request.contextPath}/subscribe/list.html?_=${myid}">查看我的订阅列表</a></li>
+				    <c:if test="${C_L || B_L}">
+				    <li><a href="${pageContext.request.contextPath}/product/listGroupForUser.html?_=${myid}">查看组团预定列表</a></li>
+				    </c:if>
 				</ul>
 		    </div>
 		    <script type="text/javascript">

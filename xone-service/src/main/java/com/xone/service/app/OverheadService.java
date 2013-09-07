@@ -22,5 +22,7 @@ public interface OverheadService {
   public Pagination findByParams(Map<String, String> params);
 
   public int countByRefIdAndType(Long refId, String overheadType, Long currentId);
+  
+  public Overhead updateToCancelOverhead(Overhead entity);
 
 }

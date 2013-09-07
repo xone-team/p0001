@@ -19,6 +19,7 @@ import com.xone.model.hibernate.app.ProductDao;
 import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.Overhead;
 import com.xone.model.hibernate.entity.Product;
+import com.xone.model.hibernate.entity.ProductGroup;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
 
@@ -76,12 +77,36 @@ public class OverheadServiceImpl implements OverheadService {
       }
       return overheadDao.countByProperty(c);
     }
+    
+    /**
+     * 取消顶置申请
+     * @param entity
+     * @return
+     */
+	@Override
+	public Overhead updateToCancelOverhead(Overhead entity) {
+		Overhead pg = getOverheadDao().findById(entity.getId());
+		if (null == pg || !entity.getUserCreated().equals(pg.getUserCreated())) {
+			return null;
+		}
+		if (pg.getCheckStatus().equals(Overhead.CheckStatus.PASSED.getValue())) {
+			return pg;
+		}
+		pg.setFlagDeleted(Overhead.FlagDeleted.DELETED.getValue());
+		pg.setUserUpdated(entity.getUserUpdated());
+		getOverheadDao().update(pg);
+		return pg;
+	}
 
     @Override
     public Overhead findByMap(Map<String, String> params) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Overhead.class);
 
 //        handleCriteriaByParams(detachedCriteria, params);
+        String id = params.get("id");
+        if (!StringUtils.isBlank(id)) {
+        	detachedCriteria.add(Restrictions.eq("id", new Long(id)));
+        }
         String refId = params.get("refId");
         if (!StringUtils.isBlank(refId)) {
         	detachedCriteria.add(Restrictions.eq("refId", new Long(refId)));
@@ -106,11 +131,30 @@ public class OverheadServiceImpl implements OverheadService {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Overhead.class);
 
 //        handleCriteriaByParams(detachedCriteria, params);
-
         String overheadType = params.get("overheadType");
         if (!StringUtils.isBlank(overheadType)) {
         	detachedCriteria.add(Restrictions.like("overheadType", overheadType));
         }
+        String gtDateCreated = params.get("gtDateCreated");
+		if (!StringUtils.isBlank(gtDateCreated)) {
+			try {
+				detachedCriteria.add(Restrictions.gt("dateCreated", DateUtils
+						.parseDate(gtDateCreated,
+								new String[] { "yyyy-MM-dd HH:mm:ss" })));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		String ltDateCreated = params.get("ltDateCreated");
+		if (!StringUtils.isBlank(ltDateCreated)) {
+			try {
+				detachedCriteria.add(Restrictions.lt("dateCreated", DateUtils
+						.parseDate(ltDateCreated,
+								new String[] { "yyyy-MM-dd HH:mm:ss" })));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
         String flagDeleted = params.get("flagDeleted");
         if (!StringUtils.isBlank(flagDeleted)) {
         	detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
@@ -118,6 +162,10 @@ public class OverheadServiceImpl implements OverheadService {
         String checkStatus = params.get("checkStatus");
         if (!StringUtils.isBlank(checkStatus)) {
         	detachedCriteria.add(Restrictions.eq("checkStatus", checkStatus));
+        }
+        String userCreated = params.get("userCreated");
+        if (!StringUtils.isBlank(userCreated)) {
+        	detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
         }
         detachedCriteria.addOrder(Order.desc("dateCreated"));
         return getOverheadDao().findListByDetachedCriteria(detachedCriteria, 0, 5);

@@ -27,4 +27,6 @@ public interface ProductGroupService {
 	public int getOrderPersonNum(Long productId);
 
 	public int getProductLeftNum(Long productId);
+	
+	public ProductGroup updateToCancelGroup(ProductGroup entity);
 }

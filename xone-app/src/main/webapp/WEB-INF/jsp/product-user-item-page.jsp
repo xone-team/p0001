@@ -16,7 +16,6 @@
 			}
 		</style>
 		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-position="fixed">
-<%-- 			<a href="${pageContext.request.contextPath}/product/listAllForUser.html?_=${identify}" data-icon="check" class="btn-banner">返回</a> --%>
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>产品详情</h1>
 			<a href="#" class="product-user-item-page-refresh ui-btn-right" data-icon="refresh">刷新</a>

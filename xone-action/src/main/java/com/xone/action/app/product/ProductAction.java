@@ -16,11 +16,13 @@ import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Overhead;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.ProductGroup;
+import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.model.utils.MyModelUtils;
 import com.xone.service.app.OverheadService;
 import com.xone.service.app.ProductGroupService;
 import com.xone.service.app.ProductService;
+import com.xone.service.app.PurchaseService;
 import com.xone.service.app.SubscribeService;
 import com.xone.service.app.utils.AppConstants;
 import com.xone.service.app.utils.MyBeanUtils;
@@ -36,6 +38,9 @@ public class ProductAction extends LogicAction {
 	protected ProductService productService;
 	
 	@Autowired
+	protected PurchaseService purchaseService;
+	
+	@Autowired
 	protected SubscribeService subscribeService;
 	
 	@Autowired
@@ -49,6 +54,10 @@ public class ProductAction extends LogicAction {
 	protected Overhead overhead = new Overhead();
 	protected String imageUploadPath;
 	protected List<Product> list = new ArrayList<Product>();
+	
+	protected List<ProductGroup> listGroup = new ArrayList<ProductGroup>();
+	protected List<Overhead> listOverhead = new ArrayList<Overhead>();
+	protected Map<Long, Product> productMap = new HashMap<Long, Product>();
 
 	public String listAll() {
 		product.setSaleType(Product.SaleType.NORMAL.getValue());
@@ -103,6 +112,30 @@ public class ProductAction extends LogicAction {
 		getProductGroup().setDateApply(new Date());
 		getProductGroup().setUserApply(userId);
 		getProductGroupService().save(getProductGroup());
+		return SUCCESS;
+	}
+	
+	/**
+	 * 组团取消操作
+	 * @return
+	 */
+	public String doCancelGroup() {
+		Long userId = getUserId();
+		getProductGroup().setUserCreated(userId);
+		getProductGroup().setUserUpdated(userId);
+		setProductGroup(getProductGroupService().updateToCancelGroup(getProductGroup()));
+		return SUCCESS;
+	}
+	
+	/**
+	 * 顶置申请取消操作
+	 * @return
+	 */
+	public String doCancelOverhead() {
+		Long userId = getUserId();
+		getOverhead().setUserCreated(userId);
+		getOverhead().setUserUpdated(userId);
+		setOverhead(getOverheadService().updateToCancelOverhead(getOverhead()));
 		return SUCCESS;
 	}
 	
@@ -184,6 +217,100 @@ public class ProductAction extends LogicAction {
 	}
 	
 	/**
+	 * 查询用户组团列表
+	 * @return
+	 */
+	public String listGroupItemsForUser() {
+		Map<String, String> map = getRequestMap();
+		int length = MyModelUtils.parseInt(map.get("itemcount"), 0);
+		Map<String, String> params = new HashMap<String, String>();
+		if (length >= AppConstants.LIST_ITEM_LENGTH) {
+			getMapValue().put("ITEM_TOO_LONG", "YES");
+		} else {
+			if ("down".equals(map.get("itemaction")) && null != getProduct().getDateCreated()) {
+				params.put("gtDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+			} else if ("up".equals(map.get("itemaction")) && null != getProduct().getDateCreated()) {
+				params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+			}
+			params.put("flagDeleted", ProductGroup.FlagDeleted.NORMAL.getValue());
+			params.put("userCreated", getUserIdString());
+			List<ProductGroup> list = getProductGroupService().findAllByMap(params);
+			if (null != list && !list.isEmpty()) {
+				listGroup.addAll(list);
+				List<Long> ids = new ArrayList<Long>();
+				for (ProductGroup o : list) {
+					ids.add(o.getProductId());
+				}
+				params.clear();
+				params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+				params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+				List<Product> pList = getProductService().findAllByIds(ids, params);
+				if (null != pList && !pList.isEmpty()) {
+					for (Product p : pList) {
+						productMap.put(p.getId(), p);
+//						getMapValue().put(p.getId().toString(), p);
+					}
+				}
+			}
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询用户顶置列表
+	 * @return
+	 */
+	public String listOverheadItemsForUser() {
+		Map<String, String> map = getRequestMap();
+		int length = MyModelUtils.parseInt(map.get("itemcount"), 0);
+		Map<String, String> params = new HashMap<String, String>();
+		if (length >= AppConstants.LIST_ITEM_LENGTH) {
+			getMapValue().put("ITEM_TOO_LONG", "YES");
+		} else {
+			if ("down".equals(map.get("itemaction")) && null != getProduct().getDateCreated()) {
+				params.put("gtDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+			} else if ("up".equals(map.get("itemaction")) && null != getProduct().getDateCreated()) {
+				params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+			}
+			params.put("flagDeleted", ProductGroup.FlagDeleted.NORMAL.getValue());
+			params.put("userCreated", getUserIdString());
+			List<Overhead> list = getOverheadService().findAllByMap(params);
+			if (null != list && !list.isEmpty()) {
+				listOverhead.addAll(list);
+				List<Long> ids = new ArrayList<Long>();
+				List<Long> pids = new ArrayList<Long>();
+				for (Overhead o : list) {
+					if (o.getOverheadType().equals(Overhead.OverheadType.PURCHASE.getValue())) {
+						ids.add(o.getRefId());
+					} else {
+						pids.add(o.getRefId());
+					}
+				}
+				params.clear();
+				params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+				params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+				if (!pids.isEmpty()) {
+					List<Product> pList = getProductService().findAllByIds(pids, params);
+					if (null != pList && !pList.isEmpty()) {
+						for (Product p : pList) {
+							getMapValue().put("PRO" + p.getId().toString(), p);
+						}
+					}
+				}
+				if (!ids.isEmpty()) {
+					List<Purchase> pList = getPurchaseService().findAllByIds(ids, params);
+					if (null != pList && !pList.isEmpty()) {
+						for (Purchase p : pList) {
+							getMapValue().put("PUR" + p.getId().toString(), p);
+						}
+					}
+				}
+			}
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 查询产品顶置列表
 	 * @return
 	 */
@@ -217,6 +344,26 @@ public class ProductAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	/**
+	 * 用户组团产品审核列表详细查看
+	 * @return
+	 */
+	public String groupitemDetails() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(getProductGroup().getId()));
+		params.put("userCreated", getUserIdString());
+		params.put("flagDeleted", ProductGroup.FlagDeleted.NORMAL.getValue());
+		ProductGroup productGroup = getProductGroupService().findByMap(params);
+		if (null == productGroup || null == productGroup.getId() || null == productGroup.getProductId()) {
+			return ERROR;
+		}
+		params.clear();
+		params.put("id", String.valueOf(productGroup.getProductId()));
+		setProductGroup(productGroup);
+		setProduct(getProductService().findByMap(params));
+		return SUCCESS;
+	}
+	
 	public String item() {
 		return SUCCESS;
 	}
@@ -225,7 +372,32 @@ public class ProductAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	public String groupitemForUser() {
+		return SUCCESS;
+	}
+	
+	public String overheaditemForUser() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(getOverhead().getId()));
+		params.put("userCreated", getUserIdString());
+		params.put("flagDeleted", ProductGroup.FlagDeleted.NORMAL.getValue());
+		Overhead overhead = getOverheadService().findByMap(params);
+		if (null == overhead || null == overhead.getId() || null == overhead.getRefId()) {
+			return ERROR;
+		}
+		setOverhead(overhead);
+		return SUCCESS;
+	}
+	
 	public String listAllForUser() {
+		return SUCCESS;
+	}
+	
+	public String listGroupForUser() {
+		return SUCCESS;
+	}
+	
+	public String listOverheadForUser() {
 		return SUCCESS;
 	}
 	
@@ -309,6 +481,14 @@ public class ProductAction extends LogicAction {
 		this.productService = productService;
 	}
 
+	public PurchaseService getPurchaseService() {
+		return purchaseService;
+	}
+
+	public void setPurchaseService(PurchaseService purchaseService) {
+		this.purchaseService = purchaseService;
+	}
+
 	public SubscribeService getSubscribeService() {
 		return subscribeService;
 	}
@@ -363,6 +543,30 @@ public class ProductAction extends LogicAction {
 
 	public void setImageUploadPath(String imageUploadPath) {
 		this.imageUploadPath = imageUploadPath;
+	}
+
+	public List<ProductGroup> getListGroup() {
+		return listGroup;
+	}
+
+	public void setListGroup(List<ProductGroup> listGroup) {
+		this.listGroup = listGroup;
+	}
+
+	public List<Overhead> getListOverhead() {
+		return listOverhead;
+	}
+
+	public void setListOverhead(List<Overhead> listOverhead) {
+		this.listOverhead = listOverhead;
+	}
+
+	public Map<Long, Product> getProductMap() {
+		return productMap;
+	}
+
+	public void setProductMap(Map<Long, Product> productMap) {
+		this.productMap = productMap;
 	}
 
 }

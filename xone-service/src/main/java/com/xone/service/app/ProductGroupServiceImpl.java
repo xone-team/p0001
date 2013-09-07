@@ -81,6 +81,21 @@ public class ProductGroupServiceImpl implements ProductGroupService {
 	}
 	
 	@Override
+	public ProductGroup updateToCancelGroup(ProductGroup entity) {
+		ProductGroup pg = getProductGroupDao().findById(entity.getId());
+		if (null == pg || !entity.getUserCreated().equals(pg.getUserCreated())) {
+			return null;
+		}
+		if (pg.getCheckStatus().equals(ProductGroup.CheckStatus.PASSED.getValue())) {
+			return pg;
+		}
+		pg.setFlagDeleted(ProductGroup.FlagDeleted.DELETED.getValue());
+		pg.setUserUpdated(entity.getUserUpdated());
+		getProductGroupDao().update(pg);
+		return pg;
+	}
+	
+	@Override
 	public ProductGroup update(ProductGroup entity) {
 		return getProductGroupDao().update(entity);
 	}
@@ -99,7 +114,19 @@ public class ProductGroupServiceImpl implements ProductGroupService {
     public ProductGroup findByMap(Map<String, String> params) {
         DetachedCriteria detachedCriteria = DetachedCriteria.forClass(ProductGroup.class);
 
-        handleCriteriaByParams(detachedCriteria, params);
+//        handleCriteriaByParams(detachedCriteria, params);
+        String id = params.get("id");
+        if (!StringUtils.isBlank(id)) {
+        	detachedCriteria.add(Restrictions.eq("id", Long.parseLong(id)));
+        }
+        String flagDeleted = params.get("flagDeleted");
+        if (!StringUtils.isBlank(flagDeleted)) {
+        	detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
+        }
+        String userCreated = params.get("userCreated");
+        if (!StringUtils.isBlank(userCreated)) {
+            detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
+        }
         
         List<ProductGroup> l = getProductGroupDao().findListByDetachedCriteria(detachedCriteria, 0, 1);
         if (null == l) {
@@ -113,10 +140,37 @@ public class ProductGroupServiceImpl implements ProductGroupService {
 		DetachedCriteria detachedCriteria = DetachedCriteria
 				.forClass(ProductGroup.class);
 				
-		handleCriteriaByParams(detachedCriteria, params);
-				
-		return getProductGroupDao()
-				.findListByDetachedCriteria(detachedCriteria, 0, 10);
+//		handleCriteriaByParams(detachedCriteria, params);
+		String gtDateCreated = params.get("gtDateCreated");
+		if (!StringUtils.isBlank(gtDateCreated)) {
+			try {
+				detachedCriteria.add(Restrictions.gt("dateCreated", DateUtils
+						.parseDate(gtDateCreated,
+								new String[] { "yyyy-MM-dd HH:mm:ss" })));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		String ltDateCreated = params.get("ltDateCreated");
+		if (!StringUtils.isBlank(ltDateCreated)) {
+			try {
+				detachedCriteria.add(Restrictions.lt("dateCreated", DateUtils
+						.parseDate(ltDateCreated,
+								new String[] { "yyyy-MM-dd HH:mm:ss" })));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		String flagDeleted = params.get("flagDeleted");
+        if (!StringUtils.isBlank(flagDeleted)) {
+        	detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
+        }
+        String userCreated = params.get("userCreated");
+        if (!StringUtils.isBlank(userCreated)) {
+            detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
+        }
+        detachedCriteria.addOrder(Order.desc("dateCreated"));
+		return getProductGroupDao() .findListByDetachedCriteria(detachedCriteria, 0, 5);
 	}
 	
 	public Pagination findByParams(Map<String, String> params) {
