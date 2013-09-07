@@ -49,7 +49,7 @@
                 </div>
             </div>
         </sec:authorize>
-        <sec:authorize access="hasAnyRole('ADMINISTRATOR', 'MEMBER-C', 'MEMBER-B', 'MEMBER-A')">
+        <sec:authorize access="hasAnyRole('ADMINISTRATOR', 'MEMBER-C', 'MEMBER-B')">
             <div class="accordion-group">
                 <div class="accordion-heading">
                     <div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_3">我的购买发布</div>
@@ -64,7 +64,7 @@
                 </div>
             </div>
         </sec:authorize>
-        <sec:authorize access="hasAnyRole('ADMINISTRATOR', 'MEMBER-C', 'MEMBER-A')">
+        <sec:authorize access="hasAnyRole('ADMINISTRATOR', 'MEMBER-C')">
             <div class="accordion-group">
                 <div class="accordion-heading">
                     <div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_5">我的团购</div>

@@ -100,6 +100,7 @@
                             <tr>
                                 <th>编号</th>
                                 <th>关联产品</th>
+                                <th>申请人</th>
                                 <th>置顶类型</th>
                                 <th>审核状态</th>
                                 <th>备注</th>
@@ -118,6 +119,14 @@
                                             </c:when>
                                             <c:otherwise>
                                                 <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}"> ${item.product.productName} </a>
+                                            </c:otherwise>
+                                        </c:choose></td>
+                                    <td><c:choose>
+                                            <c:when test="${item.overheadType == '3' }">
+                                                ${item.purchase.person.username}
+                                            </c:when>
+                                            <c:otherwise>
+                                                ${item.product.person.username}
                                             </c:otherwise>
                                         </c:choose></td>
                                     <td>${item.overheadTypeName}</td>
