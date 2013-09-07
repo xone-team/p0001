@@ -119,9 +119,10 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 		List<T> result = new ArrayList<T>(entities.size());
 		for (int i = 0; i < entities.size(); i++) {
 			result.add(this.save(entities.get(i)));
-			if (i % 20 == 0) {
+			// fix bug:a different object with the same identifier value was already associated with the session
+			//if (i % 20 == 0) {
 				getSession(false).flush();
-			}
+			//}
 		}
 		return result;
 	}
