@@ -25,7 +25,10 @@
                     <li>我的其它服务 <span class="divider">/</span></li>
                     <li class="active">创建物流配送</li>
                 </ul>
-                <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/delivery/deliverySave.html">
+                <h3>
+                    敬请期待。。。
+                </h3>
+                <form class="form-horizontal" style="display: none" id="saveForm" method="post" action="${pageContext.request.contextPath}/delivery/deliverySave.html">
                     <div class="control-group">
                         <label class="control-label" for="marketarea">市场区域</label>
                         <div class="controls">

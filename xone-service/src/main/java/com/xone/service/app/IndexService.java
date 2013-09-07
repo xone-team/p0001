@@ -10,5 +10,7 @@ public interface IndexService {
 	public Integer getTodoDeliveryCount();
 
 	public Integer getAlertAdbanner(Date alertDate);
+
+	public Integer getTodoOverheadCount();
 	
 }

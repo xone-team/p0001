@@ -104,7 +104,7 @@
                                 <th>置顶类型</th>
                                 <th>审核状态</th>
                                 <th>备注</th>
-                                <th>申请日期</th>
+                                <th>发布日期</th>
                                 <th>审核日期</th>
                                 <th style="width: 8em;">操作</th>
                             </tr>
