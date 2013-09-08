@@ -22,18 +22,54 @@
 			    </ul>
 			</div>
 		</div>
-		<div class="product-list-main${myid}" data-role="content" data-iscroll>
-			<div class="iscroll-pulldown">
-		        <span class="iscroll-pull-icon"></span>
-		        <span class="iscroll-pull-label"></span>
+		<div class="product-list-main${myid}" data-role="content">
+			<div class="searchconditionssales" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+			    <h4>高级搜索</h4>
+				<div data-role="navbar" data-mini="true" data-theme="e">
+				    <ul>
+				        <li><a href="#searchtype${myid}" class="navbartabs ui-btn-active">类型</a></li>
+				        <li><a href="#searcharea${myid}" class="navbartabs">属地</a></li>
+				        <li><a href="#searchcredit${myid}" class="navbartabs">信誉</a></li>
+				    </ul>
+				</div>
+				<div data-id="#searchtype${myid}" data-role="controlgroup" data-mini="true" class="salesearchclass">
+					<c:forEach items="${productType}" var="it">
+				    <input type="checkbox" name="checkbox-type" value="${it.value}" id="checkbox-${it.value}a${myid}">
+				    <label for="checkbox-${it.value}a${myid}">${it.name}</label>
+                    </c:forEach>
+				</div>
+				<div data-id="#searcharea${myid}" data-role="controlgroup" data-mini="true" class="salesearchclass" style="display:none;">
+				    <input type="checkbox" name="checkbox-area" id="checkbox-0b${myid}" value="">
+				    <label for="checkbox-0b${myid}">全部</label>
+				    <input type="checkbox" name="checkbox-area" id="checkbox-1b${myid}" value="上海">
+				    <label for="checkbox-1b${myid}">上海</label>
+				    <input type="checkbox" name="checkbox-area" id="checkbox-2b${myid}" value="天津">
+				    <label for="checkbox-2b${myid}">北京</label>
+				    <input type="checkbox" name="checkbox-area" id="checkbox-3b${myid}" value="深圳">
+				    <label for="checkbox-3b${myid}">深圳</label>
+				</div>
+				<div data-id="#searchcredit${myid}" data-role="controlgroup" data-mini="true" class="salesearchclass" style="display:none;">
+				    <input type="checkbox" name="checkbox-credit" id="checkbox-0c${myid}" value="">
+				    <label for="checkbox-0c${myid}">全部</label>
+				    <input type="checkbox" name="checkbox-credit" id="checkbox-1c${myid}" value="1">
+				    <label for="checkbox-1c${myid}">信誉好</label>
+				    <input type="checkbox" name="checkbox-credit" id="checkbox-2c${myid}" value="0">
+				    <label for="checkbox-2c${myid}">信誉一般</label>
+				</div>
 			</div>
-			<div style="height:15px">&nbsp;</div>
-			<ul class="ul-product-list${myid}" data-id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品关键字(至少二个)" data-inset="true">
-		        <li data-role="list-divider">数据加载中，请稍候...</li>
-	        </ul>
-			<div class="iscroll-pullup">
-				<span class="iscroll-pull-icon"></span>
-				<span class="iscroll-pull-label"></span>
+			<div style="width:100%;" class="product-pull-div-list${myid}" data-iscroll>
+				<div class="iscroll-pulldown">
+			        <span class="iscroll-pull-icon"></span>
+			        <span class="iscroll-pull-label"></span>
+				</div>
+				<div style="height:15px">&nbsp;</div>
+				<ul class="ul-product-list${myid}" data-id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品关键字(至少二个)" data-inset="true">
+			        <li data-role="list-divider">数据加载中，请稍候...</li>
+		        </ul>
+				<div class="iscroll-pullup">
+					<span class="iscroll-pull-icon"></span>
+					<span class="iscroll-pull-label"></span>
+				</div>
 			</div>
 		</div>
 		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${myid}"></script>
@@ -42,7 +78,7 @@
 				$('a.allproducts').addClass('ui-btn-active');
 			});
 			$('div.product-main-page').bind("pageinit", function(event) {
-				$('div.product-list-main${myid}').mypullupdown({
+				$('div.product-pull-div-list${myid}').mypullupdown({
 					url:'${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}',
 					onDown: function() {
 						var item = $('ul.ul-product-list${myid}').find('li.productdatecreateditem');
@@ -82,6 +118,15 @@
 						fixedProductImage();
 					}
 				});
+				function checkProductType() {
+					return checkboxValue('div.product-sales-page  input:checked[name="checkbox-type"]');
+				}
+				function checkProductArea() {
+					return checkboxValue('div.product-sales-page  input:checked[name="checkbox-area"]');
+				}
+				function checkProductCredit() {
+					return checkboxValue('div.product-sales-page  input:checked[name="checkbox-credit"]');
+				}
 				doOverheadRequest();
 // 	        	doRequest();
 				function doRequest() {

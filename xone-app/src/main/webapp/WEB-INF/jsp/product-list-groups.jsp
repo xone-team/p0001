@@ -7,6 +7,7 @@
 	<head>
 		<title>Hello World</title>
 		<jsp:include page="commons.jsp"></jsp:include>
+		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body><c:set var="myid" value="${myid}" />
 	<div data-role="page" class="product-groups-page" data-dom-cache="true">
