@@ -22,7 +22,7 @@
             <div class="span9">
                 <ul class="breadcrumb">
                     <li>用户中心 <span class="divider">/</span></li>
-                    <li>我的其它服务 <span class="divider">/</span></li>
+                    <li>我的配套服务 <span class="divider">/</span></li>
                     <li><a href="${pageContext.request.contextPath}/companyInfo/companyInfoList.html">我的公司列表</a> <span class="divider">/</span></li>
                     <li class="active">我的公司详细</li>
                 </ul>

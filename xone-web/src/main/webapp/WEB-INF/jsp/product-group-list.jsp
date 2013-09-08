@@ -23,7 +23,7 @@
             <div class="span9">
                 <ul class="breadcrumb">
                     <li>用户中心 <span class="divider">/</span></li>
-                    <li>我的其它服务 <span class="divider">/</span></li>
+                    <li>我的配套服务 <span class="divider">/</span></li>
                     <li class="active">我的团购列表</li>
                 </ul>
                 <table class="table table-bordered" style="width: 100%">

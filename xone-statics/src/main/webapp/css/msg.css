@@ -33,3 +33,72 @@
 	background-color: #FFBABA;
 	background-image: url('images/error.png');
 }
+.ui-content {
+	padding-top: 0px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.ui-mybanner {
+	height: 40px;
+	width: 100%;
+	border: 1px solid gray;
+	text-align: center;
+	overflow: hidden;
+}
+.ui-mybanner ul {
+	padding:0px;
+	margin:0px;
+	width:100%;
+}
+.ui-mybanner ul li {
+	padding:0px;
+	margin:0px;
+	width:100%;
+}
+.ui-mybanner-link {
+	height: 40px;
+	overflow: hidden;
+}
+.ui-mybanner-link a {
+	clear:both;
+	top:0px;
+	margin:0px;
+}
+
+span.required {
+	color:red;
+	font-size:20px;
+	font-weight: bold;
+}
+.ui-footer .ui-btn-inner {
+    padding-top: 20px 1px 0px 1px !important;
+}
+.ui-footer .ui-btn-text {
+    font-size: 10px;
+    padding: 0px;
+}
+.ui-footer .ui-icon {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    background-color:none;
+}
+.ui-footer .ui-icon-shadow {
+    box-shadow: none;
+    background-color: transparent;
+    background-size: 24px 24px;
+    height: 24px;
+    width: 24px;
+}
+.ui-icon-sale-24 {
+    background-image: url('images/sale_24.png');
+}
+.ui-icon-buy-24 {
+    background-image: url('images/buy_24.png');
+}
+.ui-icon-user-24 {
+    background-image: url('images/user_24.png');
+}
+.ui-icon-asst-24 {
+    background-image: url('images/asst_24.png');
+}

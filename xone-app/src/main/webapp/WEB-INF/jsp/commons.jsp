@@ -5,46 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${STATIC_ROOT}/css/jquery.mobile-1.3.1.min.css" />
-	<link rel="stylesheet" href="${STATIC_ROOT}/css/msg.css" />
-<style type="text/css">
-.ui-content {
-	padding-top: 0px;
-	padding-left: 5px;
-	padding-right: 5px;
-}
-.ui-mybanner {
-	height: 40px;
-	width: 100%;
-	border: 1px solid gray;
-	text-align: center;
-	overflow: hidden;
-}
-.ui-mybanner ul {
-	padding:0px;
-	margin:0px;
-	width:100%;
-}
-.ui-mybanner ul li {
-	padding:0px;
-	margin:0px;
-	width:100%;
-}
-.ui-mybanner-link {
-	height: 40px;
-	overflow: hidden;
-}
-.ui-mybanner-link a {
-	clear:both;
-	top:0px;
-	margin:0px;
-}
-
-span.required {
-	color:red;
-	font-size:20px;
-	font-weight: bold;
-}
-</style>
+<link rel="stylesheet" href="${STATIC_ROOT}/css/msg.css" />
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery-1.10.0.min.js"></script>
 <c:if test="${param.bootstrap == true}">
 	<link rel="stylesheet" href="${STATIC_ROOT}/bootstrap/css/bootstrap.min.css" />

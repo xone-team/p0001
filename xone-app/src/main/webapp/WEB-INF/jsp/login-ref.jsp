@@ -12,7 +12,9 @@
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="login-ref-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-backbtn="false" data-position="fixed">
-			<h1>用户登录页面</h1>
+			<a href="${pageContext.request.contextPath}/login/indexRegister.html" data-icon="check">注册</a>
+			<h1>用户登录</h1>
+			<a href="#" class="assistant-service${myid} ui-btn-right" data-icon="grid">客服</a>
 		</div>
 		<div data-role="content" class="login-ref-page-content">
 			<c:if test="${!(empty mapValue)}">
@@ -52,7 +54,7 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
-				    			<td><a href="${pageContext.request.contextPath}/login/indexRegister.html?_=${identify}" data-role="button" data-theme="e">注册用户</a></td>
+				    			<td><a href="${pageContext.request.contextPath}/login/indexRegister.html" data-role="button" data-theme="e">注册用户</a></td>
 				    			<td><input type="submit" value="确认登录" data-theme="e"/></td>
 				    		</tr>
 				    	</table>
@@ -75,6 +77,11 @@
 						return true;
 					});
 					$('div[data-role="page"]:not(.login-ref-page)').remove();
+					$('a.assistant-service${myid}').click(function(e) {
+						e.preventDefault();
+						$.makeCall('4008979727');
+						return false;
+					});
 				});
 			</script>
 		</div>

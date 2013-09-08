@@ -63,7 +63,7 @@
 										<c:set var="href" value="${pageContext.request.contextPath}/product/item.html?product.id=${adbanner.refId}" />
 									</c:when>
 									<c:when test="${adbanner.adType == '2'}">
-										<c:set var="href" value="${pageContext.request.contextPath}/assisant/companyInfo.html?companyInfo.id=${adbanner.refId}" />
+										<c:set var="href" value="${pageContext.request.contextPath}/assistant/companyInfo.html?companyInfo.id=${adbanner.refId}" />
 									</c:when>
 								</c:choose>
 								<a href="${href}" data-role="button">查看广告详情</a>

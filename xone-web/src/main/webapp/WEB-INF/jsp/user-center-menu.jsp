@@ -82,7 +82,7 @@
         <sec:authorize access="hasAnyRole('ADMINISTRATOR', 'MEMBER-CREDIT')">
             <div class="accordion-group">
                 <div class="accordion-heading">
-                    <div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_4">我的其它服务</div>
+                    <div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_4">我的配套服务</div>
                 </div>
                 <div id="${identify}_4" class="accordion-body in collapse" style="height: auto;">
                     <div class="accordion-inner">

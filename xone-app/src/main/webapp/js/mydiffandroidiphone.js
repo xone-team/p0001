@@ -39,7 +39,7 @@
 					callback(v);
 					$('body').unbind('mloginiphone');
 				});
-				window.location.href= "http://callClient/mloginValue";
+				window.location.href = "http://callClient/mloginValue";
 			} else {
 				try {
 					callback(window.main.mloginValue());
@@ -48,7 +48,7 @@
 		},
 		makeCall: function(params) {
 			if (isIphone()) {
-				window.location.href= "http://callClient/makeCall?id=" + params;
+				window.location.href = "http://callClient/makeCall?id=" + params;
 			} else {
 				try {
 			    	window.main.makeCall(params);

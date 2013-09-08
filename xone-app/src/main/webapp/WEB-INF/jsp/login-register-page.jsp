@@ -22,7 +22,7 @@
 <%-- 			<a href="${pageContext.request.contextPath}/login/index.html?_=${identify}" data-icon="check" class="btn-banner">返回</a> --%>
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>用户注册</h1>
-			<a href="${pageContext.request.contextPath}/login/indexRegister.html?_=${identify}" data-icon="refresh">刷新</a>
+			<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="grid">客服</a>
 		</div>
 		<div data-role="content">
 			<c:if test="${!(empty mapValue)}">

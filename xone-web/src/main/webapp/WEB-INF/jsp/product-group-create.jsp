@@ -22,7 +22,7 @@
             <div class="span9">
                 <ul class="breadcrumb">
                     <li>用户中心 <span class="divider">/</span></li>
-                    <li>我的其它服务 <span class="divider">/</span></li>
+                    <li>我的配套服务 <span class="divider">/</span></li>
                     <li class="active">创建团购</li>
                 </ul>
                 <form class="form-horizontal" id="saveForm" method="post" action="${pageContext.request.contextPath}/productGroup/productGroupSave.html">

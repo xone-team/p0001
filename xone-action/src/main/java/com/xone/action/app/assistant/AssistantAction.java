@@ -42,6 +42,10 @@ public class AssistantAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	public String redirect() {
+		return SUCCESS;
+	}
+	
 	/**
 	 * 公司详细信息
 	 * @return

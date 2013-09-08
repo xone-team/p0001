@@ -18,12 +18,12 @@
 		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-position="fixed">
 <%-- 			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${identify}" data-icon="check" class="btn-banner">返回</a> --%>
 			<a href="#" data-rel="back" data-icon="back">返回</a>
-			<h1>发布产品成功</h1>
+			<h1>产品详细信息</h1>
 			<a href="#" class="product-success-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
 		</div>
 		<div data-role="content" data-dom-cache="false">
 			<ul class="product-success-view" data-role="listview" data-inset="true" data-mini="true">
-				<li data-role="list-divider">产品发布成功</li>
+				<li data-role="list-divider">产品发布已受理</li>
 				<li><a href="#">No.${product.id}详细信息加载中...</a></li>
 			</ul>
 			<script type="text/javascript" language="javascript">

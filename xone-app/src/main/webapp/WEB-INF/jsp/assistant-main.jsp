@@ -21,7 +21,7 @@
 			<c:set var="B_L" value="${blevelUser}"/>
 			<c:set var="C_L" value="${clevelUser}"/>
 			<c:if test="${A_L || B_L}">
-		    <div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
 		        <h3>售卖发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 				    <li><a href="${pageContext.request.contextPath}/product/add.html?_=${myid}">产品发布</a></li>
@@ -40,14 +40,14 @@
 				</ul>
 		    </div>
 		    </c:if>
-		    <div data-role="collapsible" data-theme="b" data-content-theme="d">
-		        <h3>其它服务</h3>
+		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
+		        <h3>配套服务</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 					<c:if test="${A_L || B_L}">
 				    <li><a href="${pageContext.request.contextPath}/delivery/index.html?_=${myid}">物流配送</a></li>
 				    </c:if>
 				    <li><a href="${pageContext.request.contextPath}/subscribe/add.html?_=${myid}">筛选订阅</a></li>
-				    <li><a href="#" class="contact-service" onclick="$.makeCall('15221210651');return false;">联系客服</a></li>
+				    <li><a href="#" class="contact-service" onclick="$.makeCall('4008979727');">联系客服　4008-9797-27</a></li>
 				</ul>
 		    </div>
 		</div>
@@ -66,7 +66,7 @@
 				});
 				$('a.assistant-service${myid}').click(function(e) {
 					e.preventDefault();
-					$.makeCall('15221210651');
+					$.makeCall('4008979727');
 					return false;
 				});
 			});
