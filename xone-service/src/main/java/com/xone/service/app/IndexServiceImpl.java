@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.model.hibernate.app.AdbannerDao;
 import com.xone.model.hibernate.app.DeliveryDao;
+import com.xone.model.hibernate.app.OverheadDao;
 import com.xone.model.hibernate.app.ProductDao;
 import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.Delivery;
+import com.xone.model.hibernate.entity.Overhead;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
 
@@ -31,6 +33,9 @@ public class IndexServiceImpl implements IndexService {
     
     @Autowired
     protected AdbannerDao adbannerDao;
+    
+    @Autowired
+    protected OverheadDao overheadDao;
     
     @Override
     public Integer getTodoProductCount() {
@@ -60,6 +65,13 @@ public class IndexServiceImpl implements IndexService {
     	c.add(Restrictions.eq("flagDeleted", Adbanner.FlagDeleted.NORMAL.getValue()));
     	c.add(Restrictions.lt("adEnd", alertDate));
     	return getAdbannerDao().countByProperty(c);
+    }
+    
+    @Override
+    public Integer getTodoOverheadCount(){
+        DetachedCriteria c = DetachedCriteria.forClass(Overhead.class);
+        c.add(Restrictions.eq("checkStatus", Overhead.CheckStatus.WAITING.getValue()));
+        return getOverheadDao().countByProperty(c);
     }
 
     public ProductDao getProductDao() {
@@ -92,6 +104,14 @@ public class IndexServiceImpl implements IndexService {
 
 	public void setAdbannerDao(AdbannerDao adbannerDao) {
 		this.adbannerDao = adbannerDao;
+	}
+
+	public OverheadDao getOverheadDao() {
+		return overheadDao;
+	}
+
+	public void setOverheadDao(OverheadDao overheadDao) {
+		this.overheadDao = overheadDao;
 	}
 
 

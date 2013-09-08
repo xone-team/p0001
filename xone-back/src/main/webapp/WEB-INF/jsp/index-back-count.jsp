@@ -47,4 +47,14 @@
         </div>
     </div>
 </div>
+<div class="span4">
+    <div class="thumbnail">
+        <div class="caption">
+            <h3>新置顶发布</h3>
+            <p>
+                有 ${overheadCount} 个新置顶需要审核，<a href="${pageContext.request.contextPath}/overhead/overheadList.html?overhead.checkStatus=0">点击进入</a>
+            </p>
+        </div>
+    </div>
+</div>
 </div>

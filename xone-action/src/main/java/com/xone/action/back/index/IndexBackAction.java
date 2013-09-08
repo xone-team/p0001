@@ -38,6 +38,7 @@ public class IndexBackAction extends Action {
     Integer deliveryCount = new Integer(0);
     Integer purchaseCount = new Integer(0);
     Integer adbannerCount = new Integer(0);
+    Integer overheadCount = new Integer(0);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     
     String adbannerAlertDate;
@@ -103,6 +104,7 @@ public class IndexBackAction extends Action {
         productCount = indexService.getTodoProductCount();
         deliveryCount = indexService.getTodoDeliveryCount();
         purchaseCount = indexService.getTodoPurchaseCount();
+        overheadCount = indexService.getTodoOverheadCount();
         
     	Calendar ca = Calendar.getInstance();
     	// 提前5天提醒
@@ -197,5 +199,12 @@ public class IndexBackAction extends Action {
 		this.adbannerAlertDate = adbannerAlertDate;
 	}
 
+	public Integer getOverheadCount() {
+		return overheadCount;
+	}
+
+	public void setOverheadCount(Integer overheadCount) {
+		this.overheadCount = overheadCount;
+	}
 	
 }

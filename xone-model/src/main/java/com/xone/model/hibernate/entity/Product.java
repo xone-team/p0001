@@ -54,7 +54,7 @@ public class Product extends MyModel implements Serializable {
 	 * 审核状态
 	 */
 	public enum CheckStatus {
-		WAITING("0", "待审核"), PASSED("1", "审核通过"), DENIED("2", "审核未通过");
+		WAITING("0", "待审核"), PASSED("1", "审核通过"), DENIED("2", "审核未通过"), CLOSED("3", "数据关闭");
         protected String value;
         protected String name;
         private CheckStatus(String v, String n) {
