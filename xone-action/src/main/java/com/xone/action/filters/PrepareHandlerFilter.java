@@ -53,6 +53,7 @@ public class PrepareHandlerFilter implements Filter {
 		urls.add("/assistant/companyInfo.html");
 		urls.add("/assistant/subscribe.html");
 		urls.add("/assistant/redirect.html");
+		urls.add("/assistant/guide.html");
 		urls.add("/adbanner/index.html");
 	}
 

@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="${STATIC_ROOT}/css/jquery.mobile-1.3.1.min.css" />
+<link rel="stylesheet" href="${STATIC_ROOT}/css/jquery.mobile-1.3.2.min.css" />
 <link rel="stylesheet" href="${STATIC_ROOT}/css/msg.css" />
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery-1.10.0.min.js"></script>
 <c:if test="${param.bootstrap == true}">
@@ -14,10 +14,10 @@
 <script type="text/javascript">
 $(document).bind("mobileinit", function() {  
 	$.extend($.mobile, {
-		defaultPageTransition:'slide',
-		defaultDialogTransition:'slideup',
+		defaultPageTransition:'none',
+		defaultDialogTransition:'none',
 		pageLoadErrorMessage: '哇～～网络不给力呀！',
-		loadingMessageTheme: 'e',
+		loadingMessageTheme: 'a',
 		loadingMessage: '系统正在加载请求的数据，请稍候...',
 		loadingMessageTextVisible: true
 	});
@@ -93,7 +93,7 @@ loadScript.callbackIE = function(callback) {
 	}
 };
 </script>
-<script type="text/javascript" src="${STATIC_ROOT}/js/jquery.mobile-1.3.1.min.js"></script>
+<script type="text/javascript" src="${STATIC_ROOT}/js/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/myadbanner.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/mydiffandroidiphone.js"></script>
 <script type="text/javascript">

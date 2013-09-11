@@ -13,7 +13,7 @@
 	</head>
 	<body>
 	<div data-role="page" class="subscribe-add-page" data-dom-cache="false">
-		<div data-id="myheader" data-role="header" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
 <%-- 			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${myid}" data-icon="check">返回</a> --%>
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>筛选订阅</h1>

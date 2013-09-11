@@ -16,18 +16,18 @@
 	</head>
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="product-sales-page" data-dom-cache="true">
-		<div data-id="myheader" data-role="header" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>
-			        <li><a href="${pageContext.request.contextPath}/product/index.html?_=${myid}">所有产品</a></li>
-			        <li><a href="#" class="ui-btn-active">促销产品</a></li>
+			        <li><a href="${pageContext.request.contextPath}/product/index.html?_=${myid}">普通产品</a></li>
+			        <li><a href="#" class="ui-btn-active ui-state-persist">促销产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html?_=${myid}">组团产品</a></li>
 			    </ul>
 			</div>
 		</div>
 		<div data-role="content" style="padding-top:2px;">
 			<div class="searchconditionssales" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
-			    <h4>高级搜索</h4>
+			    <h4>促销产品高级搜索</h4>
 				<div data-role="navbar" data-mini="true" data-theme="e">
 				    <ul>
 				        <li><a href="#searchtype" class="navbartabs ui-btn-active">类型</a></li>
@@ -161,6 +161,7 @@
 					return a.join(',');
 				}
 				function doOverheadSaleRequest() {
+					//$('div.product-sales-page a[href="sales"]').addClass('ui-btn-active').addClass('ui-state-persist');
 					$.ajax({
 						type: 'GET',
 						url: '${pageContext.request.contextPath}/product/listOverheadItems.html?product.saleType=${product.saleType}',

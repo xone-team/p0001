@@ -17,6 +17,9 @@
 		        <param name="location">${STATIC_ROOT}/image/photo-not-available.jpg</param>
 		    </result>
 		</action>
+		<action name="guide" class="assistantAction" method="guide">
+		    <result name="success">/WEB-INF/jsp/assistant-guide.jsp</result>
+		</action>
 		<action name="subscribe" class="assistantAction" method="subscribe">
 		    <result name="success">/WEB-INF/jsp/subscribe-info.jsp</result>
 		</action>

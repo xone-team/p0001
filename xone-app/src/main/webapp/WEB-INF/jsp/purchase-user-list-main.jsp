@@ -11,7 +11,7 @@
 	</head>
 	<body>
 	<div data-role="page" class="purchase-list-for-user-page">
-		<div data-id="myheader" data-role="header" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
 <%-- 			<a href="${pageContext.request.contextPath}/login/index.html?_=${identify}" data-icon="check" class="btn-banner">返回</a> --%>
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>用户求购列表</h1>

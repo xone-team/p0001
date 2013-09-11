@@ -16,7 +16,7 @@
 				padding-left:5px;
 			}
 		</style>
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/login/indexUpdate.html?_=${myid}" data-icon="check">更新</a>
 			<h1>用户中心</h1>
 			<a href="${pageContext.request.contextPath}/login/logout.html?_=${myid}" data-icon="check" class="login-logout${myid} ui-btn-right">注销</a>
@@ -35,9 +35,8 @@
 				    <li data-icon="false"><a href="#">邮　箱:<span class="myspanstyle">${userMap.email}</span></a></li>
 				    <li data-icon="false"><a href="#">地　址:<span class="myspanstyle">${userMap.address}</span></a></li>
 				    <li data-icon="refresh"><a href="#" onclick="window.main.loadPage('${pageContext.request.contextPath}/login/index.html');">刷新页面</a></li>
-				    <li><a href="#" onclick="window.main.loadIndex();" rel="external" data-icon="home">软件首页</a></li>
+				    <li><a href="#" onclick="window.main.loadGuideIndex();" rel="external" data-icon="home">软件首页</a></li>
 				    <li><a href="#" onclick="window.main.debug('0');" rel="external" data-icon="home">重置订阅</a></li>
-				    <li><a href=”#” onclick=”javascript:navigator.app.exitApp();” data-icon="exit">退出软件</a></li>
 				</ul>
 		    </div>
 			<c:set var="A_L" value="${alevelUser}"/>

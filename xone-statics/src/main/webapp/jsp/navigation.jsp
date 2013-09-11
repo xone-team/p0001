@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div data-role="page">
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/jsp/indexAndroid.jsp" data-transition="turn" data-icon="back">back</a>
 			<h1>AJAX Navigation</h1>
 		</div>

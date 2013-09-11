@@ -13,10 +13,10 @@
 	</head>
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="product-main-page" data-dom-cache="true">
-		<div data-id="myheader" data-role="header" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
 			    <ul>
-			        <li><a class="allproducts" href="#" class="ui-btn-active">所有产品</a></li>
+			        <li><a class="allproducts" href="#" class="ui-btn-active ui-state-persist">普通产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listSales.html?_=${myid}">促销产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listGroups.html?_=${myid}">组团产品</a></li>
 			    </ul>
@@ -24,7 +24,7 @@
 		</div>
 		<div class="product-list-main${myid}" data-role="content">
 			<div class="searchconditionssales" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
-			    <h4>高级搜索</h4>
+			    <h4>普通产品高级搜索</h4>
 				<div data-role="navbar" data-mini="true" data-theme="e">
 				    <ul>
 				        <li><a href="#searchtype${myid}" class="navbartabs ui-btn-active">类型</a></li>

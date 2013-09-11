@@ -13,7 +13,7 @@
 </head>
 <body>
 	<div data-role="page">
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="#" data-icon="back">back</a>
 			<h1>我的页面</h1>
 			<a href="#" data-icon="check">Save</a>

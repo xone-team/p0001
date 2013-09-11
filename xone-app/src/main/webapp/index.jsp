@@ -1,2 +1,2 @@
 
-<% response.sendRedirect("login/index.html"); %>
+<% response.sendRedirect("assistant/guide.html"); %>

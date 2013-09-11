@@ -14,7 +14,7 @@
 </head>
 <body>
 	<div data-role="page">
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-backbtn="false" data-position="fixed">
 			<h1>Widgets</h1>
 		</div>
 		<div data-role="content">

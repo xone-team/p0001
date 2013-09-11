@@ -18,7 +18,7 @@
 				width:80px;
 			}
 		</style>
-		<div data-id="myheader" data-role="header" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
 <%-- 			<a href="${pageContext.request.contextPath}<c:choose><c:when test="${param.form == 'items'}">/subscribe/list.html?_=</c:when><c:otherwise>/assistant/index.html?_=</c:otherwise></c:choose>${identify}" data-icon="check">返回</a> --%>
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>订阅详情</h1>

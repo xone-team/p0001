@@ -11,7 +11,7 @@
 	</head>
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="purchase-main-page" data-dom-cache="true">
-		<div data-id="myheader" data-role="header" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>求购列表</h1>
 			<a href="#" class="purchase-list-page-refresh ui-btn-right" data-icon="refresh">刷新</a>

@@ -50,7 +50,7 @@
 </head>
 <body>
 	<div data-role="page" id="myPage">
-		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/jsp/autocomplete.jsp" data-transition="turn" data-icon="back">back</a>
 			<h1>Remote autocomplete</h1>
 		</div>

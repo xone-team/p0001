@@ -15,7 +15,7 @@
 				width:80px;
 			}
 		</style>
-		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-tap-toggle="false" data-position="fixed">
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>用户顶置申请详情</h1>
 			<a href="${pageContext.request.contextPath}/product/overheaditemForUser.html?overhead.id=${overhead.id}" class="ui-btn-right" data-icon="refresh">刷新</a>

@@ -15,7 +15,7 @@
 				width:80px;
 			}
 		</style>
-		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-tap-toggle="false" data-position="fixed">
 <%-- 			<a href="${pageContext.request.contextPath}/delivery/listIndex.html?_=${identify}" data-icon="check" class="btn-banner">返回</a> --%>
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>物流配送详情</h1>

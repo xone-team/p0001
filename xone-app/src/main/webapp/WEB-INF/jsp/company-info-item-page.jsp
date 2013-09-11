@@ -15,7 +15,7 @@
 				width:80px;
 			}
 		</style>
-		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-position="fixed">
+		<div data-id="myheader" class="ui-bar-b" data-role="header" data-tap-toggle="false" data-position="fixed">
 <!-- 			<a href="#" data-icon="back" data-rel="back">返回</a> -->
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>公司详情</h1>
