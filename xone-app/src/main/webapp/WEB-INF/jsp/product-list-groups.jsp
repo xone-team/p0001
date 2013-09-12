@@ -6,10 +6,12 @@
 <html>
 	<head>
 		<title>Hello World</title>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<jsp:include page="commons.jsp"></jsp:include>
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
-	<body><c:set var="myid" value="${myid}" />
+	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="product-groups-page" data-dom-cache="true">
 		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
 			<div data-role="navbar" data-theme="e">
@@ -20,23 +22,49 @@
 			    </ul>
 			</div>
 		</div>
-		<div data-role="content">
-			<div class="searchconditionsgroup" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d" style="margin-bottom:15px;">
-			    <h2>组团产品高级搜索</h2>
-				<div data-role="controlgroup" data-mini="true" style="margin-bottom:15px;">
+		<div data-role="content" class="product-list-groups${myid}">
+			<div class="searchconditionsgroup" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+			    <h4>组团产品高级搜索</h4>
+				<div data-role="navbar" data-mini="true" data-theme="e">
+				    <ul>
+				        <li><a href="#searchtype${myid}" class="navbartabs ui-btn-active">类型</a></li>
+				        <li><a href="#searcharea${myid}" class="navbartabs">属地</a></li>
+				        <li><a href="#searchcredit${myid}" class="navbartabs">信誉</a></li>
+				    </ul>
+				</div>
+				<div data-id="#searchtype${myid}" data-role="controlgroup" data-mini="true" class="groupsearchclass">
 					<c:forEach items="${productType}" var="it">
 				    <input type="checkbox" name="group-checkbox-type" value="${it.value}" id="group-checkbox-${it.value}a${myid}">
 				    <label for="group-checkbox-${it.value}a${myid}">${it.name}</label>
                     </c:forEach>
 				</div>
+				<div data-id="#searcharea${myid}" data-role="controlgroup" data-mini="true" class="groupsearchclass" style="display:none;">
+				    <input type="checkbox" name="checkbox-area" id="checkbox-0b${myid}" value="">
+				    <label for="checkbox-0b${myid}">全部</label>
+				    <input type="checkbox" name="checkbox-area" id="checkbox-1b${myid}" value="上海">
+				    <label for="checkbox-1b${myid}">上海</label>
+				    <input type="checkbox" name="checkbox-area" id="checkbox-2b${myid}" value="北京">
+				    <label for="checkbox-2b${myid}">北京</label>
+				    <input type="checkbox" name="checkbox-area" id="checkbox-3b${myid}" value="深圳">
+				    <label for="checkbox-3b${myid}">深圳</label>
+				</div>
+				<div data-id="#searchcredit${myid}" data-role="controlgroup" data-mini="true" class="groupsearchclass" style="display:none;">
+				    <input type="checkbox" name="checkbox-credit" id="checkbox-0c${myid}" value="">
+				    <label for="checkbox-0c${myid}">全部</label>
+				    <input type="checkbox" name="checkbox-credit" id="checkbox-1c${myid}" value="1">
+				    <label for="checkbox-1c${myid}">信誉好</label>
+				    <input type="checkbox" name="checkbox-credit" id="checkbox-2c${myid}" value="0">
+				    <label for="checkbox-2c${myid}">信誉一般</label>
+				</div>
 			</div>
-			<div class="product-groups-list${myid}" style="width:100%;padding-top:10px;" data-iscroll>
+			<div style="width:100%;" class="product-groups-list${myid}" data-iscroll>
 				<div class="iscroll-pulldown">
 			        <span class="iscroll-pull-icon"></span>
 			        <span class="iscroll-pull-label"></span>
 				</div>
-		        <ul class="product-groups-listview${myid}" data-role="listview" data-filter="true" data-filter-placeholder="组团关键字搜索..." data-inset="true">
-			        <li data-role="list-divider">数据加载中，请稍候...</li>
+				<div style="height:10px">&nbsp;</div>
+		        <ul class="product-groups-listview${myid}" data-role="listview" data-filter="true" data-filter-placeholder="组团关键字(至少二个)" data-inset="true">
+			        <li data-role="list-divider">组团产品数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>
@@ -44,18 +72,17 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${myid}"></script>
 		<script type="text/javascript">
 			$('div.product-groups-page').bind('pageinit', function(event) {
-				$('a.navbartabs').click(function(e) {
+				$('div.product-groups-page input[type="checkbox"]').myallcheckbox();
+				$('div.product-list-groups${myid} a.navbartabs').click(function(e) {
 					e.preventDefault();
-					$('div.salesearchclass').hide();
-					$('a.navbartabs').removeClass('ui-btn-active');
+					$('div.product-list-groups${myid} div.groupsearchclass').hide();
+					$('div.product-list-groups${myid} a.navbartabs').removeClass('ui-btn-active');
 					var t = $(this);
-					$('div[data-id="' + t.attr('href') + '"]').show();
+					$('div.product-list-groups${myid} div[data-id="' + t.attr('href') + '"]').show();
 					t.addClass('ui-btn-active');
 				});
-				loadcheckboxjsforgroups();
 				$('div.product-groups-list${myid}').mypullupdown({
 					url:'${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}',
 					onDown: function() {
@@ -63,7 +90,9 @@
 						return $.extend({}, {
 							'product.productName': $('ul.product-groups-list${myid}').find('input[data-type="search"]').val(),
 							'exIds': exGroupIds(),
-							'productTypes': checkTypeForGroups()
+							'productTypes': checkTypeForGroups(),
+							'productLocations': checkAreaForGroups(),
+							'credits':checkCreditForGroups()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'down',
@@ -75,7 +104,9 @@
 						return $.extend({}, {
 							'product.productName': $('ul.product-groups-list${myid}').find('input[data-type="search"]').val(),
 							'exIds': exGroupIds(),
-							'productTypes': checkTypeForGroups()
+							'productTypes': checkTypeForGroups(),
+							'productLocations': checkAreaForGroups(),
+							'credits':checkCreditForGroups()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'up',
@@ -111,17 +142,14 @@
 						}
 					});
 				}
-				function loadcheckboxjsforgroups() {
-					if ($('head').find('script.checkboxref').length == 0) {
-						loadScript('${pageContext.request.contextPath}/js/myallcheckbox.js?_=${myid}', function() {
-							$('div.product-groups-page input[type="checkbox"]').myallcheckbox();
-						}, 'checkboxref');
-					} else {
-						$('div.product-groups-page input[type="checkbox"]').myallcheckbox();
-					}
-				}
 				function checkTypeForGroups() {
-					return checkboxValue('div.product-groups-page input:checked[name="group-checkbox-type"]');
+					return checkboxValue('div.product-list-groups${myid} input:checked[name="group-checkbox-type"]');
+				}
+				function checkAreaForGroups() {
+					return checkboxValue('div.product-list-groups${myid} input:checked[name="checkbox-area"]');
+				}
+				function checkCreditForGroups() {
+					return checkboxValue('div.product-list-groups${myid} input:checked[name="checkbox-credit"]');
 				}
 				function exGroupIds() {
 					var a = [];
@@ -181,26 +209,32 @@
 						doOverheadGroupRequest();
 			        }
 			    });
-				$('div.product-groups-page input[type="checkbox"]').bind('click', function() {
+				$('div.product-list-groups${myid} input[type="checkbox"]').bind('click', function() {
 		            var $this = $(this);
-		            var $input = $('div.product-groups-page  input[data-type="search"]').first();
+		            var $input = $('div.product-list-groups${myid}  input[data-type="search"]').first();
 					var q = $.extend({}, {
-						'productTypes': checkTypeForGroups()
+						'productTypes': checkTypeForGroups(),
+						'productLocations': checkAreaForGroups(),
+						'credits':checkCreditForGroups()
 					}, {
 						'product.productName': $input.val(),
 						'_': new Date().getTime()
 					});
-		            $.ajax({
-		            	type: 'GET',
-		                url: "${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}",
-		                data: q,
-		                success: function(html) {
-		                	var ul = $('ul.product-groups-listview${myid}');
-		                	ul.html(html);
-		                	ul.listview( "refresh" );
-		                	fixedProductGroupsImage();
-		                }
-		            });
+					if (q.productTypes == '' && q.productLocations == '' && q.credits == '' && q['product.productName'] == '') {
+						doOverheadGroupRequest();
+					} else {
+			            $.ajax({
+			            	type: 'GET',
+			                url: "${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}",
+			                data: q,
+			                success: function(html) {
+			                	var ul = $('ul.product-groups-listview${myid}');
+			                	ul.html(html);
+			                	ul.listview( "refresh" );
+			                	fixedProductGroupsImage();
+			                }
+			            });
+					}
 				});
 			});
 		</script>

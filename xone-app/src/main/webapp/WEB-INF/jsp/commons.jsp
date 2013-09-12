@@ -7,10 +7,6 @@
 <link rel="stylesheet" href="${STATIC_ROOT}/css/jquery.mobile-1.3.2.min.css" />
 <link rel="stylesheet" href="${STATIC_ROOT}/css/msg.css" />
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery-1.10.0.min.js"></script>
-<c:if test="${param.bootstrap == true}">
-	<link rel="stylesheet" href="${STATIC_ROOT}/bootstrap/css/bootstrap.min.css" />
-	<script type="text/javascript" src="${STATIC_ROOT}/bootstrap/js/bootstrap.min.js"></script>
-</c:if>
 <script type="text/javascript">
 $(document).bind("mobileinit", function() {  
 	$.extend($.mobile, {
@@ -96,6 +92,8 @@ loadScript.callbackIE = function(callback) {
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery.mobile-1.3.2.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/myadbanner.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/mydiffandroidiphone.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/myallcheckbox.js"></script>
 <script type="text/javascript">
 <!--
 	$(document).delegate($.mobile.activePage, 'pageshow', function() {

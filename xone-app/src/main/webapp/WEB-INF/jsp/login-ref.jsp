@@ -13,7 +13,7 @@
 	<div data-role="page" class="login-ref-page" data-dom-cache="false">
 		<div data-id="myheader" class="ui-bar-b" data-role="header" data-tap-toggle="false" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/assistant/guide.html" data-icon="check">首页</a>
-			<h1>用户登录</h1>
+			<h4>用户登录</h4>
 			<a href="#" class="assistant-service${myid} ui-btn-right" data-icon="grid">客服</a>
 		</div>
 		<div data-role="content" class="login-ref-page-content">
@@ -34,7 +34,7 @@
 				<input type="hidden" name="redirect" value="" autocomplete="off"/>
 				<input type="hidden" name="_m" id="_m${myid}" value="" autocomplete="off"/>
 				<ul data-role="listview" data-inset="true" data-mini="true">
-					<li data-role="list-divider"><h2>用户登录信息</h2></li>
+					<li data-role="list-divider"><h6>用户登录信息</h6></li>
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>

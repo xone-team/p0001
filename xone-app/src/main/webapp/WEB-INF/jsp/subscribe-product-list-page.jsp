@@ -30,7 +30,6 @@
 				<span class="iscroll-pull-label"></span>
 			</div>
 		</div>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js"></script>
 		<script type="text/javascript">
 			$('div.subscribe-product-list-page${myid}').bind("pageinit", function(event) {
 				var data = {

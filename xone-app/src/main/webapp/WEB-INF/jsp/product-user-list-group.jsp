@@ -31,7 +31,6 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js"></script>
 		<script type="text/javascript">
 			$('div.product-listgroup-for-user-page').bind("pageinit", function(event) {
 				$('div.product-listgroup-for-user-main').mypullupdown({

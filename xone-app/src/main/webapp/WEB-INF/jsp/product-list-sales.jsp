@@ -6,13 +6,10 @@
 <html>
 	<head>
 		<title>Hello World</title>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<jsp:include page="commons.jsp"></jsp:include>
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
-		<style type="text/css">
-		a.navbartabs {
-			height:26px;
-		}
-		</style>
 	</head>
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="product-sales-page" data-dom-cache="true">
@@ -25,7 +22,7 @@
 			    </ul>
 			</div>
 		</div>
-		<div data-role="content" style="padding-top:2px;">
+		<div data-role="content" class="product-list-sales${myid}">
 			<div class="searchconditionssales" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
 			    <h4>促销产品高级搜索</h4>
 				<div data-role="navbar" data-mini="true" data-theme="e">
@@ -46,7 +43,7 @@
 				    <label for="checkbox-0b${myid}">全部</label>
 				    <input type="checkbox" name="checkbox-area" id="checkbox-1b${myid}" value="上海">
 				    <label for="checkbox-1b${myid}">上海</label>
-				    <input type="checkbox" name="checkbox-area" id="checkbox-2b${myid}" value="天津">
+				    <input type="checkbox" name="checkbox-area" id="checkbox-2b${myid}" value="北京">
 				    <label for="checkbox-2b${myid}">北京</label>
 				    <input type="checkbox" name="checkbox-area" id="checkbox-3b${myid}" value="深圳">
 				    <label for="checkbox-3b${myid}">深圳</label>
@@ -60,12 +57,14 @@
 				    <label for="checkbox-2c${myid}">信誉一般</label>
 				</div>
 			</div>
-			<div style="width:100%;padding-top:10px;" class="product-sales-list${myid}" data-iscroll>
+			<div style="width:100%;" class="product-sales-list${myid}" data-iscroll>
 				<div class="iscroll-pulldown">
 			        <span class="iscroll-pull-icon"></span>
 			        <span class="iscroll-pull-label"></span>
 				</div>
-		        <ul class="product-sales-listview${myid}" data-role="listview" data-filter="true" data-filter-placeholder="促销关键字搜索..." data-inset="true">
+				<div style="height:10px">&nbsp;</div>
+		        <ul class="product-sales-listview${myid}" data-role="listview" data-filter="true" data-filter-placeholder="促销关键字(至少二个)" data-inset="true">
+			        <li data-role="list-divider">促销产品数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>
@@ -73,16 +72,15 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${myid}"></script>
 		<script type="text/javascript">
 			$('div.product-sales-page').bind('pageinit', function(event) {
-				loadcheckboxjs();
-				$('a.navbartabs').click(function(e) {
+				$('div.product-sales-page input[type="checkbox"]').myallcheckbox();
+				$('div.product-list-sales${myid} a.navbartabs').click(function(e) {
 					e.preventDefault();
-					$('div.salesearchclass').hide();
-					$('a.navbartabs').removeClass('ui-btn-active');
+					$('div.product-list-sales${myid} div.salesearchclass').hide();
+					$('div.product-list-sales${myid} a.navbartabs').removeClass('ui-btn-active');
 					var t = $(this);
-					$('div[data-id="' + t.attr('href') + '"]').show();
+					$('div.product-list-sales${myid} div[data-id="' + t.attr('href') + '"]').show();
 					t.addClass('ui-btn-active');
 				});
 				$('div.product-sales-list${myid}').mypullupdown({
@@ -189,15 +187,6 @@
 						$('div.product-sales-page').append(css.join(''));
 					}
 				}
-				function loadcheckboxjs() {
-					if ($('head').find('script.checkboxref').length == 0) {
-						loadScript('${pageContext.request.contextPath}/js/myallcheckbox.js?_=${myid}', function() {
-							$('div.product-sales-page input[type="checkbox"]').myallcheckbox();
-						}, 'checkboxref');
-					} else {
-						$('div.product-sales-page input[type="checkbox"]').myallcheckbox();
-					}
-				}
 				$('ul.product-sales-listview${myid}').listview({
 					filterCallback: function() {
 					}
@@ -232,17 +221,21 @@
 						'product.productName': $input.val(),
 						'_': new Date().getTime()
 					});
-		            $.ajax({
-		            	type: 'GET',
-		                url: "${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}",
-		                data: q,
-		                success: function(html) {
-		                	var ul = $('ul.product-sales-listview${myid}');
-		                	ul.html(html);
-		                	ul.listview( "refresh" );
-							fixedProductSaleImage();
-		                }
-		            });
+					if (q.productTypes == '' && q.productLocations == '' && q.credits == '' && q['product.productName'] == '') {
+						doOverheadSaleRequest();
+					} else {
+			            $.ajax({
+			            	type: 'GET',
+			                url: "${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}",
+			                data: q,
+			                success: function(html) {
+			                	var ul = $('ul.product-sales-listview${myid}');
+			                	ul.html(html);
+			                	ul.listview( "refresh" );
+								fixedProductSaleImage();
+			                }
+			            });
+					}
 				});
 			});
 		</script>

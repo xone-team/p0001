@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<div class="product-list-main${myid}" data-role="content">
-			<div class="searchconditionssales" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+			<div class="searchconditions${myid}" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
 			    <h4>普通产品高级搜索</h4>
 				<div data-role="navbar" data-mini="true" data-theme="e">
 				    <ul>
@@ -32,23 +32,23 @@
 				        <li><a href="#searchcredit${myid}" class="navbartabs">信誉</a></li>
 				    </ul>
 				</div>
-				<div data-id="#searchtype${myid}" data-role="controlgroup" data-mini="true" class="salesearchclass">
+				<div data-id="#searchtype${myid}" data-role="controlgroup" class="groupsearchclass" data-mini="true">
 					<c:forEach items="${productType}" var="it">
 				    <input type="checkbox" name="checkbox-type" value="${it.value}" id="checkbox-${it.value}a${myid}">
 				    <label for="checkbox-${it.value}a${myid}">${it.name}</label>
                     </c:forEach>
 				</div>
-				<div data-id="#searcharea${myid}" data-role="controlgroup" data-mini="true" class="salesearchclass" style="display:none;">
+				<div data-id="#searcharea${myid}" data-role="controlgroup" data-mini="true" class="groupsearchclass" style="display:none;">
 				    <input type="checkbox" name="checkbox-area" id="checkbox-0b${myid}" value="">
 				    <label for="checkbox-0b${myid}">全部</label>
 				    <input type="checkbox" name="checkbox-area" id="checkbox-1b${myid}" value="上海">
 				    <label for="checkbox-1b${myid}">上海</label>
-				    <input type="checkbox" name="checkbox-area" id="checkbox-2b${myid}" value="天津">
+				    <input type="checkbox" name="checkbox-area" id="checkbox-2b${myid}" value="北京">
 				    <label for="checkbox-2b${myid}">北京</label>
 				    <input type="checkbox" name="checkbox-area" id="checkbox-3b${myid}" value="深圳">
 				    <label for="checkbox-3b${myid}">深圳</label>
 				</div>
-				<div data-id="#searchcredit${myid}" data-role="controlgroup" data-mini="true" class="salesearchclass" style="display:none;">
+				<div data-id="#searchcredit${myid}" data-role="controlgroup" data-mini="true" class="groupsearchclass" style="display:none;">
 				    <input type="checkbox" name="checkbox-credit" id="checkbox-0c${myid}" value="">
 				    <label for="checkbox-0c${myid}">全部</label>
 				    <input type="checkbox" name="checkbox-credit" id="checkbox-1c${myid}" value="1">
@@ -62,9 +62,9 @@
 			        <span class="iscroll-pull-icon"></span>
 			        <span class="iscroll-pull-label"></span>
 				</div>
-				<div style="height:15px">&nbsp;</div>
+				<div style="height:10px">&nbsp;</div>
 				<ul class="ul-product-list${myid}" data-id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品关键字(至少二个)" data-inset="true">
-			        <li data-role="list-divider">数据加载中，请稍候...</li>
+			        <li data-role="list-divider">普通产品数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>
@@ -72,19 +72,30 @@
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js?_=${myid}"></script>
 		<script defer="defer" type="text/javascript">
 			$(document).delegate('div.product-main-page', "pageinit", function(event) {
 				$('a.allproducts').addClass('ui-btn-active');
 			});
 			$('div.product-main-page').bind("pageinit", function(event) {
+				$('div.product-list-main${myid} input[type="checkbox"]').myallcheckbox();
+				$('div.product-list-main${myid} a.navbartabs').click(function(e) {
+					e.preventDefault();
+					$('div.product-list-main${myid} div.groupsearchclass').hide();
+					$('div.product-list-main${myid} a.navbartabs').removeClass('ui-btn-active');
+					var t = $(this);
+					$('div.product-list-main${myid} div[data-id="' + t.attr('href') + '"]').show();
+					t.addClass('ui-btn-active');
+				});
 				$('div.product-pull-div-list${myid}').mypullupdown({
 					url:'${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}',
 					onDown: function() {
 						var item = $('ul.ul-product-list${myid}').find('li.productdatecreateditem');
 						return $.extend({}, {
 							'product.productName': $('div.product-list-main${myid}').find('input[data-type="search"]').val(),
-							'exIds': exIds()
+							'exIds': exIds(),
+							'productTypes': checkProductType(),
+							'productLocations': checkProductArea(),
+							'credits':checkProductCredit()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'down',
@@ -95,7 +106,10 @@
 						var item = $('ul.ul-product-list${myid}').find('li.productdatecreateditem');
 						return $.extend({}, {
 							'product.productName': $('div.product-list-main${myid}').find('input[data-type="search"]').val(),
-							'exIds': exIds()
+							'exIds': exIds(),
+							'productTypes': checkProductType(),
+							'productLocations': checkProductArea(),
+							'credits':checkProductCredit()
 						}, {
 							'itemcount': item.length,
 							'itemaction': 'up',
@@ -119,13 +133,13 @@
 					}
 				});
 				function checkProductType() {
-					return checkboxValue('div.product-sales-page  input:checked[name="checkbox-type"]');
+					return checkboxValue('div.product-list-main${myid}  input:checked[name="checkbox-type"]');
 				}
 				function checkProductArea() {
-					return checkboxValue('div.product-sales-page  input:checked[name="checkbox-area"]');
+					return checkboxValue('div.product-list-main${myid}  input:checked[name="checkbox-area"]');
 				}
 				function checkProductCredit() {
-					return checkboxValue('div.product-sales-page  input:checked[name="checkbox-credit"]');
+					return checkboxValue('div.product-list-main${myid}  input:checked[name="checkbox-credit"]');
 				}
 				doOverheadRequest();
 // 	        	doRequest();
@@ -199,6 +213,33 @@
 			        	doOverheadRequest();
 			        }
 			    });
+				$('div.searchconditions${myid} input[type="checkbox"]').bind('click', function() {
+		            var $this = $(this);
+		            var $input = $('div.product-pull-div-list${myid}  input[data-type="search"]').first();
+					var q = $.extend({}, {
+						'productTypes': checkProductType(),
+						'productLocations': checkProductArea(),
+						'credits':checkProductCredit()
+					}, {
+						'product.productName': $input.val(),
+						'_': new Date().getTime()
+					});
+					if (q.productTypes == '' && q.productLocations == '' && q.credits == '' && q['product.productName'] == '') {
+			        	doOverheadRequest();
+					} else {
+			            $.ajax({
+			            	type: 'GET',
+			                url: "${pageContext.request.contextPath}/product/listItems.html?product.saleType=${product.saleType}",
+			                data: q,
+			                success: function(html) {
+			                	var ul = $('ul.ul-product-list${myid}');
+			                	ul.html(html);
+			                	ul.listview( "refresh" );
+			                	fixedProductImage();
+			                }
+			            });
+					}
+				});
 			});
 		</script>
 		<jsp:include page="footer.jsp">
