@@ -13,7 +13,7 @@ public class Purchase extends MyModel implements Serializable {
      *
      */
     public enum PurchaseType {
-        DONG_PIN("0", "冻品"), GAN_HUO("1", "干货"), HUO_XIAN("2", "活鲜"), SHUI_GUO("3", "水果"), TIAO_LIAO("4", "调料");
+    	ALL("", "全部"), DONG_PIN("0", "冻品"), GAN_HUO("1", "干货"), HUO_XIAN("2", "活鲜"), SHUI_GUO("3", "水果"), TIAO_LIAO("4", "调料");
         protected String value;
         protected String name;
         private PurchaseType(String v, String n) {

@@ -54,6 +54,24 @@
             <if test="purchaseType != null">
 				and p.purchase_type like CONCAT('%', #{purchaseType}, '%')
 			</if>
+            <if test="purchaseTypes != null">
+				and 
+				<foreach item="item" index="index" collection="purchaseTypes" open="(" separator="or" close=")">
+					p.purchase_type = #{item}
+				</foreach>
+			</if>
+            <if test="purchaseLocations != null">
+				and 
+				<foreach item="item" index="index" collection="purchaseLocations" open="(" separator="or" close=")">
+					p.purchase_location like CONCAT('%', #{item}, '%')
+				</foreach>
+			</if>
+            <if test="credits != null">
+				and 
+				<foreach item="item" index="index" collection="credits" open="(" separator="or" close=")">
+					u.credit = #{item}
+				</foreach>
+			</if>
             <if test="purchaseAddress != null">
 				and p.purchase_address like CONCAT('%', #{purchaseAddress}, '%')
 			</if>

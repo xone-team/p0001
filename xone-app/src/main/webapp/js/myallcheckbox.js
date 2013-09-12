@@ -19,9 +19,7 @@
 			}
 			var $this = $(this);
 			$this.bind('click', function() {
-				console.log('before:' + $this.attr('checked'));
 				$this.attr('checked', ($this.attr('checked') == undefined ? true : false));
-				console.log('after:' + $this.attr('checked'));
 				checkAll($this);
 			});
 		});

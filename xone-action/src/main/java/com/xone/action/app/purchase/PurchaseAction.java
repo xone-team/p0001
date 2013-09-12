@@ -39,6 +39,10 @@ public class PurchaseAction extends LogicAction {
 	protected List<Purchase> list = new ArrayList<Purchase>();
 	protected String imageUploadPath;
 	
+	public Enum<?>[] getPurchaseType() {
+		return Purchase.PurchaseType.values();
+	}
+	
 	public String listAll() {
 		return SUCCESS;
 	}
@@ -134,6 +138,15 @@ public class PurchaseAction extends LogicAction {
 			params.put("userLevels", getLogicUserLevel());
 			params.put("checkStatus", Purchase.CheckStatus.PASSED.getValue());
 			params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+			if (!StringUtils.isBlank(map.get("purchaseTypes"))) {
+				params.put("purchaseTypes", Arrays.asList(map.get("purchaseTypes").split(",")));
+			}
+			if (!StringUtils.isBlank(map.get("purchaseLocations"))) {
+				params.put("purchaseLocations", Arrays.asList(map.get("purchaseLocations").split(",")));
+			}
+			if (!StringUtils.isBlank(map.get("credits"))) {
+				params.put("credits", Arrays.asList(map.get("credits").split(",")));
+			}
 			setList(getPurchaseService().findAllByMap(params));
 		}
 		return SUCCESS;

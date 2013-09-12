@@ -77,13 +77,13 @@
 				$('a.allproducts').addClass('ui-btn-active');
 			});
 			$('div.product-main-page').bind("pageinit", function(event) {
-				$('div.product-list-main${myid} input[type="checkbox"]').myallcheckbox();
-				$('div.product-list-main${myid} a.navbartabs').click(function(e) {
+				$('div.searchconditions${myid} input[type="checkbox"]').myallcheckbox();
+				$('div.searchconditions${myid} a.navbartabs').click(function(e) {
 					e.preventDefault();
-					$('div.product-list-main${myid} div.groupsearchclass').hide();
-					$('div.product-list-main${myid} a.navbartabs').removeClass('ui-btn-active');
+					$('div.searchconditions${myid} div.groupsearchclass').hide();
+					$('div.searchconditions${myid} a.navbartabs').removeClass('ui-btn-active');
 					var t = $(this);
-					$('div.product-list-main${myid} div[data-id="' + t.attr('href') + '"]').show();
+					$('div.searchconditions${myid} div[data-id="' + t.attr('href') + '"]').show();
 					t.addClass('ui-btn-active');
 				});
 				$('div.product-pull-div-list${myid}').mypullupdown({
