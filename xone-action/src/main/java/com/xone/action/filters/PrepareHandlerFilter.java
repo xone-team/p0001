@@ -1,6 +1,9 @@
 package com.xone.action.filters;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,37 +27,54 @@ public class PrepareHandlerFilter implements Filter {
 	
 	static final Log logger = LogFactory.getLog(PrepareHandlerFilter.class);
 
-	protected FilterConfig config;
-	protected String agent;
+//	protected FilterConfig config;
+//	protected String agent;
 	protected List<String> urls = new ArrayList<String>();
+	protected boolean isprd = true;
 	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		this.config = filterConfig;
-		agent = config.getInitParameter("agent");
-		urls.add("/login/index.html");
-		urls.add("/login/login.html");
-		urls.add("/login/logout.html");
-		urls.add("/login/register.html");
-		urls.add("/login/indexRegister.html");
-		urls.add("/purchase/index.html");
-		urls.add("/purchase/listItems.html");
-		urls.add("/purchase/item.html");
-		urls.add("/purchase/listOverheadItems.html");
-		urls.add("/product/index.html");
-		urls.add("/product/listSales.html");
-		urls.add("/product/listGroups.html");
-		urls.add("/product/listItems.html");
-		urls.add("/product/listProduct.html");
-		urls.add("/product/item.html");
-		urls.add("/product/listOverheadItems.html");
-		urls.add("/assistant/index.html");
-		urls.add("/assistant/image.html");
-		urls.add("/assistant/companyInfo.html");
-		urls.add("/assistant/subscribe.html");
-		urls.add("/assistant/redirect.html");
-		urls.add("/assistant/guide.html");
-		urls.add("/adbanner/index.html");
+//		this.config = filterConfig;
+//		agent = config.getInitParameter("agent");
+//		urls.add("/login/index.html");
+//		urls.add("/login/login.html");
+//		urls.add("/login/logout.html");
+//		urls.add("/login/register.html");
+//		urls.add("/login/indexRegister.html");
+//		urls.add("/purchase/index.html");
+//		urls.add("/purchase/listItems.html");
+//		urls.add("/purchase/item.html");
+//		urls.add("/purchase/listOverheadItems.html");
+//		urls.add("/product/index.html");
+//		urls.add("/product/listSales.html");
+//		urls.add("/product/listGroups.html");
+//		urls.add("/product/listItems.html");
+//		urls.add("/product/listProduct.html");
+//		urls.add("/product/item.html");
+//		urls.add("/product/listOverheadItems.html");
+//		urls.add("/assistant/index.html");
+//		urls.add("/assistant/image.html");
+//		urls.add("/assistant/companyInfo.html");
+//		urls.add("/assistant/subscribe.html");
+//		urls.add("/assistant/redirect.html");
+//		urls.add("/assistant/guide.html");
+//		urls.add("/adbanner/index.html");
+		String fileName = filterConfig.getInitParameter("configFile");
+		InputStream input = filterConfig.getServletContext().getResourceAsStream(fileName);
+		if (null != input) {
+			try {
+				BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+				String line = null;
+				urls.clear();
+				while ((line = reader.readLine()) != null) {
+					urls.add(line);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		String debug = System.getProperty("debugapp");
+		isprd = (null == debug || !"true".equals(debug));
 	}
 
 	@Override
@@ -62,7 +82,7 @@ public class PrepareHandlerFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse resp = (HttpServletResponse)response;
-		if ("true".equals(agent)) {
+		if (isprd) {
 			String userAgent = req.getHeader("User-Agent");
 			logger.debug("=====> UserAgent:" + userAgent);
 			logger.debug("=====> Request URL:" + req.getRequestURL());

@@ -54,6 +54,20 @@
 			    	window.main.makeCall(params);
 		    	} catch (e) {}
 			}
+		},
+		iphoneCssFixed: function(params) {
+			if (isIphone()) {
+				var style = $('head').find('style.iphonefixed');
+				if (style.length == 0) {
+					var stylefixed = ['<style type="text/css" class="iphonefixed">',
+					                  '.ui-content {',
+					                  'padding-top: 10px;',
+					                  'padding-left: 5px;',
+					                  'padding-right: 5px;',
+					                  '}'];
+					$('head').append(stylefixed.join(''));
+				}
+			}
 		}
 	});
 	$.fn.myImageUploded = function(options) {
