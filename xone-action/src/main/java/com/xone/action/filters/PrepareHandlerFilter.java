@@ -76,17 +76,38 @@ public class PrepareHandlerFilter implements Filter {
 		String debug = System.getProperty("debugapp");
 		isprd = (null == debug || !"true".equals(debug));
 	}
+	
+	public String getClientIpAddr(HttpServletRequest request) {
+		String ip = request.getHeader("X-Forwarded-For");
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("HTTP_CLIENT_IP");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+		}
+		if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		return ip;
+	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse resp = (HttpServletResponse)response;
+		String ip = getClientIpAddr(req);
+		logger.info("=====> Request Address IP:" + ip + ", URI:" + req.getRequestURI());
 		if (isprd) {
 			String userAgent = req.getHeader("User-Agent");
 			logger.debug("=====> UserAgent:" + userAgent);
 			logger.debug("=====> Request URL:" + req.getRequestURL());
-			logger.debug("=====> Request URI:" + req.getRequestURI());
 			if (null != userAgent && userAgent.endsWith("ZHANGCHANG.CO.,LTD.")) {
 				if (!isMyRulePass(req, resp)) {
 					resp.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);

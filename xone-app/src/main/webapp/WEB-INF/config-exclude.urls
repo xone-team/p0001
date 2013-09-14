@@ -7,6 +7,7 @@
 /purchase/listItems.html
 /purchase/item.html
 /purchase/listOverheadItems.html
+/purchase/itemDetails.html
 /product/index.html
 /product/listSales.html
 /product/listGroups.html
@@ -14,6 +15,7 @@
 /product/listProduct.html
 /product/item.html
 /product/listOverheadItems.html
+/product/itemDetails.html
 /assistant/index.html
 /assistant/image.html
 /assistant/companyInfo.html
