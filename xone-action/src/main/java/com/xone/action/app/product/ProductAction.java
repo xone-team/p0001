@@ -101,6 +101,11 @@ public class ProductAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	public String doCloseRecord() {
+		getProductService().updateCloseRecord(getProduct().getId(), getUserId());
+		return SUCCESS;
+	}
+	
 	/**
 	 * 组团操作
 	 * @return

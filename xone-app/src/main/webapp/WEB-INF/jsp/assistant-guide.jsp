@@ -21,14 +21,14 @@
 			<div data-role="content" class="guide-page">
 			    <div class="ui-grid-a">
 				    <div class="ui-block-a">
-				    	<div class="ui-bar ui-bar-red">
+				    	<div class="ui-bar">
 							<div class="desktop-icon" style="text-align:center;">
 				    		<a href="${pageContext.request.contextPath}/product/index.html" class="ui-btn-up-b" data-role="button" data-theme="red" data-icon="sale-a-64" data-iconpos="top" data-inline="true">大家在卖</a>
 							</div>
 				    	</div>
 				    </div>
 				    <div class="ui-block-b">
-				    	<div class="ui-bar ui-bar-green-a">
+				    	<div class="ui-bar">
 							<div class="desktop-icon" style="text-align:center;">
 				    		<a href="${pageContext.request.contextPath}/product/listSales.html" class="ui-btn-up-b" data-theme="green-a" data-role="button" data-icon="sale-b-64" data-iconpos="top" data-inline="true">促销产品</a>
 							</div>
@@ -37,14 +37,14 @@
 				</div>
 			    <div class="ui-grid-a">
 				    <div class="ui-block-a">
-				    	<div class="ui-bar ui-bar-e">
+				    	<div class="ui-bar">
 							<div class="desktop-icon" style="text-align:center;">
-				    		<a href="${pageContext.request.contextPath}/product/listGroups.html" data-role="button" data-icon="sale-c-64" data-iconpos="top" data-inline="true">组团产品</a>
+				    		<a href="${pageContext.request.contextPath}/product/listGroups.html" data-role="button" data-theme="e" data-icon="sale-c-64" data-iconpos="top" data-inline="true">组团产品</a>
 							</div>
 				    	</div>
 				    </div>
 				    <div class="ui-block-b">
-				    	<div class="ui-bar ui-bar-gray">
+				    	<div class="ui-bar">
 							<div class="desktop-icon" style="text-align:center;">
 				    		<a href="${pageContext.request.contextPath}/purchase/index.html" class="ui-btn-up-b" data-role="button" data-theme="gray" data-icon="sale-72" data-iconpos="top" data-inline="true">大家想买</a>
 							</div>
@@ -53,14 +53,14 @@
 				</div>
 			    <div class="ui-grid-a">
 				    <div class="ui-block-a">
-				    	<div class="ui-bar ui-bar-orange">
+				    	<div class="ui-bar">
 							<div class="desktop-icon" style="text-align:center;">
 				    		<a href="${pageContext.request.contextPath}/login/indexRegister.html" class="ui-btn-up-b" data-theme="orange" data-role="button" data-icon="reg-64" data-iconpos="top" data-inline="true">我要注册</a>
 							</div>
 				    	</div>
 				    </div>
 				    <div class="ui-block-b">
-				    	<div class="ui-bar ui-bar-b">
+				    	<div class="ui-bar">
 				    		<div class="desktop-icon" style="text-align:center;">
 				    		<c:choose>
 								<c:when test="${login}">
@@ -78,7 +78,7 @@
 				<c:if test="${login}">
 				    <div class="ui-grid-solo">
 				    	<div class="ui-block-a">
-					    	<div class="ui-bar ui-bar-a">
+					    	<div class="ui-bar">
 					    		<div style="text-align:center;">
 						    	<a href="${pageContext.request.contextPath}/login/logout.html?_=${myid}" class="login-logout${myid}" data-inline="true" data-role="button">退出登录</a>
 						    	</div>

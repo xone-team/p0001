@@ -34,6 +34,9 @@
 		<action name="doTopApply" class="productAction" method="doTopApply">
 			<result name="success">/WEB-INF/jsp/product-do-top-apply.jsp</result>
 		</action>
+		<action name="doCloseRecord" class="productAction" method="doCloseRecord">
+			<result name="success">/WEB-INF/jsp/product-do-close-record.jsp</result>
+		</action>
 		<action name="doCancelGroup" class="productAction" method="doCancelGroup">
 			<result name="success">/WEB-INF/jsp/product-do-cancel-group.jsp</result>
 		</action>

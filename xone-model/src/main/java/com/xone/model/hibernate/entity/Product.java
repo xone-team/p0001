@@ -2,6 +2,7 @@ package com.xone.model.hibernate.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -147,6 +148,27 @@ public class Product extends MyModel implements Serializable {
 	 */
 	public boolean isGroupSaleType() {
 		return SaleType.GROUPS.getValue().equals(this.saleType);
+	}
+	
+	public boolean isCloseStatus() {
+		return Product.CheckStatus.CLOSED.getValue().equals(this.getCheckStatus());
+	}
+	
+	/**
+	 * 如果创建日期超过24小时，即可以关闭
+	 * @return
+	 */
+	public boolean isCloseable() {
+		if (null == this.getDateCreated()) {
+			return true;
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(this.getDateCreated());
+		calendar.add(Calendar.DATE, 1);
+		if (new Date().compareTo(calendar.getTime()) >= 0) {
+			return true;
+		}
+		return false;
 	}
 	
 	protected List<Long> ids = new ArrayList<Long>();

@@ -105,7 +105,7 @@
 	</li>
 	</c:forEach>
 </c:if>
-<c:if test="${login}">
+<c:if test="${!product.closeStatus && login}">
 <li>
 	<div>
 		<a href="${pageContext.request.contextPath}/product/updateItem.html?product.id=${product.id}" class="productupdatebutton" data-role="button" data-theme="b" data-iconpos="right" data-icon="edit">更新信息</a>
@@ -138,6 +138,34 @@
 		</script>
 	</div>
 </li>
+<c:if test="${!product.closeStatus && product.closeable}">
+	<li>
+		<div>
+			<form class="closerecordform" action="${pageContext.request.contextPath}/product/doCloseRecord.html" method="post">
+				<input type="hidden" name="product.id" value="${product.id}">
+				<a href="#" class="closerecordformbutton" data-role="button" data-icon="delete" data-theme="b" data-iconpos="right">关闭发布</a>
+			</form>
+			<script type="text/javascript">
+				$('a.closerecordformbutton').buttonMarkup("refresh").click(function(e) {
+					e.preventDefault();
+					$.myConfirm('确认关闭发布记录', function() {
+						var $form = $('form.closerecordform').first();
+						$.ajax({
+							type: $form.attr('method'),
+							url: $form.attr('action'),
+							data: $form.serialize(),
+							success: function(html) {
+								$('form.closerecordform').closest('li').html('操作成功');
+								$.mobile.back();
+							}
+						});
+					});
+					return false;
+				});
+			</script>
+		</div>
+	</li>
+</c:if>
 </c:if>
 <li data-role="list-divider">产品图片</li>
 <c:forEach var="item" items="${product.ids}">

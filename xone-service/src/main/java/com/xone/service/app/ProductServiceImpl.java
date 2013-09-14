@@ -65,6 +65,38 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+	@Override
+	public Map<String, String> updateCloseRecord(Long productId, Long userId) {
+        Product product = getProductDao().findById(productId);
+        Map<String, String> map = new HashMap<String, String>();
+        if (null == product || null == product.getId()) {
+        	map.put("msg", "记录不存在。");
+        	return map;
+        }
+        if (!product.isCloseable()) {
+        	map.put("msg", "记录还不可关闭。");
+        	return map;
+        }
+        if (Math.abs(product.getUserCreated() - userId) > 0) {
+        	map.put("msg", "非法操作记录。");
+        	return map;
+        }
+        product.setCheckStatus(Product.CheckStatus.CLOSED.getValue());
+        product.setUserUpdated(userId);
+        getProductDao().update(product);
+        Date date = new Date();
+        ProductCheck productCheck = new ProductCheck();
+        productCheck.setProductId(product.getId());
+        productCheck.setDateCheck(date);
+        productCheck.setFlagDeleted(ProductCheck.FlagDeleted.NORMAL.getValue());
+        productCheck.setUserApply(userId);
+        productCheck.setDateApply(date);
+        productCheck.setCheckStatus(Product.CheckStatus.CLOSED.getValue());
+        productCheck.setRemark("用户自己关闭");
+        productCheckDao.save(productCheck);
+		return null;
+	}
+
     @Override
     public Product save(Product entity) {
         entity.setFlagDeleted(Product.FlagDeleted.NORMAL.getValue());
@@ -628,6 +660,5 @@ public class ProductServiceImpl implements ProductService {
     public void setProductCheckDao(ProductCheckDao productCheckDao) {
         this.productCheckDao = productCheckDao;
     }
-
 
 }

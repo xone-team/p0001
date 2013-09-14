@@ -219,7 +219,11 @@ public class LoginRefAction extends LogicAction {
 			getMapValue().put("msg", "该用户已经存在:" + getPerson().getUsername());
 			return ERROR;
 		}
-		p.setPassword(EncryptRef.SHA1(getPerson().getPassword()));
+		/**
+		 * 密码加密已经在service中完成
+		 */
+//		p.setPassword(EncryptRef.SHA1(getPerson().getPassword()));
+		p.setPassword(getPerson().getPassword());
 		p.setUserLevel("C");
 		p = personService.save(p);
 		getMapValue().put("msg", "注册成功");
@@ -249,12 +253,18 @@ public class LoginRefAction extends LogicAction {
 		}
 //		BeanUtils.copyProperties(dest, orig);
 		Person up = pList.get(0);
-		up.setPassword(EncryptRef.SHA1(getPerson().getPassword()));
+		/**
+		 * 密码加密已经在service中完成
+		 */
+//		up.setPassword(EncryptRef.SHA1(getPerson().getPassword()));
+		up.setPassword(getPerson().getPassword());
+		up.setRepassword(getPerson().getRepassword());
+		up.setNickName(getPerson().getNickName());
 		up.setCellphone(getPerson().getCellphone());
 		up.setContactor(getPerson().getContactor());
 		up.setQq(getPerson().getQq());
 		up.setEmail(getPerson().getEmail());
-//		up.setAddress(getPerson().getAddress());
+		up.setAddress(getPerson().getAddress());
 		p = personService.update(up);
 		getMapValue().put("msg", "用户更新成功");
 		getMapValue().put("user", p);

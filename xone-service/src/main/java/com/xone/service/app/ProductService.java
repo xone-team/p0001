@@ -38,4 +38,12 @@ public interface ProductService {
 	 */
 	public void updateFlagDeletedWhenExpired();
 	
+	/**
+	 * 关闭数据记录
+	 * @param productId
+	 * @param userId
+	 * @return
+	 */
+	public Map<String, String> updateCloseRecord(Long productId, Long userId);
+	
 }

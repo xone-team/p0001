@@ -8,13 +8,13 @@
 		<title>Hello World</title>
 		<jsp:include page="commons.jsp"></jsp:include>
 	</head>
-	<body>
+	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="login-register-info-page">
 		<div data-id="myheader" class="ui-bar-b" data-role="header" data-tap-toggle="false" data-position="fixed">
-<%-- 			<a href="${pageContext.request.contextPath}/login/indexUpdate.html?_=${identify}" data-icon="check">返回</a> --%>
-			<a href="#" data-rel="back" data-icon="back">返回</a>
+			<a href="${pageContext.request.contextPath}/login/main.html?_=${myid}" data-icon="check">返回</a>
+<!-- 			<a href="#" data-rel="back" data-icon="back">返回</a> -->
 			<h1>用户更新</h1>
-			<a href="${pageContext.request.contextPath}/login/index.html?_=${identify}" data-icon="check" class="btn-banner">登录</a>
+			<a href="${pageContext.request.contextPath}/login/index.html?_=${myid}" data-icon="check" class="btn-banner">登录</a>
 		</div>
 		<div data-role="content">
 			<div style="height:15px">&nbsp;</div>
