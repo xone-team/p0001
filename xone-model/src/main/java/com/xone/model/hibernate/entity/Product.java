@@ -150,6 +150,10 @@ public class Product extends MyModel implements Serializable {
 		return SaleType.GROUPS.getValue().equals(this.saleType);
 	}
 	
+	/**
+	 * 数据是否为关闭状态
+	 * @return
+	 */
 	public boolean isCloseStatus() {
 		return Product.CheckStatus.CLOSED.getValue().equals(this.getCheckStatus());
 	}

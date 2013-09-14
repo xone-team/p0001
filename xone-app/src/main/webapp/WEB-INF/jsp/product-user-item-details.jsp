@@ -155,7 +155,7 @@
 							url: $form.attr('action'),
 							data: $form.serialize(),
 							success: function(html) {
-								$('form.closerecordform').closest('li').html('操作成功');
+								$('form.closerecordform').closest('li').html(html);
 								$.mobile.back();
 							}
 						});

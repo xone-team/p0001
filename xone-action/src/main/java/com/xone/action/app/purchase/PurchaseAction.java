@@ -60,6 +60,15 @@ public class PurchaseAction extends LogicAction {
 	}
 	
 	/**
+	 * 关闭数据记录
+	 * @return
+	 */
+	public String doCloseRecord() {
+		getPurchaseService().updateCloseRecord(getPurchase().getId(), getUserId());
+		return SUCCESS;
+	}
+	
+	/**
 	 * 置顶申请
 	 * @return
 	 */

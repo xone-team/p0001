@@ -8,6 +8,8 @@ import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
 public interface PurchaseService {
 	
+	public Map<String, String> updateCloseRecord(Long purchaseId, Long userId);
+	
 	public Purchase save(Purchase entity);
 	
 	public Purchase save(Purchase entity, List<ImageUploaded> imageUploadeds);
