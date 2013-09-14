@@ -231,7 +231,7 @@ public class ProductWebAction extends LogicAction {
 		setProduct(getProductService().save(getProduct()));
 		return SUCCESS;
 	}
-
+	
 	private List<ImageUploaded> getImageList() {
 		List<ImageUploaded> images = new ArrayList<ImageUploaded>();
 		if (uploadFile1 != null) {
@@ -266,12 +266,9 @@ public class ProductWebAction extends LogicAction {
 		String opt = null == getRequestMap().get("delete") ? getRequestMap()
 				.get("update") : getRequestMap().get("delete");
 		if (!StringUtils.isBlank(opt) && "delete".equals(opt)) {
-			Product entity = getProductService().findById(getProduct().getId());
-			if (null == entity || null == entity.getId()) {
-				return ERROR;
-			}
-			getProductService().delete(entity);
-			return "list";
+			getProductService().updateCloseRecord(getProduct().getId(), getUserId());
+			product.setCheckStatus(Product.CheckStatus.CLOSED.getValue());
+			return "item";
 		}
 		if (!StringUtils.isBlank(opt) && "update".equals(opt)) {
 			Product entity = getProductService().findById(getProduct().getId());
