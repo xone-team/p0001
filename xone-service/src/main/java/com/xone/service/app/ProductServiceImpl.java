@@ -207,11 +207,17 @@ public class ProductServiceImpl implements ProductService {
             check.setFlagDeleted(ProductCheck.FlagDeleted.NORMAL.getValue());
             check.setUserApply(entity.getUserApply());
             check.setDateApply(entity.getDateApply());
-            if (Product.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) 
-            		|| Product.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
-            } else{
+            /**
+             * 修改代码为选择数据关闭状态，数据的状态不发生变更2013-09-14 22:32
+             */
+            if (null == check.getCheckStatus()) {
             	check.setCheckStatus(Product.CheckStatus.WAITING.getValue());
             }
+//            if (Product.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) 
+//            		|| Product.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
+//            } else{
+//            	check.setCheckStatus(Product.CheckStatus.WAITING.getValue());
+//            }
             
             productCheckDao.save(check);
             

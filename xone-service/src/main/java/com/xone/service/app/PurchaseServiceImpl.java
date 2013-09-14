@@ -202,12 +202,18 @@ public class PurchaseServiceImpl implements PurchaseService {
             check.setFlagDeleted(PurchaseCheck.FlagDeleted.NORMAL.getValue());
             check.setUserApply(entity.getUserApply());
             check.setDateApply(entity.getDateApply());
-            
-            if (Purchase.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) 
-            		|| Purchase.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
-            } else{
+
+            /**
+             * 修改代码为选择数据关闭状态，数据的状态不发生变更2013-09-14 22:32
+             */
+            if (null == check.getCheckStatus()) {
             	check.setCheckStatus(Purchase.CheckStatus.WAITING.getValue());
             }
+//            if (Purchase.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) 
+//            		|| Purchase.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
+//            } else{
+//            	check.setCheckStatus(Purchase.CheckStatus.WAITING.getValue());
+//            }
             
             purchaseCheckDao.save(check);
             entity.setDateCheck(dateCheck);
