@@ -228,7 +228,7 @@ public class ProductWebAction extends LogicAction {
 			return INPUT;
 		}
 
-		setProduct(getProductService().save(getProduct()));
+//		setProduct(getProductService().save(getProduct()));
 		return SUCCESS;
 	}
 	
