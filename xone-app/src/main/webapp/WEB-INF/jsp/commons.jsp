@@ -14,7 +14,7 @@ $(document).bind("mobileinit", function() {
 	$.extend($.mobile, {
 		defaultPageTransition:'none',
 		defaultDialogTransition:'none',
-		pageLoadErrorMessage: '哇～～网络不给力呀！',
+		pageLoadErrorMessage: '网络不给力呀',
 		loadingMessageTheme: 'a',
 		loadingMessage: '系统正在加载请求的数据，请稍候...',
 		loadingMessageTextVisible: true
@@ -97,8 +97,8 @@ loadScript.callbackIE = function(callback) {
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/mypullupdown.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/myallcheckbox.js"></script>
 <script type="text/javascript">
-<!--
 	$(document).delegate($.mobile.activePage, 'pageshow', function() {
+		$.iphoneCssFixed();
 		var interval = $('body').data('_globalinterval');
 		if (interval) {
 			clearInterval(interval);
@@ -106,11 +106,6 @@ loadScript.callbackIE = function(callback) {
 		interval= setInterval('globalBannerSwitch();', 5 * 1000);
 		$('body').data('_globalinterval', interval);
 	});
-// 	$(document).delegate($.mobile.activePage, 'pageload', function() {
-// 		if ($('div[data-role="page"']).length <= 3) {
-// 			$('div[data-role="page"]:not(.ui-page-active)').stop().hide();
-// 		}
-// 	});
 	globalAdBanner();
 	function globalAdBanner() {
 		$('body').myadbanner({
@@ -120,18 +115,4 @@ loadScript.callbackIE = function(callback) {
 			}
 		});
 	}
-	function myBackPage() {
-		var activePage = $.mobile.activePage;
-		var backPage = activePage.prev('div');
-		while (backPage.length != 0 && !backPage.attr('data-role')) {
-			backPage = backPage.prev('div');
-		}
-		if (backPage.length > 0) {
-			var dataUrl = backPage.attr('data-url');
-			if ('' != dataUrl) {
-				$.mobile.changePage(dataUrl);
-			}
-		}
-	}
-//-->
 </script>

@@ -97,7 +97,7 @@
 	</li>
 	</c:forEach>
 </c:if>
-<c:if test="${login}">
+<c:if test="${!purchase.closeStatus && login}">
 <li>
 	<div>
 	<a href="${pageContext.request.contextPath}/purchase/updateItem.html?purchase.id=${purchase.id}" class="purchaseupdatebutton" data-role="button" data-theme="b" data-iconpos="right" data-icon="edit">更新信息</a>
@@ -125,22 +125,39 @@
 						}
 					});
 				});
-// 				if (confirm('确认申请顶置')) {
-// 					var $form = $('form.overheadpurchaseform').first();
-// 					$.ajax({
-// 						type: $form.attr('method'),
-// 						url: $form.attr('action'),
-// 						data: $form.serialize(),
-// 						success: function(html) {
-// 							$('form.overheadpurchaseform').closest('li').html(html);
-// 						}
-// 					});
-// 				}
 				return false;
 			});
 		</script>
 	</div>
 </li>
+<c:if test="${!purchase.closeStatus && purchase.closeable}">
+	<li>
+		<div>
+			<form class="closerecordpurchaseform" action="${pageContext.request.contextPath}/purchase/doCloseRecord.html" method="post">
+				<input type="hidden" name="purchase.id" value="${purchase.id}">
+				<a href="#" class="closerecordpurchaseformbutton" data-role="button" data-icon="delete" data-theme="b" data-iconpos="right">关闭求购</a>
+			</form>
+			<script type="text/javascript">
+				$('a.closerecordpurchaseformbutton').buttonMarkup("refresh").click(function(e) {
+					e.preventDefault();
+					$.myConfirm('确认关闭求购记录', function() {
+						var $form = $('form.closerecordpurchaseform').first();
+						$.ajax({
+							type: $form.attr('method'),
+							url: $form.attr('action'),
+							data: $form.serialize(),
+							success: function(html) {
+								$('form.closerecordpurchaseform').closest('li').html(html);
+								$.mobile.back();
+							}
+						});
+					});
+					return false;
+				});
+			</script>
+		</div>
+	</li>
+</c:if>
 </c:if>
 <li data-role="list-divider">产品图片</li>
 <c:forEach var="item" items="${purchase.ids}">

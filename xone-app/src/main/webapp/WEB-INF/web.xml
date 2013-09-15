@@ -34,9 +34,13 @@
 	<filter>
 		<filter-name>prepareHandlerFilter</filter-name>
 		<filter-class>com.xone.action.filters.PrepareHandlerFilter</filter-class>
+<!-- 		<init-param> -->
+<!-- 			<param-name>agent</param-name> -->
+<!-- 			<param-value>false</param-value> -->
+<!-- 		</init-param> -->
 		<init-param>
-			<param-name>agent</param-name>
-			<param-value>false</param-value>
+			<param-name>configFile</param-name>
+			<param-value>/WEB-INF/config-exclude.urls</param-value>
 		</init-param>
     </filter> 
 	<filter>

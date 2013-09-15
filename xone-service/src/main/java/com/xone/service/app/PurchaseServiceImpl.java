@@ -23,7 +23,6 @@ import com.xone.model.hibernate.app.PurchaseCheckDao;
 import com.xone.model.hibernate.app.PurchaseDao;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Person;
-import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.entity.PurchaseCheck;
 import com.xone.model.hibernate.support.Pagination;
@@ -83,6 +82,38 @@ public class PurchaseServiceImpl implements PurchaseService {
             getPurchaseDao().update(p);
         }
     }
+    
+	@Override
+	public Map<String, String> updateCloseRecord(Long purchaseId, Long userId) {
+        Purchase purchase = getPurchaseDao().findById(purchaseId);
+        Map<String, String> map = new HashMap<String, String>();
+        if (null == purchase || null == purchase.getId()) {
+        	map.put("msg", "记录不存在。");
+        	return map;
+        }
+        if (!purchase.isCloseable()) {
+        	map.put("msg", "记录还不可关闭。");
+        	return map;
+        }
+        if (Math.abs(purchase.getUserCreated() - userId) > 0) {
+        	map.put("msg", "非法操作记录。");
+        	return map;
+        }
+        purchase.setCheckStatus(Purchase.CheckStatus.CLOSED.getValue());
+        purchase.setUserUpdated(userId);
+        getPurchaseDao().update(purchase);
+        Date date = new Date();
+        PurchaseCheck purchaseCheck = new PurchaseCheck();
+        purchaseCheck.setPurchaseId(purchase.getId());
+        purchaseCheck.setDateCheck(date);
+        purchaseCheck.setFlagDeleted(PurchaseCheck.FlagDeleted.NORMAL.getValue());
+        purchaseCheck.setUserApply(userId);
+        purchaseCheck.setDateApply(date);
+        purchaseCheck.setCheckStatus(Purchase.CheckStatus.CLOSED.getValue());
+        purchaseCheck.setRemark("用户自己关闭");
+        getPurchaseCheckDao().save(purchaseCheck);
+		return null;
+	}
 
     @Override
     public Purchase save(Purchase entity) {
@@ -171,12 +202,18 @@ public class PurchaseServiceImpl implements PurchaseService {
             check.setFlagDeleted(PurchaseCheck.FlagDeleted.NORMAL.getValue());
             check.setUserApply(entity.getUserApply());
             check.setDateApply(entity.getDateApply());
-            
-            if (Purchase.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) 
-            		|| Purchase.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
-            } else{
+
+            /**
+             * 修改代码为选择数据关闭状态，数据的状态不发生变更2013-09-14 22:32
+             */
+            if (null == check.getCheckStatus()) {
             	check.setCheckStatus(Purchase.CheckStatus.WAITING.getValue());
             }
+//            if (Purchase.CheckStatus.DENIED.getValue().equals(check.getCheckStatus()) 
+//            		|| Purchase.CheckStatus.PASSED.getValue().equals(check.getCheckStatus())) {
+//            } else{
+//            	check.setCheckStatus(Purchase.CheckStatus.WAITING.getValue());
+//            }
             
             purchaseCheckDao.save(check);
             entity.setDateCheck(dateCheck);
