@@ -117,8 +117,9 @@ public class PrepareHandlerFilter implements Filter {
 				chain.doFilter(request, response);
 				return;
 			} else {
+				logger.info("=====> Response Code:" + HttpServletResponse.SC_NOT_MODIFIED);
 				resp = (HttpServletResponse)response;
-				resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				resp.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
 				return;
 			}
 		}
