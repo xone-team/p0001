@@ -181,11 +181,10 @@ public class OverheadWebAction extends Action {
         null == getRequestMap().get("delete") ? getRequestMap().get("update") : getRequestMap()
             .get("delete");
     if (!StringUtils.isBlank(opt) && "delete".equals(opt)) {
-      Overhead entity = getOverheadService().findById(getOverhead().getId());
-      if (null == entity || null == entity.getId()) {
-        return ERROR;
-      }
-      getOverheadService().delete(entity);
+    	Long userId = getUserId();
+		getOverhead().setUserCreated(userId);
+		getOverhead().setUserUpdated(userId);
+		setOverhead(getOverheadService().updateToCancelOverhead(getOverhead()));
       return "list";
     }
     if (!StringUtils.isBlank(opt) && "update".equals(opt)) {

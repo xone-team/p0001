@@ -150,11 +150,10 @@ public class ProductGroupWebAction extends Action {
         }
         String opt = null == getRequestMap().get("delete") ? getRequestMap().get("update") : getRequestMap().get("delete");
         if (!StringUtils.isBlank(opt) && "delete".equals(opt)) {
-            ProductGroup entity = getProductGroupService().findById(getProductGroup().getId());
-            if (null == entity || null == entity.getId()) {
-                return ERROR;
-            }
-            getProductGroupService().delete(entity);
+        	Long userId = getUserId();
+    		getProductGroup().setUserCreated(userId);
+    		getProductGroup().setUserUpdated(userId);
+    		setProductGroup(getProductGroupService().updateToCancelGroup(getProductGroup()));
             return "list";
         }
         if (!StringUtils.isBlank(opt) && "update".equals(opt)) {

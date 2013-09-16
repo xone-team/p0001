@@ -174,30 +174,30 @@
     </bean>
 
     <!-- 过期任务 -->
-    <bean id="expiredTask" class="com.xone.action.base.ExpiredTask" />
-    <bean id="expiredJob" class="org.springframework.scheduling.quartz.JobDetailBean">
-        <property name="jobClass" value="com.xone.action.base.ExpiredJob" />
-        <property name="jobDataAsMap">
-            <map>
-                <entry key="expiredTask" value-ref="expiredTask" />
-            </map>
-        </property>
-    </bean>
-    <bean id="expiredTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
-        <property name="jobDetail" ref="expiredJob" />
-        <property name="cronExpression" value="0 0 0 * * ?" />
-    </bean>
-    <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no">
-        <property name="jobDetails">
-            <list>
-                <ref bean="expiredJob" />
-            </list>
-        </property>
-        <property name="triggers">
-            <list>
-                <ref bean="expiredTrigger" />
-            </list>
-        </property>
-    </bean>
+<!--     <bean id="expiredTask" class="com.xone.action.base.ExpiredTask" /> -->
+<!--     <bean id="expiredJob" class="org.springframework.scheduling.quartz.JobDetailBean"> -->
+<!--         <property name="jobClass" value="com.xone.action.base.ExpiredJob" /> -->
+<!--         <property name="jobDataAsMap"> -->
+<!--             <map> -->
+<!--                 <entry key="expiredTask" value-ref="expiredTask" /> -->
+<!--             </map> -->
+<!--         </property> -->
+<!--     </bean> -->
+<!--     <bean id="expiredTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean"> -->
+<!--         <property name="jobDetail" ref="expiredJob" /> -->
+<!--         <property name="cronExpression" value="0 0 0 * * ?" /> -->
+<!--     </bean> -->
+<!--     <bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean" autowire="no"> -->
+<!--         <property name="jobDetails"> -->
+<!--             <list> -->
+<!--                 <ref bean="expiredJob" /> -->
+<!--             </list> -->
+<!--         </property> -->
+<!--         <property name="triggers"> -->
+<!--             <list> -->
+<!--                 <ref bean="expiredTrigger" /> -->
+<!--             </list> -->
+<!--         </property> -->
+<!--     </bean> -->
 
 </beans>

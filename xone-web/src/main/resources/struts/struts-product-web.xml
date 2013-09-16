@@ -81,6 +81,7 @@
                 <param name="actionName">productList</param>
                 <param name="namespace">/product</param>
             </result>
+            <result name="item">/WEB-INF/jsp/product-user-item.jsp</result>
             <result name="input">/WEB-INF/jsp/product-edit.jsp</result>
         </action>
         <action name="productItem" class="productWebAction" method="productItem">

@@ -97,7 +97,7 @@
                                 <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                 <td>${item.checkStatusName}</td>
                                 <td>
-                                    <c:if test="${item.checkStatus != '1'}">
+                                    <c:if test="${item.checkStatus != '1' && item.checkStatus != '3'}">
                                     <c:choose>
                                         <c:when test="${product.saleType == '1' }">
                                             <a href="${pageContext.request.contextPath}/product/productSalesEdit.html?product.id=${item.id}" class="btn btn-mini">
