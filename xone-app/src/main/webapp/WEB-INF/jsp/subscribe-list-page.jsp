@@ -11,7 +11,7 @@
 	</head>
 	<body>
 	<div data-role="page" class="subscribe-list-page">
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-position="fixed">
 <%-- 			<a href="${pageContext.request.contextPath}/login/index.html?_=${identify}" data-icon="check">返回</a> --%>
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>订阅列表</h1>

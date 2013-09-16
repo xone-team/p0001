@@ -14,7 +14,7 @@
 	</head>
 	<body>
 		<div data-role="page" id="login-timeout-page${myid}" class="login-timeout-page" data-dom-cache="false">
-			<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
+			<div data-id="myheader" data-role="header" data-position="fixed">
 				<a href="${pageContext.request.contextPath}/login/index.html" data-icon="check">登录</a>
 				<h1>请求登录</h1>
 				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="grid">客服</a>

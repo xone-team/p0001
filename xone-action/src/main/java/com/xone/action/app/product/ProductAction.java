@@ -431,6 +431,9 @@ public class ProductAction extends LogicAction {
 			getMapValue().put("msg", "已经通过审核的信息不能进行更新操作");
 			return ERROR;
 		}
+//		if (Math.abs(entity.getUserCreated() - getUserId()) > 0) {
+//			return ERROR;
+//		}
 		MyBeanUtils.copyProperties(pu, entity, Product.class, new String[] {
 			"ids"
 		}, new CopyRules() {

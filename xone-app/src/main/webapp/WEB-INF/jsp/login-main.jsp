@@ -16,14 +16,14 @@
 				padding-left:5px;
 			}
 		</style>
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-backbtn="false" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 <%-- 			<a href="${pageContext.request.contextPath}/login/indexUpdate.html?_=${myid}" data-icon="check">更新</a> --%>
 			<a href="${pageContext.request.contextPath}/assistant/guide.html" data-icon="home">首页</a>
 			<h1>用户中心</h1>
 			<a href="${pageContext.request.contextPath}/login/logout.html?_=${myid}" data-icon="check" class="login-logout${myid} ui-btn-right">注销</a>
 		</div>
 		<div data-role="content">
-		    <div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+		    <div data-role="collapsible" data-collapsed="true" data-content-theme="d">
 		        <h3>用户信息</h3>
 				<ul data-role="listview" data-inset="true">
 				    <li data-icon="false"><a href="#">用户名:<span class="myspanstyle">${userMap.username}</span></a></li>
@@ -46,7 +46,7 @@
 			<c:set var="B_L" value="${blevelUser}"/>
 			<c:set var="C_L" value="${clevelUser}"/>
 			<c:if test="${A_L || B_L}">
-		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
+		    <div data-role="collapsible" data-collapsed="false" data-content-theme="d">
 		        <h3>我的售卖发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/Accounting-Purchase-order-icon_32.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=0&_=${myid}">查看产品发布列表</a></li>
@@ -58,14 +58,14 @@
 		    </div>
 		    </c:if>
 		    <c:if test="${C_L || B_L}">
-		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
+		    <div data-role="collapsible" data-collapsed="false" data-content-theme="d">
 		        <h3>我的购买发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/3-fish-icon_32.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/purchase/listAllForUser.html?_=${myid}">查看求购发布列表</a></li>
 				</ul>
 		    </div>
 		    </c:if>
-		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
+		    <div data-role="collapsible" data-collapsed="false" data-content-theme="d">
 		        <h3>我的配套服务</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 					<c:if test="${A_L || B_L}">

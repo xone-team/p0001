@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="${STATIC_ROOT}/css/jquery.mobile-1.3.2.min.css" />
+<link rel="stylesheet" href="${STATIC_ROOT}/css/themes-a/my-theme-a.min.css" />
 <link rel="stylesheet" href="${STATIC_ROOT}/css/msg.css" />
 <script type="text/javascript" src="${STATIC_ROOT}/js/jquery-1.10.0.min.js"></script>
 <script type="text/javascript">

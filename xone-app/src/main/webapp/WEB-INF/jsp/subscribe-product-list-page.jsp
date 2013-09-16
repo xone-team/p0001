@@ -11,7 +11,7 @@
 	</head>
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="subscribe-product-list-page${myid}">
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-position="fixed">
 <!-- 			<a href="#" data-rel="back" data-icon="back">返回</a> -->
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>产品订阅列表</h1>

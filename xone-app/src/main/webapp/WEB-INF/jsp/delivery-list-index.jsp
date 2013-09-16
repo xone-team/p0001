@@ -13,7 +13,7 @@
 	</head>
 	<body>
 	<div data-role="page" class="delivery-list-index-page" data-dom-cache="false">
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-position="fixed">
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>我的物流配送列表</h1>
 			<a href="#" class="delivery-list-page-refresh ui-btn-right" data-icon="refresh">刷新</a>

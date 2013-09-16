@@ -10,7 +10,7 @@
 	</head>
 	<body>
 	<div data-role="page">
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-backbtn="false" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<h1>求购列表</h1>
 <!-- 			<div data-role="navbar" data-theme="e"> -->
 <!-- 			    <ul> -->

@@ -11,7 +11,7 @@
 	</head>
 	<body>
 	<div data-role="page" class="product-list-for-user-page">
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-position="fixed">
 <%-- 			<a href="${pageContext.request.contextPath}/login/index.html?_=${identify}" data-icon="check">返回</a> --%>
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>用户<c:choose><c:when test="${product.saleType == '1'}">促销</c:when><c:when test="${product.saleType == '2'}">团购</c:when><c:otherwise>产品</c:otherwise></c:choose>列表</h1>

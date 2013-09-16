@@ -11,7 +11,7 @@
 	</head>
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="login-ref-page" data-dom-cache="false">
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-tap-toggle="false" data-backbtn="false" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-backbtn="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/assistant/guide.html" data-icon="check">首页</a>
 			<h4>用户登录</h4>
 			<a href="#" class="assistant-service${myid} ui-btn-right" data-icon="grid">客服</a>

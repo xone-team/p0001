@@ -6,14 +6,12 @@
 <html>
 	<head>
 		<title>Assistant Guide</title>
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<jsp:include page="commons.jsp"></jsp:include>
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body><c:set var="myid" value="${identify}" />
 		<div id="assistant-guide" data-role="page" data-id="myguidepage">
-			<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed" data-tap-toggle="true">
+			<div data-id="myheader" data-role="header" data-position="fixed" data-tap-toggle="true">
 				<a href="${pageContext.request.contextPath}/login/indexRegister.html" data-icon="check">注册</a>
 				<h1>欢迎使用</h1>
 				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="grid">客服</a>
@@ -23,7 +21,7 @@
 				    <div class="ui-block-a">
 				    	<div class="ui-bar">
 							<div class="desktop-icon" style="text-align:center;">
-				    		<a href="${pageContext.request.contextPath}/product/index.html" class="ui-btn-up-b" data-role="button" data-theme="red" data-icon="sale-a-64" data-iconpos="top" data-inline="true">大家在卖</a>
+				    		<a href="${pageContext.request.contextPath}/product/index.html" class="ui-btn-up-va" data-role="button" data-theme="no" data-icon="sale-a-64" data-iconpos="top" data-inline="true">大家在卖</a>
 							</div>
 				    	</div>
 				    </div>

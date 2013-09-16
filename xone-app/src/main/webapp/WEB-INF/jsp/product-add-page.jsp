@@ -17,7 +17,7 @@
 <%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2.js"></script> --%>
 <%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.datetime-2.6.2.js"></script> --%>
 <%-- 		<script type="text/javascript" src="${STATIC_ROOT}/mobiscroll/js/mobiscroll.core-2.6.2-zh.js"></script> --%>
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-position="fixed">
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>发布产品</h1>
 			<a href="#" rel="external" data-icon="check" data-role="button" class="productsave${myid} ui-btn-right">发布</a>

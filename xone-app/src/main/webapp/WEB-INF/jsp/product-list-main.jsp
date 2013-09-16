@@ -6,15 +6,13 @@
 <html>
 	<head>
 		<title>产品列表</title>
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<jsp:include page="commons.jsp"></jsp:include>
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="product-main-page" data-dom-cache="true">
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
-			<div data-role="navbar" data-theme="e">
+		<div data-id="myheader" data-role="header" data-position="fixed">
+			<div data-role="navbar" data-theme="va" class="ui-vanavbar">
 			    <ul>
 			        <li><a class="allproducts" href="#" class="ui-btn-active ui-state-persist">普通产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listSales.html?_=${myid}">促销产品</a></li>
@@ -23,9 +21,9 @@
 			</div>
 		</div>
 		<div class="product-list-main${myid}" data-role="content">
-			<div class="searchconditions${myid}" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+			<div class="searchconditions${myid}" data-role="collapsible" data-collapsed="true">
 			    <h4>普通产品高级搜索</h4>
-				<div data-role="navbar" data-mini="true" data-theme="e">
+				<div data-role="navbar" data-mini="true">
 				    <ul>
 				        <li><a href="#searchtype${myid}" class="navbartabs ui-btn-active">类型</a></li>
 				        <li><a href="#searcharea${myid}" class="navbartabs">属地</a></li>
@@ -63,7 +61,7 @@
 			        <span class="iscroll-pull-label"></span>
 				</div>
 				<div style="height:10px">&nbsp;</div>
-				<ul class="ul-product-list${myid}" data-id="listview" data-role="listview" data-filter="true" data-filter-placeholder="产品关键字(至少二个)" data-inset="true">
+				<ul class="ul-product-list${myid}" data-id="listview" data-role="listview" data-divider-theme="d" data-filter="true" data-filter-placeholder="产品关键字(至少二个)" data-inset="true">
 			        <li data-role="list-divider">普通产品数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">

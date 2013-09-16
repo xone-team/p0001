@@ -15,7 +15,7 @@
 				width:80px;
 			}
 		</style>
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-tap-toggle="false" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-position="fixed">
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>产品详情</h1>
 			<a href="#" class="product-item-page-refresh ui-btn-right" data-icon="refresh">刷新</a>

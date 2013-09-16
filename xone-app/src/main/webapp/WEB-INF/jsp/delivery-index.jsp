@@ -22,7 +22,7 @@
 				width:80px;
 			}
 		</style>
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-position="fixed">
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>物流配送</h1>
 			<a href="#" rel="external" data-icon="check" data-role="button" class="deliverysave${myid} ui-btn-right">保存</a>

@@ -11,7 +11,7 @@
 	</head>
 	<body>
 	<div data-role="page" class="assistant-main-page" data-dom-cache="true">
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-backbtn="false" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h2>功能助手</h2>
 			<a href="#" class="assistant-service${myid} ui-btn-right" data-icon="grid">客服</a>
@@ -21,7 +21,7 @@
 			<c:set var="B_L" value="${blevelUser}"/>
 			<c:set var="C_L" value="${clevelUser}"/>
 			<c:if test="${A_L || B_L}">
-		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
+		    <div data-role="collapsible" data-collapsed="false" data-content-theme="d">
 		        <h3>售卖发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/FolderActionsSetup-icon_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/add.html?_=${myid}">产品发布</a></li>
@@ -33,14 +33,14 @@
 		    </div>
 		    </c:if>
 		    <c:if test="${C_L || B_L}">
-		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
+		    <div data-role="collapsible" data-collapsed="false" data-content-theme="d">
 		        <h3>购买发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/iBarcoder-icon_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/purchase/indexAdd.html?_=${myid}">求购发布</a></li>
 				</ul>
 		    </div>
 		    </c:if>
-		    <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
+		    <div data-role="collapsible" data-collapsed="false" data-content-theme="d">
 		        <h3>配套服务</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 					<c:if test="${A_L || B_L}">

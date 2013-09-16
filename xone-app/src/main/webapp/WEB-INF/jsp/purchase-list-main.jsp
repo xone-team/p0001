@@ -13,15 +13,15 @@
 	</head>
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="purchase-main-page" data-dom-cache="true">
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-position="fixed">
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>求购列表</h1>
 			<a href="#" class="purchase-list-page-refresh ui-btn-right" data-icon="refresh">刷新</a>
 		</div>
 		<div data-role="content">
-			<div class="searchconditions${myid}" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+			<div class="searchconditions${myid}" data-role="collapsible" data-collapsed="true">
 			    <h4>求购产品高级搜索</h4>
-				<div data-role="navbar" data-mini="true" data-theme="e">
+				<div data-role="navbar" data-mini="true">
 				    <ul>
 				        <li><a href="#searchtype${myid}" class="navbartabs ui-btn-active">类型</a></li>
 				        <li><a href="#searcharea${myid}" class="navbartabs">属地</a></li>
@@ -59,7 +59,7 @@
 			        <span class="iscroll-pull-label"></span>
 				</div>
 				<div style="height:10px">&nbsp;</div>
-				<ul class="ul-purchase-list${myid}" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true">
+				<ul class="ul-purchase-list${myid}" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true" data-divider-theme="d">
 		        	<li data-role="list-divider">数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">

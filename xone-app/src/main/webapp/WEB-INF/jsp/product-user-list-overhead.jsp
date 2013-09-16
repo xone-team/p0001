@@ -11,7 +11,7 @@
 	</head>
 	<body>
 	<div data-role="page" class="product-overhead-for-user-page">
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-position="fixed">
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h1>用户顶置申请列表</h1>
 			<a href="#" class="product-overhead-for-user-page-refresh ui-btn-right" data-icon="refresh">刷新</a>

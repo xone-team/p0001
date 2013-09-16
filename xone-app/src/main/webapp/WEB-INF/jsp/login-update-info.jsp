@@ -10,7 +10,7 @@
 	</head>
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="login-register-info-page">
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-tap-toggle="false" data-position="fixed">
+		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-position="fixed">
 			<a href="${pageContext.request.contextPath}/login/main.html?_=${myid}" data-icon="check">返回</a>
 <!-- 			<a href="#" data-rel="back" data-icon="back">返回</a> -->
 			<h1>用户更新</h1>

@@ -13,8 +13,8 @@
 	</head>
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="product-groups-page" data-dom-cache="true">
-		<div data-id="myheader" class="ui-bar-b" data-role="header" data-position="fixed">
-			<div data-role="navbar" data-theme="e">
+		<div data-id="myheader" data-role="header" data-position="fixed">
+			<div data-role="navbar" data-theme="va" class="ui-vanavbar">
 			    <ul>
 			        <li><a href="${pageContext.request.contextPath}/product/index.html?_=${myid}">普通产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listSales.html?_=${myid}">促销产品</a></li>
@@ -23,9 +23,9 @@
 			</div>
 		</div>
 		<div data-role="content" class="product-list-groups${myid}">
-			<div class="searchconditionsgroup" data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d">
+			<div class="searchconditionsgroup" data-role="collapsible" data-collapsed="true">
 			    <h4>组团产品高级搜索</h4>
-				<div data-role="navbar" data-mini="true" data-theme="e">
+				<div data-role="navbar" data-mini="true">
 				    <ul>
 				        <li><a href="#searchtype${myid}" class="navbartabs ui-btn-active">类型</a></li>
 				        <li><a href="#searcharea${myid}" class="navbartabs">属地</a></li>
@@ -63,7 +63,7 @@
 			        <span class="iscroll-pull-label"></span>
 				</div>
 				<div style="height:10px">&nbsp;</div>
-		        <ul class="product-groups-listview${myid}" data-role="listview" data-filter="true" data-filter-placeholder="组团关键字(至少二个)" data-inset="true">
+		        <ul class="product-groups-listview${myid}" data-role="listview" data-filter="true" data-divider-theme="d" data-filter-placeholder="组团关键字(至少二个)" data-inset="true">
 			        <li data-role="list-divider">组团产品数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
