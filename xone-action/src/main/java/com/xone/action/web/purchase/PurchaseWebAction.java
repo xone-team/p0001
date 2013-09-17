@@ -103,7 +103,7 @@ public class PurchaseWebAction extends LogicAction {
 	}
 
 	public String purchaseCreate() throws Exception {
-//		purchase.setPurchaseNum("0");
+		// purchase.setPurchaseNum("0");
 		return SUCCESS;
 	}
 
@@ -126,10 +126,11 @@ public class PurchaseWebAction extends LogicAction {
 		purchase.setDateApply(new Date());
 
 		try {
-			setPurchase(getPurchaseService().save(getPurchase(), getImageList()));
+			setPurchase(getPurchaseService()
+					.save(getPurchase(), getImageList()));
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
-			if( e instanceof FileUploadException){
+			if (e instanceof FileUploadException) {
 				addFieldError("uploadFile1", "请上传小于2M的png,jpg,gif图片");
 			}
 			return INPUT;
@@ -171,13 +172,14 @@ public class PurchaseWebAction extends LogicAction {
 		String opt = null == getRequestMap().get("delete") ? getRequestMap()
 				.get("update") : getRequestMap().get("delete");
 		if (!StringUtils.isBlank(opt) && "delete".equals(opt)) {
-			Purchase entity = getPurchaseService().findById(
-					getPurchase().getId());
-			if (null == entity || null == entity.getId()) {
-				return ERROR;
+			Map<String, String> msg = getPurchaseService().updateCloseRecord(
+					getPurchase().getId(), getUserId());
+			if (msg != null) {
+				addActionError(msg.get("msg"));
+				return INPUT;
 			}
-			getPurchaseService().delete(entity);
-			return "list";
+			purchase.setCheckStatus(Purchase.CheckStatus.CLOSED.getValue());
+			return "item";
 		}
 		if (!StringUtils.isBlank(opt) && "update".equals(opt)) {
 			Purchase entity = getPurchaseService().findById(
@@ -205,7 +207,7 @@ public class PurchaseWebAction extends LogicAction {
 						newIds));
 			} catch (Exception e) {
 				log.error(e.getMessage(), e);
-				if( e instanceof FileUploadException){
+				if (e instanceof FileUploadException) {
 					addFieldError("uploadFile1", "请上传小于2M的png,jpg,gif图片");
 				}
 				return INPUT;
