@@ -266,7 +266,11 @@ public class ProductWebAction extends LogicAction {
 		String opt = null == getRequestMap().get("delete") ? getRequestMap()
 				.get("update") : getRequestMap().get("delete");
 		if (!StringUtils.isBlank(opt) && "delete".equals(opt)) {
-			getProductService().updateCloseRecord(getProduct().getId(), getUserId());
+			Map<String, String> msg = getProductService().updateCloseRecord(getProduct().getId(), getUserId());
+			if(msg != null){
+				addActionError(msg.get("msg"));
+				return INPUT;
+			}
 			product.setCheckStatus(Product.CheckStatus.CLOSED.getValue());
 			return "item";
 		}

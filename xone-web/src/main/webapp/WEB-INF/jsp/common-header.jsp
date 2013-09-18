@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="${STATIC_ROOT}/css/docs.css" />
 <link rel="stylesheet" href="${STATIC_ROOT}/css/listview.css" />
 <link rel="stylesheet" href="${STATIC_ROOT}/css/all.css" />
+<link rel="stylesheet" href="${STATIC_ROOT}/fj/bdsstyle.css.css" />
+<link rel="stylesheet" href="${STATIC_ROOT}/fj/fj_index_3.css" />
 <style type="text/css">
 * {
     font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif
@@ -58,7 +60,8 @@ li {
     float: left;
     width: 26px;
     height: 28px;
-    margin-left: 20px;
+    margin: 0px 3px;
+    padding: 0px;
 }
 
 .banner-down-android,.banner-down-ios,.banner-down-win {
@@ -79,6 +82,14 @@ li {
 
 .banner-down-ios:hover {
     background-position: -265px -158px;
+}
+
+a.submit:hover {
+    text-decoration: none;
+    color: #fff!important;
+}
+a.submit {
+    padding: 0;
 }
 </style>
 <script src="${STATIC_ROOT}/js/My97DatePicker/WdatePicker.js"></script>

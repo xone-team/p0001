@@ -148,6 +148,9 @@
                     <div class="control-group">
                         <div class="controls">
                             <button type="submit" name="update" value="update" class="btn" onclick="return confirm('确定更新本条记录?');">提交更新</button>
+                            <c:if test="${purchase.checkStatus  == '0'}">
+                                <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm('确定关闭本条记录?');">关闭数据</button>
+                            </c:if>
                         </div>
                     </div>
                 </form>
