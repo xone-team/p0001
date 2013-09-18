@@ -46,6 +46,10 @@ public class AssistantAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	public String market() {
+		return SUCCESS;
+	}
+	
 	public String redirect() {
 		return SUCCESS;
 	}

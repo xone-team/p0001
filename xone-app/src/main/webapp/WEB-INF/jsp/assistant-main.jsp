@@ -24,10 +24,10 @@
 		    <div data-role="collapsible" data-collapsed="false" data-content-theme="d">
 		        <h3>售卖发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
-				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/FolderActionsSetup-icon_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/add.html?_=${myid}">产品发布</a></li>
-				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/Places-repository-icon_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/addSales.html?_=${myid}">促销发布</a></li>
+				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/product_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/add.html?_=${myid}">产品发布</a></li>
+				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/sale_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/addSales.html?_=${myid}">促销发布</a></li>
 				    <c:if test="${A_L}">
-				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/green-icon_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/addGroups.html?_=${myid}">组团发布</a></li>
+				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/groups_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/addGroups.html?_=${myid}">组团发布</a></li>
 				    </c:if>
 				</ul>
 		    </div>
@@ -36,7 +36,7 @@
 		    <div data-role="collapsible" data-collapsed="false" data-content-theme="d">
 		        <h3>购买发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
-				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/iBarcoder-icon_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/purchase/indexAdd.html?_=${myid}">求购发布</a></li>
+				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/purchase_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/purchase/indexAdd.html?_=${myid}">求购发布</a></li>
 				</ul>
 		    </div>
 		    </c:if>
@@ -44,7 +44,7 @@
 		        <h3>配套服务</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 					<c:if test="${A_L || B_L}">
-				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/Global-Network-icon_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/delivery/index.html?_=${myid}">物流配送</a></li>
+				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/truck_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/delivery/index.html?_=${myid}">物流配送</a></li>
 				    </c:if>
 				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/RSS-icon_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/subscribe/add.html?_=${myid}">筛选订阅</a></li>
 				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/phone-green-glow-icon_24.png" class="ui-li-icon ui-li-thumb"><a href="#" class="contact-service" onclick="$.makeCall('4008979727');">联系客服　4008-9797-27</a></li>

@@ -238,7 +238,57 @@ span.required {
 	font-family: Helvetica, Arial, sans-serif;
 	text-decoration: none;
 }
------------------------------------------------------------------------------------------------------------*/
+/*--------------------ui-btn-no-------------------------------------*/
+.ui-btn-up-no {
+	border: 1px solid transparent;
+	background: transparent;
+	font-weight: bold;
+	color: #000000;
+}
+.ui-btn-up-no .ui-btn-text {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	color:#000000;
+}
+.ui-btn-up-no:visited,
+.ui-btn-up-no a.ui-link-inherit {
+	color: #ffffff;
+}
+.ui-btn-hover-no {
+	border: 1px solid #bbbbbb;
+	background: #fdc687;
+	font-weight: bold;
+	color: #ffffff;
+	text-shadow: 0 1px 0 #ffffff;
+}
+.ui-btn-hover-no:visited,
+.ui-btn-hover-no:hover,
+.ui-btn-hover-no a.ui-link-inherit {
+	color: #ffffff;
+}
+.ui-btn-down-no {
+	border: 1px solid #bbbbbb;
+	background: #fdc687;
+	font-weight: bold;
+	color: #ffffff;
+	text-shadow: 0 1px 0 #ffffff;
+}
+.ui-btn-down-no:visited,
+.ui-btn-down-no:hover,
+.ui-btn-down-no a.ui-link-inherit {
+	color: #ffffff;
+}
+.ui-btn-up-no,
+.ui-btn-hover-no,
+.ui-btn-down-no {
+	font-family: Helvetica, Arial, sans-serif;
+	text-decoration: none;
+}
+/*******************button no end****************/
 
 /*******************ui-footer*****************************/
 .ui-footer .ui-btn-inner {
@@ -268,8 +318,11 @@ span.required {
 .ui-icon-sale-24 {
     background-image: url('images/sale_24.png');
 }
-.ui-icon-buy-24 {
-    background-image: url('images/buy_24.png');
+.ui-icon-green-24 {
+    background-image: url('images/green_24.png');
+}
+.ui-icon-parter-24 {
+    background-image: url('images/parter_24.png');
 }
 .ui-icon-user-24 {
     background-image: url('images/user_24.png');
@@ -350,6 +403,12 @@ span.required {
 .ui-icon-sale-c-64 {
     background-image: url('images/sale-c_64.png');
 }
+.ui-icon-sale-d-64 {
+    background-image: url('images/sale-d_64.png');
+}
+.ui-icon-sale-e-64 {
+    background-image: url('images/sale-e_64.png');
+}
 .ui-icon-login-64 {
     background-image: url('images/login_64.png');
 }
@@ -358,9 +417,6 @@ span.required {
 }
 .ui-icon-admin-64 {
     background-image: url('images/admin_64.png');
-}
-.ui-icon-sale-72 {
-    background-image: url('images/sale_72.png');
 }
 
 /**************ui-bar-theme********************/

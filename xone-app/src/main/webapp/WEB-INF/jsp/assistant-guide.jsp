@@ -21,14 +21,14 @@
 				    <div class="ui-block-a">
 				    	<div class="ui-bar">
 							<div class="desktop-icon" style="text-align:center;">
-				    		<a href="${pageContext.request.contextPath}/product/index.html" class="ui-btn-up-va" data-role="button" data-theme="no" data-icon="sale-a-64" data-iconpos="top" data-inline="true">大家在卖</a>
+				    		<a href="${pageContext.request.contextPath}/product/listSales.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="sale-b-64" data-iconpos="top" data-inline="true">促销产品</a>
 							</div>
 				    	</div>
 				    </div>
 				    <div class="ui-block-b">
 				    	<div class="ui-bar">
 							<div class="desktop-icon" style="text-align:center;">
-				    		<a href="${pageContext.request.contextPath}/product/listSales.html" class="ui-btn-up-b" data-theme="green-a" data-role="button" data-icon="sale-b-64" data-iconpos="top" data-inline="true">促销产品</a>
+							<a href="${pageContext.request.contextPath}/purchase/index.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="sale-d-64" data-iconpos="top" data-inline="true">大家想买</a>
 							</div>
 				    	</div>
 				    </div>
@@ -37,14 +37,14 @@
 				    <div class="ui-block-a">
 				    	<div class="ui-bar">
 							<div class="desktop-icon" style="text-align:center;">
-				    		<a href="${pageContext.request.contextPath}/product/listGroups.html" data-role="button" data-theme="e" data-icon="sale-c-64" data-iconpos="top" data-inline="true">组团产品</a>
+				    		<a href="${pageContext.request.contextPath}/product/listGroups.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="sale-c-64" data-iconpos="top" data-inline="true">组团产品</a>
 							</div>
 				    	</div>
 				    </div>
 				    <div class="ui-block-b">
 				    	<div class="ui-bar">
 							<div class="desktop-icon" style="text-align:center;">
-				    		<a href="${pageContext.request.contextPath}/purchase/index.html" class="ui-btn-up-b" data-role="button" data-theme="gray" data-icon="sale-72" data-iconpos="top" data-inline="true">大家想买</a>
+				    		<a href="${pageContext.request.contextPath}/delivery/index.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="sale-a-64" data-iconpos="top" data-inline="true">物流配送</a>
 							</div>
 				    	</div>
 				    </div>
@@ -53,7 +53,7 @@
 				    <div class="ui-block-a">
 				    	<div class="ui-bar">
 							<div class="desktop-icon" style="text-align:center;">
-				    		<a href="${pageContext.request.contextPath}/login/indexRegister.html" class="ui-btn-up-b" data-theme="orange" data-role="button" data-icon="reg-64" data-iconpos="top" data-inline="true">我要注册</a>
+				    		<a href="${pageContext.request.contextPath}/login/indexRegister.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="reg-64" data-iconpos="top" data-inline="true">我要注册</a>
 							</div>
 				    	</div>
 				    </div>
@@ -62,10 +62,10 @@
 				    		<div class="desktop-icon" style="text-align:center;">
 				    		<c:choose>
 								<c:when test="${login}">
-									<a href="${pageContext.request.contextPath}/login/main.html" data-role="button" data-icon="admin-64" data-iconpos="top" data-inline="true">用户中心</a>
+									<a href="${pageContext.request.contextPath}/login/main.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="admin-64" data-iconpos="top" data-inline="true">用户中心</a>
 								</c:when>
 								<c:otherwise>
-									<a href="${pageContext.request.contextPath}/login/index.html" data-role="button" data-icon="login-64" data-iconpos="top" data-inline="true">我要登录</a>
+									<a href="${pageContext.request.contextPath}/login/index.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="login-64" data-iconpos="top" data-inline="true">我要登录</a>
 								</c:otherwise>
 							</c:choose>
 							
@@ -73,19 +73,19 @@
 				    	</div>
 				    </div>
 				</div>
-				<c:if test="${login}">
-				    <div class="ui-grid-solo">
-				    	<div class="ui-block-a">
-					    	<div class="ui-bar">
-					    		<div style="text-align:center;">
-						    	<a href="${pageContext.request.contextPath}/login/logout.html?_=${myid}" class="login-logout${myid}" data-inline="true" data-role="button">退出登录</a>
-						    	</div>
-					    	</div>
-				    	</div>
-					</div>
-				</c:if>
+<%-- 				<c:if test="${login}"> --%>
+<!-- 				    <div class="ui-grid-solo"> -->
+<!-- 				    	<div class="ui-block-a"> -->
+<!-- 					    	<div class="ui-bar"> -->
+<!-- 					    		<div style="text-align:center;"> -->
+<%-- 						    	<a href="${pageContext.request.contextPath}/login/logout.html?_=${myid}" class="login-logout${myid}" data-inline="true" data-role="button">退出登录</a> --%>
+<!-- 						    	</div> -->
+<!-- 					    	</div> -->
+<!-- 				    	</div> -->
+<!-- 					</div> -->
+<%-- 				</c:if> --%>
 			</div>
-			<jsp:include page="footer.jsp"><jsp:param value="0" name="offset"/></jsp:include>
+			<jsp:include page="footer.jsp"><jsp:param value="2" name="offset"/></jsp:include>
 		</div>
 		<script type="text/javascript" language="javascript">  
 	    $('div.guide-page').bind('pageinit', function(e, ui) {
