@@ -40,8 +40,8 @@
                         <form method="post" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
                             <input type="hidden" name="searchType" value="${searchType}" />
                             <input type="text" name="searchKey" value="${searchKey}" class="keyword colorgrey" style="width: 300px;" value="" autocomplete="off" maxlength="25" jqac="on" jqriempty="true" style="z-index: 10000000;" />
-                            <a href="javascript:void(0);" class="submit" onclick="navSearch(1, this);" value="售卖">&nbsp;&nbsp;&nbsp;&nbsp;售卖</a>
-                            <a href="javascript:void(0);" class="submit" onclick="navSearch(2, this);" style="margin-left: 2px;">&nbsp;&nbsp;&nbsp;&nbsp;购卖</a>
+                            <a href="javascript:void(0);" class="submit" onclick="navSearch(1, this);" value="售卖">&nbsp;&nbsp;大家在卖</a>
+                            <a href="javascript:void(0);" class="submit" onclick="navSearch(2, this);" style="margin-left: 2px;">&nbsp;&nbsp;大家在买</a>
                             <input type="submit" name="search" value="" style="display: none;">
                         </form>
                     </div>
@@ -63,11 +63,11 @@
         </a>
         <label class="line01"></label>
         <a href="${pageContext.request.contextPath}/product/list.html" <c:if test="${ param.offset == 2 }"> class="cur"</c:if>>
-            <span class="gujia">售卖</span><img src="${STATIC_ROOT}/fj/hot.gif">
+            <span class="gujia">大家在卖</span>
         </a>
         <label class="line01"></label>
         <a href="${pageContext.request.contextPath}/purchase/list.html" class="daikuan <c:if test="${ param.offset == 3}">cur</c:if>">
-            <span class="daikuan">购卖</span><img src="${STATIC_ROOT}/fj/new.gif">
+            <span class="daikuan">大家在买</span>
         </a>
         <label class="line01"></label>
         <a href="${pageContext.request.contextPath}/about.html" class="baogao <c:if test="${ param.offset == 4 }">cur</c:if>">
@@ -138,38 +138,6 @@
             <br>
         </div>
     </div>
-    <div class="navbar-contentpage" style="display: none;">
-        <div class="navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <ul class="nav">
-                        <li <c:if test="${ param.offset == 1 }"> class="active"</c:if>><a href="${pageContext.request.contextPath}/index.html">首页</a></li>
-                        <li class="divider-vertical"></li>
-                        <li <c:if test="${ param.offset == 2 }"> class="active"</c:if>><a href="${pageContext.request.contextPath}/product/list.html">售卖</a></li>
-                        <li class="divider-vertical"></li>
-                        <li <c:if test="${ param.offset == 3 }"> class="active"</c:if>><a href="${pageContext.request.contextPath}/purchase/list.html">购买</a></li>
-                        <li class="divider-vertical"></li>
-                        <li <c:if test="${ param.offset == 4 }"> class="active"</c:if>><a href="${pageContext.request.contextPath}/about.html">关于</a></li>
-                    </ul>
-                    <div class="pull-right">
-                        <form method="post" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
-                            <div class="input-append">
-                                <input type="hidden" name="searchType" value="${searchType}" />
-                                <input type="text" name="searchKey" value="${searchKey}" class="span4" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false" placeholder="请输入搜索关键字">
-                                <a href="javascript:void(0);" onclick="navSearch(1, this);" rel="tooltip" title="" class="btn btn-custom-blue" data-original-title="搜索售卖信息">
-                                    <i class="icon-search"></i>售卖
-                                </a>
-                                <a href="javascript:void(0);" onclick="navSearch(2, this);" class="btn btn-custom-blue" rel="tooltip" title="" data-original-title="搜索求购信息">
-                                    <i class="icon-search"></i>求购
-                                </a>
-                            </div>
-                            <input type="submit" name="search" value="" style="display: none;">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <script>
                     function navSearch(type, eventSrc) {
                         $form = $(eventSrc).closest("form");
@@ -187,8 +155,8 @@
                 <div class="container">
                     <ul class="nav">
                         <li><a href="${pageContext.request.contextPath}/index.html">首页</a></li>
-                        <li><a href="${pageContext.request.contextPath}/product/list.html">售卖</a></li>
-                        <li><a href="${pageContext.request.contextPath}/purchase/list.html">购买</a></li>
+                        <li><a href="${pageContext.request.contextPath}/product/list.html">大家在卖</a></li>
+                        <li><a href="${pageContext.request.contextPath}/purchase/list.html">大家在买</a></li>
                         <li><a href="${pageContext.request.contextPath}/about.html">关于</a></li>
                     </ul>
                     <form method="post" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
@@ -196,10 +164,10 @@
                             <input type="hidden" name="searchType" value="${searchType}" />
                             <input type="text" name="searchKey" value="${searchKey}" class="span4" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false" placeholder="请输入搜索关键字">
                             <a href="javascript:void(0);" onclick="navSearch(1, this);" rel="tooltip" title="" class="btn btn-custom-blue" data-original-title="搜索售卖信息">
-                                <i class="icon-search"></i>售卖
+                                <i class="icon-search"></i>大家在卖
                             </a>
                             <a href="javascript:void(0);" onclick="navSearch(2, this);" class="btn btn-custom-blue" rel="tooltip" title="" data-original-title="搜索求购信息">
-                                <i class="icon-search"></i>求购
+                                <i class="icon-search"></i>大家在买
                             </a>
                         </div>
                         <input type="submit" name="search" value="" style="display: none;">

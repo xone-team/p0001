@@ -72,7 +72,7 @@
                 <div id="${identify}_5" class="accordion-body in collapse" style="height: auto;">
                     <div class="accordion-inner">
                         <ul class="nav nav-list">
-                            <li <c:if test="${param.menuindex == '21'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/productGroup/productGroupCreate.html" class="well well-small clearmarginbottom">我要团购</a></li>
+<%--                             <li <c:if test="${param.menuindex == '21'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/productGroup/productGroupCreate.html" class="well well-small clearmarginbottom">我要团购</a></li> --%>
                             <li <c:if test="${param.menuindex == '22'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/productGroup/productGroupList.html" class="well well-small clearmarginbottom">我的团购列表</a></li>
                         </ul>
                     </div>

@@ -59,7 +59,7 @@ public class ProductGroupWebAction extends Action {
             }
         }, null);
         
-        params.put("userApply", getUserId().toString());
+        params.put("userCreated", getUserId().toString());
         params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
 
         params.put("pageSize", String.valueOf(getPagination().getPageSize()));

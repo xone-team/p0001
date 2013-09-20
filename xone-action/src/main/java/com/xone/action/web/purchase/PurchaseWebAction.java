@@ -71,7 +71,7 @@ public class PurchaseWebAction extends LogicAction {
 	public String purchaseList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();
 
-		params.put("userApply", getUserId().toString());
+		params.put("userCreated", getUserId().toString());
 		params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
 
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));

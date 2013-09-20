@@ -94,7 +94,7 @@ public class ProductWebAction extends LogicAction {
 			}
 		}, null);
 
-		params.put("userApply", getUserId().toString());
+		params.put("userCreated", getUserId().toString());
 		params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
 
 		params.put("pageSize", String.valueOf(getPagination().getPageSize()));
@@ -346,6 +346,12 @@ public class ProductWebAction extends LogicAction {
 		// get ad
 		setAdList(getAdbannerService().findItemsByMap(
 				new HashMap<String, String>()));
+		
+		orderedPersonNum = getProductGroupService().getOrderPersonNum(
+				product.getId());
+		orderedProductNum = getProductGroupService().getOrderProductNum(
+				product.getId());
+
 		return SUCCESS;
 	}
 

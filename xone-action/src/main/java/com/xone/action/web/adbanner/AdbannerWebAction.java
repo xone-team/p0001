@@ -32,7 +32,7 @@ public class AdbannerWebAction extends Action {
     public String adbannerList() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
         
-        params.put("userApply", getUserId().toString());
+        params.put("userCreated", getUserId().toString());
         params.put("flagDeleted", Subscribe.FlagDeleted.NORMAL.getValue());
         
         params.put("pageSize", String.valueOf(getPagination().getPageSize()));

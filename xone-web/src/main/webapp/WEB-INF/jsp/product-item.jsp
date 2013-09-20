@@ -62,6 +62,15 @@
                                             <td colspan="2"><img class="img-rounded" src="${pageContext.request.contextPath}/image.html?id=${item}" alt="" /></td>
                                         </tr>
                                     </c:forEach>
+                                    <c:if test="${not empty userMap && product.saleType == '2'}">
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="text-align: center;">
+                                                <a href="${pageContext.request.contextPath}/productGroup/productGroupCreate.html?productGroup.productId=${product.id}"  class="btn btn-primary" target="_blank">我要团购</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    </c:if>
                                 </table>
                             </c:when>
                             <c:otherwise>
