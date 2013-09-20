@@ -41,7 +41,7 @@
                             <input type="hidden" name="searchType" value="${searchType}" />
                             <input type="text" name="searchKey" value="${searchKey}" class="keyword colorgrey" style="width: 300px;" value="" autocomplete="off" maxlength="25" jqac="on" jqriempty="true" style="z-index: 10000000;" />
                             <a href="javascript:void(0);" class="submit" onclick="navSearch(1, this);" value="售卖">&nbsp;&nbsp;大家在卖</a>
-                            <a href="javascript:void(0);" class="submit" onclick="navSearch(2, this);" style="margin-left: 2px;">&nbsp;&nbsp;大家在买</a>
+                            <a href="javascript:void(0);" class="submit" onclick="navSearch(2, this);" style="margin-left: 2px;">&nbsp;&nbsp;大家想买</a>
                             <input type="submit" name="search" value="" style="display: none;">
                         </form>
                     </div>
@@ -67,7 +67,7 @@
         </a>
         <label class="line01"></label>
         <a href="${pageContext.request.contextPath}/purchase/list.html" class="daikuan <c:if test="${ param.offset == 3}">cur</c:if>">
-            <span class="daikuan">大家在买</span>
+            <span class="daikuan">大家想买</span>
         </a>
         <label class="line01"></label>
         <a href="${pageContext.request.contextPath}/about.html" class="baogao <c:if test="${ param.offset == 4 }">cur</c:if>">
@@ -156,7 +156,7 @@
                     <ul class="nav">
                         <li><a href="${pageContext.request.contextPath}/index.html">首页</a></li>
                         <li><a href="${pageContext.request.contextPath}/product/list.html">大家在卖</a></li>
-                        <li><a href="${pageContext.request.contextPath}/purchase/list.html">大家在买</a></li>
+                        <li><a href="${pageContext.request.contextPath}/purchase/list.html">大家想买</a></li>
                         <li><a href="${pageContext.request.contextPath}/about.html">关于</a></li>
                     </ul>
                     <form method="post" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
@@ -167,7 +167,7 @@
                                 <i class="icon-search"></i>大家在卖
                             </a>
                             <a href="javascript:void(0);" onclick="navSearch(2, this);" class="btn btn-custom-blue" rel="tooltip" title="" data-original-title="搜索求购信息">
-                                <i class="icon-search"></i>大家在买
+                                <i class="icon-search"></i>大家想买
                             </a>
                         </div>
                         <input type="submit" name="search" value="" style="display: none;">
