@@ -110,7 +110,7 @@ public class SubscribeServiceImpl implements SubscribeService {
 	    		}
 				subscribe.setDateCheck(new Date());
 				// TODO 为了测试的方便，现在把最后一次订阅的更新时间暂时注释掉
-//				getSubscribeDao().update(subscribe);
+				getSubscribeDao().update(subscribe);
 			}
 			return pResult;
     	}
