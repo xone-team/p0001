@@ -154,20 +154,12 @@ public class LoginRefAction extends LogicAction {
 		}
 		p = pList.get(0);
 		if (EncryptRef.SHA1(getPerson().getPassword()).equals(p.getPassword())) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			Map porperties = null;
-			try {
-				porperties = BeanUtils.describe(p);
-			} catch (Exception e) {
-				porperties = Collections.EMPTY_MAP;
-				e.printStackTrace();
+			if (loginUser(p)) {
+				Map<String, String> params = getRequestMap();
+				p.setUserUpdated(p.getId());
+				p.setLastMacUpdated(params.get("_m"));
+				getPersonService().update(p);
 			}
-			map.put("user", porperties);
-			getSession().setAttribute(USER, porperties);
-			Map<String, String> params = getRequestMap();
-			p.setUserUpdated(p.getId());
-			p.setLastMacUpdated(params.get("_m"));
-			getPersonService().update(p);
 //			getUserMap().put("", value)
 		} else {
 			getMapValue().put("msg", msg);

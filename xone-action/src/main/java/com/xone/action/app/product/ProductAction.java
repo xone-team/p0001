@@ -3,23 +3,27 @@ package com.xone.action.app.product;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Overhead;
+import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.ProductGroup;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.model.utils.MyModelUtils;
 import com.xone.service.app.OverheadService;
+import com.xone.service.app.PersonService;
 import com.xone.service.app.ProductGroupService;
 import com.xone.service.app.ProductService;
 import com.xone.service.app.PurchaseService;
@@ -48,6 +52,9 @@ public class ProductAction extends LogicAction {
 	
 	@Autowired
 	protected OverheadService overheadService;
+	
+	@Autowired
+	protected PersonService personService;
 	
 	protected Product product = new Product();
 	protected ProductGroup productGroup = new ProductGroup();
@@ -178,6 +185,14 @@ public class ProductAction extends LogicAction {
 		Map<String, String> params = getSubscribeService().updateSubscribeProductInfo(param);
 		if (null != params && !params.isEmpty()) {
 			getMapValue().putAll(params);
+		}
+		if (!isLogin()) {
+			String userId = param.get("_pu");
+			if (StringUtils.isNumeric(userId)) {
+				Long id = Long.parseLong(userId);
+				Person p = getPersonService().findById(id);
+				loginUser(p);
+			}
 		}
 		return SUCCESS;
 	}
@@ -523,6 +538,14 @@ public class ProductAction extends LogicAction {
 
 	public void setOverheadService(OverheadService overheadService) {
 		this.overheadService = overheadService;
+	}
+
+	public PersonService getPersonService() {
+		return personService;
+	}
+
+	public void setPersonService(PersonService personService) {
+		this.personService = personService;
 	}
 
 	public void setProductGroup(ProductGroup productGroup) {

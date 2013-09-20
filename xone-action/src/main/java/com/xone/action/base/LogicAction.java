@@ -8,11 +8,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -231,6 +234,21 @@ public abstract class LogicAction extends Action {
 //			}
 //		}
 		return StringUtils.EMPTY;
+	}
+	
+	public final boolean loginUser(Person p) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		Map porperties = null;
+		try {
+			porperties = BeanUtils.describe(p);
+		} catch (Exception e) {
+			porperties = Collections.EMPTY_MAP;
+			e.printStackTrace();
+			return false;
+		}
+		map.put("user", porperties);
+		getSession().setAttribute(USER, porperties);
+		return true;
 	}
 	
 	/**
