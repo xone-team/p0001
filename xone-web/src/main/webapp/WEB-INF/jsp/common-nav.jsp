@@ -52,8 +52,8 @@
         <div class="other_channel">
             <a href="#">手机版</a>
             <div class="down-to-drop">
-                <a href="javascript:void(0)" class="banner-down-android" id="downBtnAndroid" title="Android下载"></a>
-                <a href="javascript:void(0)" class="banner-down-ios" id="downBtnIphone" title="iOS下载"></a>
+                <a href="${STATIC_ROOT}/xone.apk" target="_blank" class="banner-down-android" id="downBtnAndroid" title="Android下载"></a>
+                <a href="${STATIC_ROOT}/xOne.ipa" target="_blank" class="banner-down-ios" id="downBtnIphone" title="iOS下载"></a>
             </div>
         </div>
     </div>
