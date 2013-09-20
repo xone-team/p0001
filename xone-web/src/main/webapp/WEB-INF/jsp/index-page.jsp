@@ -65,7 +65,7 @@
 
             <div class="span5 rounded box-shadow">
                 <h2 class="presentation-box-heading">
-                    <i class="icon-user"></i>售卖
+                    <i class="icon-user"></i>大家在卖
                 </h2>
 
                 <div class="row-fluid">
@@ -99,7 +99,7 @@
             </div>
             <div class="span5 rounded box-shadow">
                 <h2 class="presentation-box-heading">
-                    <i class="icon-camera"></i>求购
+                    <i class="icon-camera"></i>大家想买
                 </h2>
 
                 <div class="row-fluid">
