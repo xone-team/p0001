@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.ImageUploaded;
+import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.AdbannerService;
@@ -36,6 +37,14 @@ public class AdbannerBackAction extends LogicAction {
 	protected String uploadFileContentType; // 得到上传的文件的数据类型,  
 	protected String uploadFileFileName; // 得到上传的文件的名称 
 	protected String imageUploadPath;
+	
+	public Enum<?>[] getAdType() {
+		return Adbanner.AdType.values();
+	}
+	
+	public Enum<?>[] getAdPosition() {
+		return Adbanner.AdPosition.values();
+	}
 	
 	public String adbannerList() throws Exception {
 		Map<String, String> params = new HashMap<String, String>();

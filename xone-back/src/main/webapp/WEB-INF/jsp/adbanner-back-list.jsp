@@ -100,6 +100,7 @@
                             <th>编号</th>
                             <th>产品编号</th>
                             <th>广告类型</th>
+                            <th>广告位置</th>
                             <th>开始时间</th>
                             <th>结束时间</th>
                             <th>创建时间</th>
@@ -124,6 +125,7 @@
                                             <c:otherwise>${item.refId}</c:otherwise>
                                         </c:choose></td>
                                     <td>${item.adTypeName}</td>
+                                    <td>${item.adPositionName}</td>
                                     <td><fmt:formatDate value="${item.adStart}" pattern="yyyy-MM-dd hh:mm:ss" /></td>
                                     <td><fmt:formatDate value="${item.adEnd}" pattern="yyyy-MM-dd hh:mm:ss" /></td>
                                     <td><fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd hh:mm:ss" /></td>

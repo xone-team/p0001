@@ -13,6 +13,9 @@
 	<property name="adType" type="java.lang.String">
 		<column name="AD_TYPE" length="2"/>
 	</property>
+	<property name="adPosition" type="java.lang.String">
+		<column name="AD_POSITION" length="2"/>
+	</property>
 <!-- 	<property name="adRefId" type="java.lang.Long"> -->
 <!-- 		<column name="AD_REF_ID" length="20"/> -->
 <!-- 	</property> -->

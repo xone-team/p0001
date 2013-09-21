@@ -25,6 +25,25 @@ public class Adbanner extends MyModel implements Serializable {
             return this.name;
         }
 	}
+	
+	/**
+	 * 广告栏位置
+	 */
+	public enum AdPosition {
+		INDEX("1", "首页"), SIDE("2", "侧栏");
+		protected String value;
+		protected String name;
+		private AdPosition(String v, String n) {
+			this.value = v;
+			this.name = n;
+		}
+		public String getValue() {
+			return this.value;
+		}
+		public String getName() {
+			return this.name;
+		}
+	}
 
 	
 	protected Long id;
@@ -50,6 +69,11 @@ public class Adbanner extends MyModel implements Serializable {
 	protected Long userUpdated;
 	protected Date lastUpdated;
 	
+	/**
+	 * 广告栏位置
+	 */
+	protected String adPosition;
+	
 	protected Date ltAdStart;
 	protected Date gtAdStart;
 	protected Date ltAdEnd;
@@ -62,6 +86,15 @@ public class Adbanner extends MyModel implements Serializable {
             }
         }
         return UNKNOWN_STATUS_NAME;
+	}
+	
+	public String getAdPositionName() {
+		for (AdPosition e : AdPosition.values()) {
+			if(e.getValue().equals(this.adPosition)){
+				return e.getName();
+			}
+		}
+		return UNKNOWN_STATUS_NAME;
 	}
 	
     public String getFlagDeletedName() {
@@ -206,6 +239,14 @@ public class Adbanner extends MyModel implements Serializable {
 
 	public void setGtAdEnd(Date gtAdEnd) {
 		this.gtAdEnd = gtAdEnd;
+	}
+
+	public String getAdPosition() {
+		return adPosition;
+	}
+
+	public void setAdPosition(String adPosition) {
+		this.adPosition = adPosition;
 	}
 
 }

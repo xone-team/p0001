@@ -45,9 +45,20 @@
                         <label class="control-label" for="adType">广告类型</label>
                         <div class="controls">
                             <select class="selectpicker" id="adType" name="adbanner.adType" maxlength="2" placeholder="广告类型">
-                                <option value="0">售卖产品</option>
-                                <option value="1">购买产品</option>
-                                <option value="2">公司广告</option>
+                                <c:forEach items="${adType}" var="it">
+                                    <option value="${it.value}" <c:if test="${it.value == adbanner.adType}">selected</c:if>>${it.name}</option>
+                                </c:forEach>
+                            </select>
+                            <code>*</code>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="adPosition">广告位置</label>
+                        <div class="controls">
+                            <select class="selectpicker" id="adPosition" name="adbanner.adPosition" maxlength="2" placeholder="广告位置">
+                                <c:forEach items="${adPosition}" var="it">
+                                    <option value="${it.value}" <c:if test="${it.value == adbanner.adPosition}">selected</c:if>>${it.name}</option>
+                                </c:forEach>
                             </select>
                             <code>*</code>
                         </div>
@@ -212,7 +223,7 @@
                         $('.adbanneradstart, .adbanneradend').datepicker();
                         $('.selectpicker').selectpicker({
                             style : 'btn-info'
-                        }).val('${adbanner.adType}');
+                        });
                         $('#userId').click(function() {
                             $('#windowTitleDialoguserinfo').modal('show');
                         });

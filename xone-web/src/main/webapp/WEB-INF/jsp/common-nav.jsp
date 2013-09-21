@@ -28,9 +28,10 @@
 <div class="mainwap">
     <div class="header_v3">
         <div class="fl left">
+            <div style="position: absolute; margin-left: -90px; padding-top: 35px; width: 200px; height: 50px; color: #e64e00;font-family: 'Microsoft YaHei'; font-size: 3.5em;">掌畅科技</div>
             <div class="fl logoDiv">
-                <div style="padding: 2em 2em;">
-                    <a href="#" style="font-family: 'Microsoft YaHei'; font-size: 2.4em;"> 掌畅科技 </a>
+                <div style="padding: 2em;">
+                    <a href="#" style="font-family: 'Microsoft YaHei'; font-size: 2.6em;"></a>
                 </div>
             </div>
             <label class="line"></label>
@@ -57,7 +58,7 @@
             </div>
         </div>
     </div>
-    <div class="topMenu" id="_header_channel">
+    <div class="topMenu" id="_header_channel" style="padding-left: 100px;">
         <a href="${pageContext.request.contextPath}/index.html" <c:if test="${ param.offset == 1 }"> class="cur"</c:if>>
             <span class="home">首页</span>
         </a>

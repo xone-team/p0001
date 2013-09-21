@@ -52,6 +52,16 @@
                         </div>
                     </div>
                     <div class="control-group">
+                        <label class="control-label" for="adPosition">广告位置</label>
+                        <div class="controls">
+                            <select class="selectpicker" id="adPosition" name="adbanner.adPosition" maxlength="2" placeholder="广告类型">
+                                <option value="1">首页</option>
+                                <option value="2">侧栏</option>
+                            </select>
+                            <code>*</code>
+                        </div>
+                    </div>
+                    <div class="control-group">
                         <label class="control-label" for="refId">广告对象</label>
                         <div class="controls">
                             <input type="text" id="refId" name="adbanner.refId" maxlength="20" placeholder="广告对象编号" readonly="readonly">

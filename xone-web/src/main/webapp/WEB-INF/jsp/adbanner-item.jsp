@@ -41,6 +41,10 @@
                             <td>${adbanner.adTypeName}</td>
                         </tr>
                         <tr>
+                            <td style="width: 60px;">广告位置</td>
+                            <td>${adbanner.adPositionName}</td>
+                        </tr>
+                        <tr>
                             <td style="width: 60px;">开始时间</td>
                             <td>${adbanner.adStart}</td>
                         </tr>
