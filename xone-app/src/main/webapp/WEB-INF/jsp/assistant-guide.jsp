@@ -10,93 +10,87 @@
 		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body><c:set var="myid" value="${identify}" />
-		<div id="assistant-guide" data-role="page" data-id="myguidepage">
+		<div id="assistant-guide${myid}" data-role="page" data-id="myguidepage" data-nobanner="true">
+			<link rel="stylesheet" href="${STATIC_ROOT}/css/mycarousel.css" />
+			<link rel="stylesheet" href="${STATIC_ROOT}/css/mytablelayout.css" />
+			<script type="text/javascript" src="${STATIC_ROOT}/js/mycarousel.js"></script>
 			<div data-id="myheader" data-role="header" data-position="fixed" data-tap-toggle="true">
 				<a href="${pageContext.request.contextPath}/login/indexRegister.html" data-icon="check">注册</a>
 				<h1>欢迎使用</h1>
 				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="grid">客服</a>
 			</div>
 			<div data-role="content" class="guide-page">
-			    <div class="ui-grid-a">
-				    <div class="ui-block-a">
-				    	<div class="ui-bar">
-							<div class="desktop-icon" style="text-align:center;">
-				    		<a href="${pageContext.request.contextPath}/product/listSales.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="sale-b-64" data-iconpos="top" data-inline="true">促销产品</a>
-							</div>
-				    	</div>
-				    </div>
-				    <div class="ui-block-b">
-				    	<div class="ui-bar">
-							<div class="desktop-icon" style="text-align:center;">
-							<a href="${pageContext.request.contextPath}/purchase/index.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="sale-d-64" data-iconpos="top" data-inline="true">大家想买</a>
-							</div>
-				    	</div>
-				    </div>
+				<div class="ui-grid-solo" style="padding:0px;clear:both;">
+					<div class="guide-advertisement" style="overflow:hidden;clear:both;">
+						<a class="car-img" href="${pageContext.request.contextPath}/product/listSales.html"><img src="${STATIC_ROOT}/image/picture1.jpg"></a>
+						<a class="car-img" href="${pageContext.request.contextPath}/purchase/index.html"><img src="${STATIC_ROOT}/image/picture2.jpg"></a>
+						<a class="car-img" href="${pageContext.request.contextPath}/product/listGroups.html"><img src="${STATIC_ROOT}/image/picture3.jpg"></a>
+						<a class="car-img" href="${pageContext.request.contextPath}/delivery/index.html"><img src="${STATIC_ROOT}/image/picture4.jpg"></a>
+						<a class="car-img" href="${pageContext.request.contextPath}/login/indexRegister.html"><img src="${STATIC_ROOT}/image/picture5.jpg"></a>
+						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture6.jpg"></a>
+						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture7.jpg"></a>
+						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture8.jpg"></a>
+						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture9.jpg"></a>
+						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/pic12.jpg"></a>
+					</div>
 				</div>
-			    <div class="ui-grid-a">
-				    <div class="ui-block-a">
-				    	<div class="ui-bar">
-							<div class="desktop-icon" style="text-align:center;">
-				    		<a href="${pageContext.request.contextPath}/product/listGroups.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="sale-c-64" data-iconpos="top" data-inline="true">组团产品</a>
-							</div>
-				    	</div>
-				    </div>
-				    <div class="ui-block-b">
-				    	<div class="ui-bar">
-							<div class="desktop-icon" style="text-align:center;">
-				    		<a href="${pageContext.request.contextPath}/delivery/index.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="sale-a-64" data-iconpos="top" data-inline="true">物流配送</a>
-							</div>
-				    	</div>
-				    </div>
+				<div class="ui-grid-solo" style="padding-top:0px;">
+					<table class="guide-page-table">
+						<tbody>
+							<c:forEach var="item" items="${links}" varStatus="status">
+								<c:if test="${status.index % 3 == 0}"><tr></c:if>
+									<c:choose>
+										<c:when test="${item.linkType == 'http'}">
+											<td>
+												<div>
+													<a href="${pageContext.request.contextPath}${item.link}" data-role="none"><img src="${STATIC_ROOT}${item.img}"></a>
+												</div>
+											</td>
+										</c:when>
+										<c:when test="${item.linkType == 'js' }">
+											<td>
+												<div>
+													<a href="javascript:void(0)" onclick="${item.link}" data-role="none"><img src="${STATIC_ROOT}${item.img}"></a>
+												</div>
+											</td>
+										</c:when>
+										<c:when test="${item.linkType == 'add' }">
+											<td class="${item.linkType}">
+												<a href="${pageContext.request.contextPath}${item.link}" data-role="none" style="display:block;width:100%;height:100%;">&nbsp;</a>
+											</td>
+										</c:when>
+										<c:otherwise><td></td></c:otherwise>
+									</c:choose>
+								<c:if test="${status.index % 3 == 2 || status.last}"></tr></c:if>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
-			    <div class="ui-grid-a">
-				    <div class="ui-block-a">
-				    	<div class="ui-bar">
-							<div class="desktop-icon" style="text-align:center;">
-				    		<a href="${pageContext.request.contextPath}/login/indexRegister.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="reg-64" data-iconpos="top" data-inline="true">我要注册</a>
-							</div>
-				    	</div>
-				    </div>
-				    <div class="ui-block-b">
-				    	<div class="ui-bar">
-				    		<div class="desktop-icon" style="text-align:center;">
-				    		<c:choose>
-								<c:when test="${login}">
-									<a href="${pageContext.request.contextPath}/login/main.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="admin-64" data-iconpos="top" data-inline="true">用户中心</a>
-								</c:when>
-								<c:otherwise>
-									<a href="${pageContext.request.contextPath}/login/index.html" class="ui-btn-up-no" data-theme="no" data-shadow="false" data-role="button" data-icon="login-64" data-iconpos="top" data-inline="true">我要登录</a>
-								</c:otherwise>
-							</c:choose>
-							
-							</div>
-				    	</div>
-				    </div>
-				</div>
-<%-- 				<c:if test="${login}"> --%>
-<!-- 				    <div class="ui-grid-solo"> -->
-<!-- 				    	<div class="ui-block-a"> -->
-<!-- 					    	<div class="ui-bar"> -->
-<!-- 					    		<div style="text-align:center;"> -->
-<%-- 						    	<a href="${pageContext.request.contextPath}/login/logout.html?_=${myid}" class="login-logout${myid}" data-inline="true" data-role="button">退出登录</a> --%>
-<!-- 						    	</div> -->
-<!-- 					    	</div> -->
-<!-- 				    	</div> -->
-<!-- 					</div> -->
-<%-- 				</c:if> --%>
 			</div>
+			<script type="text/javascript" language="javascript">  
+		    $('#assistant-guide${myid}').bind('pageinit', function() {
+		    	$('a.login-logout${myid}').click(function(e) {
+			    	try {
+			    		$.rockRoll('');
+			    	} catch (e) {
+			    	}
+			    	return true;
+		    	});
+		    	var width = ($(document).width() - 24) / 3;
+				$('.guide-page-table img').height(width);
+				$('.guide-page-table .add').width(width)
+		    });
+		    $('#assistant-guide${myid}').bind('pageshow', function() {
+// 		    	var guide = $('.guide-advertisement');
+// 		    	var width = guide.closest('div.ui-grid-solo').first().width();
+		    	$('div.guide-advertisement').mycarousel({
+					width: $('div.guide-advertisement').width(),
+					height: 140,
+					auto: true
+				});
+		    });
+			</script>
 			<jsp:include page="footer.jsp"><jsp:param value="2" name="offset"/></jsp:include>
 		</div>
-		<script type="text/javascript" language="javascript">  
-	    $('div.guide-page').bind('pageinit', function(e, ui) {
-	    	$('a.login-logout${myid}').click(function(e) {
-		    	try {
-		    		$.rockRoll('');
-		    	} catch (e) {
-		    	}
-		    	return true;
-	    	});
-	    });
-		</script>
 	</body>
 </html>

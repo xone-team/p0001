@@ -131,7 +131,7 @@ public class LoginRefAction extends LogicAction {
 		setActionName("index");
 		setNamespace("login");
 		String loginHtml = "login/index.html";
-		if (null == getPerson().getUsername() || null == getPerson().getPassword()) {
+		if (null == getPerson() || null == getPerson().getUsername() || null == getPerson().getPassword()) {
 			if (StringUtils.isBlank(getRedirect())) {
 				setRedirect(loginHtml);
 			}

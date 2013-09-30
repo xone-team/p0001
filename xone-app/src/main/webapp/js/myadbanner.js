@@ -24,17 +24,23 @@
 			});
 		}
 		$(document).bind("pageshow", function(event) {
-//			testEvent();
-			var info = activePageInfo();
-//			console.log('At:' + new Date() + ' info banner page:' + info.page.attr('data-url'));
-			if (!info.banner.data('loaded')) {
-				if ($('body').data('myadbanner')) {
-//					console.log('At:' + new Date() + ' execute activeHtmlHandler');
-					activeHtmlHandler($('body').data('myadbanner'));
-				} else {
-//					console.log('At:' + new Date() + ' execute doAdBannerRequest');
-					doAdBannerRequest();
+			if (checkBanner()) {//页面需要广告
+				var info = activePageInfo();
+				if (!info.banner.data('loaded')) {
+					if ($('body').data('myadbanner')) {
+//						console.log('At:' + new Date() + ' execute activeHtmlHandler');
+						activeHtmlHandler($('body').data('myadbanner'));
+					} else {
+//						console.log('At:' + new Date() + ' execute doAdBannerRequest');
+						doAdBannerRequest();
+					}
 				}
+			} else {
+				var interval = $('body').data('_globalinterval');
+				if (interval) {
+					clearInterval(interval);
+				}
+				$('div.ui-mybanner').remove();
 			}
 //			var banner = $('div.' + s.bannerClass);
 //			banner.html(banner.length + ' At: ' + new Date() + ', page-role' + $('div.ui-page-active[data-role="page"]').length);
@@ -43,15 +49,15 @@
 			var info = activePageInfo();
 			if (!info.banner.data('loaded')) {
 				$('body').data('myadbanner', html);
-//				console.log('At:' + new Date() + ' inner activeHtmlHandler, handler page:' + info.page.attr('data-url') + ', banner len:' + info.banner.length);
-				info.banner.html(html);
-//				console.log('At:' + new Date() + ' inner activeHtmlHandler, append html to banner:' + html);
-				var lis = info.banner.find('li.ui-mybanner-link');
-				if (lis.length >= 1) {
-					info.banner.show().data('loaded', true);
-					var i = Math.round(Math.random() * 10) % lis.length;
-					rollbanner(info, i);
-					info.header.fixedtoolbar('updatePagePadding');
+				if (checkBanner()) {//页面需要广告
+					info.banner.html(html);
+					var lis = info.banner.find('li.ui-mybanner-link');
+					if (lis.length >= 1) {
+						info.banner.show().data('loaded', true);
+						var i = Math.round(Math.random() * 10) % lis.length;
+						rollbanner(info, i);
+						info.header.fixedtoolbar('updatePagePadding');
+					}
 				}
 			}
 		}
@@ -61,6 +67,9 @@
 //			resizeImage(info.banner.height(), info.page.width(), t.find('img'));
 			info.banner.find('li.ui-mybanner-link').hide();
 			t.show('slow');
+		}
+		function checkBanner() {
+			return !$.mobile.activePage.attr('data-nobanner');
 		}
 		function activePageInfo() {
 			var activePage = $.mobile.activePage;//$('div.ui-page-active[data-role="page"]');//
@@ -94,15 +103,6 @@
 //				    console('<div> resize image src=' + img.attr('src') + ' height:' + t.height + ', width' + t.width + ', fileSize:' + fileSize + 'k</div>');
 //		    	}
 //		    }
-//		}
-//		function testEvent() {
-//			$.ajax({
-//				type: 'GET',
-//				url: s.testUrl,
-//				data: s.data,
-//				success: function(html) {
-//				}
-//			});
 //		}
 		return this.each(function() {
 			var it = $(this);

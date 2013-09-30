@@ -44,6 +44,11 @@ function appendImageAttr(t) {
 }
 function globalBannerSwitch() {
 	var activePage = $.mobile.activePage;
+	var nobanner = activePage.attr('data-nobanner');
+	if (nobanner) {
+		activePage.find('div.ui-mybanner').remove();
+		return;
+	}
 	var activeHeader = activePage.find('div[data-role="header"]');
 	var banner = activeHeader.find('div.ui-mybanner');
 	var li = banner.find('li.ui-mybanner-link');

@@ -11,6 +11,8 @@
 			divelem.parentElement.removeChild(divelem);
 			window.location.href = '${pageContext.request.contextPath}/login/index.html';
 		</script>
+		<jsp:include page="commons.jsp"></jsp:include>
+		<jsp:include page="iscrollheader.jsp"></jsp:include>
 	</head>
 	<body>
 		<div data-role="page" id="login-timeout-page${myid}" class="login-timeout-page" data-dom-cache="false">
@@ -29,7 +31,7 @@
 				<script type="text/javascript" language="javascript">
 					setTimeout(function() {
 						$.mobile.changePage('${pageContext.request.contextPath}/login/index.html', {
-							transition: 'slideup'
+							transition: 'none'
 						});
 					}, 2000);
 				</script>

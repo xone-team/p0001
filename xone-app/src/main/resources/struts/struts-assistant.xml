@@ -20,6 +20,14 @@
 		<action name="guide" class="assistantAction" method="guide">
 		    <result name="success">/WEB-INF/jsp/assistant-guide.jsp</result>
 		</action>
+		<action name="dolink" class="assistantAction" method="dolink">
+			<result type="json">
+				<param name="root">mapValue</param>
+			</result>
+		</action>
+		<action name="linkkeys" class="assistantAction" method="linkkeys">
+		    <result name="success">/WEB-INF/jsp/assistant-linkkeys.jsp</result>
+		</action>
 		<action name="market" class="assistantAction" method="market">
 		    <result name="success">/WEB-INF/jsp/assistant-market.jsp</result>
 		</action>
