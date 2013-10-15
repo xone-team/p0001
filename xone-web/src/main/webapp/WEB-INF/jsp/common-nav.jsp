@@ -2,135 +2,78 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<div class="toper">
-    <div class="toperinner">
-        <c:choose>
-            <c:when test="${not empty userMap}">
-                <div class="">
-                    欢迎您 ${username} !
-                    <a href="${pageContext.request.contextPath}/admin/welcome.html">用户中心</a>
-                    <a href="<c:url value="/j_spring_security_logout"/>">退出登录</a>
+<!--head start-->
+<div class="head">
+    <div class="ht">
+        <div class="las"></div>
+        <div class="login">
+            <form method="post" action="${pageContext.request.contextPath}/j_spring_security_check">
+                <div>用户名</div>
+                <div>
+                    <input type="text" name="username" class="textbox" style="-webkit-border-radius: 0px;" value="" placeholder="用户名">
                 </div>
-            </c:when>
-            <c:otherwise>
-                <div class="">
-                    <form class="form-inline inline" method="post" action="${pageContext.request.contextPath}/j_spring_security_check">
-                        <input type="text" name="username" class="input-small" style="height: 14px;" value="" placeholder="用户名">
-                        <input type="password" name="password" class="input-small" style="height: 14px;" value="" placeholder="密码">
-                        <button type="submit" class="btn btn-mini btn-warning inline">登录</button>
-                        <a href="${pageContext.request.contextPath}/user/register.html" class="btn btn-mini btn-warning inline">注册</a>
-                    </form>
-            </c:otherwise>
-        </c:choose>
-    </div>
-</div>
-</div>
-<div class="mainwap">
-    <div class="header_v3">
-        <div class="fl left">
-            <div style="position: absolute; margin-left: -90px; padding-top: 35px; width: 200px; height: 50px; color: #e64e00;font-family: 'Microsoft YaHei'; font-size: 3.5em;">掌畅科技</div>
-            <div class="fl logoDiv">
-                <div style="padding: 2em;">
-                    <a href="#" style="font-family: 'Microsoft YaHei'; font-size: 2.6em;"></a>
+                <div>密码</div>
+                <div>
+                    <input type="text" name="password" class="textbox" style="-webkit-border-radius: 0px;" value="" placeholder="密码">
                 </div>
-            </div>
-            <label class="line"></label>
-            <div class="fl">
-                <div class="input">
-                    <div class="inner_input">
-                        <form method="post" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
-                            <input type="hidden" name="searchType" value="${searchType}" />
-                            <input type="text" name="searchKey" value="${searchKey}" class="keyword colorgrey" style="width: 300px;" value="" autocomplete="off" maxlength="25" jqac="on" jqriempty="true" style="z-index: 10000000;" />
-                            <a href="javascript:void(0);" class="submit" onclick="navSearch(1, this);" value="售卖">&nbsp;&nbsp;大家在卖</a>
-                            <a href="javascript:void(0);" class="submit" onclick="navSearch(2, this);" style="margin-left: 2px;">&nbsp;&nbsp;大家想买</a>
-                            <input type="submit" name="search" value="" style="display: none;">
-                        </form>
-                    </div>
+                <div>
+                    <input type="submit" value="登录" />
                 </div>
-            </div>
+            </form>
         </div>
-        <label class="line"></label>
-        <div class="other_channel">
-            <a href="#">手机版</a>
-            <div class="down-to-drop">
-                <a href="${STATIC_ROOT}/xone.apk" target="_blank" class="banner-down-android" id="downBtnAndroid" title="Android下载"></a>
-                <a href="${STATIC_ROOT}/xOne.ipa" target="_blank" class="banner-down-ios" id="downBtnIphone" title="iOS下载"></a>
-            </div>
+        <div class="ras">
+            <c:choose>
+                <c:when test="${not empty userMap}">
+                    <span id="ras_membername">欢迎 ${username} 登录！ <a href="${pageContext.request.contextPath}/admin/welcome.html">[后台管理]</a> <a href="<c:url value="/j_spring_security_logout"/>">[退出]</a>
+                </c:when>
+                <c:otherwise>
+                </c:otherwise>
+            </c:choose>
+            </span><span id="ras_register"><a href="${pageContext.request.contextPath}/user/register.html">[15秒免费注册]</a> </span>
         </div>
     </div>
-    <div class="topMenu" id="_header_channel" style="padding-left: 100px;">
-        <a href="${pageContext.request.contextPath}/index.html" <c:if test="${ param.offset == 1 }"> class="cur"</c:if>>
-            <span class="home">首页</span>
-        </a>
-        <label class="line01"></label>
-        <a href="${pageContext.request.contextPath}/product/list.html" <c:if test="${ param.offset == 2 }"> class="cur"</c:if>>
-            <span class="gujia">大家在卖</span>
-        </a>
-        <label class="line01"></label>
-        <a href="${pageContext.request.contextPath}/purchase/list.html" class="daikuan <c:if test="${ param.offset == 3}">cur</c:if>">
-            <span class="daikuan">大家想买</span>
-        </a>
-        <label class="line01"></label>
-        <a href="${pageContext.request.contextPath}/about.html" class="baogao <c:if test="${ param.offset == 4 }">cur</c:if>">
-            <span class="gjAna">关于</span>
-        </a>
-    </div>
-
-</div>
-<div class="topbar box-shadow blue-gradiant gradient" style="display: none;">
-    <div class="container">
-        <div class="row-fluid">
-            <div class="span4">
-                <div class="logo box-shadow">
-                    <div id="inner-logo">
-                        <center>
-                            <a href="#">
-                                <h1 style="font-family: 'Microsoft YaHei'; font-size: 3.4em;">掌&nbsp;&nbsp;畅&nbsp;&nbsp;科&nbsp;&nbsp;技</h1>
-                            </a>
-                        </center>
-                    </div>
-                    <div class="logo-right"></div>
+    <div class="hm">
+        <div class="logo">
+            <a href="${pageContext.request.contextPath}">
+                <div style="width: 182px; height: 85px; line-height: 85px; color: #fdb56d; font-family: 'Microsoft YaHei'; font-size: 3.5em;">掌畅科技</div>
+            </a>
+        </div>
+        <div class="city"></div>
+        <div class="search">
+            <form method="post" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
+                <input type="hidden" name="searchType" value="${searchType}" />
+                <div class="cominfosel">
+                    <a href="javascript:void(0)" onclick="navSearch(1, this);" id="categ_1" class="current">大家在卖</a>
+                    <a href="javascript:void(0)" onclick="navSearch(2, this);" id="categ_2">大家想买</a>
                 </div>
-            </div>
-            <div class="span3">
-                <h3 style="margin-top: 50px !important; color: #ffffff;">水产品交易平台</h3>
-            </div>
-            <div class="span5">
-                <div class="login-area">
-                    <c:choose>
-                        <c:when test="${not empty userMap}">
-                            <p class="logined-message">
-                                欢迎您 ${username} !
-                                <a href="${pageContext.request.contextPath}/admin/welcome.html">用户中心</a>
-                                <a href="<c:url value="/j_spring_security_logout"/>">退出登录</a>
-                            </p>
-                        </c:when>
-                        <c:otherwise>
-                            <form class="form-inline inline" method="post" action="${pageContext.request.contextPath}/j_spring_security_check">
-                                <input type="text" name="username" class="input-small" value="" placeholder="用户名">
-                                <input type="password" name="password" class="input-small" value="" placeholder="密码">
-                                <button type="submit" class="btn btn-warning inline">登录</button>
-                                <a href="${pageContext.request.contextPath}/user/register.html" class="btn btn-warning inline">注册</a>
-                            </form>
-                        </c:otherwise>
-                    </c:choose>
+                <div class="seabox">
+                    <input type="text" name="searchKey" value="${searchKey}" class="textbox" autocomplete="off" style="margin-bottom:0px;-webkit-border-radius: 0px;" />
+                    <input type="submit" value="搜索" class="button">
                 </div>
-                <div class="row-fluid">
-                    <div class="span6 text-right">
-                        <span class="label label-success">手机客户端下载</span>
-                    </div>
-                    <div class="span6 down-area">
-                        <div class="down-to-drop">
-                            <a href="${STATIC_ROOT}/xone.apk" target="_blank" class="banner-down-android" id="downBtnAndroid" title="Android下载"></a>
-                            <a href="${STATIC_ROOT}/xOne.ipa" target="_blank" class="banner-down-ios" id="downBtnIphone" title="iOS下载"></a>
-                        </div>
-                    </div>
+                <div class="infocount">
+                    <a href="${pageContext.request.contextPath}/product/list.html">查看所有</a>
                 </div>
-            </div>
+            </form>
+        </div>
+        <div class="rld">
+            <a href="${pageContext.request.contextPath}/admin/login.html">免费发布信息</a>
+            <a href="${STATIC_ROOT}/xone.apk" class="wap">
+                <img src="${STATIC_ROOT}/lx/head_12.png">
+            </a>
         </div>
     </div>
-
+    <div class="navk">
+        <div class="navl">
+            <a href="${pageContext.request.contextPath}/index.html">首页</a>
+            <a href="${pageContext.request.contextPath}/product/list.html">大家在卖</a>
+            <a href="${pageContext.request.contextPath}/purchase/list.html">大家想买</a>
+        </div>
+        <div class="navr" id="rnav">
+            <a href="${pageContext.request.contextPath}/about.html">关于</a>
+        </div>
+    </div>
 </div>
+<!--head end-->
 
 <div class="container">
 
@@ -144,9 +87,14 @@
                         $form = $(eventSrc).closest("form");
                         $("input[name='searchType']", $form).val(type);
                         if ("2" == type) {
+                            $("#categ_1").removeClass("current");
+                            $("#categ_2").addClass("current");
                             $form.attr("action", "${pageContext.request.contextPath}/purchase/list.html");
+                        } else {
+                            $("#categ_2").removeClass("current");
+                            $("#categ_1").addClass("current");
+                            $form.attr("action", "${pageContext.request.contextPath}/product/list.html");
                         }
-                        $form.submit();
                     }
                 </script>
 

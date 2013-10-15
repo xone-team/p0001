@@ -9,8 +9,7 @@
 <link rel="stylesheet" href="${STATIC_ROOT}/css/docs.css" />
 <link rel="stylesheet" href="${STATIC_ROOT}/css/listview.css" />
 <link rel="stylesheet" href="${STATIC_ROOT}/css/all.css" />
-<link rel="stylesheet" href="${STATIC_ROOT}/fj/bdsstyle.css.css" />
-<link rel="stylesheet" href="${STATIC_ROOT}/fj/fj_index_3.css" />
+<link rel="stylesheet" href="${STATIC_ROOT}/lx/style.css" />
 <style type="text/css">
 * {
     font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif
