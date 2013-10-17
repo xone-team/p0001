@@ -54,11 +54,13 @@ li {
     display: block;
     background: url("${STATIC_ROOT}/image/banner-icons.png") no-repeat;
 }
-
+.down-to-drop {
+    padding-top: 55px;
+}
 .down-to-drop a {
     float: left;
     width: 26px;
-    height: 28px;
+    height: 28px!important;
     margin: 0px 3px;
     padding: 0px;
 }

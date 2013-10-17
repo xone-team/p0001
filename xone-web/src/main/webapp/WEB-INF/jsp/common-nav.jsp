@@ -47,13 +47,19 @@
                     <a href="javascript:void(0)" onclick="navSearch(2, this);" id="categ_2">大家想买</a>
                 </div>
                 <div class="seabox">
-                    <input type="text" name="searchKey" value="${searchKey}" class="textbox" autocomplete="off" style="margin-bottom:0px;-webkit-border-radius: 0px;" />
+                    <input type="text" name="searchKey" value="${searchKey}" class="textbox" autocomplete="off" style="margin-bottom: 0px; -webkit-border-radius: 0px;" />
                     <input type="submit" value="搜索" class="button">
                 </div>
                 <div class="infocount">
                     <a href="${pageContext.request.contextPath}/product/list.html">查看所有</a>
                 </div>
             </form>
+        </div>
+        <div class="rld">
+            <div class="down-to-drop">
+                <a href="${STATIC_ROOT}/xone.apk" target="_blank" class="banner-down-android" id="downBtnAndroid" title="Android下载"></a>
+                <a href="${STATIC_ROOT}/xOne.ipa" target="_blank" class="banner-down-ios" id="downBtnIphone" title="iOS下载"></a>
+            </div>
         </div>
         <div class="rld">
             <a href="${pageContext.request.contextPath}/admin/login.html">免费发布信息</a>
