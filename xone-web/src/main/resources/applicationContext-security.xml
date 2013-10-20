@@ -12,6 +12,7 @@
     <http pattern="/css/**" security="none"></http>
     <http pattern="/images/**" security="none"></http>
     <http pattern="/admin/login.html**" security="none"></http>
+    <http pattern="/mobile.html**" security="none"></http>
     <http pattern="/user/register**" security="none"></http>
     <http pattern="/*.html**" security="none"></http>
     <http pattern="/*.jsp**" security="none"></http>

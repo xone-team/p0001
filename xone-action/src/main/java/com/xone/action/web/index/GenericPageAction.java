@@ -1,19 +1,21 @@
 package com.xone.action.web.index;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.Overhead;
-import com.xone.model.hibernate.entity.Product;
-import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
-import com.xone.model.utils.MyDateUtils;
 import com.xone.service.app.AdbannerService;
 import com.xone.service.app.ImageUploadedService;
 import com.xone.service.app.OverheadService;
@@ -76,6 +78,36 @@ public class GenericPageAction extends LogicAction {
 	
 	public String image() {
 		return super.image(getId(), getImageUploadPath(), getImageUploadedService());
+	}
+	
+	public String mobile() {
+		try {
+			String id = getRequest().getParameter("mid");
+			if (!"android".equals(id) && !"iphone".equals(id)) {
+				return SUCCESS;
+			}
+			if (null == getImageUploadPath()) {
+				return SUCCESS;
+			}
+	        response.setContentType("application/octet-stream");// 设置返回的文件类型 
+	        response.setCharacterEncoding("UTF-8");
+        	File file = new File(getImageUploadPath());
+	        File mobileFile = null;
+	        if ("android".equals(id)) {
+	        	mobileFile = new File(file.getCanonicalPath() + File.separator + id + ".apk");
+//	        response.addHeader("Content-Type", "application/vnd.android.package-archive");
+	        	response.setHeader("Content-Disposition", "attachment;filename=mobile.apk");
+	        } else if ("iphone".equals(id)) {
+	        	mobileFile = new File(file.getCanonicalPath() + File.separator + id + ".ipd");
+	        	response.setHeader("Content-Disposition", "attachment;filename=mobile.ipd");
+	        }
+	        IOUtils.copy(new FileInputStream(mobileFile), response.getOutputStream());
+            response.flushBuffer();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return SUCCESS;
+		}
+		return null;
 	}
 
 	public ImageUploadedService getImageUploadedService() {

@@ -14,5 +14,8 @@
 			<result name="success">/WEB-INF/jsp/about-page.jsp</result>
 		</action>
 		<action name="image" class="genericPageAction" method="image"></action>
+		<action name="mobile" class="genericPageAction" method="mobile">
+			<result name="success">/WEB-INF/jsp/mobile-page.jsp</result>
+		</action>
 	</package>
 </struts>
