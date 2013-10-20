@@ -45,8 +45,6 @@ public class ProductBackAction extends LogicAction {
 	protected String uploadFile3ContentType;
 	protected String uploadFile3FileName;
 
-	protected String imageUploadPath;
-
 	protected ProductGroupService productGroupService;
 
 	protected Integer orderedProductNum;
@@ -158,21 +156,21 @@ public class ProductBackAction extends LogicAction {
 		List<ImageUploaded> images = new ArrayList<ImageUploaded>();
 		if (uploadFile1 != null) {
 			ImageUploaded imageUploaded1 = createUploadImageByFile(
-					imageUploadPath, ImageUploaded.RefType.PRODUCT,
+					getImageUploadPath(), ImageUploaded.RefType.PRODUCT,
 					getUploadFile1(), getUploadFile1ContentType(),
 					getUploadFile1FileName());
 			images.add(imageUploaded1);
 		}
 		if (uploadFile2 != null) {
 			ImageUploaded imageUploaded2 = createUploadImageByFile(
-					imageUploadPath, ImageUploaded.RefType.PRODUCT,
+					getImageUploadPath(), ImageUploaded.RefType.PRODUCT,
 					getUploadFile2(), getUploadFile2ContentType(),
 					getUploadFile2FileName());
 			images.add(imageUploaded2);
 		}
 		if (uploadFile3 != null) {
 			ImageUploaded imageUploaded3 = createUploadImageByFile(
-					imageUploadPath, ImageUploaded.RefType.PRODUCT,
+					getImageUploadPath(), ImageUploaded.RefType.PRODUCT,
 					getUploadFile3(), getUploadFile3ContentType(),
 					getUploadFile3FileName());
 			images.add(imageUploaded3);
@@ -336,14 +334,6 @@ public class ProductBackAction extends LogicAction {
 
 	public void setUploadFile3FileName(String uploadFile3FileName) {
 		this.uploadFile3FileName = uploadFile3FileName;
-	}
-
-	public String getImageUploadPath() {
-		return imageUploadPath;
-	}
-
-	public void setImageUploadPath(String imageUploadPath) {
-		this.imageUploadPath = imageUploadPath;
 	}
 
 	public ProductGroupService getProductGroupService() {

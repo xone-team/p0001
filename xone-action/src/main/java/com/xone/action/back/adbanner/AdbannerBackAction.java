@@ -36,7 +36,6 @@ public class AdbannerBackAction extends LogicAction {
     //下面的这两个属性的命名必须遵守上定的规则，即为"表单中文件字段的名称" + "相应的后缀"  
 	protected String uploadFileContentType; // 得到上传的文件的数据类型,  
 	protected String uploadFileFileName; // 得到上传的文件的名称 
-	protected String imageUploadPath;
 	
 	public Enum<?>[] getAdType() {
 		return Adbanner.AdType.values();
@@ -97,7 +96,7 @@ public class AdbannerBackAction extends LogicAction {
 	}
 	
 	public String adbannerSave() throws Exception {
-		ImageUploaded imageUploaded = createUploadImageByFile(imageUploadPath,
+		ImageUploaded imageUploaded = createUploadImageByFile(getImageUploadPath(),
 				ImageUploaded.RefType.ABBANNER, getUploadFile(),
 				getUploadFileContentType(), getUploadFileFileName());
 		adbanner.setUserCreated(getUserId());
@@ -136,7 +135,7 @@ public class AdbannerBackAction extends LogicAction {
 			ImageUploaded imageUploaded = null;
 			getAdbanner().setAdRefId(null);
 			if (null != getUploadFile()) {
-				imageUploaded = createUploadImageByFile(imageUploadPath,
+				imageUploaded = createUploadImageByFile(getImageUploadPath(),
 						ImageUploaded.RefType.ABBANNER, getUploadFile(),
 						getUploadFileContentType(), getUploadFileFileName());
 				getAdbanner().setAdRefId(entity.getAdRefId());
@@ -208,14 +207,6 @@ public class AdbannerBackAction extends LogicAction {
 
 	public void setUploadFileFileName(String uploadFileFileName) {
 		this.uploadFileFileName = uploadFileFileName;
-	}
-
-	public String getImageUploadPath() {
-		return imageUploadPath;
-	}
-
-	public void setImageUploadPath(String imageUploadPath) {
-		this.imageUploadPath = imageUploadPath;
 	}
 	
 }

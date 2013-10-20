@@ -27,8 +27,6 @@ public class GenericPageAction extends LogicAction {
 	@Autowired
 	protected ImageUploadedService imageUploadedService;
 	
-	protected String imageUploadPath;
-	
 	protected Long id;
 	@Autowired
 	protected ProductService productService;
@@ -86,14 +84,6 @@ public class GenericPageAction extends LogicAction {
 
 	public void setImageUploadedService(ImageUploadedService imageUploadedService) {
 		this.imageUploadedService = imageUploadedService;
-	}
-
-	public String getImageUploadPath() {
-		return imageUploadPath;
-	}
-
-	public void setImageUploadPath(String imageUploadPath) {
-		this.imageUploadPath = imageUploadPath;
 	}
 
 	public Long getId() {

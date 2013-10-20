@@ -46,8 +46,6 @@ public class CompanyInfoWebAction extends LogicAction {
   protected String uploadFile3ContentType;
   protected String uploadFile3FileName;
 
-  protected String imageUploadPath;
-
   protected Person person = new Person();
   protected PersonService personService;
 
@@ -119,19 +117,19 @@ public class CompanyInfoWebAction extends LogicAction {
     List<ImageUploaded> images = new ArrayList<ImageUploaded>();
     if (uploadFile1 != null) {
       ImageUploaded imageUploaded1 =
-          createUploadImageByFile(imageUploadPath, ImageUploaded.RefType.COMPANY, getUploadFile1(),
+          createUploadImageByFile(getImageUploadPath(), ImageUploaded.RefType.COMPANY, getUploadFile1(),
               getUploadFile1ContentType(), getUploadFile1FileName());
       images.add(imageUploaded1);
     }
     if (uploadFile2 != null) {
       ImageUploaded imageUploaded2 =
-          createUploadImageByFile(imageUploadPath, ImageUploaded.RefType.COMPANY, getUploadFile2(),
+          createUploadImageByFile(getImageUploadPath(), ImageUploaded.RefType.COMPANY, getUploadFile2(),
               getUploadFile2ContentType(), getUploadFile2FileName());
       images.add(imageUploaded2);
     }
     if (uploadFile3 != null) {
       ImageUploaded imageUploaded3 =
-          createUploadImageByFile(imageUploadPath, ImageUploaded.RefType.COMPANY, getUploadFile3(),
+          createUploadImageByFile(getImageUploadPath(), ImageUploaded.RefType.COMPANY, getUploadFile3(),
               getUploadFile3ContentType(), getUploadFile3FileName());
       images.add(imageUploaded3);
     }
@@ -302,14 +300,6 @@ public class CompanyInfoWebAction extends LogicAction {
 
   public void setUploadFile3FileName(String uploadFile3FileName) {
     this.uploadFile3FileName = uploadFile3FileName;
-  }
-
-  public String getImageUploadPath() {
-    return imageUploadPath;
-  }
-
-  public void setImageUploadPath(String imageUploadPath) {
-    this.imageUploadPath = imageUploadPath;
   }
 
 }

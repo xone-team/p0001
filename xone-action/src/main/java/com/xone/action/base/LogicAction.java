@@ -28,7 +28,20 @@ import com.xone.service.app.ImageUploadedService;
 public abstract class LogicAction extends Action {
 
 	private static final long serialVersionUID = 2053049281978266812L;
+	private String imageUploadPath = null;
 	
+	public final String getImageUploadPath() {
+		String uploadPath = System.getProperty("uploadPath");
+		if (null != uploadPath) {
+			return uploadPath;
+		}
+		return imageUploadPath;
+	}
+
+	public final void setImageUploadPath(String imageUploadPath) {
+		this.imageUploadPath = imageUploadPath;
+	}
+
 	/**
 	 * 展示图片的通用方法
 	 * @param id

@@ -37,7 +37,6 @@ public class PurchaseAction extends LogicAction {
 	protected Overhead overhead = new Overhead();
 	protected ImageUploaded imageUploaded;
 	protected List<Purchase> list = new ArrayList<Purchase>();
-	protected String imageUploadPath;
 	
 	public Enum<?>[] getPurchaseType() {
 		return Purchase.PurchaseType.values();
@@ -243,14 +242,6 @@ public class PurchaseAction extends LogicAction {
 		params.put("checklist", "purchaseCheckList");
 		setPurchase(getPurchaseService().findByMap(params));
 		return SUCCESS;
-	}
-
-	public String getImageUploadPath() {
-		return imageUploadPath;
-	}
-
-	public void setImageUploadPath(String imageUploadPath) {
-		this.imageUploadPath = imageUploadPath;
 	}
 
 	public List<Purchase> getList() {

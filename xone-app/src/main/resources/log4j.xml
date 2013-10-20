@@ -15,7 +15,7 @@
 	</appender>
 	<appender name="RollingFileAppender" class="org.apache.log4j.RollingFileAppender">
 <!-- 		<param name="file" value="/var/www/log/xone-app.log" /> -->
-		<param name="file" value="D:/logs/xone-app.log" />
+		<param name="file" value="/Users/hunnyhu/work/logs/xone-app.log" />
 		<param name="MaxFileSize" value="1000KB" />
 		<!-- Keep one backup file -->
 		<param name="MaxBackupIndex" value="1" />

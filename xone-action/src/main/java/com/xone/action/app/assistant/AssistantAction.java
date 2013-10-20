@@ -43,7 +43,6 @@ public class AssistantAction extends LogicAction {
 	
 	protected List<Subscribe> list = new ArrayList<Subscribe>();
 	protected List<Links> links = new ArrayList<Links>();
-	protected String imageUploadPath;
 	protected CompanyInfo companyInfo = new CompanyInfo();
 	
 	protected String redirect;
@@ -145,15 +144,7 @@ public class AssistantAction extends LogicAction {
 	}
 	
 	public String image() {
-		return super.image(id, imageUploadPath, getImageUploadedService());
-	}
-	
-	public String getImageUploadPath() {
-		return imageUploadPath;
-	}
-
-	public void setImageUploadPath(String uploadPath) {
-		this.imageUploadPath = uploadPath;
+		return super.image(id, getImageUploadPath(), getImageUploadedService());
 	}
 
 	public Long getId() {

@@ -57,7 +57,6 @@ public class ProductAction extends LogicAction {
 	protected Product product = new Product();
 	protected ProductGroup productGroup = new ProductGroup();
 	protected Overhead overhead = new Overhead();
-	protected String imageUploadPath;
 	protected List<Product> list = new ArrayList<Product>();
 	
 	protected List<ProductGroup> listGroup = new ArrayList<ProductGroup>();
@@ -564,14 +563,6 @@ public class ProductAction extends LogicAction {
 
 	public void setProduct(Product product) {
 		this.product = product;
-	}
-
-	public String getImageUploadPath() {
-		return imageUploadPath;
-	}
-
-	public void setImageUploadPath(String imageUploadPath) {
-		this.imageUploadPath = imageUploadPath;
 	}
 
 	public List<ProductGroup> getListGroup() {
