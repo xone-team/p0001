@@ -20,6 +20,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.xone.action.base.IdentifyCodeServlet;
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.service.app.PersonService;
@@ -144,6 +145,16 @@ public class LoginRefAction extends LogicAction {
 			return SUCCESS;
 		}
 		String msg = "用户不存在或者密码不正确。";
+		String code = getRequest().getParameter("identifyCode");
+		if (StringUtils.isBlank(code)) {
+			getMapValue().put("msg", "请输入验证码");
+			return ERROR;
+		}
+		String scode = (String)getRequest().getSession().getAttribute(IdentifyCodeServlet.IDENTIFY_CODE_KEY);
+		if (!code.equalsIgnoreCase(scode)) {
+			getMapValue().put("msg", "验证码不正确");
+			return ERROR;
+		}
 		Person p = new Person();
 		p.setUsername(getPerson().getUsername());
 		List<Person> pList = getPersonService().findAllByPerson(p);

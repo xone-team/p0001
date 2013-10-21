@@ -54,6 +54,22 @@
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>
+				    			<td style="width:60px;">验证码:</td>
+				    			<td><input type="password" name="identifyCode" data-mini="true" id="identifyCode" value="" autocomplete="off"/></td>
+				    		</tr>
+				    	</table>
+				    </li>
+				    <li>
+				    	<table style="width:100%">
+				    		<tr>
+				    			<td align="center" width="50%"><img class="myIdentifyCodeImg" src="${pageContext.request.contextPath}/identifyCode.jpeg?_=${myid}"></td>
+				    			<td><a class="myIdentifyCodeHref" data-role="button">看不清楚换一张</a></td>
+				    		</tr>
+				    	</table>
+				    </li>
+				    <li>
+				    	<table style="width:100%">
+				    		<tr>
 				    			<td><a href="${pageContext.request.contextPath}/login/indexRegister.html" data-role="button" data-theme="e">注册用户</a></td>
 				    			<td><input type="submit" value="确认登录" data-theme="e"/></td>
 				    		</tr>
@@ -81,6 +97,10 @@
 						e.preventDefault();
 						$.makeCall('4008979727');
 						return false;
+					});
+					$('a.myIdentifyCodeHref').click(function(e) {
+						e.preventDefault();
+						$('img.myIdentifyCodeImg').attr('src', '${pageContext.request.contextPath}/identifyCode.jpeg?_=' + new Date().getTime());
 					});
 				});
 				$('div.login-ref-page').bind('pagehide', function(event, ui) {
