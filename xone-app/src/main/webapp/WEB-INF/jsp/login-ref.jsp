@@ -59,11 +59,11 @@
 				    		</tr>
 				    	</table>
 				    </li>
-				    <li>
+				    <li style="padding:0px;">
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td align="center" width="50%"><img class="myIdentifyCodeImg" src="${pageContext.request.contextPath}/identifyCode.jpeg?_=${myid}"></td>
-				    			<td><a class="myIdentifyCodeHref" data-role="button">看不清楚换一张</a></td>
+				    			<td><a class="myIdentifyCodeHref" data-role="button" data-mini="true" data-inline="true">换一张</a></td>
 				    		</tr>
 				    	</table>
 				    </li>

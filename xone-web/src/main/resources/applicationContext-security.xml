@@ -15,7 +15,7 @@
     <http pattern="/mobile.html**" security="none"></http>
     <http pattern="/user/register**" security="none"></http>
     <http pattern="/*.html**" security="none"></http>
-    <http pattern="/*.jsp**" security="none"></http>
+    <http pattern="/*.jpeg**" security="none"></http>
     <http pattern="/product/list.html**" security="none"></http>
     <http pattern="/product/item.html**" security="none"></http>
     <http pattern="/purchase/list.html**" security="none"></http>

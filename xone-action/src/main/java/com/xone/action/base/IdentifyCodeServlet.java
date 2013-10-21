@@ -54,7 +54,7 @@ public class IdentifyCodeServlet extends HttpServlet {
 		// 绘制背景
 		g.fillRect(0, 0, idCode.getWidth(), idCode.getHeight());
 		g.setColor(idCode.getRandomColor(180, 200));
-		idCode.drawRandomLines(g, 160);
+		idCode.drawRandomLines(g, 32);
 		String identifyCode = idCode.drawRandomString(4, g);
 		request.getSession().setAttribute("IDENTIFY_CODE_KEY", identifyCode);
 		g.dispose();

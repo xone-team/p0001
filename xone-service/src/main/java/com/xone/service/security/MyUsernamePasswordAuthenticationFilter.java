@@ -2,6 +2,7 @@ package com.xone.service.security;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -13,7 +14,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 public class MyUsernamePasswordAuthenticationFilter extends
 		UsernamePasswordAuthenticationFilter {
-//	public static final String VALIDATE_CODE = "validateCode";
+	public static final String VALIDATE_CODE = "validateCode";
+	public static final String VALIDATE_CODE_SERVER = "IDENTIFY_CODE_KEY";
 	public static final String USERNAME = "username";
 	public static final String PASSWORD = "password";
 
@@ -29,7 +31,7 @@ public class MyUsernamePasswordAuthenticationFilter extends
 							+ request.getMethod());
 		}
 		// 检测验证码
-//		checkValidateCode(request);
+		checkValidateCode(request);
 
 		String username = obtainUsername(request);
 		String password = obtainPassword(request);
@@ -81,28 +83,28 @@ public class MyUsernamePasswordAuthenticationFilter extends
 		return this.getAuthenticationManager().authenticate(authRequest);
 	}
 
-//	protected void checkValidateCode(HttpServletRequest request) {
-//		HttpSession session = request.getSession();
-//
-//		String sessionValidateCode = obtainSessionValidateCode(session);
-//		// 让上一次的验证码失效
-//		session.setAttribute(VALIDATE_CODE, null);
-//		String validateCodeParameter = obtainValidateCodeParameter(request);
-//		if (StringUtils.isEmpty(validateCodeParameter)
-//				|| !sessionValidateCode.equalsIgnoreCase(validateCodeParameter)) {
-//			throw new AuthenticationServiceException("验证码错误！");
-//		}
-//	}
+	protected void checkValidateCode(HttpServletRequest request) {
+		HttpSession session = request.getSession();
 
-//	private String obtainValidateCodeParameter(HttpServletRequest request) {
-//		Object obj = request.getParameter(VALIDATE_CODE);
-//		return null == obj ? "" : obj.toString();
-//	}
-//
-//	protected String obtainSessionValidateCode(HttpSession session) {
-//		Object obj = session.getAttribute(VALIDATE_CODE);
-//		return null == obj ? "" : obj.toString();
-//	}
+		String sessionValidateCode = obtainSessionValidateCode(session);
+		// 让上一次的验证码失效
+		session.setAttribute(VALIDATE_CODE, null);
+		String validateCodeParameter = obtainValidateCodeParameter(request);
+		if (StringUtils.isEmpty(validateCodeParameter)
+				|| !sessionValidateCode.equalsIgnoreCase(validateCodeParameter)) {
+			throw new AuthenticationServiceException("验证码错误！");
+		}
+	}
+
+	private String obtainValidateCodeParameter(HttpServletRequest request) {
+		Object obj = request.getParameter(VALIDATE_CODE);
+		return null == obj ? "" : obj.toString();
+	}
+
+	protected String obtainSessionValidateCode(HttpSession session) {
+		Object obj = session.getAttribute(VALIDATE_CODE_SERVER);
+		return null == obj ? "" : obj.toString();
+	}
 
 //	public PersonService getPersonService() {
 //		return personService;

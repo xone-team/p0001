@@ -190,7 +190,14 @@
     	<servlet-class>org.apache.struts2.views.JspSupportServlet</servlet-class>
     	<load-on-startup>5</load-on-startup>
     </servlet>
-    
+    <servlet>  
+        <servlet-name>identifyCode</servlet-name>  
+        <servlet-class>com.xone.action.base.IdentifyCodeServlet</servlet-class>  
+    </servlet>  
+    <servlet-mapping>  
+        <servlet-name>identifyCode</servlet-name>  
+        <url-pattern>/identifyCode.jpeg</url-pattern>
+    </servlet-mapping>
 <!--     <servlet-mapping> -->
 <!--         <servlet-name>dwr</servlet-name> -->
 <!--         <url-pattern>/dwr/*</url-pattern> -->

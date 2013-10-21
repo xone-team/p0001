@@ -35,6 +35,18 @@
                     </div>
                 </div>
                 <div class="control-group">
+                    <label class="control-label" for="text-password">验证码</label>
+                    <div class="controls">
+                    	<input type="text" name="validateCode" id="validateCode" value="" autocomplete="off" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                    	<img class="myIdentifyCodeImg" src="${pageContext.request.contextPath}/identifyCode.jpeg?_=${identify}">
+                    	<a class="myIdentifyCodeHref" href="#" class="btn">换一张</a>
+                    </div>
+                </div>
+                <div class="control-group">
                     <div class="controls">
                         <a href="${pageContext.request.contextPath}/user/register.html" class="btn">注册用户</a>
                         <button type="submit" class="btn">确认登录</button>
@@ -48,6 +60,10 @@
     <script type="text/javascript">
                     $(document).ready(function() {
                         $('form.navloginform').hide();
+    					$('a.myIdentifyCodeHref').click(function(e) {
+    						e.preventDefault();
+    						$('img.myIdentifyCodeImg').attr('src', '${pageContext.request.contextPath}/identifyCode.jpeg?_=' + new Date().getTime());
+    					});
                     });
                 </script>
 </body>

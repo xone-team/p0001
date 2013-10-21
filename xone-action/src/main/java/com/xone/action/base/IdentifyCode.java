@@ -131,8 +131,8 @@ public class IdentifyCode {
 //				temp = String.valueOf((char) itmp);
 //				break;
 //			}
-			Color color = new Color(20 + random.nextInt(20),
-					20 + random.nextInt(20), 20 + random.nextInt(20));
+			Color color = new Color(20 + random.nextInt(200),
+					20 + random.nextInt(200), 20 + random.nextInt(200));
 			g.setColor(color);
 			// 想文字旋转一定的角度
 			AffineTransform trans = new AffineTransform();
@@ -143,7 +143,7 @@ public class IdentifyCode {
 				scaleSize = 1f;
 			trans.scale(scaleSize, scaleSize);
 			g.setTransform(trans);
-			g.drawString(temp, 15 * i + 18, 14);
+			g.drawString(temp, 15 * i + 18, 24);
 			strbuf.append(temp);
 		}
 		g.dispose();
