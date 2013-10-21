@@ -55,7 +55,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td style="width:60px;">验证码:</td>
-				    			<td><input type="password" name="identifyCode" data-mini="true" id="identifyCode" value="" autocomplete="off"/></td>
+				    			<td><input type="text" name="identifyCode" data-mini="true" id="identifyCode" value="" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
