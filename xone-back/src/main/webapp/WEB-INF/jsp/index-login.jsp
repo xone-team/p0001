@@ -35,6 +35,18 @@
                             <input type="password" name="password" id="text-password" value="" autocomplete="off" />
                         </div>
                     </div>
+	                <div class="control-group">
+	                    <label class="control-label" for="validateCode">验证码</label>
+	                    <div class="controls">
+	                    	<input type="text" name="validateCode" id="validateCode" value="" autocomplete="off" />
+	                    </div>
+	                </div>
+	                <div class="control-group">
+	                    <div class="controls">
+	                    	<img class="myIdentifyCodeImg" src="${pageContext.request.contextPath}/identifyCode.jpeg?_=${identify}">
+	                    	<a class="myIdentifyCodeHref" href="#" class="btn">换一张</a>
+	                    </div>
+	                </div>
                     <div class="control-group">
                         <div class="controls">
                             <button type="submit" class="btn">确认登录</button>
@@ -46,8 +58,12 @@
     </div>
     <jsp:include page="common-footer.jsp"></jsp:include>
 </body>
-<script>
-    jQuery(function() {
-    });
-</script>
+    <script type="text/javascript">
+		$(document).ready(function() {
+			$('a.myIdentifyCodeHref').click(function(e) {
+				e.preventDefault();
+				$('img.myIdentifyCodeImg').attr('src', '${pageContext.request.contextPath}/identifyCode.jpeg?_=' + new Date().getTime());
+			});
+		});
+        </script>
 </html>

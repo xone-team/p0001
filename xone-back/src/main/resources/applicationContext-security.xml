@@ -11,6 +11,7 @@
     <http pattern="/js/**" security="none"></http>
     <http pattern="/css/**" security="none"></http>
     <http pattern="/images/**" security="none"></http>
+    <http pattern="/*.jpeg**" security="none"></http>
     <http pattern="/console/login.html**" security="none"></http>
     <http pattern="/index.jsp**" security="none"></http>
     <http pattern="/image.html**" security="none"></http>

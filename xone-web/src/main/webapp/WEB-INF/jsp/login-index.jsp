@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="text-password">验证码</label>
+                    <label class="control-label" for="validateCode">验证码</label>
                     <div class="controls">
                     	<input type="text" name="validateCode" id="validateCode" value="" autocomplete="off" />
                     </div>
