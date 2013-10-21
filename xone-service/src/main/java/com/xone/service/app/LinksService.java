@@ -9,7 +9,7 @@ public interface LinksService {
 
 	public Links findById(Long id);
 	
-	public List<Links> findAllByLinkNos(List<String> linkNos);
+	public List<Links> findAllByLinkNos(List<String> linkNos, String auth);
 	
 	public List<Links> findAllByMap(Map<String, String> params);
 	

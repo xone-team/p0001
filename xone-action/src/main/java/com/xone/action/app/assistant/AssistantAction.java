@@ -70,7 +70,7 @@ public class AssistantAction extends LogicAction {
 			}));
 		}
 		if (!list.isEmpty()) {
-			List<Links> l = getLinksService().findAllByLinkNos(list);
+			List<Links> l = getLinksService().findAllByLinkNos(list, getUserLevel());
 			if (null != l && !l.isEmpty()) {
 				getLinks().addAll(l);
 			}
@@ -104,7 +104,7 @@ public class AssistantAction extends LogicAction {
 				target.put(ul.getLinkNo(), "OK");
 			}
 		}
-		List<Links> list = getLinksService().findAllByLinkNos(null);
+		List<Links> list = getLinksService().findAllByLinkNos(null, getUserLevel());
 		for (Links link : list) {
 			if ("OK".equals(target.get(link.getLinkNo()))) {
 				link.setSelected(true);

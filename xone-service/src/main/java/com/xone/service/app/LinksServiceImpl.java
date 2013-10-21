@@ -3,9 +3,11 @@ package com.xone.service.app;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.criterion.DetachedCriteria;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +28,20 @@ public class LinksServiceImpl implements LinksService {
 	}
 	
 	@Override
-	public List<Links> findAllByLinkNos(List<String> linkNos) {
+	public List<Links> findAllByLinkNos(List<String> linkNos, String auth) {
 		DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Links.class);
 		if (null != linkNos && !linkNos.isEmpty()) {
 			detachedCriteria.add(Restrictions.in("linkNo", linkNos));
+		}
+//		if (null != auths && auths.length > 0) {
+//			Disjunction or = Restrictions.disjunction();
+//			for (String value : auths) {
+//				or.add(Restrictions.like("auth", "%" + value + "%"));
+//			}
+//			detachedCriteria.add(or);
+//		}
+		if (StringUtils.isNotBlank(auth)) {
+			detachedCriteria.add(Restrictions.like("auth", "%" + auth + "%"));
 		}
         detachedCriteria.addOrder(Order.asc("dateCreated"));
 		return getLinksDao()
