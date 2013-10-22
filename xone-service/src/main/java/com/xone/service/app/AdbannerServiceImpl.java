@@ -96,6 +96,9 @@ public class AdbannerServiceImpl implements AdbannerService {
 				e.printStackTrace();
 			}
 		}
+		if (StringUtils.isNotBlank(params.get("adPosition"))) {
+			detachedCriteria.add(Restrictions.eq("adPosition", params.get("adPosition")));
+		}
 		detachedCriteria.add(Restrictions.eq("flagDeleted", Adbanner.FlagDeleted.NORMAL.getValue()));
 		List<Adbanner> list = getAdbannerDao().findListByDetachedCriteria(detachedCriteria, 0, 10);
 		if (null != list && !list.isEmpty()) {

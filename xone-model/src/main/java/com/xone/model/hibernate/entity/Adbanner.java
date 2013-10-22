@@ -30,7 +30,7 @@ public class Adbanner extends MyModel implements Serializable {
 	 * 广告栏位置
 	 */
 	public enum AdPosition {
-		INDEX("1", "首页"), SIDE("2", "侧栏");
+		GUIDE("1", "首页"), BANNER("2", "侧栏");
 		protected String value;
 		protected String name;
 		private AdPosition(String v, String n) {
@@ -44,7 +44,6 @@ public class Adbanner extends MyModel implements Serializable {
 			return this.name;
 		}
 	}
-
 	
 	protected Long id;
 	/**

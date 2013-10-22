@@ -11,11 +11,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
+import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.CompanyInfo;
 import com.xone.model.hibernate.entity.Links;
 import com.xone.model.hibernate.entity.Subscribe;
 import com.xone.model.hibernate.entity.UserLinks;
 import com.xone.model.utils.MyDateUtils;
+import com.xone.service.app.AdbannerService;
 import com.xone.service.app.CompanyInfoService;
 import com.xone.service.app.ImageUploadedService;
 import com.xone.service.app.LinksService;
@@ -39,11 +41,15 @@ public class AssistantAction extends LogicAction {
 	protected LinksService linksService;
 	
 	@Autowired
-	protected UserLinksService userLinksService;
+	protected UserLinksService userLinksService;	
+	
+	@Autowired
+	protected AdbannerService adbannerService;
 	
 	protected List<Subscribe> list = new ArrayList<Subscribe>();
 	protected List<Links> links = new ArrayList<Links>();
 	protected CompanyInfo companyInfo = new CompanyInfo();
+	protected List<Adbanner> adList = new ArrayList<Adbanner>();
 	
 	protected String redirect;
 	protected Long id;
@@ -57,6 +63,15 @@ public class AssistantAction extends LogicAction {
 	}
 	
 	public String guide() {
+
+		Map<String, String> params = getRequestMap();
+		params.put("adPosition", Adbanner.AdPosition.GUIDE.getValue());
+		params.put("today", String.format("%1$tY-%1tm-%1$td %1$tH:%1$tM:%1$tS", new Date()));
+		List<Adbanner> adl = adbannerService.findAllByMap(params);
+		if (null != adl && !adl.isEmpty()) {
+			getAdList().addAll(adl);
+		}
+		
 		Long userId = getUserId();
 		List<String> list = new ArrayList<String>();
 		if (userId > 0) {
@@ -219,12 +234,28 @@ public class AssistantAction extends LogicAction {
 		this.userLinksService = userLinksService;
 	}
 
+	public AdbannerService getAdbannerService() {
+		return adbannerService;
+	}
+
+	public void setAdbannerService(AdbannerService adbannerService) {
+		this.adbannerService = adbannerService;
+	}
+
 	public List<Links> getLinks() {
 		return links;
 	}
 
 	public void setLinks(List<Links> links) {
 		this.links = links;
+	}
+
+	public List<Adbanner> getAdList() {
+		return adList;
+	}
+
+	public void setAdList(List<Adbanner> adList) {
+		this.adList = adList;
 	}
 	
 }

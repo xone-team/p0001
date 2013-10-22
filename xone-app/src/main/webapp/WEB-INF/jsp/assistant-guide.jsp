@@ -20,20 +20,37 @@
 				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="grid">客服</a>
 			</div>
 			<div data-role="content" class="guide-page">
+				<c:if test="${!(empty adList)}">
 				<div class="ui-grid-solo" style="padding:0px;clear:both;">
 					<div class="guide-advertisement" style="overflow:hidden;clear:both;">
-						<a class="car-img" href="${pageContext.request.contextPath}/product/listSales.html"><img src="${STATIC_ROOT}/image/picture1.jpg"></a>
-						<a class="car-img" href="${pageContext.request.contextPath}/purchase/index.html"><img src="${STATIC_ROOT}/image/picture2.jpg"></a>
-						<a class="car-img" href="${pageContext.request.contextPath}/product/listGroups.html"><img src="${STATIC_ROOT}/image/picture3.jpg"></a>
-						<a class="car-img" href="${pageContext.request.contextPath}/delivery/index.html"><img src="${STATIC_ROOT}/image/picture4.jpg"></a>
-						<a class="car-img" href="${pageContext.request.contextPath}/login/indexRegister.html"><img src="${STATIC_ROOT}/image/picture5.jpg"></a>
-						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture6.jpg"></a>
-						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture7.jpg"></a>
-						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture8.jpg"></a>
-						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture9.jpg"></a>
-						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/pic12.jpg"></a>
+						<c:forEach var="item" items="${adList}">
+							<c:set var="href" value="#" />
+							<c:choose>
+								<c:when test="${item.adType == '0'}">
+									<c:set var="href" value="${pageContext.request.contextPath}/product/item.html?product.id=${item.refId}" />
+								</c:when>
+								<c:when test="${item.adType == '1'}">
+									<c:set var="href" value="${pageContext.request.contextPath}/purchase/item.html?purchase.id=${item.refId}" />
+								</c:when>
+								<c:when test="${item.adType == '2'}">
+									<c:set var="href" value="${pageContext.request.contextPath}/assistant/companyInfo.html?companyInfo.id=${item.refId}" />
+								</c:when>
+							</c:choose>
+							<a class="car-img" href="${href}"><img src="${pageContext.request.contextPath}/assistant/image.html?id=${item.adRefId}"></a>
+						</c:forEach>
+<%-- 						<li class="ui-mybanner-link"><a href="${href}" data-role="none"><img src="${pageContext.request.contextPath}/assistant/image.html?id=${item.adRefId}" onload="appendImageAttr(this);"/></a></li> --%>
+<%-- 						<a class="car-img" href="${pageContext.request.contextPath}/purchase/index.html"><img src="${STATIC_ROOT}/image/picture2.jpg"></a> --%>
+<%-- 						<a class="car-img" href="${pageContext.request.contextPath}/product/listGroups.html"><img src="${STATIC_ROOT}/image/picture3.jpg"></a> --%>
+<%-- 						<a class="car-img" href="${pageContext.request.contextPath}/delivery/index.html"><img src="${STATIC_ROOT}/image/picture4.jpg"></a> --%>
+<%-- 						<a class="car-img" href="${pageContext.request.contextPath}/login/indexRegister.html"><img src="${STATIC_ROOT}/image/picture5.jpg"></a> --%>
+<%-- 						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture6.jpg"></a> --%>
+<%-- 						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture7.jpg"></a> --%>
+<%-- 						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture8.jpg"></a> --%>
+<%-- 						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture9.jpg"></a> --%>
+<%-- 						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/pic12.jpg"></a> --%>
 					</div>
 				</div>
+				</c:if>
 				<div class="ui-grid-solo" style="padding-top:0px;">
 					<table class="guide-page-table">
 						<tbody>
