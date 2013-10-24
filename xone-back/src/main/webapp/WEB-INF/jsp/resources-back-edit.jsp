@@ -90,8 +90,8 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" name="update" value="update" class="btn" onclick="return confirm('确定更新本条记录?');">提交更新</button>
-                            <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm('确定删除本条记录?');">删除记录</button>
+                            <button type="submit" name="update" value="update" class="btn" onclick="return confirm2('update', '确定更新本条记录?');">提交更新</button>
+                            <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm2('delete', '确定删除本条记录?');">删除记录</button>
                         </div>
                     </div>
                 </form>
@@ -135,9 +135,17 @@
 </script>
 
 <script>
+window.submitButtonName = "update";
+function confirm2(buttonName, msg){
+    window.submitButtonName = buttonName;
+    return confirm(msg);
+}
     jQuery(function() {
         jQuery("#X_menu_li_resources").addClass("active");
         $('#saveForm').submit(function() {
+            if('delete' == window.submitButtonName){
+                return true;
+            }
             var $form = $('#saveForm');
             var validate = [ {
                 name : 'name',
