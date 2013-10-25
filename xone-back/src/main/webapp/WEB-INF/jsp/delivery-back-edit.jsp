@@ -96,8 +96,8 @@
                     </div>
                     <div class="control-group">
                         <div class="controls">
-                            <button type="submit" name="update" value="update" class="btn" onclick="return confirm('确定更新本条记录?');">提交更新</button>
-                            <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm('确定删除本条记录?');">删除记录</button>
+                            <button type="submit" name="update" value="update" class="btn" onclick="return confirm2('update', '确定更新本条记录?');">提交更新</button>
+                            <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm2('delete', '确定删除本条记录?');">删除记录</button>
                         </div>
                     </div>
                 </form>
@@ -116,6 +116,11 @@
 <script src="${STATIC_ROOT}/bootstrap-select/bootstrap-select.min.js"></script>
 <script src="${STATIC_ROOT}/js/common.js"></script>
 <script type="text/javascript">
+window.submitButtonName = "update";
+function confirm2(buttonName, msg){
+    window.submitButtonName = buttonName;
+    return confirm(msg);
+}
     $(document).ready(function() {
         $("#X_menu_li_delivery").addClass("active");
 
@@ -140,6 +145,9 @@
         });
 
         $('#saveForm').submit(function() {
+            if('delete' == window.submitButtonName){
+                return true;
+            }
             var $form = $('#saveForm');
             var validate = [ {
                 name : 'marketarea',
