@@ -14,7 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.xone.action.base.Action;
+import com.xone.action.utils.Shared;
+import com.xone.model.hibernate.entity.LoginLog;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.service.app.LoginLogService;
 import com.xone.service.app.PersonService;
 
 public class LoginWebAction extends Action {
@@ -28,7 +31,10 @@ public class LoginWebAction extends Action {
 	protected List<Person> list = new ArrayList<Person>();
 	
 	@Autowired
-	protected PersonService personService;
+	protected PersonService personService;	
+	
+	@Autowired
+	private LoginLogService loginLogService;
 
 	public String login() throws Exception {
 		Map<String, ?> session = ActionContext.getContext().getSession();
@@ -93,6 +99,12 @@ public class LoginWebAction extends Action {
 			}
 			if (null != porperties && !porperties.isEmpty()) {
 				getSession().setAttribute(USER, porperties);
+				LoginLog loginLog = new LoginLog();
+				loginLog.setUserId(pList.get(0).getId());
+				loginLog.setIp(Shared.getClientIpAddr(getRequest()));
+				loginLog.setUserAgent(getRequest().getHeader("User-Agent"));
+				loginLog.setCategory(LoginLog.LoginCatetory.WEB.getValue());
+				getLoginLogService().save(loginLog);
 			}
 		}
 		return SUCCESS;
@@ -165,6 +177,14 @@ public class LoginWebAction extends Action {
 
 	public void setPersonService(PersonService personService) {
 		this.personService = personService;
+	}
+
+	public LoginLogService getLoginLogService() {
+		return loginLogService;
+	}
+
+	public void setLoginLogService(LoginLogService loginLogService) {
+		this.loginLogService = loginLogService;
 	}
 
 	public String getErrorType() {

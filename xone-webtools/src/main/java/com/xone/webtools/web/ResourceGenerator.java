@@ -6,10 +6,10 @@ public class ResourceGenerator {
 
 	public static void main(String[] args) throws Exception {
 		DatabaseTableInfo databaseTableInfo = new DatabaseTableInfo("com.mysql.jdbc.Driver", 
-				"jdbc:mysql://mysqllocal.com:4306/sample?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true",
-				"root", "admin");
+				"jdbc:mysql://localhost:4306/sample?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true",
+				"root", "mysqlpasswd");
 		List<String> tables = databaseTableInfo.getTables(new String[] {
-				"t_links", "t_user_links"
+				"T_LOGIN_LOG"
 		});//databaseTableInfo.getTables();
 		DaoGenerator daoGenerator = new DaoGenerator();
 		EntityGenerator entityGenerator = new EntityGenerator();

@@ -16,13 +16,15 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.IdentifyCodeServlet;
 import com.xone.action.base.LogicAction;
+import com.xone.action.utils.Shared;
+import com.xone.model.hibernate.entity.LoginLog;
 import com.xone.model.hibernate.entity.Person;
+import com.xone.service.app.LoginLogService;
 import com.xone.service.app.PersonService;
 import com.xone.service.app.utils.EncryptRef;
 
@@ -64,6 +66,9 @@ public class LoginRefAction extends LogicAction {
 
 	@Autowired
 	private PersonService personService;
+	
+	@Autowired
+	private LoginLogService loginLogService;
 
 	/**
 	 * @return the redirect
@@ -165,12 +170,19 @@ public class LoginRefAction extends LogicAction {
 		}
 		p = pList.get(0);
 		if (EncryptRef.SHA1(getPerson().getPassword()).equals(p.getPassword())) {
+			LoginLog loginLog = new LoginLog();
+			loginLog.setUserId(p.getId());
+			loginLog.setIp(Shared.getClientIpAddr(getRequest()));
+			loginLog.setUserAgent(getRequest().getHeader("User-Agent"));
+			loginLog.setCategory(LoginLog.LoginCatetory.MOBILE.getValue());
 			if (loginUser(p)) {
 				Map<String, String> params = getRequestMap();
 				p.setUserUpdated(p.getId());
 				p.setLastMacUpdated(params.get("_m"));
+				loginLog.setMac(p.getLastMacUpdated());
 				getPersonService().update(p);
 			}
+			getLoginLogService().save(loginLog);
 //			getUserMap().put("", value)
 		} else {
 			getMapValue().put("msg", msg);
@@ -280,6 +292,14 @@ public class LoginRefAction extends LogicAction {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public LoginLogService getLoginLogService() {
+		return loginLogService;
+	}
+
+	public void setLoginLogService(LoginLogService loginLogService) {
+		this.loginLogService = loginLogService;
 	} 
 
 }

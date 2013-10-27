@@ -12,7 +12,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
+import com.xone.action.utils.Shared;
 import com.xone.model.hibernate.entity.ImageUploaded;
+import com.xone.model.hibernate.entity.LoginLog;
 import com.xone.model.hibernate.entity.Overhead;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
@@ -20,6 +22,7 @@ import com.xone.model.hibernate.entity.ProductGroup;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.utils.MyDateUtils;
 import com.xone.model.utils.MyModelUtils;
+import com.xone.service.app.LoginLogService;
 import com.xone.service.app.OverheadService;
 import com.xone.service.app.PersonService;
 import com.xone.service.app.ProductGroupService;
@@ -53,6 +56,9 @@ public class ProductAction extends LogicAction {
 	
 	@Autowired
 	protected PersonService personService;
+	
+	@Autowired
+	protected LoginLogService loginLogService; 
 	
 	protected Product product = new Product();
 	protected ProductGroup productGroup = new ProductGroup();
@@ -189,6 +195,12 @@ public class ProductAction extends LogicAction {
 				Long id = Long.parseLong(userId);
 				Person p = getPersonService().findById(id);
 				loginUser(p);
+				LoginLog loginLog = new LoginLog();
+				loginLog.setUserId(p.getId());
+				loginLog.setIp(Shared.getClientIpAddr(getRequest()));
+				loginLog.setUserAgent(getRequest().getHeader("User-Agent"));
+				loginLog.setCategory(LoginLog.LoginCatetory.SUBSCRIBE.getValue());
+				getLoginLogService().save(loginLog);
 			}
 		}
 		return SUCCESS;
@@ -523,6 +535,14 @@ public class ProductAction extends LogicAction {
 
 	public void setProductGroupService(ProductGroupService productGroupService) {
 		this.productGroupService = productGroupService;
+	}
+
+	public LoginLogService getLoginLogService() {
+		return loginLogService;
+	}
+
+	public void setLoginLogService(LoginLogService loginLogService) {
+		this.loginLogService = loginLogService;
 	}
 
 	public ProductGroup getProductGroup() {

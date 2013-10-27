@@ -11,14 +11,16 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.xone.action.base.Action;
+import com.xone.action.utils.Shared;
+import com.xone.model.hibernate.entity.LoginLog;
 import com.xone.model.hibernate.entity.Person;
 import com.xone.service.app.IndexService;
+import com.xone.service.app.LoginLogService;
 import com.xone.service.app.PersonService;
 
 public class IndexBackAction extends Action {
@@ -41,12 +43,15 @@ public class IndexBackAction extends Action {
     Integer overheadCount = new Integer(0);
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     
-    String adbannerAlertDate;
+    protected String adbannerAlertDate;
     
     IndexService indexService;
     
     @Autowired
     protected PersonService personService;
+    
+    @Autowired
+    protected LoginLogService loginLogService;
     
     public String login() throws Exception {
         Map<String, ?> session = ActionContext.getContext().getSession();
@@ -96,6 +101,12 @@ public class IndexBackAction extends Action {
             }
             if (null != porperties && !porperties.isEmpty()) {
                 getSession().setAttribute(USER, porperties);
+				LoginLog loginLog = new LoginLog();
+				loginLog.setUserId(pList.get(0).getId());
+				loginLog.setIp(Shared.getClientIpAddr(getRequest()));
+				loginLog.setUserAgent(getRequest().getHeader("User-Agent"));
+				loginLog.setCategory(LoginLog.LoginCatetory.BACK.getValue());
+				getLoginLogService().save(loginLog);
             }
         }
 		return SUCCESS;
@@ -174,6 +185,14 @@ public class IndexBackAction extends Action {
     public void setPersonService(PersonService personService) {
         this.personService = personService;
     }
+
+	public LoginLogService getLoginLogService() {
+		return loginLogService;
+	}
+
+	public void setLoginLogService(LoginLogService loginLogService) {
+		this.loginLogService = loginLogService;
+	}
 
 	public String getErrorType() {
 		return errorType;
