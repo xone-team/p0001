@@ -38,7 +38,7 @@
                 <div style="width: 182px; height: 85px; line-height: 85px; color: #fdb56d; font-family: 'Microsoft YaHei'; font-size: 3.5em;">掌畅科技</div>
             </a>
         </div>
-        <div class="city"></div>
+<!--         <div class="city"></div> -->
         <div class="search">
             <form method="post" id="navSearchForm" action="${pageContext.request.contextPath}/product/list.html" enctype="application/x-www-form-urlencoded">
                 <input type="hidden" name="searchType" value="${searchType}" />
@@ -56,14 +56,27 @@
             </form>
         </div>
         <div class="rld">
-            <div class="down-to-drop">
-                <a href="${STATIC_ROOT}/xone.apk" target="_blank" class="banner-down-android" id="downBtnAndroid" title="Android下载"></a>
-                <a href="${STATIC_ROOT}/xOne.ipa" target="_blank" class="banner-down-ios" id="downBtnIphone" title="iOS下载"></a>
+            <div>
+            	<div style="width:55px;height:55px;">
+            		<img src="${STATIC_ROOT}/image/android-code.png"/>
+            	</div>
+            	<div style="width:55px;">
+                	<a href="${STATIC_ROOT}/mobile.html?mid=android" target="_blank" class="banner-down-android" style="width:26px;height:26px;margin-top:3px;" id="downBtnAndroid" title="Android下载"></a>
+            	</div>
             </div>
+        </div>
+        <div class="rld">&nbsp;</div>
+        <div class="rld">
+           	<div style="width:55px;height:55px;">
+           		<img src="${STATIC_ROOT}/image/iphone-code.png"/>
+           	</div>
+           	<div style="width:55px;">
+               	<a href="${STATIC_ROOT}/mobile.html?mid=iphone" target="_blank" class="banner-down-ios" style="width:26px;height:26px;margin-top:3px;" id="downBtnIphone" title="iOS下载"></a>
+           	</div>
         </div>
         <div class="rld">
             <a href="${pageContext.request.contextPath}/admin/login.html">免费发布信息</a>
-            <a href="${STATIC_ROOT}/xone.apk" class="wap">
+            <a href="#" class="wap" style="padding:0px;">
                 <img src="${STATIC_ROOT}/lx/head_12.png">
             </a>
         </div>

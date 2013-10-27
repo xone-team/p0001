@@ -57,7 +57,14 @@ li {
 .down-to-drop {
     padding-top: 55px;
 }
-.down-to-drop a {
+.android-code{
+	background: url("${STATIC_ROOT}/image/android-code.png") no-repeat;
+}
+.iphone-code{
+	background: url("${STATIC_ROOT}/image/iphone-code.png") no-repeat;
+}
+.down-to-drop a 
+{
     float: left;
     width: 26px;
     height: 28px!important;
