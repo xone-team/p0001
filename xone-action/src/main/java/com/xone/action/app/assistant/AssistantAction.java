@@ -50,6 +50,13 @@ public class AssistantAction extends LogicAction {
 	protected List<Links> links = new ArrayList<Links>();
 	protected CompanyInfo companyInfo = new CompanyInfo();
 	protected List<Adbanner> adList = new ArrayList<Adbanner>();
+	private static List<String> FIXED_NO = new ArrayList<String>();
+	
+	static {
+		FIXED_NO.addAll(Arrays.asList(new String[] {
+				"A001", "A002", "A003", "A022"	
+		}));
+	}
 	
 	protected String redirect;
 	protected Long id;
@@ -79,11 +86,13 @@ public class AssistantAction extends LogicAction {
 			for (UserLinks ul : userLinks) {
 				list.add(ul.getLinkNo());
 			}
-		} else {
-			list.addAll(Arrays.asList(new String[] {
-				"A001", "A002", "A003", "A004", "A005", "A006"	
-			}));
-		}
+		} 
+//		else {
+//			list.addAll(Arrays.asList(new String[] {
+//				"A001", "A002", "A003", "A004", "A005", "A006"	
+//			}));
+//		}
+		list.addAll(FIXED_NO);
 		if (!list.isEmpty()) {
 			List<Links> l = getLinksService().findAllByLinkNos(list, getUserLevel());
 			if (null != l && !l.isEmpty()) {
@@ -121,6 +130,9 @@ public class AssistantAction extends LogicAction {
 		}
 		List<Links> list = getLinksService().findAllByLinkNos(null, getUserLevel());
 		for (Links link : list) {
+			if (FIXED_NO.contains(link.getLinkNo())) {
+				continue;
+			}
 			if ("OK".equals(target.get(link.getLinkNo()))) {
 				link.setSelected(true);
 			} else {
