@@ -61,7 +61,7 @@
             		<img src="${STATIC_ROOT}/image/android-code.png"/>
             	</div>
             	<div style="width:55px;">
-                	<a href="${STATIC_ROOT}/mobile.html?mid=android" target="_blank" class="banner-down-android" style="width:26px;height:26px;margin-top:3px;" id="downBtnAndroid" title="Android下载"></a>
+                	<a href="${pageContext.request.contextPath}/mobile.html?mid=android" target="_blank" class="banner-down-android" style="width:26px;height:26px;margin-top:3px;" id="downBtnAndroid" title="Android下载"></a>
             	</div>
             </div>
         </div>
@@ -71,7 +71,7 @@
            		<img src="${STATIC_ROOT}/image/iphone-code.png"/>
            	</div>
            	<div style="width:55px;">
-               	<a href="${STATIC_ROOT}/mobile.html?mid=iphone" target="_blank" class="banner-down-ios" style="width:26px;height:26px;margin-top:3px;" id="downBtnIphone" title="iOS下载"></a>
+               	<a href="${pageContext.request.contextPath}/mobile.html?mid=iphone" target="_blank" class="banner-down-ios" style="width:26px;height:26px;margin-top:3px;" id="downBtnIphone" title="iOS下载"></a>
            	</div>
         </div>
         <div class="rld">
