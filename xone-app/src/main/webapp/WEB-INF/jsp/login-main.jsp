@@ -37,9 +37,9 @@
 				    <li data-icon="false"><a href="#">地　址:<span class="myspanstyle">${userMap.address}</span></a></li>
 				    <li data-icon="false" style="padding-top:0px;padding-bottom:2px;"><div><a href="${pageContext.request.contextPath}/login/indexUpdate.html?_=${myid}" data-role="button" data-icon="edit">用户更新</a></div></li>
 <%-- 				    <li data-icon="false" style="padding-top:0px;padding-bottom:2px;"><div><a href="${pageContext.request.contextPath}/login/main.html?_=${myid}" data-role="button" data-icon="refresh">信息刷新</a></div></li> --%>
-				    <li data-icon="false" style="padding-top:0px;padding-bottom:2px;"><div><a href="#" onclick="window.main.loadGuideIndex();" rel="external" data-role="button" data-icon="home">软件首页</a></div></li>
+<!-- 				    <li data-icon="false" style="padding-top:0px;padding-bottom:2px;"><div><a href="#" onclick="window.main.loadGuideIndex();" rel="external" data-role="button" data-icon="home">软件首页</a></div></li> -->
 <!-- 				    <li><a href="#" onclick="window.main.loadGuideIndex();" rel="external" data-icon="home">软件首页</a></li> -->
-				    <li><a href="#" onclick="window.main.debug('0');" rel="external" data-icon="home">重置订阅</a></li>
+<!-- 				    <li><a href="#" onclick="window.main.debug('0');" rel="external" data-icon="home">重置订阅</a></li> -->
 				</ul>
 		    </div>
 			<c:set var="A_L" value="${alevelUser}"/>

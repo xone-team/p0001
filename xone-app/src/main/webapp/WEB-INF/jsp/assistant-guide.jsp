@@ -16,7 +16,7 @@
 			<script type="text/javascript" src="${STATIC_ROOT}/js/mycarousel.js"></script>
 			<div data-id="myheader" data-role="header" data-position="fixed" data-tap-toggle="true">
 				<a href="${pageContext.request.contextPath}/login/indexRegister.html" data-icon="check">注册</a>
-				<h1>欢迎使用</h1>
+				<h1><img src="${STATIC_ROOT}/image/header_logo.png" width="25px" height="16px">欢迎使用</h1>
 				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="grid">客服</a>
 			</div>
 			<div data-role="content" class="guide-page">
@@ -38,16 +38,6 @@
 							</c:choose>
 							<a class="car-img" href="${href}"><img src="${pageContext.request.contextPath}/assistant/image.html?id=${item.adRefId}"></a>
 						</c:forEach>
-<%-- 						<li class="ui-mybanner-link"><a href="${href}" data-role="none"><img src="${pageContext.request.contextPath}/assistant/image.html?id=${item.adRefId}" onload="appendImageAttr(this);"/></a></li> --%>
-<%-- 						<a class="car-img" href="${pageContext.request.contextPath}/purchase/index.html"><img src="${STATIC_ROOT}/image/picture2.jpg"></a> --%>
-<%-- 						<a class="car-img" href="${pageContext.request.contextPath}/product/listGroups.html"><img src="${STATIC_ROOT}/image/picture3.jpg"></a> --%>
-<%-- 						<a class="car-img" href="${pageContext.request.contextPath}/delivery/index.html"><img src="${STATIC_ROOT}/image/picture4.jpg"></a> --%>
-<%-- 						<a class="car-img" href="${pageContext.request.contextPath}/login/indexRegister.html"><img src="${STATIC_ROOT}/image/picture5.jpg"></a> --%>
-<%-- 						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture6.jpg"></a> --%>
-<%-- 						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture7.jpg"></a> --%>
-<%-- 						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture8.jpg"></a> --%>
-<%-- 						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/picture9.jpg"></a> --%>
-<%-- 						<a class="car-img" href="#"><img src="${STATIC_ROOT}/image/pic12.jpg"></a> --%>
 					</div>
 				</div>
 				</c:if>
@@ -72,8 +62,10 @@
 											</td>
 										</c:when>
 										<c:when test="${item.linkType == 'add' }">
-											<td class="${item.linkType}">
-												<a href="${pageContext.request.contextPath}${item.link}" data-role="none" style="display:block;width:100%;height:100%;">&nbsp;</a>
+											<td>
+												<div>
+													<a href="${pageContext.request.contextPath}${item.link}" data-role="none"><img src="${STATIC_ROOT}/image/MORE.png"></a>
+												<div>
 											</td>
 										</c:when>
 										<c:otherwise><td></td></c:otherwise>

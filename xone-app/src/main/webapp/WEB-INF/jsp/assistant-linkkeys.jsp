@@ -20,22 +20,22 @@
 			<div data-role="content" class="guide-page">
 				<style type="text/css">
 					.mycorrect {
-						width:32px;
-						height:32px;
+						width:21px;
+						height:21px;
 						position:absolute;
-						right:0px;
-						bottom:4px;
+						top:0px;
+						left:0px;
 						z-index:1;
-						background:url('${STATIC_ROOT}/css/images/correct_icon_32.png') transparent no-repeat center;
+						background:url('${STATIC_ROOT}/css/images/right_n.png') transparent no-repeat center;
 					}
 					.myadd {
-						width:32px;
-						height:32px;
+						width:21px;
+						height:21px;
 						position:absolute;
-						right:0px;
-						bottom:4px;
+						top:0px;
+						left:0px;
 						z-index:1;
-						background:url('${STATIC_ROOT}/css/images/plus.png') transparent no-repeat center;
+						background:url('${STATIC_ROOT}/css/images/plus_n.png') transparent no-repeat center;
 					}
 					.myouter {
 						position:relative;
