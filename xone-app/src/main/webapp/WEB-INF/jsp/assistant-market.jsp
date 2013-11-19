@@ -14,7 +14,7 @@
 			<div data-id="myheader" data-role="header" data-position="fixed" data-tap-toggle="true">
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 				<h1>逛逛市场</h1>
-				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="grid">客服</a>
+				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="tel-24">客服</a>
 			</div>
 			<div data-role="content" class="market-page">
 				<div data-role="collapsible" data-collapsed="false" data-content-theme="d">

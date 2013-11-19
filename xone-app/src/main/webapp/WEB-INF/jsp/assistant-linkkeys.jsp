@@ -15,7 +15,7 @@
 			<div data-id="myheader" data-role="header" data-position="fixed" data-tap-toggle="true">
 				<a href="${pageContext.request.contextPath}/assistant/guide.html" data-icon="home">首页</a>
 				<h1>定制快捷方式</h1>
-				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="grid">客服</a>
+				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="tel-24">客服</a>
 			</div>
 			<div data-role="content" class="guide-page">
 				<style type="text/css">

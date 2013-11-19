@@ -326,6 +326,9 @@ h1 {
     height: 24px;
     width: 24px;
 }
+.ui-icon-tel-24 {
+    background-image: url('images/tel_24.png');
+}
 .ui-icon-sale-24 {
     background-image: url('images/sale_24.png');
 }

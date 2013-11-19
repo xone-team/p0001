@@ -14,7 +14,7 @@
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="#" data-rel="back" data-icon="back">返回</a>
 			<h2>功能助手</h2>
-			<a href="#" class="assistant-service${myid} ui-btn-right" data-icon="grid">客服</a>
+			<a href="#" class="assistant-service${myid} ui-btn-right" data-icon="tel-24">客服</a>
 		</div>
 		<div class="assistantcontent" data-role="content">
 			<c:set var="A_L" value="${alevelUser}"/>

@@ -12,9 +12,9 @@
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="login-ref-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-tap-toggle="false" data-backbtn="false" data-position="fixed">
-			<a href="${pageContext.request.contextPath}/assistant/guide.html" data-icon="check">首页</a>
+			<a href="${pageContext.request.contextPath}/assistant/guide.html" data-icon="home">首页</a>
 			<h4>用户登录</h4>
-			<a href="#" class="assistant-service${myid} ui-btn-right" data-icon="grid">客服</a>
+			<a href="#" class="assistant-service${myid} ui-btn-right" data-icon="tel-24">客服</a>
 		</div>
 		<div data-role="content" class="login-ref-page-content">
 			<c:if test="${!(empty mapValue)}">

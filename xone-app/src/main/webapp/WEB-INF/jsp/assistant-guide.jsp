@@ -17,7 +17,7 @@
 			<div data-id="myheader" data-role="header" data-position="fixed" data-tap-toggle="true">
 				<a href="${pageContext.request.contextPath}/login/indexRegister.html" data-icon="edit">注册</a>
 				<h1><img src="${STATIC_ROOT}/image/header_logo.png" width="25px" height="16px">欢迎使用</h1>
-				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="grid">客服</a>
+				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="tel-24">客服</a>
 			</div>
 			<div data-role="content" class="guide-page">
 				<c:if test="${!(empty adList)}">
