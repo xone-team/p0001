@@ -46,4 +46,6 @@ public interface ProductService {
 	 */
 	public Map<String, String> updateCloseRecord(Long productId, Long userId);
 	
+	public int countByMap(Map<String, String> params);
+	
 }

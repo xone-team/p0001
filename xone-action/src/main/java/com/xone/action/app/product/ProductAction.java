@@ -98,16 +98,41 @@ public class ProductAction extends LogicAction {
 	
 	public String add() {
 		getProduct().setSaleType(Product.SaleType.NORMAL.getValue());
+//		return SUCCESS;
+		if (!Arrays.asList("A", "B").contains(getUserLevel())) {
+			getMapValue().put("msg", Shared.encode("您所在的用户级别不能进行此操作，具体情况可联系客服。"));
+			return "redirect";
+		}
+//		Map<String, String> params = new HashMap<String, String>();
+//		/**
+//		 * 
+//		 */
+//		Date cDate = new Date();
+//		Date gdate = DateUtils.addMinutes(cDate, -60);
+//		params.put("gtDateCreated", DateUtils.);
+//		params.put("saleType", Product.SaleType.NORMAL.getValue());
+//		int count = getProductService().countByMap(params);
+//		if (count >= 1) {
+//			getMapValue().put("msg", "您所在的用户级别不能进行此操作，具体情况可联系客服。");
+//		}
 		return SUCCESS;
 	}
 	
 	public String addSales() {
 		getProduct().setSaleType(Product.SaleType.SALES.getValue());
+		if (!Arrays.asList("A", "B").contains(getUserLevel())) {
+			getMapValue().put("msg", Shared.encode("您所在的用户级别不能进行此操作，具体情况可联系客服。"));
+			return "redirect";
+		}
 		return SUCCESS;
 	}
 	
 	public String addGroups() {
 		getProduct().setSaleType(Product.SaleType.GROUPS.getValue());
+		if (!Arrays.asList("A").contains(getUserLevel())) {
+			getMapValue().put("msg", Shared.encode("您所在的用户级别不能进行此操作，具体情况可联系客服。"));
+			return "redirect";
+		}
 		return SUCCESS;
 	}
 	

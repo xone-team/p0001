@@ -98,8 +98,8 @@ public class GenericPageAction extends LogicAction {
 //	        response.addHeader("Content-Type", "application/vnd.android.package-archive");
 	        	response.setHeader("Content-Disposition", "attachment;filename=mobile.apk");
 	        } else if ("iphone".equals(id)) {
-	        	mobileFile = new File(file.getCanonicalPath() + File.separator + id + ".ipd");
-	        	response.setHeader("Content-Disposition", "attachment;filename=mobile.ipd");
+	        	mobileFile = new File(file.getCanonicalPath() + File.separator + id + ".ipa");
+	        	response.setHeader("Content-Disposition", "attachment;filename=mobile.ipa");
 	        }
 	        IOUtils.copy(new FileInputStream(mobileFile), response.getOutputStream());
             response.flushBuffer();

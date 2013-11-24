@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
+import com.xone.action.utils.Shared;
 import com.xone.model.hibernate.entity.ImageUploaded;
 import com.xone.model.hibernate.entity.Overhead;
 import com.xone.model.hibernate.entity.Product;
@@ -55,6 +56,10 @@ public class PurchaseAction extends LogicAction {
 	}
 	
 	public String indexAdd() {
+		if (!Arrays.asList("B", "C").contains(getUserLevel())) {
+			getMapValue().put("msg", Shared.encode("您所在的用户级别不能进行此操作，具体情况可联系客服。"));
+			return "redirect";
+		}
 		return SUCCESS;
 	}
 	

@@ -121,4 +121,7 @@ loadScript.callbackIE = function(callback) {
 			}
 		});
 	}
+	function backButton() {
+		window.history.back();
+	}
 </script>

@@ -13,7 +13,7 @@
 	<div data-role="page" class="assistant-main-page" data-dom-cache="true">
 		<div data-id="myheader" data-role="header" data-backbtn="false" data-position="fixed">
 			<a href="#" data-rel="back" data-icon="back">返回</a>
-			<h2>功能助手</h2>
+			<h1>我的伙计</h1>
 			<a href="#" class="assistant-service${myid} ui-btn-right" data-icon="tel-24">客服</a>
 		</div>
 		<div class="assistantcontent" data-role="content">

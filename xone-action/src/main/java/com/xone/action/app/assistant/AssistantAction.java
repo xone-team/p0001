@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.xone.action.base.LogicAction;
+import com.xone.action.utils.Shared;
 import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.CompanyInfo;
 import com.xone.model.hibernate.entity.Links;
@@ -51,6 +52,8 @@ public class AssistantAction extends LogicAction {
 	protected CompanyInfo companyInfo = new CompanyInfo();
 	protected List<Adbanner> adList = new ArrayList<Adbanner>();
 	private static List<String> FIXED_NO = new ArrayList<String>();
+	protected String [] msgs = null;
+	protected List<String> msgList = new ArrayList<String>();
 	
 	static {
 		FIXED_NO.addAll(Arrays.asList(new String[] {
@@ -148,6 +151,16 @@ public class AssistantAction extends LogicAction {
 	}
 	
 	public String redirect() {
+		return SUCCESS;
+	}
+	
+	public String msgInfo() {
+		if (null != getMsgs() && getMsgs().length > 0) {
+			for (String msg : getMsgs()) {
+				getMsgList().add(Shared.decode(msg));
+			}
+//			setMsgList(Arrays.asList(getMsgs()));
+		}
 		return SUCCESS;
 	}
 	
@@ -268,6 +281,22 @@ public class AssistantAction extends LogicAction {
 
 	public void setAdList(List<Adbanner> adList) {
 		this.adList = adList;
+	}
+
+	public String[] getMsgs() {
+		return msgs;
+	}
+
+	public void setMsgs(String[] msgs) {
+		this.msgs = msgs;
+	}
+
+	public List<String> getMsgList() {
+		return msgList;
+	}
+
+	public void setMsgList(List<String> msgList) {
+		this.msgList = msgList;
 	}
 	
 }

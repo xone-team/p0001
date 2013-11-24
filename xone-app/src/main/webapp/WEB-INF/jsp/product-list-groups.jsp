@@ -14,13 +14,16 @@
 	<body><c:set var="myid" value="${identify}" />
 	<div data-role="page" class="product-groups-page" data-dom-cache="true">
 		<div data-id="myheader" data-role="header" data-position="fixed">
-			<div data-role="navbar" data-theme="va" class="ui-vanavbar">
+			<%-- <div data-role="navbar" data-theme="va" class="ui-vanavbar">
 			    <ul>
 			        <li><a href="${pageContext.request.contextPath}/product/index.html?_=${myid}">普通产品</a></li>
 			        <li><a href="${pageContext.request.contextPath}/product/listSales.html?_=${myid}">促销产品</a></li>
 			        <li><a href="#" class="ui-btn-active ui-state-persist">组团产品</a></li>
 			    </ul>
-			</div>
+			</div> --%>
+			<a href="#" data-rel="back" data-icon="back">返回</a>
+			<h1>组团产品</h1>
+			<a href="${pageContext.request.contextPath}/product/addGroups.html?_=${myid}" class="ui-btn-right" data-icon="edit">发布</a>
 		</div>
 		<div data-role="content" class="product-list-groups${myid}">
 			<div class="searchconditionsgroup" data-role="collapsible" data-collapsed="true">

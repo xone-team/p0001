@@ -21,12 +21,30 @@
 		</action>
 		<action name="add" class="productAction" method="add">
 			<result name="success">/WEB-INF/jsp/product-add-page.jsp</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">msgInfo</param>
+                <param name="namespace">/assistant</param>
+                <param name="msgs">${mapValue['msg']}</param>
+                <param name="encode">true</param>
+			</result>
 		</action>
 		<action name="addSales" class="productAction" method="addSales">
 			<result name="success">/WEB-INF/jsp/product-add-page.jsp</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">msgInfo</param>
+                <param name="namespace">/assistant</param>
+                <param name="msgs">${mapValue['msg']}</param>
+                <param name="encode">true</param>
+			</result>
 		</action>
 		<action name="addGroups" class="productAction" method="addGroups">
 			<result name="success">/WEB-INF/jsp/product-add-page.jsp</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">msgInfo</param>
+                <param name="namespace">/assistant</param>
+                <param name="msgs">${mapValue['msg']}</param>
+                <param name="encode">true</param>
+			</result>
 		</action>
 		<action name="doGroups" class="productAction" method="doGroups">
 			<result name="success">/WEB-INF/jsp/product-do-groups.jsp</result>

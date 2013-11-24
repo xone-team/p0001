@@ -344,6 +344,61 @@ public class ProductServiceImpl implements ProductService {
         }
         return list;
     }
+    
+    @Override
+    public int countByMap(Map<String, String> params) {
+        DetachedCriteria detachedCriteria = DetachedCriteria.forClass(Product.class);
+        String gtDateCreated = params.get("gtDateCreated");
+        if (!StringUtils.isBlank(gtDateCreated)) {
+            try {
+                detachedCriteria.add(Restrictions.gt("dateCreated", DateUtils.parseDate(gtDateCreated, new String[] { "yyyy-MM-dd HH:mm:ss" })));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        String ltDateCreated = params.get("ltDateCreated");
+        if (!StringUtils.isBlank(ltDateCreated)) {
+            try {
+                detachedCriteria.add(Restrictions.lt("dateCreated", DateUtils.parseDate(ltDateCreated, new String[] { "yyyy-MM-dd HH:mm:ss" })));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        String saleType = params.get("saleType");
+        if (!StringUtils.isBlank(saleType)) {
+            detachedCriteria.add(Restrictions.eq("saleType", saleType));
+        }
+        String productName = params.get("productName");
+        if (!StringUtils.isBlank(productName)) {
+            detachedCriteria.add(Restrictions.like("productName", "%" + productName + "%"));
+        }
+        String productType = params.get("productType");
+        if (!StringUtils.isBlank(productType)) {
+            detachedCriteria.add(Restrictions.like("productType", "%" + productType + "%"));
+        }
+        String checkStatus = params.get("checkStatus");
+        if (!StringUtils.isBlank(checkStatus)) {
+            detachedCriteria.add(Restrictions.eq("checkStatus", checkStatus));
+        }
+        String productAddress = params.get("productAddress");
+        if (!StringUtils.isBlank(productAddress)) {
+            detachedCriteria.add(Restrictions.like("productAddress", "%" + productAddress + "%"));
+        }
+        String productLocation = params.get("productLocation");
+        if (!StringUtils.isBlank(productLocation)) {
+            detachedCriteria.add(Restrictions.like("productLocation", "%" + productLocation + "%"));
+        }
+        String flagDeleted = params.get("flagDeleted");
+        if (!StringUtils.isBlank(flagDeleted)) {
+            detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
+        }
+        String userCreated = params.get("userCreated");
+        if (!StringUtils.isBlank(userCreated)) {
+            detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
+        }
+        detachedCriteria.addOrder(Order.desc("dateCreated"));
+    	return getProductDao().countByProperty(detachedCriteria);
+    }
 
 	@Override
 	public List<Product> findAllByMapForUser(Map<String, String> params) {

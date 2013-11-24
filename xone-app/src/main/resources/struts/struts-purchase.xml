@@ -15,6 +15,12 @@
 		</action>
 		<action name="indexAdd" class="purchaseAction" method="indexAdd">
 			<result name="success">/WEB-INF/jsp/purchase-add-page.jsp</result>
+			<result name="redirect" type="redirectAction">
+				<param name="actionName">msgInfo</param>
+                <param name="namespace">/assistant</param>
+                <param name="msgs">${mapValue['msg']}</param>
+                <param name="encode">true</param>
+			</result>
 		</action>
 		<action name="doTopApply" class="purchaseAction" method="doTopApply">
 			<result name="success">/WEB-INF/jsp/purchase-do-top-apply.jsp</result>

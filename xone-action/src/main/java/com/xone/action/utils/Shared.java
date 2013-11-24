@@ -19,6 +19,10 @@
  */
 package com.xone.action.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -51,5 +55,32 @@ public class Shared {
 		}
 		return ip;
 	}
+	
+	public static String decode(String msg, String code) {
+		try {
+			return URLDecoder.decode(msg, code);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	public static String decode(String msg) {
+		return decode(msg, "UTF-8");
+	}
+	
+	public static String encode(String msg, String code) {
+		try {
+			return URLEncoder.encode(msg, code);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return "";
+	}
+	
+	public static String encode(String msg) {
+		return decode(msg, "UTF-8");
+	}
+	
 
 }
