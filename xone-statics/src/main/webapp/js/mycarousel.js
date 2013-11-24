@@ -17,8 +17,13 @@
 		return this.each(function() {
 			var $this = $(this);
 			if ($this.find('.ui-carbox').length > 0) {
-				$this.show();
-				return;
+				var html = $this.data('mycarousel');
+				$this.html(html);
+				stopAutoEasing($this);
+				//$this.show();
+				//return;
+			} else {
+				$this.data('mycarousel', $this.html());
 			}
 			$this.css({
 				'overflow': 'hidden'

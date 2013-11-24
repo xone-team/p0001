@@ -15,8 +15,15 @@
 			<link rel="stylesheet" href="${STATIC_ROOT}/css/mytablelayout.css" />
 			<script type="text/javascript" src="${STATIC_ROOT}/js/mycarousel.js"></script>
 			<div data-id="myheader" data-role="header" data-position="fixed" data-tap-toggle="true">
-				<a href="${pageContext.request.contextPath}/login/indexRegister.html" data-icon="edit">注册</a>
-				<h1><img src="${STATIC_ROOT}/image/header_logo.png" width="25px" height="16px">欢迎使用</h1>
+				<c:choose>
+					<c:when test="${login}">
+						<a href="${pageContext.request.contextPath}/login/logout.html?_=${myid}" data-icon="check" class="login-logout${myid}">注销</a>
+					</c:when>
+					<c:otherwise>
+						<a href="${pageContext.request.contextPath}/login/indexRegister.html" data-icon="edit">注册</a>
+					</c:otherwise>
+				</c:choose>
+				<h1>欢迎使用</h1>
 				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="tel-24">客服</a>
 			</div>
 			<div data-role="content" class="guide-page">
@@ -87,11 +94,24 @@
 		    	});
 		    	var width = ($(document).width() - 24) / 3;
 				$('.guide-page-table img').height(width);
-				$('.guide-page-table .add').width(width)
+				$('.guide-page-table .add').width(width);
 		    });
 		    $('#assistant-guide${myid}').bind('pageshow', function() {
 // 		    	var guide = $('.guide-advertisement');
 // 		    	var width = guide.closest('div.ui-grid-solo').first().width();
+		    	var width = ($(document).width() - 24) / 3;
+				$('.guide-page-table img').height(width);
+				$('.guide-page-table .add').width(width);
+		    	$('div.guide-advertisement').mycarousel({
+					width: $('div.guide-advertisement').width(),
+					height: 140,
+					auto: true
+				});
+		    });
+		    $(window).resize(function() {
+		    	var width = ($(document).width() - 24) / 3;
+				$('.guide-page-table img').height(width);
+				$('.guide-page-table .add').width(width);
 		    	$('div.guide-advertisement').mycarousel({
 					width: $('div.guide-advertisement').width(),
 					height: 140,
