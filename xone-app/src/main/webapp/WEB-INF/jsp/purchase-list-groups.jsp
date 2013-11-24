@@ -20,7 +20,7 @@
 <!-- 			</div> -->
 		</div>
 		<div data-role="content">
-			<div data-role="collapsible" data-collapsed="true" data-theme="b" data-content-theme="d" style="margin-bottom:15px;">
+			<div data-role="collapsible" data-collapsed="true" data-theme="e" data-content-theme="d" style="margin-bottom:15px;">
 			    <h2>选择产品类型</h2>
 				<div data-role="controlgroup" data-mini="true" style="margin-bottom:15px;">
 				    <input type="checkbox" name="checkbox-1a" id="checkbox-1a" checked="">

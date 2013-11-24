@@ -92,6 +92,19 @@ span.required {
 	-webkit-border-radius: 3px;
 	border-radius:3px;
 }
+.ui-bar-e {
+	border: 1px solid #FDB82C;
+	background: #FDB82C;
+	color: #333;
+	font-weight: 700;
+	text-shadow: 0 0px 0 #fff;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#FDB82C),to(#FDB82C));
+	background-image: -webkit-linear-gradient(#FDB82C,#FDB82C);
+	background-image: -moz-linear-gradient(#FDB82C,#FDB82C);
+	background-image: -ms-linear-gradient(#FDB82C,#FDB82C);
+	background-image: -o-linear-gradient(#FDB82C,#FDB82C);
+	background-image: linear-gradient(#FDB82C,#FDB82C);
+}
 .ui-header .ui-icon-shadow {
     box-shadow: none;
     /* background-color: transparent; */

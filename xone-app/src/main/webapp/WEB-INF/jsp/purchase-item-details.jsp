@@ -68,7 +68,7 @@
 	</table>
 </li>
 </c:if>
-<li data-role="list-divider">产品图片</li>
+<li data-role="list-divider" data-theme="e">产品图片</li>
 <c:forEach var="item" items="${purchase.ids}">
 <li data-role="none" style="padding:0px;">
 	<div class="purchaseimage" >

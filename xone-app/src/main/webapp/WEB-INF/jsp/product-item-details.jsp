@@ -115,7 +115,7 @@
 	</li>
 	<li class="kgroupsopt">
 		<div>
-		<a href="#" class="productgroupbutton${myid}" data-role="button" data-theme="b" data-iconpos="right" data-icon="plus">参与组团</a>
+		<a href="#" class="productgroupbutton${myid}" data-role="button" data-theme="e" data-iconpos="right" data-icon="plus">参与组团</a>
 		<script type="text/javascript" id="scriptid${myid}">
 			$('a.productgroupbutton${myid}').buttonMarkup("refresh").click(function() {
 				var v = $('input.textinput${myid}').val();
@@ -154,7 +154,7 @@
 	</li>
 </c:if>
 </c:if>
-<li data-role="list-divider">产品图片</li>
+<li data-role="list-divider" data-theme="e">产品图片</li>
 <c:forEach var="item" items="${product.ids}">
 <li data-role="none" style="padding:0px;">
 	<div class="productimage">

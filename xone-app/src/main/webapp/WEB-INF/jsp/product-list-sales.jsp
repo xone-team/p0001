@@ -64,7 +64,7 @@
 				</div>
 				<div style="height:10px">&nbsp;</div>
 		        <ul class="product-sales-listview${myid}" data-role="listview" data-filter="true" data-filter-placeholder="促销关键字(至少二个)" data-inset="true">
-			        <li data-role="list-divider">促销产品数据加载中，请稍候...</li>
+			        <li data-role="list-divider" data-theme="e">促销产品数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>

@@ -32,7 +32,7 @@
 	        <h2>Theme</h2>
 	        <p>Add the <code>data-content-theme</code> attribute to set a theme for the content of the collapsible. To provide a stronger visual connection between the collapsible header and content, add the <code>data-content-theme</code> attribute to the wrapper and specify a theme swatch letter. This applies the swatch's border and <em>flat</em> background color (not the gradient) to the content block, removes the rounded corners from the bottom of the header, and gives the bottom of the content block rounded corners to visually group these elements.</p>
 	        <div data-demo-html="true">
-	            <div data-role="collapsible" data-theme="b" data-content-theme="d">
+	            <div data-role="collapsible" data-theme="e" data-content-theme="d">
 	                <h4>Heading</h4>
 	                <p>I'm the collapsible content with a themed content block set to "d".</p>
 	            </div>
@@ -40,7 +40,7 @@
 	        <h2>Expanded</h2>
 	        <p>To expand the content when the page loads, add the <code>data-collapsed="false"</code> attribute to the wrapper.</p>
 	        <div data-demo-html="true">
-	            <div data-role="collapsible" data-collapsed="false" data-theme="b" data-content-theme="d">
+	            <div data-role="collapsible" data-collapsed="false" data-theme="e" data-content-theme="d">
 	                <h4>Heading</h4>
 	                <ul data-role="listview">
 	                    <li><a href="#">List item 1</a></li>
@@ -52,7 +52,7 @@
 	        <h2>Mini sized</h2>
 	        <p>For a more compact version that is useful in toolbars and tight spaces, add the <code>data-mini="true"</code> attribute to the element to create a mini version. </p>
 	        <div data-demo-html="true">
-	            <div data-role="collapsible" data-mini="true" data-theme="b" data-content-theme="a">
+	            <div data-role="collapsible" data-mini="true" data-theme="e" data-content-theme="a">
 	                <h4>Heading</h4>
 	                <ul data-role="listview">
 	                    <li><a href="#">List item 1</a></li>
@@ -64,7 +64,7 @@
             <h2>Icons</h2>
             <p>The default icons of collapsible headings can be overridden by using the <code>data-collapsed-icon</code> and <code>data-expanded-icon</code> attributes. In the example below, <code>data-collapsed-icon="arrow-d"</code> and <code>data-expanded-icon="arrow-u"</code>.</p>
             <div data-demo-html="true">
-                <div data-role="collapsible" data-theme="b" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
+                <div data-role="collapsible" data-theme="e" data-content-theme="d" data-collapsed-icon="arrow-d" data-expanded-icon="arrow-u">
                     <h4>Heading</h4>
                     <ul data-role="listview" data-inset="false">
                         <li>Read-only list item 1</li>
@@ -75,7 +75,7 @@
             </div>
             <h2>Icon positioning</h2>
             <p>The default icon positioning of collapsible headings can be overridden by using the <code>data-iconpos</code> attribute. In the below case, <code>data-iconpos="right"</code>.</p>
-            <div data-role="collapsible" data-iconpos="right" data-theme="b" data-content-theme="d">
+            <div data-role="collapsible" data-iconpos="right" data-theme="e" data-content-theme="d">
                 <h3>I'm a header</h3>
                 <p><code>data-iconpos="right"</code></p>
             </div>
@@ -111,7 +111,7 @@
 	        <h2>Set of individual collapsibles</h2>
 	        <p>This is an example of a series of individual collapsibles. The difference with a "Collapsible Set" is that multiple collapsible rows can be open at once.</p>
 	        <div data-demo-html="true">
-	            <div data-role="collapsible" data-theme="b" data-content-theme="d" data-inset="false">
+	            <div data-role="collapsible" data-theme="e" data-content-theme="d" data-inset="false">
 	                <h3>Pets</h3>
 	                <ul data-role="listview">
 	                    <li><a href="#">Canary</a></li>
@@ -122,7 +122,7 @@
 	                    <li><a href="#">Mouse</a></li>
 	                </ul>
 	            </div><!-- /collapsible -->
-	            <div data-role="collapsible" data-theme="b" data-content-theme="d" data-inset="false">
+	            <div data-role="collapsible" data-theme="e" data-content-theme="d" data-inset="false">
 	                <h3>Farm animals</h3>
 	                <ul data-role="listview">
 	                    <li><a href="#">Chicken</a></li>
@@ -133,7 +133,7 @@
 	                    <li><a href="#">Sheep</a></li>
 	                </ul>
 	            </div><!-- /collapsible -->
-	            <div data-role="collapsible" data-theme="b" data-content-theme="d" data-inset="false">
+	            <div data-role="collapsible" data-theme="e" data-content-theme="d" data-inset="false">
 	                <h3>Wild Animals</h3>
 	                <ul data-role="listview">
 	                    <li><a href="#">Aardvark</a></li>

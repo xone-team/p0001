@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<li data-role="list-divider">组团信息</li>
+<li data-role="list-divider" data-theme="e">组团信息</li>
 <li>
 	<table style="width:100%">
 		<tr>
@@ -58,7 +58,7 @@
 	<div>
 		<form class="groupitemform" action="${pageContext.request.contextPath}/product/doCancelGroup.html" method="post">
 			<input type="hidden" name="productGroup.id" value="${productGroup.id}">
-			<a href="#" class="groupitemformbutton" data-role="button" data-icon="delete" data-theme="b" data-iconpos="right">取消组团</a>
+			<a href="#" class="groupitemformbutton" data-role="button" data-icon="delete" data-theme="e" data-iconpos="right">取消组团</a>
 		</form>
 		<script type="text/javascript">
 			$('a.groupitemformbutton').buttonMarkup("refresh").click(function(e) {
@@ -80,7 +80,7 @@
 	</div>
 </li>
 </c:if>
-<li data-role="list-divider">组团产品信息</li>
+<li data-role="list-divider" data-theme="e">组团产品信息</li>
 <li>
 	<table style="width:100%">
 		<tr>
@@ -145,7 +145,7 @@
 		</tr>
 	</table>
 </li>
-<li data-role="list-divider">组团产品审核历史</li>
+<li data-role="list-divider" data-theme="e">组团产品审核历史</li>
 <li>
 	<table style="width:100%">
 		<tr>
@@ -163,7 +163,7 @@
 	</table>
 </li>
 <c:if test="${not empty product.productCheckList}">
-	<li data-role="list-divider">审核历史</li>
+	<li data-role="list-divider" data-theme="e">审核历史</li>
 	<c:forEach var="item" items="${product.productCheckList}">
 	<li>
 		<table style="width:100%">
@@ -183,7 +183,7 @@
 	</li>
 	</c:forEach>
 </c:if>
-<li data-role="list-divider">产品图片</li>
+<li data-role="list-divider" data-theme="e">产品图片</li>
 <c:forEach var="item" items="${product.ids}">
 <li data-role="none" style="padding:0px;">
 	<div class="productimage" >

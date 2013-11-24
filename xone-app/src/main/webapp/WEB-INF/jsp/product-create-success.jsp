@@ -23,7 +23,7 @@
 		</div>
 		<div data-role="content" data-dom-cache="false">
 			<ul class="product-success-view" data-role="listview" data-inset="true" data-mini="true">
-				<li data-role="list-divider">产品发布已受理</li>
+				<li data-role="list-divider" data-theme="e">产品发布已受理</li>
 				<li><a href="#">No.${product.id}详细信息加载中...</a></li>
 			</ul>
 			<script type="text/javascript" language="javascript">

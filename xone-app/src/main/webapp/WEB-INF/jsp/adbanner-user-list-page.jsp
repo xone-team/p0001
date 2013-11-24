@@ -23,7 +23,7 @@
 		        <span class="iscroll-pull-label"></span>
 			</div>
 			<ul class="ul-adbanner-list" data-role="listview" data-inset="true">
-	        	<li data-role="list-divider">数据加载中，请稍候...</li>
+	        	<li data-role="list-divider" data-theme="e">数据加载中，请稍候...</li>
 	        </ul>
 			<div class="iscroll-pullup">
 				<span class="iscroll-pull-icon"></span>
@@ -59,7 +59,7 @@
 				});
 	        	doRequest();
 				$('a.adbanner-list-page-refresh').click(function(e) {
-					$('ul.ul-adbanner-list').html('<li data-role="list-divider">数据加载中，请稍候...</li>').listview('refresh');
+					$('ul.ul-adbanner-list').html('<li data-role="list-divider" data-theme="e">数据加载中，请稍候...</li>').listview('refresh');
 					doRequest();
 				});
 				function doRequest() {

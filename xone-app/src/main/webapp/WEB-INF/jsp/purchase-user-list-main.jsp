@@ -26,7 +26,7 @@
 			        <span class="iscroll-pull-label"></span>
 				</div>
 				<ul class="ul-purchase-list-for-user" data-role="listview" data-inset="true">
-		        	<li data-role="list-divider">数据加载中，请稍候...</li>
+		        	<li data-role="list-divider" data-theme="e">数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>
@@ -63,7 +63,7 @@
 				});
 	        	doRequest();
 				$('a.purchase-list-for-user-page-refresh').click(function(e) {
-					$('ul.ul-purchase-list-for-user').html('<li data-role="list-divider">数据加载中，请稍候...</li>').listview('refresh');
+					$('ul.ul-purchase-list-for-user').html('<li data-role="list-divider" data-theme="e">数据加载中，请稍候...</li>').listview('refresh');
 					doRequest();
 				});
 				$('div.purchase-list-for-user-page').data('eventbinding', true);

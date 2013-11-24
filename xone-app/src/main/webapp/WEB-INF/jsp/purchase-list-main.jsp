@@ -60,7 +60,7 @@
 				</div>
 				<div style="height:10px">&nbsp;</div>
 				<ul class="ul-purchase-list${myid}" data-role="listview" data-filter="true" data-filter-placeholder="产品搜索..." data-inset="true" data-divider-theme="d">
-		        	<li data-role="list-divider">数据加载中，请稍候...</li>
+		        	<li data-role="list-divider" data-theme="e">数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>
@@ -140,7 +140,7 @@
 // 	        	doPurchaseRequest();
 	        	doPurchaseOverheadRequest();
 				$('a.purchase-list-page-refresh').click(function(e) {
-					$('ul.ul-purchase-list${myid}').html('<li data-role="list-divider">数据加载中，请稍候...</li>').listview('refresh');
+					$('ul.ul-purchase-list${myid}').html('<li data-role="list-divider" data-theme="e">数据加载中，请稍候...</li>').listview('refresh');
 // 					doPurchaseRequest();
 					doPurchaseOverheadRequest();
 				});

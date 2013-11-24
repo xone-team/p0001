@@ -23,7 +23,7 @@
 		</div>
 		<div data-role="content" data-dom-cache="false">
 			<ul class="purchase-success-view" data-role="listview" data-inset="true" data-mini="true">
-				<li data-role="list-divider">求购发布已受理</li>
+				<li data-role="list-divider" data-theme="e">求购发布已受理</li>
 				<li class="purchasesuccessloading"><a href="#">No.${purchase.id}详细信息加载中...</a></li>
 			</ul>
 			<script type="text/javascript" language="javascript">

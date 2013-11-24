@@ -79,7 +79,7 @@
 						</tr>
 					</table>
 				</li>
-				<li data-role="list-divider">公司产品图片</li>
+				<li data-role="list-divider" data-theme="e">公司产品图片</li>
 				<c:forEach var="item" items="${companyInfo.ids}">
 				<li data-role="none" style="padding:0px;">
 					<div>

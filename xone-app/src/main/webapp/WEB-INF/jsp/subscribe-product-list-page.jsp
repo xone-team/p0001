@@ -23,7 +23,7 @@
 		        <span class="iscroll-pull-label"></span>
 			</div>
 			<ul class="ul-subscribe-product-list" data-role="listview" data-inset="true">
-	        	<li data-role="list-divider">数据加载中，请稍候...</li>
+	        	<li data-role="list-divider" data-theme="e">数据加载中，请稍候...</li>
 	        </ul>
 			<div class="iscroll-pullup">
 				<span class="iscroll-pull-icon"></span>
@@ -68,7 +68,7 @@
 	        	doSubscribeProductRequest();
 				$('a.subscribe-product-list-page-refresh').click(function(e) {
 					e.preventDefault();
-					$('ul.ul-subscribe-product-list').html('<li data-role="list-divider">数据加载中，请稍候...</li>').listview('refresh');
+					$('ul.ul-subscribe-product-list').html('<li data-role="list-divider" data-theme="e">数据加载中，请稍候...</li>').listview('refresh');
 					doSubscribeProductRequest();
 				});
 				function doSubscribeProductRequest() {

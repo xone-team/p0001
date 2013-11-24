@@ -45,7 +45,7 @@
 			<div data-demo-html="true">
 				<p>
 					<a href="#" data-role="button" data-theme="a" data-inline="true">A</a>
-					<a href="#" data-role="button" data-theme="b" data-inline="true">B</a>
+					<a href="#" data-role="button" data-theme="e" data-inline="true">B</a>
 					<a href="#" data-role="button" data-theme="c" data-inline="true">C</a>
 					<a href="#" data-role="button" data-theme="d" data-inline="true">D</a>
 					<a href="#" data-role="button" data-theme="e" data-inline="true">E</a>
@@ -56,7 +56,7 @@
 			<div data-demo-html="true">
 				<p>
 					<a href="#" data-role="button" data-mini="true" data-inline="true">Cancel</a>
-					<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="check" data-theme="b">Place order</a>
+					<a href="#" data-role="button" data-mini="true" data-inline="true" data-icon="check" data-theme="e">Place order</a>
 				</p>
 			</div>
 			<h2 id="button-icons">Icons</h2>
@@ -114,18 +114,18 @@
 			<p>Mini horizontal grouped buttons, icon-only:</p>
 			<div data-demo-html="true">
 				<div data-role="controlgroup" data-type="horizontal" data-mini="true">
-				    <a href="#" data-role="button" data-iconpos="notext" data-icon="plus" data-theme="b">Add</a>
-				    <a href="#" data-role="button" data-iconpos="notext" data-icon="delete" data-theme="b">Delete</a>
-				    <a href="#" data-role="button" data-iconpos="notext" data-icon="grid" data-theme="b">More</a>
+				    <a href="#" data-role="button" data-iconpos="notext" data-icon="plus" data-theme="e">Add</a>
+				    <a href="#" data-role="button" data-iconpos="notext" data-icon="delete" data-theme="e">Delete</a>
+				    <a href="#" data-role="button" data-iconpos="notext" data-icon="grid" data-theme="e">More</a>
 				</div>
 			</div>
 			<h2 id="button-corners-shadows">Corners & shadows</h2>
 			<p>There are options for controlling the rounded corners (<code>data-corners</code>), drop shadow (<code>data-shadow</code>), and icon  shadow for the highlight under the icon disc (<code>data-iconshadow</code>).</p>
 			<div data-demo-html="true">
-				<a href="#" data-role="button" data-icon="gear" data-theme="b">Default</a>
-				<a href="#" data-role="button" data-icon="gear" data-corners="false" data-theme="b">No rounded corners</a>
-				<a href="#" data-role="button" data-icon="gear" data-shadow="false" data-theme="b">No button shadow</a>
-				<a href="#" data-role="button" data-icon="gear" data-iconshadow="false" data-theme="b">No icon disc shadow</a>
+				<a href="#" data-role="button" data-icon="gear" data-theme="e">Default</a>
+				<a href="#" data-role="button" data-icon="gear" data-corners="false" data-theme="e">No rounded corners</a>
+				<a href="#" data-role="button" data-icon="gear" data-shadow="false" data-theme="e">No button shadow</a>
+				<a href="#" data-role="button" data-icon="gear" data-iconshadow="false" data-theme="e">No icon disc shadow</a>
 			</div>
 			<h2>Disabled</h2>
 			<p>Form input or buttons can be disabled via the <code>disabled</code> attribute. Links styled like buttons have all the same visual options as true form-based buttons, but aren't part of the <code>button</code> plugin so the form button methods (enable, disable, refresh) aren't supported. If you need to disable a link-based button (or any element), apply the disabled class ui-disabled yourself with JavaScript to achieve the same effect.</p>

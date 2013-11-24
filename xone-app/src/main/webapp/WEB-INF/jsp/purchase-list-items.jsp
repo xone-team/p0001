@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:choose>
 	<c:when test="${mapValue['ITEM_TOO_LONG'] == 'YES' }">
-		<li class="itemtoolong" data-role="list-divider">
+		<li class="itemtoolong" data-role="list-divider" data-theme="e">
 			<div style="margin-top:10px;">
 				<p style="text-overflow:ellipsis;">列表长度太长，更多详情请前身官方网站上查询</p>
 			</div>

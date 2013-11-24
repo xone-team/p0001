@@ -39,9 +39,9 @@
 		</div>
 		<div data-role="content" data-dom-cache="false">
 			<ul class="purchase-item-page-view" data-role="listview" data-inset="true" data-mini="true">
-				<li data-role="list-divider">广告图片</li>
+				<li data-role="list-divider" data-theme="e">广告图片</li>
 				<li data-icon="none"><img src="${pageContext.request.contextPath}/assistant/image.html?id=${adbanner.adRefId}" height="100%" width="100%" style="max-width:100%;max-height:100%;"/></li>
-				<li data-role="list-divider">广告信息</li>
+				<li data-role="list-divider" data-theme="e">广告信息</li>
 				<li data-icon="none">
 					<table class="mytable" style="width:100%">
 						<tr>

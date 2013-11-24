@@ -25,7 +25,7 @@
 				<div class="error">${mapValue['msg']}</div>
 			</c:if>
 			<ul class="product-user-overheaditem-page-view" data-role="listview" data-inset="true" data-mini="true">
-				<li data-role="list-divider">顶置申请信息</li>
+				<li data-role="list-divider" data-theme="e">顶置申请信息</li>
 				<li>
 					<table style="width:100%">
 						<tr>
@@ -89,7 +89,7 @@
 					<div>
 						<form class="overheaditemform" action="${pageContext.request.contextPath}/product/doCancelOverhead.html" method="post">
 							<input type="hidden" name="overhead.id" value="${overhead.id}">
-							<a href="#" class="overheaditemformbutton" data-role="button" data-icon="delete" data-theme="b" data-iconpos="right">取消顶置申请</a>
+							<a href="#" class="overheaditemformbutton" data-role="button" data-icon="delete" data-theme="e" data-iconpos="right">取消顶置申请</a>
 						</form>
 						<script type="text/javascript">
 							$('a.overheaditemformbutton').click(function(e) {

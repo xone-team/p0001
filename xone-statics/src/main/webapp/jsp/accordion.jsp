@@ -167,7 +167,7 @@
 			<p>To have individual sections in a group styled differently, add <code>data-theme</code> and <code>data-content-theme</code> attributes to specific collapsibles.</p>
 			<div data-demo-html="true">
 				<div data-role="collapsible-set" data-content-theme="c">
-					<div data-role="collapsible" data-theme="b" data-content-theme="b">
+					<div data-role="collapsible" data-theme="e" data-content-theme="b">
 						<h3>Section header, swatch B</h3>
 						<p>Collapsible content, swatch "b"</p>
 					</div>

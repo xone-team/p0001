@@ -22,7 +22,7 @@
 				<a href="#" class="ui-btn-right" onclick="$.makeCall('4008979727');" data-icon="tel-24">客服</a>
 			</div>
 			<div data-role="content">
-				<div data-role="collapsible-set" data-theme="b" data-content-theme="c">
+				<div data-role="collapsible-set" data-theme="e" data-content-theme="c">
 				    <div data-role="collapsible" data-collapsed="false">
 				        <h3>请求登录</h3>
 				        <p>您好，您没有登录或者您的登录超时，即将为你跳转到登录界面。</p>

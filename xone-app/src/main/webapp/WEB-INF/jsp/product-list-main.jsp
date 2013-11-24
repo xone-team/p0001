@@ -62,7 +62,7 @@
 				</div>
 				<div style="height:10px">&nbsp;</div>
 				<ul class="ul-product-list${myid}" data-id="listview" data-role="listview" data-divider-theme="d" data-filter="true" data-filter-placeholder="产品关键字(至少二个)" data-inset="true">
-			        <li data-role="list-divider">普通产品数据加载中，请稍候...</li>
+			        <li data-role="list-divider" data-theme="e">普通产品数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>

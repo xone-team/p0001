@@ -41,7 +41,7 @@
 			</c:if>
 			<form method="POST" action="${pageContext.request.contextPath}/login/update.html?_=${identify}">
 				<ul data-role="listview" data-inset="true" data-mini="true">
-					<li data-role="list-divider">更新用户信息</li>
+					<li data-role="list-divider" data-theme="e">更新用户信息</li>
 				    <li>
 				    	<table style="width:100%">
 				    		<tr>

@@ -64,7 +64,7 @@
 				</div>
 				<div style="height:10px">&nbsp;</div>
 		        <ul class="product-groups-listview${myid}" data-role="listview" data-filter="true" data-divider-theme="d" data-filter-placeholder="组团关键字(至少二个)" data-inset="true">
-			        <li data-role="list-divider">组团产品数据加载中，请稍候...</li>
+			        <li data-role="list-divider" data-theme="e">组团产品数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>

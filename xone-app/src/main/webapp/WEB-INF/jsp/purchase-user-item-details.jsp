@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<li data-role="list-divider">产品详细</li>
+<li data-role="list-divider" data-theme="e">产品详细</li>
 <li>
 	<table style="width:100%">
 		<tr>
@@ -59,7 +59,7 @@
 		</tr>
 	</table>
 </li>
-<li data-role="list-divider">产品审核</li>
+<li data-role="list-divider" data-theme="e">产品审核</li>
 <li>
 	<table style="width:100%">
 		<tr>
@@ -77,7 +77,7 @@
 	</table>
 </li>
 <c:if test="${not empty purchase.purchaseCheckList}">
-	<li data-role="list-divider">审核历史</li>
+	<li data-role="list-divider" data-theme="e">审核历史</li>
 	<c:forEach var="item" items="${purchase.purchaseCheckList}">
 	<li>
 		<table style="width:100%">
@@ -100,7 +100,7 @@
 <c:if test="${!purchase.closeStatus && login}">
 <li>
 	<div>
-	<a href="${pageContext.request.contextPath}/purchase/updateItem.html?purchase.id=${purchase.id}" class="purchaseupdatebutton" data-role="button" data-theme="b" data-iconpos="right" data-icon="edit">更新信息</a>
+	<a href="${pageContext.request.contextPath}/purchase/updateItem.html?purchase.id=${purchase.id}" class="purchaseupdatebutton" data-role="button" data-theme="e" data-iconpos="right" data-icon="edit">更新信息</a>
 	</div>
 </li>
 <li>
@@ -108,7 +108,7 @@
 		<form class="overheadpurchaseform" action="${pageContext.request.contextPath}/purchase/doTopApply.html" method="post">
 			<input type="hidden" name="overhead.refId" value="${purchase.id}">
 			<input type="hidden" name="overhead.overheadType" value="3">
-			<a href="#" class="overheadformpurchasebutton" data-role="button" data-icon="plus" data-theme="b" data-iconpos="right">申请顶置</a>
+			<a href="#" class="overheadformpurchasebutton" data-role="button" data-icon="plus" data-theme="e" data-iconpos="right">申请顶置</a>
 		</form>
 		<script type="text/javascript">
 			$('a.purchaseupdatebutton').buttonMarkup("refresh");
@@ -135,7 +135,7 @@
 		<div>
 			<form class="closerecordpurchaseform" action="${pageContext.request.contextPath}/purchase/doCloseRecord.html" method="post">
 				<input type="hidden" name="purchase.id" value="${purchase.id}">
-				<a href="#" class="closerecordpurchaseformbutton" data-role="button" data-icon="delete" data-theme="b" data-iconpos="right">关闭求购</a>
+				<a href="#" class="closerecordpurchaseformbutton" data-role="button" data-icon="delete" data-theme="e" data-iconpos="right">关闭求购</a>
 			</form>
 			<script type="text/javascript">
 				$('a.closerecordpurchaseformbutton').buttonMarkup("refresh").click(function(e) {
@@ -159,7 +159,7 @@
 	</li>
 </c:if>
 </c:if>
-<li data-role="list-divider">产品图片</li>
+<li data-role="list-divider" data-theme="e">产品图片</li>
 <c:forEach var="item" items="${purchase.ids}">
 <li data-role="none" style="padding:0px;">
 	<div class="purchaseimage" >

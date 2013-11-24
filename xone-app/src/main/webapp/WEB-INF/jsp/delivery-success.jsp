@@ -23,7 +23,7 @@
 		</div>
 		<div data-role="content" data-dom-cache="false">
 			<ul class="delivery-success-view" data-role="listview" data-inset="true" data-mini="true">
-				<li data-role="list-divider"><h4>物流信息发送成功</h4></li>
+				<li data-role="list-divider" data-theme="e"><h4>物流信息发送成功</h4></li>
 				<li class="deliverysuccessloading"><a href="#">详细信息加载中...</a></li>
 			</ul>
 			<script type="text/javascript" language="javascript">

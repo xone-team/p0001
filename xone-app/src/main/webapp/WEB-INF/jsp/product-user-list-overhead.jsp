@@ -23,7 +23,7 @@
 			        <span class="iscroll-pull-label"></span>
 				</div>
 				<ul class="ul-product-overhead-for-user" data-role="listview" data-inset="true">
-		        	<li data-role="list-divider">数据加载中，请稍候...</li>
+		        	<li data-role="list-divider" data-theme="e">数据加载中，请稍候...</li>
 		        </ul>
 				<div class="iscroll-pullup">
 					<span class="iscroll-pull-icon"></span>
@@ -60,7 +60,7 @@
 				});
 	        	doOverheadUserRequest();
 				$('a.product-overhead-for-user-page-refresh').click(function(e) {
-					$('ul.ul-product-overhead-for-user').html('<li data-role="list-divider">数据加载中，请稍候...</li>').listview('refresh');
+					$('ul.ul-product-overhead-for-user').html('<li data-role="list-divider" data-theme="e">数据加载中，请稍候...</li>').listview('refresh');
 					doOverheadUserRequest();
 				});
 				function doOverheadUserRequest() {

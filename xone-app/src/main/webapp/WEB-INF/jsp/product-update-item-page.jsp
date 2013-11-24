@@ -99,7 +99,7 @@
 					<c:forEach var="item" items="${product.ids}" varStatus="i">
 					<li data-role="none" style="padding:0px;">
 						<div class="mybuttonarea" data-role="controlgroup" data-type="horizontal" data-mini="true" align="right">
-							<a href="#" onclick="return removeUpdateItemDynamicImage(this);" data-role="button" data-theme="b" data-icon="delete" title="删除图片">删除图片</a>
+							<a href="#" onclick="return removeUpdateItemDynamicImage(this);" data-role="button" data-theme="e" data-icon="delete" title="删除图片">删除图片</a>
 						</div>
 						<div class="uploadupdateitemdynamicimagediv">
 							<img class="uploadupdateitemdynamicimageserver" width="100%" height="100%" src="${pageContext.request.contextPath}/assistant/image.html?id=${item}"/>
