@@ -48,7 +48,7 @@
 					</div>
 				</div>
 				</c:if>
-				<div class="ui-grid-solo" style="padding-top:0px;">
+				<div class="ui-grid-solo" style="padding-top:0px;" id="guideLinks${myid}">
 					<table class="guide-page-table">
 						<tbody>
 							<c:forEach var="item" items="${links}" varStatus="status">
@@ -99,14 +99,31 @@
 		    $('#assistant-guide${myid}').bind('pageshow', function() {
 // 		    	var guide = $('.guide-advertisement');
 // 		    	var width = guide.closest('div.ui-grid-solo').first().width();
-		    	var width = ($(document).width() - 24) / 3;
-				$('.guide-page-table img').height(width);
-				$('.guide-page-table .add').width(width);
+				fixedTable();
 		    	$('div.guide-advertisement').mycarousel({
 					width: $('div.guide-advertisement').width(),
 					height: 140,
 					auto: true
 				});
+		    	$.ajax({
+		    		// the URL for the request
+					url : "${pageContext.request.contextPath}/assistant/guideLinks.html",
+					// the data to send
+					// (will be converted to a query string)
+					data : {
+						_ : new Date().getTime()
+					},
+					type : "GET",
+					success : function(html) {
+						$('#guideLinks${myid}').html(html);
+						fixedTable();
+					}
+		    	});
+		    	function fixedTable() {
+			    	var width = ($(document).width() - 24) / 3;
+					$('.guide-page-table img').height(width);
+					$('.guide-page-table .add').width(width);
+		    	}
 		    });
 		    $(window).resize(function() {
 		    	var width = ($(document).width() - 24) / 3;

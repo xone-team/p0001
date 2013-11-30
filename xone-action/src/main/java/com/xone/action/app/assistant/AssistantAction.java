@@ -82,6 +82,11 @@ public class AssistantAction extends LogicAction {
 			getAdList().addAll(adl);
 		}
 		
+		guideLinks();
+		return SUCCESS;
+	}
+	
+	public String guideLinks() {
 		Long userId = getUserId();
 		List<String> list = new ArrayList<String>();
 		if (userId > 0) {
@@ -90,11 +95,6 @@ public class AssistantAction extends LogicAction {
 				list.add(ul.getLinkNo());
 			}
 		} 
-//		else {
-//			list.addAll(Arrays.asList(new String[] {
-//				"A001", "A002", "A003", "A004", "A005", "A006"	
-//			}));
-//		}
 		list.addAll(FIXED_NO);
 		if (!list.isEmpty()) {
 			List<Links> l = getLinksService().findAllByLinkNos(list, getUserLevel());

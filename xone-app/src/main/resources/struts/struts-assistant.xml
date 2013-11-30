@@ -20,6 +20,9 @@
 		<action name="guide" class="assistantAction" method="guide">
 		    <result name="success">/WEB-INF/jsp/assistant-guide.jsp</result>
 		</action>
+		<action name="guideLinks" class="assistantAction" method="guideLinks">
+		    <result name="success">/WEB-INF/jsp/guide-links.jsp</result>
+		</action>
 		<action name="msgInfo" class="assistantAction" method="msgInfo">
 		    <result name="success">/WEB-INF/jsp/assistant-msg-info.jsp</result>
 		</action>

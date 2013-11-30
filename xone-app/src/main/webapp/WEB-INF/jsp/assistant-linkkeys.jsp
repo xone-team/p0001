@@ -76,6 +76,7 @@
 										} else if (o.UR == 'remove') {
 											this.divicon.removeClass('mycorrect').addClass('myadd');
 										}
+										$('div.mylinkkeyspage').data('opt', true);
 									}
 								});
 							});
