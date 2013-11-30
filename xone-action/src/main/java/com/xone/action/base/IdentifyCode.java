@@ -136,10 +136,10 @@ public class IdentifyCode {
 			g.setColor(color);
 			// 想文字旋转一定的角度
 			AffineTransform trans = new AffineTransform();
-			trans.rotate(random.nextInt(45) * 3.14 / 180, 15 * i + 8, 7);
+			trans.rotate(random.nextInt(10) * 3.14 / 180, 30 * i + 8, 10);
 			// 缩放文字
 			float scaleSize = random.nextFloat() + 0.8f;
-			if (scaleSize > 1f)
+			//if (scaleSize > 1f)
 				scaleSize = 1f;
 			trans.scale(scaleSize, scaleSize);
 			g.setTransform(trans);
