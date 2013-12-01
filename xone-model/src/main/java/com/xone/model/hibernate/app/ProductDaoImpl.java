@@ -8,13 +8,14 @@ import org.apache.ibatis.session.RowBounds;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.generic.AbstractHibernateDao;
 import com.xone.model.hibernate.mybatis.mapper.ProductMapper;
+import com.xone.model.utils.Constants;
 import com.xone.model.utils.MyModelUtils;
 
 public class ProductDaoImpl extends AbstractHibernateDao<Product> implements ProductDao {
 	
 	public List<Product> findAllProductByUserRef(Map<String, Object> params) {
 		int offsetIndex = MyModelUtils.parseInt(String.valueOf(params.get("offsetIndex")), 0);
-		int maxResult = MyModelUtils.parseInt(String.valueOf(params.get("maxResult")), 5);
+		int maxResult = MyModelUtils.parseInt(String.valueOf(params.get("maxResult")), Constants.APP_LIST_PAGE);
 		return getMapper(ProductMapper.class).findProductListWithUser(params, new RowBounds(offsetIndex, maxResult));
 //		List<Map<String, Object>> l = getMapper(ProductMapper.class).findProductListWithUser(params);
 //		List<Product> pList = new ArrayList<Product>();

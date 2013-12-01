@@ -44,12 +44,6 @@
 					#{i}
 				</foreach>
 			</if>
-            <if test="gtDateCreated != null">
-				<![CDATA[and p.date_created > #{gtDateCreated}]]>
-			</if>
-            <if test="ltDateCreated != null">
-                <![CDATA[and p.date_created < #{ltDateCreated}]]>
-			</if>
             <if test="saleType != null">
 				and p.sale_type = #{saleType}
 			</if>
@@ -61,6 +55,12 @@
 			</if>
             <if test="userCreated != null">
 				and p.user_created = #{userCreated}
+			</if>
+            <if test="gtDateCreated != null">
+				<![CDATA[and p.date_created > #{gtDateCreated}]]>
+			</if>
+            <if test="ltDateCreated != null">
+                <![CDATA[and p.date_created < #{ltDateCreated}]]>
 			</if>
             <if test="userLevels != null">
 				and 

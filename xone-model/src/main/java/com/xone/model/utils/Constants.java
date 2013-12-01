@@ -23,4 +23,6 @@ public class Constants {
 	
 	public static final int BACK_INDEX_REFRESH_TIME = 5; //默认后台首页5分钟刷新一次
 	
+	public static final int APP_LIST_PAGE = 5;//APP列表每页显示的条数
+	
 }
