@@ -20,6 +20,7 @@ $(document).bind("mobileinit", function() {
 		loadingMessage: '系统正在加载请求的数据，请稍候...',
 		loadingMessageTextVisible: true
 	});
+// 	document.addEventListener("touchstart", function(){}, false);
 });
 function debug(i) {
 	var activePage = $.mobile.activePage;

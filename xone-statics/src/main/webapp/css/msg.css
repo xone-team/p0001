@@ -1,3 +1,17 @@
+*.ui-listview *.ui-btn-up-c,
+*.ui-listview *.ui-btn-down-c,
+*.ui-listview *.ui-btn-hover-c,
+*.ui-listview *.ui-btn-active
+{
+    background: transparent;
+    text-shadow: none;
+    box-shadow: none;
+    color:black;
+    -webkit-box-shadow: none;
+}
+*.ui-listview *.ui-btn-active {
+	background: #FDB82C;
+}
 .info,.success,.warning,.error,.validation {
 	clear:both;
 	border: 1px solid;
