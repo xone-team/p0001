@@ -20,15 +20,15 @@
 				<div data-role="collapsible" data-collapsed="false" data-content-theme="d">
 			        <h3>看看大家在卖什么</h3>
 					<ul data-role="listview" data-inset="true" data-divider-theme="d">
-					    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/product_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/index.html">大家在卖什么</a></li>
-					    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/sale_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listSales.html">逛一逛促销</a></li>
-					    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/groups_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listGroups.html">看一看组团</a></li>
+					    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/view_product_list.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/index.html">大家在卖什么</a></li>
+					    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/view_sale_list.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listSales.html">逛一逛促销</a></li>
+					    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/view_group_list.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listGroups.html">看一看组团</a></li>
 					</ul>
 			    </div>
 			    <div data-role="collapsible" data-collapsed="false" data-content-theme="d">
 			        <h3>瞧瞧大家想买什么</h3>
 					<ul data-role="listview" data-inset="true" data-divider-theme="d">
-					    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/purchase_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/purchase/index.html">大家想买什么</a></li>
+					    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/view_purchase_list.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/purchase/index.html">大家想买什么</a></li>
 					</ul>
 			    </div>
 			</div>

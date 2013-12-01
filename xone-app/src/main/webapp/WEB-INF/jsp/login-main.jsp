@@ -52,7 +52,7 @@
 				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/product_list_view.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=0&_=${myid}">查看产品发布列表</a></li>
 				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/sale_list_view.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=1&_=${myid}">查看促销发布列表</a></li>
 				    <c:if test="${A_L}">
-				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/groups_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=2&_=${myid}">查看组团发布列表</a></li>
+				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/groups_list_view.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listAllForUser.html?product.saleType=2&_=${myid}">查看组团发布列表</a></li>
 				    </c:if>
 				</ul>
 		    </div>
@@ -61,7 +61,7 @@
 		    <div data-role="collapsible" data-collapsed="false" data-content-theme="d">
 		        <h3>我的购买发布</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
-				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/purchase_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/purchase/listAllForUser.html?_=${myid}">查看求购发布列表</a></li>
+				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/purchase_list_view.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/purchase/listAllForUser.html?_=${myid}">查看求购发布列表</a></li>
 				</ul>
 		    </div>
 		    </c:if>
@@ -69,13 +69,13 @@
 		        <h3>我的配套服务</h3>
 				<ul data-role="listview" data-inset="true" data-divider-theme="d">
 					<c:if test="${A_L || B_L}">
-				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/truck_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/delivery/listIndex.html?_=${myid}">查看物流配送列表</a></li>
-				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/advertisement_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/adbanner/list.html?_=${myid}">查看我的广告列表</a></li>
-				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/totop_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listOverheadForUser.html?_=${myid}">查看顶置申请列表</a></li>
+				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/delivery_list_view.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/delivery/listIndex.html?_=${myid}">查看物流配送列表</a></li>
+				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/adbanner_list_view.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/adbanner/list.html?_=${myid}">查看我的广告列表</a></li>
+				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/top_list_view.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listOverheadForUser.html?_=${myid}">查看顶置申请列表</a></li>
 				    </c:if>
-				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/people-rss-icon_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/subscribe/list.html?_=${myid}">查看我的订阅列表</a></li>
+				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/subscribe_list_view.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/subscribe/list.html?_=${myid}">查看我的订阅列表</a></li>
 				    <c:if test="${C_L || B_L}">
-				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/groups_24.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listGroupForUser.html?_=${myid}">查看组团预定列表</a></li>
+				    <li class="ui-li-has-icon"><img src="${STATIC_ROOT}/image/order_list_view.png" class="ui-li-icon ui-li-thumb"><a href="${pageContext.request.contextPath}/product/listGroupForUser.html?_=${myid}">查看组团预定列表</a></li>
 				    </c:if>
 				</ul>
 		    </div>
