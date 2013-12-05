@@ -14,8 +14,8 @@
 	<body>
 	<div data-role="page" class="subscribe-add-page" data-dom-cache="false">
 		<div data-id="myheader" data-role="header" data-position="fixed">
-<%-- 			<a href="${pageContext.request.contextPath}/assistant/index.html?_=${myid}" data-icon="check">返回</a> --%>
-			<a href="#" data-rel="back" data-icon="back">返回</a>
+			<a href="${pageContext.request.contextPath}/subscribe/list.html?_=${myid}" data-icon="check">返回</a>
+<!-- 			<a href="#" data-rel="back" data-icon="back">返回</a> -->
 			<h1>筛选订阅</h1>
 			<a href="#" rel="external" data-icon="check" data-role="button" class="subscribe-save-button ui-btn-right">更新</a>
 		</div>
@@ -27,7 +27,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel">市场区域:</td>
-				    			<td><input type="text" id="subscribemarketarea${myid}" name="subscribe.marketarea" placeholder="市场区域" data-mini="true" value="" autocomplete="off"/></td>
+				    			<td><input type="text" id="subscribemarketarea${myid}" name="subscribe.marketarea" placeholder="市场区域" data-mini="true" value="${subscribe.marketarea }" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -35,7 +35,7 @@
 				    	<table style="width:100%">
 				    		<tr>
 				    			<td class="mylabel"><span class="required">*</span>产品名称:</td>
-				    			<td><input type="text" id="subscribeproductNameKey${myid}" name="subscribe.productNameKey" placeholder="产品名称" data-mini="true" value="" autocomplete="off"/></td>
+				    			<td><input type="text" id="subscribeproductNameKey${myid}" name="subscribe.productNameKey" placeholder="产品名称" data-mini="true" value="${subscribe.productNameKey }" autocomplete="off"/></td>
 				    		</tr>
 				    	</table>
 				    </li>
@@ -69,7 +69,7 @@
 				    </li>
 					<li>
 					 	<input type="submit" name="update" value="更新订阅" id="mysubscribesubmit${myid}" class="submit"/>
-					 	<input type="button" name="delete" value="删除订阅" class="submit"/>
+					 	<input type="submit" name="delete" value="删除订阅" class="submit"/>
 					</li>
 				</ul>
 			</form>

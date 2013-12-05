@@ -22,6 +22,10 @@
 		</action>
 		<action name="edit" class="subscribeAction" method="item">
 			<result name="success">/WEB-INF/jsp/subscribe-edit-page.jsp</result>
+			<result name="list" type="redirectAction">
+			    <param name="actionName">list</param>
+    			<param name="namespace">/subscribe</param>
+			</result>
 		</action>
 		<action name="update" class="subscribeAction" method="update">
 			<result name="success" type="redirectAction">

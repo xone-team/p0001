@@ -56,7 +56,8 @@ public class SubscribeServiceImpl implements SubscribeService {
 
     @Override
     public Subscribe findById(Long id) {
-        return getSubscribeDao().findById(id);
+    	return getSubscribeDao().get(id);
+//        return getSubscribeDao().findById(id);
     }
     
     /**

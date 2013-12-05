@@ -42,7 +42,11 @@ public class SubscribeAction extends Action {
 	}
 	
 	public String item() {
-		setSubscribe(getSubscribeService().findById(getSubscribe().getId()));
+		Subscribe subscribe = getSubscribeService().findById(getSubscribe().getId());
+		if (null == subscribe || subscribe.getId() == null) {
+			return "list";
+		}
+		setSubscribe(subscribe);
 		return SUCCESS;
 	}
 	
