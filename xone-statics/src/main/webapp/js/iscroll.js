@@ -92,23 +92,23 @@ var m = Math,
 
 		// Default options
 		that.options = {
-			hScroll: true,
+			hScroll: false,
 			vScroll: true,
 			x: 0,
 			y: 0,
 			bounce: true,
 			bounceLock: false,
-			momentum: true,
-			lockDirection: true,
+			momentum: false,
+			lockDirection: false,
 			useTransform: true,
 			useTransition: false,
 			topOffset: 0,
 			checkDOMChanges: false,		// Experimental
-			handleClick: true,
+			handleClick: false,
 
 			// Scrollbar
-			hScrollbar: true,
-			vScrollbar: true,
+			hScrollbar: false,
+			vScrollbar: false,
 			fixedScrollbar: isAndroid,
 			hideScrollbar: isIDevice,
 			fadeScrollbar: isIDevice && has3d,
@@ -635,11 +635,11 @@ iScroll.prototype = {
 			}
 
 			if (that.hScrollbar && that.options.hideScrollbar) {
-				if (vendor == 'webkit') that.hScrollbarWrapper.style[transitionDelay] = '300ms';
+				if (vendor == 'webkit') that.hScrollbarWrapper.style[transitionDelay] = '100ms';
 				that.hScrollbarWrapper.style.opacity = '0';
 			}
 			if (that.vScrollbar && that.options.hideScrollbar) {
-				if (vendor == 'webkit') that.vScrollbarWrapper.style[transitionDelay] = '300ms';
+				if (vendor == 'webkit') that.vScrollbarWrapper.style[transitionDelay] = '100ms';
 				that.vScrollbarWrapper.style.opacity = '0';
 			}
 
