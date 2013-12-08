@@ -168,7 +168,10 @@ public class OverheadServiceImpl implements OverheadService {
         	detachedCriteria.add(Restrictions.eq("userCreated", Long.parseLong(userCreated)));
         }
         detachedCriteria.addOrder(Order.desc("dateCreated"));
-        return getOverheadDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
+        /*
+         * 2013年12月8日 13:18，黄总要求把顶置条数修改为10条。
+         * */
+        return getOverheadDao().findListByDetachedCriteria(detachedCriteria, 0, 10);
     }
 
     public Pagination findByParams(Map<String, String> params) {

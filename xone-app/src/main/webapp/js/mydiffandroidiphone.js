@@ -64,7 +64,11 @@
 					                  'padding-top: 10px;',
 					                  'padding-left: 5px;',
 					                  'padding-right: 5px;',
-					                  '}'];
+					                  '}',
+					                  '.ui-collapsible-inset {',
+					                  'margin-top:-5px;',
+					                  '}'
+					                  ];
 					$('head').append(stylefixed.join(''));
 				}
 			}
