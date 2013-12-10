@@ -40,7 +40,8 @@ public class MySecurityFilter extends AbstractSecurityInterceptor implements
 			HttpServletResponse r = (HttpServletResponse) response;
 //			r.setStatus(HttpServletResponse.SC_FORBIDDEN);
 			HttpServletRequest req = (HttpServletRequest) request;
-			r.sendRedirect(req.getContextPath() + "/console/login.html?errorType=1");
+			// fix bug, in web, redirect loop
+			r.sendRedirect(req.getContextPath() + "/login.jsp");
 		}
 
 	}
