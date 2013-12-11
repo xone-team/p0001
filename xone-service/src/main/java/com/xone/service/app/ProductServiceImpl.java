@@ -105,7 +105,10 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findById(Long id) {
-        Product product = getProductDao().findById(id);
+    	// fix bug
+    	// No row with the given identifier exists, cause javassist something
+//        Product product = getProductDao().findById(id);
+        Product product = getProductDao().get(id);
         if (null != product) {
             List<Long> ids = getImageUploadedDao().findAllIdsByRefId(product.getId(), ImageUploaded.RefType.PRODUCT);
             product.setIds(ids);

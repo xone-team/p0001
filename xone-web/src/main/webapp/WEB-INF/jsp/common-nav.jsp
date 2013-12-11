@@ -5,7 +5,8 @@
 <!--head start-->
 <div class="head">
     <div class="ht">
-        <div class="las"></div>
+<%-- fix bug, missing log out --%>
+<!--         <div class="las"></div> -->
         <div class="login">
             <form method="post" action="${pageContext.request.contextPath}/j_spring_security_check">
                 <div>用户名</div>
