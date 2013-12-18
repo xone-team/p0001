@@ -17,8 +17,8 @@ $(document).bind("mobileinit", function() {
 		defaultDialogTransition:'none',
 		pageLoadErrorMessage: '网络不给力呀',
 		loadingMessageTheme: 'a',
-		loadingMessage: '系统正在加载请求的数据，请稍候...',
-		loadingMessageTextVisible: true
+		loadingMessage: '加载中...',
+		loadingMessageTextVisible: false
 	});
 	$.mobile.buttonMarkup.hoverDelay = 0;
 // 	document.addEventListener("touchstart", function(){}, false);
