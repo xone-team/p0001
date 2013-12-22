@@ -70,6 +70,15 @@
 		<action name="listItems" class="productAction" method="listItems">
 			<result name="success">/WEB-INF/jsp/product-list-items.jsp</result>
 		</action>
+		<action name="listJsonItems" class="productAction" method="listItems">
+			<result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+		        <param name="excludeNullProperties">true</param>
+<!-- 		        <param name="root">list,mapValue</param> -->
+		        <param name="includeProperties">list.*,mapValue.*</param>
+			</result>
+		</action>
 		<action name="listOverheadItems" class="productAction" method="listOverheadItems">
 			<result name="success">/WEB-INF/jsp/product-list-items-overhead.jsp</result>
 		</action>

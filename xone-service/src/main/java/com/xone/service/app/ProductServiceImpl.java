@@ -25,6 +25,7 @@ import com.xone.model.hibernate.entity.Person;
 import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.ProductCheck;
 import com.xone.model.hibernate.support.Pagination;
+import com.xone.model.utils.Constants;
 import com.xone.model.utils.MyModelUtils;
 
 public class ProductServiceImpl implements ProductService {
@@ -320,7 +321,7 @@ public class ProductServiceImpl implements ProductService {
             detachedCriteria.add(Restrictions.eq("flagDeleted", flagDeleted));
         }
         detachedCriteria.addOrder(Order.desc("dateCreated"));
-        List<Product> list = getProductDao().findListByDetachedCriteria(detachedCriteria, 0, 5);
+        List<Product> list = getProductDao().findListByDetachedCriteria(detachedCriteria, 0, Constants.APP_LIST_PAGE);
         return getProductWithImageIdByProducts(list);
     }
     

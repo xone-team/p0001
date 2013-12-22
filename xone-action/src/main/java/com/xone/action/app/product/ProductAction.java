@@ -267,6 +267,7 @@ public class ProductAction extends LogicAction {
 			}
 			setList(getProductService().findAllByMap(params));
 		}
+//		getResponse().setHeader("Access-Control-Allow-Origin", "*");
 		return SUCCESS;
 	}
 	
