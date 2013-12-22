@@ -14,56 +14,47 @@
 </head>
 <body>
     <jsp:include page="common-nav.jsp"><jsp:param value="5" name="offset" /></jsp:include>
-    <div class="container">
+    <!--主体-->
+    <div id="container">
         <c:if test="${errorType == 1 }">
             <div class="alert alert-fail">
                 <center>您没有权限访问该资源</center>
             </div>
         </c:if>
-        <div class="hero-unit">
-            <form class="form-horizontal" action="${pageContext.request.contextPath}/j_spring_security_check" method="post">
-                <div class="control-group">
-                    <label class="control-label" for="text-username">用户名</label>
-                    <div class="controls">
-                        <input type="text" name="username" id="text-username" value="" autocomplete="off" />
+        <form action="${pageContext.request.contextPath}/j_spring_security_check" class="form" method="post">
+            <div class="login">
+                <div style="left: 675px; top: 70px; position: relative; width: 280px;">
+                    <label>用户名</label><br />
+                    <input name="username" type="text" class="input" style="width: 250px;" />
+                    <br />
+                    <label>密码</label><br />
+                    <input name="password" type="password" class="input" style="width: 250px;" />
+                    <br />
+                    <label>验证码</label><br />
+                    <input name="validateCode" id="validateCode" type="text" class="input" style="width: 80px;" />
+                    <label style="padding-left: 5px;"><img class="myIdentifyCodeImg" src="${pageContext.request.contextPath}/identifyCode.jpeg?_=${identify}" /></label>
+                    <a href="javascript:void(0);" class="myIdentifyCodeHref" style="padding-left: 5px;">刷新</a>
+                    <div style="margin: 20px 0 10px 0;">
+                        <input type="submit" value="登&nbsp;&nbsp;录" class="input2" style="width: 250px;" />
+                    </div>
+                    <div style="text-align: center;">
+                        <a href="${pageContext.request.contextPath}/user/register.html">新会员免费注册</a>
+                        &nbsp;&nbsp;
+                        <a href="${pageContext.request.contextPath}/user/register.html">忘记密码？</a>
                     </div>
                 </div>
-                <div class="control-group">
-                    <label class="control-label" for="text-password">密 码</label>
-                    <div class="controls">
-                        <input type="password" name="password" id="text-password" value="" autocomplete="off" />
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="validateCode">验证码</label>
-                    <div class="controls">
-                    	<input type="text" name="validateCode" id="validateCode" value="" autocomplete="off" />
-                    </div>
-                </div>
-                <div class="control-group">
-                    <div class="controls">
-                    	<img class="myIdentifyCodeImg" src="${pageContext.request.contextPath}/identifyCode.jpeg?_=${identify}">
-                    	<a class="myIdentifyCodeHref" href="#" class="btn">换一张</a>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <a href="${pageContext.request.contextPath}/user/register.html" class="btn">注册用户</a>
-                        <button type="submit" class="btn">确认登录</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <jsp:include page="common-footer.jsp"></jsp:include>
+            </div>
+        </form>
     </div>
+    <!--主体结束-->
     <jsp:include page="common-bottom.jsp"></jsp:include>
     <script type="text/javascript">
                     $(document).ready(function() {
                         $('form.navloginform').hide();
-    					$('a.myIdentifyCodeHref').click(function(e) {
-    						e.preventDefault();
-    						$('img.myIdentifyCodeImg').attr('src', '${pageContext.request.contextPath}/identifyCode.jpeg?_=' + new Date().getTime());
-    					});
+                        $('a.myIdentifyCodeHref').click(function(e) {
+                            e.preventDefault();
+                            $('img.myIdentifyCodeImg').attr('src', '${pageContext.request.contextPath}/identifyCode.jpeg?_=' + new Date().getTime());
+                        });
                     });
                 </script>
 </body>

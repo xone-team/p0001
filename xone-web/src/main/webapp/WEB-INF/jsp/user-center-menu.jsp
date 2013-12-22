@@ -14,7 +14,7 @@
             <div class="accordion-heading">
                 <div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_1">用户中心</div>
             </div>
-            <div id="${identify}_1" class="accordion-body in collapse" style="height: auto;">
+            <div id="${identify}_1" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <ul class="nav nav-list">
                         <li id="menu_user" <c:if test="${param.menuindex == '1'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/user/userItem.html" class="well well-small clearmarginbottom">我的资料</a></li>
@@ -40,7 +40,7 @@
             <div class="accordion-heading">
                 <div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_2">售卖发布</div>
             </div>
-            <div id="${identify}_2" class="accordion-body in collapse" style="height: auto;">
+            <div id="${identify}_2" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <ul class="nav nav-list">
                         <li <c:if test="${param.menuindex == '6'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productNormalCreate.html" class="well well-small clearmarginbottom">产品发布</a></li>
@@ -58,7 +58,7 @@
             <div class="accordion-heading">
                 <div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_3">购买发布</div>
             </div>
-            <div id="${identify}_3" class="accordion-body in collapse" style="height: auto;">
+            <div id="${identify}_3" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <ul class="nav nav-list">
                         <li <c:if test="${param.menuindex == '12'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/purchase/purchaseCreate.html" class="well well-small clearmarginbottom">求购发布</a></li>
@@ -71,7 +71,7 @@
         <div class="accordion-heading">
             <div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_4">配套服务</div>
         </div>
-        <div id="${identify}_4" class="accordion-body in collapse" style="height: auto;">
+        <div id="${identify}_4" class="accordion-body collapse">
             <div class="accordion-inner">
                 <ul class="nav nav-list">
                     <c:if test="${A_L || B_L}">
@@ -92,7 +92,7 @@
             <div class="accordion-heading">
                 <div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_21">我的售卖发布</div>
             </div>
-            <div id="${identify}_21" class="accordion-body in collapse" style="height: auto;">
+            <div id="${identify}_21" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <ul class="nav nav-list">
                         <li <c:if test="${param.menuindex == '9'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/product/productNormalList.html" class="well well-small clearmarginbottom">查看产品发布列表</a></li>
@@ -110,7 +110,7 @@
             <div class="accordion-heading">
                 <div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_31">我的购买发布</div>
             </div>
-            <div id="${identify}_31" class="accordion-body in collapse" style="height: auto;">
+            <div id="${identify}_31" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <ul class="nav nav-list">
                         <li <c:if test="${param.menuindex == '13'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/purchase/purchaseList.html" class="well well-small clearmarginbottom">查看求购发布列表</a></li>
@@ -123,7 +123,7 @@
         <div class="accordion-heading">
             <div class="accordion-toggle nav-header" data-toggle="collapse" data-target="#${identify}_41">我的配套服务</div>
         </div>
-        <div id="${identify}_41" class="accordion-body in collapse" style="height: auto;">
+        <div id="${identify}_41" class="accordion-body collapse">
             <div class="accordion-inner">
                 <ul class="nav nav-list">
                     <c:if test="${A_L || B_L}">
@@ -140,3 +140,14 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+<!--
+//jQuery(function(){
+    var x = $(".accordion-group .active")
+//    var y = x.closest(".accordion-group");
+    var z = x.closest(".accordion-body");
+    z.addClass("in");
+//    y.collapse();
+//});
+//-->
+</script>

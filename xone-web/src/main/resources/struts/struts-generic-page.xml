@@ -3,19 +3,31 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="generic" namespace="/" extends="default">
-	    <global-results>  
-            <result name="error">/WEB-INF/jsp/login-error.jsp</result>  
+    <package name="generic" namespace="/" extends="default">
+        <global-results>
+            <result name="error">/WEB-INF/jsp/login-error.jsp</result>
         </global-results>
-		<action name="index" class="genericPageAction" method="index">
-			<result name="success">/WEB-INF/jsp/index-page.jsp</result>
-		</action>
-		<action name="about" class="genericPageAction" method="about">
-			<result name="success">/WEB-INF/jsp/about-page.jsp</result>
-		</action>
-		<action name="image" class="genericPageAction" method="image"></action>
-		<action name="mobile" class="genericPageAction" method="mobile">
-			<result name="success">/WEB-INF/jsp/mobile-page.jsp</result>
-		</action>
-	</package>
+        <action name="index" class="genericPageAction" method="index">
+            <result name="success">/WEB-INF/jsp/index-page.jsp</result>
+        </action>
+        <action name="about" class="genericPageAction" method="about">
+            <result name="success">/WEB-INF/jsp/about-page.jsp</result>
+        </action>
+        <action name="image" class="genericPageAction" method="image"></action>
+        <action name="mobile" class="genericPageAction" method="mobile">
+            <result name="success">/WEB-INF/jsp/mobile-page.jsp</result>
+        </action>
+        <action name="indexAjax1" class="genericPageAction" method="index">
+            <result name="success">/WEB-INF/jsp/index-page-ajax1.jsp</result>
+        </action>
+        <action name="indexAjax2" class="genericPageAction" method="index">
+            <result name="success">/WEB-INF/jsp/index-page-ajax2.jsp</result>
+        </action>
+        <action name="indexAjax3" class="genericPageAction" method="index">
+            <result name="success">/WEB-INF/jsp/index-page-ajax3.jsp</result>
+        </action>
+        <action name="indexAjax4" class="genericPageAction" method="index">
+            <result name="success">/WEB-INF/jsp/index-page-ajax4.jsp</result>
+        </action>
+    </package>
 </struts>

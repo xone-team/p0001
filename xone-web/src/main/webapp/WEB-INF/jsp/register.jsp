@@ -5,81 +5,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>欢迎使用</title>
-<meta name="description" content="">
-<meta name="author" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="${STATIC_ROOT}/css/docs.css" />
-<link rel="stylesheet" href="${STATIC_ROOT}/css/listview.css" />
 <jsp:include page="common-header.jsp"></jsp:include>
 </head>
 <body>
     <jsp:include page="common-nav.jsp"><jsp:param value="0" name="offset" /></jsp:include>
-    <div class="container">
-        <div class="row">
-            <form id="saveForm" class="form-horizontal" method="post" action="${pageContext.request.contextPath}/user/registerSave.html">
-                <div class="control-group">
-                    <label class="control-label" for="username">用户名</label>
-                    <div class="controls">
-                        <input type="text" id="username" name="user.username" maxlength="20" placeholder="用户名"><code>*</code>
-                    </div>
+    <!--主体-->
+    <div id="container">
+        <!--位置导航-->
+        <div class="wzdh">首页&nbsp;&gt;&nbsp;用户注册</div>
+        <!--位置导航 end-->
+        <form  id="saveForm" method="post" action="${pageContext.request.contextPath}/user/registerSave.html" class="form">
+            <div class="register">
+                <div class="register_pic">
+                    <img src="${STATIC_ROOT}/new-style/images/register.gif" width="106" height="37" />
                 </div>
-                <div class="control-group">
-                    <label class="control-label" for="password">密码</label>
-                    <div class="controls">
-                        <input type="password" id="password" name="user.password" maxlength="20" placeholder="密码"><code>*</code>
-                    </div>
+                <div class="register_name">
+
+                    <ul>
+                        <li><label><span>*</span>用户名</label> <input name="user.username" maxlength="20" type="text" class="input" style="width: 250px;" /></li>
+                        <li><label><span>*</span>密码</label> <input name="user.password" maxlength="20" type="password" class="input" style="width: 250px;" /></li>
+                        <li><label><span>*</span>确认密码</label> <input name="user.repassword" maxlength="20" type="password" class="input" style="width: 250px;" /></li>
+                        <li><label><span>*</span>昵称</label> <input name="user.nickName" maxlength="20" type="text" class="input" style="width: 250px;" /></li>
+                        <li><label>手机号</label> <input name="user.cellphone" maxlength="11" type="text" class="input" style="width: 250px;" /></li>
+                        <li><label>联系人</label> <input name="user.contactor" maxlength="255" type="text" class="input" style="width: 250px;" /></li>
+                        <li><label>QQ号码</label> <input name="user.qq" maxlength="20" type="text" class="input" style="width: 250px;" /></li>
+                        <li><label>电子邮箱</label> <input name="user.email" maxlength="255" type="text" class="input" style="width: 250px;" /></li>
+                        <li><label>联系地址</label> <input name="user.address" maxlength="255" type="text" class="input" style="width: 250px;" /></li>
+                        <li><label></label> <input type="submit" value="确认注册" class="input2" style="width: 250px;" /></li>
+                    </ul>
+
                 </div>
-                <div class="control-group">
-                    <label class="control-label" for="repassword">重复输入密码</label>
-                    <div class="controls">
-                        <input type="password" id="repassword" name="user.repassword" maxlength="20" placeholder="重复输入密码"><code>*</code>
-                    </div>
+                <div class="register_r">
+                    <p>
+                        请认真、仔细地填写以下信息，严肃的商业信息有助于您获得别人的信任，结交潜在的商业伙伴，获取商业机会！<br /> <br />
+                    </p>
+                    <p>
+                        为了提高本网站的质量，请大家认真负责的发布信息。出现以下问题一律删除账号：<br /> <br />
+                    </p>
+                    <p>发布重复、违法、虚假、分类不正确、标题和概述带有特殊字符、内容排版很乱。</p>
+                    <br />
+                    <p class="red b">带*号项目为必填项目</p>
+                    <br />
+                    <br />
+                    <br />
                 </div>
-                <div class="control-group">
-                    <label class="control-label" for="nickName">昵称</label>
-                    <div class="controls">
-                        <input type="text" id="nickName" name="user.nickName" maxlength="20" placeholder="昵称"><code>*</code>
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="cellphone">手机号码</label>
-                    <div class="controls">
-                        <input type="text" id="cellphone" name="user.cellphone" maxlength="11" placeholder="手机号码">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="contactor">联系人</label>
-                    <div class="controls">
-                        <input type="text" id="contactor" name="user.contactor" maxlength="255" placeholder="联系人">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="qq">腾讯号码</label>
-                    <div class="controls">
-                        <input type="text" id="qq" name="user.qq" maxlength="20" placeholder="腾讯号码">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="email">电子邮箱</label>
-                    <div class="controls">
-                        <input type="text" id="email" name="user.email" maxlength="255" placeholder="电子邮箱">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="address">联系地址</label>
-                    <div class="controls">
-                        <input type="text" id="address" name="user.address" maxlength="255" placeholder="联系地址">
-                    </div>
-                </div>
-                <div class="control-group">
-                    <div class="controls">
-                        <button type="submit" class="btn btn-warning inline">注册</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <jsp:include page="common-footer.jsp"></jsp:include>
+                <div class="cb"></div>
+            </div>
+        </form>
     </div>
     <jsp:include page="common-bottom.jsp"></jsp:include>
 </body>

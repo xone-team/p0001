@@ -2,102 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>欢迎光临掌畅水产品批发网</title>
 <link rel="stylesheet" href="${STATIC_ROOT}/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" href="${STATIC_ROOT}/bootstrap/css/bootstrap-responsive.min.css" />
-<link rel="stylesheet" href="${STATIC_ROOT}/css/docs.css" />
-<link rel="stylesheet" href="${STATIC_ROOT}/css/listview.css" />
-<link rel="stylesheet" href="${STATIC_ROOT}/css/all.css" />
-<link rel="stylesheet" href="${STATIC_ROOT}/lx/style.css" />
-<style type="text/css">
-* {
-    font-family: "Lucida Grande", "Lucida Sans Unicode", Helvetica, Arial, Verdana, sans-serif
-}
-
-;
-li {
-    display: list-item;
-    list-style-type: none;
-}
-
-.list_gq .gq {
-    color: #FFF;
-    background: #FF6C00;
-    line-height: 25px;
-}
-
-.txt_date {
-    color: #999;
-    float: right;
-}
-
-.accordion .accordion-group,table {
-    background-color: #fcfcfc;
-}
-
-*.inline {
-    display: inline !important;
-}
-
-.logined-message {
-    color: #ffffff;
-}
-
-.logined-message a {
-    color: #f89406;
-}
-
-.banner-down-btn {
-    width: 239px;
-    height: 78px;
-    display: block;
-    background: url("${STATIC_ROOT}/image/banner-icons.png") no-repeat;
-}
-.down-to-drop {
-    padding-top: 55px;
-}
-.android-code{
-	background: url("${STATIC_ROOT}/image/android-code.png") no-repeat;
-}
-.iphone-code{
-	background: url("${STATIC_ROOT}/image/iphone-code.png") no-repeat;
-}
-.down-to-drop a 
-{
-    float: left;
-    width: 26px;
-    height: 28px!important;
-    margin: 0px 3px;
-    padding: 0px;
-}
-
-.banner-down-android,.banner-down-ios,.banner-down-win {
-    background: url("${STATIC_ROOT}/image/banner-icons.png") no-repeat;
-}
-
-.banner-down-android {
-    background-position: -239px -125px;
-}
-
-.banner-down-android:hover {
-    background-position: -239px -158px;
-}
-
-.banner-down-ios {
-    background-position: -265px -125px;
-}
-
-.banner-down-ios:hover {
-    background-position: -265px -158px;
-}
-
-a.submit:hover {
-    text-decoration: none;
-    color: #fff!important;
-}
-a.submit {
-    padding: 0;
-}
-</style>
+<link href="${STATIC_ROOT}/new-style/css/gloab.css" rel="stylesheet" type="text/css" />
+<LINK rel=stylesheet type=text/css href="${STATIC_ROOT}/new-style/zxkf/css/css.css">
+<link rel="stylesheet" href="${STATIC_ROOT}/new-style/css/pagination.css" type="text/css"/>
+<script src="${STATIC_ROOT}/new-style/js/iepng.js"></script>
+<script type="text/javascript" src="${STATIC_ROOT}/new-style/js/jquery-1.8.2.min.js"></script>
 <script src="${STATIC_ROOT}/js/My97DatePicker/WdatePicker.js"></script>
+<script src="${STATIC_ROOT}/bootstrap/js/bootstrap.min.js"></script>
+<script src="${STATIC_ROOT}/new-style/js/common.js"></script>

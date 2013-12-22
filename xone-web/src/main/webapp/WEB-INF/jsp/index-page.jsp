@@ -6,184 +6,194 @@
 <html lang="en">
 <head>
 <title>欢迎使用</title>
-<meta name="description" content="">
-<meta name="author" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="${STATIC_ROOT}/css/docs.css" />
-<link rel="stylesheet" href="${STATIC_ROOT}/css/listview.css" />
 <jsp:include page="common-header.jsp"></jsp:include>
+<script src="${STATIC_ROOT}/new-style/js/iepng.js"></script>
 </head>
 <body>
     <jsp:include page="common-nav.jsp"><jsp:param value="1" name="offset" /></jsp:include>
-    <div class="container">
-        <div class="box-shadow">
-            <div class="row-fluid">
-                <div id="myCarousel" class="carousel slide">
-                    <div class="carousel-inner">
-                        <div class="item">
-                            <center>
-                                <img style="height: 370px;" src="${STATIC_ROOT}/image/banner1.png" alt="">
-                            </center>
-                            <div class="carousel-caption">
-                                <h4></h4>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="item active">
-                            <center>
-                                <img style="height: 350px;" src="${STATIC_ROOT}/image/banner2.png" alt="">
-                            </center>
-                            <div class="carousel-caption">
-                                <h4></h4>
-                                <p></p>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <center>
-                                <img style="height: 350px;" src="${STATIC_ROOT}/image/banner3.png" alt="">
-                            </center>
-                            <div class="carousel-caption">
-                                <h4></h4>
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-                    <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
-                    <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class=""></li>
-                        <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-                    </ol>
+
+    <!--banner开始-->
+    <div id="slide-index">
+        <div class=slides>
+            <div class="slide autoMaxWidth">
+                <div id=bi_0 class=image>
+                    <img src="${STATIC_ROOT}/new-style/upfile/banner.jpg" border="0">
                 </div>
-
+                <div id=bt_0 class=text></div>
+                <div id=bb_0 class=button></div>
             </div>
-
+            <div class="slide autoMaxWidth">
+                <div id=bi_0 class=image>
+                    <img src="${STATIC_ROOT}/new-style/upfile/banner2.jpg" border="0">
+                </div>
+                <div id=bt_0 class=text></div>
+                <div id=bb_0 class=button></div>
+            </div>
+            <div class="slide autoMaxWidth">
+                <div id=bi_0 class=image>
+                    <img src="${STATIC_ROOT}/new-style/upfile/banner.jpg" border="0">
+                </div>
+                <div id=bt_0 class=text></div>
+                <div id=bb_0 class=button></div>
+            </div>
+            <div class="slide autoMaxWidth">
+                <div id=bi_0 class=image>
+                    <img src="${STATIC_ROOT}/new-style/upfile/banner2.jpg" border="0">
+                </div>
+                <div id=bt_0 class=text></div>
+                <div id=bb_0 class=button></div>
+            </div>
         </div>
-
-        <div class="row-fluid">
-
-            <div class="span5 rounded box-shadow">
-                <h2 class="presentation-box-heading">
-                    <i class="icon-user"></i>大家在卖
-                </h2>
-
-                <div class="row-fluid">
-                    <div class="inner-content">
-                        <div class="list_gq">
-                            <ul class="listview image">
-                                <c:forEach var="item" items="${overheadPage.list}">
-                                    <c:if test="${item.overheadType != '3' }">
-                                        <li>
-                                            <div class="icon">
-                                                <img src="${pageContext.request.contextPath}/image.html?id=${item.product.ids[0]}">
-                                            </div>
-                                            <div class="data">
-                                                <h4>${item.product.productName}</h4>
-                                                <p>发布日期:${item.product.dateCreated},更新日期:${item.product.lastUpdated}</p>
-                                                <p>产品地址:${item.product.productAddress},产品属地:${item.product.productLocation},产品类型:${item.product.productType},产品描述:${item.product.productDesc}</p>
-                                                <a href="${pageContext.request.contextPath}/product/item.html?product.id=${item.id}" target="_blank">查看详情</a>
-                                            </div>
-                                        </li>
-                                    </c:if>
-                                </c:forEach>
-                            </ul>
-                        </div>
-                        <div class="span5 pull-right">
-                            <a href="${pageContext.request.contextPath}/product/list.html">
-                                <i class="icon icon-arrow-right"></i> 更多
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="span5 rounded box-shadow">
-                <h2 class="presentation-box-heading">
-                    <i class="icon-camera"></i>大家想买
-                </h2>
-
-                <div class="row-fluid">
-                    <div class="inner-content">
-                        <div class="list_gq">
-                            <ul class="listview image">
-
-                                <c:forEach var="item" items="${overheadPage.list}">
-                                    <c:if test="${item.overheadType == '3' }">
-                                        <li>
-                                            <div class="icon">
-                                                <img src="${pageContext.request.contextPath}/image.html?id=${item.purchase.ids[0]}">
-                                            </div>
-                                            <div class="data">
-                                                <h4>${item.purchase.purchaseName}</h4>
-                                                <p>发布日期:${item.purchase.dateCreated},更新日期:${item.purchase.lastUpdated}</p>
-                                                <p>产品地址:${item.purchase.purchaseAddress},产品属地:${item.purchase.purchaseLocation},产品类型:${item.purchase.purchaseType},产品描述:${item.purchase.purchaseDesc}</p>
-                                                <a href="${pageContext.request.contextPath}/purchase/item.html?purchase.id=${item.purchase.id}" target="_blank">查看详情</a>
-                                            </div>
-                                        </li>
-                                    </c:if>
-                                </c:forEach>
-
-                            </ul>
-                        </div>
-                        <div class="span5 pull-right">
-                            <a href="${pageContext.request.contextPath}/purchase/list.html">
-                                <i class="icon icon-arrow-right"></i> 更多
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="span2 box-shadow rounded">
-
-                <div class="right-content">
-
-                    <div class="row-fluid">
-
-                        <ul class="thumbnails">
-                            <c:forEach var="item" items="${adList}">
-                                <li class="span12" timestamp="${item.dateCreated}">
-                                    <div class="thumbnail">
-                                        <div class="image-wrapper">
-                                            <c:choose>
-                                                <c:when test="${item.adType=='0' }">
-                                                    <c:set var="adrequest" value="/product/item.html?product.id=${item.refId}"></c:set>
-                                                </c:when>
-                                                <c:when test="${item.adType=='1' }">
-                                                    <c:set var="adrequest" value="/purchase/item.html?purchase.id=${item.refId}"></c:set>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <c:set var="adrequest" value="/product/list.html"></c:set>
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <a href="${pageContext.request.contextPath}${adrequest}">
-                                                <img src="${pageContext.request.contextPath}/assistant/image.html?id=${item.adRefId}" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-
-
+        <div class=control>
+            <A href="#"></A>
+            <A href="#"></A>
+            <A href="#"></A>
+            <A href="#"></A>
         </div>
+    </div>
+    <script type=text/javascript>
+                    $(function() {
+                        indexSlides.ini();
+                    });
+                    var indexSlides = {};
+                    indexSlides.timer = false;
+                    indexSlides.total = $('#slide-index .control a').length;
+                    indexSlides.current = -1;
+                    indexSlides.offScreenLeft = 2000;
+                    indexSlides.leaveScreenLeft = 4000;
+                    indexSlides.animating = false;
+                    indexSlides.obj = $('#slide-index .slide');
+                    indexSlides.style = [];
+                    indexSlides.style[0] = {
+                        text : {
+                            left : '30px',
+                            top : '81px'
+                        },
+                        button : {
+                            left : '30px',
+                            top : '244px'
+                        },
+                        direction : 'tb'
+                    };
 
-        <div class="alert alert-success">
-            <center>
-                掌畅水产品交易平台欢迎您 <strong><a href="#" class="alert-success-link">点击参与</a> </strong>
-            </center>
+                    indexSlides.style[1] = {
+                        text : {
+                            left : '30px',
+                            top : '81px'
+                        },
+                        button : {
+                            left : '30px',
+                            top : '244px'
+                        },
+                        direction : 'tb'
+                    };
+
+                    indexSlides.style[2] = {
+                        text : {
+                            left : '30px',
+                            top : '81px'
+                        },
+                        button : {
+                            left : '30px',
+                            top : '244px'
+                        },
+                        direction : 'tb'
+                    };
+                    indexSlides.style[3] = {
+                        text : {
+                            left : '30px',
+                            top : '81px'
+                        },
+                        button : {
+                            left : '30px',
+                            top : '244px'
+                        },
+                        direction : 'tb'
+                    };
+                </script>
+    <script type=text/javascript src="${STATIC_ROOT}/new-style/js/slide.js"></script>
+    <!--banner结束-->
+
+
+    <!--主体-->
+    <div id="container">
+
+        <!--第一层-->
+        <div id="inone">
+            <div class="fl">
+                <a href="${pageContext.request.contextPath}/product/productNormalCreate.html" target="_blank">
+                    <img src="${STATIC_ROOT}/new-style/images/in_one_01.gif" />
+                </a>
+                <div style="margin-top: 4px;">
+                    <a href="${pageContext.request.contextPath}/delivery/deliveryCreate.html" target="_blank">
+                        <img src="${STATIC_ROOT}/new-style/images/in_one_02.gif" />
+                    </a>
+                </div>
+                <div style="margin-top: 4px;">
+                    <img style="CURSOR: pointer" onclick="javascript:window.open('http://b.qq.com/webc.htm?new=0&sid=2836966897&o=掌畅科技&q=7', '_blank', 'height=502, width=644,toolbar=no,scrollbars=no,menubar=no,status=no');" src="${STATIC_ROOT}/new-style/images/in_one_03.gif" width="222" height="62" />
+                </div>
+            </div>
+            <div class="fr oneright">
+                <div class="fl">
+                    <img src="${STATIC_ROOT}/new-style/images/in_tuijian.gif" />
+                </div>
+                <div class="fl" id="ajaxLoading1">加载中...</div>
+                <div class="cb"></div>
+            </div>
+            <div class="cb"></div>
         </div>
+        <!--第一层 end-->
+
+        <!--第二层-->
+        <div id="intwo">
+            <!--左侧组团产品-->
+            <div class="fl" style="width: 222px;">
+                <img src="${STATIC_ROOT}/new-style/images/ztcp.gif" width="222" height="46" />
+                <div class="twoleft" id="ajaxLoading2">加载中...</div>
+            </div>
+            <!--左侧组团产品 end-->
+
+            <!--中间大家在卖-->
+            <div class="fl" id="sell">
+                <h2>&nbsp;&nbsp;大家在卖</h2>
+                <div id="ajaxLoading3">加载中...</div>
+                <div style="padding-left: 20px; height: 50px;">
+                    <a href="${pageContext.request.contextPath}/product/list.html" class="a_sell">查看大家在卖的全部产品</a>
+                </div>
+            </div>
+            <!--中间大家在卖 end-->
+            <!--中间大家想买-->
+            <div class="fr" id="buy">
+                <h2>&nbsp;&nbsp;大家想买</h2>
+                <div id="ajaxLoading4">加载中...</div>
+                <div style="padding-left: 20px; height: 50px; padding-top: 20px;">
+                    <a href="${pageContext.request.contextPath}/purchase/list.html" class="a_sell">查看大家想买的全部产品</a>
+                </div>
+            </div>
+            <!--中间大家想买 end-->
+            <div class="cb"></div>
+        </div>
+        <!--第二层 end-->
+
 
     </div>
+    <!--主体结束-->
 
-
-
-    <jsp:include page="common-footer.jsp"></jsp:include>
-    </div>
     <jsp:include page="common-bottom.jsp"></jsp:include>
 </body>
+<script type="text/javascript">
+    $(function() {
+        for ( var i = 1; i < 5; i++) {
+            (function(i) {
+                $.ajax({
+                    type : 'get',
+                    url : '${pageContext.request.contextPath}/indexAjax' + i + '.html',
+                    success : function(html) {
+                        $("#ajaxLoading" + i).html(html);
+                    }
+                });
+            })(i);
+        }
+    });
+</script>
 </html>
