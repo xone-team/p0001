@@ -19,6 +19,15 @@
 <!-- 			<result name="success" type="redirect">${ROOT}/${redirect}</result> -->
 			<result name="error">/WEB-INF/jsp/login-ref.jsp</result>
 		</action>
+		<action name="loginjson" class="loginRefAction" method="loginjson">
+			<result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
+		        <param name="excludeNullProperties">true</param>
+		        <param name="includeProperties">mapValue.*,login,userMap.*</param>
+			</result>
+		</action>
 		<action name="main" class="loginRefAction" method="main">
 			<result name="success">/WEB-INF/jsp/login-main.jsp</result>
 			<result name="redirect" type="redirectAction">

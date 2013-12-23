@@ -12,7 +12,6 @@
 /product/listSales.html
 /product/listGroups.html
 /product/listItems.html
-/product/listJsonItems.html
 /product/listProduct.html
 /product/item.html
 /product/listOverheadItems.html
@@ -27,3 +26,6 @@
 /assistant/market.html
 /assistant/msgInfo.html
 /adbanner/index.html
+/product/listJsonItems.html
+/login/loginjson.html
+/assistant/guideJsonLinks.html
