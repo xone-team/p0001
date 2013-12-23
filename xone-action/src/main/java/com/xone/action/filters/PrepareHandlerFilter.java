@@ -102,6 +102,7 @@ public class PrepareHandlerFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse resp = (HttpServletResponse)response;
+		resp.setHeader("Access-Control-Allow-Origin", "*");
 		String ip = getClientIpAddr(req);
 		logger.info("=====> Request Address IP:" + ip + ", URI:" + req.getRequestURI());
 		if (isprd) {
@@ -123,9 +124,14 @@ public class PrepareHandlerFilter implements Filter {
 				return;
 			}
 		}
+		//TODO 需要调试
+		//取请求头部的信息
+		String xhr = req.getHeader("X-Requested-With");//返回的值应该是XMLHttpRequest
+		logger.info("X-Requested-With:" + xhr);//代表是异步请求发送过来的请求
 		if (!isMyRulePass(req, resp)) {
 			resp.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
 			resp.sendRedirect(req.getContextPath() + "/assistant/redirect.html");
+			//TODO 需要处理异步登录发送过来的请求，如果没有登录，则需要返回状态码，要求重新登录，代码待处理
 			return;
 		}
 		chain.doFilter(request, response);

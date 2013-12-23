@@ -132,41 +132,24 @@ public class LoginRefAction extends LogicAction {
 		return SUCCESS;
 	}
 	
-	@SuppressWarnings("rawtypes")
-	public String login() {
-		setActionName("index");
-		setNamespace("login");
-		String loginHtml = "login/index.html";
-		if (null == getPerson() || null == getPerson().getUsername() || null == getPerson().getPassword()) {
-			if (StringUtils.isBlank(getRedirect())) {
-				setRedirect(loginHtml);
-			}
-			return SUCCESS;
-		}
-		if (!getUserMap().isEmpty() && null != getUserMap().get("user")) {
-			setRedirect("login/main.html");
-			setActionName("main");
-			setNamespace("login");
-			return SUCCESS;
-		}
+	private boolean doLogin() {
 		String msg = "用户不存在或者密码不正确。";
 		String code = getRequest().getParameter("identifyCode");
 		if (StringUtils.isBlank(code)) {
 			getMapValue().put("msg", "请输入验证码");
-			return ERROR;
+			return false;
 		}
 		String scode = (String)getRequest().getSession().getAttribute(IdentifyCodeServlet.IDENTIFY_CODE_KEY);
 		if (!code.equalsIgnoreCase(scode)) {
 			getMapValue().put("msg", "验证码不正确");
-			return ERROR;
+			return false;
 		}
 		Person p = new Person();
 		p.setUsername(getPerson().getUsername());
 		List<Person> pList = getPersonService().findAllByPerson(p);
 		if (pList.size() > 1 || pList.size() <= 0) {//没有记录或者能匹配到多个记录,都要求重新登陆
 			getMapValue().put("msg", msg);
-//			setRedirect(loginHtml);
-			return ERROR;
+			return false;
 		}
 		p = pList.get(0);
 		if (EncryptRef.SHA1(getPerson().getPassword()).equals(p.getPassword())) {
@@ -183,10 +166,37 @@ public class LoginRefAction extends LogicAction {
 				getPersonService().update(p);
 			}
 			getLoginLogService().save(loginLog);
-//			getUserMap().put("", value)
 		} else {
 			getMapValue().put("msg", msg);
-//			setRedirect(loginHtml);
+			return false;
+		}
+		return true;
+	}
+	
+	public String loginjson() {
+		if (doLogin()) {
+			
+		}
+		return SUCCESS;
+	}
+	
+	public String login() {
+		setActionName("index");
+		setNamespace("login");
+		String loginHtml = "login/index.html";
+		if (null == getPerson() || null == getPerson().getUsername() || null == getPerson().getPassword()) {
+			if (StringUtils.isBlank(getRedirect())) {
+				setRedirect(loginHtml);
+			}
+			return SUCCESS;
+		}
+		if (!getUserMap().isEmpty() && null != getUserMap().get("user")) {
+			setRedirect("login/main.html");
+			setActionName("main");
+			setNamespace("login");
+			return SUCCESS;
+		}
+		if (!doLogin()) {
 			return ERROR;
 		}
 		setRedirect("login/main.html");

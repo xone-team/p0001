@@ -23,6 +23,15 @@
 		<action name="guideLinks" class="assistantAction" method="guideLinks">
 		    <result name="success">/WEB-INF/jsp/guide-links.jsp</result>
 		</action>
+		<action name="guideJsonLinks" class="assistantAction" method="guideJsonLinks">
+		    <result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
+		        <param name="excludeNullProperties">true</param>
+		        <param name="includeProperties">links.*</param>
+			</result>
+		</action>
 		<action name="msgInfo" class="assistantAction" method="msgInfo">
 		    <result name="success">/WEB-INF/jsp/assistant-msg-info.jsp</result>
 		</action>
@@ -33,6 +42,15 @@
 		</action>
 		<action name="linkkeys" class="assistantAction" method="linkkeys">
 		    <result name="success">/WEB-INF/jsp/assistant-linkkeys.jsp</result>
+		</action>
+		<action name="linkJsonkeys" class="assistantAction" method="linkJsonkeys">
+		    <result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
+		        <param name="excludeNullProperties">true</param>
+		        <param name="includeProperties">links.*</param>
+			</result>
 		</action>
 		<action name="market" class="assistantAction" method="market">
 		    <result name="success">/WEB-INF/jsp/assistant-market.jsp</result>

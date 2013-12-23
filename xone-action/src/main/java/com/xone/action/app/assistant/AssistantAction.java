@@ -52,6 +52,7 @@ public class AssistantAction extends LogicAction {
 	protected CompanyInfo companyInfo = new CompanyInfo();
 	protected List<Adbanner> adList = new ArrayList<Adbanner>();
 	private static List<String> FIXED_NO = new ArrayList<String>();
+	private static Map<String, String> URL_APP = new HashMap<String, String>();//映射app地址
 	protected String [] msgs = null;
 	protected List<String> msgList = new ArrayList<String>();
 	
@@ -59,6 +60,7 @@ public class AssistantAction extends LogicAction {
 		FIXED_NO.addAll(Arrays.asList(new String[] {
 				"A001", "A002", "A003", "A022"	
 		}));
+		//URL_APP此处需要映射app地址
 	}
 	
 	protected String redirect;
@@ -83,6 +85,35 @@ public class AssistantAction extends LogicAction {
 		}
 		
 		guideLinks();
+		return SUCCESS;
+	}
+	
+	public String guideJsonLinks() {
+		Long userId = getUserId();
+		List<String> list = new ArrayList<String>();
+		if (userId > 0) {
+			List<UserLinks> userLinks = getUserLinksService().findAllByUserId(getUserId());
+			for (UserLinks ul : userLinks) {
+				list.add(ul.getLinkNo());
+			}
+		} 
+		list.addAll(FIXED_NO);
+		if (!list.isEmpty()) {
+			List<Links> l = getLinksService().findAllByLinkNos(list, getUserLevel());
+			if (null != l && !l.isEmpty()) {
+				getLinks().addAll(l);
+			}
+		}
+		if (getLinks().isEmpty()) {
+			getLinks().add(new Links());
+			getLinks().add(new Links());
+			getLinks().add(new Links());
+		}
+		Links addLink = new Links();
+		addLink.setLinkNo("MORE");
+		addLink.setLink("#linkspage");
+		addLink.setLinkType("add");
+		getLinks().add(addLink);
 		return SUCCESS;
 	}
 	
@@ -141,6 +172,34 @@ public class AssistantAction extends LogicAction {
 			} else {
 				link.setSelected(false);
 			}
+			getLinks().add(link);
+		}
+		return SUCCESS;
+	}
+	
+	public String linkJsonkeys() {
+		List<UserLinks> userLinks = getUserLinksService().findAllByUserId(getUserId());
+		Map<String, String> target = new HashMap<String, String>();
+		if (null != userLinks && !userLinks.isEmpty()) {
+			for (UserLinks ul : userLinks) {
+				target.put(ul.getLinkNo(), "OK");
+			}
+		}
+		List<Links> list = getLinksService().findAllByLinkNos(null, getUserLevel());
+		for (Links link : list) {
+			if (FIXED_NO.contains(link.getLinkNo())) {
+				continue;
+			}
+			if ("OK".equals(target.get(link.getLinkNo()))) {
+				link.setSelected(true);
+			} else {
+				link.setSelected(false);
+			}
+			link.setAuth(null);
+			link.setDateCreated(null);
+			link.setLastUpdated(null);
+			link.setLink(null);
+			link.setLinkType(null);
 			getLinks().add(link);
 		}
 		return SUCCESS;
