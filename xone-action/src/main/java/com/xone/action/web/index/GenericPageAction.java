@@ -2,8 +2,6 @@ package com.xone.action.web.index;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.Overhead;
+import com.xone.model.hibernate.entity.Product;
+import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.AdbannerService;
 import com.xone.service.app.ImageUploadedService;
@@ -45,23 +45,24 @@ public class GenericPageAction extends LogicAction {
 
 	public String index() throws Exception {
 		
-//		// get products
-//	    Map<String, String> params = new HashMap<String, String>();
-//	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
-//	    params.put("pageSize", "20");
-//	    params.put("pageNo", "0");
-//	    Pagination p = getProductService().findByParams(params);
-//	    setProductPage(p);
-//	    
+		// get products
+	    Map<String, String> params = new HashMap<String, String>();
+	    params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+	    params.put("pageSize", "5");
+	    params.put("pageNo", "0");
+	    Pagination p = getProductService().findByParams(params);
+	    setProductPage(p);
+	    
 //	    // get purchases
 //	    params = new HashMap<String, String>();
 //	    params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
-//	    params.put("pageSize", "20");
+//	    params.put("pageSize", "5");
 //	    params.put("pageNo", "0");
 //	    p = getPurchaseService().findByParams(params);
 //	    setPurchasePage(p);
 	    
-	    Map<String, String> params = new HashMap<String, String>();
+	    params = new HashMap<String, String>();
 	    params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
 	    overheadPage = overheadService.findByParams(params);
 	    
