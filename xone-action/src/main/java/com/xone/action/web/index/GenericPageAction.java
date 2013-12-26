@@ -49,7 +49,7 @@ public class GenericPageAction extends LogicAction {
 	    Map<String, String> params = new HashMap<String, String>();
 	    params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
 	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
-	    params.put("pageSize", "5");
+	    params.put("pageSize", "20");
 	    params.put("pageNo", "0");
 	    Pagination p = getProductService().findByParams(params);
 	    setProductPage(p);
