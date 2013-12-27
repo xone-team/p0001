@@ -10,7 +10,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<jsp:include page="common-header.jsp"></jsp:include>
+<jsp:include page="common-header-no-bootstrap.jsp"></jsp:include>
 </head>
 <body>
     <jsp:include page="common-nav.jsp"><jsp:param value="5" name="offset" /></jsp:include>
@@ -32,7 +32,7 @@
                     <br />
                     <label>验证码</label><br />
                     <input name="validateCode" id="validateCode" type="text" class="input" style="width: 80px;" />
-                    <label style="padding-left: 5px;"><img class="myIdentifyCodeImg" src="${pageContext.request.contextPath}/identifyCode.jpeg?_=${identify}" /></label>
+                    <label style="padding-left: 5px; display: inline;"><img class="myIdentifyCodeImg" src="${pageContext.request.contextPath}/identifyCode.jpeg?_=${identify}" /></label>
                     <a href="javascript:void(0);" class="myIdentifyCodeHref" style="padding-left: 5px;">刷新</a>
                     <div style="margin: 20px 0 10px 0;">
                         <input type="submit" value="登&nbsp;&nbsp;录" class="input2" style="width: 250px;" />

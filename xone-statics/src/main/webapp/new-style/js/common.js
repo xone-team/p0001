@@ -48,56 +48,6 @@ function $$(id) {
     } else {
         return false;
     }
-} (function() {
-    function initHead() {
-        setTimeout(showSubSearch, 0)
-    };
-    function showSubSearch() {
-        $$("pt1").onmouseover = function() {
-            $$("pt2").style.display = "";
-            $$("pt1").className = "select select_hover"
-        };
-        $$("pt1").onmouseout = function() {
-            $$("pt2").style.display = "none";
-            $$("pt1").className = "select"
-        };
-        $$("s1").onclick = function() {
-            selSubSearch(1);
-            $$("q").focus()
-        };
-        $$("s2").onclick = function() {
-            selSubSearch(2);
-            $$("q").focus()
-        };
-        
-    };
+} 
 
-    function selSubSearch(iType) {
-        hbb = [];
-        hbb = {
-				1 : ["大家在卖", "5"],
-				2 : ["大家想买", "8"],
-				
-        };
-        $$("s0").innerHTML = hbb[iType][0];
-        $$("pt2").style.display = "none";
-        SetCookie('sousuosss', iType);
-        $$("catid").value = hbb[iType][1];
-    };
-    initHead();
-})();
-
-hbb = [];
-hbb = {
-				1 : ["大家在卖", "5"],
-				2 : ["大家想买", "8"],
-				
-};
-window.onload = function(){
-if (GetCookie('sousuosss')) {
-    var sss = GetCookie('sousuosss');
-    $$("s0").innerHTML = hbb[sss][0];
-    $$("catid").value = hbb[sss][1];
-}
-}
 

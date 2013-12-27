@@ -55,7 +55,7 @@ mouse_events.mouse_over = function(){
 		flag = true;	
 
 		var p = this.className;
-		timeout = setTimeout(function(){mouse_events.aShow(p)}, 200);
+//		timeout = setTimeout(function(){mouse_events.aShow(p)}, 200);
 	});
 };
 

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<jsp:include page="common-header.jsp"></jsp:include>
+<jsp:include page="common-header-no-bootstrap.jsp"></jsp:include>
 </head>
 <body>
     <jsp:include page="common-nav.jsp"><jsp:param value="3" name="offset" /></jsp:include>

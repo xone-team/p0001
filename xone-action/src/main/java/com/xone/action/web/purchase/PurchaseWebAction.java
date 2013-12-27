@@ -14,9 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.xone.action.base.LogicAction;
 import com.xone.model.hibernate.entity.Adbanner;
 import com.xone.model.hibernate.entity.ImageUploaded;
+import com.xone.model.hibernate.entity.Overhead;
+import com.xone.model.hibernate.entity.Product;
 import com.xone.model.hibernate.entity.Purchase;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.service.app.AdbannerService;
+import com.xone.service.app.OverheadService;
+import com.xone.service.app.ProductService;
 import com.xone.service.app.PurchaseService;
 import com.xone.service.app.utils.MyBeanUtils;
 import com.xone.service.app.utils.MyBeanUtils.CopyRules;
@@ -45,10 +49,22 @@ public class PurchaseWebAction extends LogicAction {
 
 	protected String searchType = "2";
 	protected String searchKey;
+	
+	@Autowired
+	protected ProductService productService;
+	protected Pagination productPage = new Pagination();
+	
+//	@Autowired
+//	protected PurchaseService purchaseService;
+	protected Pagination purchasePage = new Pagination();
 
 	@Autowired
 	protected AdbannerService adbannerService;
 	protected List<Adbanner> adList = new ArrayList<Adbanner>();
+	
+	@Autowired
+	protected OverheadService overheadService;
+	protected Pagination overheadPage = new Pagination();
 
 	public Enum<?>[] getFlagDeleted() {
 		return Purchase.FlagDeleted.values();
@@ -229,10 +245,31 @@ public class PurchaseWebAction extends LogicAction {
 		params.put("pageNo", String.valueOf(getPagination().getPageNo()));
 		Pagination p = getPurchaseService().findByParams(params);
 		setPagination(p);
+		
+		// get products
+	    params = new HashMap<String, String>();
+	    params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+	    params.put("pageSize", "10");
+	    params.put("pageNo", "0");
+	    p = getProductService().findByParams(params);
+	    setProductPage(p);
+		
+	    // get purchases
+	    params = new HashMap<String, String>();
+	    params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+	    params.put("pageSize", "10");
+	    params.put("pageNo", "0");
+	    p = getPurchaseService().findByParams(params);
+	    setPurchasePage(p);
+		
+	    params = new HashMap<String, String>();
+	    params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
+	    overheadPage = overheadService.findByParams(params);
 
-		// get ad
-		setAdList(getAdbannerService().findItemsByMap(
-				new HashMap<String, String>()));
+//		// get ad
+//		setAdList(getAdbannerService().findItemsByMap(
+//				new HashMap<String, String>()));
 		return SUCCESS;
 	}
 
@@ -240,10 +277,33 @@ public class PurchaseWebAction extends LogicAction {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("id", String.valueOf(getPurchase().getId()));
 		setPurchase(getPurchaseService().findByMap(params));
+		
+//		Pagination p;
+//		
+//		// get products
+//	    params = new HashMap<String, String>();
+//	    params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+//	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+//	    params.put("pageSize", "10");
+//	    params.put("pageNo", "0");
+//	    p = getProductService().findByParams(params);
+//	    setProductPage(p);
+//		
+//	    // get purchases
+//	    params = new HashMap<String, String>();
+//	    params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+//	    params.put("pageSize", "10");
+//	    params.put("pageNo", "0");
+//	    p = getPurchaseService().findByParams(params);
+//	    setPurchasePage(p);
+//		
+//	    params = new HashMap<String, String>();
+//	    params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
+//	    overheadPage = overheadService.findByParams(params);
 
-		// get ad
-		setAdList(getAdbannerService().findItemsByMap(
-				new HashMap<String, String>()));
+//		// get ad
+//		setAdList(getAdbannerService().findItemsByMap(
+//				new HashMap<String, String>()));
 		return SUCCESS;
 	}
 
@@ -381,6 +441,46 @@ public class PurchaseWebAction extends LogicAction {
 
 	public void setAdList(List<Adbanner> adList) {
 		this.adList = adList;
+	}
+
+	public OverheadService getOverheadService() {
+		return overheadService;
+	}
+
+	public void setOverheadService(OverheadService overheadService) {
+		this.overheadService = overheadService;
+	}
+
+	public Pagination getOverheadPage() {
+		return overheadPage;
+	}
+
+	public void setOverheadPage(Pagination overheadPage) {
+		this.overheadPage = overheadPage;
+	}
+
+	public ProductService getProductService() {
+		return productService;
+	}
+
+	public void setProductService(ProductService productService) {
+		this.productService = productService;
+	}
+
+	public Pagination getProductPage() {
+		return productPage;
+	}
+
+	public void setProductPage(Pagination productPage) {
+		this.productPage = productPage;
+	}
+
+	public Pagination getPurchasePage() {
+		return purchasePage;
+	}
+
+	public void setPurchasePage(Pagination purchasePage) {
+		this.purchasePage = purchasePage;
 	}
 
 }

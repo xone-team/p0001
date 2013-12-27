@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
 <title>欢迎使用</title>
-<jsp:include page="common-header.jsp"></jsp:include>
+<jsp:include page="common-header-no-bootstrap.jsp"></jsp:include>
 <script src="${STATIC_ROOT}/new-style/js/iepng.js"></script>
 </head>
 <body>

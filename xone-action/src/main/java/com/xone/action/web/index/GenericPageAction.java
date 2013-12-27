@@ -49,26 +49,26 @@ public class GenericPageAction extends LogicAction {
 	    Map<String, String> params = new HashMap<String, String>();
 	    params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
 	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
-	    params.put("pageSize", "20");
+	    params.put("pageSize", "10");
 	    params.put("pageNo", "0");
 	    Pagination p = getProductService().findByParams(params);
 	    setProductPage(p);
 	    
-//	    // get purchases
-//	    params = new HashMap<String, String>();
-//	    params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
-//	    params.put("pageSize", "5");
-//	    params.put("pageNo", "0");
-//	    p = getPurchaseService().findByParams(params);
-//	    setPurchasePage(p);
-	    
+	    // get purchases
 	    params = new HashMap<String, String>();
-	    params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
-	    overheadPage = overheadService.findByParams(params);
+	    params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+	    params.put("pageSize", "10");
+	    params.put("pageNo", "0");
+	    p = getPurchaseService().findByParams(params);
+	    setPurchasePage(p);
 	    
-	    // get ad
-		params = new HashMap<String, String>();
-		setAdList(getAdbannerService().findItemsByMap(params));
+//	    params = new HashMap<String, String>();
+//	    params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
+//	    overheadPage = overheadService.findByParams(params);
+//	    
+//	    // get ad
+//		params = new HashMap<String, String>();
+//		setAdList(getAdbannerService().findItemsByMap(params));
 		
 		return SUCCESS;
 	}

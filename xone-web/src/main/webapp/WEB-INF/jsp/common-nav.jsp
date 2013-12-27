@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-
+<script src="${STATIC_ROOT}/new-style/js/common.js"></script>
 <!--在线客服-->
 <DIV id=xixi onmouseover=toBig() onmouseout=toSmall() style="z-index: 999;">
     <TABLE style="FLOAT: left" border=0 cellSpacing=0 cellPadding=0 width=157>
@@ -65,9 +65,7 @@
         }, 10 + parseInt(Math.random() * 20));
         return arguments.callee;
     };
-    window.onload = function() {
-        客服('xixi', 100, -152)
-    }
+
 </SCRIPT>
 
 <SCRIPT language=javascript>
@@ -151,14 +149,15 @@
                                 </p>
                             </div>
                         </div>
-                        <input id="catid" name="catid" type="hidden" value="7">
-                        <input id="q" class="enter" name="infos" onFocus="if(this.value=='请输入关键字'){this.value='';}else{this.select();}this.style.color='black';" value="请输入关键字">
+                        <input id="catid" name="searchType" type="hidden" value="${ searchType }">
+                        <input id="q" class="enter" name="searchKey" onFocus="if(this.value=='请输入关键字'){this.value='';}else{this.select();}this.style.color='black';" value="${ empty searchKey ? '请输入关键字' : searchKey }">
                         <input class="sb" name="Input" type="submit" value="" style="width: 72px;">
                     </form>
                 </div>
             </div>
             <!--搜索框 end-->
         </div>
+        
         <div class="fl iphone">
             <div class="c_iphone">
                 <img src="${STATIC_ROOT}/new-style/images/iphone_b.gif" />

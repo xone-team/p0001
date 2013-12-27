@@ -12,7 +12,7 @@
                     <fmt:formatDate value="${item.dateCreated}" pattern="yyyy-MM-dd" />
                 </dd>
                 <p>
-                    类型：${item.productType}&nbsp;&nbsp;<br />属地：${item.productLocation}&nbsp;&nbsp;产品地址:${item.productAddress}<br />产品描述:${item.productName}
+                    类型：${item.productTypeName}&nbsp;&nbsp;产地：${item.productAddress}&nbsp;&nbsp;<br />属地：${item.productLocation}&nbsp;&nbsp;价格:${item.productPrice}<br />产品描述:${item.productName}
                 </p> <a href="${pageContext.request.contextPath}/product/item.html?product.id=${item.id}" title="详细信息" target="_blank">详细信息</a></li>
         </c:if>
     </c:forEach>
