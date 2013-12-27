@@ -119,9 +119,16 @@
     <div class="head_m">
         <div class="fl">
             您好，欢迎光临掌畅水产品批发网&nbsp;&nbsp;
-            <a href="${pageContext.request.contextPath}/admin/login.html" class="blue">请登录</a>
-            &nbsp;&nbsp;
-            <a href="${pageContext.request.contextPath}/user/register.html" class="blue">免费注册</a>
+            <c:choose>
+                <c:when test="${not empty userMap}">
+                    <span>欢迎 ${username} 登录！ <a href="${pageContext.request.contextPath}/admin/welcome.html">[后台管理]</a> <a href="<c:url value="/j_spring_security_logout"/>">[退出]</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="${pageContext.request.contextPath}/admin/login.html" class="blue">请登录</a>
+                    &nbsp;&nbsp;
+                    <a href="${pageContext.request.contextPath}/user/register.html" class="blue">免费注册</a>
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="fr blue">热线电话：400-897-9727</div>
         <div class="cb"></div>
