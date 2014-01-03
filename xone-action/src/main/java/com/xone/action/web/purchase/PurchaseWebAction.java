@@ -247,29 +247,41 @@ public class PurchaseWebAction extends LogicAction {
 		setPagination(p);
 		
 		// get products
-	    params = new HashMap<String, String>();
-	    params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
-	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
-	    params.put("pageSize", "10");
-	    params.put("pageNo", "0");
-	    p = getProductService().findByParams(params);
-	    setProductPage(p);
-		
-	    // get purchases
-	    params = new HashMap<String, String>();
-	    params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
-	    params.put("pageSize", "10");
-	    params.put("pageNo", "0");
-	    p = getPurchaseService().findByParams(params);
-	    setPurchasePage(p);
-		
-	    params = new HashMap<String, String>();
-	    params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
-	    overheadPage = overheadService.findByParams(params);
+//	    params = new HashMap<String, String>();
+//	    params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+//	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+//	    params.put("pageSize", "10");
+//	    params.put("pageNo", "0");
+//	    p = getProductService().findByParams(params);
+//	    setProductPage(p);
+//		
+//	    // get purchases
+//	    params = new HashMap<String, String>();
+//	    params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+//	    params.put("pageSize", "10");
+//	    params.put("pageNo", "0");
+//	    p = getPurchaseService().findByParams(params);
+//	    setPurchasePage(p);
+//		
+//	    params = new HashMap<String, String>();
+//	    params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
+//	    overheadPage = overheadService.findByParams(params);
 
 //		// get ad
 //		setAdList(getAdbannerService().findItemsByMap(
 //				new HashMap<String, String>()));
+		return SUCCESS;
+	}
+	
+	public String listHot() {
+	    // get purchases
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("checkStatus", Purchase.CheckStatus.PASSED.getValue());
+	    params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+	    params.put("pageSize", "5");
+	    params.put("pageNo", "0");
+	    Pagination p = getPurchaseService().findByParams(params);
+	    setPurchasePage(p);
 		return SUCCESS;
 	}
 

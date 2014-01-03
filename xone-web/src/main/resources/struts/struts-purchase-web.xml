@@ -10,6 +10,9 @@
         <action name="list" class="purchaseWebAction" method="list">
             <result name="success">/WEB-INF/jsp/purchase-list.jsp</result>
         </action>
+        <action name="listHot" class="purchaseWebAction" method="listHot">
+            <result name="success">/WEB-INF/jsp/purchase-list-hot.jsp</result>
+        </action>
         <action name="item" class="purchaseWebAction" method="item">
             <result name="success">/WEB-INF/jsp/purchase-item.jsp</result>
         </action>

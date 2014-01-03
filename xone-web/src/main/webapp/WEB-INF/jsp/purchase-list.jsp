@@ -84,26 +84,44 @@
         <div class="fl" style="width: 230px;">
             <div class="list_left">
                 <h2>&nbsp;&nbsp;热卖产品</h2>
-                <ul>
-                    <c:forEach var="item" items="${ overheadPage.list }">
-                        <c:if test="${ item.overheadType == '1' }">
-                            <li><a href="${pageContext.request.contextPath}/product/item.html?product.id=${item.refId}" class="a_zd" target="_blank">${ item.product.productName }</a></li>
-                        </c:if>
-                    </c:forEach>
-                    <c:forEach var="item" items="${productPage.list}">
-                        <c:if test="${item.saleType=='1'}">
-                            <li><a href="${pageContext.request.contextPath}/product/item.html?product.id=${item.id}">${ item.productName }</a></li>
-                        </c:if>
-                    </c:forEach>
+                <ul id="listhot">加载中...
+                <script type="text/javascript">
+                $.ajax({
+                    type : 'get',
+                    url : '${pageContext.request.contextPath}/product/listHot.html?_=' + new Date().getTime(),
+                    success : function(html) {
+                        $("#listhot").html(html);
+                    }
+                });
+                </script>
+<%--                     <c:forEach var="item" items="${ overheadPage.list }"> --%>
+<%--                         <c:if test="${ item.overheadType == '1' }"> --%>
+<%--                             <li><a href="${pageContext.request.contextPath}/product/item.html?product.id=${item.refId}" class="a_zd" target="_blank">${ item.product.productName }</a></li> --%>
+<%--                         </c:if> --%>
+<%--                     </c:forEach> --%>
+<%--                     <c:forEach var="item" items="${productPage.list}"> --%>
+<%--                         <c:if test="${item.saleType=='1'}"> --%>
+<%--                             <li><a href="${pageContext.request.contextPath}/product/item.html?product.id=${item.id}">${ item.productName }</a></li> --%>
+<%--                         </c:if> --%>
+<%--                     </c:forEach> --%>
                 </ul>
             </div>
 
             <div class="list_left" style="margin-top: 10px;">
                 <h2>&nbsp;&nbsp;最旺求购</h2>
-                <ul>
-                    <c:forEach var="item" items="${purchasePage.list}">
-                        <li><a href="${pageContext.request.contextPath}/purchase/item.html?purchase.id=${item.id}">${ item.purchaseName }</a></li>
-                    </c:forEach>
+                <ul id="purchaseListHot">加载中...
+                <script type="text/javascript">
+                $.ajax({
+                    type : 'get',
+                    url : '${pageContext.request.contextPath}/purchase/listHot.html?_=' + new Date().getTime(),
+                    success : function(html) {
+                        $("#purchaseListHot").html(html);
+                    }
+                });
+                </script>
+<%--                     <c:forEach var="item" items="${purchasePage.list}"> --%>
+<%--                         <li><a href="${pageContext.request.contextPath}/purchase/item.html?purchase.id=${item.id}">${ item.purchaseName }</a></li> --%>
+<%--                     </c:forEach> --%>
                 </ul>
             </div>
         </div>

@@ -77,8 +77,8 @@
                     <c:if test="${A_L || B_L}">
                         <li <c:if test="${param.menuindex == '14'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/delivery/deliveryCreate.html" class="well well-small clearmarginbottom">物流配送</a></li>
                     </c:if>
-                    <li <c:if test="${param.menuindex == '15'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/subscribe/subscribeCreate.html" class="well well-small clearmarginbottom">筛选订阅</a></li>
-                    <li <c:if test="${param.menuindex == '20'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/overhead/overheadCreate.html" class="well well-small clearmarginbottom">申请置顶</a></li>
+<%--                     <li <c:if test="${param.menuindex == '15'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/subscribe/subscribeCreate.html" class="well well-small clearmarginbottom">筛选订阅</a></li> --%>
+<%--                     <li <c:if test="${param.menuindex == '20'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/overhead/overheadCreate.html" class="well well-small clearmarginbottom">申请置顶</a></li> --%>
                     <%--                     <li <c:if test="${param.menuindex == '23'}">class="active"</c:if>><a href="${pageContext.request.contextPath}/companyInfo/companyInfoCreate.html" class="well well-small clearmarginbottom">填写公司信息</a></li> --%>
                 </ul>
             </div>

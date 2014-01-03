@@ -347,13 +347,14 @@ public class ProductWebAction extends LogicAction {
 		setPagination(p);
 		
 		// get products
-	    params = new HashMap<String, String>();
-	    params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
-	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
-	    params.put("pageSize", "10");
-	    params.put("pageNo", "0");
-	    p = getProductService().findByParams(params);
-	    setProductPage(p);
+//	    params = new HashMap<String, String>();
+//	    params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+//	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+//		params.put("saleType", Product.SaleType.NORMAL.getValue());
+//	    params.put("pageSize", "5");
+//	    params.put("pageNo", "0");
+//	    p = getProductService().findByParams(params);
+//	    setProductPage(p);
 		
 	    // get purchases
 	    params = new HashMap<String, String>();
@@ -363,13 +364,41 @@ public class ProductWebAction extends LogicAction {
 	    p = getPurchaseService().findByParams(params);
 	    setPurchasePage(p);
 		
-	    params = new HashMap<String, String>();
-	    params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
-	    overheadPage = overheadService.findByParams(params);
+//	    params = new HashMap<String, String>();
+//	    params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
+//	    params.put("overheadType",Overhead.OverheadType.PRODUCT_NORMAL.getValue());
+//	    params.put("pageSize", "5");
+//	    params.put("pageNo", "0");
+//	    overheadPage = overheadService.findByParams(params);
 		
 //		// get ad
 //		setAdList(getAdbannerService().findItemsByMap(
 //				new HashMap<String, String>()));
+		return SUCCESS;
+	}
+	
+	public String listHot() {
+		String saleType = Product.SaleType.NORMAL.getValue();
+		if (StringUtils.isNotBlank(getProduct().getSaleType())) {
+			saleType = getProduct().getSaleType();
+		}
+		// get products
+		HashMap<String, String> params = new HashMap<String, String>();
+	    params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+	    params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+		params.put("saleType", saleType);
+	    params.put("pageSize", "5");
+	    params.put("pageNo", "0");
+	    Pagination p = getProductService().findByParams(params);
+	    setProductPage(p);
+	    
+	    params = new HashMap<String, String>();
+	    params.put("checkStatus", Overhead.CheckStatus.PASSED.getValue());
+	    params.put("overheadType", saleType);
+	    params.put("pageSize", "5");
+	    params.put("pageNo", "0");
+	    overheadPage = overheadService.findByParams(params);
+	    
 		return SUCCESS;
 	}
 

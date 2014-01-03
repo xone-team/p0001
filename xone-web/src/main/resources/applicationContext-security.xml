@@ -18,8 +18,10 @@
     <http pattern="/*.jpeg**" security="none"></http>
     <http pattern="/*.jsp**" security="none"></http>
     <http pattern="/product/list.html**" security="none"></http>
+    <http pattern="/product/listHot.html**" security="none"></http>
     <http pattern="/product/item.html**" security="none"></http>
     <http pattern="/purchase/list.html**" security="none"></http>
+    <http pattern="/purchase/listHot.html**" security="none"></http>
     <http pattern="/purchase/item.html**" security="none"></http>
     <http pattern="/assistant/image.html**" security="none"></http>
     <http use-expressions="true" entry-point-ref="authenticationProcessingFilterEntryPoint">
