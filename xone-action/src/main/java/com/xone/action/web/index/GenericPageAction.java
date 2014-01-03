@@ -73,6 +73,63 @@ public class GenericPageAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	//推荐产品
+	public String index1() throws Exception {
+		// get products
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+		params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+		params.put("saleType", Product.SaleType.SALES.getValue());
+		params.put("pageSize", "5");
+		params.put("pageNo", "0");
+		Pagination p = getProductService().findByParams(params);
+		setProductPage(p);
+		return SUCCESS;
+	}
+	
+	//组团产品
+	public String index2() throws Exception {
+		// get products
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+		params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+		params.put("saleType", Product.SaleType.GROUPS.getValue());
+		params.put("pageSize", "2");
+		params.put("pageNo", "0");
+		Pagination p = getProductService().findByParams(params);
+		setProductPage(p);
+		return SUCCESS;
+	}
+	
+	//普通产品
+	public String index3() throws Exception {
+		// get products
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+		params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+		params.put("saleType", Product.SaleType.NORMAL.getValue());
+		params.put("pageSize", "5");
+		params.put("pageNo", "0");
+		Pagination p = getProductService().findByParams(params);
+		setProductPage(p);
+		return SUCCESS;
+	}
+	
+	//首页大家在买
+	public String index4() throws Exception {
+		
+		Map<String, String> params = new HashMap<String, String>();
+		// get purchases
+		params = new HashMap<String, String>();
+		params.put("flagDeleted", Purchase.FlagDeleted.NORMAL.getValue());
+		params.put("pageSize", "10");
+		params.put("pageNo", "0");
+		Pagination p = getPurchaseService().findByParams(params);
+		setPurchasePage(p);
+		
+		return SUCCESS;
+	}
+	
 	public String about() throws Exception {
 		return SUCCESS;
 	}

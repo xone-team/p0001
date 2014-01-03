@@ -17,16 +17,16 @@
         <action name="mobile" class="genericPageAction" method="mobile">
             <result name="success">/WEB-INF/jsp/mobile-page.jsp</result>
         </action>
-        <action name="indexAjax1" class="genericPageAction" method="index">
+        <action name="indexAjax1" class="genericPageAction" method="index1">
             <result name="success">/WEB-INF/jsp/index-page-ajax1.jsp</result>
         </action>
-        <action name="indexAjax2" class="genericPageAction" method="index">
+        <action name="indexAjax2" class="genericPageAction" method="index2">
             <result name="success">/WEB-INF/jsp/index-page-ajax2.jsp</result>
         </action>
-        <action name="indexAjax3" class="genericPageAction" method="index">
+        <action name="indexAjax3" class="genericPageAction" method="index3">
             <result name="success">/WEB-INF/jsp/index-page-ajax3.jsp</result>
         </action>
-        <action name="indexAjax4" class="genericPageAction" method="index">
+        <action name="indexAjax4" class="genericPageAction" method="index4">
             <result name="success">/WEB-INF/jsp/index-page-ajax4.jsp</result>
         </action>
     </package>

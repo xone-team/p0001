@@ -28,7 +28,7 @@
     <!--帮助结束-->
     <!--版权开始-->
     <div id="footer">
-        Copyright © 2013-2018, All Rights Reserved 沪ICP备070598号<br /> 联系邮箱：hello123@163.net
+        Copyright © 2013-2018, All Rights Reserved<br /> 联系邮箱：alexhuang0906@hotmail.com
     </div>
     <!--版权结束-->
 </div>

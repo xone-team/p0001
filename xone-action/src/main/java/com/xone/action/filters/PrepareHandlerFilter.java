@@ -130,6 +130,7 @@ public class PrepareHandlerFilter implements Filter {
 		logger.info("X-Requested-With:" + xhr);//代表是异步请求发送过来的请求
 		if (!isMyRulePass(req, resp)) {
 			resp.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
+			resp.setHeader("login", "false");//需要登录
 			resp.sendRedirect(req.getContextPath() + "/assistant/redirect.html");
 			//TODO 需要处理异步登录发送过来的请求，如果没有登录，则需要返回状态码，要求重新登录，代码待处理
 			return;

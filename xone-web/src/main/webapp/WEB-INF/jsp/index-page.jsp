@@ -182,18 +182,20 @@
     <jsp:include page="common-bottom.jsp"></jsp:include>
 </body>
 <script type="text/javascript">
-    $(function() {
+	$(document).ready(function() {
         for ( var i = 1; i < 5; i++) {
             (function(i) {
-                $.ajax({
-                    type : 'get',
-                    url : '${pageContext.request.contextPath}/indexAjax' + i + '.html',
-                    success : function(html) {
-                        $("#ajaxLoading" + i).html(html);
-                    }
-                });
+            	window.setTimeout(function() {
+                    $.ajax({
+                        type : 'get',
+                        url : '${pageContext.request.contextPath}/indexAjax' + i + '.html',
+                        success : function(html) {
+                            $("#ajaxLoading" + i).html(html);
+                        }
+                    });
+            	}, 0);
             })(i);
         }
-    });
+	});
 </script>
 </html>
