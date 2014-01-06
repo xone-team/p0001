@@ -192,7 +192,7 @@
             <li><a href="${pageContext.request.contextPath}/purchase/list.html"<c:if test="${param.offset == '3'}"> class="a-dq"</c:if>>大家想买</a></li>
             <li><a href="${pageContext.request.contextPath}/product/list.html?product.saleType=1"<c:if test="${param.offset == '4'}"> class="a-dq"</c:if>>促销产品</a></li>
             <li><a href="${pageContext.request.contextPath}/product/list.html?product.saleType=2"<c:if test="${param.offset == '6'}"> class="a-dq"</c:if>>组团产品</a></li>
-            <li><a href="${pageContext.request.contextPath}/admin/login.html"<c:if test="${param.offset == '5'}"> class="a-dq"</c:if>>发布产品</a></li>
+            <li><a href="${pageContext.request.contextPath}/product/productNormalCreate.html"<c:if test="${param.offset == '5'}"> class="a-dq"</c:if>>发布产品</a></li>
         </ul>
     </div>
 </div>
