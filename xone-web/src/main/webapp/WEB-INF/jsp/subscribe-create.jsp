@@ -60,12 +60,12 @@
                             </select>
                         </div>
                     </div>
-                    <div class="control-group">
-                        <label class="control-label" for="refId">相关编号</label>
-                        <div class="controls">
-                            <input type="text" id="refId" name="subscribe.refId" maxlength="20" placeholder="相关编号">
-                        </div>
-                    </div>
+<!--                     <div class="control-group"> -->
+<!--                         <label class="control-label" for="refId">相关编号</label> -->
+<!--                         <div class="controls"> -->
+<!--                             <input type="text" id="refId" name="subscribe.refId" maxlength="20" placeholder="相关编号"> -->
+<!--                         </div> -->
+<!--                     </div> -->
                     <div class="control-group">
                         <div class="controls">
                             <button type="submit" class="btn">提交创建</button>

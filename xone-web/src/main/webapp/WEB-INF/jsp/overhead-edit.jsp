@@ -31,17 +31,27 @@
                     <div class="control-group">
                         <label class="control-label" for="overheadType">置顶类型</label>
                         <div class="controls">
-                            <select class="selectpicker" id="overheadType" name="overhead.overheadType">
-                                <c:forEach items="${overheadType}" var="it">
-                                    <option value="${it.value}" <c:if test="${it.value == overhead.overheadType}">selected</c:if>>${it.name}</option>
-                                </c:forEach>
-                            </select><code>*</code>
+                            <c:choose>
+                                <c:when test="${ overhead.checkStatus == '0' }">
+                                    <c:out value="${ overhead.overheadTypeName }"></c:out>
+                                    <input type="hidden" id="overheadType" name="overhead.overheadType" />
+                                </c:when>
+                                <c:otherwise>
+                                    <select class="selectpicker" id="overheadType" name="overhead.overheadType">
+                                        <c:forEach items="${overheadType}" var="it">
+                                            <option value="${it.value}" <c:if test="${it.value == overhead.overheadType}">selected</c:if>>${it.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </c:otherwise>
+                            </c:choose>
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
                         <label class="control-label" for="refId">相关编号</label>
                         <div class="controls">
-                            <input type="text" id="refId" name="overhead.refId" value="${overhead.refId}" maxlength="20" placeholder="相关编号" readonly="readonly"><code>*</code>
+                            <input type="text" id="refId" name="overhead.refId" value="${overhead.refId}" maxlength="20" placeholder="相关编号" readonly="readonly">
+                            <code>*</code>
                         </div>
                     </div>
                     <div class="control-group">
@@ -54,7 +64,7 @@
                         <div class="controls">
                             <button type="submit" name="update" value="update" class="btn" onclick="return confirm('确定更新本条记录?');">提交更新</button>
                             <c:if test="${overhead.checkStatus  == '0'}">
-                            <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm('确定取消本条记录?');">取消置顶　</button>
+                                <button type="submit" name="delete" value="delete" class="btn" onclick="return confirm('确定取消本条记录?');">取消置顶</button>
                             </c:if>
                         </div>
                     </div>
@@ -99,19 +109,29 @@
         });
     });
 </script>
+<c:choose>
+    <c:when test="${ overhead.checkStatus == '0' }">
+    </c:when>
+    <c:otherwise>
+        <script type="text/javascript">
+        jQuery(function() {
+                $('#refId').click(function() {
+                    if ($('#overheadType').val() == '0') {
+                        $('#windowTitleDialogProduct').modal('show');
+                    } else {
+                        $('#windowTitleDialogPurchase').modal('show');
+                    }
+                });
+                $('#overheadType').bind('change', function() {
+                    $('#refId').val('');
+                    $('#refName').val('');
+                })
+        }
+        </script>
+    </c:otherwise>
+</c:choose>
 <script>
     jQuery(function() {
-        $('#refId').click(function() {
-            if ($('#overheadType').val() == '0') {
-                $('#windowTitleDialogProduct').modal('show');
-            } else {
-                $('#windowTitleDialogPurchase').modal('show');
-            }
-        });
-        $('#overheadType').bind('change', function() {
-            $('#refId').val('');
-            $('#refName').val('');
-        })
         $('#saveForm').submit(function() {
             var $form = $('#saveForm');
             var validate = [ {

@@ -48,10 +48,10 @@
                             <td style="width: 60px;">公司信誉</td>
                             <td>${subscribe.creditName}</td>
                         </tr>
-                        <tr>
-                            <td style="width: 60px;">相关编号</td>
-                            <td>${subscribe.refId}</td>
-                        </tr>
+<!--                         <tr> -->
+<!--                             <td style="width: 60px;">相关编号</td> -->
+<%--                             <td>${subscribe.refId}</td> --%>
+<!--                         </tr> -->
                     </tbody>
                 </table>
             </div>

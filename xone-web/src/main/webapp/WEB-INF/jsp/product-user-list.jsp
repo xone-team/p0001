@@ -96,34 +96,42 @@
                                 <td>${item.productLocation}</td>
                                 <td class="table-col-number"><fmt:formatDate value="${item.dateApply}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                 <td>${item.checkStatusName}</td>
-                                <td>
-                                    <c:if test="${item.checkStatus != '1' && item.checkStatus != '3'}">
-                                    <c:choose>
-                                        <c:when test="${product.saleType == '1' }">
-                                            <a href="${pageContext.request.contextPath}/product/productSalesEdit.html?product.id=${item.id}" class="btn btn-mini">
-                                                <i class="icon-edit"> </i>编辑
-                                            </a>
-                                        </c:when>
-                                        <c:when test="${product.saleType == '2' }">
-                                            <a href="${pageContext.request.contextPath}/product/productGroupsEdit.html?product.id=${item.id}" class="btn btn-mini">
-                                                <i class="icon-edit"> </i>编辑
-                                            </a>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <a href="${pageContext.request.contextPath}/product/productNormalEdit.html?product.id=${item.id}" class="btn btn-mini">
-                                                <i class="icon-edit"> </i>编辑
-                                            </a>
-                                        </c:otherwise>
-                                    </c:choose>
-                                    </c:if>
-                                    <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}" class="btn btn-mini">
+                                <td><c:if test="${item.checkStatus != '1' && item.checkStatus != '3'}">
+                                        <c:choose>
+                                            <c:when test="${product.saleType == '1' }">
+                                                <a href="${pageContext.request.contextPath}/product/productSalesEdit.html?product.id=${item.id}" class="btn btn-mini">
+                                                    <i class="icon-edit"> </i>编辑
+                                                </a>
+                                            </c:when>
+                                            <c:when test="${product.saleType == '2' }">
+                                                <a href="${pageContext.request.contextPath}/product/productGroupsEdit.html?product.id=${item.id}" class="btn btn-mini">
+                                                    <i class="icon-edit"> </i>编辑
+                                                </a>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <a href="${pageContext.request.contextPath}/product/productNormalEdit.html?product.id=${item.id}" class="btn btn-mini">
+                                                    <i class="icon-edit"> </i>编辑
+                                                </a>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:if> <a href="${pageContext.request.contextPath}/product/productItem.html?product.id=${item.id}" class="btn btn-mini">
                                         <i class="icon-list-alt"> </i>详细
                                     </a></td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
-                <x:page href="${pageContext.request.contextPath}/product/productList.html" pagination="${pagination}" />
+                <c:choose>
+                    <c:when test="${product.saleType == '1' }">
+                        <x:page href="${pageContext.request.contextPath}/product/productSalesList.html" pagination="${pagination}" />
+                    </c:when>
+                    <c:when test="${product.saleType == '2' }">
+                        <x:page href="${pageContext.request.contextPath}/productGroup/productGroupList.html" pagination="${pagination}" />
+                    </c:when>
+                    <c:otherwise>
+                        <x:page href="${pageContext.request.contextPath}/product/productNormalList.html" pagination="${pagination}" />
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
         <jsp:include page="common-footer.jsp"></jsp:include>
