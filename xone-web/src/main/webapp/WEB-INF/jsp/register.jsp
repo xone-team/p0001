@@ -31,7 +31,7 @@
                         <li><label>QQ号码</label> <input name="user.qq" maxlength="20" type="text" class="input" style="width: 250px;" /></li>
                         <li><label>电子邮箱</label> <input name="user.email" maxlength="255" type="text" class="input" style="width: 250px;" /></li>
                         <li><label>联系地址</label> <input name="user.address" maxlength="255" type="text" class="input" style="width: 250px;" /></li>
-                        <li><label></label> <input type="submit" value="确认注册" class="input2" style="width: 250px;" /></li>
+                        <li><label></label> <input type="submit" value="确认注册" class="input2" style="width: 250px;cursor: pointer;" /></li>
                     </ul>
 
                 </div>

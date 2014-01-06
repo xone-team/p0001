@@ -35,7 +35,7 @@
                     <label style="padding-left: 5px; display: inline;"><img class="myIdentifyCodeImg" src="${pageContext.request.contextPath}/identifyCode.jpeg?_=${identify}" /></label>
                     <a href="javascript:void(0);" class="myIdentifyCodeHref" style="padding-left: 5px;">刷新</a>
                     <div style="margin: 20px 0 10px 0;">
-                        <input type="submit" value="登&nbsp;&nbsp;录" class="input2" style="width: 250px;" />
+                        <input type="submit" value="登&nbsp;&nbsp;录" class="input2" style="width: 250px;cursor: pointer;" />
                     </div>
                     <div style="text-align: center;">
                         <a href="${pageContext.request.contextPath}/user/register.html">新会员免费注册</a>
