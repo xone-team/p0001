@@ -67,6 +67,15 @@
 		<action name="itemDetails" class="productAction" method="itemDetails">
 			<result name="success">/WEB-INF/jsp/product-item-details.jsp</result>
 		</action>
+		<action name="itemJsonDetails" class="productAction" method="itemJsonDetails">
+			<result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+		        <param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
+		        <param name="includeProperties">product.*</param>
+			</result>
+		</action>
 		<action name="listItems" class="productAction" method="listItems">
 			<result name="success">/WEB-INF/jsp/product-list-items.jsp</result>
 		</action>

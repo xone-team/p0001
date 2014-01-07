@@ -399,6 +399,14 @@ public class ProductAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	public String itemJsonDetails() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(getProduct().getId()));
+		params.put("checklist", "productCheckList");
+		setProduct(getProductService().findByMap(params));
+		return SUCCESS;
+	}
+	
 	/**
 	 * 用户组团产品审核列表详细查看
 	 * @return

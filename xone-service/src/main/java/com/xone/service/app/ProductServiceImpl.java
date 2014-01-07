@@ -27,6 +27,7 @@ import com.xone.model.hibernate.entity.ProductCheck;
 import com.xone.model.hibernate.support.Pagination;
 import com.xone.model.utils.Constants;
 import com.xone.model.utils.MyModelUtils;
+import com.xone.model.utils.ReflectUtils;
 
 public class ProductServiceImpl implements ProductService {
     private static final Log log = LogFactory.getLog(ProductServiceImpl.class);
@@ -490,9 +491,14 @@ public class ProductServiceImpl implements ProductService {
         List<Long> ids = getImageUploadedDao().findAllIdsByRefId(p.getId(), ImageUploaded.RefType.PRODUCT);
         p.setIds(ids);
         if (null != p.getUserCreated()) {
-            Person person = getPersonDao().findById(p.getUserCreated());
-            if (null != person) {
-                p.setPerson(person);
+            Person pp = getPersonDao().findById(p.getUserCreated());
+            if (null != pp) {
+//                Person person = new Person();
+//            	ReflectUtils.copyPropertiesSafely(person, pp);
+//            	person.setPassword(null);
+//                p.setPerson(person);
+            	p.setPerson(pp);
+//            	p.getPerson().setPassword(null);
             }
         }
 		if (StringUtils.isNotBlank(params.get("checklist"))
