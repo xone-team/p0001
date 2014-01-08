@@ -73,7 +73,7 @@
 				<param name="ignoreHierarchy">false</param>
 		        <param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
-		        <param name="includeProperties">product.*</param>
+		        <param name="includeProperties">product.*,login</param>
 			</result>
 		</action>
 		<action name="listItems" class="productAction" method="listItems">

@@ -107,8 +107,7 @@ public class PrepareHandlerFilter implements Filter {
 		logger.info("=====> Request Address IP:" + ip + ", URI:" + req.getRequestURI());
 		if (isprd) {
 			String userAgent = req.getHeader("User-Agent");
-			logger.debug("=====> UserAgent:" + userAgent);
-			logger.debug("=====> Request URL:" + req.getRequestURL());
+			logger.debug("=====> UserAgent:" + userAgent + "=====> Request URL:" + req.getRequestURL());
 			if (null != userAgent && userAgent.endsWith("ZHANGCHANG.CO.,LTD.")) {
 				if (!isMyRulePass(req, resp)) {
 					resp.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
@@ -118,13 +117,11 @@ public class PrepareHandlerFilter implements Filter {
 				chain.doFilter(request, response);
 				return;
 			} else {
-				logger.info("=====> Response Code:" + HttpServletResponse.SC_NOT_MODIFIED);
 				resp = (HttpServletResponse)response;
 				resp.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
 				return;
 			}
 		}
-		//TODO 需要调试
 		//取请求头部的信息
 		String xhr = req.getHeader("X-Requested-With");//返回的值应该是XMLHttpRequest
 		logger.info("X-Requested-With:" + xhr);//代表是异步请求发送过来的请求

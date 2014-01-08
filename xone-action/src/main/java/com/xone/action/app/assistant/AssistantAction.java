@@ -61,6 +61,29 @@ public class AssistantAction extends LogicAction {
 				"A001", "A002", "A003", "A022"	
 		}));
 		//URL_APP此处需要映射app地址
+		URL_APP.put("A001", "#productlist&saleType=1");
+		URL_APP.put("A002", "#productlist&saleType=0");
+		URL_APP.put("A003", "#productlist&saleType=2");
+		URL_APP.put("A022", "#purchaselist");
+		
+		URL_APP.put("A004", "/delivery/index.html");
+		URL_APP.put("A005", "/login/indexRegister.html");
+		URL_APP.put("A006", "/login/main.html");
+		URL_APP.put("A007", "#productcreate&saleType=0");
+		URL_APP.put("A008", "#productcreate&saleType=1");
+		URL_APP.put("A009", "#productcreate&saleType=2");
+		URL_APP.put("A010", "/purchase/indexAdd.html");
+		URL_APP.put("A011", "/subscribe/add.html");
+		URL_APP.put("A012", "javascript:Global.dialer();");
+		URL_APP.put("A013", "/product/listAllForUser.html?product.saleType=0");
+		URL_APP.put("A014", "/product/listAllForUser.html?product.saleType=1");
+		URL_APP.put("A015", "/product/listAllForUser.html?product.saleType=2");
+		URL_APP.put("A016", "/purchase/listAllForUser.html");
+		URL_APP.put("A017", "/delivery/listIndex.html");
+		URL_APP.put("A018", "/adbanner/list.html");
+		URL_APP.put("A019", "/product/listOverheadForUser.html");
+		URL_APP.put("A020", "/subscribe/list.html");
+		URL_APP.put("A021", "/product/listGroupForUser.html");
 	}
 	
 	protected String redirect;
@@ -101,7 +124,14 @@ public class AssistantAction extends LogicAction {
 		if (!list.isEmpty()) {
 			List<Links> l = getLinksService().findAllByLinkNos(list, getUserLevel());
 			if (null != l && !l.isEmpty()) {
-				getLinks().addAll(l);
+				for (Links lks : l) {
+					String link = URL_APP.get(lks.getLinkNo());
+					if (null == link) {
+						link = "#";
+					}
+					lks.setLink(link);
+					getLinks().add(lks);
+				}
 			}
 		}
 		if (getLinks().isEmpty()) {

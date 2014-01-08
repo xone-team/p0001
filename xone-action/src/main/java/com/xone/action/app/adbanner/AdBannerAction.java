@@ -35,6 +35,17 @@ public class AdBannerAction extends Action {
 		return SUCCESS;
 	}
 	
+	public String adbannerJson() {
+		Map<String, String> params = getRequestMap();
+		params.put("adPosition", Adbanner.AdPosition.BANNER.getValue());
+		params.put("today", String.format("%1$tY-%1tm-%1$td %1$tH:%1$tM:%1$tS", new Date()));
+		List<Adbanner> l = adbannerService.findAllByMap(params);
+		if (null != l && !l.isEmpty()) {
+			getList().addAll(l);
+		}
+		return SUCCESS;
+	}
+	
 	public String list() {
 		return SUCCESS;
 	}

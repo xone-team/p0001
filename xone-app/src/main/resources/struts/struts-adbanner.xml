@@ -7,6 +7,15 @@
 		<action name="index" class="adBannerAction" method="index">
 			<result name="success">/WEB-INF/jsp/adbanner-list-index.jsp</result>
 		</action>
+		<action name="adbannerJson" class="adBannerAction" method="adbannerJson">
+			<result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+		        <param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
+		        <param name="includeProperties">list.*</param>
+			</result>
+		</action>
 		<action name="list" class="adBannerAction" method="list">
 			<result name="success">/WEB-INF/jsp/adbanner-user-list-page.jsp</result>
 		</action>

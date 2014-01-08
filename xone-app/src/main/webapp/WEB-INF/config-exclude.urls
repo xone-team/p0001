@@ -28,5 +28,7 @@
 /adbanner/index.html
 /product/listJsonItems.html
 /product/itemJsonDetails.html
+/purchase/listJsonItems.html
+/purchase/itemJsonDetails.html
 /login/loginjson.html
 /assistant/guideJsonLinks.html
