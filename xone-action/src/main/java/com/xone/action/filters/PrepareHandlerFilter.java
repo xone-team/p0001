@@ -103,7 +103,9 @@ public class PrepareHandlerFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse resp = (HttpServletResponse)response;
-		resp.setHeader("Access-Control-Allow-Origin", "*");
+		if ("appjson".equalsIgnoreCase(req.getHeader("X-Requested-With"))) {
+			resp.setHeader("Access-Control-Allow-Origin", "*");
+		}
 		String ip = getClientIpAddr(req);
 		logger.info("=====> Request Address IP:" + ip + ", URI:" + req.getRequestURI());
 		if (isprd) {
