@@ -399,6 +399,14 @@ public class ProductAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	public String itemJsonDetailsForUser() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(getProduct().getId()));
+		params.put("checklist", "productCheckList");
+		setProduct(getProductService().findByMap(params));
+		return SUCCESS;
+	}
+	
 	public String itemJsonDetails() {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("id", String.valueOf(getProduct().getId()));
@@ -465,6 +473,20 @@ public class ProductAction extends LogicAction {
 	}
 	
 	public String listItemsForUser() {
+		Map<String, String> map = getRequestMap();
+		Map<String, String> params = new HashMap<String, String>();
+		if ("down".equals(map.get("itemaction"))) {
+			params.put("gtDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+		} else if ("up".equals(map.get("itemaction"))) {
+			params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+		}
+		params.put("saleType", getProduct().getSaleType());
+		params.put("userCreated", String.valueOf(getUserId()));
+		setList(getProductService().findAllByMapForUser(params));
+		return SUCCESS;
+	}
+	
+	public String listJsonItemsForUser() {
 		Map<String, String> map = getRequestMap();
 		Map<String, String> params = new HashMap<String, String>();
 		if ("down".equals(map.get("itemaction"))) {

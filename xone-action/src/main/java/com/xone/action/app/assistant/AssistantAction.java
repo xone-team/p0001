@@ -111,6 +111,21 @@ public class AssistantAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	/**
+	 * 首页广告的提取
+	 * @return
+	 */
+	public String guideJsonAdbanner() {
+		Map<String, String> params = getRequestMap();
+		params.put("adPosition", Adbanner.AdPosition.GUIDE.getValue());
+		params.put("today", String.format("%1$tY-%1tm-%1$td %1$tH:%1$tM:%1$tS", new Date()));
+		List<Adbanner> adl = adbannerService.findAllByMap(params);
+		if (null != adl && !adl.isEmpty()) {
+			getAdList().addAll(adl);
+		}
+		return SUCCESS;
+	}
+	
 	public String guideJsonLinks() {
 		Long userId = getUserId();
 		List<String> list = new ArrayList<String>();
@@ -258,6 +273,15 @@ public class AssistantAction extends LogicAction {
 	 * @return
 	 */
 	public String companyInfo() {
+		setCompanyInfo(getCompanyInfoService().findById(getCompanyInfo().getId()));
+		return SUCCESS;
+	}
+	
+	/**
+	 * 公司详细信息
+	 * @return
+	 */
+	public String companyJsonInfo() {
 		setCompanyInfo(getCompanyInfoService().findById(getCompanyInfo().getId()));
 		return SUCCESS;
 	}
