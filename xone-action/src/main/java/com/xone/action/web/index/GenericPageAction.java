@@ -140,25 +140,28 @@ public class GenericPageAction extends LogicAction {
 	
 	public String mobile() {
 		try {
-			String id = getRequest().getParameter("mid");
-			if (!"android".equals(id) && !"iphone".equals(id)) {
-				return SUCCESS;
-			}
+			String id = "android";//getRequest().getParameter("mid");
+//			if (!"android".equals(id) && !"iphone".equals(id)) {
+//				return SUCCESS;
+//			}
 			if (null == getImageUploadPath()) {
 				return SUCCESS;
 			}
 	        response.setContentType("application/octet-stream");// 设置返回的文件类型 
+//	        response.addHeader("Content-Disposition", "attachment;filename=" + "HGT.apk");
+	          //response.setContentType("application/vnd.android.package-archive");
 	        response.setCharacterEncoding("UTF-8");
         	File file = new File(getImageUploadPath());
 	        File mobileFile = null;
-	        if ("android".equals(id)) {
+//	        if ("android".equals(id)) {
 	        	mobileFile = new File(file.getCanonicalPath() + File.separator + id + ".apk");
 //	        response.addHeader("Content-Type", "application/vnd.android.package-archive");
-	        	response.setHeader("Content-Disposition", "attachment;filename=mobile.apk");
-	        } else if ("iphone".equals(id)) {
-	        	mobileFile = new File(file.getCanonicalPath() + File.separator + id + ".ipa");
-	        	response.setHeader("Content-Disposition", "attachment;filename=mobile.ipa");
-	        }
+		        response.addHeader("Content-Type", "application/vnd.android.package-archive");
+	        	response.addHeader("Content-Disposition", "attachment;filename=mobile.apk");
+//	        } else if ("iphone".equals(id)) {
+//	        	mobileFile = new File(file.getCanonicalPath() + File.separator + id + ".ipa");
+//	        	response.setHeader("Content-Disposition", "attachment;filename=mobile.ipa");
+//	        }
 	        IOUtils.copy(new FileInputStream(mobileFile), response.getOutputStream());
             response.flushBuffer();
 		} catch (Exception e) {
