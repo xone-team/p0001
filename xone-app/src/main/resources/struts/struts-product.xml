@@ -120,6 +120,15 @@
 		<action name="listOverheadItemsForUser" class="productAction" method="listOverheadItemsForUser">
 			<result name="success">/WEB-INF/jsp/product-user-list-overheaditems.jsp</result>
 		</action>
+		<action name="listOverheadJsonItemsForUser" class="productAction" method="listOverheadJsonItemsForUser">
+			<result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+		        <param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
+		        <param name="includeProperties">listOverhead.*,login</param>
+			</result>
+		</action>
 		<action name="itemDetailsForUser" class="productAction" method="itemDetails">
 			<result name="success">/WEB-INF/jsp/product-user-item-details.jsp</result>
 		</action>
