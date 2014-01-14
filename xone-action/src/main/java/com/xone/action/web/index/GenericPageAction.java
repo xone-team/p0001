@@ -140,13 +140,14 @@ public class GenericPageAction extends LogicAction {
 	
 	public String mobile() {
 		try {
-			String id = "android";//getRequest().getParameter("mid");
+//			String id = getRequest().getParameter("mid");
 //			if (!"android".equals(id) && !"iphone".equals(id)) {
 //				return SUCCESS;
 //			}
 			if (null == getImageUploadPath()) {
 				return SUCCESS;
 			}
+			String id = "android";
 	        response.setContentType("application/octet-stream");// 设置返回的文件类型 
 //	        response.addHeader("Content-Disposition", "attachment;filename=" + "HGT.apk");
 	          //response.setContentType("application/vnd.android.package-archive");
