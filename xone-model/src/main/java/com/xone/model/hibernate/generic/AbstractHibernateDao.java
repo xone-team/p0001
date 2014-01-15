@@ -77,6 +77,7 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	public T save(T entity) {
 		Assert.notNull(entity);
 		getHibernateTemplate().save(setDateCreated(entity));
+		getHibernateTemplate().flush();
 		return entity;
 	}
 	
@@ -148,6 +149,7 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	public T saveOrUpdate(T entity) {
 		Assert.notNull(entity);
 		getHibernateTemplate().saveOrUpdate(setLastUpdated(entity));
+		getHibernateTemplate().flush();
 		return entity;
 	}
 	/**
@@ -158,7 +160,9 @@ public class AbstractHibernateDao<T extends Serializable> extends HibernateDaoSu
 	 */
 	public Object merge(Object entity) {
 		Assert.notNull(entity);
-		return getHibernateTemplate().merge(entity);
+		Object object = getHibernateTemplate().merge(entity);
+		getHibernateTemplate().flush();
+		return object;
 	}
 	/**
 	 * 删除对象

@@ -22,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.xone.action.base.Action;
+import com.xone.action.base.IdentifyCode;
 
 public class PrepareHandlerFilter implements Filter {
 	
@@ -102,13 +103,14 @@ public class PrepareHandlerFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse resp = (HttpServletResponse)response;
-		resp.setHeader("Access-Control-Allow-Origin", "*");
+		if ("appjson".equalsIgnoreCase(req.getHeader("X-Requested-With"))) {
+			resp.setHeader("Access-Control-Allow-Origin", "*");
+		}
 		String ip = getClientIpAddr(req);
 		logger.info("=====> Request Address IP:" + ip + ", URI:" + req.getRequestURI());
 		if (isprd) {
 			String userAgent = req.getHeader("User-Agent");
-			logger.debug("=====> UserAgent:" + userAgent);
-			logger.debug("=====> Request URL:" + req.getRequestURL());
+			logger.debug("=====> UserAgent:" + userAgent + "=====> Request URL:" + req.getRequestURL());
 			if (null != userAgent && userAgent.endsWith("ZHANGCHANG.CO.,LTD.")) {
 				if (!isMyRulePass(req, resp)) {
 					resp.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
@@ -118,21 +120,27 @@ public class PrepareHandlerFilter implements Filter {
 				chain.doFilter(request, response);
 				return;
 			} else {
-				logger.info("=====> Response Code:" + HttpServletResponse.SC_NOT_MODIFIED);
 				resp = (HttpServletResponse)response;
 				resp.setStatus(HttpServletResponse.SC_NOT_MODIFIED);
 				return;
 			}
 		}
-		//TODO 需要调试
-		//取请求头部的信息
-		String xhr = req.getHeader("X-Requested-With");//返回的值应该是XMLHttpRequest
-		logger.info("X-Requested-With:" + xhr);//代表是异步请求发送过来的请求
 		if (!isMyRulePass(req, resp)) {
 			resp.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
 			resp.setHeader("login", "false");//需要登录
-			resp.sendRedirect(req.getContextPath() + "/assistant/redirect.html");
-			//TODO 需要处理异步登录发送过来的请求，如果没有登录，则需要返回状态码，要求重新登录，代码待处理
+			//取请求头部的信息
+			//返回的值应该是XMLHttpRequest,代表是异步请求发送过来的请求
+			//需要处理异步登录发送过来的请求，如果没有登录，则需要返回状态码，要求重新登录，代码待处理
+			//此处还需要优化为：
+			//1. 从Header中取得移动设备的标识
+			//2. Set-Cookie的标识判断是否要放到Header中去
+			if ("appjson".equalsIgnoreCase(req.getHeader("X-Requested-With"))) {
+				String identifyCode = new IdentifyCode().randomGenerator(6);
+				req.getSession().setAttribute("IDENTIFY_CODE_KEY", identifyCode);
+				resp.setHeader("ID-Code", identifyCode);//验证码传递
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/assistant/redirect.html");
+			}
 			return;
 		}
 		chain.doFilter(request, response);

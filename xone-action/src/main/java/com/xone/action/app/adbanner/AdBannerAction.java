@@ -35,6 +35,17 @@ public class AdBannerAction extends Action {
 		return SUCCESS;
 	}
 	
+	public String adbannerJson() {
+		Map<String, String> params = getRequestMap();
+		params.put("adPosition", Adbanner.AdPosition.BANNER.getValue());
+		params.put("today", String.format("%1$tY-%1tm-%1$td %1$tH:%1$tM:%1$tS", new Date()));
+		List<Adbanner> l = adbannerService.findAllByMap(params);
+		if (null != l && !l.isEmpty()) {
+			getList().addAll(l);
+		}
+		return SUCCESS;
+	}
+	
 	public String list() {
 		return SUCCESS;
 	}
@@ -49,6 +60,24 @@ public class AdBannerAction extends Action {
 		}
 		params.put("userId", getUserId().toString());
 		setList(getAdbannerService().findItemsByMap(params));
+		return SUCCESS;
+	}
+	
+	public String advertisementJsonItems() {
+		Map<String, String> map = getRequestMap();
+		Map<String, String> params = new HashMap<String, String>();
+		if ("down".equals(map.get("itemaction"))) {
+			params.put("gtDateCreated", MyDateUtils.format(getAdbanner().getDateCreated()));
+		} else if ("up".equals(map.get("itemaction"))) {
+			params.put("ltDateCreated", MyDateUtils.format(getAdbanner().getDateCreated()));
+		}
+		params.put("userId", getUserId().toString());
+		setList(getAdbannerService().findItemsByMap(params));
+		return SUCCESS;
+	}
+
+	public String advertisementJsonInfo() {
+		setAdbanner(getAdbannerService().findById(getAdbanner().getId()));
 		return SUCCESS;
 	}
 	

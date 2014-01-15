@@ -23,6 +23,15 @@
 		<action name="guideLinks" class="assistantAction" method="guideLinks">
 		    <result name="success">/WEB-INF/jsp/guide-links.jsp</result>
 		</action>
+		<action name="guideJsonAdbanner" class="assistantAction" method="guideJsonAdbanner">
+		    <result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
+		        <param name="excludeNullProperties">true</param>
+		        <param name="includeProperties">adList.*</param>
+			</result>
+		</action>
 		<action name="guideJsonLinks" class="assistantAction" method="guideJsonLinks">
 		    <result name="success" type="json">
 				<param name="noCache">true</param>
@@ -63,6 +72,15 @@
 		</action>
 		<action name="companyInfo" class="assistantAction" method="companyInfo">
 		    <result name="success">/WEB-INF/jsp/company-info-item-page.jsp</result>
+		</action>
+		<action name="companyJsonInfo" class="assistantAction" method="companyJsonInfo">
+		    <result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
+		        <param name="excludeNullProperties">true</param>
+		        <param name="includeProperties">companyInfo.*</param>
+			</result>
 		</action>
 	</package>
 </struts>

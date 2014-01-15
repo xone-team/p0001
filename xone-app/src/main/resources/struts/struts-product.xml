@@ -73,7 +73,7 @@
 				<param name="ignoreHierarchy">false</param>
 		        <param name="excludeNullProperties">true</param>
 				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
-		        <param name="includeProperties">product.*</param>
+		        <param name="includeProperties">product.*,login</param>
 			</result>
 		</action>
 		<action name="listItems" class="productAction" method="listItems">
@@ -100,6 +100,14 @@
 		<action name="listItemsForUser" class="productAction" method="listItemsForUser">
 			<result name="success">/WEB-INF/jsp/product-user-list-items.jsp</result>
 		</action>
+		<action name="listJsonItemsForUser" class="productAction" method="listJsonItemsForUser">
+			<result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+		        <param name="excludeNullProperties">true</param>
+		        <param name="includeProperties">list.*,mapValue.*,login</param>
+			</result>
+		</action>
 		<action name="listGroupForUser" class="productAction" method="listGroupForUser">
 			<result name="success">/WEB-INF/jsp/product-user-list-group.jsp</result>
 		</action>
@@ -112,11 +120,29 @@
 		<action name="listOverheadItemsForUser" class="productAction" method="listOverheadItemsForUser">
 			<result name="success">/WEB-INF/jsp/product-user-list-overheaditems.jsp</result>
 		</action>
+		<action name="listOverheadJsonItemsForUser" class="productAction" method="listOverheadJsonItemsForUser">
+			<result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+		        <param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
+		        <param name="includeProperties">listOverhead.*,login</param>
+			</result>
+		</action>
 		<action name="itemDetailsForUser" class="productAction" method="itemDetails">
 			<result name="success">/WEB-INF/jsp/product-user-item-details.jsp</result>
 		</action>
 		<action name="itemForUser" class="productAction" method="itemForUser">
 			<result name="success">/WEB-INF/jsp/product-user-item-page.jsp</result>
+		</action>
+		<action name="itemJsonDetailsForUser" class="productAction" method="itemJsonDetailsForUser">
+			<result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+		        <param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
+		        <param name="includeProperties">product.*,login</param>
+			</result>
 		</action>
 		<action name="groupitemDetailsForUser" class="productAction" method="groupitemDetails">
 			<result name="success">/WEB-INF/jsp/product-user-groupitem-details.jsp</result>

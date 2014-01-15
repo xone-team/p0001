@@ -366,6 +366,67 @@ public class ProductAction extends LogicAction {
 	}
 	
 	/**
+	 * 查询用户顶置列表
+	 * @return
+	 */
+	public String listOverheadJsonItemsForUser() {
+		Map<String, String> map = getRequestMap();
+		int length = MyModelUtils.parseInt(map.get("itemcount"), 0);
+		Map<String, String> params = new HashMap<String, String>();
+		if (length >= AppConstants.LIST_ITEM_LENGTH) {
+			getMapValue().put("ITEM_TOO_LONG", "YES");
+		} else {
+			if ("down".equals(map.get("itemaction")) && null != getProduct().getDateCreated()) {
+				params.put("gtDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+			} else if ("up".equals(map.get("itemaction")) && null != getProduct().getDateCreated()) {
+				params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+			}
+			params.put("flagDeleted", ProductGroup.FlagDeleted.NORMAL.getValue());
+			params.put("userCreated", getUserIdString());
+			List<Overhead> list = getOverheadService().findAllByMap(params);
+			if (null != list && !list.isEmpty()) {
+				List<Long> ids = new ArrayList<Long>();
+				List<Long> pids = new ArrayList<Long>();
+				for (Overhead o : list) {
+					if (o.getOverheadType().equals(Overhead.OverheadType.PURCHASE.getValue())) {
+						ids.add(o.getRefId());
+					} else {
+						pids.add(o.getRefId());
+					}
+				}
+				params.clear();
+				params.put("checkStatus", Product.CheckStatus.PASSED.getValue());
+				params.put("flagDeleted", Product.FlagDeleted.NORMAL.getValue());
+				if (!pids.isEmpty()) {
+					List<Product> pList = getProductService().findAllByIds(pids, params);
+					if (null != pList && !pList.isEmpty()) {
+						for (Product p : pList) {
+							getMapValue().put("PRO" + p.getId().toString(), p);
+						}
+					}
+				}
+				if (!ids.isEmpty()) {
+					List<Purchase> pList = getPurchaseService().findAllByIds(ids, params);
+					if (null != pList && !pList.isEmpty()) {
+						for (Purchase p : pList) {
+							getMapValue().put("PUR" + p.getId().toString(), p);
+						}
+					}
+				}
+				for (Overhead o : list) {
+					if (o.getOverheadType().equals(Overhead.OverheadType.PURCHASE.getValue())) {
+						o.setPurchase((Purchase)getMapValue().get("PUR" + o.getRefId()));
+					} else {
+						o.setProduct((Product)getMapValue().get("PRO" + o.getRefId()));
+					}
+					listOverhead.add(o);
+				}
+			}
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 查询产品顶置列表
 	 * @return
 	 */
@@ -392,6 +453,14 @@ public class ProductAction extends LogicAction {
 	}
 	
 	public String itemDetails() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(getProduct().getId()));
+		params.put("checklist", "productCheckList");
+		setProduct(getProductService().findByMap(params));
+		return SUCCESS;
+	}
+	
+	public String itemJsonDetailsForUser() {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("id", String.valueOf(getProduct().getId()));
 		params.put("checklist", "productCheckList");
@@ -465,6 +534,20 @@ public class ProductAction extends LogicAction {
 	}
 	
 	public String listItemsForUser() {
+		Map<String, String> map = getRequestMap();
+		Map<String, String> params = new HashMap<String, String>();
+		if ("down".equals(map.get("itemaction"))) {
+			params.put("gtDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+		} else if ("up".equals(map.get("itemaction"))) {
+			params.put("ltDateCreated", MyDateUtils.format(getProduct().getDateCreated()));
+		}
+		params.put("saleType", getProduct().getSaleType());
+		params.put("userCreated", String.valueOf(getUserId()));
+		setList(getProductService().findAllByMapForUser(params));
+		return SUCCESS;
+	}
+	
+	public String listJsonItemsForUser() {
 		Map<String, String> map = getRequestMap();
 		Map<String, String> params = new HashMap<String, String>();
 		if ("down".equals(map.get("itemaction"))) {

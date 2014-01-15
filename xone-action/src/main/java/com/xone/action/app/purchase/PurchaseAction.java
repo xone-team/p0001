@@ -248,6 +248,14 @@ public class PurchaseAction extends LogicAction {
 		setPurchase(getPurchaseService().findByMap(params));
 		return SUCCESS;
 	}
+	
+	public String itemJsonDetails() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(getPurchase().getId()));
+		params.put("checklist", "purchaseCheckList");
+		setPurchase(getPurchaseService().findByMap(params));
+		return SUCCESS;
+	}
 
 	public List<Purchase> getList() {
 		return list;

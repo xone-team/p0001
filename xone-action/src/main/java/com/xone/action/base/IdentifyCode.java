@@ -60,6 +60,33 @@ public class IdentifyCode {
 			g.drawLine(x1, y1, x2, y2);
 		}
 	}
+	
+	/**
+	 * 随机产生验证码
+	 * @param length
+	 * @return
+	 */
+	public String randomGenerator(int length) {
+		StringBuffer strbuf = new StringBuffer();
+		int itmp = 0;
+		for (int i = 0; i < length; i++) {
+			switch (random.nextInt(3)) {
+				case 1: // 生成A～Z的字母
+					itmp = random.nextInt(26) + 65;
+					strbuf.append(String.valueOf((char) itmp));
+					break;
+				case 2: // 生成A～Z的字母
+					itmp = random.nextInt(26) + 97;
+					strbuf.append(String.valueOf((char) itmp));
+					break;
+				default:
+					itmp = random.nextInt(10) + 48;
+					strbuf.append(String.valueOf((char) itmp));
+					break;
+			}
+		}
+		return strbuf.toString();
+	}
 
 	/**
 	 * 获取随机字符串， 此函数可以产生由大小写字母，汉字，数字组成的字符串

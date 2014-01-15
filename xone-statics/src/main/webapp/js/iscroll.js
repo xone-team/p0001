@@ -92,19 +92,19 @@ var m = Math,
 
 		// Default options
 		that.options = {
-			hScroll: false,
+			hScroll: true,
 			vScroll: true,
 			x: 0,
 			y: 0,
 			bounce: true,
 			bounceLock: false,
-			momentum: false,
-			lockDirection: false,
+			momentum: true,
+			lockDirection: true,
 			useTransform: true,
 			useTransition: false,
 			topOffset: 0,
 			checkDOMChanges: false,		// Experimental
-			handleClick: false,
+			handleClick: true,
 
 			// Scrollbar
 			hScrollbar: false,
