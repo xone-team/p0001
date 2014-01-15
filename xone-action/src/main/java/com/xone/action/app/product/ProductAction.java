@@ -521,6 +521,19 @@ public class ProductAction extends LogicAction {
 		return SUCCESS;
 	}
 	
+	public String overheadJsonItemForUser() {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id", String.valueOf(getOverhead().getId()));
+		params.put("userCreated", getUserIdString());
+		params.put("flagDeleted", ProductGroup.FlagDeleted.NORMAL.getValue());
+		Overhead overhead = getOverheadService().findByMap(params);
+		if (null == overhead || null == overhead.getId() || null == overhead.getRefId()) {
+			return ERROR;
+		}
+		setOverhead(overhead);
+		return SUCCESS;
+	}
+	
 	public String listAllForUser() {
 		return SUCCESS;
 	}

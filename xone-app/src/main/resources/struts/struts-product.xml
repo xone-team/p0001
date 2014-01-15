@@ -153,6 +153,15 @@
 		<action name="overheaditemForUser" class="productAction" method="overheaditemForUser">
 			<result name="success">/WEB-INF/jsp/product-user-overheaditem-page.jsp</result>
 		</action>
+		<action name="overheadJsonItemForUser" class="productAction" method="overheadJsonItemForUser">
+			<result name="success" type="json">
+				<param name="noCache">true</param>
+				<param name="ignoreHierarchy">false</param>
+		        <param name="excludeNullProperties">true</param>
+				<param name="excludeProperties">.*hibernateLazyInitializer,.*Service</param>
+		        <param name="includeProperties">overhead.*,login</param>
+			</result>
+		</action>
 		<action name="updateItem" class="productAction" method="updateItem">
 			<result name="error">/WEB-INF/jsp/product-user-item-page.jsp</result>
 			<result name="success">/WEB-INF/jsp/product-update-item-page.jsp</result>
