@@ -119,3 +119,25 @@
         }
     }
 </script>
+<<script type="text/javascript">
+<!--
+function correctPNG() 
+{
+    for(var i=0; i<document.images.length; i++)
+    {
+    var img = document.images[i]
+    var LW=img.width
+    var LH=img.height
+    var imgName = img.src.toUpperCase()
+    if (imgName.substring(imgName.length-3, imgName.length) == "PNG")
+    { 
+          img.style.filter+="progid:DXImageTransform.Microsoft.AlphaImageLoader(src="+img.src+", sizingmethod=scale);" 
+          img.src="${STATIC_ROOT}/new-style/js/transparent.gif"//transparent.gif为1px*1px的透明gif图片
+          img.width=LW
+          img.height=LH
+    }
+    }
+}
+if (isIE()) {window.attachEvent("onload", correctPNG);}
+//-->
+</script>
