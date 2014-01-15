@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=8" /> 
 <title>欢迎光临掌畅水产品批发网</title>
 <%-- <link rel="stylesheet" href="${STATIC_ROOT}/bootstrap/css/bootstrap.min.css" /> --%>
 <link href="${STATIC_ROOT}/new-style/css/gloab.css" rel="stylesheet" type="text/css" />
